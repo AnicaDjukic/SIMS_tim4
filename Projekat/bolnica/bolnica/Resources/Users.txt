@@ -1,0 +1,2 @@
+﻿username:lekar|password:lekar|type:lekar
+username:upravnik|password:upravnik|type:upravnik
