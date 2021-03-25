@@ -42,3 +42,5 @@ E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.pdb
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.genruntimeconfig.cache
 E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.csproj.CopyComplete
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.baml
