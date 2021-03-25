@@ -1,12 +1,10 @@
-using System;
-
 namespace Model.Korisnici
 {
-   public enum TipKorisnika
-   {
-      upravnik,
-      sekretar,
-      lekar,
-      pacijent
-   }
+    public enum TipKorisnika
+    {
+        upravnik,
+        sekretar,
+        lekar,
+        pacijent
+    }
 }

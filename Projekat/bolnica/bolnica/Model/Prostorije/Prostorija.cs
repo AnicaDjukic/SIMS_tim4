@@ -1,5 +1,3 @@
-using System;
-
 namespace Model.Prostorije
 {
     public class Prostorija
@@ -9,5 +7,5 @@ namespace Model.Prostorije
         public double Kvadratura { get; set; }
         public TipProstorije TipProstorije { get; set; }
         public bool Zauzeta { get; set; }
-   }
+    }
 }

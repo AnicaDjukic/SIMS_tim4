@@ -1,8 +1,6 @@
-using System;
-
 namespace Model.Korisnici
 {
-   public class Sekretar : Zaposleni
-   {
-   }
+    public class Sekretar : Zaposleni
+    {
+    }
 }
