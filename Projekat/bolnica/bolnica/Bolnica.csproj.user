@@ -7,11 +7,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Forms\FormLekar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\FormUpravnik.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Forms\FormLekar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\FormUpravnik.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -50,10 +50,16 @@ namespace bolnica
                         var s = new FormUpravnik();
                         s.Show();
                     }
-                    if (type == "pacijent")
+                    else if (type == "pacijent")
                     {
                         var s = new FormPacijent();
                         s.Show();
+                    }
+                    else if (type == "lekar")
+                    {
+                        var s = new FormLekar();
+                        s.Show();
+
                     }
                     found = true;
                     break;
