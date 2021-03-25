@@ -32,7 +32,7 @@ namespace bolnica
             username = txtUser.Text;
             password = txtPassword.Password;
 
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\Resources\Users.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
             bool found = false;
             
             foreach (string line in lines)
@@ -56,6 +56,8 @@ namespace bolnica
 
             if (!found)
                 MessageBox.Show("error");
+
+            this.Close();
 
         }
     }

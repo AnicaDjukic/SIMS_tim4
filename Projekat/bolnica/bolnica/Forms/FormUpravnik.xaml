@@ -4,9 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bolnica.Forms"
+        xmlns:dislocal ="clr-namespace:Model.Prostorije"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="FormUpravnik" Height="450" Width="800">
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="dislocal:TipProstorije"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Grid>
-        
+        <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="304"
+                  VerticalAlignment="Top" Width="725" Margin="0,47,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Broj prostorije" Binding="{Binding BrojProstorije}" Width="*"/>
+                <DataGridTextColumn Header="Sprat" Binding="{Binding Sprat}" Width="*"/>
+                <DataGridTextColumn Header="Kvadratura" Binding="{Binding Kvadratura}" Width="*"/>
+                <DataGridComboBoxColumn Header="Tip prostorije" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
+                                        SelectedValueBinding="{Binding TipProstorije}" />
+                <DataGridCheckBoxColumn Header="Zauzeta" Binding="{Binding Zauzeta}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
+
 </Window>

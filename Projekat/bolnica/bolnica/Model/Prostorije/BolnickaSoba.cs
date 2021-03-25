@@ -2,12 +2,11 @@ using System;
 
 namespace Model.Prostorije
 {
-   public class BolnickaSoba : Prostorija
+   public class BolnickaSobe : Prostorija
    {
-      private int brojSlobodnihKreveta;
-      private int ukBrojKreveta;
-
       public int BrojSlobodnihKreveta { get; set; }
-   
-   }
+      public int UkBrojKreveta { get; set; }
+
+
+    }
 }

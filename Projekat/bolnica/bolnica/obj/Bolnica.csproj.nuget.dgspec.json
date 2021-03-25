@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj": {}
+    "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {}
   },
   "projects": {
-    "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj": {
+    "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj",
+        "projectUniqueName": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
         "projectName": "Bolnica",
-        "projectPath": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj",
+        "projectPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
         "packagesPath": "C:\\Users\\Anica\\.nuget\\packages\\",
-        "outputPath": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\obj\\",
+        "outputPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Anica\\AppData\\Roaming\\NuGet\\NuGet.Config",

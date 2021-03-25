@@ -8,4 +8,5 @@ namespace Model.Prostorije
       bolnickaSoba,
       salaZaPreglede
    }
+
 }
