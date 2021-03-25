@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace bolnica
                     if(type == "upravnik")
                     {
                         var s = new FormUpravnik();
+                        s.Show();
+                    }
+                    if (type == "pacijent")
+                    {
+                        var s = new FormPacijent();
                         s.Show();
                     }
                     found = true;

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj": {}
+    "C:\\Users\\braco\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {}
   },
   "projects": {
-    "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj": {
+    "C:\\Users\\braco\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj",
+        "projectUniqueName": "C:\\Users\\braco\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
         "projectName": "Bolnica",
-        "projectPath": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\Bolnica.csproj",
-        "packagesPath": "C:\\Users\\Anica\\.nuget\\packages\\",
-        "outputPath": "D:\\Treca godina\\Letnji semestar\\Specifikacija i modeliranje softvera\\Vežbe\\bolnica\\bolnica\\obj\\",
+        "projectPath": "C:\\Users\\braco\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+        "packagesPath": "C:\\Users\\braco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\braco\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Anica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\braco\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/wvJawPjNoniUpsbEpDvigqi6Z9H3wZbilxboJSJuCnufax4Lu3/api": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -57,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

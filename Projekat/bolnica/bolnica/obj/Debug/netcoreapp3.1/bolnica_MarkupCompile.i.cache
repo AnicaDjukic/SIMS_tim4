@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\
 Bolnica
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\App.xaml
-2-1853157551
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
+3-584760038
 
-27111751055
-1921654412462
-Forms\FormUpravnik.xaml;MainWindow.xaml;
+28112580090
+192-1533232326
+Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
 
 False
 
