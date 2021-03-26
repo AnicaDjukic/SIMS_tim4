@@ -32,8 +32,12 @@ namespace Bolnica.Forms
             int minut = comboMinut.SelectedIndex * 15;
             DateTime datumPregleda = new DateTime(godina, mesec, dan, sat, minut, 0);
 
-            string imeLekara = textIme.Text;
-            string prezimeLekara = textPrezime.Text;
+            string imeLekara = comboLekar.Text;
+            String[] splited = imeLekara.Split(" ");
+            string ime = splited[0];
+            string prezime = splited[1];
+
+
 
             this.Close();
         }
@@ -42,5 +46,6 @@ namespace Bolnica.Forms
         {
             this.Close();
         }
+
     }
 }

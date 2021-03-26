@@ -1,13 +1,13 @@
-﻿<Window x:Class="Bolnica.Forms.FormPacijent"
+﻿<Window x:Class="Bolnica.Forms.FormIstorijaPregledaPacijent"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPacijent" Height="450" Width="900">
+        Title="FormIstorijaPregledaPacijent" Height="450" Width="800">
     <Grid>
-        <DataGrid Height="450" HorizontalAlignment="Right" Name="pacijentGrid" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
+        <DataGrid Height="450" HorizontalAlignment="Right" Name="pacijentIstorijaGrid" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -26,9 +26,5 @@
                 <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="130"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Zakaži pregled" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="ZakaziPregled"/>
-        <Button Content="Otkaži pregled" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="OtkaziPregled"/>
-        <Button Content="Izmeni pregled" HorizontalAlignment="Left" Margin="0,171,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="IzmeniPregled"/>
-        <Button Content="Istorija pregleda" HorizontalAlignment="Left" Margin="0,228,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="IstorijaPregleda"/>
     </Grid>
 </Window>

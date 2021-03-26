@@ -1,13 +1,13 @@
-﻿<Window x:Class="Bolnica.Forms.FormNapraviTerminPacijent"
+﻿<Window x:Class="Bolnica.Forms.FormIzmeniTerminPacijent"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviTerminPacijent" Height="350" Width="400">
+        Title="FormIzmeniTerminPacijent" Height="350" Width="400">
     <Grid>
-        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="230,40,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="03/26/2021 17:51:00"/>
+        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="230,40,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" DisplayDateStart="03/26/2021 02:08:38" SelectedDateFormat="Short"/>
         <ComboBox  Name="comboSat"  HorizontalAlignment="Left" Margin="230,80,0,0"  VerticalAlignment="Top" Width="55">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="01"></ComboBoxItem>

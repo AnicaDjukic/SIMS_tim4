@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Forms\FormIstorijaPregledaPacijent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\FormIzmeniTerminPacijent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\FormLekar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +24,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Forms\FormIstorijaPregledaPacijent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\FormIzmeniTerminPacijent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\FormLekar.xaml">
       <SubType>Designer</SubType>
     </Page>

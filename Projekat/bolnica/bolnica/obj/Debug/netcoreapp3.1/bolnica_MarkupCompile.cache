@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-5-2042092651
+7-1864812970
 
-28243027712
+30895723234
 192-1533232326
-Forms\FormLekar.xaml;Forms\FormNapraviTerminPacijent.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
+Forms\FormIstorijaPregledaPacijent.xaml;Forms\FormIzmeniTerminPacijent.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminPacijent.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
 
 False
 

@@ -46,3 +46,7 @@ C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\net
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.genruntimeconfig.cache
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormNapraviTerminPacijent.g.cs
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormNapraviTerminPacijent.baml
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIstorijaPregledaPacijent.g.cs
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIstorijaPregledaPacijent.baml
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIzmeniTerminPacijent.g.cs
+C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIzmeniTerminPacijent.baml
