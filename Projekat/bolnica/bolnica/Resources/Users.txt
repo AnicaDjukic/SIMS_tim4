@@ -1,2 +1,3 @@
 ﻿username:lekar|password:lekar|type:lekar
 username:upravnik|password:upravnik|type:upravnik
+username:pacijent|password:pacijent|type:pacijent

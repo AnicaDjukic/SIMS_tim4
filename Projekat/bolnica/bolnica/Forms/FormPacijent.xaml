@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPacijent" Height="450" Width="800">
+        Title="FormPacijent" Height="450" Width="900">
     <Grid>
-        
+        <DataGrid Height="450" HorizontalAlignment="Right" Name="pacijentGrid" VerticalAlignment="Top" Width="770" AutoGenerateColumns="False" SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF00DFFF"></Setter>
+                    <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                    <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    <Setter Property="BorderBrush" Value="black"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}"  Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Operacija" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="110"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Završen" Binding="{Binding Zavrsen}" Width="110"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Zakaži pregled" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="ZakaziPregled"/>
+        <Button Content="Otkaži pregled" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="OtkaziPregled"/>
+        <Button Content="Izmeni pregled" HorizontalAlignment="Left" Margin="0,171,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="IzmeniPregled"/>
     </Grid>
 </Window>
