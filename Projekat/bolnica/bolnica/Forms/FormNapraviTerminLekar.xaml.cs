@@ -20,6 +20,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormNapraviTerminLekar : Window
     {
+        
         DateTime datum;
         int trajanje;
         string ime;
@@ -32,7 +33,9 @@ namespace Bolnica.Forms
         {
             
             InitializeComponent();
-           
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
+
 
         }
 

@@ -39,6 +39,8 @@ namespace Bolnica.Forms
             this.p1 = p1;
             this.zavrsen = zavrsen;
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
             textDatum.Text = datum.ToString();
             textTrajanje.Text = trajanje.ToString();
             textIme.Text = ime;
@@ -62,6 +64,8 @@ namespace Bolnica.Forms
             this.op = op;
             this.zavrsen = zavrsen;
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
             textDatum.Text = datum.ToString();
             textTrajanje.Text = trajanje.ToString();
             textIme.Text = ime;

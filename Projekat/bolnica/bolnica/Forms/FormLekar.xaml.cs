@@ -17,6 +17,7 @@ namespace Bolnica.Forms
     /// <summary>
     /// Interaction logic for FormLekar.xaml
     /// </summary>
+    
     public partial class FormLekar : Window
     {
         public static List<Pregled> listaPregleda= new List<Pregled>();
@@ -28,7 +29,11 @@ namespace Bolnica.Forms
         public FormLekar()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
+            this.WindowState = WindowState.Maximized;
             
+
             Pregled p1 = new Pregled();
             p1.Datum = new DateTime(2008, 3, 1, 7, 0, 0);
             // p1.Lekar = new Lekar();
