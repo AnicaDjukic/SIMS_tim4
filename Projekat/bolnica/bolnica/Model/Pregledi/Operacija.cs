@@ -6,6 +6,9 @@ namespace Model.Pregledi
    {
       private TipOperacije tipOperacije;
 
+       
+       
+
       public TipOperacije TipOperacije { get; set; }
    
    }

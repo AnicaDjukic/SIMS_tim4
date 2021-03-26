@@ -1,0 +1,29 @@
+﻿<Window x:Class="Bolnica.Forms.FormIzmeniTerminLekar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms"
+        mc:Ignorable="d"
+        Title="FormIzmeniTerminLekar" Height="350" Width="400">
+    <Grid>
+        <TextBox Name="textDatum"  HorizontalAlignment="Left" Margin="230,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Name="textTrajanje" HorizontalAlignment="Left" Margin="230,56,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Name="textIme" HorizontalAlignment="Left" Margin="230,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Name="textPrezime" HorizontalAlignment="Left" Margin="230,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="" HorizontalAlignment="Left"  Margin="230,160,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox  Name="textOperacija" HorizontalAlignment="Left" Margin="230,191,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Datum" HorizontalAlignment="Left" Margin="94,21,0,0" VerticalAlignment="Top"/>
+        <Label Content="Trajanje" HorizontalAlignment="Left" Margin="94,52,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ime pacijenta" HorizontalAlignment="Left" Margin="94,89,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prezime pacijenta" HorizontalAlignment="Left" Margin="94,120,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prostorija" HorizontalAlignment="Left" Margin="94,151,0,0" VerticalAlignment="Top"/>
+        <Label Content="Operacija" HorizontalAlignment="Left" Margin="94,182,0,0" VerticalAlignment="Top"/>
+
+        <CheckBox Content="Zavrsen" Name="checkZavrsen" HorizontalAlignment="Left" Margin="254,226,0,0" VerticalAlignment="Top"/>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="115,254,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>
+        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="212,254,0,0" VerticalAlignment="Top" Width="55" Click="OtkaziIzmenu"/>
+
+    </Grid>
+</Window>

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-4-775825406
+6-1314767361
 
-291781036813
+31-294097180
 192-1533232326
-Forms\FormLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
+Forms\FormIzmeniTerminLekar.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
 
 False
 

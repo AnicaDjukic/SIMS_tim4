@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace bolnica
 {
     /// <summary>
@@ -33,7 +34,13 @@ namespace bolnica
             username = txtUser.Text;
             password = txtPassword.Password;
 
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\Resources\Users.txt");
+            
+         
+
+            
+            
+
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
             bool found = false;
             
             foreach (string line in lines)

@@ -4,7 +4,7 @@ namespace Model.Pregledi
 {
    public enum TipOperacije
    {
-      teska,
+      teška,
       laka,
       srednja
    }
