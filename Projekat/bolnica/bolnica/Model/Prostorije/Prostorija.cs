@@ -7,5 +7,11 @@ namespace Model.Prostorije
         public double Kvadratura { get; set; }
         public TipProstorije TipProstorije { get; set; }
         public bool Zauzeta { get; set; }
+        public bool Obrisana { get; set; }
+
+        public Prostorija()
+        {
+            Obrisana = false;
+        }
     }
 }

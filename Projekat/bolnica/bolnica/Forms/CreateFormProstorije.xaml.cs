@@ -32,7 +32,7 @@ namespace Bolnica.Forms
             {
                 int brojSlobodnihKreveta = Int32.Parse(txtBrojSlobodnihKreveta.Text);
                 int ukBrojKreveta = Int32.Parse(txtUkBrojKreveta.Text);
-                BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = brojProstorije, Sprat = sprat, Kvadratura = kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, UkBrojKreveta = ukBrojKreveta, BrojSlobodnihKreveta = brojSlobodnihKreveta};
+                BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = brojProstorije, Sprat = sprat, Kvadratura = kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = ukBrojKreveta, BrojSlobodnihKreveta = brojSlobodnihKreveta};
 
                 if (prostorija.BrojSlobodnihKreveta == prostorija.UkBrojKreveta)
                 {
