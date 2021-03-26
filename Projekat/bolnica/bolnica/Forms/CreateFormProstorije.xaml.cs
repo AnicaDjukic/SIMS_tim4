@@ -22,6 +22,10 @@ namespace Bolnica.Forms
         public CreateFormProstorije()
         {
             InitializeComponent();
+            lblUkBrojKreveta.Visibility = Visibility.Hidden;
+            txtUkBrojKreveta.Visibility = Visibility.Hidden;
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
+            txtBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,11 +38,24 @@ namespace Bolnica.Forms
             if (tipProstorije == 2)
             {
                 BolnickaSoba prostorija = new BolnickaSoba();
+                prostorija.BrojProstorije = Int32.Parse(brojProstorije);
+                prostorija.Sprat = Int32.Parse(sprat);
+                prostorija.Kvadratura = Double.Parse(kvadratura);
+                prostorija.TipProstorije = TipProstorije.bolnickaSoba;
+                prostorija.Zauzeta = zauzeta;
+                prostorija.BrojSlobodnihKreveta = Int32.Parse(txtBrojSlobodnihKreveta.Text);
+                prostorija.UkBrojKreveta = Int32.Parse(txtUkBrojKreveta.Text);
+                if(prostorija.BrojSlobodnihKreveta == prostorija.UkBrojKreveta)
+                {
+                    prostorija.Zauzeta = true;
+                }
+                FileStorageProstorija storage = new FileStorageProstorija();
+                storage.Save(prostorija);
+                FormUpravnik.Prostorije.Add(prostorija);
             }
             else
             {
                 Prostorija prostorija = new Prostorija();
-
                 prostorija.BrojProstorije = Int32.Parse(brojProstorije);
                 prostorija.Sprat = Int32.Parse(sprat);
                 prostorija.Kvadratura = Double.Parse(kvadratura);
@@ -58,6 +75,17 @@ namespace Bolnica.Forms
                 FormUpravnik.Prostorije.Add(prostorija);
             }
             this.Close();
+        }
+
+        private void comboTipProstorije_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {   
+            if(comboTipProstorije.SelectedIndex == 2)
+            {
+                lblUkBrojKreveta.Visibility = Visibility.Visible;
+                txtUkBrojKreveta.Visibility = Visibility.Visible;
+                lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+                txtBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+            }
         }
     }
 }
