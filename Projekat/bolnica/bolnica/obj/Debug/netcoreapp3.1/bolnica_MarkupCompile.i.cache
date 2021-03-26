@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 E:\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-3-585454811
+41463349186
 
-281567789509
+291111971221
 193-1575227949
-Forms\CreateFormProstorije.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
+Forms\CreateFormProstorije.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
 
-True
+False
 

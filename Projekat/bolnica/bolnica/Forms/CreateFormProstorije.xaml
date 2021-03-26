@@ -20,7 +20,7 @@
             <ComboBoxItem Content="Operaciona sala"/>
             <ComboBoxItem Content="Bolnicka soba"/>
         </ComboBox>
-        <CheckBox Name="checkZauzeta" HorizontalAlignment="Left" Margin="150,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkZauzeta" HorizontalAlignment="Left" Margin="150,230,0,0" VerticalAlignment="Top" Checked="checkZauzeta_Checked"/>
         <Label x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Left" Margin="18,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,0.063"/>
         <TextBox x:Name="txtUkBrojKreveta" HorizontalAlignment="Left" Margin="150,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Left" Margin="6,308,0,0" VerticalAlignment="Top"/>

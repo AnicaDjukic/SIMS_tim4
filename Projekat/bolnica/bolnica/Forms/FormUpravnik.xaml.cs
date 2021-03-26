@@ -55,9 +55,58 @@ namespace bolnica.Forms
             s.Show();
         }
 
-        private void Button_Click_Vidi(object sender, RoutedEventArgs e)
+        private void Button_Click_Prikazi(object sender, RoutedEventArgs e)
         {
-            
+            if (dataGridProstorije.SelectedCells.Count > 0)
+            {
+                Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
+                List<Prostorija> prostorije = storage.GetAllProstorije();
+                List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+                var s = new ViewFormProstorije();
+                bool found = false;
+                foreach (Prostorija p in prostorije)
+                {
+                    if (p.BrojProstorije == row.BrojProstorije)
+                    {
+                        s.lblUkBrojKreveta.Visibility = Visibility.Hidden;
+                        s.lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
+                        s.lblBrojProstorije.Content = p.BrojProstorije.ToString();
+                        s.lblSprat.Content = p.Sprat.ToString();
+                        s.lblKvadratura.Content = p.Kvadratura.ToString();
+                        s.checkZauzeta.IsEnabled = false;
+                        if (p.TipProstorije == TipProstorije.salaZaPreglede)
+                            s.lblTipProstorije.Content = "Sala za preglede";
+                        else
+                            s.lblTipProstorije.Content = "Operaciona sala";
+                        s.checkZauzeta.IsChecked = p.Zauzeta;
+                        s.Show();
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    foreach (BolnickaSoba b in bolnickeSobe)
+                    {
+                        if (b.BrojProstorije == row.BrojProstorije)
+                        {
+                            s.lblBrojProstorije.Content = b.BrojProstorije.ToString();
+                            s.lblSprat.Content = b.Sprat.ToString();
+                            s.lblKvadratura.Content = b.Kvadratura.ToString();
+                            s.checkZauzeta.IsEnabled = false;
+                            s.lblTipProstorije.Content = "Bolnička soba";
+                            s.checkZauzeta.IsChecked = b.Zauzeta;
+                            s.lblUkBrojKreveta.Visibility = Visibility.Visible;
+                            s.lblUkBrKreveta.Content = b.UkBrojKreveta.ToString();
+                            s.lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+                            s.lblBrSlobodnihKreveta.Content = b.BrojSlobodnihKreveta.ToString();
+                            s.Show();
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)

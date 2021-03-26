@@ -29,7 +29,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Dodaj" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Click="Button_Click_Dodaj" Width="51" RenderTransformOrigin="-0.186,0.578"/>
-        <Button Content="Vidi" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top" Click="Button_Click_Vidi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Content="Prikaži" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top" Click="Button_Click_Prikazi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
         <Button Content="Izmeni" HorizontalAlignment="Left" Margin="177,10,0,0" VerticalAlignment="Top" Click="Button_Click_Izmeni" Width="51" RenderTransformOrigin="-0.186,0.578"/>
         <Button Content="Obrisi" HorizontalAlignment="Left" Margin="247,10,0,0" VerticalAlignment="Top" Click="Button_Click_Obrisi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
     </Grid>

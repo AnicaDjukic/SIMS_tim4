@@ -44,3 +44,5 @@ E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dl
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.csproj.CopyComplete
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.g.cs
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.baml

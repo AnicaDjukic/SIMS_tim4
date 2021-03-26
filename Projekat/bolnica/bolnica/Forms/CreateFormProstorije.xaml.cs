@@ -72,7 +72,7 @@ namespace Bolnica.Forms
                 {
                     if (FormUpravnik.clickedDodaj)
                     {
-                        MessageBox.Show("Prostorija vec postoji");
+                        MessageBox.Show("Prostorija već postoji");
                         postoji = true;
                         FormUpravnik.clickedDodaj = false;
                     }
@@ -98,7 +98,7 @@ namespace Bolnica.Forms
                 {
                     if (FormUpravnik.clickedDodaj)
                     {
-                        MessageBox.Show("Prostorija vec postoji");
+                        MessageBox.Show("Prostorija već postoji");
                         postoji = true;
                         FormUpravnik.clickedDodaj = false;
                     }
@@ -137,7 +137,7 @@ namespace Bolnica.Forms
                 {
                     if (FormUpravnik.clickedDodaj)
                     {
-                        MessageBox.Show("Prostorija vec postoji");
+                        MessageBox.Show("Prostorija već postoji");
                         postoji = true;
                         FormUpravnik.clickedDodaj = false;
                     }
@@ -163,7 +163,7 @@ namespace Bolnica.Forms
                 {
                     if (FormUpravnik.clickedDodaj)
                     {
-                        MessageBox.Show("Prostorija vec postoji");
+                        MessageBox.Show("Prostorija već postoji");
                         postoji = true;
                         FormUpravnik.clickedDodaj = false;
                     }
@@ -205,6 +205,12 @@ namespace Bolnica.Forms
                 lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
                 txtBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void checkZauzeta_Checked(object sender, RoutedEventArgs e)
+        {
+            if(comboTipProstorije.SelectedIndex == 2)
+                txtBrojSlobodnihKreveta.Text = "0";
         }
     }
 }
