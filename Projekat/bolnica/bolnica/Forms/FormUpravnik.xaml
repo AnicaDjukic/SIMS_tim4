@@ -20,7 +20,7 @@
                   AutoGenerateColumns="False" HorizontalAlignment="Center" Height="304"
                   VerticalAlignment="Top" Width="725" Margin="0,47,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj prostorije" Binding="{Binding BrojProstorije}" Width="*"/>
+                <DataGridTextColumn x:Name="BrojProstorije" Header="Broj prostorije" Binding="{Binding BrojProstorije}" Width="*"/>
                 <DataGridTextColumn Header="Sprat" Binding="{Binding Sprat}" Width="*"/>
                 <DataGridTextColumn Header="Kvadratura" Binding="{Binding Kvadratura}" Width="*"/>
                 <DataGridComboBoxColumn Header="Tip prostorije" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
@@ -30,7 +30,7 @@
         </DataGrid>
         <Button Content="Dodaj" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Click="Button_Click_Dodaj" Width="51" RenderTransformOrigin="-0.186,0.578"/>
         <Button Content="Vidi" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top" Click="Button_Click_Vidi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
-        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="177,10,0,0" VerticalAlignment="Top" Click="Button_Clic_Izmeni" Width="51" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="177,10,0,0" VerticalAlignment="Top" Click="Button_Click_Izmeni" Width="51" RenderTransformOrigin="-0.186,0.578"/>
     </Grid>
 
 </Window>

@@ -1,9 +1,6 @@
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using bolnica.Forms;
-using System.Collections.ObjectModel;
 
 namespace Model.Prostorije
 {
@@ -21,7 +18,7 @@ namespace Model.Prostorije
         {
             var json = File.ReadAllText(fileLocationProstorije);
             var prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
-            return prostorije;   
+            return prostorije;
         }
 
         public List<BolnickaSoba> GetAllBolnickeSobe()
@@ -35,7 +32,7 @@ namespace Model.Prostorije
         {
             var json = File.ReadAllText(fileLocationProstorije);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
-            if(prostorije == null)
+            if (prostorije == null)
             {
                 prostorije = new List<Prostorija>();
             }
@@ -53,6 +50,42 @@ namespace Model.Prostorije
             }
             bolnickeSobe.Add(novaBolnickaSoba);
             File.WriteAllText(fileLocationBolnickeSobe, JsonConvert.SerializeObject(bolnickeSobe));
+        }
+
+        public void Delete(Prostorija prostorija)
+        {
+            var json = File.ReadAllText(fileLocationProstorije);
+            List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
+            if (prostorije != null)
+            {
+                for (int i = 0; i < prostorije.Count; i++)
+                {
+                    if (prostorije[i].BrojProstorije == prostorija.BrojProstorije)
+                    {
+                        prostorije.Remove(prostorije[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocationProstorije, JsonConvert.SerializeObject(prostorije));
+            }
+        }
+
+        public void Delete(BolnickaSoba bolnickaSoba)
+        {
+            var json = File.ReadAllText(fileLocationBolnickeSobe);
+            List<BolnickaSoba> prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
+            if (prostorije != null)
+            {
+                for (int i = 0; i < prostorije.Count; i++)
+                {
+                    if (prostorije[i].BrojProstorije == bolnickaSoba.BrojProstorije)
+                    {
+                        prostorije.Remove(prostorije[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocationBolnickeSobe, JsonConvert.SerializeObject(prostorije));
+            }
         }
 
     }
