@@ -54,8 +54,10 @@ namespace Bolnica.Forms
             op.Zavrsen = true;
             op.TipOperacije = 0;
             listaOperacija.Add(op);
-            
-           
+            dataList.AddingNewItem += dataListAddingNewItemEventArgs;
+
+
+
             dataList.Items.Add(listaPregleda[0]);
             dataList.Items.Add(listaOperacija[0]);
             lekarGrid.ItemsSource = dataList.Items;
@@ -86,9 +88,10 @@ namespace Bolnica.Forms
                 }
             }
             int index = lekarGrid.SelectedIndex;
-            lekarGrid.Items.RemoveAt(index);
-         
-            
+            dataList.Items.RemoveAt(index);
+            data();
+
+
         }
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
@@ -157,7 +160,13 @@ namespace Bolnica.Forms
             lekarGrid.Items.Refresh();
         }
 
-       
-       
+        public static void data()
+        {
+            dataList.Items.Refresh();
+        }
+        private void dataListAddingNewItemEventArgs(object sender, AddingNewItemEventArgs e)
+        {
+            lekarGrid.Items.Refresh();
+        }
     }
 }

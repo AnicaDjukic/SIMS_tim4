@@ -116,6 +116,8 @@ namespace Bolnica.Forms
                         if (FormLekar.listaOperacija[i].Equals(op))
                         {
                             FormLekar.listaOperacija[i] = oper;
+                            FormLekar.dataList.Items[i] = oper;
+                            FormLekar.data();
                         }
                     }
                     
@@ -137,6 +139,8 @@ namespace Bolnica.Forms
                         {
                             Pregled pp = FormLekar.listaPregleda[i];
                             FormLekar.listaPregleda[i] = p12;
+                            FormLekar.dataList.Items[i] = p12;
+                            FormLekar.data();
                             
                             
                         }

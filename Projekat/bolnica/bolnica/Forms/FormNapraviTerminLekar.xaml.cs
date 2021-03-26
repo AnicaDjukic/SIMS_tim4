@@ -77,6 +77,8 @@ namespace Bolnica.Forms
                     oper.TipOperacije = operacija;
                     oper.Zavrsen = zavrsen;
                     FormLekar.listaOperacija.Add(oper);
+                    FormLekar.dataList.Items.Add(oper);
+                    FormLekar.data();
                 }
                 else
                 {
@@ -89,6 +91,8 @@ namespace Bolnica.Forms
                     p12.Prostorija = new Prostorija();
                     p12.Zavrsen = zavrsen;
                     FormLekar.listaPregleda.Add(p12);
+                    FormLekar.dataList.Items.Add(p12);
+                    FormLekar.data();
 
                 }
                 this.Close();
