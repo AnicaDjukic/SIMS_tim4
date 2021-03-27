@@ -31,11 +31,10 @@ namespace Bolnica.Forms
         public FormLekar()
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
-            this.WindowState = WindowState.Maximized;
+            //WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            //Owner = Application.Current.MainWindow;
+            //this.WindowState = WindowState.Maximized;
 
-            //
             Pacijent a1 = new Pacijent();
             Pacijent a2 = new Pacijent();
             a1.Ime = "Milan";

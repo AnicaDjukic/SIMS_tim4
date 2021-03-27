@@ -116,21 +116,21 @@ namespace Bolnica.Forms
             {
                 if (String.Equals(p.Jmbg, pacijent.Jmbg))
                 {
-                    if (FormPacijent.clickedDodaj)
+                    if (FormSekretar.clickedDodaj)
                     {
                         postojiPacijent = true;
-                        FormPacijent.clickedDodaj = false;
+                        FormSekretar.clickedDodaj = false;
                         MessageBox.Show("Pacijent vec postoji");
                     }
                     else
                     {
                         storage.Delete(p);
 
-                        for (int i = 0; i < FormPacijent.Pacijenti.Count; i++)
+                        for (int i = 0; i < FormSekretar.Pacijenti.Count; i++)
                         {
-                            if (FormPacijent.Pacijenti[i].Jmbg == pacijent.Jmbg)
+                            if (FormSekretar.Pacijenti[i].Jmbg == pacijent.Jmbg)
                             {
-                                FormPacijent.Pacijenti.Remove(FormPacijent.Pacijenti[i]);
+                                FormSekretar.Pacijenti.Remove(FormSekretar.Pacijenti[i]);
                                 break;
                             }
                         }
@@ -141,7 +141,7 @@ namespace Bolnica.Forms
             if (!postojiPacijent)
             {
                 storage.Save(pacijent);
-                FormPacijent.Pacijenti.Add(pacijent);
+                FormSekretar.Pacijenti.Add(pacijent);
                 this.Close();
             }
         }

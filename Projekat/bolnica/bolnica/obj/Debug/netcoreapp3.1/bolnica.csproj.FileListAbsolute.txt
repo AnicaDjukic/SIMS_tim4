@@ -19,7 +19,6 @@ D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\boln
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\bolnica.genruntimeconfig.cache
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.g.cs
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.baml
-
 C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.exe
 C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.deps.json
 C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.runtimeconfig.json
@@ -80,7 +79,6 @@ C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\net
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIstorijaPregledaPacijent.baml
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIzmeniTerminPacijent.g.cs
 C:\Users\braco\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormIzmeniTerminPacijent.baml
-
 D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.exe
 D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.deps.json
 D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.runtimeconfig.json

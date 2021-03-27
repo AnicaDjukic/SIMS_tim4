@@ -2,60 +2,12 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Forms\FormIzmeniTerminLekar.xaml.cs"/>
-    <Compile Update="Forms\FormIstorijaPregledaPacijent.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Forms\FormIzmeniTerminPacijent.xaml.cs">
-    <Compile Update="Forms\FormDodajPacijenta.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Forms\FormLekar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs"/>
-    <Compile Update="Forms\CreateFormProstorije.xaml.cs"/>
-    <Compile Update="Forms\FormNapraviTerminPacijent.xaml.cs">
-    <Compile Update="Forms\FormPrikazPacijenta.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Forms\FormUpravnik.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Forms\ViewFormProstorije.xaml.cs">
+    <Compile Update="Forms\FormSekretar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Forms\FormIzmeniTerminLekar.xaml"/>
-    <Page Update="Forms\FormIstorijaPregledaPacijent.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Forms\FormIzmeniTerminPacijent.xaml">
-    <Page Update="Forms\FormDodajPacijenta.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Forms\FormLekar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Forms\FormNapraviTerminLekar.xaml"/>
-    <Page Update="Forms\CreateFormProstorije.xaml"/>
-    <Page Update="Forms\FormNapraviTerminPacijent.xaml">
-    <Page Update="Forms\FormPrikazPacijenta.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Forms\FormUpravnik.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Forms\ViewFormProstorije.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="Forms\FormSekretar.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

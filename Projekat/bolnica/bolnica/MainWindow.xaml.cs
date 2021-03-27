@@ -41,19 +41,19 @@ namespace bolnica
                     {
                         var s = new FormUpravnik();
                         s.Show();
-                        this.Close();
+                        //this.Close();
                     }
                     else if (type == "sekretar")
                     {
-                        var s = new FormPacijent();
+                        var s = new FormSekretar();
                         s.Show();
-                        this.Close();
+                        //this.Close();
                     }
                     else if (type == "lekar")
                     {
                         var s = new FormLekar();
                         s.Show();
-                        this.Close();
+                        //this.Close();
                     }
                     found = true;
                     break;
@@ -63,7 +63,7 @@ namespace bolnica
             if (!found)
                 MessageBox.Show("error");
 
-            //this.Close();
+            Close();
 
         }
     }

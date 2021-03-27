@@ -6,8 +6,6 @@ namespace Model.Korisnici
    {
         private bool guest;
         private bool obrisan;
-        private Pol pol;
-
         public bool Guest { get; set; }
 
         public bool Obrisan { get; set; }
