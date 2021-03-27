@@ -21,27 +21,30 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             
         </Grid.RowDefinitions>
         <TextBox Name="textDatum"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" MinWidth="70" />
         <TextBox  Name="textTrajanje" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
         <TextBox Name="textIme" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" TextWrapping="Wrap"></TextBox>
         <TextBox  Name="textPrezime" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" MinWidth="70"/>
-        <TextBox Text="" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
+        <TextBox  Name="textJmbg" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" MinWidth="70"/>
+        <TextBox Text="" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
+        <CheckBox  Content="" Grid.Column="1" Grid.Row="7" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija"/>
+        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70"/>
         
 
         <Label Content="Datum" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Trajanje" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Ime pacijenta" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Prezime pacijenta" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Prostorija" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Operacija" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Visibility="Hidden" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <CheckBox  Content="" Grid.Column="1" Grid.Row="6" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija"/>
-
-        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70"/>
+        <Label Content="JMBG pacijenta" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Prostorija" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Operacija" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Visibility="Hidden" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
-        <Button Content="Potvrdi" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="PotvrdiIzmenu"/>
-        <Button Content="Otkaži" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="OtkaziIzmenu"/>
+        
+        <Button Content="Potvrdi" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="PotvrdiIzmenu"/>
+        <Button Content="Otkaži" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="OtkaziIzmenu"/>
     </Grid>
 </Window>

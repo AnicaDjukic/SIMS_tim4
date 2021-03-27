@@ -23,6 +23,7 @@ namespace Bolnica.Forms
         
         private DateTime datum;
         private int trajanje;
+        private string jmbg;
         private string ime;
         private string prezime;
         private TipOperacije operacija;
@@ -52,6 +53,7 @@ namespace Bolnica.Forms
                 datum = DateTime.Parse(textDatum.Text);
                 trajanje = int.Parse(textTrajanje.Text);
                 ime = textIme.Text;
+                jmbg = textJmbg.Text;
                 prezime = textPrezime.Text;
                 if (textOperacija.Text.Equals("teška"))
                 {
@@ -76,6 +78,7 @@ namespace Bolnica.Forms
                     oper.Trajanje = trajanje;
                     oper.Pacijent = new Pacijent();
                     oper.Pacijent.Ime = ime;
+                    oper.Pacijent.Jmbg = jmbg;
                     oper.pacijent.Prezime = prezime;
                     oper.Prostorija = new Prostorija();
                     oper.TipOperacije = operacija;
@@ -90,6 +93,7 @@ namespace Bolnica.Forms
                     p12.Trajanje = trajanje;
                     p12.Pacijent = new Pacijent();
                     p12.Pacijent.Ime = ime;
+                    p12.Pacijent.Jmbg = jmbg;
                     p12.pacijent.Prezime = prezime;
                     p12.Prostorija = new Prostorija();
                     FormLekar.listaPregleda.Add(p12);

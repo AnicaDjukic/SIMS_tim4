@@ -24,6 +24,7 @@ namespace Bolnica.Forms
         public static List<Pregled> listaPregleda= new List<Pregled>();
         public static List<Operacija> listaOperacija = new List<Operacija>();
         public static DataGrid dataList = new DataGrid();
+        public static List<Pacijent> listaPacijenata = new List<Pacijent>();
         
         
         
@@ -35,22 +36,26 @@ namespace Bolnica.Forms
             this.WindowState = WindowState.Maximized;
 
             //
+            Pacijent a1 = new Pacijent();
+            Pacijent a2 = new Pacijent();
+            a1.Ime = "Milan";
+            a1.Prezime = "Govedarica";
+            a2.Ime = "Jelena";
+            a2.Prezime = "Popovic";
+            a1.Jmbg = "dadasd";
+            a2.Jmbg = "21321";
+            listaPacijenata.Add(a1);
+            listaPacijenata.Add(a2);
             Pregled p1 = new Pregled();
             p1.Datum = new DateTime(2008, 3, 1, 7, 0, 0);
-            p1.Pacijent = new Pacijent();
-            p1.Pacijent.Ime = "Milan";
-            p1.Pacijent.Prezime = "Govedarica";
-            p1.Zavrsen = true;
+            p1.Pacijent = a1;
             p1.Prostorija = new Model.Prostorije.Prostorija();
             p1.Trajanje = 100;
             p1.Zavrsen = false;
             
             Operacija op = new Operacija();
             op.Datum = new DateTime(2008, 3, 1, 6, 0, 0);
-            op.Pacijent = new Pacijent();
-            op.Pacijent.Ime = "Milan";
-            op.Pacijent.Prezime = "Govedarica";
-            op.Zavrsen = true;
+            op.Pacijent = a2;
             op.Prostorija = new Model.Prostorije.Prostorija();
             op.Trajanje = 100;
             op.Zavrsen = false;

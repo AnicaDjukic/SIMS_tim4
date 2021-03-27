@@ -61,6 +61,7 @@
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" MinWidth="75" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ime pacijenta" Binding="{Binding Pacijent.Ime}" MinWidth="75" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime pacijenta" Binding="{Binding Pacijent.Prezime}" MinWidth="75" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="JMBG pacijenta" Binding="{Binding Pacijent.Jmbg}" MinWidth="75" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prostorija" MinWidth="75" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Operacija" Binding="{Binding TipOperacije,FallbackValue='pregled'}" MinWidth="75" Width="*"></DataGridTextColumn>
                

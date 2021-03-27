@@ -24,7 +24,11 @@ namespace Bolnica.Forms
         private int trajanje;
         private string ime;
         private string prezime;
+        private string jmbg;
         private TipOperacije operacija;
+        private bool dozvolaIme = true;
+        private bool dozvolaPrezime = true;
+        private bool dozvolaJmbg = true;
         
         private Pregled p1;
         private Operacija op;
@@ -36,8 +40,10 @@ namespace Bolnica.Forms
             this.trajanje = p1.Trajanje;
             this.ime = p1.Pacijent.Ime;
             this.prezime = p1.Pacijent.Prezime;
-            
-            
+            this.jmbg = p1.Pacijent.Jmbg;
+
+
+
             this.p1 = p1;
             
             
@@ -46,8 +52,17 @@ namespace Bolnica.Forms
             Owner = Application.Current.MainWindow;
             textDatum.Text = datum.ToString();
             textTrajanje.Text = trajanje.ToString();
+            for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+            {
+                textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+            }
+
             textIme.Text = ime;
             textPrezime.Text = prezime;
+            textJmbg.Text = jmbg;
+
             checkOperacija.IsChecked = false;
             checkOperacija.IsEnabled = false;
             
@@ -64,6 +79,7 @@ namespace Bolnica.Forms
             this.datum = op.Datum;
             this.trajanje = op.Trajanje;
             this.ime = op.Pacijent.Ime;
+            this.jmbg = op.Pacijent.Jmbg;
             this.prezime = op.Pacijent.Prezime;
             this.operacija = op.TipOperacije;
             
@@ -82,8 +98,17 @@ namespace Bolnica.Forms
             textOperacija.Visibility = Visibility.Visible;
             textDatum.Text = datum.ToString();
             textTrajanje.Text = trajanje.ToString();
+            for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+            {
+                textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+            }
+
             textIme.Text = ime;
             textPrezime.Text = prezime;
+            textJmbg.Text = jmbg;
+
             textOperacija.ItemsSource = tipOperacije;
             textOperacija.Text = operacija.ToString();
            
@@ -103,6 +128,7 @@ namespace Bolnica.Forms
                 trajanje = int.Parse(textTrajanje.Text);
                 ime = textIme.Text;
                 prezime = textPrezime.Text;
+                jmbg = textJmbg.Text;
                 if (textOperacija.Text.Equals("teška"))
                 {
                     ope = true;
@@ -126,7 +152,8 @@ namespace Bolnica.Forms
                     oper.Trajanje = trajanje;
                     oper.Pacijent = new Pacijent();
                     oper.Pacijent.Ime = ime;
-                    oper.pacijent.Prezime = prezime;
+                    oper.Pacijent.Prezime = prezime;
+                    oper.Pacijent.Jmbg = jmbg;
                     oper.Prostorija = new Prostorija();
                     oper.TipOperacije = operacija;
                     
@@ -155,7 +182,8 @@ namespace Bolnica.Forms
                     p12.Trajanje = trajanje;
                     p12.Pacijent = new Pacijent();
                     p12.Pacijent.Ime = ime;
-                    p12.pacijent.Prezime = prezime;
+                    p12.Pacijent.Prezime = prezime;
+                    p12.Pacijent.Jmbg = jmbg;
                     p12.Prostorija = new Prostorija();
                     
                     for (int i = 0; i < FormLekar.listaPregleda.Count; i++)
@@ -195,8 +223,107 @@ namespace Bolnica.Forms
             return true;
         }
 
-        
-           
-        
+
+
+        private void filterIme(object sender, EventArgs e)
+        {
+            if (dozvolaJmbg)
+            {
+                textJmbg.Items.Clear();
+            }
+            if (dozvolaPrezime)
+            {
+                textPrezime.Items.Clear();
+            }
+            if ((dozvolaJmbg || dozvolaPrezime))
+            {
+                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                {
+                    if (textIme.Text.Equals(FormLekar.listaPacijenata[i].Ime))
+                    {
+                        if (dozvolaJmbg)
+                        {
+                            textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+                        }
+                        if (dozvolaPrezime)
+                        {
+                            textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                        }
+                    }
+
+                }
+            }
+            dozvolaIme = false;
+        }
+
+        private void filterPrezime(object sender, EventArgs e)
+        {
+            if (dozvolaJmbg)
+            {
+                textJmbg.Items.Clear();
+            }
+            if (dozvolaIme)
+            {
+                textIme.Items.Clear();
+            }
+            if ((dozvolaJmbg || dozvolaIme))
+            {
+                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                {
+                    if (textPrezime.Text.Equals(FormLekar.listaPacijenata[i].Prezime))
+                    {
+                        if (dozvolaJmbg)
+                        {
+                            textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+                        }
+                        if (dozvolaIme)
+                        {
+                            textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                        }
+                    }
+
+                }
+            }
+            dozvolaPrezime = false;
+        }
+
+        private void filterJMBG(object sender, EventArgs e)
+        {
+            if (dozvolaIme)
+            {
+                textIme.Items.Clear();
+            }
+            if (dozvolaPrezime)
+            {
+                textPrezime.Items.Clear();
+            }
+            if ((dozvolaIme || dozvolaPrezime))
+            {
+                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                {
+                    if (textJmbg.Text.Equals(FormLekar.listaPacijenata[i].Jmbg))
+                    {
+                        if (dozvolaIme)
+                        {
+                            textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                        }
+                        if (dozvolaPrezime)
+                        {
+                            textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                        }
+                    }
+
+                }
+            }
+            dozvolaJmbg = false;
+        }
+
+        private void OpenCombo(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textIme.IsDropDownOpen = true;
+            }
+        }
     }
 }
