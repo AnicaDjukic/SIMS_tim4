@@ -40,8 +40,6 @@
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
-        <!--<TextBox  Name="textIme" HorizontalAlignment="Left" Margin="230,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox  Name="textPrezime" HorizontalAlignment="Left" Margin="230,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>-->
         <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="230,120,0,0"  VerticalAlignment="Top" Width="120">
             <ComboBoxItem Content="Vatroslav Pap"></ComboBoxItem>
             <ComboBoxItem Content="Vjekoslav Bevanda"></ComboBoxItem>
@@ -52,8 +50,6 @@
 
         <Label Content="Datum" HorizontalAlignment="Left" Margin="94,40,0,0" VerticalAlignment="Top"/>
         <Label Content="Vreme (sat i minut)" HorizontalAlignment="Left" Margin="94,80,0,0" VerticalAlignment="Top"/>
-        <!--<Label Content="Ime lekara" HorizontalAlignment="Left" Margin="94,120,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prezime lekara" HorizontalAlignment="Left" Margin="94,160,0,0" VerticalAlignment="Top"/>-->
         <Label Content="Lekar" HorizontalAlignment="Left" Margin="94,120,0,0" VerticalAlignment="Top"/>
 
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="115,254,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>

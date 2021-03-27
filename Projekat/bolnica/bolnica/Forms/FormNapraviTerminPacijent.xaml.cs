@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Model.Korisnici;
+using Model.Pregledi;
+using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -22,7 +25,7 @@ namespace Bolnica.Forms
             InitializeComponent();
         }
 
-        private void PotvrdiIzmenu(object sender, RoutedEventArgs e)
+        private void Potvrdi(object sender, RoutedEventArgs e)
         {
             DateTime datum = (DateTime) datumPicker.SelectedDate;
             int dan = datum.Day;
@@ -37,12 +40,22 @@ namespace Bolnica.Forms
             string ime = splited[0];
             string prezime = splited[1];
 
+            Lekar l = new Lekar();
+            l.Ime = ime;
+            l.Prezime = prezime;
 
+            Pregled p = new Pregled();
+            p.Datum = datumPregleda;
+            p.Lekar = l;
+            p.Trajanje = 15;
+            p.Prostorija = new Prostorija();
+
+            FormPacijent.Pregledi.Add(p);
 
             this.Close();
         }
 
-        private void OtkaziIzmenu(object sender, RoutedEventArgs e)
+        private void Otkazi(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

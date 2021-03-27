@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="FormPacijent" Height="450" Width="900">
     <Grid>
-        <DataGrid Height="450" HorizontalAlignment="Right" Name="pacijentGrid" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
+        <DataGrid Name="pacijentGrid" ItemsSource="{Binding Pregledi}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                  Height="450" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -18,12 +19,12 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}"  Width="130"></DataGridTextColumn>
-                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="130"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="130"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="130"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prostorija" Width="130"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="130"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}"  Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Zakaži pregled" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="ZakaziPregled"/>

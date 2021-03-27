@@ -2,6 +2,7 @@
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,16 +20,26 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormPacijent : Window
     {
-        private static List<Pregled> listaPregleda = new List<Pregled>();
-        private static List<Operacija> listaOperacija = new List<Operacija>();
+        public static List<Pregled> listaPregleda = new List<Pregled>();
+        public static List<Operacija> listaOperacija = new List<Operacija>();
+        public static List<Lekar> listaLekara = new List<Lekar>();
+
+        public static ObservableCollection<Pregled> Pregledi
+        {
+            get;
+            set;
+        }
 
         public FormPacijent()
         {
             InitializeComponent();
 
+            Pregledi = new ObservableCollection<Pregled>();
+
             Lekar l1 = new Lekar();
             l1.Ime = "Vatroslav";
             l1.Prezime = "Pap";
+            listaLekara.Add(l1);
             Pregled p1 = new Pregled();
             p1.Lekar = l1;
             p1.Trajanje = 30;
@@ -38,6 +49,7 @@ namespace Bolnica.Forms
             Lekar l2 = new Lekar();
             l2.Ime = "Vjekoslav";
             l2.Prezime = "Bevanda";
+            listaLekara.Add(l2);
             Pregled p2 = new Pregled();
             p2.Lekar = l2;
             p2.Trajanje = 25;
@@ -47,6 +59,7 @@ namespace Bolnica.Forms
             Lekar l3 = new Lekar();
             l3.Ime = "Radenko";
             l3.Prezime = "Salapura";
+            listaLekara.Add(l3);
             Pregled p3 = new Pregled();
             p3.Lekar = l3;
             p3.Trajanje = 40;
@@ -62,16 +75,18 @@ namespace Bolnica.Forms
             for (int i = 0; i < listaPregleda.Count; i++)
             {
                 pacijentGrid.Items.Add(listaPregleda[i]);
+                Pregledi.Add(listaPregleda[i]);
             }
 
 
             Lekar l4 = new Lekar();
             l4.Ime = "Radovan";
             l4.Prezime = "Frganja";
+            listaLekara.Add(l4);
             Operacija o1 = new Operacija();
             o1.Lekar = l4;
             o1.Trajanje = 90;
-            o1.Datum = new DateTime(2023, 1, 15, 11, 20, 0);
+            o1.Datum = new DateTime(2023, 1, 15, 11, 15, 0);
             o1.TipOperacije = TipOperacije.srednja;
             listaOperacija.Add(o1);
 
@@ -85,6 +100,7 @@ namespace Bolnica.Forms
             Lekar l5 = new Lekar();
             l5.Ime = "Svetislav";
             l5.Prezime = "Fejsa";
+            listaLekara.Add(l5);
             Operacija o3 = new Operacija();
             o3.Lekar = l5;
             o3.Trajanje = 400;
@@ -102,7 +118,9 @@ namespace Bolnica.Forms
             for (int i = 0; i < listaOperacija.Count; i++)
             {
                 pacijentGrid.Items.Add(listaOperacija[i]);
+                Pregledi.Add(listaOperacija[i]);
             }
+
         }
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
@@ -135,6 +153,7 @@ namespace Bolnica.Forms
                 }
                 int index = pacijentGrid.SelectedIndex;
                 pacijentGrid.Items.RemoveAt(index);
+                Pregledi.RemoveAt(index);
             }
             else
             {
@@ -144,7 +163,8 @@ namespace Bolnica.Forms
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
-            var s = new FormIzmeniTerminPacijent();
+            Pregled p = (Pregled)pacijentGrid.SelectedItem;
+            var s = new FormIzmeniTerminPacijent(p);
             s.Show();
         }
 

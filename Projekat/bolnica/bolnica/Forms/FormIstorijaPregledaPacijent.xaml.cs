@@ -19,12 +19,15 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIstorijaPregledaPacijent : Window
     {
-        private static List<Pregled> listaPregleda = new List<Pregled>();
-        private static List<Operacija> listaOperacija = new List<Operacija>();
+        private static List<Pregled> listaPregleda;
+        private static List<Operacija> listaOperacija;
 
         public FormIstorijaPregledaPacijent()
         {
             InitializeComponent();
+
+            listaPregleda = new List<Pregled>();
+            listaOperacija = new List<Operacija>();
 
             Lekar l1 = new Lekar();
             l1.Ime = "Vatroslav";

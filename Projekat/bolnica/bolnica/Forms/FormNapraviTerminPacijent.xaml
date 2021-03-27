@@ -56,7 +56,7 @@
         <Label Content="Prezime lekara" HorizontalAlignment="Left" Margin="94,160,0,0" VerticalAlignment="Top"/>-->
         <Label Content="Lekar" HorizontalAlignment="Left" Margin="94,120,0,0" VerticalAlignment="Top"/>
 
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="115,254,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>
-        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="212,254,0,0" VerticalAlignment="Top" Width="55" Click="OtkaziIzmenu"/>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="115,254,0,0" VerticalAlignment="Top" Width="55" Click="Potvrdi"/>
+        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="212,254,0,0" VerticalAlignment="Top" Width="55" Click="Otkazi"/>
     </Grid>
 </Window>
