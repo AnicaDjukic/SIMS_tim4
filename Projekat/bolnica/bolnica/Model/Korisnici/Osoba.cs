@@ -19,5 +19,7 @@ namespace Model.Korisnici
       public string BrojTelefona { get; set; }
       public string AdresaStanovanja { get; set; }
       public string Email { get; set; }
+
+        
     }
 }

@@ -17,6 +17,9 @@ namespace Model.Korisnici
       public bool Obrisan { get; set; }
 
       public ZdravstveniKarton ZdravstveniKarton { get; set; }
-   
-   }
+
+
+      
+
+    }
 }

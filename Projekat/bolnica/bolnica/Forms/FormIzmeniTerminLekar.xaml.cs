@@ -20,24 +20,27 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIzmeniTerminLekar : Window
     {
-        DateTime datum;
-        int trajanje;
-        string ime;
-        string prezime;
-        TipOperacije operacija;
-        bool zavrsen;
-        Pregled p1;
-        Operacija op;
-        public FormIzmeniTerminLekar(DateTime datum,int trajanje,string ime,string prezime,bool zavrsen,Pregled p1)
+        private DateTime datum;
+        private int trajanje;
+        private string ime;
+        private string prezime;
+        private TipOperacije operacija;
+        
+        private Pregled p1;
+        private Operacija op;
+        
+
+        public FormIzmeniTerminLekar(Pregled p1)
         {
-            this.datum = datum;
-            this.trajanje = trajanje;
-            this.ime = ime;
-            this.prezime = prezime;
+            this.datum = p1.Datum;
+            this.trajanje = p1.Trajanje;
+            this.ime = p1.Pacijent.Ime;
+            this.prezime = p1.Pacijent.Prezime;
             
             
             this.p1 = p1;
-            this.zavrsen = zavrsen;
+            
+            
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
@@ -45,33 +48,45 @@ namespace Bolnica.Forms
             textTrajanje.Text = trajanje.ToString();
             textIme.Text = ime;
             textPrezime.Text = prezime;
+            checkOperacija.IsChecked = false;
+            checkOperacija.IsEnabled = false;
             
-            checkZavrsen.IsChecked = zavrsen;
+            
+           
 
 
 
 
         }
 
-        public FormIzmeniTerminLekar(DateTime datum, int trajanje, string ime, string prezime, TipOperacije operacija, bool zavrsen, Operacija op)
+        public FormIzmeniTerminLekar(Operacija op)
         {
-            this.datum = datum;
-            this.trajanje = trajanje;
-            this.ime = ime;
-            this.prezime = prezime;
-            this.operacija = operacija;
+            this.datum = op.Datum;
+            this.trajanje = op.Trajanje;
+            this.ime = op.Pacijent.Ime;
+            this.prezime = op.Pacijent.Prezime;
+            this.operacija = op.TipOperacije;
             
             this.op = op;
-            this.zavrsen = zavrsen;
+            
+            List<TipOperacije> tipOperacije = new List<TipOperacije>();
+            tipOperacije.Add(TipOperacije.teška);
+            tipOperacije.Add(TipOperacije.laka);
+            tipOperacije.Add(TipOperacije.srednja);
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
+            checkOperacija.IsChecked = true;
+            checkOperacija.IsEnabled = false;
+            labelTextOperacija.Visibility = Visibility.Visible;
+            textOperacija.Visibility = Visibility.Visible;
             textDatum.Text = datum.ToString();
             textTrajanje.Text = trajanje.ToString();
             textIme.Text = ime;
             textPrezime.Text = prezime;
+            textOperacija.ItemsSource = tipOperacije;
             textOperacija.Text = operacija.ToString();
-            checkZavrsen.IsChecked = zavrsen;
+           
 
 
 
@@ -103,7 +118,7 @@ namespace Bolnica.Forms
                     ope = true;
                     operacija = TipOperacije.srednja;
                 }
-                zavrsen = (bool)checkZavrsen.IsChecked;
+               
                 if (ope)
                 {
                     Operacija oper = new Operacija();
@@ -114,18 +129,24 @@ namespace Bolnica.Forms
                     oper.pacijent.Prezime = prezime;
                     oper.Prostorija = new Prostorija();
                     oper.TipOperacije = operacija;
-                    oper.Zavrsen = zavrsen;
-                    for(int i=0;i< FormLekar.listaOperacija.Count; i++)
+                    
+                    for (int i = 0; i < FormLekar.listaOperacija.Count; i++)
                     {
                         if (FormLekar.listaOperacija[i].Equals(op))
                         {
                             FormLekar.listaOperacija[i] = oper;
-                            FormLekar.dataList.Items[i] = oper;
+
+                        }
+                    }
+                    for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                    {
+                        if (FormLekar.dataList.Items[p].Equals(op))
+                        {
+                            FormLekar.dataList.Items[p] = oper;
                             FormLekar.data();
                         }
                     }
-                    
-
+                    this.Close();
                 }
                 else
                 {
@@ -136,23 +157,30 @@ namespace Bolnica.Forms
                     p12.Pacijent.Ime = ime;
                     p12.pacijent.Prezime = prezime;
                     p12.Prostorija = new Prostorija();
-                    p12.Zavrsen = zavrsen;
+                    
                     for (int i = 0; i < FormLekar.listaPregleda.Count; i++)
                     {
                         if (FormLekar.listaPregleda[i].Equals(p1))
                         {
                             Pregled pp = FormLekar.listaPregleda[i];
                             FormLekar.listaPregleda[i] = p12;
-                            FormLekar.dataList.Items[i] = p12;
-                            FormLekar.data();
-                            
-                            
+
+
+
                         }
                     }
-                    
-                }
-                this.Close();
+                    for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                    {
+                        if (FormLekar.dataList.Items[p].Equals(p1))
+                        {
+                            FormLekar.dataList.Items[p] = p12;
+                            FormLekar.data();
+                        }
 
+                    }
+                    this.Close();
+
+                }
             }
         }
 
@@ -162,9 +190,13 @@ namespace Bolnica.Forms
 
         }
 
-        public bool CheckFields()
+        private bool CheckFields()
         {
             return true;
         }
+
+        
+           
+        
     }
 }

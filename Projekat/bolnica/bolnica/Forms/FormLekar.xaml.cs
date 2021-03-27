@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,39 +33,50 @@ namespace Bolnica.Forms
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
             this.WindowState = WindowState.Maximized;
-            
 
+            //
             Pregled p1 = new Pregled();
             p1.Datum = new DateTime(2008, 3, 1, 7, 0, 0);
-            // p1.Lekar = new Lekar();
-            
             p1.Pacijent = new Pacijent();
             p1.Pacijent.Ime = "Milan";
             p1.Pacijent.Prezime = "Govedarica";
             p1.Zavrsen = true;
             p1.Prostorija = new Model.Prostorije.Prostorija();
             p1.Trajanje = 100;
-            p1.Zavrsen = true;
-            listaPregleda.Add(p1);
+            p1.Zavrsen = false;
+            
             Operacija op = new Operacija();
-            op.Datum = new DateTime(2008, 3, 1, 7, 0, 0);
-            // p1.Lekar = new Lekar();
-
+            op.Datum = new DateTime(2008, 3, 1, 6, 0, 0);
             op.Pacijent = new Pacijent();
             op.Pacijent.Ime = "Milan";
             op.Pacijent.Prezime = "Govedarica";
             op.Zavrsen = true;
             op.Prostorija = new Model.Prostorije.Prostorija();
             op.Trajanje = 100;
-            op.Zavrsen = true;
+            op.Zavrsen = false;
             op.TipOperacije = 0;
+
+            listaPregleda.Add(p1);
             listaOperacija.Add(op);
             dataList.AddingNewItem += dataListAddingNewItemEventArgs;
 
-
-
-            dataList.Items.Add(listaPregleda[0]);
-            dataList.Items.Add(listaOperacija[0]);
+            dataList.Items.SortDescriptions.Clear();
+            dataList.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
+            for (int i = 0; i < listaPregleda.Count; i++)
+            {
+                if (listaPregleda[i].Zavrsen.Equals(false))
+                {
+                    dataList.Items.Add(listaPregleda[i]);
+                }
+            }
+            for (int i = 0; i < listaOperacija.Count; i++)
+            {
+                if (listaOperacija[i].Zavrsen.Equals(false))
+                {
+                    dataList.Items.Add(listaOperacija[i]);
+                }
+            }
+            data();
             lekarGrid.ItemsSource = dataList.Items;
         }
 
@@ -104,15 +116,10 @@ namespace Bolnica.Forms
             
             var objekat = lekarGrid.SelectedValue;
             Pregled p1 = new Pregled();
-            p1.Pacijent = new Pacijent();
             Operacija op = new Operacija();
+            p1.Pacijent = new Pacijent();
             op.Pacijent = new Pacijent();
-            DateTime datum=new DateTime();
-            int trajanje=0;
-            string ime="";
-            string prezime="";
-            bool zavrsen=false;
-
+           
             for (int i = 0; i < listaPregleda.Count; i++)
             {
                 if (objekat.Equals(listaPregleda[i]))
@@ -132,31 +139,16 @@ namespace Bolnica.Forms
 
             if (p1.Pacijent.Ime!=null)
             {
-                datum = p1.Datum;
-                trajanje = p1.Trajanje;
-                ime = p1.Pacijent.Ime;
-                prezime = p1.Pacijent.Prezime;
-                
-                zavrsen = p1.Zavrsen;
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(datum, trajanje, ime, prezime, zavrsen,p1);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1);
                 forma.Show();
 
 
             }
             else if(op.Pacijent.Ime!=null)
             {
-                datum = op.Datum;
-                trajanje = op.Trajanje;
-                ime = op.Pacijent.Ime;
-                prezime = op.Pacijent.Prezime;
-                TipOperacije operacija = op.TipOperacije;
-                zavrsen = op.Zavrsen;
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(datum, trajanje, ime, prezime, operacija, zavrsen,op);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op);
                 forma.Show();
             }
-            
-            
-            
 
         }
 
@@ -173,5 +165,7 @@ namespace Bolnica.Forms
         {
             lekarGrid.Items.Refresh();
         }
+
+        
     }
 }

@@ -21,18 +21,19 @@ namespace Bolnica.Forms
     public partial class FormNapraviTerminLekar : Window
     {
         
-        DateTime datum;
-        int trajanje;
-        string ime;
-        string prezime;
-        TipOperacije operacija;
-        bool zavrsen;
-        Pregled p1;
-        Operacija op;
+        private DateTime datum;
+        private int trajanje;
+        private string ime;
+        private string prezime;
+        private TipOperacije operacija;
+        private Pregled p1;
+        private Operacija op;
+        private bool jeOpe = false;
         public FormNapraviTerminLekar()
         {
             
             InitializeComponent();
+            
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
 
@@ -67,7 +68,7 @@ namespace Bolnica.Forms
                     ope = true;
                     operacija = TipOperacije.srednja;
                 }
-                zavrsen = (bool)checkZavrsen.IsChecked;
+                
                 if (ope)
                 {
                     Operacija oper = new Operacija();
@@ -78,7 +79,6 @@ namespace Bolnica.Forms
                     oper.pacijent.Prezime = prezime;
                     oper.Prostorija = new Prostorija();
                     oper.TipOperacije = operacija;
-                    oper.Zavrsen = zavrsen;
                     FormLekar.listaOperacija.Add(oper);
                     FormLekar.dataList.Items.Add(oper);
                     FormLekar.data();
@@ -92,7 +92,6 @@ namespace Bolnica.Forms
                     p12.Pacijent.Ime = ime;
                     p12.pacijent.Prezime = prezime;
                     p12.Prostorija = new Prostorija();
-                    p12.Zavrsen = zavrsen;
                     FormLekar.listaPregleda.Add(p12);
                     FormLekar.dataList.Items.Add(p12);
                     FormLekar.data();
@@ -113,5 +112,31 @@ namespace Bolnica.Forms
         {
             return true;
         }
+
+        private void isOperacija(object sender, RoutedEventArgs e)
+        {
+            if (jeOpe)
+            {
+                jeOpe = false;
+                labelTextOperacija.Visibility = Visibility.Hidden;
+                textOperacija.Visibility = Visibility.Hidden;
+                List<TipOperacije> tipOperacije = new List<TipOperacije>();
+                textOperacija.ItemsSource = tipOperacije;
+            }
+            else
+            {
+                jeOpe = true;
+                labelTextOperacija.Visibility = Visibility.Visible;
+                textOperacija.Visibility = Visibility.Visible;
+                List<TipOperacije> tipOperacije = new List<TipOperacije>();
+                tipOperacije.Add(TipOperacije.teška);
+                tipOperacije.Add(TipOperacije.laka);
+                tipOperacije.Add(TipOperacije.srednja);
+                textOperacija.ItemsSource = tipOperacije;
+            }
+
+        }
+
+       
     }
 }
