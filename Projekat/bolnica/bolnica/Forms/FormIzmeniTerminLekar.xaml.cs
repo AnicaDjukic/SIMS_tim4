@@ -253,6 +253,20 @@ namespace Bolnica.Forms
 
                 }
             }
+            if (dozvolaJmbg)
+            {
+                if (textJmbg.Items.Count == 1)
+                {
+                    textJmbg.SelectedItem = textJmbg.Items[0];
+                }
+            }
+            if (dozvolaPrezime)
+            {
+                if (textPrezime.Items.Count == 1)
+                {
+                    textPrezime.SelectedItem = textPrezime.Items[0];
+                }
+            }
             dozvolaIme = false;
         }
 
@@ -282,6 +296,20 @@ namespace Bolnica.Forms
                         }
                     }
 
+                }
+            }
+            if (dozvolaJmbg)
+            {
+                if (textJmbg.Items.Count == 1)
+                {
+                    textJmbg.SelectedItem = textJmbg.Items[0];
+                }
+            }
+            if (dozvolaIme)
+            {
+                if (textIme.Items.Count == 1)
+                {
+                    textIme.SelectedItem = textIme.Items[0];
                 }
             }
             dozvolaPrezime = false;
@@ -315,14 +343,46 @@ namespace Bolnica.Forms
 
                 }
             }
+            if (dozvolaPrezime)
+            {
+                if (textPrezime.Items.Count == 1)
+                {
+                    textPrezime.SelectedItem = textPrezime.Items[0];
+                }
+            }
+            if (dozvolaIme)
+            {
+                if (textIme.Items.Count == 1)
+                {
+                    textIme.SelectedItem = textIme.Items[0];
+                }
+            }
             dozvolaJmbg = false;
         }
 
-        private void OpenCombo(object sender, KeyEventArgs e)
+        
+
+        private void OpenComboIme(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 textIme.IsDropDownOpen = true;
+            }
+        }
+
+        private void OpenComboPrezime(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textPrezime.IsDropDownOpen = true;
+            }
+        }
+
+        private void OpenComboJmbg(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textJmbg.IsDropDownOpen = true;
             }
         }
     }
