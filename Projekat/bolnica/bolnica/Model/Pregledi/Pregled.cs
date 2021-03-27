@@ -9,36 +9,18 @@ namespace Model.Pregledi
       public bool Zavrsen { get; set; }
       public Model.Korisnici.Lekar Lekar
       {
-          get
-          {
-              return lekar;
-          }
-          set
-          {
-              this.lekar = value;
-          }
+            get;
+            set;
       }
       public Model.Prostorije.Prostorija Prostorija
       {
-          get
-          {
-              return prostorija;
-          }
-          set
-          {
-              this.prostorija = value;
-          }
+            get;
+            set;
       }
       public Model.Korisnici.Pacijent Pacijent
       {
-          get
-          {
-          return pacijent;
-          }
-          set
-          {
-          this.pacijent = value;
-          }
+            get;
+            set;
       }
    
    }

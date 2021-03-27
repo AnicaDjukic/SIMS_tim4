@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Forms\FormLekar.xaml.cs">
+    <Compile Update="Forms\FormLekar.xaml.cs"/>
     <Compile Update="Forms\CreateFormProstorije.xaml.cs">
 
       <SubType>Code</SubType>
@@ -20,7 +20,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Forms\FormLekar.xaml">
+    <Page Update="Forms\FormLekar.xaml"/>
     <Page Update="Forms\CreateFormProstorije.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -46,3 +46,7 @@ E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormPr
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.baml
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.g.cs
 E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormLekar.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormPacijent.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormLekar.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormPacijent.baml

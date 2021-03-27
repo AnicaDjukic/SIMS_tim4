@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SHE5J/o/d53N/ama/S3WSqjBnTzzhVocSFMy83hbMrdhhPiPGmzqWduHG2xE527aptXB6Lsz8DLUbFj1TgV8Bw==",
+  "dgSpecHash": "ErAxKwmqYMfjZWRM/C6bgEy5oJRdxu1+Thwb8dqHw/yOvo8ux9JPQ+jQIzjwIZVoAX27WnMlJQkq7+cXFEFAdg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Anica\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
