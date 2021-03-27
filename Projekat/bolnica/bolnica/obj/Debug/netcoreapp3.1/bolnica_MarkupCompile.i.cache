@@ -9,12 +9,14 @@ Bolnica
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-E:\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-6982770355
 
-311280627991
-193-1575227949
-Forms\CreateFormProstorije.xaml;Forms\FormLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
+C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
+6-1314767361
 
-False
+31-294097180
+192-1533232326
+Forms\FormIzmeniTerminLekar.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
+
+
+True
 

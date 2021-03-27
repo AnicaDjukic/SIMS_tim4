@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace bolnica
 {
     /// <summary>
@@ -25,7 +26,15 @@ namespace bolnica
             username = txtUser.Text;
             password = txtPassword.Password;
 
-            string[] lines = System.IO.File.ReadAllLines(@"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
+
+            
+         
+
+            
+            
+
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
+
             bool found = false;
 
             foreach (string line in lines)
