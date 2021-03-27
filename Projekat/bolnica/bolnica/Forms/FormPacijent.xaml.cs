@@ -34,6 +34,7 @@ namespace Bolnica.Forms
         {
             InitializeComponent();
 
+            this.DataContext = this;
             Pregledi = new ObservableCollection<Pregled>();
 
             Lekar l1 = new Lekar();
@@ -74,7 +75,7 @@ namespace Bolnica.Forms
 
             for (int i = 0; i < listaPregleda.Count; i++)
             {
-                pacijentGrid.Items.Add(listaPregleda[i]);
+                ///pacijentGrid.Items.Add(listaPregleda[i]);
                 Pregledi.Add(listaPregleda[i]);
             }
 
@@ -117,7 +118,7 @@ namespace Bolnica.Forms
 
             for (int i = 0; i < listaOperacija.Count; i++)
             {
-                pacijentGrid.Items.Add(listaOperacija[i]);
+                ///pacijentGrid.Items.Add(listaOperacija[i]);
                 Pregledi.Add(listaOperacija[i]);
             }
 
@@ -152,7 +153,7 @@ namespace Bolnica.Forms
                     }
                 }
                 int index = pacijentGrid.SelectedIndex;
-                pacijentGrid.Items.RemoveAt(index);
+                ///pacijentGrid.Items.RemoveAt(index);
                 Pregledi.RemoveAt(index);
             }
             else
