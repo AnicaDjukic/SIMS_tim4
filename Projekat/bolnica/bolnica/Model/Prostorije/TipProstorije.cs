@@ -1,11 +1,9 @@
-using System;
-
 namespace Model.Prostorije
 {
-   public enum TipProstorije
-   {
-      operacionaSala,
-      bolnickaSoba,
-      salaZaPreglede
-   }
+    public enum TipProstorije
+    {
+        salaZaPreglede,
+        operacionaSala,
+        bolnickaSoba
+    }
 }

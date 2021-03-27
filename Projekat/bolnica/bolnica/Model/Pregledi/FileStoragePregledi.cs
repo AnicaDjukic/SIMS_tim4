@@ -5,8 +5,6 @@ namespace Model.Pregledi
 {
    public class FileStoragePregledi
    {
-      private string fileLocation;
-
       public string FileLocation { get; set; }
 
       public List<Pregled> GetAll()

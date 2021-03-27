@@ -4,14 +4,6 @@ namespace Model.Pregledi
 {
    public class Pregled
    {
-      private DateTime datum;
-      private int trajanje;
-      private bool zavrsen;
-      
-      public Model.Korisnici.Lekar lekar;
-      public Model.Prostorije.Prostorija prostorija;
-      public Model.Korisnici.Pacijent pacijent;
-
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }

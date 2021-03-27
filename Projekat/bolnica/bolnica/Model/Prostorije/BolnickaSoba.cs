@@ -1,13 +1,10 @@
-using System;
-
 namespace Model.Prostorije
 {
-   public class BolnickaSoba : Prostorija
-   {
-      private int brojSlobodnihKreveta;
-      private int ukBrojKreveta;
+    public class BolnickaSoba : Prostorija
+    {
+        public int UkBrojKreveta { get; set; }
+        public int BrojSlobodnihKreveta { get; set; }
 
-      public int BrojSlobodnihKreveta { get; set; }
-   
-   }
+        public BolnickaSoba(): base() { }
+    }
 }

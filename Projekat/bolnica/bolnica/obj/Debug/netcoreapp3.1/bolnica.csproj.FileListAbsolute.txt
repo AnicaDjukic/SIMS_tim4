@@ -19,3 +19,30 @@ D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\boln
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\bolnica.genruntimeconfig.cache
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.g.cs
 D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.exe
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.deps.json
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.runtimeconfig.json
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.runtimeconfig.dev.json
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.dll
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Bolnica.pdb
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.csprojAssemblyReference.cache
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\App.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica_MarkupCompile.cache
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica_MarkupCompile.lref
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\FormUpravnik.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\MainWindow.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.g.resources
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.AssemblyInfoInputs.cache
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.AssemblyInfo.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.csproj.CoreCompileInputs.cache
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.dll
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.pdb
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.genruntimeconfig.cache
+E:\SIMS_tim4\Projekat\bolnica\bolnica\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Bolnica.csproj.CopyComplete
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\CreateFormProstorije.baml
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.g.cs
+E:\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\Forms\ViewFormProstorije.baml
