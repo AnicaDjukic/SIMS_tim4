@@ -46,6 +46,7 @@ namespace bolnica
                     {
                         var s = new FormPacijent();
                         s.Show();
+                        this.Close();
                     }
                     else if (type == "lekar")
                     {
