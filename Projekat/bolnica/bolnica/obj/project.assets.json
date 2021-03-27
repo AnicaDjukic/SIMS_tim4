@@ -48,19 +48,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PC-Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\Anica\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+      "projectUniqueName": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
       "projectName": "Bolnica",
-      "projectPath": "D:\\Documents\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
-      "packagesPath": "C:\\Users\\PC-Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
+      "projectPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+      "packagesPath": "C:\\Users\\Anica\\.nuget\\packages\\",
+      "outputPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PC-Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Anica\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -109,7 +109,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }
