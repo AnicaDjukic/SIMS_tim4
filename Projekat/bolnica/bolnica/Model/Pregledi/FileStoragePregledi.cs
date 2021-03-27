@@ -13,7 +13,7 @@ namespace Model.Pregledi
 
       public FileStoragePregledi()
         {
-            fileLocation = @"C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\Resources\";
+            fileLocation = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt";
         }
 
       public List<Pregled> GetAllPregledi()
