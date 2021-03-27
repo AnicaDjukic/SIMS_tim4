@@ -2,6 +2,7 @@
 using Bolnica.Forms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace bolnica
             string username, password;
             username = txtUser.Text;
             password = txtPassword.Password;
-            string[] lines = System.IO.File.ReadAllLines(@"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string fileLocation = System.IO.Path.Combine(path, @"Resources\", "Users.txt");
+            string[] lines = System.IO.File.ReadAllLines(fileLocation);
             bool found = false;
 
             foreach (string line in lines)
@@ -54,6 +57,11 @@ namespace bolnica
                         var s = new FormLekar();
                         s.Show();
                         //this.Close();
+                    }
+                    else if (type == "pacijent")
+                    {
+                        var s = new FormPacijent();
+                        s.Show();
                     }
                     found = true;
                     break;
