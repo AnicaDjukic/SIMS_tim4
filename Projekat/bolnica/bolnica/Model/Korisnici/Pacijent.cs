@@ -1,5 +1,4 @@
 using Model.Pacijenti;
-using System;
 
 namespace Model.Korisnici
 {
@@ -17,9 +16,6 @@ namespace Model.Korisnici
       public bool Obrisan { get; set; }
 
       public ZdravstveniKarton ZdravstveniKarton { get; set; }
-
-
-      
 
     }
 }

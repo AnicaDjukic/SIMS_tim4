@@ -7,8 +7,6 @@ namespace Model.Pregledi
 {
    public class FileStoragePregledi
    {
-      private string fileLocation;
-
       public string FileLocation { get; set; }
 
       public FileStoragePregledi()
@@ -39,10 +37,5 @@ namespace Model.Pregledi
         {
             File.WriteAllText(fileLocation + "Operacije.json", JsonConvert.SerializeObject(noveOperacije));
         }
-
-       
-
-       
-
     }
 }

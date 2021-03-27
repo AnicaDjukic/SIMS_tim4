@@ -14,9 +14,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs">
+    <Compile Update="Forms\CreateFormProstorije.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormUpravnik.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\ViewFormProstorije.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -28,9 +32,13 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormNapraviTerminLekar.xaml">
+    <Page Update="Forms\CreateFormProstorije.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormUpravnik.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\ViewFormProstorije.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
