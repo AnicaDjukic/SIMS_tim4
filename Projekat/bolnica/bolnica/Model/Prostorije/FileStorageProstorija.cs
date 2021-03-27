@@ -11,8 +11,9 @@ namespace Model.Prostorije
 
         public FileStorageProstorija()
         {
-            fileLocationProstorije = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Prostorije.json";
-            fileLocationBolnickeSobe = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\BolnickeSobe.json";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            fileLocationProstorije = System.IO.Path.Combine(path, @"Resources\", "Prostorije.json");
+            fileLocationBolnickeSobe = System.IO.Path.Combine(path, @"Resources\", "BolnickeSobe.json");
         }
         public List<Prostorija> GetAllProstorije()
         {

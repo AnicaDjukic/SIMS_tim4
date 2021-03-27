@@ -209,7 +209,7 @@ namespace Bolnica.Forms
 
         private void checkZauzeta_Checked(object sender, RoutedEventArgs e)
         {
-            if(comboTipProstorije.SelectedIndex == 2)
+            if (comboTipProstorije.SelectedIndex == 2)
                 txtBrojSlobodnihKreveta.Text = "0";
         }
     }
