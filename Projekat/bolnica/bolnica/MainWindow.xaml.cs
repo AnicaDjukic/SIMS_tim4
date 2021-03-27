@@ -6,14 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace bolnica
 {
@@ -32,34 +25,35 @@ namespace bolnica
             string username, password;
             username = txtUser.Text;
             password = txtPassword.Password;
-
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\Resources\Users.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt");
             bool found = false;
-            
+
             foreach (string line in lines)
             {
 
                 string[] fields = line.Split("|");
                 string name = fields[0].Split(":")[1];
                 string pass = fields[1].Split(":")[1];
-                if(username == name && password == pass)
+                if (username == name && password == pass)
                 {
                     string type = fields[2].Split(":")[1];
-                    if(type == "upravnik")
+                    if (type == "upravnik")
                     {
                         var s = new FormUpravnik();
                         s.Show();
+                        //this.Close();
                     }
-                    else if (type == "pacijent")
+                    else if (type == "sekretar")
                     {
-                        var s = new FormPacijent();
+                        var s = new FormSekretar();
                         s.Show();
+                        //this.Close();
                     }
                     else if (type == "lekar")
                     {
                         var s = new FormLekar();
                         s.Show();
-
+                        //this.Close();
                     }
                     found = true;
                     break;
@@ -68,6 +62,8 @@ namespace bolnica
 
             if (!found)
                 MessageBox.Show("error");
+
+            Close();
 
         }
     }

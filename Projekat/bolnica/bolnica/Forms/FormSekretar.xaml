@@ -1,0 +1,36 @@
+﻿<Window x:Class="Bolnica.Forms.FormSekretar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:dislocal ="clr-namespace:Model.Pacijenti"
+        mc:Ignorable="d"
+               Title="FormSekretar" Height="450" Width="1000">
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="dislocal:Pol"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="245,25,0,0" VerticalAlignment="Top" Click="Button_Click_Dodaj" Width="100" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Content="Prikazi" HorizontalAlignment="Left" Margin="375,25,0,0" VerticalAlignment="Top" Click="Button_Click_Prikazi" Width="100" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="505,25,0,0" VerticalAlignment="Top" Click="Button_Click_Izmeni" Width="100" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Content="Obrisi" HorizontalAlignment="Left" Margin="635,25,0,0" VerticalAlignment="Top" Click="Button_Click_Obrisi" Width="100" RenderTransformOrigin="-0.186,0.578"/>
+        <DataGrid x:Name="dataGridPacijenti" IsReadOnly="True" ItemsSource="{Binding Pacijenti}"
+                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center"
+                  Height="300" Margin="0,65,0,0" VerticalAlignment="Top" Width="900"
+                  HeadersVisibility="Column" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Ime}" Width="*"/>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Prezime}" Width="*"/>
+                <DataGridTextColumn Header="Broj Telefona" Binding="{Binding BrojTelefona}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="ID Kartona" Binding="{Binding ZdravstveniKarton.BrojKartona}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
