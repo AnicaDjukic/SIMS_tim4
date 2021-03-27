@@ -1,28 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {}
+    "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {}
   },
   "projects": {
-    "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {
+    "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+        "projectUniqueName": "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
         "projectName": "Bolnica",
-        "projectPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
-        "packagesPath": "C:\\Users\\Anica\\.nuget\\packages\\",
-        "outputPath": "E:\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
+        "projectPath": "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Bolnica.csproj",
+        "packagesPath": "C:\\Users\\Minja\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Anica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Minja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -63,7 +62,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
