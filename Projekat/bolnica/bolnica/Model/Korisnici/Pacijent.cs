@@ -5,18 +5,17 @@ namespace Model.Korisnici
 {
    public class Pacijent : Osoba
    {
-      private int brojKartona;
-      private bool guest;
-      private bool obrisan;
-      
-      public ZdravstveniKarton zdravstveniKarton;
+        private bool guest;
+        private bool obrisan;
+        private Pol pol;
 
-      public int BrojKartona { get; set; }
-      public bool Guest { get; set; }
+        public bool Guest { get; set; }
 
-      public bool Obrisan { get; set; }
+        public bool Obrisan { get; set; }
 
-      public ZdravstveniKarton ZdravstveniKarton { get; set; }
+        public Pol Pol { get; set; }
+
+        public ZdravstveniKarton ZdravstveniKarton { get; set; }
    
    }
 }

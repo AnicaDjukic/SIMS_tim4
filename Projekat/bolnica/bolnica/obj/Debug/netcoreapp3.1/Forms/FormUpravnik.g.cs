@@ -53,7 +53,7 @@ namespace bolnica.Forms {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/bolnica;component/forms/formupravnik.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Bolnica;component/forms/formupravnik.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Forms\FormUpravnik.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

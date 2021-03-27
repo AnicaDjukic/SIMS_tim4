@@ -1,20 +1,20 @@
-﻿bolnica
+﻿Bolnica
 
 
 winexe
 C#
 .cs
-D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\obj\Debug\netcoreapp3.1\
-bolnica
+D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\
+Bolnica
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\Treca godina\Letnji semestar\Specifikacija i modeliranje softvera\Vežbe\bolnica\bolnica\App.xaml
-2-1853157551
+D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
+6-1414224030
 
-261030718623
-1921654412462
-Forms\FormUpravnik.xaml;MainWindow.xaml;
+292015014859
+1931811954345
+Forms\FormDodajPacijenta.xaml;Forms\FormLekar.xaml;Forms\FormPacijent.xaml;Forms\FormPrikazPacijenta.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
 
 False
 

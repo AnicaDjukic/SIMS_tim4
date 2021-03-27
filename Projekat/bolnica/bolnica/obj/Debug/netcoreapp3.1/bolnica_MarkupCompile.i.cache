@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\
+D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\obj\Debug\netcoreapp3.1\
 Bolnica
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-4-775825406
+D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
+6-1414224030
 
-291781036813
-192-1533232326
-Forms\FormLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
+31-316932002
+1931811954345
+Forms\FormDodajPacijenta.xaml;Forms\FormLekar.xaml;Forms\FormPacijent.xaml;Forms\FormPrikazPacijenta.xaml;Forms\FormUpravnik.xaml;MainWindow.xaml;
 
-False
+True
 

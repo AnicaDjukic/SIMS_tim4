@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Forms\FormDodajPacijenta.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\FormLekar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\FormPrikazPacijenta.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormUpravnik.xaml.cs">
@@ -15,7 +21,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Forms\FormDodajPacijenta.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\FormLekar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\FormPrikazPacijenta.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormUpravnik.xaml">
