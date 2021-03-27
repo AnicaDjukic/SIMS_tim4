@@ -106,7 +106,7 @@ namespace Bolnica.Forms
             o3.Lekar = l5;
             o3.Trajanje = 400;
             o3.Datum = new DateTime(2021, 1, 1, 2, 0, 0);
-            o3.TipOperacije = TipOperacije.teska;
+            o3.TipOperacije = TipOperacije.teška;
             listaOperacija.Add(o3);
 
             Operacija o4 = new Operacija();

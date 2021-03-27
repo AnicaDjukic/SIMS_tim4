@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Forms\FormIzmeniTerminLekar.xaml.cs">
+    <Compile Update="Forms\FormIzmeniTerminLekar.xaml.cs"/>
     <Compile Update="Forms\FormIstorijaPregledaPacijent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,7 +18,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs"/>
-    <Compile Update="Forms\CreateFormProstorije.xaml.cs">
+    <Compile Update="Forms\CreateFormProstorije.xaml.cs"/>
     <Compile Update="Forms\FormNapraviTerminPacijent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,7 +30,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Forms\FormIzmeniTerminLekar.xaml">
+    <Page Update="Forms\FormIzmeniTerminLekar.xaml"/>
     <Page Update="Forms\FormIstorijaPregledaPacijent.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -41,7 +41,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormNapraviTerminLekar.xaml"/>
-    <Page Update="Forms\CreateFormProstorije.xaml">
+    <Page Update="Forms\CreateFormProstorije.xaml"/>
     <Page Update="Forms\FormNapraviTerminPacijent.xaml">
       <SubType>Designer</SubType>
     </Page>
