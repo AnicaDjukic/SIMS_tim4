@@ -12,6 +12,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormIzmeniTerminPacijent.xaml.cs">
+    <Compile Update="Forms\FormDodajPacijenta.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormLekar.xaml.cs">
@@ -20,6 +21,7 @@
     <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs"/>
     <Compile Update="Forms\CreateFormProstorije.xaml.cs"/>
     <Compile Update="Forms\FormNapraviTerminPacijent.xaml.cs">
+    <Compile Update="Forms\FormPrikazPacijenta.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\FormUpravnik.xaml.cs">
@@ -35,6 +37,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormIzmeniTerminPacijent.xaml">
+    <Page Update="Forms\FormDodajPacijenta.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormLekar.xaml">
@@ -43,6 +46,7 @@
     <Page Update="Forms\FormNapraviTerminLekar.xaml"/>
     <Page Update="Forms\CreateFormProstorije.xaml"/>
     <Page Update="Forms\FormNapraviTerminPacijent.xaml">
+    <Page Update="Forms\FormPrikazPacijenta.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\FormUpravnik.xaml">

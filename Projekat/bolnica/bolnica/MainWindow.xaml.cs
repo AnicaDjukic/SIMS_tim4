@@ -41,8 +41,9 @@ namespace bolnica
                     {
                         var s = new FormUpravnik();
                         s.Show();
+                        this.Close();
                     }
-                    else if (type == "pacijent")
+                    else if (type == "sekretar")
                     {
                         var s = new FormPacijent();
                         s.Show();
@@ -52,7 +53,7 @@ namespace bolnica
                     {
                         var s = new FormLekar();
                         s.Show();
-
+                        this.Close();
                     }
                     found = true;
                     break;
