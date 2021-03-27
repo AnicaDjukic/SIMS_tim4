@@ -61,7 +61,7 @@ namespace bolnica
             if (!found)
                 MessageBox.Show("error");
 
-            this.Close();
+            //this.Close();
 
         }
     }

@@ -4,6 +4,8 @@ namespace Model.Korisnici
 {
    public abstract class Osoba : Korisnik
    {
+
+        private string ime;
       public string Jmbg { get; set; }
       public string Ime { get; set; }
       public string Prezime { get; set; }

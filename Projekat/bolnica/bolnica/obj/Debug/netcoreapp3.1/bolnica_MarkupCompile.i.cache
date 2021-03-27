@@ -10,12 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 E:\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
+82111639030
 
-41463349186
-
-291111971221
+33-2019523367
 193-1575227949
-Forms\FormIzmeniTerminLekar.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;Forms\CreateFormProstorije.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
+Forms\CreateFormProstorije.xaml;Forms\FormIzmeniTerminLekar.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormPacijent.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
 
 False
 

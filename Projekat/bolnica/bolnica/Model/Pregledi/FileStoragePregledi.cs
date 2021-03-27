@@ -11,31 +11,31 @@ namespace Model.Pregledi
 
       public FileStoragePregledi()
         {
-            fileLocation = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt";
+            FileLocation = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt";
         }
 
       public List<Pregled> GetAllPregledi()
       {
-            var json = File.ReadAllText(fileLocation+"Pregledi.json");
+            var json = File.ReadAllText(FileLocation+"Pregledi.json");
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
             return pregledi;
         }
 
       public List<Operacija> GetAllOperacije()
       {
-            var json = File.ReadAllText(fileLocation + "Operacije.json");
+            var json = File.ReadAllText(FileLocation + "Operacije.json");
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
             return operacije;
         }
 
         public void Save(List<Pregled> noviPregledi)
       {
-            File.WriteAllText(fileLocation + "Pregledi.json", JsonConvert.SerializeObject(noviPregledi));
+            File.WriteAllText(FileLocation + "Pregledi.json", JsonConvert.SerializeObject(noviPregledi));
         }
       
         public void Save(List<Operacija> noveOperacije)
         {
-            File.WriteAllText(fileLocation + "Operacije.json", JsonConvert.SerializeObject(noveOperacije));
+            File.WriteAllText(FileLocation + "Operacije.json", JsonConvert.SerializeObject(noveOperacije));
         }
     }
 }

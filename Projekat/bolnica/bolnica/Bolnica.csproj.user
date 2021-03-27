@@ -13,7 +13,7 @@
     <Compile Update="Forms\FormLekar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs">
+    <Compile Update="Forms\FormNapraviTerminLekar.xaml.cs"/>
     <Compile Update="Forms\CreateFormProstorije.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,7 +31,7 @@
     <Page Update="Forms\FormLekar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Forms\FormNapraviTerminLekar.xaml">
+    <Page Update="Forms\FormNapraviTerminLekar.xaml"/>
     <Page Update="Forms\CreateFormProstorije.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -44,6 +44,12 @@ namespace Model.Pregledi
           this.pacijent = value;
           }
       }
+
+      public Model.Pregledi.TipOperacije TipOperacije
+        {
+            get;
+            set;
+        }
    
    }
 }
