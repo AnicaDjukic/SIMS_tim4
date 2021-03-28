@@ -1,6 +1,0 @@
-﻿username:lekar|password:lekar|type:lekar
-username:upravnik|password:upravnik|type:upravnik
-username:pacijent|password:pacijent|type:pacijent
-username:sekretar|password:sekretar|type:sekretar
-username:stefo|password:stefke|type:pacijent
-

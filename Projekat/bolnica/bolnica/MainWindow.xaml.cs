@@ -1,5 +1,6 @@
 ﻿using bolnica.Forms;
 using Bolnica.Forms;
+using Bolnica.Model.Korisnici;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -18,7 +19,7 @@ namespace bolnica
     /// </summary>
     public partial class MainWindow : Window
     {
-        private FileStoragePacijenti storage = new FileStoragePacijenti();
+        private FileStorageKorisnici storage = new FileStorageKorisnici();
 
         public MainWindow()
         {
@@ -27,48 +28,38 @@ namespace bolnica
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string username, password;
-            username = txtUser.Text;
-            password = txtPassword.Password;
-            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string fileLocation = System.IO.Path.Combine(path, @"Resources\", "Users.txt");
-            string[] lines = System.IO.File.ReadAllLines(fileLocation);
+            string korisnickoIme = txtUser.Text;
+            string lozinka = txtPassword.Password;
+            List<Korisnik> korisnici = storage.GetAll();
             bool found = false;
 
-            foreach (string line in lines)
+            foreach (Korisnik korisnik in korisnici)
             {
-
-                string[] fields = line.Split("|");
-                string name = fields[0].Split(":")[1];
-                string pass = fields[1].Split(":")[1];
-                if (username == name && password == pass)
+                if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                    string type = fields[2].Split(":")[1];
-                    if (type == "upravnik")
+                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
                     {
                         var s = new FormUpravnik();
                         s.Show();
-                        //this.Close();
                     }
-                    else if (type == "sekretar")
+                    else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
                         var s = new FormSekretar();
                         s.Show();
-                        //this.Close();
                     }
-                    else if (type == "lekar")
+                    else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
                         var s = new FormLekar();
                         s.Show();
-                        //this.Close();
                     }
-                    else if (type == "pacijent")
+                    else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
-                        List<Pacijent> pacijenti = storage.GetAll();
+                        FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+                        List<Pacijent> pacijenti = storagePacijenti.GetAll();
                         Pacijent pac = new Pacijent();
                         foreach (Pacijent p in pacijenti)
                         {
-                            if (p.KorisnickoIme.Equals(username) && p.Lozinka.Equals(password))
+                            if (p.KorisnickoIme.Equals(korisnickoIme) && p.Lozinka.Equals(lozinka))
                             {
                                 pac = p;
                                 break;

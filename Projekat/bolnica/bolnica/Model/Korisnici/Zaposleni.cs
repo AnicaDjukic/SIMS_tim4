@@ -1,6 +1,6 @@
 namespace Model.Korisnici
 {
-   public abstract class Zaposleni : Osoba
+   public class Zaposleni : Osoba
    {
       public int Mbr { get; set; }
       public double Plata { get; set; }

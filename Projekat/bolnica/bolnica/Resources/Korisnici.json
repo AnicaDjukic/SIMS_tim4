@@ -1,0 +1,22 @@
+﻿[
+  {
+    "KorisnickoIme": "upravnik",
+    "Lozinka": "upravnik",
+    "TipKorisnika": 0
+  },
+  {
+    "KorisnickoIme": "sekretar",
+    "Lozinka": "sekretar",
+    "TipKorisnika": 1
+  },
+  {
+    "KorisnickoIme": "lekar",
+    "Lozinka": "lekar",
+    "TipKorisnika": 2
+  },
+  {
+    "KorisnickoIme": "stefo",
+    "Lozinka": "stefke",
+    "TipKorisnika": 3
+  }
+]

@@ -1,6 +1,6 @@
 namespace Model.Korisnici
 {
-   public abstract class Korisnik
+   public class Korisnik
    {
 
       public string KorisnickoIme { get; set; }

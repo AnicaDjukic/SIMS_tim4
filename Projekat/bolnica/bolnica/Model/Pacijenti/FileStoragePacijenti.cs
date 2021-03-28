@@ -13,8 +13,6 @@ namespace Model.Pacijenti
         public FileStoragePacijenti() {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources", "Pacijenti.json");
-
-            //fileLocation = @"D:\Documents\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Pacijenti.json";
         }
 
         public List<Pacijent> GetAll()

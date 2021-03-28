@@ -2,7 +2,7 @@ using System;
 
 namespace Model.Korisnici
 {
-   public abstract class Osoba : Korisnik
+   public class Osoba : Korisnik
    {
 
         private string ime;
