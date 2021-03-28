@@ -414,5 +414,21 @@ namespace Bolnica.Forms
                 textJmbg.IsDropDownOpen = true;
             }
         }
+
+        private void OpenComboProstorija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textProstorija.IsDropDownOpen = true;
+            }
+        }
+
+        private void OpenComboOperacija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textOperacija.IsDropDownOpen = true;
+            }
+        }
     }
 }

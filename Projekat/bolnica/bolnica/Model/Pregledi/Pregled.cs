@@ -8,7 +8,7 @@ namespace Model.Pregledi
       public Model.Prostorije.Prostorija prostorija;
       public Model.Korisnici.Pacijent pacijent;
       
-      
+      public int Id { get; set; }
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }

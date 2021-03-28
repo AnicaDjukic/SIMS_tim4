@@ -56,7 +56,7 @@ namespace Model.Pregledi
 
             for (int i = 0; i < noviPregledi.Count; i++)
             {
-                if (noviPregledi[i].Trajanje.Equals(noviPregled.Trajanje))
+                if (noviPregledi[i].Id.Equals(noviPregled.Id))
                 {
                     noviPregledi[i] = noviPregled;
                     break;
@@ -72,7 +72,7 @@ namespace Model.Pregledi
             noveOperacije = GetAllOperacije();
             for (int i = 0; i < noveOperacije.Count; i++)
             {
-                if (noveOperacije[i].Trajanje.Equals(novaOperacija.Trajanje))
+                if (noveOperacije[i].Id.Equals(novaOperacija.Id))
                 {
                     noveOperacije[i]=novaOperacija;
                     break;
@@ -87,7 +87,7 @@ namespace Model.Pregledi
 
             for (int i = 0; i < noviPregledi.Count; i++)
                 {
-                    if (noviPregledi[i].Trajanje.Equals(noviPregled.Trajanje))
+                    if (noviPregledi[i].Id.Equals(noviPregled.Id))
                     {
                         noviPregledi.RemoveAt(i);
                         break;
@@ -103,7 +103,7 @@ namespace Model.Pregledi
             noveOperacije = GetAllOperacije();
                 for (int i = 0; i < noveOperacije.Count; i++)
                 {
-                    if (noveOperacije[i].Trajanje.Equals(novaOperacija.Trajanje))
+                    if (noveOperacije[i].Id.Equals(novaOperacija.Id))
                     {
                         noveOperacije.RemoveAt(i);
                         break;

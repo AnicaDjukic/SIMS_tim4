@@ -80,6 +80,7 @@ namespace Bolnica.Forms
                 trenutniPregled.Datum = DateTime.Parse(textDatum.Text);
                 trenutniPregled.Trajanje = int.Parse(textTrajanje.Text);
                 trenutniPregled.Lekar = lekarTrenutni;
+
                
                 for(int i = 0;i<pacijentiZa.Count; i++)
                 {
@@ -118,7 +119,24 @@ namespace Bolnica.Forms
                 
                 if (ope)
                 {
-                    
+                    List<Operacija> zaId = new List<Operacija>();
+                    zaId = sviPregledi.GetAllOperacije();
+                    bool nasao = false;
+                    for (int i = 0; i < zaId.Count; i++)
+                    {
+                        if (i != zaId[i].Id)
+                        {
+                            trenutnaOperacija.Id = i;
+                            nasao = true;
+                            break;
+                        }
+                    }
+
+                    if (!nasao)
+                    {
+                        trenutnaOperacija.Id = zaId.Count;
+                    }
+
                     FormLekar.listaOperacija.Add(trenutnaOperacija);
                     FormLekar.dataList.Items.Add(trenutnaOperacija);
                     FormLekar.data();
@@ -127,6 +145,22 @@ namespace Bolnica.Forms
                 }
                 else
                 {
+                    List<Pregled> zaId = new List<Pregled>();
+                    zaId = sviPregledi.GetAllPregledi();
+                    bool nasao = false;
+                    for(int i = 0; i < zaId.Count; i++)
+                    {
+                        if (i != zaId[i].Id)
+                        {
+                            trenutniPregled.Id = i;
+                            nasao = true;
+                            break;
+                        }
+                    }
+                    if (!nasao)
+                    {
+                        trenutniPregled.Id = zaId.Count;
+                    }
 
                     FormLekar.listaPregleda.Add(trenutniPregled);
                     FormLekar.dataList.Items.Add(trenutniPregled);
@@ -335,6 +369,62 @@ namespace Bolnica.Forms
             }
         }
 
+        private void OpenComboProstorija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textProstorija.IsDropDownOpen = true;
+            }
+        }
 
+        private void OpenComboOperacija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textOperacija.IsDropDownOpen = true;
+            }
+        }
+
+        private void CheckOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (jeOpe)
+                {
+                    jeOpe = false;
+                    labelTextOperacija.Visibility = Visibility.Hidden;
+                    textOperacija.Visibility = Visibility.Hidden;
+                    List<TipOperacije> tipOperacije = new List<TipOperacije>();
+                    textOperacija.ItemsSource = tipOperacije;
+
+                }
+                else
+                {
+                    jeOpe = true;
+                    labelTextOperacija.Visibility = Visibility.Visible;
+                    textOperacija.Visibility = Visibility.Visible;
+                    List<TipOperacije> tipOperacije = new List<TipOperacije>();
+                    tipOperacije.Add(TipOperacije.teška);
+                    tipOperacije.Add(TipOperacije.laka);
+                    tipOperacije.Add(TipOperacije.srednja);
+                    textOperacija.ItemsSource = tipOperacije;
+                }
+                bool jeste = (bool)checkOperacija.IsChecked;
+                if (jeste)
+                {
+                    jeste = false;
+                    checkOperacija.IsChecked = jeste;
+                    FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+                    checkOperacija.MoveFocus(new TraversalRequest(focusDirection));
+                }
+                else
+                {
+                    jeste = true;
+                    checkOperacija.IsChecked = jeste;
+                    FocusNavigationDirection focusDirection = FocusNavigationDirection.Next;
+                    checkOperacija.MoveFocus(new TraversalRequest(focusDirection));
+                }
+            }
+        }
     }
 }

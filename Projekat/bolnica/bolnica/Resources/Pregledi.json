@@ -1,1 +1,198 @@
-[{"lekar":{"Specijalizacija":{"Id":121,"Naziv":"neka","OblastMedicine":"nekaa"},"Mbr":21312,"Plata":1000.0,"BrojSlobodnihDana":15,"GodineStaza":11,"Zaposlen":true,"Jmbg":"342425","Ime":"Mico","Prezime":"Govedarica","DatumRodjenja":"0001-01-01T00:00:00","BrojTelefona":"111111","AdresaStanovanja":"AAA","Email":"dada@dada.com","KorisnickoIme":"Pero","Lozinka":"Admin","TipKorisnika":2},"prostorija":{"BrojProstorije":106,"Sprat":2,"Kvadratura":12.3,"TipProstorije":1,"Zauzeta":false,"Obrisana":false},"pacijent":{"Guest":false,"Obrisan":false,"Pol":0,"ZdravstveniKarton":{"BrojKartona":1,"Zanimanje":"nezaposlen","BracniStatus":0,"Osiguranje":true},"Jmbg":"2512002149573","Ime":"Stefan","Prezime":"Savic","DatumRodjenja":"2002-12-25T00:00:00","BrojTelefona":"066439698","AdresaStanovanja":"Vojvode Stepe 3/25","Email":"stefan.savic2512@gmail.com","KorisnickoIme":"stefo","Lozinka":"stefke","TipKorisnika":3},"Datum":"2001-01-01T01:11:11","Trajanje":11,"Zavrsen":false,"Lekar":{"Specijalizacija":{"Id":121,"Naziv":"neka","OblastMedicine":"nekaa"},"Mbr":21312,"Plata":1000.0,"BrojSlobodnihDana":15,"GodineStaza":11,"Zaposlen":true,"Jmbg":"342425","Ime":"Mico","Prezime":"Govedarica","DatumRodjenja":"0001-01-01T00:00:00","BrojTelefona":"111111","AdresaStanovanja":"AAA","Email":"dada@dada.com","KorisnickoIme":"Pero","Lozinka":"Admin","TipKorisnika":2},"Prostorija":{"BrojProstorije":106,"Sprat":2,"Kvadratura":12.3,"TipProstorije":1,"Zauzeta":false,"Obrisana":false},"Pacijent":{"Guest":false,"Obrisan":false,"Pol":0,"ZdravstveniKarton":{"BrojKartona":1,"Zanimanje":"nezaposlen","BracniStatus":0,"Osiguranje":true},"Jmbg":"2512002149573","Ime":"Stefan","Prezime":"Savic","DatumRodjenja":"2002-12-25T00:00:00","BrojTelefona":"066439698","AdresaStanovanja":"Vojvode Stepe 3/25","Email":"stefan.savic2512@gmail.com","KorisnickoIme":"stefo","Lozinka":"stefke","TipKorisnika":3}}]
+[
+  {
+    "lekar": {
+      "Specijalizacija": {
+        "Id": 121,
+        "Naziv": "neka",
+        "OblastMedicine": "nekaa"
+      },
+      "Mbr": 21312,
+      "Plata": 1000.0,
+      "BrojSlobodnihDana": 15,
+      "GodineStaza": 11,
+      "Zaposlen": true,
+      "Jmbg": "342425",
+      "Ime": "Mico",
+      "Prezime": "Govedarica",
+      "DatumRodjenja": "0001-01-01T00:00:00",
+      "BrojTelefona": "111111",
+      "AdresaStanovanja": "AAA",
+      "Email": "dada@dada.com",
+      "KorisnickoIme": "Pero",
+      "Lozinka": "Admin",
+      "TipKorisnika": 2
+    },
+    "prostorija": {
+      "BrojProstorije": 106,
+      "Sprat": 2,
+      "Kvadratura": 12.3,
+      "TipProstorije": 1,
+      "Zauzeta": false,
+      "Obrisana": false
+    },
+    "pacijent": {
+      "Guest": true,
+      "Obrisan": false,
+      "Pol": 1,
+      "ZdravstveniKarton": null,
+      "Jmbg": "0910990130002",
+      "Ime": "Marija",
+      "Prezime": "Simic",
+      "DatumRodjenja": "1990-10-09T00:00:00",
+      "BrojTelefona": "065312545",
+      "AdresaStanovanja": "Kralja Petra",
+      "Email": "marijasimic@gmail.com",
+      "KorisnickoIme": null,
+      "Lozinka": null,
+      "TipKorisnika": 3
+    },
+    "Id": 1,
+    "Datum": "2004-05-05T04:00:00",
+    "Trajanje": 55,
+    "Zavrsen": false,
+    "Lekar": {
+      "Specijalizacija": {
+        "Id": 121,
+        "Naziv": "neka",
+        "OblastMedicine": "nekaa"
+      },
+      "Mbr": 21312,
+      "Plata": 1000.0,
+      "BrojSlobodnihDana": 15,
+      "GodineStaza": 11,
+      "Zaposlen": true,
+      "Jmbg": "342425",
+      "Ime": "Mico",
+      "Prezime": "Govedarica",
+      "DatumRodjenja": "0001-01-01T00:00:00",
+      "BrojTelefona": "111111",
+      "AdresaStanovanja": "AAA",
+      "Email": "dada@dada.com",
+      "KorisnickoIme": "Pero",
+      "Lozinka": "Admin",
+      "TipKorisnika": 2
+    },
+    "Prostorija": {
+      "BrojProstorije": 106,
+      "Sprat": 2,
+      "Kvadratura": 12.3,
+      "TipProstorije": 1,
+      "Zauzeta": false,
+      "Obrisana": false
+    },
+    "Pacijent": {
+      "Guest": true,
+      "Obrisan": false,
+      "Pol": 1,
+      "ZdravstveniKarton": null,
+      "Jmbg": "0910990130002",
+      "Ime": "Marija",
+      "Prezime": "Simic",
+      "DatumRodjenja": "1990-10-09T00:00:00",
+      "BrojTelefona": "065312545",
+      "AdresaStanovanja": "Kralja Petra",
+      "Email": "marijasimic@gmail.com",
+      "KorisnickoIme": null,
+      "Lozinka": null,
+      "TipKorisnika": 3
+    }
+  },
+  {
+    "lekar": {
+      "Specijalizacija": {
+        "Id": 121,
+        "Naziv": "neka",
+        "OblastMedicine": "nekaa"
+      },
+      "Mbr": 21312,
+      "Plata": 1000.0,
+      "BrojSlobodnihDana": 15,
+      "GodineStaza": 11,
+      "Zaposlen": true,
+      "Jmbg": "342425",
+      "Ime": "Mico",
+      "Prezime": "Govedarica",
+      "DatumRodjenja": "0001-01-01T00:00:00",
+      "BrojTelefona": "111111",
+      "AdresaStanovanja": "AAA",
+      "Email": "dada@dada.com",
+      "KorisnickoIme": "Pero",
+      "Lozinka": "Admin",
+      "TipKorisnika": 2
+    },
+    "prostorija": {
+      "BrojProstorije": 106,
+      "Sprat": 2,
+      "Kvadratura": 12.3,
+      "TipProstorije": 1,
+      "Zauzeta": false,
+      "Obrisana": false
+    },
+    "pacijent": {
+      "Guest": true,
+      "Obrisan": false,
+      "Pol": 1,
+      "ZdravstveniKarton": null,
+      "Jmbg": "0910990130002",
+      "Ime": "Marija",
+      "Prezime": "Simic",
+      "DatumRodjenja": "1990-10-09T00:00:00",
+      "BrojTelefona": "065312545",
+      "AdresaStanovanja": "Kralja Petra",
+      "Email": "marijasimic@gmail.com",
+      "KorisnickoIme": null,
+      "Lozinka": null,
+      "TipKorisnika": 3
+    },
+    "Id": 2,
+    "Datum": "2003-03-03T03:00:00",
+    "Trajanje": 6,
+    "Zavrsen": false,
+    "Lekar": {
+      "Specijalizacija": {
+        "Id": 121,
+        "Naziv": "neka",
+        "OblastMedicine": "nekaa"
+      },
+      "Mbr": 21312,
+      "Plata": 1000.0,
+      "BrojSlobodnihDana": 15,
+      "GodineStaza": 11,
+      "Zaposlen": true,
+      "Jmbg": "342425",
+      "Ime": "Mico",
+      "Prezime": "Govedarica",
+      "DatumRodjenja": "0001-01-01T00:00:00",
+      "BrojTelefona": "111111",
+      "AdresaStanovanja": "AAA",
+      "Email": "dada@dada.com",
+      "KorisnickoIme": "Pero",
+      "Lozinka": "Admin",
+      "TipKorisnika": 2
+    },
+    "Prostorija": {
+      "BrojProstorije": 106,
+      "Sprat": 2,
+      "Kvadratura": 12.3,
+      "TipProstorije": 1,
+      "Zauzeta": false,
+      "Obrisana": false
+    },
+    "Pacijent": {
+      "Guest": true,
+      "Obrisan": false,
+      "Pol": 1,
+      "ZdravstveniKarton": null,
+      "Jmbg": "0910990130002",
+      "Ime": "Marija",
+      "Prezime": "Simic",
+      "DatumRodjenja": "1990-10-09T00:00:00",
+      "BrojTelefona": "065312545",
+      "AdresaStanovanja": "Kralja Petra",
+      "Email": "marijasimic@gmail.com",
+      "KorisnickoIme": null,
+      "Lozinka": null,
+      "TipKorisnika": 3
+    }
+  }
+]
