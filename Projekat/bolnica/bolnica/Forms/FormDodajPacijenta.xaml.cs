@@ -21,9 +21,11 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormDodajPacijenta : Window
     {
+        private FileStorageKorisnici storageKorisnici;
         public FormDodajPacijenta()
         {
             InitializeComponent();
+            storageKorisnici = new FileStorageKorisnici();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -126,6 +128,8 @@ namespace Bolnica.Forms
                     else
                     {
                         storage.Delete(p);
+                        storageKorisnici.Delete(p);
+                        
 
                         for (int i = 0; i < FormSekretar.Pacijenti.Count; i++)
                         {
@@ -144,7 +148,6 @@ namespace Bolnica.Forms
                 storage.Save(pacijent);
                 FormSekretar.Pacijenti.Add(pacijent);
                 Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                FileStorageKorisnici storageKorisnici = new FileStorageKorisnici();
                 storageKorisnici.Save(korisnik);
                 this.Close();
             }

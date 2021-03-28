@@ -188,75 +188,81 @@ namespace Bolnica.Forms
 
         private void OtkaziPregled(object sender, RoutedEventArgs e)
         {
-            
-            var objekat = lekarGrid.SelectedValue;
-            for(int i = 0; i < listaPregleda.Count; i++)
+
+            if (lekarGrid.SelectedCells.Count > 0)
             {
-                if (objekat.Equals(listaPregleda[i]))
+                var objekat = lekarGrid.SelectedValue;
+                for (int i = 0; i < listaPregleda.Count; i++)
                 {
-                    
-                    sviPregledi.Delete(listaPregleda[i]);
-                    listaPregleda.RemoveAt(i);
-                    break;
+                    if (objekat.Equals(listaPregleda[i]))
+                    {
+
+                        sviPregledi.Delete(listaPregleda[i]);
+                        listaPregleda.RemoveAt(i);
+                        break;
+                    }
                 }
-            }
-            for (int i = 0; i < listaOperacija.Count; i++)
-            {
-                if (objekat.Equals(listaOperacija[i]))
+                for (int i = 0; i < listaOperacija.Count; i++)
                 {
-                    sviPregledi.Delete(listaOperacija[i]);
-                    listaOperacija.RemoveAt(i);
-                    break;
+                    if (objekat.Equals(listaOperacija[i]))
+                    {
+                        sviPregledi.Delete(listaOperacija[i]);
+                        listaOperacija.RemoveAt(i);
+                        break;
+                    }
                 }
+                int index = lekarGrid.SelectedIndex;
+                dataList.Items.RemoveAt(index);
+                data();
             }
-            int index = lekarGrid.SelectedIndex;
-            dataList.Items.RemoveAt(index);
-            data();
 
 
         }
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
-            bool dozvolaZaFor = true;
-            var objekat = lekarGrid.SelectedValue;
-            Pregled p1 = new Pregled();
-            Operacija op = new Operacija();
-            p1.Pacijent = new Pacijent();
-            op.Pacijent = new Pacijent();
-           
-            for (int i = 0; i < listaPregleda.Count; i++)
+            if (lekarGrid.SelectedCells.Count > 0)
             {
-                if (objekat.Equals(listaPregleda[i]))
+                bool dozvolaZaFor = true;
+                var objekat = lekarGrid.SelectedValue;
+                Pregled p1 = new Pregled();
+                Operacija op = new Operacija();
+                p1.Pacijent = new Pacijent();
+                op.Pacijent = new Pacijent();
+
+                for (int i = 0; i < listaPregleda.Count; i++)
                 {
-                    
-                     p1 = lekarGrid.SelectedItem as Pregled;
-                    dozvolaZaFor = false;
-                     break;
-                }
-            }
-            if (dozvolaZaFor)
-            {
-                for (int i = 0; i < listaOperacija.Count; i++)
-                {
-                    if (objekat.Equals(listaOperacija[i]))
+                    if (objekat.Equals(listaPregleda[i]))
                     {
 
-                        op = lekarGrid.SelectedItem as Operacija;
+                        p1 = lekarGrid.SelectedItem as Pregled;
+                        dozvolaZaFor = false;
+                        break;
                     }
                 }
-            }
-            if (p1.Pacijent.Ime!=null)
-            {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1, listaLekara, lekarTrenutni);
-                forma.Show();
+                if (dozvolaZaFor)
+                {
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (objekat.Equals(listaOperacija[i]))
+                        {
+
+                            op = lekarGrid.SelectedItem as Operacija;
+                        }
+                    }
+                }
+                if (p1.Pacijent.Ime != null)
+                {
+                    FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1, listaLekara, lekarTrenutni);
+                    forma.Show();
 
 
-            }
-            else if(op.Pacijent.Ime!=null)
-            {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op, listaLekara, lekarTrenutni);
-                forma.Show();
+                }
+                else if (op.Pacijent.Ime != null)
+                {
+                    FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op, listaLekara, lekarTrenutni);
+                    forma.Show();
+                }
             }
 
         }
