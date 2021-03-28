@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Model.Korisnici;
+using Model.Korisnici;
 using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
@@ -34,51 +35,8 @@ namespace Bolnica.Forms
             dataGridPacijenti.DataContext = this;
             Pacijenti = new ObservableCollection<Pacijent>();
             clickedDodaj = false;
-
-            /*Pacijent p1 = new Pacijent()
-            {
-                KorisnickoIme = "stefo",
-                Lozinka = "stefke",
-                TipKorisnika = TipKorisnika.pacijent,
-                Jmbg = "2512002149573",
-                Ime = "Stefan",
-                Prezime = "Savic",
-                Pol = Pol.muski,
-                DatumRodjenja = new DateTime(2002, 12, 25),
-                BrojTelefona = "066439698",
-                AdresaStanovanja = "Vojvode Stepe 3/25",
-                Email = "stefan.savic2512@gmail.com",
-                Obrisan = false,
-                Guest = false,
-                ZdravstveniKarton = new ZdravstveniKarton() 
-                {
-                    BrojKartona = 1,
-                    Zanimanje = "nezaposlen",
-                    BracniStatus = BracniStatus.neozenjen_neudata, 
-                    Osiguranje = true 
-                } 
-            };
-
-            Pacijent p2 = new Pacijent()
-            {
-                TipKorisnika = TipKorisnika.pacijent,
-                Jmbg = "0910990130002",
-                Ime = "Marija",
-                Prezime = "Simic",
-                Pol = Pol.zenski,
-                DatumRodjenja = new DateTime(1990, 10, 9),
-                BrojTelefona = "065312543",
-                AdresaStanovanja = "Kralja Petra",
-                Email = "marijasimic@gmail.com",
-                Obrisan = false,
-                Guest = true
-            };
-            */
-
             storage = new FileStoragePacijenti();
-            //storage.Save(p1);
-            //storage.Save(p2);
-
+            
             List<Pacijent> pacijenti = storage.GetAll();
             foreach (Pacijent p in pacijenti)
             {
@@ -147,6 +105,9 @@ namespace Bolnica.Forms
             Pacijent pacijent = (Pacijent)dataGridPacijenti.SelectedItem;
             if (pacijent != null)
             {
+                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                FileStorageKorisnici storageKorisnici = new FileStorageKorisnici();
+                storageKorisnici.Delete(korisnik);
                 Pacijenti.Remove(pacijent);
                 List<Pacijent> pacijenti = storage.GetAll();
                 storage.Delete(pacijent);

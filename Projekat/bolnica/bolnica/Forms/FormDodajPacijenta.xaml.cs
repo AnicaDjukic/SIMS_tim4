@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Model.Korisnici;
 using Model.Pacijenti;
 using bolnica.Forms;
+using Bolnica.Model.Korisnici;
 
 namespace Bolnica.Forms
 {
@@ -142,6 +143,9 @@ namespace Bolnica.Forms
             {
                 storage.Save(pacijent);
                 FormSekretar.Pacijenti.Add(pacijent);
+                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                FileStorageKorisnici storageKorisnici = new FileStorageKorisnici();
+                storageKorisnici.Save(korisnik);
                 this.Close();
             }
         }
