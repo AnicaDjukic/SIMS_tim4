@@ -7,35 +7,110 @@ namespace Model.Pregledi
 {
    public class FileStoragePregledi
    {
-      public string FileLocation { get; set; }
+      
+      public string FileLocationPregledi { get; set; }
 
+      public string FileLocationOperacije { get; set; }
       public FileStoragePregledi()
         {
-            FileLocation = @"E:\SIMS_tim4\Projekat\bolnica\bolnica\Resources\Users.txt";
+            string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            FileLocationPregledi = System.IO.Path.Combine(FileLocation, @"Resources\", "Pregledi.json");
+            FileLocationOperacije = System.IO.Path.Combine(FileLocation, @"Resources\", "Operacije.json");
+
         }
 
       public List<Pregled> GetAllPregledi()
       {
-            var json = File.ReadAllText(FileLocation+"Pregledi.json");
+            var json = File.ReadAllText(FileLocationPregledi);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
             return pregledi;
         }
 
       public List<Operacija> GetAllOperacije()
       {
-            var json = File.ReadAllText(FileLocation + "Operacije.json");
+            var json = File.ReadAllText(FileLocationOperacije);
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
             return operacije;
         }
 
-        public void Save(List<Pregled> noviPregledi)
+        public void Save(Pregled noviPregled)
       {
-            File.WriteAllText(FileLocation + "Pregledi.json", JsonConvert.SerializeObject(noviPregledi));
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAllPregledi();
+            noviPregledi.Add(noviPregled);
+            File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
         }
       
-        public void Save(List<Operacija> noveOperacije)
+        public void Save(Operacija novaOperacija)
         {
-            File.WriteAllText(FileLocation + "Operacije.json", JsonConvert.SerializeObject(noveOperacije));
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAllOperacije();
+            noveOperacije.Add(novaOperacija);
+            File.WriteAllText(FileLocationOperacije, JsonConvert.SerializeObject(noveOperacije));
         }
-    }
+
+        public void Izmeni(Pregled noviPregled)
+        {
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAllPregledi();
+
+            for (int i = 0; i < noviPregledi.Count; i++)
+            {
+                if (noviPregledi[i].Id.Equals(noviPregled.Id))
+                {
+                    noviPregledi[i] = noviPregled;
+                    break;
+                }
+            }
+            File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
+
+        }
+
+        public void Izmeni(Operacija novaOperacija)
+        {
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAllOperacije();
+            for (int i = 0; i < noveOperacije.Count; i++)
+            {
+                if (noveOperacije[i].Id.Equals(novaOperacija.Id))
+                {
+                    noveOperacije[i]=novaOperacija;
+                    break;
+                }
+            }
+            File.WriteAllText(FileLocationOperacije, JsonConvert.SerializeObject(noveOperacije));
+        }
+        public void Delete(Pregled noviPregled)
+        {
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAllPregledi();
+
+            for (int i = 0; i < noviPregledi.Count; i++)
+                {
+                    if (noviPregledi[i].Id.Equals(noviPregled.Id))
+                    {
+                        noviPregledi.RemoveAt(i);
+                        break;
+                    }
+                }
+                File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
+            
+        }
+
+        public void Delete(Operacija novaOperacija)
+        {
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAllOperacije();
+                for (int i = 0; i < noveOperacije.Count; i++)
+                {
+                    if (noveOperacije[i].Id.Equals(novaOperacija.Id))
+                    {
+                        noveOperacije.RemoveAt(i);
+                        break;
+                    }
+                }
+                File.WriteAllText(FileLocationOperacije, JsonConvert.SerializeObject(noveOperacije));
+            }
+        }
+    
 }

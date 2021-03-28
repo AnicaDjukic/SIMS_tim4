@@ -19,14 +19,34 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIstorijaPregledaPacijent : Window
     {
-        private static List<Pregled> listaPregleda;
-        private static List<Operacija> listaOperacija;
+        private FileStoragePregledi storage;
 
-        public FormIstorijaPregledaPacijent()
+        public FormIstorijaPregledaPacijent(Pacijent pacijent)
         {
             InitializeComponent();
 
-            listaPregleda = new List<Pregled>();
+            storage = new FileStoragePregledi();
+
+            List<Pregled> pregledi = storage.GetAllPregledi();
+            foreach (Pregled p in pregledi)
+            {
+                if (p.Pacijent.Guest == false)
+                {
+                    if (p.Zavrsen == true && p.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
+                        pacijentIstorijaGrid.Items.Add(p);
+                }
+            }
+            List<Operacija> operacije = storage.GetAllOperacije();
+            foreach (Operacija o in operacije)
+            {
+                if (o.Pacijent.Guest == false)
+                {
+                    if (o.Zavrsen == true && o.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
+                        pacijentIstorijaGrid.Items.Add(o);
+                }
+            }
+
+            /*listaPregleda = new List<Pregled>();
             listaOperacija = new List<Operacija>();
 
             Lekar l1 = new Lekar();
@@ -67,7 +87,6 @@ namespace Bolnica.Forms
                 pacijentIstorijaGrid.Items.Add(listaPregleda[i]);
             }
 
-
             Lekar l4 = new Lekar();
             l4.Ime = "Radovan";
             l4.Prezime = "Frganja";
@@ -105,7 +124,7 @@ namespace Bolnica.Forms
             for (int i = 0; i < listaOperacija.Count; i++)
             {
                 pacijentIstorijaGrid.Items.Add(listaOperacija[i]);
-            }
+            }*/
         }
     }
 }

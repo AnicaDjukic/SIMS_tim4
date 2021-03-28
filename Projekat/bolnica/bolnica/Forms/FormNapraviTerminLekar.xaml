@@ -29,9 +29,9 @@
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textIme" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboIme" DropDownClosed="filterIme" ></ComboBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" DropDownClosed="filterPrezime" KeyDown="OpenComboPrezime"/>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textJmbg" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OpenComboJmbg" DropDownClosed="filterJMBG"/>
-        <TextBox Text="" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
-        <CheckBox  Content="" Grid.Column="1" Grid.Row="7" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija"/>
-        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70"/>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProstorija" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboProstorija"/>
+        <CheckBox  Content="" Grid.Column="1" Grid.Row="7" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija" KeyDown="CheckOnEnter"/>
+        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboOperacija"/>
         
 
         <Label Content="Datum" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
