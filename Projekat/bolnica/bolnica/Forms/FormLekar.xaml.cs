@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model.Korisnici;
 using Model.Pregledi;
+using Model.Prostorije;
+
 
 namespace Bolnica.Forms
 {
@@ -24,44 +26,67 @@ namespace Bolnica.Forms
         public static List<Pregled> listaPregleda= new List<Pregled>();
         public static List<Operacija> listaOperacija = new List<Operacija>();
         public static DataGrid dataList = new DataGrid();
-        public static List<Pacijent> listaPacijenata = new List<Pacijent>();
         
-        
-        
+        public static List<Lekar> listaLekara = new List<Lekar>();
+        private Lekar lekarTrenutni = new Lekar();
+        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+       
+
+
+
         public FormLekar()
         {
             InitializeComponent();
             //WindowStartupLocation = WindowStartupLocation.CenterOwner;
             //Owner = Application.Current.MainWindow;
-            //this.WindowState = WindowState.Maximized;
-
-            Pacijent a1 = new Pacijent();
-            Pacijent a2 = new Pacijent();
-            a1.Ime = "Milan";
-            a1.Prezime = "Govedarica";
-            a2.Ime = "Jelena";
-            a2.Prezime = "Popovic";
-            a1.Jmbg = "dadasd";
-            a2.Jmbg = "21321";
-            listaPacijenata.Add(a1);
-            listaPacijenata.Add(a2);
-            Pregled p1 = new Pregled();
-            p1.Datum = new DateTime(2008, 3, 1, 7, 0, 0);
-            p1.Pacijent = a1;
-            p1.Prostorija = new Model.Prostorije.Prostorija();
-            p1.Trajanje = 100;
-            p1.Zavrsen = false;
+            this.WindowState = WindowState.Maximized;
             
-            Operacija op = new Operacija();
-            op.Datum = new DateTime(2008, 3, 1, 6, 0, 0);
-            op.Pacijent = a2;
-            op.Prostorija = new Model.Prostorije.Prostorija();
-            op.Trajanje = 100;
-            op.Zavrsen = false;
-            op.TipOperacije = 0;
+            
+            lekarTrenutni.AdresaStanovanja = "AAA";
+            lekarTrenutni.BrojSlobodnihDana = 15;
+            lekarTrenutni.BrojTelefona = "111111";
+            lekarTrenutni.DatumRodjenja = new DateTime();
+            lekarTrenutni.Email = "dada@dada.com";
+            lekarTrenutni.GodineStaza = 11;
+            lekarTrenutni.Ime = "Mico";
+            lekarTrenutni.Prezime = "Govedarica";
+            lekarTrenutni.Jmbg = "342425";
+            lekarTrenutni.KorisnickoIme = "Pero";
+            lekarTrenutni.Lozinka = "Admin";
+            lekarTrenutni.Mbr = 21312;
+            lekarTrenutni.Plata = 1000;
+            Specijalizacija sp = new Specijalizacija();
+            sp.Id = 121;
+            sp.Naziv = "neka";
+            sp.OblastMedicine = "nekaa";
+            lekarTrenutni.Specijalizacija = sp;
+            lekarTrenutni.TipKorisnika = TipKorisnika.lekar;
+            lekarTrenutni.Zaposlen = true;
 
-            listaPregleda.Add(p1);
-            listaOperacija.Add(op);
+
+
+            listaLekara.Add(lekarTrenutni);
+            listaPregleda = sviPregledi.GetAllPregledi();
+            listaOperacija = sviPregledi.GetAllOperacije();
+
+            
+            for (int l=0; l < listaPregleda.Count; l++)
+            {
+                if (!listaPregleda[l].Lekar.KorisnickoIme.Equals(lekarTrenutni.KorisnickoIme))
+                {
+                    listaPregleda.RemoveAt(l);
+                    l = l - 1;
+                }
+            }
+            for (int l = 0; l < listaOperacija.Count; l++)
+            {
+                if (!listaOperacija[l].Lekar.KorisnickoIme.Equals(lekarTrenutni.KorisnickoIme))
+                {
+                    listaOperacija.RemoveAt(l);
+                    l = l - 1;
+                }
+            } 
+
             dataList.AddingNewItem += dataListAddingNewItemEventArgs;
 
             dataList.Items.SortDescriptions.Clear();
@@ -86,7 +111,7 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar forma = new FormNapraviTerminLekar();
+            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(lekarTrenutni);
             forma.Show();
         }
 
@@ -98,14 +123,19 @@ namespace Bolnica.Forms
             {
                 if (objekat.Equals(listaPregleda[i]))
                 {
+                    
+                    sviPregledi.Delete(listaPregleda[i]);
                     listaPregleda.RemoveAt(i);
+                    break;
                 }
             }
             for (int i = 0; i < listaOperacija.Count; i++)
             {
                 if (objekat.Equals(listaOperacija[i]))
                 {
+                    sviPregledi.Delete(listaOperacija[i]);
                     listaOperacija.RemoveAt(i);
+                    break;
                 }
             }
             int index = lekarGrid.SelectedIndex;
@@ -117,7 +147,7 @@ namespace Bolnica.Forms
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
-            
+            bool dozvolaZaFor = true;
             var objekat = lekarGrid.SelectedValue;
             Pregled p1 = new Pregled();
             Operacija op = new Operacija();
@@ -130,27 +160,31 @@ namespace Bolnica.Forms
                 {
                     
                      p1 = lekarGrid.SelectedItem as Pregled;
+                    dozvolaZaFor = false;
+                     break;
                 }
             }
-            for (int i = 0; i < listaOperacija.Count; i++)
+            if (dozvolaZaFor)
             {
-                if (objekat.Equals(listaOperacija[i]))
+                for (int i = 0; i < listaOperacija.Count; i++)
                 {
-                    
-                     op = lekarGrid.SelectedItem as Operacija;
+                    if (objekat.Equals(listaOperacija[i]))
+                    {
+
+                        op = lekarGrid.SelectedItem as Operacija;
+                    }
                 }
             }
-
             if (p1.Pacijent.Ime!=null)
             {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1,lekarTrenutni);
                 forma.Show();
 
 
             }
             else if(op.Pacijent.Ime!=null)
             {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op,lekarTrenutni);
                 forma.Show();
             }
 

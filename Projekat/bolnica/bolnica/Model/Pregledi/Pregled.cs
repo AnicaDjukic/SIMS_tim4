@@ -7,7 +7,8 @@ namespace Model.Pregledi
       public Model.Korisnici.Lekar lekar;
       public Model.Prostorije.Prostorija prostorija;
       public Model.Korisnici.Pacijent pacijent;
-
+      
+      
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }
@@ -45,11 +46,7 @@ namespace Model.Pregledi
           }
       }
 
-      public Model.Pregledi.TipOperacije TipOperacije
-        {
-            get;
-            set;
-        }
+      
    
    }
 }

@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using Model.Pregledi;
 using Model.Korisnici;
 using Model.Prostorije;
+using Model.Pacijenti;
+
 
 namespace Bolnica.Forms
 {
@@ -21,30 +23,41 @@ namespace Bolnica.Forms
     public partial class FormNapraviTerminLekar : Window
     {
         
-        private DateTime datum;
-        private int trajanje;
-        private string jmbg;
-        private string ime;
-        private string prezime;
-        private TipOperacije operacija;
-        private Pregled p1;
-        private Operacija op;
+        
+
+        private Lekar lekarTrenutni = new Lekar();
         private bool jeOpe = false;
         private bool dozvolaIme = true;
         private bool dozvolaPrezime = true;
         private bool dozvolaJmbg = true;
-        public FormNapraviTerminLekar()
+        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private List<Pacijent> pacijentiZa = new List<Pacijent>();
+        private List<Prostorija> prostorijaZa = new List<Prostorija>();
+        public FormNapraviTerminLekar(Lekar l1)
         {
-            
+            lekarTrenutni = l1;
             InitializeComponent();
+
+            pacijentiZa = sviPacijenti.GetAll();
+            prostorijaZa = sveProstorije.GetAllProstorije();
             
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
-            for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+           /* WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow; */
+            for (int i = 0; i < pacijentiZa.Count; i++)
             {
-                textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
-                textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
-                textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+                textIme.Items.Add(pacijentiZa[i].Ime);
+                textPrezime.Items.Add(pacijentiZa[i].Prezime);
+                textJmbg.Items.Add(pacijentiZa[i].Jmbg);
+                
+            }
+            for(int pr = 0; pr < prostorijaZa.Count; pr++)
+            {
+                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false)
+                {
+                    textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
+                }
             }
 
 
@@ -59,55 +72,66 @@ namespace Bolnica.Forms
             if (CheckFields())
             {
                 bool ope = false;
-                datum = DateTime.Parse(textDatum.Text);
-                trajanje = int.Parse(textTrajanje.Text);
-                ime = textIme.Text;
-                jmbg = textJmbg.Text;
-                prezime = textPrezime.Text;
+                Pregled trenutniPregled = new Pregled();
+                Operacija trenutnaOperacija = new Operacija();
+                trenutnaOperacija.Datum = DateTime.Parse(textDatum.Text);
+                trenutnaOperacija.Trajanje = int.Parse(textTrajanje.Text);
+                trenutnaOperacija.Lekar = lekarTrenutni;
+                trenutniPregled.Datum = DateTime.Parse(textDatum.Text);
+                trenutniPregled.Trajanje = int.Parse(textTrajanje.Text);
+                trenutniPregled.Lekar = lekarTrenutni;
+               
+                for(int i = 0;i<pacijentiZa.Count; i++)
+                {
+                    if (pacijentiZa[i].Jmbg == textJmbg.Text)
+                    {
+                        trenutnaOperacija.Pacijent = pacijentiZa[i];
+                        trenutniPregled.Pacijent = pacijentiZa[i];
+                        break;
+
+                    }
+                }
+                for(int pp = 0; pp < prostorijaZa.Count; pp++)
+                {
+                    if (prostorijaZa[pp].BrojProstorije.ToString().Equals(textProstorija.Text))
+                    {
+                        trenutnaOperacija.Prostorija = prostorijaZa[pp];
+                        trenutniPregled.Prostorija = prostorijaZa[pp];
+                        break;
+                    }
+                }
                 if (textOperacija.Text.Equals("teška"))
                 {
                     ope = true;
-                    operacija = TipOperacije.teška;
+                    trenutnaOperacija.TipOperacije = TipOperacije.teška;
                 }
                 else if (textOperacija.Text.Equals("laka"))
                 {
                     ope = true;
-                    operacija = TipOperacije.laka;
+                    trenutnaOperacija.TipOperacije = TipOperacije.laka;
                 }
                 else if (textOperacija.Text.Equals("srednja"))
                 {
                     ope = true;
-                    operacija = TipOperacije.srednja;
+                    trenutnaOperacija.TipOperacije = TipOperacije.srednja;
                 }
                 
                 if (ope)
                 {
-                    Operacija oper = new Operacija();
-                    oper.Datum = datum;
-                    oper.Trajanje = trajanje;
-                    oper.Pacijent = new Pacijent();
-                    oper.Pacijent.Ime = ime;
-                    oper.Pacijent.Jmbg = jmbg;
-                    oper.pacijent.Prezime = prezime;
-                    oper.Prostorija = new Prostorija();
-                    oper.TipOperacije = operacija;
-                    FormLekar.listaOperacija.Add(oper);
-                    FormLekar.dataList.Items.Add(oper);
+                    
+                    FormLekar.listaOperacija.Add(trenutnaOperacija);
+                    FormLekar.dataList.Items.Add(trenutnaOperacija);
                     FormLekar.data();
+                    sviPregledi.Save(trenutnaOperacija);
+
                 }
                 else
                 {
-                    Pregled p12 = new Pregled();
-                    p12.Datum = datum;
-                    p12.Trajanje = trajanje;
-                    p12.Pacijent = new Pacijent();
-                    p12.Pacijent.Ime = ime;
-                    p12.Pacijent.Jmbg = jmbg;
-                    p12.pacijent.Prezime = prezime;
-                    p12.Prostorija = new Prostorija();
-                    FormLekar.listaPregleda.Add(p12);
-                    FormLekar.dataList.Items.Add(p12);
+
+                    FormLekar.listaPregleda.Add(trenutniPregled);
+                    FormLekar.dataList.Items.Add(trenutniPregled);
                     FormLekar.data();
+                    sviPregledi.Save(trenutniPregled);
 
                 }
                 this.Close();
@@ -162,17 +186,17 @@ namespace Bolnica.Forms
             }
             if ((dozvolaJmbg || dozvolaPrezime))
             {
-                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                for (int i = 0; i < pacijentiZa.Count; i++)
                 {
-                    if (textIme.Text.Equals(FormLekar.listaPacijenata[i].Ime))
+                    if (textIme.Text.Equals(pacijentiZa[i].Ime))
                     {
                         if (dozvolaJmbg)
                         {
-                            textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+                            textJmbg.Items.Add(pacijentiZa[i].Jmbg);
                         }
                         if (dozvolaPrezime)
                         {
-                            textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                            textPrezime.Items.Add(pacijentiZa[i].Prezime);
                         }
                     }
 
@@ -207,17 +231,17 @@ namespace Bolnica.Forms
             }
             if ((dozvolaJmbg || dozvolaIme))
             {
-                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                for (int i = 0; i < pacijentiZa.Count; i++)
                 {
-                    if (textPrezime.Text.Equals(FormLekar.listaPacijenata[i].Prezime))
+                    if (textPrezime.Text.Equals(pacijentiZa[i].Prezime))
                     {
                         if (dozvolaJmbg)
                         {
-                            textJmbg.Items.Add(FormLekar.listaPacijenata[i].Jmbg);
+                            textJmbg.Items.Add(pacijentiZa[i].Jmbg);
                         }
                         if (dozvolaIme)
                         {
-                            textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                            textIme.Items.Add(pacijentiZa[i].Ime);
                         }
                     }
 
@@ -252,17 +276,17 @@ namespace Bolnica.Forms
             }
             if ((dozvolaIme || dozvolaPrezime))
             {
-                for (int i = 0; i < FormLekar.listaPacijenata.Count; i++)
+                for (int i = 0; i < pacijentiZa.Count; i++)
                 {
-                    if (textJmbg.Text.Equals(FormLekar.listaPacijenata[i].Jmbg))
+                    if (textJmbg.Text.Equals(pacijentiZa[i].Jmbg))
                     {
                         if (dozvolaIme)
                         {
-                            textIme.Items.Add(FormLekar.listaPacijenata[i].Ime);
+                            textIme.Items.Add(pacijentiZa[i].Ime);
                         }
                         if (dozvolaPrezime)
                         {
-                            textPrezime.Items.Add(FormLekar.listaPacijenata[i].Prezime);
+                            textPrezime.Items.Add(pacijentiZa[i].Prezime);
                         }
                     }
 
