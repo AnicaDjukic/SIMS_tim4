@@ -29,6 +29,7 @@ namespace Bolnica.Forms
         
         public static List<Lekar> listaLekara = new List<Lekar>();
         private Lekar lekarTrenutni = new Lekar();
+        private Lekar lekarPomocni = new Lekar();
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
        
 
@@ -63,9 +64,31 @@ namespace Bolnica.Forms
             lekarTrenutni.TipKorisnika = TipKorisnika.lekar;
             lekarTrenutni.Zaposlen = true;
 
+            lekarPomocni.AdresaStanovanja = "BBB";
+            lekarPomocni.BrojSlobodnihDana = 15;
+            lekarPomocni.BrojTelefona = "22222";
+            lekarPomocni.DatumRodjenja = new DateTime();
+            lekarPomocni.Email = "bada@dada.com";
+            lekarPomocni.GodineStaza = 7;
+            lekarPomocni.Ime = "Mio";
+            lekarPomocni.Prezime = "Prodano";
+            lekarPomocni.Jmbg = "222222";
+            lekarPomocni.KorisnickoIme = "Peki";
+            lekarPomocni.Lozinka = "Baja";
+            lekarPomocni.Mbr = 3232;
+            lekarPomocni.Plata = 10000;
+            Specijalizacija spa = new Specijalizacija();
+            spa.Id = 1211;
+            spa.Naziv = "neeka";
+            spa.OblastMedicine = "nekaaa";
+            lekarPomocni.Specijalizacija = spa;
+            lekarPomocni.TipKorisnika = TipKorisnika.lekar;
+            lekarPomocni.Zaposlen = true;
+
 
 
             listaLekara.Add(lekarTrenutni);
+            listaLekara.Add(lekarPomocni);
             listaPregleda = sviPregledi.GetAllPregledi();
             listaOperacija = sviPregledi.GetAllOperacije();
 
@@ -111,7 +134,7 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(lekarTrenutni);
+            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(listaLekara,lekarTrenutni);
             forma.Show();
         }
 
@@ -177,14 +200,14 @@ namespace Bolnica.Forms
             }
             if (p1.Pacijent.Ime!=null)
             {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1,lekarTrenutni);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1, listaLekara, lekarTrenutni);
                 forma.Show();
 
 
             }
             else if(op.Pacijent.Ime!=null)
             {
-                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op,lekarTrenutni);
+                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op, listaLekara, lekarTrenutni);
                 forma.Show();
             }
 
