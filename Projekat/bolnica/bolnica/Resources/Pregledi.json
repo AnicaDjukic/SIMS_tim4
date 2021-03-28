@@ -1,4 +1,5 @@
 [
+  
   {
     "lekar": {
       "Specijalizacija": {
@@ -64,7 +65,7 @@
       "Jmbg": "342425",
       "Ime": "Mico",
       "Prezime": "Govedarica",
-      "DatumRodjenja": "0001-01-01T00:00:00",
+      "DatumRodjenja": "1985-01-01T00:00:00",
       "BrojTelefona": "111111",
       "AdresaStanovanja": "AAA",
       "Email": "dada@dada.com",
@@ -145,7 +146,7 @@
       "TipKorisnika": 3
     },
     "Id": 2,
-    "Datum": "2003-03-03T03:00:00",
+    "Datum": "2022-03-03T03:00:00",
     "Trajanje": 6,
     "Zavrsen": false,
     "Lekar": {
@@ -162,7 +163,7 @@
       "Jmbg": "342425",
       "Ime": "Mico",
       "Prezime": "Govedarica",
-      "DatumRodjenja": "0001-01-01T00:00:00",
+      "DatumRodjenja": "1985-01-01T00:00:00",
       "BrojTelefona": "111111",
       "AdresaStanovanja": "AAA",
       "Email": "dada@dada.com",
@@ -210,7 +211,7 @@
       "Jmbg": "342425",
       "Ime": "Mico",
       "Prezime": "Govedarica",
-      "DatumRodjenja": "0001-01-01T00:00:00",
+      "DatumRodjenja": "1985-01-01T00:00:00",
       "BrojTelefona": "111111",
       "AdresaStanovanja": "AAA",
       "Email": "dada@dada.com",
@@ -265,7 +266,7 @@
       "Jmbg": "342425",
       "Ime": "Mico",
       "Prezime": "Govedarica",
-      "DatumRodjenja": "0001-01-01T00:00:00",
+      "DatumRodjenja": "1985-01-01T00:00:00",
       "BrojTelefona": "111111",
       "AdresaStanovanja": "AAA",
       "Email": "dada@dada.com",
