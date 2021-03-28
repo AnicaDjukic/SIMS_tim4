@@ -40,13 +40,7 @@
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="230,120,0,0"  VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Vatroslav Pap"></ComboBoxItem>
-            <ComboBoxItem Content="Vjekoslav Bevanda"></ComboBoxItem>
-            <ComboBoxItem Content="Radenko Salapura"></ComboBoxItem>
-            <ComboBoxItem Content="Radovan Frganja"></ComboBoxItem>
-            <ComboBoxItem Content="Svetislav Fejsa"></ComboBoxItem>
-        </ComboBox>
+        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="230,120,0,0"  VerticalAlignment="Top" Width="120"/>
 
         <Label Content="Datum" HorizontalAlignment="Left" Margin="94,40,0,0" VerticalAlignment="Top"/>
         <Label Content="Vreme (sat i minut)" HorizontalAlignment="Left" Margin="94,80,0,0" VerticalAlignment="Top"/>

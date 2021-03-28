@@ -10,7 +10,7 @@
         Title="FormPacijent" Height="450" Width="900">
     <Grid>
         <DataGrid Name="pacijentGrid" ItemsSource="{Binding Pregledi}" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                  Height="450" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
+                  Height="450" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -25,7 +25,7 @@
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prostorija" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

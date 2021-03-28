@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Model.Korisnici;
 using Model.Pacijenti;
 
 namespace Bolnica.Forms
@@ -22,9 +21,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormPacijent : Window
     {
-        public static List<Pregled> listaPregleda = new List<Pregled>();
-        public static List<Operacija> listaOperacija = new List<Operacija>();
-        public static List<Lekar> listaLekara = new List<Lekar>();
+        private Pacijent trenutniPacijent = new Pacijent();
 
         public static ObservableCollection<Pregled> Pregledi
         {
@@ -32,131 +29,79 @@ namespace Bolnica.Forms
             set;
         }
 
-        public FormPacijent()
+        private FileStoragePregledi storage;
+
+        public FormPacijent(Pacijent pacijent)
         {
             InitializeComponent();
 
             this.DataContext = this;
+
+            trenutniPacijent = pacijent;
+
             Pregledi = new ObservableCollection<Pregled>();
+            storage = new FileStoragePregledi();
 
-            Lekar l1 = new Lekar();
-            l1.Ime = "Vatroslav";
-            l1.Prezime = "Pap";
-            listaLekara.Add(l1);
-            Pregled p1 = new Pregled();
-            p1.Lekar = l1;
-            p1.Trajanje = 30;
-            p1.Datum = new DateTime(2022, 5, 15, 18, 30, 0);
-            listaPregleda.Add(p1);
-
-            Lekar l2 = new Lekar();
-            l2.Ime = "Vjekoslav";
-            l2.Prezime = "Bevanda";
-            listaLekara.Add(l2);
-            Pregled p2 = new Pregled();
-            p2.Lekar = l2;
-            p2.Trajanje = 25;
-            p2.Datum = new DateTime(2021, 4, 11, 10, 0, 0);
-            listaPregleda.Add(p2);
-
-            Lekar l3 = new Lekar();
-            l3.Ime = "Radenko";
-            l3.Prezime = "Salapura";
-            listaLekara.Add(l3);
-            Pregled p3 = new Pregled();
-            p3.Lekar = l3;
-            p3.Trajanje = 40;
-            p3.Datum = new DateTime(2021, 11, 5, 14, 0, 0);
-            listaPregleda.Add(p3);
-
-            Pregled p4 = new Pregled();
-            p4.Lekar = l1;
-            p4.Trajanje = 15;
-            p4.Datum = new DateTime(2021, 7, 7, 10, 45, 0);
-            listaPregleda.Add(p4);
-
-            for (int i = 0; i < listaPregleda.Count; i++)
+            List<Pregled> pregledi = storage.GetAllPregledi();
+            foreach (Pregled p in pregledi)
             {
-                ///pacijentGrid.Items.Add(listaPregleda[i]);
-                Pregledi.Add(listaPregleda[i]);
+                if (p.Pacijent.Guest == false)
+                {
+                    if (p.Zavrsen == false && p.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
+                        Pregledi.Add(p);
+                }
             }
-
-
-            Lekar l4 = new Lekar();
-            l4.Ime = "Radovan";
-            l4.Prezime = "Frganja";
-            listaLekara.Add(l4);
-            Operacija o1 = new Operacija();
-            o1.Lekar = l4;
-            o1.Trajanje = 90;
-            o1.Datum = new DateTime(2023, 1, 15, 11, 15, 0);
-            o1.TipOperacije = TipOperacije.srednja;
-            listaOperacija.Add(o1);
-
-            Operacija o2 = new Operacija();
-            o2.Lekar = l3;
-            o2.Trajanje = 85;
-            o2.Datum = new DateTime(2021, 7, 10, 12, 0, 0);
-            o2.TipOperacije = TipOperacije.srednja;
-            listaOperacija.Add(o2);
-
-            Lekar l5 = new Lekar();
-            l5.Ime = "Svetislav";
-            l5.Prezime = "Fejsa";
-            listaLekara.Add(l5);
-            Operacija o3 = new Operacija();
-            o3.Lekar = l5;
-            o3.Trajanje = 400;
-            o3.Datum = new DateTime(2021, 1, 1, 2, 0, 0);
-            o3.TipOperacije = TipOperacije.teška;
-            listaOperacija.Add(o3);
-
-            Operacija o4 = new Operacija();
-            o4.Lekar = l1;
-            o4.Trajanje = 15;
-            o4.Datum = new DateTime(2021, 7, 12, 21, 45, 0);
-            o4.TipOperacije = TipOperacije.laka;
-            listaOperacija.Add(o4);
-
-            for (int i = 0; i < listaOperacija.Count; i++)
+            List<Operacija> operacije = storage.GetAllOperacije();
+            foreach (Operacija o in operacije)
             {
-                ///pacijentGrid.Items.Add(listaOperacija[i]);
-                Pregledi.Add(listaOperacija[i]);
+                if (o.Pacijent.Guest == false)
+                {
+                    if (o.Zavrsen == false && o.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
+                        Pregledi.Add(o);
+                }
             }
-
         }
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            var s = new FormNapraviTerminPacijent();
+            var s = new FormNapraviTerminPacijent(trenutniPacijent);
             s.Show();
         }
 
         private void OtkaziPregled(object sender, RoutedEventArgs e)
         {
             var objekat = pacijentGrid.SelectedValue;
-            Pregled p = (Pregled) objekat;
             
             if (objekat != null)
             {
+                Operacija o = new Operacija();
 
-                for (int i = 0; i < listaPregleda.Count; i++)
+                if (objekat.GetType().Equals(o.GetType()))
                 {
-                    if (objekat.Equals(listaPregleda[i]))
+                    for (int i = 0; i < Pregledi.Count; i++)
                     {
-                        listaPregleda.RemoveAt(i);
+                        if (objekat.Equals(Pregledi[i]))
+                        {
+                            Pregledi.RemoveAt(i);
+                            o = (Operacija)objekat;
+                            FileStoragePregledi storage = new FileStoragePregledi();
+                            storage.Delete(o);
+                        }
                     }
                 }
-                for (int i = 0; i < listaOperacija.Count; i++)
+                else
                 {
-                    if (objekat.Equals(listaOperacija[i]))
+                    for (int i = 0; i < Pregledi.Count; i++)
                     {
-                        listaOperacija.RemoveAt(i);
+                        if (objekat.Equals(Pregledi[i]))
+                        {
+                            Pregledi.RemoveAt(i);
+                            Pregled p = (Pregled)objekat;
+                            FileStoragePregledi storage = new FileStoragePregledi();
+                            storage.Delete(p);
+                        }
                     }
                 }
-                int index = pacijentGrid.SelectedIndex;
-                ///pacijentGrid.Items.RemoveAt(index);
-                Pregledi.RemoveAt(index);
             }
             else
             {
@@ -166,14 +111,32 @@ namespace Bolnica.Forms
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
-            Pregled p = (Pregled)pacijentGrid.SelectedItem;
-            var s = new FormIzmeniTerminPacijent(p);
-            s.Show();
+            var objekat = pacijentGrid.SelectedValue;
+
+            if (objekat != null)
+            {
+                Operacija o = new Operacija();
+
+                if (objekat.GetType().Equals(o.GetType()))
+                {
+                    MessageBox.Show("Ne mozete da izmenite operaciju!");
+                }
+                else
+                {
+                    Pregled p = (Pregled)pacijentGrid.SelectedItem;
+                    var s = new FormIzmeniTerminPacijent(p);
+                    s.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Morate odabrati pregled koju zelite da izmenite!", "Upozorenje");
+            }
         }
 
         private void IstorijaPregleda(object sender, RoutedEventArgs e)
         {
-            var s = new FormIstorijaPregledaPacijent();
+            var s = new FormIstorijaPregledaPacijent(trenutniPacijent);
             s.Show();
         }
     }

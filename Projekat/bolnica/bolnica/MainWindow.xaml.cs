@@ -1,5 +1,7 @@
 ﻿using bolnica.Forms;
 using Bolnica.Forms;
+using Model.Korisnici;
+using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +18,8 @@ namespace bolnica
     /// </summary>
     public partial class MainWindow : Window
     {
+        private FileStoragePacijenti storage = new FileStoragePacijenti();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +64,17 @@ namespace bolnica
                     }
                     else if (type == "pacijent")
                     {
-                        var s = new FormPacijent();
+                        List<Pacijent> pacijenti = storage.GetAll();
+                        Pacijent pac = new Pacijent();
+                        foreach (Pacijent p in pacijenti)
+                        {
+                            if (p.KorisnickoIme.Equals(username) && p.Lozinka.Equals(password))
+                            {
+                                pac = p;
+                                break;
+                            }
+                        }
+                        var s = new FormPacijent(pac);
                         s.Show();
                     }
                     found = true;

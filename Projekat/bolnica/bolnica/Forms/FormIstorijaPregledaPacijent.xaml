@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="FormIstorijaPregledaPacijent" Height="450" Width="800">
     <Grid>
-        <DataGrid Height="450" HorizontalAlignment="Right" Name="pacijentIstorijaGrid" VerticalAlignment="Top" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow">
+        <DataGrid Name="pacijentIstorijaGrid" HorizontalAlignment="Right" VerticalAlignment="Top" Height="450" Width="780" 
+                  AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
