@@ -48,7 +48,7 @@
     },
     "TipOperacije": 2,
     "Id": 1,
-    "Datum": "2003-03-03T03:00:00",
+    "Datum": "2022-03-03T03:00:00",
     "Trajanje": 20,
     "Zavrsen": false,
     "Lekar": {
@@ -147,7 +147,7 @@
     },
     "TipOperacije": 0,
     "Id": 2,
-    "Datum": "2003-03-03T03:00:00",
+    "Datum": "2022-03-03T03:00:00",
     "Trajanje": 3,
     "Zavrsen": false,
     "Lekar": {
@@ -251,7 +251,7 @@
     },
     "TipOperacije": 0,
     "Id": 3,
-    "Datum": "2001-01-01T02:00:00",
+    "Datum": "2022-01-01T02:00:00",
     "Trajanje": 11,
     "Zavrsen": false,
     "Lekar": {
