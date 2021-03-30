@@ -39,7 +39,7 @@ namespace Bolnica.Forms
         public string prezimeB { get; set; }
         public string jmbgB { get; set; }
 
-        public string datumB { get; set; }
+        public DateTime datumB { get; set; }
 
         public string vremeB { get; set; }
 
@@ -98,7 +98,7 @@ namespace Bolnica.Forms
             DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
             textLekar.Text = trenutniPregled.Lekar.Prezime;
 
-            textDatum.SelectedDate = dat;
+            datumB = dat;
             vremeB = v;
             
             for (int i = 0; i < pacijentiZa.Count; i++)
@@ -180,7 +180,7 @@ namespace Bolnica.Forms
             DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
             textLekar.Text = trenutnaOperacija.Lekar.Prezime;
 
-            textDatum.SelectedDate = dat;
+            datumB = dat;
             vremeB = v;
 
             checkOperacija.IsChecked = true;
@@ -188,7 +188,7 @@ namespace Bolnica.Forms
             labelTextOperacija.Visibility = Visibility.Visible;
             textOperacija.Visibility = Visibility.Visible;
             
-            textTrajanje.Text = trenutnaOperacija.Trajanje.ToString();
+            trajanjeB = trenutnaOperacija.Trajanje.ToString();
             for (int i = 0; i <pacijentiZa.Count; i++)
             {
                 textIme.Items.Add(pacijentiZa[i].Ime);
@@ -584,13 +584,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void DatumDateOpen(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                textDatum.IsDropDownOpen = true;
-            }
-        }
+      
 
         private void VremeComboOpen(object sender, KeyEventArgs e)
         {

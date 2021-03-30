@@ -40,7 +40,7 @@ namespace Bolnica.Forms
         public string prezimeB { get; set; }
         public string jmbgB { get; set; }
 
-        public string datumB { get; set; }
+        public DateTime datumB { get; set; }
 
         public string vremeB { get; set; }
 
@@ -255,6 +255,7 @@ namespace Bolnica.Forms
                 textOperacija.Visibility = Visibility.Hidden;
                 List<TipOperacije> tipOperacije = new List<TipOperacije>();
                 textOperacija.ItemsSource = tipOperacije;
+                textOperacija.IsEnabled = false;
             }
             else
             {
@@ -271,6 +272,7 @@ namespace Bolnica.Forms
                 jeOpe = true;
                 labelTextOperacija.Visibility = Visibility.Visible;
                 textOperacija.Visibility = Visibility.Visible;
+                
                 List<TipOperacije> tipOperacije = new List<TipOperacije>();
                 tipOperacije.Add(TipOperacije.teška);
                 tipOperacije.Add(TipOperacije.laka);
@@ -283,7 +285,7 @@ namespace Bolnica.Forms
         public void filterIme()
         {
             for (int filt = 0; filt < pacijentiZa.Count; filt++)
-            {
+                {
                 if (pacijentiZa[filt].Ime.Equals(textIme.Text))
                 {
                     if (dozvolaJmbg)
@@ -542,6 +544,7 @@ namespace Bolnica.Forms
                     tipOperacije.Add(TipOperacije.laka);
                     tipOperacije.Add(TipOperacije.srednja);
                     textOperacija.ItemsSource = tipOperacije;
+                    textOperacija.SelectedItem = TipOperacije.laka;
                 }
                 bool jeste = (bool)checkOperacija.IsChecked;
                 if (jeste)
@@ -559,13 +562,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void DatumDateOpen(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                textDatum.IsDropDownOpen = true;
-            }
-        }
+        
 
         private void VremeComboOpen(object sender, KeyEventArgs e)
         {
@@ -580,7 +577,14 @@ namespace Bolnica.Forms
             if (e.Key == Key.Enter)
             {
                 textLekar.IsDropDownOpen = true;
+                
             }
         }
+
+        
+
+       
+
+       
     }
 }

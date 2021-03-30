@@ -15,7 +15,7 @@ namespace Bolnica.Validation
         private FileStoragePacijenti storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value as string != null)
+            if (value as string != "" && value != null)
             {
                 storage = new FileStoragePacijenti();
 
@@ -40,10 +40,10 @@ namespace Bolnica.Validation
 
     public class ComboBoxPrezimeValidationRule : ValidationRule
     {
-        private FileStoragePacijenti storage { get; set; }
+        private FileStoragePacijenti storage {  get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value as string != null)
+            if (value as string != "" && value != null)
             {
                 storage = new FileStoragePacijenti();
 
@@ -71,7 +71,7 @@ namespace Bolnica.Validation
         private FileStoragePacijenti storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value as string != null)
+            if (value as string != "" && value != null)
             {
                 storage = new FileStoragePacijenti();
 
@@ -100,7 +100,7 @@ namespace Bolnica.Validation
         private FileStorageProstorija storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value as string != null)
+            if (value as string != "" && value != null)
             {
                 storage = new FileStorageProstorija();
 
@@ -129,7 +129,7 @@ namespace Bolnica.Validation
         private FileStorageProstorija storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value as string != null)
+            if (value as string != "" && value != null)
             {
 
                 for (int vre = 0; vre < 24; vre++)
@@ -198,6 +198,20 @@ namespace Bolnica.Validation
             catch {
                 return new ValidationResult(false, "Nepoznata greska se desila"); 
             }
+        }
+
+    }
+
+    public class DatePickerDatumValidationRule : ValidationRule
+    {
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value != null)
+            {
+                return new ValidationResult(true, null);
+            }
+            return new ValidationResult(false, "Popunite");
         }
 
     }
