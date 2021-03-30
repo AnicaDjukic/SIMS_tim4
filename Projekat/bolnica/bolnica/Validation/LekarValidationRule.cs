@@ -170,7 +170,37 @@ namespace Bolnica.Validation
 
     }
 
+    public class TextBoxTrajanjeValidationRule : ValidationRule
+    {
 
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            try
+            {
+                int r;
+                if (int.TryParse(value as string, out r))
+                {
+                    if (r > 300)
+                    {
+                        return new ValidationResult(false, "MAX(300)");
+                    }
+                    if (r < 30)
+                    {
+                        return new ValidationResult(false, "MIN(30)");
+                    }
+                    return new ValidationResult(true, null);
+                }
+                else
+                {
+                    return new ValidationResult(false, "Unesite cijeli broj");
+                }
+            }
+            catch {
+                return new ValidationResult(false, "Nepoznata greska se desila"); 
+            }
+        }
+
+    }
 
 }
 

@@ -47,6 +47,8 @@ namespace Bolnica.Forms
 
         public string tipOperacijeB { get; set; }
 
+        public string trajanjeB { get; set; }
+
 
 
         public FormIzmeniTerminLekar(Pregled p1,List<Lekar> l1, Lekar neki)
@@ -68,7 +70,7 @@ namespace Bolnica.Forms
             pacijentiZa = sviPacijenti.GetAll();
             prostorijaZa = sveProstorije.GetAllProstorije();
 
-            textTrajanje.Text = trenutniPregled.Trajanje.ToString();
+            trajanjeB = trenutniPregled.Trajanje.ToString();
             textTrajanje.IsEnabled = false;
 
             for (int le = 0; le < lekariTrenutni.Count; le++)

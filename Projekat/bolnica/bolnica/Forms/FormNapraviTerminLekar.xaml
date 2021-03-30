@@ -7,8 +7,34 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="FormNapraviTerminLekar" Height="600" Width="700">
-    <Grid>
+        Title="FormNapraviTerminLekar" Height="635" Width="775">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="Background" Value="#FF09F3D5"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="#FF09F3D5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -51,14 +77,35 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <TextBox  Name="textTrajanje" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
-
-
+        <TextBox  Name="textTrajanje" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70">
+        <TextBox.Text>
+            <Binding Path="trajanjeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding.ValidationRules>
+                    <val:TextBoxTrajanjeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="False"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox.Text>
+        <Validation.ErrorTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                </Grid>
+            </ControlTemplate>
+        </Validation.ErrorTemplate>
+        </TextBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textIme" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboIme" >
             <ComboBox.Text>
                 <Binding Path="imeB" UpdateSourceTrigger="PropertyChanged" >
@@ -78,7 +125,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -102,7 +149,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -126,7 +173,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -150,7 +197,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -175,16 +222,16 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
 
 
-        <Label Content="Operacija" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Operacija" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Label Content="Datum" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Vreme" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Vreme(min)" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Trajanje" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Ime pacijenta" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Prezime pacijenta" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>

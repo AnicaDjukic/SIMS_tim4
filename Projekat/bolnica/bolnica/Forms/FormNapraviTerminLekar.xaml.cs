@@ -47,6 +47,8 @@ namespace Bolnica.Forms
         public string brojProstorijeB { get; set; }
 
         public string tipOperacijeB { get; set; }
+
+        public string trajanjeB { get; set; }
         public FormNapraviTerminLekar(List<Lekar> l1, Lekar neki)
         {
 
@@ -83,7 +85,7 @@ namespace Bolnica.Forms
                 textOperacija.IsEnabled = false;
             }
 
-            textTrajanje.Text = "30";
+            trajanjeB = "30";
             textTrajanje.IsEnabled = false;
 
            
