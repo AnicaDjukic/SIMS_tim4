@@ -281,6 +281,51 @@ namespace Bolnica.Forms
             lekarGrid.Items.Refresh();
         }
 
-        
+        private void InformacijeOPacijentu(object sender, RoutedEventArgs e)
+        {
+            if (lekarGrid.SelectedCells.Count > 0)
+            {
+                bool dozvolaZaFor2 = true;
+                var objekat = lekarGrid.SelectedValue;
+                Pregled p1 = new Pregled();
+                Operacija op = new Operacija();
+                p1.Pacijent = new Pacijent();
+                op.Pacijent = new Pacijent();
+
+                for (int i = 0; i < listaPregleda.Count; i++)
+                {
+                    if (objekat.Equals(listaPregleda[i]))
+                    {
+
+                        p1 = lekarGrid.SelectedItem as Pregled;
+                        dozvolaZaFor2 = false;
+                        break;
+                    }
+                }
+                if (dozvolaZaFor2)
+                {
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (objekat.Equals(listaOperacija[i]))
+                        {
+
+                            op = lekarGrid.SelectedItem as Operacija;
+                        }
+                    }
+                }
+                if (p1.Pacijent.Ime != null)
+                {
+                    FormPrikazInformacijaOPacijentuLekar forma = new FormPrikazInformacijaOPacijentuLekar(p1.Pacijent);
+                    forma.Show();
+
+
+                }
+                else if (op.Pacijent.Ime != null)
+                {
+                    FormPrikazInformacijaOPacijentuLekar forma = new FormPrikazInformacijaOPacijentuLekar(op.Pacijent);
+                    forma.Show();
+                }
+            }
+        }
     }
 }
