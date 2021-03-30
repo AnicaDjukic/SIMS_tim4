@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Minja\Documents\GitHub\SIMS_tim4\Projekat\bolnica\bolnica\App.xaml
-151182537105
+162050944161
 
-42-1045722252
+43391640339
 193-1312217200
-Forms\CreateFormProstorije.xaml;Forms\FormDodajPacijenta.xaml;Forms\FormIstorijaPregledaPacijent.xaml;Forms\FormIzmeniTerminLekar.xaml;Forms\FormIzmeniTerminPacijent.xaml;Forms\FormLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormNapraviTerminPacijent.xaml;Forms\FormPacijent.xaml;Forms\FormPrikazInformacijaOPacijentuLekar.xaml;Forms\FormPrikazPacijenta.xaml;Forms\FormSekretar.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
+Forms\CreateFormProstorije.xaml;Forms\FormDodajPacijenta.xaml;Forms\FormIstorijaPregledaPacijent.xaml;Forms\FormIzmeniTerminLekar.xaml;Forms\FormIzmeniTerminPacijent.xaml;Forms\FormLekar.xaml;Forms\FormNapraviAnamnezuLekar.xaml;Forms\FormNapraviTerminLekar.xaml;Forms\FormNapraviTerminPacijent.xaml;Forms\FormPacijent.xaml;Forms\FormPrikazInformacijaOPacijentuLekar.xaml;Forms\FormPrikazPacijenta.xaml;Forms\FormSekretar.xaml;Forms\FormUpravnik.xaml;Forms\ViewFormProstorije.xaml;MainWindow.xaml;
 
-True
+False
 
