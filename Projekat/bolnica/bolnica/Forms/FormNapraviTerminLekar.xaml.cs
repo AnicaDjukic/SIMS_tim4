@@ -56,6 +56,8 @@ namespace Bolnica.Forms
             ulogovaniLekar = neki;
             lekariTrenutni = l1;
             InitializeComponent();
+            datumB = DateTime.Now;
+     
             this.DataContext = this;
 
             pacijentiZa = sviPacijenti.GetAll();

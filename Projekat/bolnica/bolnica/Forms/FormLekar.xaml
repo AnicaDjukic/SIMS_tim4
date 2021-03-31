@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FormLekar" Background="#FF00DFFF"  >
     
-    <TabControl TabStripPlacement="Left">
+    <TabControl TabStripPlacement="Left" Loaded="focusTab">
         <TabControl.Resources>
             <Style TargetType="{x:Type TabItem}" x:Key="PrviTab" >
                 <Setter Property="HeaderTemplate">
@@ -74,7 +74,7 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
         </TabControl.Resources>
-        <TabItem Style="{StaticResource PrviTab}"   >
+        <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}"   >
             
             <Grid Height="Auto" MinHeight="300" MinWidth="500" Background="#FF0CF7A7">
                 <Grid.ColumnDefinitions>
@@ -109,7 +109,8 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButton"   >
+                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButton" Loaded="Collor"   >
+                    
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -128,7 +129,8 @@
 
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Datum" Binding="{Binding Datum}" MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}"  MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" MinWidth="75" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Ime pacijenta" Binding="{Binding Pacijent.Ime}" MinWidth="75" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Prezime pacijenta" Binding="{Binding Pacijent.Prezime}" MinWidth="75" Width="*"></DataGridTextColumn>
@@ -142,14 +144,14 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="10"   Content="Zakaži pregled"   Click="ZakaziPregled" Background="#FF00DFFF" BorderBrush="Black"/>
-                <Button Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="10"  Content="Otkaži pregled"   Click="OtkaziPregled" Background="#FF00DFFF" BorderBrush="Black"/>
-                <Button Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="10"  Content="Izmeni pregled"   Click="IzmeniPregled" Background="#FF00DFFF" BorderBrush="Black"/>
-                <Button Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="10"  Content="Informacije "   Click="InformacijeOPacijentu" Background="#FF00DFFF" BorderBrush="Black"/>
+                <Button Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="10"   Content="Zakaži pregled"   Click="ZakaziPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
+                <Button Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="10"  Content="Otkaži pregled"   Click="OtkaziPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
+                <Button Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="10"  Content="Izmeni pregled"   Click="IzmeniPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
+                <Button Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="10"  Content="Informacije "   Click="InformacijeOPacijentu" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
 
                 </Grid>
         </TabItem>
-        <TabItem Style="{StaticResource DrugiTab}" >
+        <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
             <Grid Height="Auto" MinHeight="300" MinWidth="500" Background="#FF0CF7A7">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -183,7 +185,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButtonIstorija"   >
+                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButtonIstorija" Loaded="CollorIstorija"   >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -202,7 +204,8 @@
 
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Datum" Binding="{Binding Datum}" MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}"  MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" MinWidth="75" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Ime pacijenta" Binding="{Binding Pacijent.Ime}" MinWidth="75" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Prezime pacijenta" Binding="{Binding Pacijent.Prezime}" MinWidth="75" Width="*"></DataGridTextColumn>

@@ -15,6 +15,7 @@ using Model.Pregledi;
 using Model.Prostorije;
 
 
+
 namespace Bolnica.Forms
 {
     /// <summary>
@@ -189,8 +190,10 @@ namespace Bolnica.Forms
             }
             data();
             dataIstorija();
+           
             lekarGrid.ItemsSource = dataList.Items;
             lekarGridIstorija.ItemsSource = dataListIstorija.Items;
+           
         }
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
@@ -201,7 +204,7 @@ namespace Bolnica.Forms
 
         private void OtkaziPregled(object sender, RoutedEventArgs e)
         {
-
+            
             if (lekarGrid.SelectedCells.Count > 0)
             {
                 var objekat = lekarGrid.SelectedValue;
@@ -354,7 +357,16 @@ namespace Bolnica.Forms
             {
                 e.Handled = true;
                 Zakazi.Focus();
+               
             }
+
+            if (e.Key == Key.Left)
+            {
+                e.Handled = true;
+                PreglediTab.Focus();
+            }
+
+           
 
             if (e.Key == Key.Tab)
             {
@@ -385,6 +397,14 @@ namespace Bolnica.Forms
               //  Zakazi.Focus();
             }
 
+            if(e.Key== Key.Left)
+            {
+                e.Handled = true;
+                IstorijaTab.Focus();
+            }
+
+            
+
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
@@ -406,7 +426,141 @@ namespace Bolnica.Forms
 
         }
 
+        public void CollorLekarGrid()
+        {
+            DateTime trenutni = new DateTime();
+            int dozvola = 0;
+            Pregled preg = new Pregled();
+            Operacija oper = new Operacija();
+
+            for (int i = 0; i < lekarGrid.Items.Count; i++)
+            {
+
+                var row = (DataGridRow)lekarGrid.ItemContainerGenerator.ContainerFromIndex(i);
+                if (row != null)
+                {
 
 
+                    var Objekat = row.Item;
+                    if (Objekat.GetType().Equals(preg.GetType()))
+                    {
+                        preg = Objekat as Pregled;
+                        if (trenutni.Date != preg.Datum.Date)
+                        {
+                            trenutni = preg.Datum;
+                            dozvola++;
+                            if (dozvola == 2)
+                            {
+                                dozvola = 0;
+                            }
+                        }
+                    }
+                    else if (Objekat.GetType().Equals(oper.GetType()))
+                    {
+                        oper = Objekat as Operacija;
+                        if (trenutni.Date != oper.Datum.Date)
+                        {
+                            trenutni = oper.Datum;
+                            dozvola++;
+                            if (dozvola == 2)
+                            {
+                                dozvola = 0;
+                            }
+                        }
+                    }
+
+                    if (dozvola == 0)
+                    {
+                        row.Background = Brushes.Yellow;
+                    }
+                    else if (dozvola == 1)
+                    {
+                        row.Background = Brushes.Green;
+                    }
+
+
+
+                }
+            }
+
+        }
+
+        public void CollorLekarGridIstorija()
+        {
+            
+            DateTime trenutni = new DateTime();
+            int dozvola = 0;
+            Pregled preg = new Pregled();
+            Operacija oper = new Operacija();
+
+            for (int i = 0; i < lekarGridIstorija.Items.Count+1; i++)
+            {
+
+                var row = (DataGridRow)lekarGridIstorija.ItemContainerGenerator.ContainerFromIndex(i);
+                if (row != null)
+                {
+
+
+                    var Objekat = row.Item;
+                    if (Objekat.GetType().Equals(preg.GetType()))
+                    {
+                        preg = Objekat as Pregled;
+                        if (trenutni.Date != preg.Datum.Date)
+                        {
+                            trenutni = preg.Datum;
+                            dozvola++;
+                            if (dozvola == 2)
+                            {
+                                dozvola = 0;
+                            }
+                        }
+                    }
+                    else if (Objekat.GetType().Equals(oper.GetType()))
+                    {
+                        oper = Objekat as Operacija;
+                        if (trenutni.Date != oper.Datum.Date)
+                        {
+                            trenutni = oper.Datum;
+                            dozvola++;
+                            if (dozvola == 2)
+                            {
+                                dozvola = 0;
+                            }
+                        }
+                    }
+
+                    if (dozvola == 0)
+                    {
+                        row.Background = Brushes.Yellow;
+                    }
+                    else if (dozvola == 1)
+                    {
+                        row.Background = Brushes.Green;
+                    }
+
+
+
+                }
+            }
+        }
+
+        
+
+        private void Collor(object sender, RoutedEventArgs e)
+        {
+            CollorLekarGrid();
+        }
+
+        private void CollorIstorija(object sender, RoutedEventArgs e)
+        {
+            CollorLekarGridIstorija();
+        }
+
+        
+
+        private void focusTab(object sender, RoutedEventArgs e)
+        {
+            PreglediTab.Focus();
+        }
     }
 }
