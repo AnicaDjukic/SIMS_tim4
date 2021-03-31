@@ -1,8 +1,10 @@
 ﻿using Bolnica.Forms;
 using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace bolnica.Forms
 {
@@ -24,6 +26,14 @@ namespace bolnica.Forms
         public FormUpravnik()
         {
             InitializeComponent();
+
+            DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                this.Datum.Content = DateTime.Now.ToString("HH:mm");
+                this.Vreme.Content = DateTime.Now.ToString("dd/MM/yyyy");
+
+            }, this.Dispatcher);
+
             clickedDodaj = false;
             this.DataContext = this;
             Prostorije = new ObservableCollection<Prostorija>();

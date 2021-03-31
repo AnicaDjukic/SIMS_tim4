@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:bolnica.Forms"
         xmlns:dislocal ="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="FormUpravnik" Height="450" Width="800">
+        Title="FormUpravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
+        Background="LightCyan">
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
             <ObjectDataProvider.MethodParameters>
@@ -15,23 +17,78 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
+    
     <Grid>
-        <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="304"
-                  VerticalAlignment="Top" Width="725" Margin="0,47,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="BrojProstorije" Header="Broj prostorije" Binding="{Binding BrojProstorije}" Width="*"/>
-                <DataGridTextColumn Header="Sprat" Binding="{Binding Sprat}" Width="*"/>
-                <DataGridTextColumn Header="Kvadratura" Binding="{Binding Kvadratura}" Width="*"/>
-                <DataGridComboBoxColumn Header="Tip prostorije" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="Person" Height="50" Width="50"/>
+            <StackPanel Orientation="Vertical">
+                <Label Content="UPRAVNIK" VerticalAlignment="Top"/>
+                <Label Content="Cveta"/>
+            </StackPanel>
+        </StackPanel>-->
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Width="150" Grid.RowSpan="3">
+            <Button Margin="10">
+                <Grid Width="100">
+                    <materialDesign:PackIcon Kind="Account"/>
+                    <TextBlock HorizontalAlignment="Center" Text="PROFIL"/>
+                </Grid>
+            </Button>
+            <Button Margin="10">
+                <Grid Width="100">
+                    <materialDesign:PackIcon Kind="PeopleGroup"/>
+                    <TextBlock HorizontalAlignment="Center" Text="ZAPOSLENI"/>
+                </Grid>
+            </Button>
+        </StackPanel>
+
+        <TabControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="320" VerticalAlignment="Top" Margin="0,0,10,0">
+            <TabItem Header="PROSTORIJE">
+                <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="300" Background="White">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="BrojProstorije" Header="BROJ PROSTORIJE" Binding="{Binding BrojProstorije}" Width="*"/>
+                        <DataGridTextColumn Header="SPRAT" Binding="{Binding Sprat}" Width="*"/>
+                        <DataGridTextColumn Header="KVADRATURA" Binding="{Binding Kvadratura}" Width="*"/>
+                        <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
                                         SelectedValueBinding="{Binding TipProstorije}" />
-                <DataGridCheckBoxColumn Header="Zauzeta" Binding="{Binding Zauzeta}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Click="Button_Click_Dodaj" Width="51" RenderTransformOrigin="-0.186,0.578"/>
-        <Button Content="Prikaži" HorizontalAlignment="Left" Margin="107,10,0,0" VerticalAlignment="Top" Click="Button_Click_Prikazi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
-        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="177,10,0,0" VerticalAlignment="Top" Click="Button_Click_Izmeni" Width="51" RenderTransformOrigin="-0.186,0.578"/>
-        <Button Content="Obriši" HorizontalAlignment="Left" Margin="247,10,0,0" VerticalAlignment="Top" Click="Button_Click_Obrisi" Width="51" RenderTransformOrigin="-0.186,0.578"/>
+                        <DataGridCheckBoxColumn Header="ZAUZETA" Binding="{Binding Zauzeta}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="OPREMA">
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0,0,10,0" HorizontalAlignment="Right">
+            <Button Content="DODAJ"  Grid.Column="1" HorizontalAlignment="Left"  Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Dodaj" Width="50" />
+            <Button Content="PRIKAŽI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Prikazi" Width="50"/>
+            <Button Content="IZMENI"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Izmeni" Width="50"/>
+            <Button Content="OBRIŠI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,20,0" VerticalAlignment="Bottom"  Click="Button_Click_Obrisi" Width="50"/>
+            <TextBox Height="20" Width="150" VerticalAlignment ="Bottom"/>
+            <Button Height="20" VerticalAlignment="Bottom">
+                <materialDesign:PackIcon Kind="Search"/>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Datum: "/>
+            <Label x:Name="Datum"/>
+            <Label Content="Vreme: "/>
+            <Label x:Name="Vreme" />
+        </StackPanel>
+
     </Grid>
 
 </Window>
