@@ -7,8 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <None Remove="Forms\Images\employees.png" />
+    <None Remove="Forms\Images\profile.png" />
+    <None Remove="Forms\Images\search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Forms\Images\employees.png" />
+    <Resource Include="Forms\Images\profile.png" />
+    <Resource Include="Forms\Images\search.png" />
   </ItemGroup>
 
 </Project>

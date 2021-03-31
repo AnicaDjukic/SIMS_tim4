@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="CreateFormProstorije" Height="420" Width="400">
+        Title="CreateFormProstorije" Height="420" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Broj prostorije:" HorizontalAlignment="Left" Margin="50,25,0,0" VerticalAlignment="Top"/>
         <Label Content="Sprat:" HorizontalAlignment="Left" Margin="97,75,0,0" VerticalAlignment="Top"/>

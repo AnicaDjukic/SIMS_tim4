@@ -6,10 +6,9 @@
         xmlns:local="clr-namespace:bolnica.Forms"
         xmlns:dislocal ="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="FormUpravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
-        Background="LightCyan">
+        Background="LightCyan" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
             <ObjectDataProvider.MethodParameters>
@@ -17,7 +16,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -41,14 +40,14 @@
         <StackPanel Grid.Column="0" Grid.Row="1" Width="150" Grid.RowSpan="3">
             <Button Margin="10">
                 <Grid Width="100">
-                    <materialDesign:PackIcon Kind="Account"/>
-                    <TextBlock HorizontalAlignment="Center" Text="PROFIL"/>
+                    <Image Source="Images/profile.png" Width="25" Height="25" HorizontalAlignment="Left"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="PROFIL"/>
                 </Grid>
             </Button>
             <Button Margin="10">
                 <Grid Width="100">
-                    <materialDesign:PackIcon Kind="PeopleGroup"/>
-                    <TextBlock HorizontalAlignment="Center" Text="ZAPOSLENI"/>
+                    <Image Source="Images/employees.png" Width="25" Height="25" HorizontalAlignment="Left"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="ZAPOSLENI"/>
                 </Grid>
             </Button>
         </StackPanel>
@@ -78,14 +77,14 @@
             <Button Content="OBRIŠI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,20,0" VerticalAlignment="Bottom"  Click="Button_Click_Obrisi" Width="50"/>
             <TextBox Height="20" Width="150" VerticalAlignment ="Bottom"/>
             <Button Height="20" VerticalAlignment="Bottom">
-                <materialDesign:PackIcon Kind="Search"/>
+                <Image Source="Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
             </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label Content="Datum: "/>
+            <Label Content="Datum:"/>
             <Label x:Name="Datum"/>
-            <Label Content="Vreme: "/>
+            <Label Content="Vreme:"/>
             <Label x:Name="Vreme" />
         </StackPanel>
 
