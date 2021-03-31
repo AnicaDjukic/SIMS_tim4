@@ -91,6 +91,9 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
 
 
 
@@ -109,7 +112,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButton" Loaded="Collor"   >
+                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="16" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButton" Loaded="Collor"   >
                     
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -147,13 +150,17 @@
                 <Button Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="10"   Content="Zakaži pregled"   Click="ZakaziPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
                 <Button Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="10"  Content="Otkaži pregled"   Click="OtkaziPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
                 <Button Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="10"  Content="Izmeni pregled"   Click="IzmeniPregled" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
-                <Button Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="10"  Content="Informacije "   Click="InformacijeOPacijentu" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
+                <Button Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="10"  Content="Anamneza "   Click="Anamneza" Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor"/>
+                <Button Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="10"  Content="Informacije "  Background="#FF00DFFF" BorderBrush="Black" GotFocus="Collor" Click="InformacijeOPacijentu"/>
 
                 </Grid>
         </TabItem>
         <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
             <Grid Height="Auto" MinHeight="300" MinWidth="500" Background="#FF0CF7A7">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -185,7 +192,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="13" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButtonIstorija" Loaded="CollorIstorija"   >
+                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="16" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" PreviewKeyDown="JumpOnButtonIstorija" Loaded="CollorIstorija"   >
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -218,6 +225,7 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
+                <Button Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="10"  Content="Anamneza "   Click="AnamnezaIstorija" Background="#FF00DFFF" BorderBrush="Black" GotFocus="CollorIstorija"/>
             </Grid>
         </TabItem>
         <TabItem Header="Details" />

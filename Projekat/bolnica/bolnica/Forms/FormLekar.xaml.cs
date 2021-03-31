@@ -562,5 +562,16 @@ namespace Bolnica.Forms
         {
             PreglediTab.Focus();
         }
+
+        private void Anamneza(object sender, RoutedEventArgs e)
+        {
+            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar();
+            form.Show();
+        }
+
+        private void AnamnezaIstorija(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,5 +1,5 @@
 [
-  
+
   {
     "Guest": false,
     "Obrisan": false,
@@ -22,6 +22,48 @@
     "TipKorisnika": 3
   },
   {
+    "Guest": false,
+    "Obrisan": false,
+    "Pol": 0,
+    "ZdravstveniKarton": {
+      "BrojKartona": 1,
+      "Zanimanje": "nezaposlen",
+      "BracniStatus": 0,
+      "Osiguranje": true
+    },
+    "Jmbg": "25120021000000049573",
+    "Ime": "Jelena",
+    "Prezime": "Drago",
+    "DatumRodjenja": "2002-12-25T00:00:00",
+    "BrojTelefona": "066439698",
+    "AdresaStanovanja": "Vojvode Stepe 3/25",
+    "Email": "stefan.savic2512@gmail.com",
+    "KorisnickoIme": "stefo",
+    "Lozinka": "stefke",
+    "TipKorisnika": 3
+  },
+  {
+    "Guest": false,
+    "Obrisan": false,
+    "Pol": 0,
+    "ZdravstveniKarton": {
+      "BrojKartona": 1,
+      "Zanimanje": "nezaposlen",
+      "BracniStatus": 0,
+      "Osiguranje": true
+    },
+    "Jmbg": "2512002149111111573",
+    "Ime": "Stefan",
+    "Prezime": "Drago",
+    "DatumRodjenja": "2002-12-25T00:00:00",
+    "BrojTelefona": "066439698",
+    "AdresaStanovanja": "Vojvode Stepe 3/25",
+    "Email": "stefan.savic2512@gmail.com",
+    "KorisnickoIme": "stefo",
+    "Lozinka": "stefke",
+    "TipKorisnika": 3
+  },
+  {
     "Guest": true,
     "Obrisan": false,
     "Pol": 1,
@@ -29,6 +71,54 @@
     "Jmbg": "0910990130002",
     "Ime": "Marija",
     "Prezime": "Simic",
+    "DatumRodjenja": "1990-10-09T00:00:00",
+    "BrojTelefona": "065312545",
+    "AdresaStanovanja": "Kralja Petra",
+    "Email": "marijasimic@gmail.com",
+    "KorisnickoIme": "dada",
+    "Lozinka": "DADA",
+    "TipKorisnika": 3
+  },
+  {
+    "Guest": true,
+    "Obrisan": false,
+    "Pol": 1,
+    "ZdravstveniKarton": null,
+    "Jmbg": "091099013000222222",
+    "Ime": "Marija",
+    "Prezime": "Drago",
+    "DatumRodjenja": "1990-10-09T00:00:00",
+    "BrojTelefona": "065312545",
+    "AdresaStanovanja": "Kralja Petra",
+    "Email": "marijasimic@gmail.com",
+    "KorisnickoIme": "dada",
+    "Lozinka": "DADA",
+    "TipKorisnika": 3
+  },
+  {
+    "Guest": true,
+    "Obrisan": false,
+    "Pol": 1,
+    "ZdravstveniKarton": null,
+    "Jmbg": "0910990130002333333333",
+    "Ime": "Apetit",
+    "Prezime": "Bruger",
+    "DatumRodjenja": "1990-10-09T00:00:00",
+    "BrojTelefona": "065312545",
+    "AdresaStanovanja": "Kralja Petra",
+    "Email": "marijasimic@gmail.com",
+    "KorisnickoIme": "dada",
+    "Lozinka": "DADA",
+    "TipKorisnika": 3
+  },
+  {
+    "Guest": true,
+    "Obrisan": false,
+    "Pol": 1,
+    "ZdravstveniKarton": null,
+    "Jmbg": "0910990130002444444444",
+    "Ime": "Apetit",
+    "Prezime": "Markovic",
     "DatumRodjenja": "1990-10-09T00:00:00",
     "BrojTelefona": "065312545",
     "AdresaStanovanja": "Kralja Petra",

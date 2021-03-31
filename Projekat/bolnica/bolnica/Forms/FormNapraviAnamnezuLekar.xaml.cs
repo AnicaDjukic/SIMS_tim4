@@ -17,9 +17,23 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormNapraviAnamnezuLekar : Window
     {
+        private string glavneTegobe { get; set; }
+        private string sadasnjaBolest { get; set; }
+        private string anamnezaSistema { get; set; }
+        private string licnaAnamneza { get; set; }
+
+        private string porodicnaAnamneza { get; set; }
+        private string socijalnoEpidem { get; set; }
+
+
         public FormNapraviAnamnezuLekar()
         {
             InitializeComponent();
+        }
+
+        private void OtkaziDugme(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

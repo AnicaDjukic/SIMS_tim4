@@ -6,12 +6,70 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
         Title="FormNapraviAnamnezuLekar" Height="635" Width="775">
-    <FlowDocument  PageHeight="600" PageWidth="750">
-        <Section TextAlignment="Center">
-            
-        <Paragraph TextAlignment="Center">Anamneza</Paragraph>
-        </Section>
+    <Window.Resources>
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontStretch" Value="Medium"/>
+        <Setter Property="Background" Value="#FF09F3D5"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinWidth" Value="515"/>
+        </Style>
 
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
 
-    </FlowDocument>
+    </Window.Resources>
+    <Grid Background="#FF09F3D5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Anamneza" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="30" />
+        <Label Content="Glavne tegobe:" Grid.Row="1" Grid.Column="0"></Label>
+        <Label Content="Sadasnja bolest:" Grid.Row="2" Grid.Column="0"></Label>
+        <Label Content="Anamneza neregularnih sistema:" Grid.Row="3" Grid.Column="0"></Label>
+        <Label Content="Licna anamneza:" Grid.Row="4" Grid.Column="0"></Label>
+        <Label Content="Porodicna anamneza:" Grid.Row="5" Grid.Column="0"></Label>
+        <Label Content="Socijalno-epidemioloski podaci:" Grid.Row="6" Grid.Column="0"></Label>
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Text="Upisite" TextWrapping="Wrap"  />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Text="Upisite" TextWrapping="Wrap"  />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Text="Upisite" TextWrapping="Wrap"  />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Text="Upisite" TextWrapping="Wrap" />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Text="Upisite" TextWrapping="Wrap"  />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Text="Upisite" TextWrapping="Wrap"  />
+
+        <Button Content="Potvrdi" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left"/>
+        <Button Content="Otkazi" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Click="OtkaziDugme"/>
+
+    </Grid>
 </Window>
