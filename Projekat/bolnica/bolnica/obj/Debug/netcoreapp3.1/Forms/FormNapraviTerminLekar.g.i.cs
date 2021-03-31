@@ -142,7 +142,7 @@ namespace Bolnica.Forms {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Bolnica;V1.0.0.0;component/forms/formnapraviterminlekar.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Bolnica;component/forms/formnapraviterminlekar.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Forms\FormNapraviTerminLekar.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

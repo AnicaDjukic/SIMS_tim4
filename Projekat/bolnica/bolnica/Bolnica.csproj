@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\LekarIstorija.png" />
+    <None Remove="Resources\LekarPregled.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\LekarIstorija.png" />
+    <Resource Include="Resources\LekarPregled.png" />
   </ItemGroup>
 
 </Project>

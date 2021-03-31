@@ -20,20 +20,21 @@ namespace Bolnica.Forms
     /// <summary>
     /// Interaction logic for FormLekar.xaml
     /// </summary>
-    
+
     public partial class FormLekar : Window
     {
-        public static List<Pregled> listaPregleda= new List<Pregled>();
+        public static List<Pregled> listaPregleda = new List<Pregled>();
         public static List<Operacija> listaOperacija = new List<Operacija>();
         public static DataGrid dataList = new DataGrid();
-        
+        public static DataGrid dataListIstorija = new DataGrid();
+
         public static List<Lekar> listaLekara = new List<Lekar>();
         private Lekar lekarTrenutni = new Lekar();
         private Lekar lekarPomocni = new Lekar();
         private Lekar l3 = new Lekar();
         private Lekar l4 = new Lekar();
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-       
+
 
 
 
@@ -43,8 +44,8 @@ namespace Bolnica.Forms
             //WindowStartupLocation = WindowStartupLocation.CenterOwner;
             //Owner = Application.Current.MainWindow;
             this.WindowState = WindowState.Maximized;
-            
-            
+
+
             lekarTrenutni.AdresaStanovanja = "AAA";
             lekarTrenutni.BrojSlobodnihDana = 15;
             lekarTrenutni.BrojTelefona = "111111";
@@ -130,7 +131,7 @@ namespace Bolnica.Forms
             l4.Zaposlen = true;
 
 
-            
+
             listaLekara.Add(lekarTrenutni);
             listaLekara.Add(lekarPomocni);
             listaLekara.Add(l3);
@@ -140,8 +141,8 @@ namespace Bolnica.Forms
             listaPregleda = sviPregledi.GetAllPregledi();
             listaOperacija = sviPregledi.GetAllOperacije();
 
-            
-            for (int l=0; l < listaPregleda.Count; l++)
+
+            for (int l = 0; l < listaPregleda.Count; l++)
             {
                 if (!listaPregleda[l].Lekar.KorisnickoIme.Equals(lekarTrenutni.KorisnickoIme))
                 {
@@ -156,10 +157,12 @@ namespace Bolnica.Forms
                     listaOperacija.RemoveAt(l);
                     l = l - 1;
                 }
-            } 
-
+            }
+            dataListIstorija.AddingNewItem += dataListAddingNewItemEventArgs;
             dataList.AddingNewItem += dataListAddingNewItemEventArgs;
 
+            dataListIstorija.Items.SortDescriptions.Clear();
+            dataListIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
             dataList.Items.SortDescriptions.Clear();
             dataList.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
             for (int i = 0; i < listaPregleda.Count; i++)
@@ -168,6 +171,10 @@ namespace Bolnica.Forms
                 {
                     dataList.Items.Add(listaPregleda[i]);
                 }
+                else
+                {
+                    dataListIstorija.Items.Add(listaPregleda[i]);
+                }
             }
             for (int i = 0; i < listaOperacija.Count; i++)
             {
@@ -175,14 +182,20 @@ namespace Bolnica.Forms
                 {
                     dataList.Items.Add(listaOperacija[i]);
                 }
+                else
+                {
+                    dataListIstorija.Items.Add(listaOperacija[i]);
+                }
             }
             data();
+            dataIstorija();
             lekarGrid.ItemsSource = dataList.Items;
+            lekarGridIstorija.ItemsSource = dataListIstorija.Items;
         }
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(listaLekara,lekarTrenutni);
+            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(listaLekara, lekarTrenutni);
             forma.Show();
         }
 
@@ -267,7 +280,7 @@ namespace Bolnica.Forms
 
         }
 
-       public void Refresh()
+        public void Refresh()
         {
             lekarGrid.Items.Refresh();
         }
@@ -276,13 +289,20 @@ namespace Bolnica.Forms
         {
             dataList.Items.Refresh();
         }
+        public static void dataIstorija()
+        {
+            dataListIstorija.Items.Refresh();
+        }
         private void dataListAddingNewItemEventArgs(object sender, AddingNewItemEventArgs e)
         {
             lekarGrid.Items.Refresh();
+            lekarGridIstorija.Items.Refresh();
         }
 
         private void InformacijeOPacijentu(object sender, RoutedEventArgs e)
         {
+            FormNapraviAnamnezuLekar anam = new FormNapraviAnamnezuLekar();
+            anam.Show();
             if (lekarGrid.SelectedCells.Count > 0)
             {
                 bool dozvolaZaFor2 = true;
@@ -327,6 +347,65 @@ namespace Bolnica.Forms
                 }
             }
         }
+
+        private void JumpOnButton(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                Zakazi.Focus();
+            }
+
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+                var row = lekarGrid.SelectedIndex;
+                if (row < lekarGrid.Items.Count-1)
+                {
+                    row = row + 1;
+                    lekarGrid.SelectedIndex = row;
+                    
+
+                }
+                else
+                {
+                    row = 0;
+                    lekarGrid.SelectedIndex = row;
+                }
+            }
+
+
+        }
+
+        private void JumpOnButtonIstorija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+              //  Zakazi.Focus();
+            }
+
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+                var row = lekarGridIstorija.SelectedIndex;
+                if (row < lekarGridIstorija.Items.Count - 1)
+                {
+                    row = row + 1;
+                    lekarGridIstorija.SelectedIndex = row;
+
+
+                }
+                else
+                {
+                    row = 0;
+                    lekarGridIstorija.SelectedIndex = row;
+                }
+            }
+
+
+        }
+
 
 
     }
