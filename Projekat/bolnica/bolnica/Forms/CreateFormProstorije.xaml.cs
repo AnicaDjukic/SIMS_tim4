@@ -15,6 +15,10 @@ namespace Bolnica.Forms
         public CreateFormProstorije()
         {
             InitializeComponent();
+            if (!FormUpravnik.clickedDodaj)
+            {
+                Title = "Izmeni prostoriju";
+            }
             lblUkBrojKreveta.Visibility = Visibility.Hidden;
             txtUkBrojKreveta.Visibility = Visibility.Hidden;
             lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;

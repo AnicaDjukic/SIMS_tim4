@@ -16,8 +16,9 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
-
+    
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -29,6 +30,10 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan" />
+        </Grid.Resources>
+
         <!--<StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <materialDesign:PackIcon Kind="Person" Height="50" Width="50"/>
             <StackPanel Orientation="Vertical">
@@ -39,41 +44,41 @@
 
         <StackPanel Grid.Column="0" Grid.Row="1" Width="150" Grid.RowSpan="3">
             <Button Margin="10,25,10,10">
-                <Grid Width="100">
+                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/profile.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="PROFIL"/>
-                </Grid>
+                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="PROFIL"/>
+                </StackPanel>
             </Button>
             <Button Margin="10">
-                <Grid Width="100">
+                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/employees.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="ZAPOSLENI"/>
-                </Grid>
+                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="ZAPOSLENI"/>
+                </StackPanel>
             </Button>
             <Button Margin="10">
-                <Grid Width="100">
+                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/pills.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="LEKOVI"/>
-                </Grid>
+                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="LEKOVI"/>
+                </StackPanel>
             </Button>
             <Button Margin="10">
-                <Grid Width="100">
+                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="RENOVIRAJ"/>
-                </Grid>
+                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRAJ"/>
+                </StackPanel>
             </Button>
             <Button Margin="10">
-                <Grid Width="100">
+                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/diamond.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Text="CENOVNIK"/>
-                </Grid>
+                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="CENOVNIK"/>
+                </StackPanel>
             </Button>
         </StackPanel>
 
         <TabControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="320" VerticalAlignment="Top" Margin="0,0,10,0">
             <TabItem Header="PROSTORIJE">
                 <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="300" Background="White">
+                  AutoGenerateColumns="False" Height="300">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="BrojProstorije" Header="BROJ PROSTORIJE" Binding="{Binding BrojProstorije}" Width="*"/>
                         <DataGridTextColumn Header="SPRAT" Binding="{Binding Sprat}" Width="*"/>
@@ -89,12 +94,12 @@
         </TabControl>
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0,0,10,0" HorizontalAlignment="Right">
-            <Button Content="DODAJ"  Grid.Column="1" HorizontalAlignment="Left"  Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Dodaj" Width="50" />
+            <Button Content="DODAJ" Grid.Column="1" HorizontalAlignment="Left"  Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Dodaj" Width="50" />
             <Button Content="PRIKAŽI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Prikazi" Width="50"/>
-            <Button Content="IZMENI"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Izmeni" Width="50"/>
+            <Button Content="IZMENI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Izmeni" Width="50"/>
             <Button Content="OBRIŠI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,20,0" VerticalAlignment="Bottom"  Click="Button_Click_Obrisi" Width="50"/>
             <TextBox Height="20" Width="150" VerticalAlignment ="Bottom"/>
-            <Button Height="20" VerticalAlignment="Bottom">
+            <Button Height="20" VerticalAlignment="Bottom" >
                 <Image Source="Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
             </Button>
         </StackPanel>

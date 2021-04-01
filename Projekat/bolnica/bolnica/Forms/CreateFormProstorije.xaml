@@ -5,27 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="CreateFormProstorije" Height="420" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Dodavanje prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
     <Grid>
-        <Label Content="Broj prostorije:" HorizontalAlignment="Left" Margin="50,25,0,0" VerticalAlignment="Top"/>
-        <Label Content="Sprat:" HorizontalAlignment="Left" Margin="97,75,0,0" VerticalAlignment="Top"/>
-        <Label Content="Kvadratura:" HorizontalAlignment="Left" Margin="68,125,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tip prostorije:" HorizontalAlignment="Left" Margin="55,175,0,0" VerticalAlignment="Top"/>
-        <Label Content="Zauzeta:" HorizontalAlignment="Left" Margin="83,225,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtBrojProstorije" HorizontalAlignment="Left" Margin="150,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.508,-0.997"/>
-        <TextBox Name="txtSprat" HorizontalAlignment="Left" Margin="150,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtKvadratura" HorizontalAlignment="Left" Margin="150,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="comboTipProstorije" HorizontalAlignment="Left" Margin="150,177,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboTipProstorije_SelectionChanged">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Broj prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Sprat:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Kvadratura:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Tip prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Zauzeta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row ="6" Grid.Column="0" x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="0" x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Name="txtBrojProstorije" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSprat" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="txtKvadratura" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" Name="comboTipProstorije" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="comboTipProstorije_SelectionChanged">
             <ComboBoxItem Content="Sala za preglede"/>
             <ComboBoxItem Content="Operaciona sala"/>
             <ComboBoxItem Content="Bolnička soba"/>
         </ComboBox>
-        <CheckBox Name="checkZauzeta" HorizontalAlignment="Left" Margin="150,230,0,0" VerticalAlignment="Top" Checked="checkZauzeta_Checked"/>
-        <Label x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Left" Margin="18,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,0.063"/>
-        <TextBox x:Name="txtUkBrojKreveta" HorizontalAlignment="Left" Margin="150,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Left" Margin="6,308,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBrojSlobodnihKreveta" HorizontalAlignment="Left" Margin="150,312,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-        <Button Content="Potvrdi" HorizontalAlignment="Center" Margin="0,348,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <CheckBox Grid.Row="5" Grid.Column="1" Name="checkZauzeta" Margin ="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="checkZauzeta_Checked"/>
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtUkBrojKreveta" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
+        <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtBrojSlobodnihKreveta" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" />
+
+        <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Potvrdi" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10" Height="30" Width="50" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -5,25 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="ViewFormProstorije" Height="420" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Prikaz prostorije" Height="420" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Broj prostorije:" HorizontalAlignment="Left" Margin="50,25,0,0" VerticalAlignment="Top"/>
-        <Label Content="Sprat:" HorizontalAlignment="Left" Margin="97,75,0,0" VerticalAlignment="Top"/>
-        <Label Content="Kvadratura:" HorizontalAlignment="Left" Margin="68,125,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tip prostorije:" HorizontalAlignment="Left" Margin="55,175,0,0" VerticalAlignment="Top"/>
-        <Label Content="Zauzeta:" HorizontalAlignment="Left" Margin="83,225,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkZauzeta" HorizontalAlignment="Left" Margin="169,230,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Left" Margin="18,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,0.063"/>
-        <Label x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Left" Margin="6,308,0,0" VerticalAlignment="Top"/>
+        <TabControl Height="340" Width="340" VerticalAlignment="Top" Margin="0,0,10,0">
+            <TabItem Header="INFORMACIJE">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        <Label x:Name="lblBrojProstorije" HorizontalAlignment="Left" Margin="169,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
-        <Label x:Name="lblSprat" HorizontalAlignment="Left" Margin="169,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
-        <Label x:Name="lblKvadratura" HorizontalAlignment="Left" Margin="169,125,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
-        <Label x:Name="lblTipProstorije" HorizontalAlignment="Left" Margin="169,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
-        <Label x:Name="lblUkBrKreveta" HorizontalAlignment="Left" Margin="169,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
-        <Label x:Name="lblBrSlobodnihKreveta" HorizontalAlignment="Left" Margin="169,308,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.716,-0.106" Height="26" Width="112"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Broj prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Sprat:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Kvadratura:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="4" Grid.Column="0" Content="Tip prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="5" Grid.Column="0" Content="Zauzeta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row ="6" Grid.Column="0" x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="7" Grid.Column="0" x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-        <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,348,0,0" VerticalAlignment="Top" Height="25" Width="50" Click="Button_Click"/>
+                    <Label x:Name="lblBrojProstorije" Grid.Row="1" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                    <Label x:Name="lblSprat" Grid.Row="2" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                    <Label x:Name="lblKvadratura" Grid.Row="3" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                    <Label x:Name="lblTipProstorije" Grid.Row="4" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="checkZauzeta" Grid.Row="5" Grid.Column="1" Margin ="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="lblUkBrKreveta" Grid.Row="6" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                    <Label x:Name="lblBrSlobodnihKreveta" Grid.Row="7" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="OPREMA">
+                <DataGrid x:Name="dataGridOpremaProstorije" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="300">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Width="*"/>
+                        <DataGridTextColumn Header="NAZIV" Width="*"/>
+                        <DataGridTextColumn Header="TIP OPREME" Binding="{Binding Kvadratura}" Width="*"/>
+                        <DataGridComboBoxColumn Header="KOLIČINA" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        
+        <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Height="25" Width="50" Click="Button_Click"/>
+                
 
     </Grid>
 </Window>

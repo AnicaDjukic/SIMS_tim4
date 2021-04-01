@@ -3,6 +3,7 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -55,8 +56,8 @@ namespace bolnica.Forms
 
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
-            var s = new CreateFormProstorije();
             clickedDodaj = true;
+            var s = new CreateFormProstorije();
             s.Show();
         }
 
@@ -118,7 +119,7 @@ namespace bolnica.Forms
         {
             if (dataGridProstorije.SelectedCells.Count > 0)
             {
-                FormUpravnik.clickedDodaj = false;
+                clickedDodaj = false;
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 List<Prostorija> prostorije = storage.GetAllProstorije();
                 List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
