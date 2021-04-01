@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Forms\Images\diamond.png" />
     <None Remove="Forms\Images\employees.png" />
+    <None Remove="Forms\Images\pills.png" />
     <None Remove="Forms\Images\profile.png" />
+    <None Remove="Forms\Images\recycle.png" />
     <None Remove="Forms\Images\search.png" />
   </ItemGroup>
 
@@ -17,8 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Forms\Images\diamond.png" />
     <Resource Include="Forms\Images\employees.png" />
+    <Resource Include="Forms\Images\pills.png" />
     <Resource Include="Forms\Images\profile.png" />
+    <Resource Include="Forms\Images\recycle.png" />
     <Resource Include="Forms\Images\search.png" />
   </ItemGroup>
 

@@ -29,8 +29,8 @@ namespace bolnica.Forms
 
             DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                this.Datum.Content = DateTime.Now.ToString("HH:mm");
-                this.Vreme.Content = DateTime.Now.ToString("dd/MM/yyyy");
+                this.Vreme.Content = DateTime.Now.ToString("HH:mm");
+                this.Datum.Content = DateTime.Now.ToString("dd/MM/yyyy");
 
             }, this.Dispatcher);
 
