@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bolnica.Forms"
         xmlns:dislocal ="clr-namespace:Model.Prostorije"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:dislocal1="clr-namespace:Bolnica.Model.Prostorije"
         mc:Ignorable="d"
         Title="FormUpravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
         Background="LightCyan" WindowStartupLocation="CenterScreen">
@@ -63,12 +64,6 @@
             </Button>
             <Button Margin="10">
                 <StackPanel Width="100" Orientation="Horizontal">
-                    <Image Source="Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRAJ"/>
-                </StackPanel>
-            </Button>
-            <Button Margin="10">
-                <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/diamond.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="CENOVNIK"/>
                 </StackPanel>
@@ -77,19 +72,37 @@
 
         <TabControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="320" VerticalAlignment="Top" Margin="0,0,10,0">
             <TabItem Header="PROSTORIJE">
-                <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="300">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="BrojProstorije" Header="BROJ PROSTORIJE" Binding="{Binding BrojProstorije}" Width="*"/>
-                        <DataGridTextColumn Header="SPRAT" Binding="{Binding Sprat}" Width="*"/>
-                        <DataGridTextColumn Header="KVADRATURA" Binding="{Binding Kvadratura}" Width="*"/>
-                        <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
+                <StackPanel>
+                    <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="BrojProstorije" Header="BROJ PROSTORIJE" Binding="{Binding BrojProstorije}" Width="*"/>
+                            <DataGridTextColumn Header="SPRAT" Binding="{Binding Sprat}" Width="*"/>
+                            <DataGridTextColumn Header="KVADRATURA" Binding="{Binding Kvadratura}" Width="*"/>
+                            <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" 
                                         SelectedValueBinding="{Binding TipProstorije}" />
-                        <DataGridCheckBoxColumn Header="ZAUZETA" Binding="{Binding Zauzeta}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <DataGridCheckBoxColumn Header="ZAUZETA" Binding="{Binding Zauzeta}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Margin="10" Height="30" Width="150">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRANJE"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </TabItem>
             <TabItem Header="OPREMA">
+                <DataGrid x:Name="dataGridOprema" ItemsSource="{Binding Oprema}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Sifra}" Width="*"/>
+                        <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
+                        <DataGridComboBoxColumn Header="TIP OPREME" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal1:TipOpreme}}}" SelectedValueBinding="{Binding TipOpreme}" Width="*"/>
+                        <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </TabItem>
         </TabControl>
 

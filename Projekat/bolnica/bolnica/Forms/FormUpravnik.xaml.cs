@@ -1,4 +1,5 @@
 ﻿using Bolnica.Forms;
+using Bolnica.Model.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,12 @@ namespace bolnica.Forms
         private FileStorageProstorija storage;
 
         public static bool clickedDodaj;
+
+        public static ObservableCollection<Oprema> Oprema
+        {
+            get;
+            set;
+        }
 
         public FormUpravnik()
         {
@@ -52,6 +59,19 @@ namespace bolnica.Forms
                 if(b.Obrisana == false)
                     Prostorije.Add(b);
             }
+
+            Oprema = new ObservableCollection<Oprema>();
+
+            Oprema o1 = new Oprema();
+
+            o1.Sifra = "a123";
+            o1.Naziv = "Stolica";
+            o1.Kolicina = 100;
+            o1.TipOpreme = TipOpreme.staticka;
+            o1.OpremaPoSobama.Add(111,50);
+            o1.OpremaPoSobama.Add(103, 50);
+
+            Oprema.Add(o1);
         }
 
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
@@ -66,9 +86,10 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0)
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
+                int brojProstorije = row.BrojProstorije;
                 List<Prostorija> prostorije = storage.GetAllProstorije();
                 List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
-                var s = new ViewFormProstorije();
+                var s = new ViewFormProstorije(brojProstorije);
                 bool found = false;
                 foreach (Prostorija p in prostorije)
                 {
