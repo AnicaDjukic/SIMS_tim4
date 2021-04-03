@@ -304,8 +304,7 @@ namespace Bolnica.Forms
 
         private void InformacijeOPacijentu(object sender, RoutedEventArgs e)
         {
-            FormNapraviAnamnezuLekar anam = new FormNapraviAnamnezuLekar();
-            anam.Show();
+            
             if (lekarGrid.SelectedCells.Count > 0)
             {
                 bool dozvolaZaFor2 = true;
