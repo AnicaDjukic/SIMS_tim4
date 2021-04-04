@@ -2,6 +2,7 @@
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,11 +11,107 @@ namespace Bolnica.Forms
     /// <summary>
     /// Interaction logic for CreateFormProstorije.xaml
     /// </summary>
-    public partial class CreateFormProstorije : Window
+    public partial class CreateFormProstorije : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private int brojProstorije;
+        private int sprat;
+        private double kvadratura;
+        private int brojSlobodnihKreveta;
+        private int ukBrojKreveta;
+        public int BrojProstorije
+        {
+            get
+            {
+                return brojProstorije;
+            }
+            set
+            {
+                if (value != brojProstorije)
+                {
+                    brojProstorije = value;
+                    OnPropertyChanged("BrojProstorije");
+                }
+            }
+        }
+
+        public int Sprat
+        {
+            get
+            {
+                return sprat;
+            }
+            set
+            {
+                if (value != sprat)
+                {
+                    sprat = value;
+                    OnPropertyChanged("Sprat");
+                }
+            }
+        }
+
+        public double Kvadratura
+        {
+            get
+            {
+                return kvadratura;
+            }
+            set
+            {
+                if (value != kvadratura)
+                {
+                    kvadratura = value;
+                    OnPropertyChanged("Kvadratura");
+                }
+            }
+        }
+
+        public int BrojSlobodnihKreveta
+        {
+            get
+            {
+                return brojSlobodnihKreveta;
+            }
+            set
+            {
+                if (value != brojSlobodnihKreveta)
+                {
+                    brojSlobodnihKreveta = value;
+                    OnPropertyChanged("BrojSlobodnihKreveta");
+                }
+            }
+        }
+
+        public int UkBrojKreveta
+        {
+            get
+            {
+                return ukBrojKreveta;
+            }
+            set
+            {
+                if (value != ukBrojKreveta)
+                {
+                    ukBrojKreveta = value;
+                    OnPropertyChanged("UkBrojKreveta");
+                }
+            }
+        }
+
         public CreateFormProstorije()
         {
             InitializeComponent();
+            this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
             {
                 Title = "Izmeni prostoriju";
@@ -27,18 +124,15 @@ namespace Bolnica.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int brojProstorije = Int32.Parse(txtBrojProstorije.Text);
-            int sprat = Int32.Parse(txtSprat.Text);
-            double kvadratura = Double.Parse(txtKvadratura.Text);
             int tipProstorije = comboTipProstorije.SelectedIndex;
             bool zauzeta = (bool)checkZauzeta.IsChecked;
             if (tipProstorije == 2)
             {
-                int brojSlobodnihKreveta = Int32.Parse(txtBrojSlobodnihKreveta.Text);
-                int ukBrojKreveta = Int32.Parse(txtUkBrojKreveta.Text);
-                BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = brojProstorije, Sprat = sprat, Kvadratura = kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = ukBrojKreveta, BrojSlobodnihKreveta = brojSlobodnihKreveta};
+                //int brojSlobodnihKreveta = Int32.Parse(txtBrojSlobodnihKreveta.Text);
+                //int ukBrojKreveta = Int32.Parse(txtUkBrojKreveta.Text);
+                BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = BrojProstorije, Sprat = Sprat, Kvadratura = Kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = UkBrojKreveta, BrojSlobodnihKreveta = BrojSlobodnihKreveta};
 
-                if (prostorija.BrojSlobodnihKreveta == prostorija.UkBrojKreveta)
+                if (prostorija.BrojSlobodnihKreveta == 0)
                 {
                     prostorija.Zauzeta = true;
                 }
@@ -47,9 +141,9 @@ namespace Bolnica.Forms
             else
             {
                 Prostorija prostorija = new Prostorija();
-                prostorija.BrojProstorije = brojProstorije;
-                prostorija.Sprat = sprat;
-                prostorija.Kvadratura = kvadratura;
+                prostorija.BrojProstorije = BrojProstorije;
+                prostorija.Sprat = Sprat;
+                prostorija.Kvadratura = Kvadratura;
 
                 if (tipProstorije == 0)
                 {

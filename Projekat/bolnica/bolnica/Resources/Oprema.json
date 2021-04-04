@@ -1,0 +1,23 @@
+[
+
+  {
+    "Sifra": "a123",
+    "Naziv": "Stolica",
+    "TipOpreme": 0,
+    "Kolicina": 100,
+    "OpremaPoSobama": {
+      "111": 50,
+      "103": 50
+    }
+  },
+  {
+    "Sifra": "213",
+    "Naziv": "Krevet",
+    "TipOpreme": 0,
+    "Kolicina": 200,
+    "OpremaPoSobama": {
+      "111": 12
+    }
+  }
+
+]

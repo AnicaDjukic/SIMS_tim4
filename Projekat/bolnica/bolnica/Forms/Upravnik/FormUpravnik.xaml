@@ -8,7 +8,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:dislocal1="clr-namespace:Bolnica.Model.Prostorije"
         mc:Ignorable="d"
-        Title="FormUpravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
+        Title="Upravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
         Background="LightCyan" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
@@ -20,15 +20,16 @@
     
     <Grid>
         
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -43,7 +44,7 @@
             </StackPanel>
         </StackPanel>-->
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Width="150" Grid.RowSpan="3">
+        <!--<StackPanel Grid.Column="0" Grid.Row="1" Width="150" Grid.RowSpan="3">
             <Button Margin="10,25,10,10">
                 <StackPanel Width="100" Orientation="Horizontal">
                     <Image Source="Images/profile.png" Width="25" Height="25" HorizontalAlignment="Left"/>
@@ -68,9 +69,31 @@
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="CENOVNIK"/>
                 </StackPanel>
             </Button>
-        </StackPanel>
+        </StackPanel>-->
 
-        <TabControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Height="320" VerticalAlignment="Top" Margin="0,0,10,0">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Profil">
+                <MenuItem Header="_Vidi profil" />
+                <MenuItem Header="_Izmeni profil" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Podešavanja">
+                <MenuItem Header="_Tamna tema" />
+                <MenuItem Header="_Jezik" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Pomoć">
+                <MenuItem Header="_Pomoć" />
+                <MenuItem Header="_O aplikaciji" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl x:Name="Tabovi" Grid.Row="2" Height="320" BorderBrush="LightCyan" Background="LightCyan" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0">
             <TabItem Header="PROSTORIJE">
                 <StackPanel>
                     <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
@@ -86,7 +109,7 @@
                     </DataGrid>
                     <Button Margin="10" Height="30" Width="150">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
+                            <Image Source="../Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                             <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRANJE"/>
                         </StackPanel>
                     </Button>
@@ -106,7 +129,7 @@
             </TabItem>
         </TabControl>
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0,0,10,0" HorizontalAlignment="Right">
+        <!--<StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="0,0,10,0" HorizontalAlignment="Right">
             <Button Content="DODAJ" Grid.Column="1" HorizontalAlignment="Left"  Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Dodaj" Width="50" />
             <Button Content="PRIKAŽI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Prikazi" Width="50"/>
             <Button Content="IZMENI" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,10,0" VerticalAlignment="Bottom" Click="Button_Click_Izmeni" Width="50"/>
@@ -115,14 +138,67 @@
             <Button Height="20" VerticalAlignment="Bottom" >
                 <Image Source="Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
             </Button>
-        </StackPanel>
+        </StackPanel>-->
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <!-- <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Vreme:"/>
             <Label x:Name="Vreme"/>
             <Label Content="Datum:"/>
             <Label x:Name="Datum" />
+        </StackPanel>-->
+        <ToolBar Grid.Row="1">
+            <Button Click="Button_Click_Dodaj">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/add.png" Width="20" Height="25"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Dodaj"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button Click="Button_Click_Prikazi">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/view-details.png" Width="20" Height="25"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Prikaži"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button Click="Button_Click_Izmeni">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/edit.png" Width="20" Height="25"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Izmeni"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button Click="Button_Click_Obrisi">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/delete-bin.png" Width="20" Height="25"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Obriši"/>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+        
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <TextBlock Text="Vreme:"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="Vreme"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="Datum:"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="Datum"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <StackPanel Margin="0,5,15,0" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBox  Height="20" Width="150"/>
+            <Button Height="20" VerticalAlignment="Bottom" >
+                <Image Source="../Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
+            </Button>
         </StackPanel>
+
 
     </Grid>
 

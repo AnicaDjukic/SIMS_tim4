@@ -21,7 +21,8 @@ namespace bolnica.Forms
             set;
         }
 
-        private FileStorageProstorija storage;
+        private FileStorageProstorija storageProstorije;
+        private FileStorageOprema storageOprema;
 
         public static bool clickedDodaj;
 
@@ -37,23 +38,23 @@ namespace bolnica.Forms
 
             DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                this.Vreme.Content = DateTime.Now.ToString("HH:mm");
-                this.Datum.Content = DateTime.Now.ToString("dd/MM/yyyy");
+                Vreme.Text = DateTime.Now.ToString("HH:mm");
+                Datum.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
-            }, this.Dispatcher);
+            }, Dispatcher);
 
             clickedDodaj = false;
             this.DataContext = this;
             Prostorije = new ObservableCollection<Prostorija>();
-            storage = new FileStorageProstorija();
+            storageProstorije = new FileStorageProstorija();
 
-            List<Prostorija> prostorije = storage.GetAllProstorije();
+            List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
             foreach (Prostorija p in prostorije)
             {
                 if(p.Obrisana == false)
                     Prostorije.Add(p);
             }
-            List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+            List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
                 if(b.Obrisana == false)
@@ -61,8 +62,9 @@ namespace bolnica.Forms
             }
 
             Oprema = new ObservableCollection<Oprema>();
+            storageOprema = new FileStorageOprema();
 
-            Oprema o1 = new Oprema();
+            /*Oprema o1 = new Oprema();
 
             o1.Sifra = "a123";
             o1.Naziv = "Stolica";
@@ -72,23 +74,34 @@ namespace bolnica.Forms
             o1.OpremaPoSobama.Add(103, 50);
 
             Oprema.Add(o1);
+            storageOprema.Save(o1);*/
+
+            List<Oprema> oprema = storageOprema.GetAll();
+            
+            foreach(Oprema o in oprema)
+            {
+                Oprema.Add(o);
+            }
         }
 
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
             clickedDodaj = true;
-            var s = new CreateFormProstorije();
-            s.Show();
+            if(Tabovi.SelectedIndex == 0)
+            {
+                var s = new CreateFormProstorije();
+                s.Show();
+            }
         }
 
         private void Button_Click_Prikazi(object sender, RoutedEventArgs e)
         {
-            if (dataGridProstorije.SelectedCells.Count > 0)
+            if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 int brojProstorije = row.BrojProstorije;
-                List<Prostorija> prostorije = storage.GetAllProstorije();
-                List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+                List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
+                List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
                 var s = new ViewFormProstorije(brojProstorije);
                 bool found = false;
                 foreach (Prostorija p in prostorije)
@@ -138,21 +151,21 @@ namespace bolnica.Forms
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
         {
-            if (dataGridProstorije.SelectedCells.Count > 0)
+            if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 clickedDodaj = false;
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
-                List<Prostorija> prostorije = storage.GetAllProstorije();
-                List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+                List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
+                List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
                 var s = new CreateFormProstorije();
                 bool found = false;
                 foreach (Prostorija p in prostorije)
                 {
                     if (p.BrojProstorije == row.BrojProstorije)
                     {
-                        s.txtBrojProstorije.Text = p.BrojProstorije.ToString();
-                        s.txtSprat.Text = p.Sprat.ToString();
-                        s.txtKvadratura.Text = p.Kvadratura.ToString();
+                        s.BrojProstorije= p.BrojProstorije;
+                        s.Sprat = p.Sprat;
+                        s.Kvadratura = p.Kvadratura;
                         if (p.TipProstorije == TipProstorije.salaZaPreglede)
                             s.comboTipProstorije.SelectedIndex = 0;
                         else
@@ -170,17 +183,17 @@ namespace bolnica.Forms
                     {
                         if (b.BrojProstorije == row.BrojProstorije)
                         {
-                            s.txtBrojProstorije.Text = b.BrojProstorije.ToString();
-                            s.txtSprat.Text = b.Sprat.ToString();
-                            s.txtKvadratura.Text = b.Kvadratura.ToString();
+                            s.BrojProstorije = b.BrojProstorije;
+                            s.Sprat = b.Sprat;
+                            s.Kvadratura = b.Kvadratura;
                             s.comboTipProstorije.SelectedIndex = 2;
                             s.checkZauzeta.IsChecked = b.Zauzeta;
                             s.lblUkBrojKreveta.Visibility = Visibility.Visible;
                             s.txtUkBrojKreveta.Visibility = Visibility.Visible;
-                            s.txtUkBrojKreveta.Text = b.UkBrojKreveta.ToString();
+                            s.UkBrojKreveta = b.UkBrojKreveta;
                             s.lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
                             s.txtBrojSlobodnihKreveta.Visibility = Visibility.Visible;
-                            s.txtBrojSlobodnihKreveta.Text = b.BrojSlobodnihKreveta.ToString();
+                            s.BrojSlobodnihKreveta= b.BrojSlobodnihKreveta;
                             s.Show();
                             break;
                         }
@@ -191,7 +204,7 @@ namespace bolnica.Forms
 
         private void Button_Click_Obrisi(object sender, RoutedEventArgs e)
         {
-            if (dataGridProstorije.SelectedCells.Count > 0)
+            if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 if (row.Zauzeta)
@@ -200,8 +213,8 @@ namespace bolnica.Forms
                 }
                 else
                 {
-                    List<Prostorija> prostorije = storage.GetAllProstorije();
-                    List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+                    List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
+                    List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
 
                     var s = new CreateFormProstorije();
                     bool found = false;
@@ -209,9 +222,9 @@ namespace bolnica.Forms
                     {
                         if (p.BrojProstorije == row.BrojProstorije)
                         {
-                            storage.Delete(p);
+                            storageProstorije.Delete(p);
                             p.Obrisana = true;
-                            storage.Save(p);
+                            storageProstorije.Save(p);
 
                             for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
                             {
@@ -231,9 +244,9 @@ namespace bolnica.Forms
                         {
                             if (b.BrojProstorije == row.BrojProstorije)
                             {
-                                storage.Delete(b);
+                                storageProstorije.Delete(b);
                                 b.Obrisana = true;
-                                storage.Save(b);
+                                storageProstorije.Save(b);
 
                                 for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
                                 {

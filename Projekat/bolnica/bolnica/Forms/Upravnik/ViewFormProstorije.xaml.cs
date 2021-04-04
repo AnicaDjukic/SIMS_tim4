@@ -31,7 +31,6 @@ namespace Bolnica.Forms
             InitializeComponent();
             this.DataContext = this;
             OpremaSobe = new ObservableCollection<Oprema>();
-            Oprema op = new Oprema();
 
             foreach (Oprema o in FormUpravnik.Oprema)
             {
@@ -39,6 +38,7 @@ namespace Bolnica.Forms
                 {
                     if(brojProstorije == key)
                     {
+                        Oprema op = new Oprema();
                         op.Sifra = o.Sifra;
                         op.Naziv = o.Naziv;
                         op.TipOpreme = o.TipOpreme;

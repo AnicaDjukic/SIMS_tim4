@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Title="Prikaz prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" Background="LightCyan">
     <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan"/>
+        </Grid.Resources>
         <StackPanel>
             <TabControl Height="300" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Background="LightCyan">
                 <TabItem Header="INFORMACIJE">
