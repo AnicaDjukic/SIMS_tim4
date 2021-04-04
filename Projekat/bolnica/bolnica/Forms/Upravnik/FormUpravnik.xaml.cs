@@ -1,4 +1,5 @@
 ﻿using Bolnica.Forms;
+using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Prostorije;
 using Model.Prostorije;
 using System;
@@ -91,6 +92,10 @@ namespace bolnica.Forms
             {
                 var s = new CreateFormProstorije();
                 s.Show();
+            } else if (Tabovi.SelectedIndex == 1)
+            {
+                var o = new CreateFormOprema();
+                o.Show();
             }
         }
 

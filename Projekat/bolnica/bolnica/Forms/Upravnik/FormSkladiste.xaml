@@ -1,0 +1,57 @@
+﻿<Window x:Class="Bolnica.Forms.Upravnik.FormSkladiste"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:dislocal="clr-namespace:Model.Prostorije"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        mc:Ignorable="d"
+        Title="FormSkladiste" Height="250" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="dislocal:TipProstorije"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan"/>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" Width="50" Height="20" Margin="20,0,0,0" Text="{Binding Path=Kolicina, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <DataGrid x:Name="GridSkladiste" Grid.Column="0" Grid.Row="1" Margin="10,10,5,10" ItemsSource="{Binding ProstorijeZaSkladistenje}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="BrojProstorije" Header="PROSTORIJA" Binding="{Binding BrojProstorije}" Width="*"/>
+                <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="auto"
+                                        SelectedValueBinding="{Binding TipProstorije}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Column="3" Grid.Row="1" Margin="5,10,10,10" ItemsSource="{Binding Skladista}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija}" Width="auto"/>
+                <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Height="30" Grid.Row="1" Grid.Column="1" Content=">>" Click="Button_Click_Prebaci"/>
+        <Button Grid.Row="2" Grid.ColumnSpan="3" Height="25" Width="50" VerticalAlignment="Top" Content="Potvrdi" Click="Button_Click_Potvrdi"/>
+
+    </Grid>
+</Window>

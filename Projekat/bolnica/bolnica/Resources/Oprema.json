@@ -1,5 +1,4 @@
 [
-
   {
     "Sifra": "a123",
     "Naziv": "Stolica",
@@ -15,9 +14,42 @@
     "Naziv": "Krevet",
     "TipOpreme": 0,
     "Kolicina": 200,
+    "OpremaPoSobama": { "111": 12 }
+  },
+  {
+    "Sifra": "s164",
+    "Naziv": "Aparat za ultra zvuk",
+    "TipOpreme": 0,
+    "Kolicina": 10,
+    "OpremaPoSobama": {}
+  },
+  {
+    "Sifra": "s56",
+    "Naziv": "Hirurške rukavice",
+    "TipOpreme": 0,
+    "Kolicina": 100,
+    "OpremaPoSobama": {}
+  },
+  {
+    "Sifra": "qt32",
+    "Naziv": "Maska",
+    "TipOpreme": 1,
+    "Kolicina": 200,
     "OpremaPoSobama": {
-      "111": 12
+      "102": 50,
+      "106": 50,
+      "magacin": 100
+    }
+  },
+  {
+    "Sifra": "ahsg",
+    "Naziv": "Pinceta",
+    "TipOpreme": 0,
+    "Kolicina": 50,
+    "OpremaPoSobama": {
+      "102": 20,
+      "106": 20,
+      "magacin": 10
     }
   }
-
 ]

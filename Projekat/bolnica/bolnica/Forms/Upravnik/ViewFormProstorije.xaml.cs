@@ -34,15 +34,15 @@ namespace Bolnica.Forms
 
             foreach (Oprema o in FormUpravnik.Oprema)
             {
-                foreach(int key in o.OpremaPoSobama.Keys)
+                foreach(string key in o.OpremaPoSobama.Keys)
                 {
-                    if(brojProstorije == key)
+                    if(brojProstorije.ToString() == key)
                     {
                         Oprema op = new Oprema();
                         op.Sifra = o.Sifra;
                         op.Naziv = o.Naziv;
                         op.TipOpreme = o.TipOpreme;
-                        op.Kolicina = o.OpremaPoSobama.GetValueOrDefault<int, int>(key);
+                        op.Kolicina = o.OpremaPoSobama.GetValueOrDefault<string, int>(key);
                         OpremaSobe.Add(op);
                     }
                 }

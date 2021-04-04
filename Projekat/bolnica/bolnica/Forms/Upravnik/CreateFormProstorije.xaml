@@ -32,9 +32,9 @@
         <Label Grid.Row ="6" Grid.Column="0" x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="0" x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtBrojProstorije" Text="{Binding Path=BrojProstorije, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtSprat" Text="{Binding Path=Sprat, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtKvadratura" Text="{Binding Path=Kvadratura, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=BrojProstorije, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Sprat, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Kvadratura, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipProstorije" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="comboTipProstorije_SelectionChanged">
             <ComboBoxItem Content="Sala za preglede"/>
             <ComboBoxItem Content="Operaciona sala"/>

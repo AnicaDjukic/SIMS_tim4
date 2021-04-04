@@ -72,23 +72,27 @@
         </StackPanel>-->
 
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Profil">
-                <MenuItem Header="_Vidi profil" />
-                <MenuItem Header="_Izmeni profil" />
+            <MenuItem Header="_Profil" FontSize="14">
+                <MenuItem Header="Vidi profil" FontSize="14">
+                    <MenuItem.Icon>
+                        <Image Source="../Images/woman-profile.png" Stretch="Fill"/>
+                    </MenuItem.Icon>
+                 </MenuItem>
+                <MenuItem Header="_Izmeni profil" FontSize="14" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" FontSize="14"/>
             </MenuItem>
-            <MenuItem Header="_Podešavanja">
-                <MenuItem Header="_Tamna tema" />
-                <MenuItem Header="_Jezik" />
+            <MenuItem Header="_Podešavanja" FontSize="14">
+                <MenuItem Header="_Tamna tema" FontSize="14"/>
+                <MenuItem Header="_Jezik" FontSize="14" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" FontSize="14" />
             </MenuItem>
-            <MenuItem Header="_Pomoć">
+            <MenuItem Header="_Pomoć" FontSize="14">
                 <MenuItem Header="_Pomoć" />
-                <MenuItem Header="_O aplikaciji" />
+                <MenuItem Header="_O aplikaciji" FontSize="14" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" FontSize="14"/>
             </MenuItem>
         </Menu>
 
@@ -150,28 +154,28 @@
             <Button Click="Button_Click_Dodaj">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/add.png" Width="20" Height="25"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Dodaj"/>
+                    <TextBlock Text="Dodaj" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
             <Button Click="Button_Click_Prikazi">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/view-details.png" Width="20" Height="25"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Prikaži"/>
+                    <TextBlock  Text="Prikaži" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
             <Button Click="Button_Click_Izmeni">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/edit.png" Width="20" Height="25"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Izmeni"/>
+                    <TextBlock Text="Izmeni" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
             <Button Click="Button_Click_Obrisi">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/delete-bin.png" Width="20" Height="25"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="Obriši"/>
+                    <TextBlock Text="Obriši" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
         </ToolBar>
