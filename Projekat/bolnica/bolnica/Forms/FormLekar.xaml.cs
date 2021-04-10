@@ -145,7 +145,7 @@ namespace Bolnica.Forms
 
             for (int l = 0; l < listaPregleda.Count; l++)
             {
-                if (!listaPregleda[l].Lekar.KorisnickoIme.Equals(lekarTrenutni.KorisnickoIme))
+                if (!listaPregleda[l].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
                 {
                     listaPregleda.RemoveAt(l);
                     l = l - 1;
@@ -153,7 +153,7 @@ namespace Bolnica.Forms
             }
             for (int l = 0; l < listaOperacija.Count; l++)
             {
-                if (!listaOperacija[l].Lekar.KorisnickoIme.Equals(lekarTrenutni.KorisnickoIme))
+                if (!listaOperacija[l].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
                 {
                     listaOperacija.RemoveAt(l);
                     l = l - 1;
@@ -163,7 +163,7 @@ namespace Bolnica.Forms
             dataList.AddingNewItem += dataListAddingNewItemEventArgs;
 
             dataListIstorija.Items.SortDescriptions.Clear();
-            dataListIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
+            dataListIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Descending));
             dataList.Items.SortDescriptions.Clear();
             dataList.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
             for (int i = 0; i < listaPregleda.Count; i++)
@@ -564,8 +564,50 @@ namespace Bolnica.Forms
 
         private void Anamneza(object sender, RoutedEventArgs e)
         {
-            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar();
-            form.Show();
+            if (lekarGrid.SelectedCells.Count > 0)
+            {
+                bool dozvolaZaFor2 = true;
+                var objekat = lekarGrid.SelectedValue;
+                Pregled p1 = new Pregled();
+                Operacija op = new Operacija();
+                p1.Pacijent = new Pacijent();
+                op.Pacijent = new Pacijent();
+
+                for (int i = 0; i < listaPregleda.Count; i++)
+                {
+                    if (objekat.Equals(listaPregleda[i]))
+                    {
+
+                        p1 = lekarGrid.SelectedItem as Pregled;
+                        dozvolaZaFor2 = false;
+                        break;
+                    }
+                }
+                if (dozvolaZaFor2)
+                {
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (objekat.Equals(listaOperacija[i]))
+                        {
+
+                            op = lekarGrid.SelectedItem as Operacija;
+                        }
+                    }
+                }
+                if (p1.Pacijent.Ime != null)
+                {
+                    FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, listaLekara, lekarTrenutni);
+                    form.Show();
+
+
+                }
+                else if (op.Pacijent.Ime != null)
+                {
+                    FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, listaLekara, lekarTrenutni);
+                    form.Show();
+                }
+                
+            }
         }
 
         private void AnamnezaIstorija(object sender, RoutedEventArgs e)

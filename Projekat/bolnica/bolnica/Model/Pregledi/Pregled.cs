@@ -12,7 +12,9 @@ namespace Model.Pregledi
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }
-      public Model.Korisnici.Lekar Lekar
+
+      public int AnamnezaId { get; set; }
+        public Model.Korisnici.Lekar Lekar
       {
           get
           {

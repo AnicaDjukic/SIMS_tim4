@@ -7,7 +7,7 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormIzmeniTerminLekar" Height="635" Width="775">
+        Title="FormIzmeniTerminLekar" Height="775" Width="775">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>

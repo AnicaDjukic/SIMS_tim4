@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="FormNapraviTerminLekar" Height="635" Width="775">
+        Title="FormNapraviTerminLekar" Height="775" Width="775">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -297,5 +297,6 @@
 
         <Button Style="{StaticResource SaveButton}" Content="Potvrdi" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="PotvrdiIzmenu"/>
         <Button Content="Otkaži" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="OtkaziIzmenu"/>
+        
     </Grid>
 </Window>
