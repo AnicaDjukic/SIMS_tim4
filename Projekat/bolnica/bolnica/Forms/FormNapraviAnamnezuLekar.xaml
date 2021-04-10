@@ -295,7 +295,7 @@
         </StackPanel>
     </ScrollViewer>
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.Row="16" Grid.RowSpan="2"  />
-        <Button Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+        <Button Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="Potvrdi"/>
             <Button Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center"/>
             <Button Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
       
