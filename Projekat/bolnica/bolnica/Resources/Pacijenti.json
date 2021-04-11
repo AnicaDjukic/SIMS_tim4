@@ -26,7 +26,7 @@
     "Obrisan": false,
     "Pol": 0,
     "ZdravstveniKarton": {
-      "BrojKartona": 1,
+      "BrojKartona": 2,
       "Zanimanje": "nezaposlen",
       "BracniStatus": 0,
       "Osiguranje": true
@@ -47,7 +47,7 @@
     "Obrisan": false,
     "Pol": 0,
     "ZdravstveniKarton": {
-      "BrojKartona": 1,
+      "BrojKartona": 3,
       "Zanimanje": "nezaposlen",
       "BracniStatus": 0,
       "Osiguranje": true
@@ -132,7 +132,7 @@
     "Obrisan": true,
     "Pol": 0,
     "ZdravstveniKarton": {
-      "BrojKartona": 2,
+      "BrojKartona": 4,
       "Zanimanje": "",
       "BracniStatus": 0,
       "Osiguranje": false

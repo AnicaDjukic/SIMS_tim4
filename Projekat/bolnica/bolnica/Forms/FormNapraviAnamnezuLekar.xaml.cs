@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Model.Pregledi;
+using Model.Korisnici;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -24,28 +25,34 @@ namespace Bolnica.Forms
         public string simptomi { get; set; }
         public string dijagnoza { get; set; }
 
-        public List<Recept> recepti { get; set; }
+        public List<PrikazRecepta> recepti { get; set; }
         private int dozvola = 0;
+        private List<Lek> lekovi = new List<Lek>();
 
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
         private List<Pregled> sviPreg = new List<Pregled>();
         private List<Operacija> sveOpe = new List<Operacija>();
         private List<Lekar> lekariTrenutni = new List<Lekar>();
         private Lekar ulogovaniLekar = new Lekar();
-        private Pregled trenutniPregled = new Pregled();
-        private Operacija trenutnaOperacija = new Operacija();
-        private Pregled stariPregled = new Pregled();
-        private Operacija staraOperacija = new Operacija();
+        private PrikazPregleda trenutniPregled = new PrikazPregleda();
+        private PrikazOperacije trenutnaOperacija = new PrikazOperacije();
+        private PrikazPregleda stariPregled = new PrikazPregleda();
+        private PrikazOperacije staraOperacija = new PrikazOperacije();
+        private List<Anamneza> listaAnamneza = new List<Anamneza>();
+        private FileStorageAnamneza anam = new FileStorageAnamneza();
+        private int idAnamneze;
+        private int jePregled = 0;
 
-        public static ObservableCollection<Recept> Recepti
+        public static ObservableCollection<PrikazRecepta> Recepti
         {
             get;
             set;
         }
 
 
-        public FormNapraviAnamnezuLekar(Pregled p1, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazPregleda p1, List<Lekar> l1, Lekar neki)
         {
+            jePregled = 1;
             Lek l11 = new Lek();
             Lek l22 = new Lek();
             l11.Naziv = "Aspirin";
@@ -56,22 +63,14 @@ namespace Bolnica.Forms
             l22.Odobren = false;
             l22.Id = 2;
             l22.KolicinaUMg = 300;
-            Anamneza an = new Anamneza();
-            an.Id = 1;
-            an.Simptomi = "temparatura";
-            an.Dijagnoza = "korona";
-            Recept rc = new Recept();
-            rc.Id = 1;
-            rc.Kolicina = 2;
-            rc.lek = l11;
-            rc.Trajanje = new DateTime();
-            rc.VremeUzimanja = new TimeSpan();
-            an.Recept.Add(rc);
-            List<Anamneza> ann = new List<Anamneza>();
-            ann.Add(an);
+         
+            
+            lekovi.Add(l11);
+            lekovi.Add(l22);
+            listaAnamneza = anam.GetAll();
 
-            
-            
+            Recepti = new ObservableCollection<PrikazRecepta>();
+
             simptomi = "";
             dijagnoza = "";
             
@@ -89,12 +88,36 @@ namespace Bolnica.Forms
             
 
 
-            for (int i = 0; i < ann.Count; i++)
+            for (int i = 0; i < listaAnamneza.Count; i++)
             {
-                if (p1.AnamnezaId == ann[i].Id)
+                if (p1.AnamnezaId == listaAnamneza[i].Id)
                 {
-                    simptomi = ann[i].Simptomi;
-                    dijagnoza = ann[i].Dijagnoza;
+                    idAnamneze = p1.AnamnezaId;
+                    simptomi = listaAnamneza[i].Simptomi;
+                    dijagnoza = listaAnamneza[i].Dijagnoza;
+                    PrikazRecepta pr = new PrikazRecepta(); 
+
+
+                    for (int r = 0; r < listaAnamneza[i].Recept.Count; r++)
+                    {
+                        pr = new PrikazRecepta();
+                        pr.DatumIzdavanja = listaAnamneza[i].Recept[r].DatumIzdavanja;
+                        pr.Id = listaAnamneza[i].Recept[r].Id;
+                        pr.Kolicina = listaAnamneza[i].Recept[r].Kolicina;
+                        pr.Sedmicno = listaAnamneza[i].Recept[r].Sedmicno;
+                        pr.Trajanje = listaAnamneza[i].Recept[r].Trajanje;
+                        pr.VremeUzimanja = listaAnamneza[i].Recept[r].VremeUzimanja;
+                        for (int le = 0; le < lekovi.Count; le++)
+                        {
+                            if (listaAnamneza[i].Recept[r].Lek_id.Equals(lekovi[le].Id))
+                            {
+                                pr.lek = lekovi[le];
+                                break;
+                            }
+                        }
+                        Recepti.Add(pr);
+
+                    }
                     dozvola = 1;
                     break;
                 }
@@ -107,12 +130,12 @@ namespace Bolnica.Forms
 
                 textSimptomi.Text = simptomi;
                 textDijagnoza.Text = dijagnoza;
-                Recepti = new ObservableCollection<Recept>();
+                Recepti = new ObservableCollection<PrikazRecepta>();
             }
 
         }
 
-        public FormNapraviAnamnezuLekar(Operacija op, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazOperacije op, List<Lekar> l1, Lekar neki)
         {
             Lek l11 = new Lek();
             Lek l22 = new Lek();
@@ -124,23 +147,13 @@ namespace Bolnica.Forms
             l22.Odobren = false;
             l22.Id = 2;
             l22.KolicinaUMg = 300;
-            Anamneza an = new Anamneza();
-            an.Id = 1;
-            an.Simptomi = "temparatura";
-            an.Dijagnoza = "korona";
-            Recept rc = new Recept();
-            rc.Id = 1;
-            rc.Kolicina = 2;
-            rc.lek = l11;
-            rc.Trajanje = new DateTime();
-            rc.VremeUzimanja = new TimeSpan();
-            an.Recept.Add(rc);
-            List<Anamneza> ann = new List<Anamneza>();
-            ann.Add(an);
+
+            listaAnamneza = anam.GetAll();
             simptomi = "";
             dijagnoza = "";
 
-            List<Lek> lekovi = new List<Lek>();
+            lekovi.Add(l11);
+            lekovi.Add(l22);
             
 
             trenutnaOperacija = op;
@@ -148,7 +161,7 @@ namespace Bolnica.Forms
             staraOperacija = op;
             ulogovaniLekar = neki;
 
-
+            Recepti = new ObservableCollection<PrikazRecepta>();
 
 
             InitializeComponent();
@@ -159,12 +172,37 @@ namespace Bolnica.Forms
 
 
 
-            for (int i = 0; i < ann.Count; i++)
+            for (int i = 0; i < listaAnamneza.Count; i++)
             {
-                if (op.AnamnezaId == ann[i].Id)
+                if (op.AnamnezaId == listaAnamneza[i].Id)
                 {
-                    simptomi = ann[i].Simptomi;
-                    dijagnoza = ann[i].Dijagnoza;
+                    idAnamneze = op.AnamnezaId;
+                    simptomi = listaAnamneza[i].Simptomi;
+                    dijagnoza = listaAnamneza[i].Dijagnoza;
+                    PrikazRecepta pr = new PrikazRecepta();
+
+
+                    for (int r = 0; r < listaAnamneza[i].Recept.Count; r++)
+                    {
+                        pr = new PrikazRecepta();
+                        pr.DatumIzdavanja = listaAnamneza[i].Recept[r].DatumIzdavanja;
+                        pr.Id = listaAnamneza[i].Recept[r].Id;
+                        pr.Kolicina = listaAnamneza[i].Recept[r].Kolicina;
+                        pr.Sedmicno = listaAnamneza[i].Recept[r].Sedmicno;
+                        pr.Trajanje = listaAnamneza[i].Recept[r].Trajanje;
+                        pr.VremeUzimanja = listaAnamneza[i].Recept[r].VremeUzimanja;
+                        for (int le = 0; le < lekovi.Count; le++)
+                        {
+                            if (listaAnamneza[i].Recept[r].Lek_id.Equals(lekovi[le].Id))
+                            {
+                                pr.lek = lekovi[le];
+                                break;
+                            }
+                        }
+                        Recepti.Add(pr);
+
+                    }
+
                     dozvola = 1;
                     break;
                 }
@@ -177,7 +215,7 @@ namespace Bolnica.Forms
 
                    textSimptomi.Text = simptomi;
                    textDijagnoza.Text = dijagnoza;
-                Recepti = new ObservableCollection<Recept>();
+                Recepti = new ObservableCollection<PrikazRecepta>();
             }
 
             
@@ -193,19 +231,184 @@ namespace Bolnica.Forms
 
         private void DodajLek(object sender, RoutedEventArgs e)
         {
-            FormNapraviReceptLekar form = new FormNapraviReceptLekar();
+            FormNapraviReceptLekar form = new FormNapraviReceptLekar(lekovi);
             form.Show();
         }
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             Anamneza a = new Anamneza();
-            for (int i = 0; i < Recepti.Count; i++) {
-                
-                a.Recept.Add(Recepti[i]);
-            }
+           
             a.Simptomi = textSimptomi.Text;
             a.Dijagnoza = textDijagnoza.Text;
+            a.Recept = new List<Recept>();
+            for (int i = 0; i < Recepti.Count; i++)
+            {
+                Recept n = new Recept();
+                n.Id = Recepti[i].Id;
+                n.Kolicina = Recepti[i].Kolicina;
+                n.Lek_id = Recepti[i].lek.Id;
+                n.Sedmicno = Recepti[i].Sedmicno;
+                n.Trajanje = Recepti[i].Trajanje;
+                n.VremeUzimanja = Recepti[i].VremeUzimanja;
+                a.Recept.Add(n);
+            }
+
+            if (dozvola == 0)
+            {
+                int max = 0;
+                for (int id = 0; id < listaAnamneza.Count; id++)
+                {
+                    if (listaAnamneza[id].Id > max)
+                    {
+                        max = listaAnamneza[id].Id;
+                    }
+                }
+                a.Id = max + 1;
+                anam.Save(a);
+                if (jePregled == 1)
+                {
+                   
+                       
+                        for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                        {
+                            if (FormLekar.dataList.Items[p].Equals(stariPregled))
+                            {
+                                trenutniPregled.AnamnezaId = a.Id;
+                                
+                                trenutniPregled.Zavrsen = true;
+                                FormLekar.dataListIstorija.Items.Add(trenutniPregled);
+                                FormLekar.dataList.Items.RemoveAt(p);
+
+                                FormLekar.dataIstorija();
+                                FormLekar.data();
+                                
+                                Pregled o = new Pregled();
+                                o.Id = trenutniPregled.Id;
+                                o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                                o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                                o.Trajanje = trenutniPregled.Trajanje;
+                                o.Zavrsen = trenutniPregled.Zavrsen;
+                                o.AnamnezaId = a.Id;
+                                o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                                o.Datum = trenutniPregled.Datum;
+                                o.Zavrsen = true;
+                                sviPregledi.Izmeni(o);
+                            }
+
+                        }
+
+                    
+                    
+                }
+                else
+                {
+                    
+                        
+                        for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                        {
+                            if (FormLekar.dataList.Items[p].Equals(staraOperacija))
+                            {
+                                trenutnaOperacija.AnamnezaId = a.Id;
+
+
+
+                                trenutnaOperacija.Zavrsen = true;
+                                FormLekar.dataListIstorija.Items.Add(trenutnaOperacija);
+                                FormLekar.dataList.Items.RemoveAt(p);
+
+                                FormLekar.dataIstorija();
+                                FormLekar.data();
+
+                                Operacija o = new Operacija();
+                                o.Id = trenutnaOperacija.Id;
+                                o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                                o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                                o.TipOperacije = trenutnaOperacija.TipOperacije;
+                                o.Trajanje = trenutnaOperacija.Trajanje;
+                                o.Zavrsen = trenutnaOperacija.Zavrsen;
+                                o.AnamnezaId = a.Id;
+                                o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                                o.Datum = trenutnaOperacija.Datum;
+                                o.Zavrsen = true;
+                                sviPregledi.Izmeni(o);
+                            }
+                        }
+                    
+                    
+                }
+
+            }
+            else {
+                a.Id = idAnamneze;
+                anam.Izmeni(a);
+                if(jePregled == 1)
+                {
+                    for (int p = 0; p < FormLekar.dataListIstorija.Items.Count; p++)
+                    {
+                        if (FormLekar.dataListIstorija.Items[p].Equals(stariPregled))
+                        {
+                            stariPregled.AnamnezaId = a.Id;
+
+
+
+                            stariPregled.Zavrsen = true;
+                            FormLekar.dataListIstorija.Items[p] = stariPregled;
+
+
+                            FormLekar.dataIstorija();
+
+
+                            Pregled o = new Pregled();
+                            o.Id = trenutniPregled.Id;
+                            o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                            o.Trajanje = trenutniPregled.Trajanje;
+                            o.Zavrsen = trenutniPregled.Zavrsen;
+                            o.AnamnezaId = a.Id;
+                            o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                            o.Datum = trenutniPregled.Datum;
+                            o.Zavrsen = true;
+                            sviPregledi.Izmeni(o);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int p = 0; p < FormLekar.dataListIstorija.Items.Count; p++)
+                    {
+                        if (FormLekar.dataListIstorija.Items[p].Equals(staraOperacija))
+                        {
+                            trenutnaOperacija.AnamnezaId = a.Id;
+
+
+
+                            trenutnaOperacija.Zavrsen = true;
+                            FormLekar.dataListIstorija.Items[p] = trenutnaOperacija;
+
+
+                            FormLekar.dataIstorija();
+
+
+                            Operacija o = new Operacija();
+                            o.Id = trenutnaOperacija.Id;
+                            o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                            o.TipOperacije = trenutnaOperacija.TipOperacije;
+                            o.Trajanje = trenutnaOperacija.Trajanje;
+                            o.Zavrsen = trenutnaOperacija.Zavrsen;
+                            o.AnamnezaId = a.Id;
+                            o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                            o.Datum = trenutnaOperacija.Datum;
+                            o.Zavrsen = true;
+                            sviPregledi.Izmeni(o);
+                        }
+                    }
+                }
+                
+            }
+            
+            this.Close();
         }
     }
 }

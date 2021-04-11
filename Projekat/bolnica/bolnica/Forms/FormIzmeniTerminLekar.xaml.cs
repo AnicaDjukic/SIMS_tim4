@@ -32,10 +32,10 @@ namespace Bolnica.Forms
         private int dozvolaJmbg = 0;
         private int dozvola = 0;
         private Lekar ulogovaniLekar = new Lekar();
-        private Pregled trenutniPregled = new Pregled();
-        private Operacija trenutnaOperacija = new Operacija();
-        private Pregled stariPregled = new Pregled();
-        private Operacija staraOperacija = new Operacija();
+        private PrikazPregleda trenutniPregled = new PrikazPregleda();
+        private PrikazOperacije trenutnaOperacija = new PrikazOperacije();
+        private PrikazPregleda stariPregled = new PrikazPregleda();
+        private PrikazOperacije staraOperacija = new PrikazOperacije();
         private string zaFilLek = "";
         private DateTime zaFilLekDat = new DateTime();
         public string imeB { get; set; }
@@ -54,7 +54,7 @@ namespace Bolnica.Forms
 
 
 
-        public FormIzmeniTerminLekar(Pregled p1, List<Lekar> l1, Lekar neki)
+        public FormIzmeniTerminLekar(PrikazPregleda p1, List<Lekar> l1, Lekar neki)
         {
 
             trenutniPregled = p1;
@@ -106,9 +106,12 @@ namespace Bolnica.Forms
 
             for (int i = 0; i < pacijentiZa.Count; i++)
             {
-                textIme.Items.Add(pacijentiZa[i].Ime);
-                textPrezime.Items.Add(pacijentiZa[i].Prezime);
-                textJmbg.Items.Add(pacijentiZa[i].Jmbg);
+                if (pacijentiZa[i].Obrisan == false)
+                {
+                    textIme.Items.Add(pacijentiZa[i].Ime);
+                    textPrezime.Items.Add(pacijentiZa[i].Prezime);
+                    textJmbg.Items.Add(pacijentiZa[i].Jmbg);
+                }
             }
             imeB = trenutniPregled.Pacijent.Ime;
             prezimeB = trenutniPregled.Pacijent.Prezime;
@@ -134,7 +137,7 @@ namespace Bolnica.Forms
 
         }
 
-        public FormIzmeniTerminLekar(Operacija op, List<Lekar> l1, Lekar neki)
+        public FormIzmeniTerminLekar(PrikazOperacije op, List<Lekar> l1, Lekar neki)
         {
             trenutnaOperacija = op;
             lekariTrenutni = l1;
@@ -290,11 +293,20 @@ namespace Bolnica.Forms
 
                     for (int i = 0; i < FormLekar.listaOperacija.Count; i++)
                     {
-                        if (FormLekar.listaOperacija[i].Equals(staraOperacija))
+                        if (FormLekar.listaOperacija[i].Id.Equals(staraOperacija.Id))
                         {
                             if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
                             {
-                                FormLekar.listaOperacija[i] = trenutnaOperacija;
+                                FormLekar.listaOperacija[i].Id = trenutnaOperacija.Id;
+                                FormLekar.listaOperacija[i].lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                                FormLekar.listaOperacija[i].pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                                FormLekar.listaOperacija[i].TipOperacije = trenutnaOperacija.TipOperacije;
+                                FormLekar.listaOperacija[i].Trajanje = trenutnaOperacija.Trajanje;
+                                FormLekar.listaOperacija[i].Zavrsen = trenutnaOperacija.Zavrsen;
+                                FormLekar.listaOperacija[i].AnamnezaId = trenutnaOperacija.AnamnezaId;
+                                FormLekar.listaOperacija[i].brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                                FormLekar.listaOperacija[i].Datum = trenutnaOperacija.Datum;
+                                
                             }
                             else
                             {
@@ -312,7 +324,17 @@ namespace Bolnica.Forms
                                 FormLekar.dataList.Items[p] = trenutnaOperacija;
                                 FormLekar.data();
                             }
-                            sviPregledi.Izmeni(trenutnaOperacija);
+                            Operacija o = new Operacija();
+                            o.Id = trenutnaOperacija.Id;
+                            o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                            o.TipOperacije = trenutnaOperacija.TipOperacije;
+                            o.Trajanje = trenutnaOperacija.Trajanje;
+                            o.Zavrsen = trenutnaOperacija.Zavrsen;
+                            o.AnamnezaId = trenutnaOperacija.AnamnezaId;
+                            o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                            o.Datum = trenutnaOperacija.Datum;
+                            sviPregledi.Izmeni(o);
                         }
                     }
                     this.Close();
@@ -327,7 +349,15 @@ namespace Bolnica.Forms
                         {
                             if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
                             {
-                                FormLekar.listaPregleda[i] = trenutniPregled;
+                                FormLekar.listaPregleda[i].Id = trenutniPregled.Id;
+                                FormLekar.listaPregleda[i].lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                                FormLekar.listaPregleda[i].pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                                FormLekar.listaPregleda[i].Trajanje = trenutniPregled.Trajanje;
+                                FormLekar.listaPregleda[i].Zavrsen = trenutniPregled.Zavrsen;
+                                FormLekar.listaPregleda[i].AnamnezaId = trenutniPregled.AnamnezaId;
+                                FormLekar.listaPregleda[i].brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                                FormLekar.listaPregleda[i].Datum = trenutniPregled.Datum;
+
                             }
                             else
                             {
@@ -346,7 +376,16 @@ namespace Bolnica.Forms
                                 FormLekar.dataList.Items[p] = trenutniPregled;
                                 FormLekar.data();
                             }
-                            sviPregledi.Izmeni(trenutniPregled);
+                            Pregled o = new Pregled();
+                            o.Id = trenutniPregled.Id;
+                            o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                            o.Trajanje = trenutniPregled.Trajanje;
+                            o.Zavrsen = trenutniPregled.Zavrsen;
+                            o.AnamnezaId = trenutniPregled.AnamnezaId;
+                            o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                            o.Datum = trenutniPregled.Datum;
+                            sviPregledi.Izmeni(o);
                         }
 
                     }
@@ -714,9 +753,20 @@ namespace Bolnica.Forms
                     List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
                     List<Pregled> preglediLekara = sviPregledi.GetAllPregledi();
                     List<Operacija> operacijeLekara = sviPregledi.GetAllOperacije();
+                    List<Lekar> lekar = new List<Lekar>();
+                    lekar = lekariTrenutni;
+                    string jmbgLekar = "";
+                    for(int l = 0; l < lekar.Count; l++)
+                    {
+                        if (lekar[l].Prezime.Equals(textLekar.Text))
+                        {
+                            jmbgLekar = lekar[l].Jmbg;
+                            break;
+                        }
+                    }
                     for (int da = 0; da < preglediLekara.Count; da++)
                     {
-                        if (!preglediLekara[da].Lekar.Prezime.Equals(textLekar.Text))
+                        if (!preglediLekara[da].lekarJmbg.Equals(jmbgLekar))
                         {
                             preglediLekara.RemoveAt(da);
                             da = da - 1;
@@ -724,7 +774,7 @@ namespace Bolnica.Forms
                     }
                     for (int ad = 0; ad < operacijeLekara.Count; ad++)
                     {
-                        if (!operacijeLekara[ad].Lekar.Prezime.Equals(textLekar.Text))
+                        if (!operacijeLekara[ad].lekarJmbg.Equals(jmbgLekar))
                         {
                             operacijeLekara.RemoveAt(ad);
                             ad = ad - 1;

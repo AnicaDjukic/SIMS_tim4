@@ -10,11 +10,7 @@ namespace Model.Pregledi
 {
    public class Lek
    {
-      private int id;
-      private string naziv;
-      private int kolicinaUMg;
-      private bool odobren;
-
+     
         public int Id { get; set; }
         public string Naziv { get; set; }
         public int KolicinaUMg { get; set; }

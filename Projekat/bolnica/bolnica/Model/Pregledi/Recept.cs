@@ -9,14 +9,9 @@ namespace Model.Pregledi
 {
    public class Recept
    {
-      private int id;
-      private DateTime datumIzdavanja;
-      private int kolicina;
-      private TimeSpan vremeUzimanja;
-      private DateTime trajanje;
-        private int sedmicno;
       
-      public Lek lek { get; set; }
+      
+      public int Lek_id { get; set; }
 
       public int Id { get; set; }
       public DateTime DatumIzdavanja { get; set; }

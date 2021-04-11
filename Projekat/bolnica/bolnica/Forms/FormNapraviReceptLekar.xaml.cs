@@ -28,21 +28,9 @@ namespace Bolnica.Forms
         public DateTime datumPrekida { get; set; }
 
         private List<Lek> lekovi;
-        public FormNapraviReceptLekar()
+        public FormNapraviReceptLekar(List<Lek> lek)
         {
-            Lek l11 = new Lek();
-            Lek l22 = new Lek();
-            l11.Naziv = "Aspirin";
-            l11.Odobren = true;
-            l11.Id = 1;
-            l11.KolicinaUMg = 200;
-            l22.Naziv = "Brufen";
-            l22.Odobren = false;
-            l22.Id = 2;
-            l22.KolicinaUMg = 300;
-            lekovi = new List<Lek>();
-            lekovi.Add(l11);
-            lekovi.Add(l22);
+            lekovi = lek;
 
             InitializeComponent();
 
@@ -52,12 +40,24 @@ namespace Bolnica.Forms
 
             for (int i = 0; i< lekovi.Count; i++)
             {
-                textLek.Items.Add(lekovi[i].Naziv);
+                int dozvolica = 0;
+                for(int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+                {
+                    if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(lekovi[i].Id))
+                    {
+                        dozvolica = 1;
+                    }
+
+                }
+                if (dozvolica == 0)
+                {
+                    textLek.Items.Add(lekovi[i].Naziv);
+                    textDoza.Items.Add(lekovi[i].KolicinaUMg);
+                }
             }
-            for (int i = 0; i < lekovi.Count; i++)
-            {
-                textDoza.Items.Add(lekovi[i].KolicinaUMg);
-            }
+            
+               
+            
             for (int i = 0; i < 10; i++)
             {
                 textBrojKutija.Items.Add(i);
@@ -85,12 +85,15 @@ namespace Bolnica.Forms
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             Recept r = new Recept();
+            PrikazRecepta rr = new PrikazRecepta();
             r.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
+            rr.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
             for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Naziv.Equals(textLek.Text) && lekovi[i].KolicinaUMg.Equals(int.Parse(textDoza.Text)))
                 {
-                    r.lek = lekovi[i];
+                    r.Lek_id = lekovi[i].Id;
+                    rr.lek = lekovi[i];
                     break;
                 }
             }
@@ -98,7 +101,13 @@ namespace Bolnica.Forms
             r.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
             r.Sedmicno = int.Parse(textSedmicno.Text);
             r.Trajanje = DateTime.Parse(textDatumPrekida.Text);
-            FormNapraviAnamnezuLekar.Recepti.Add(r);
+            rr.Kolicina = int.Parse(textBrojKutija.Text);
+            rr.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
+            rr.Sedmicno = int.Parse(textSedmicno.Text);
+            rr.Trajanje = DateTime.Parse(textDatumPrekida.Text);
+
+            FormNapraviAnamnezuLekar.Recepti.Add(rr);
+            this.Close();
             
         }
 
