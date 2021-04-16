@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Model.Pregledi;
+using Model.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,13 +30,19 @@ namespace Bolnica.Forms
             adresaStanovanja.Content = p1.AdresaStanovanja;
             brojTelefona.Content = p1.BrojTelefona;
             emailAdresa.Content = p1.Email;
-            
+            List<Sastojak>? l = p1.Alergeni;
+            if (l != null)
+            {
+                for (int i = 0; i < p1.Alergeni.Count; i++)
+                {
+                    alergeni2.Items.Add(p1.Alergeni[i].Naziv);
+                }
+            }
+
             if (p1.Guest)
             {
                 korisnickoIme.Visibility = Visibility.Hidden;
                 korisnickoIme2.Visibility = Visibility.Hidden;
-                idKartona.Visibility = Visibility.Hidden;
-                idKartona2.Visibility = Visibility.Hidden;
                 zanimanje.Visibility = Visibility.Hidden;
                 zanimanje2.Visibility = Visibility.Hidden;
                 bracniStatus.Visibility = Visibility.Hidden;
@@ -46,7 +53,7 @@ namespace Bolnica.Forms
             else
             {
                 korisnickoIme2.Content = p1.KorisnickoIme;
-                idKartona2.Content = p1.ZdravstveniKarton.BrojKartona.ToString();
+                
                 zanimanje2.Content = p1.ZdravstveniKarton.Zanimanje;
                 bracniStatus2.Content = p1.ZdravstveniKarton.BracniStatus;
                 osiguranje2.IsChecked = p1.ZdravstveniKarton.Osiguranje;
