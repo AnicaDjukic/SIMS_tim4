@@ -11,7 +11,6 @@ namespace Model.Pregledi
         private int kolicina;
         private TimeSpan vremeUzimanja;
         private DateTime trajanje;
-        private int sedmicno;
 
         public Lek lek { get; set; }
 
@@ -21,7 +20,6 @@ namespace Model.Pregledi
         public TimeSpan VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
-        public int Sedmicno { get; set; } //dodato
 
     }
 }

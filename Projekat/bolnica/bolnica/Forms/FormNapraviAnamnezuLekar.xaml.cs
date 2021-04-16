@@ -34,6 +34,7 @@ namespace Bolnica.Forms
         private List<Operacija> sveOpe = new List<Operacija>();
         private List<Lekar> lekariTrenutni = new List<Lekar>();
         private Lekar ulogovaniLekar = new Lekar();
+        private Pacijent trenturniPacijent = new Pacijent();
         private PrikazPregleda trenutniPregled = new PrikazPregleda();
         private PrikazOperacije trenutnaOperacija = new PrikazOperacije();
         private PrikazPregleda stariPregled = new PrikazPregleda();
@@ -63,7 +64,7 @@ namespace Bolnica.Forms
             l22.Odobren = false;
             l22.Id = 2;
             l22.KolicinaUMg = 300;
-         
+            trenturniPacijent = p1.Pacijent;
             
             lekovi.Add(l11);
             lekovi.Add(l22);
@@ -92,6 +93,15 @@ namespace Bolnica.Forms
             {
                 if (p1.AnamnezaId == listaAnamneza[i].Id)
                 {
+                    if ((p1.Datum > DateTime.Now) || (p1.Datum.AddDays(7) < DateTime.Now))
+                    {
+                        textDijagnoza.IsEnabled = false;
+                        textSimptomi.IsEnabled = false;
+                        DodajButton.IsEnabled = false;
+                        IzbrisiButton.IsEnabled = false;
+                        PotvrdiButton.IsEnabled = false;
+                    }
+
                     idAnamneze = p1.AnamnezaId;
                     simptomi = listaAnamneza[i].Simptomi;
                     dijagnoza = listaAnamneza[i].Dijagnoza;
@@ -104,7 +114,7 @@ namespace Bolnica.Forms
                         pr.DatumIzdavanja = listaAnamneza[i].Recept[r].DatumIzdavanja;
                         pr.Id = listaAnamneza[i].Recept[r].Id;
                         pr.Kolicina = listaAnamneza[i].Recept[r].Kolicina;
-                        pr.Sedmicno = listaAnamneza[i].Recept[r].Sedmicno;
+                    
                         pr.Trajanje = listaAnamneza[i].Recept[r].Trajanje;
                         pr.VremeUzimanja = listaAnamneza[i].Recept[r].VremeUzimanja;
                         for (int le = 0; le < lekovi.Count; le++)
@@ -148,6 +158,8 @@ namespace Bolnica.Forms
             l22.Id = 2;
             l22.KolicinaUMg = 300;
 
+            trenturniPacijent = op.Pacijent;
+
             listaAnamneza = anam.GetAll();
             simptomi = "";
             dijagnoza = "";
@@ -176,6 +188,14 @@ namespace Bolnica.Forms
             {
                 if (op.AnamnezaId == listaAnamneza[i].Id)
                 {
+                    if ((op.Datum > DateTime.Now) || (op.Datum.AddDays(7) < DateTime.Now))
+                    {
+                        textDijagnoza.IsEnabled = false;
+                        textSimptomi.IsEnabled = false;
+                        DodajButton.IsEnabled = false;
+                        IzbrisiButton.IsEnabled = false;
+                        PotvrdiButton.IsEnabled = false;
+                    }
                     idAnamneze = op.AnamnezaId;
                     simptomi = listaAnamneza[i].Simptomi;
                     dijagnoza = listaAnamneza[i].Dijagnoza;
@@ -188,7 +208,6 @@ namespace Bolnica.Forms
                         pr.DatumIzdavanja = listaAnamneza[i].Recept[r].DatumIzdavanja;
                         pr.Id = listaAnamneza[i].Recept[r].Id;
                         pr.Kolicina = listaAnamneza[i].Recept[r].Kolicina;
-                        pr.Sedmicno = listaAnamneza[i].Recept[r].Sedmicno;
                         pr.Trajanje = listaAnamneza[i].Recept[r].Trajanje;
                         pr.VremeUzimanja = listaAnamneza[i].Recept[r].VremeUzimanja;
                         for (int le = 0; le < lekovi.Count; le++)
@@ -231,7 +250,7 @@ namespace Bolnica.Forms
 
         private void DodajLek(object sender, RoutedEventArgs e)
         {
-            FormNapraviReceptLekar form = new FormNapraviReceptLekar(lekovi);
+            FormNapraviReceptLekar form = new FormNapraviReceptLekar(lekovi,trenturniPacijent);
             form.Show();
         }
 
@@ -245,10 +264,10 @@ namespace Bolnica.Forms
             for (int i = 0; i < Recepti.Count; i++)
             {
                 Recept n = new Recept();
+                n.DatumIzdavanja = Recepti[i].DatumIzdavanja;
                 n.Id = Recepti[i].Id;
                 n.Kolicina = Recepti[i].Kolicina;
                 n.Lek_id = Recepti[i].lek.Id;
-                n.Sedmicno = Recepti[i].Sedmicno;
                 n.Trajanje = Recepti[i].Trajanje;
                 n.VremeUzimanja = Recepti[i].VremeUzimanja;
                 a.Recept.Add(n);
@@ -409,6 +428,45 @@ namespace Bolnica.Forms
             }
             
             this.Close();
+        }
+
+        private void Obrisi(object sender, RoutedEventArgs e)
+        {
+            if (dataGridLekovi.SelectedCells.Count > 0)
+            {
+                int index = dataGridLekovi.SelectedIndex;
+                Recepti.RemoveAt(index);
+            }
+        }
+
+        private void ZakaziPregled(object sender, RoutedEventArgs e)
+        {
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(lekariTrenutni,ulogovaniLekar);
+            form.Show();
+        }
+
+        private void otkazi(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void VidiDetalje(object sender, RoutedEventArgs e)
+        {
+            if (dataGridLekovi.SelectedCells.Count > 0)
+            {
+                PrikazRecepta r = new PrikazRecepta();
+                r = dataGridLekovi.SelectedItem as PrikazRecepta;
+                Recept a = new Recept();
+                a.DatumIzdavanja = r.DatumIzdavanja;
+                a.Id = r.Id;
+                a.Kolicina = r.Kolicina;
+                a.Lek_id = r.lek.Id;
+                a.Trajanje = r.Trajanje;
+                a.VremeUzimanja = r.VremeUzimanja;
+               
+                FormVidiReceptLekar form = new FormVidiReceptLekar(lekovi,a);
+                form.Show();  
+            }
         }
     }
 }

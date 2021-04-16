@@ -1,4 +1,5 @@
-﻿using Model.Pregledi;
+﻿using Model.Korisnici;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,11 +25,10 @@ namespace Bolnica.Forms
         public string doza { get; set; }
         public string brojKutija { get; set; }
         public string vremeUzimanja { get; set; }
-        public string sedmicno { get; set; }
         public DateTime datumPrekida { get; set; }
 
         private List<Lek> lekovi;
-        public FormNapraviReceptLekar(List<Lek> lek)
+        public FormNapraviReceptLekar(List<Lek> lek,Pacijent trenutniPacijent)
         {
             lekovi = lek;
 
@@ -47,6 +47,17 @@ namespace Bolnica.Forms
                     {
                         dozvolica = 1;
                     }
+                   /* for (int o = 0; o < trenutniPacijent.Alergeni.Count; o++)
+                    {
+                        for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
+                        {
+                            if (trenutniPacijent.Alergeni[o].Equals(lekovi[i].Sastojak[m]))
+                            {
+                                dozvolica = 1;
+                            }
+
+                        }
+                    } dio za ako je alergican*/
 
                 }
                 if (dozvolica == 0)
@@ -58,7 +69,7 @@ namespace Bolnica.Forms
             
                
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i < 10; i++)
             {
                 textBrojKutija.Items.Add(i);
             }
@@ -73,10 +84,6 @@ namespace Bolnica.Forms
 
             }
 
-            for (int i = 1; i < 8; i++)
-            {
-                textSedmicno.Items.Add(i);
-            }
             datumPrekida = DateTime.Now;
 
 
@@ -99,11 +106,9 @@ namespace Bolnica.Forms
             }
             r.Kolicina = int.Parse(textBrojKutija.Text);
             r.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            r.Sedmicno = int.Parse(textSedmicno.Text);
             r.Trajanje = DateTime.Parse(textDatumPrekida.Text);
             rr.Kolicina = int.Parse(textBrojKutija.Text);
             rr.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            rr.Sedmicno = int.Parse(textSedmicno.Text);
             rr.Trajanje = DateTime.Parse(textDatumPrekida.Text);
 
             FormNapraviAnamnezuLekar.Recepti.Add(rr);
@@ -115,5 +120,55 @@ namespace Bolnica.Forms
         {
             this.Close();
         }
+
+        private void isTab(object sender, KeyEventArgs e)
+        {   
+            if(e.Key == Key.Enter)
+            {
+                textLek.IsDropDownOpen = true;
+            }
+            if (e.Key == Key.Tab)
+
+            {
+                if (textLek.Text.Length > 2)
+                {
+                    textDoza.Items.Clear();
+                    for (int i = 0; i < lekovi.Count; i++)
+                    {
+                        if (textLek.Text.Equals(lekovi[i].Naziv))
+                        {
+                            textDoza.Items.Add(lekovi[i].KolicinaUMg);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void isEnterDoza(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textDoza.IsDropDownOpen = true;
+            }
+        }
+
+        private void isEnterBrojKutija(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textBrojKutija.IsDropDownOpen = true;
+            }
+        }
+
+        private void isEnterVreme(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                textVremeUzimanja.IsDropDownOpen = true;
+            }
+        }
+
+       
     }
 }

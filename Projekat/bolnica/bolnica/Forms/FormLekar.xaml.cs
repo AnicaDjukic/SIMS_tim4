@@ -716,33 +716,38 @@ namespace Bolnica.Forms
                 if (objekat.GetType().Equals(prikazPregleda.GetType()))
                 {
                     PrikazPregleda pri = objekat as PrikazPregleda;
-                    for (int i = 0; i < listaPregleda.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
+                   
+                        for (int i = 0; i < listaPregleda.Count; i++)
                         {
+                            if (pri.Id.Equals(listaPregleda[i].Id))
+                            {
 
-                            p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, listaLekara, lekarTrenutni);
-                            form.Show();
-                            break;
+                                p1 = lekarGrid.SelectedItem as PrikazPregleda;
+                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, listaLekara, lekarTrenutni);
+                                form.Show();
+                                break;
+                            }
                         }
-                    }
+                    
+
                 }
                 if (objekat.GetType().Equals(prikazOperacije.GetType()))
                 {
                     PrikazOperacije pri = objekat as PrikazOperacije;
-                    for (int i = 0; i < listaOperacija.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaOperacija[i].Id))
+                    
+                        for (int i = 0; i < listaOperacija.Count; i++)
                         {
+                            if (pri.Id.Equals(listaOperacija[i].Id))
+                            {
 
-                            op = lekarGrid.SelectedItem as PrikazOperacije;
+                                op = lekarGrid.SelectedItem as PrikazOperacije;
 
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, listaLekara, lekarTrenutni);
-                            form.Show();
-                            break;
+                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, listaLekara, lekarTrenutni);
+                                form.Show();
+                                break;
+                            }
                         }
-                    }
+                    
                 }
                 
             }
@@ -762,34 +767,39 @@ namespace Bolnica.Forms
                 if (objekat.GetType().Equals(prikazPregleda.GetType()))
                 {
                     PrikazPregleda pri = objekat as PrikazPregleda;
-                    for (int i = 0; i < listaPregleda.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
+                   
+                        for (int i = 0; i < listaPregleda.Count; i++)
                         {
+                            if (pri.Id.Equals(listaPregleda[i].Id))
+                            {
 
-                            p1 = lekarGridIstorija.SelectedItem as PrikazPregleda;
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, listaLekara, lekarTrenutni);
-                            form.Show();
-                            break;
+                                p1 = lekarGridIstorija.SelectedItem as PrikazPregleda;
+                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, listaLekara, lekarTrenutni);
+                                form.Show();
+                                break;
+                            }
                         }
-                    }
+                   
                 }
                 if (objekat.GetType().Equals(prikazOperacije.GetType()))
                 {
                     PrikazOperacije pri = objekat as PrikazOperacije;
-                    for (int i = 0; i < listaOperacija.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaOperacija[i].Id))
+                   
+                        for (int i = 0; i < listaOperacija.Count; i++)
                         {
+                            if (pri.Id.Equals(listaOperacija[i].Id))
+                            {
 
-                            op = lekarGridIstorija.SelectedItem as PrikazOperacije;
+                                op = lekarGridIstorija.SelectedItem as PrikazOperacije;
 
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, listaLekara, lekarTrenutni);
-                            form.Show();
-                            break;
+                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, listaLekara, lekarTrenutni);
+                                form.Show();
+                                break;
+                            }
                         }
-                    }
-                }
+                   
+                }   
+               
 
             }
         }

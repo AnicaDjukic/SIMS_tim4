@@ -19,7 +19,7 @@ namespace Model.Pregledi
         public TimeSpan VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
-        public int Sedmicno { get; set; } //dodato
+       
    
    }
 }

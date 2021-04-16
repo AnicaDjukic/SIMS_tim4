@@ -1,5 +1,22 @@
-[
-
+﻿[
+  
+  {
+    "Guest": true,
+    "Obrisan": true,
+    "Pol": 0,
+    "ZdravstveniKarton": null,
+    "Alergeni": null,
+    "Jmbg": "2502998521234",
+    "Ime": "Marko",
+    "Prezime": "Markovic",
+    "DatumRodjenja": "1998-02-25T00:00:00",
+    "BrojTelefona": "(064) 535-2427",
+    "AdresaStanovanja": "Vojvode Mišića, Niš",
+    "Email": "marko@gmail.com",
+    "KorisnickoIme": null,
+    "Lozinka": null,
+    "TipKorisnika": 3
+  },
   {
     "Guest": false,
     "Obrisan": false,
@@ -10,54 +27,13 @@
       "BracniStatus": 0,
       "Osiguranje": true
     },
+    "Alergeni": null,
     "Jmbg": "2512002149573",
     "Ime": "Stefan",
-    "Prezime": "Savic",
+    "Prezime": "Savić",
     "DatumRodjenja": "2002-12-25T00:00:00",
-    "BrojTelefona": "066439698",
-    "AdresaStanovanja": "Vojvode Stepe 3/25",
-    "Email": "stefan.savic2512@gmail.com",
-    "KorisnickoIme": "stefo",
-    "Lozinka": "stefke",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": false,
-    "Obrisan": false,
-    "Pol": 0,
-    "ZdravstveniKarton": {
-      "BrojKartona": 2,
-      "Zanimanje": "nezaposlen",
-      "BracniStatus": 0,
-      "Osiguranje": true
-    },
-    "Jmbg": "25120021000000049573",
-    "Ime": "Jelena",
-    "Prezime": "Drago",
-    "DatumRodjenja": "2002-12-25T00:00:00",
-    "BrojTelefona": "066439698",
-    "AdresaStanovanja": "Vojvode Stepe 3/25",
-    "Email": "stefan.savic2512@gmail.com",
-    "KorisnickoIme": "stefo",
-    "Lozinka": "stefke",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": false,
-    "Obrisan": false,
-    "Pol": 0,
-    "ZdravstveniKarton": {
-      "BrojKartona": 3,
-      "Zanimanje": "nezaposlen",
-      "BracniStatus": 0,
-      "Osiguranje": true
-    },
-    "Jmbg": "2512002149111111573",
-    "Ime": "Stefan",
-    "Prezime": "Drago",
-    "DatumRodjenja": "2002-12-25T00:00:00",
-    "BrojTelefona": "066439698",
-    "AdresaStanovanja": "Vojvode Stepe 3/25",
+    "BrojTelefona": "(066) 439-698",
+    "AdresaStanovanja": "Vojvode Stepe 3/25, Doboj",
     "Email": "stefan.savic2512@gmail.com",
     "KorisnickoIme": "stefo",
     "Lozinka": "stefke",
@@ -68,84 +44,25 @@
     "Obrisan": false,
     "Pol": 1,
     "ZdravstveniKarton": null,
+    "Alergeni": [
+      {
+        "Id": 2,
+        "Naziv": "Benzodiazepin"
+      },
+      {
+        "Id": 5,
+        "Naziv": "Gentamicin"
+      }
+    ],
     "Jmbg": "0910990130002",
     "Ime": "Marija",
-    "Prezime": "Simic",
+    "Prezime": "Simić",
     "DatumRodjenja": "1990-10-09T00:00:00",
-    "BrojTelefona": "065312545",
-    "AdresaStanovanja": "Kralja Petra",
-    "Email": "marijasimic@gmail.com",
-    "KorisnickoIme": "dada",
-    "Lozinka": "DADA",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": true,
-    "Obrisan": false,
-    "Pol": 1,
-    "ZdravstveniKarton": null,
-    "Jmbg": "091099013000222222",
-    "Ime": "Marija",
-    "Prezime": "Drago",
-    "DatumRodjenja": "1990-10-09T00:00:00",
-    "BrojTelefona": "065312545",
-    "AdresaStanovanja": "Kralja Petra",
-    "Email": "marijasimic@gmail.com",
-    "KorisnickoIme": "dada",
-    "Lozinka": "DADA",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": true,
-    "Obrisan": false,
-    "Pol": 1,
-    "ZdravstveniKarton": null,
-    "Jmbg": "0910990130002333333333",
-    "Ime": "Apetit",
-    "Prezime": "Bruger",
-    "DatumRodjenja": "1990-10-09T00:00:00",
-    "BrojTelefona": "065312545",
-    "AdresaStanovanja": "Kralja Petra",
-    "Email": "marijasimic@gmail.com",
-    "KorisnickoIme": "dada",
-    "Lozinka": "DADA",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": true,
-    "Obrisan": false,
-    "Pol": 1,
-    "ZdravstveniKarton": null,
-    "Jmbg": "0910990130002444444444",
-    "Ime": "Apetit",
-    "Prezime": "Markovic",
-    "DatumRodjenja": "1990-10-09T00:00:00",
-    "BrojTelefona": "065312545",
-    "AdresaStanovanja": "Kralja Petra",
-    "Email": "marijasimic@gmail.com",
-    "KorisnickoIme": "dada",
-    "Lozinka": "DADA",
-    "TipKorisnika": 3
-  },
-  {
-    "Guest": false,
-    "Obrisan": true,
-    "Pol": 0,
-    "ZdravstveniKarton": {
-      "BrojKartona": 4,
-      "Zanimanje": "",
-      "BracniStatus": 0,
-      "Osiguranje": false
-    },
-    "Jmbg": "2532173521",
-    "Ime": "Marko",
-    "Prezime": "Markovic",
-    "DatumRodjenja": "1999-03-29T00:00:00",
-    "BrojTelefona": "212121",
-    "AdresaStanovanja": "neka",
-    "Email": "mesto",
-    "KorisnickoIme": "marko",
-    "Lozinka": "marko",
+    "BrojTelefona": "(065) 312-5453",
+    "AdresaStanovanja": "Cara Dušana, Bijeljina",
+    "Email": "marijasimic@yahoo.com",
+    "KorisnickoIme": null,
+    "Lozinka": null,
     "TipKorisnika": 3
   }
 ]

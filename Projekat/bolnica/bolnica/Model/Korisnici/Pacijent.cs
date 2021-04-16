@@ -1,4 +1,6 @@
+using Bolnica.Model.Pregledi;
 using Model.Pacijenti;
+using System.Collections.Generic;
 
 namespace Model.Korisnici
 {
@@ -13,6 +15,8 @@ namespace Model.Korisnici
         public Pol Pol { get; set; }
 
         public ZdravstveniKarton ZdravstveniKarton { get; set; }
+
+        public List<Sastojak> Alergeni { get; set; }
    
    }
 }
