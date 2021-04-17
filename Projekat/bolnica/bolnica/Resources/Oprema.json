@@ -1,16 +1,6 @@
 [
   
   {
-    "Sifra": "a123",
-    "Naziv": "Stolica",
-    "TipOpreme": 0,
-    "Kolicina": 100,
-    "OpremaPoSobama": {
-      "111": 50,
-      "103": 50
-    }
-  },
-  {
     "Sifra": "qt32",
     "Naziv": "Maska",
     "TipOpreme": 1,
@@ -30,6 +20,27 @@
       "102": 20,
       "106": 20,
       "magacin": 10
+    }
+  },
+  {
+    "Sifra": "asdf",
+    "Naziv": "Krevet",
+    "TipOpreme": 0,
+    "Kolicina": 100,
+    "OpremaPoSobama": {
+      "111": 10,
+      "103": 1,
+      "magacin": 89
+    }
+  },
+  {
+    "Sifra": "a123",
+    "Naziv": "Stolica",
+    "TipOpreme": 0,
+    "Kolicina": 100,
+    "OpremaPoSobama": {
+      "111": 50,
+      "103": 50
     }
   }
 ]

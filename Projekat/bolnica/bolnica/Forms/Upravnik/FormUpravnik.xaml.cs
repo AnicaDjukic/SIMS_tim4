@@ -226,6 +226,28 @@ namespace bolnica.Forms
                         }
                     }
                 }
+            } else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
+            {
+                clickedDodaj = false;
+                Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
+                List<Oprema> Svaoprema = storageOprema.GetAll();
+                var s = new CreateFormOprema();
+                foreach (Oprema o in Oprema)
+                {
+                    if (o.Sifra == row.Sifra)
+                    {
+                        s.Sifra = o.Sifra;
+                        s.Naziv = o.Naziv;
+                        s.Kolicina = o.Kolicina;
+                        s.Oprema = o;
+                        if (o.TipOpreme == TipOpreme.staticka)
+                            s.ComboTipOpreme.SelectedIndex = 0;
+                        else
+                            s.ComboTipOpreme.SelectedIndex = 1;
+                        s.Show();
+                        break;
+                    }
+                }
             }
         }
 

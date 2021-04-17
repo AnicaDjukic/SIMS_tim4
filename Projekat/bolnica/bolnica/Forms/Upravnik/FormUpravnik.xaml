@@ -82,7 +82,7 @@
                             <DataGridCheckBoxColumn Header="ZAUZETA" Binding="{Binding Zauzeta}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Margin="10" Height="30" Width="150">
+                    <Button Margin="10" Height="30" Width="150" Background="#FFEEF5FD">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                             <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRANJE"/>
@@ -103,27 +103,27 @@
             </TabItem>
         </TabControl>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,35,20,0">
-            <Button Margin="10,0,10,10">
-                <StackPanel Width="125" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,35,10,0">
+            <Button Margin="10,0,10,10" Background="#FFEEF5FD">
+                <StackPanel Width="130" Orientation="Horizontal">
                     <Image Source="../Images/notification.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="OBAVEŠTENJA"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
-                <StackPanel Width="125" Orientation="Horizontal">
+            <Button Margin="10" Background="#FFEEF5FD">
+                <StackPanel Width="130" Orientation="Horizontal">
                     <Image Source="../Images/diamond.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="CENOVNIK"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
-                <StackPanel Width="125" Orientation="Horizontal">
+            <Button Margin="10" Background="#FFEEF5FD">
+                <StackPanel Width="130" Orientation="Horizontal">
                     <Image Source="../Images/document.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="ZAHTEVI"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
-                <StackPanel Width="150" Orientation="Horizontal">
+            <Button Margin="10" Background="#FFEEF5FD">
+                <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/shopping.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="PONUDE I OGLASI"/>
                 </StackPanel>

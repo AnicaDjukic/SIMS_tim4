@@ -128,8 +128,6 @@ namespace Bolnica.Forms
             bool zauzeta = (bool)checkZauzeta.IsChecked;
             if (tipProstorije == 2)
             {
-                //int brojSlobodnihKreveta = Int32.Parse(txtBrojSlobodnihKreveta.Text);
-                //int ukBrojKreveta = Int32.Parse(txtUkBrojKreveta.Text);
                 BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = BrojProstorije, Sprat = Sprat, Kvadratura = Kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = UkBrojKreveta, BrojSlobodnihKreveta = BrojSlobodnihKreveta};
 
                 if (prostorija.BrojSlobodnihKreveta == 0)

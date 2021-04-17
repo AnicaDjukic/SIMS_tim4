@@ -110,15 +110,14 @@ namespace Bolnica.Forms.Upravnik
             {
                 Zalihe.Add(magacin);
             }
-            //Skladista.Add(magacin);
         }
         private void Button_Click_Prebaci(object sender, RoutedEventArgs e)
         {
-            if(GridSkladiste.SelectedCells.Count > 0)
+            if(GridProstorije.SelectedCells.Count > 0)
             {
                 if (kolicina != 0 && kolicina <= novaOprema.Kolicina)
                 {
-                    Prostorija row = (Prostorija)GridSkladiste.SelectedItem;
+                    Prostorija row = (Prostorija)GridProstorije.SelectedItem;
                     for(int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
                     {
                         if (ProstorijeZaSkladistenje[i].BrojProstorije == row.BrojProstorije)
@@ -141,7 +140,42 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Vrati(object sender, RoutedEventArgs e)
         {
+            if (GridZalihe.SelectedCells.Count > 0 && ((Zaliha)GridZalihe.SelectedItem).Prostorija != "magacin")
+            {
+                Zaliha row = (Zaliha)GridZalihe.SelectedItem;
+                for (int i = 0; i < Zalihe.Count; i++)
+                {
+                    if (Zalihe[i].Prostorija == row.Prostorija)
+                        Zalihe.Remove(Zalihe[i]);
+                }
 
+                List<Prostorija> prostorije = storage.GetAllProstorije();
+                bool found = false;
+                foreach (Prostorija p in prostorije)
+                {
+                    if(p.BrojProstorije.ToString() == row.Prostorija)
+                    {
+                        ProstorijeZaSkladistenje.Add(p);
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
+                    foreach (BolnickaSoba b in bolnickeSobe)
+                    {
+                        if (b.BrojProstorije.ToString() == row.Prostorija)
+                        {
+                            ProstorijeZaSkladistenje.Add(b);
+                        }
+                    }
+                }
+
+                Zalihe.Remove(magacin);
+                //Kolicina = row.Kolicina;
+                magacin.Kolicina += row.Kolicina;
+                Zalihe.Add(magacin);
+            }
         }
 
         public void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
