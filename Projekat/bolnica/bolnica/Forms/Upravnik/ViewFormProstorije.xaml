@@ -48,7 +48,7 @@
                 </TabItem>
                 <TabItem Header="OPREMA">
                     <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaSobe}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="300">
+                  AutoGenerateColumns="False" Height="300" HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Sifra}" Width="auto"/>
                             <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>

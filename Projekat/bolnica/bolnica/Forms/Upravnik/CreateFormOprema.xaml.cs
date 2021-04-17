@@ -36,6 +36,7 @@ namespace Bolnica.Forms.Upravnik
         private int kolicina;
         private FileStorageOprema storage;
         private bool skladistiClicked;
+        private Oprema oprema = new Oprema();
 
         public string Sifra
         {
@@ -100,26 +101,28 @@ namespace Bolnica.Forms.Upravnik
             {
                 if(FormUpravnik.Oprema[i].Sifra == sifra)
                 {
-                    MessageBox.Show("Oprema sa tom sifrom vec postoji!");
+                    MessageBox.Show("Oprema sa tom šifrom vec postoji!");
                     postoji = true;
                     break;
                 } 
             }
             if(!postoji)
             {
-                Oprema oprema = new Oprema { Sifra = sifra, Naziv = naziv, Kolicina = kolicina };
+                oprema.Sifra = sifra;
+                oprema.Naziv = naziv;
+                oprema.Kolicina = kolicina;
                 if (ComboTipOpreme.SelectedIndex == 0)
                     oprema.TipOpreme = TipOpreme.staticka;
                 else
                     oprema.TipOpreme = TipOpreme.dinamicka;
 
-                if(skladistiClicked)
+                /*if(skladistiClicked)
                 {
                     foreach(Skladiste s in FormSkladiste.Skladista)
                     {
                         oprema.OpremaPoSobama.Add(s.Prostorija, s.Kolicina);
                     }
-                }
+                }*/
                 FormUpravnik.Oprema.Add(oprema);
                 storage.Save(oprema);
                 Close();
@@ -130,7 +133,8 @@ namespace Bolnica.Forms.Upravnik
         private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
         {
             skladistiClicked = true;
-            var s = new FormSkladiste(kolicina);
+            oprema.Kolicina = kolicina;
+            var s = new FormSkladiste(oprema);
             s.Show();
         }
     }

@@ -32,7 +32,7 @@ namespace Bolnica.Forms
             this.DataContext = this;
             OpremaSobe = new ObservableCollection<Oprema>();
 
-            foreach (Oprema o in FormUpravnik.Oprema)
+            foreach(Oprema o in FormUpravnik.Oprema)
             {
                 foreach(string key in o.OpremaPoSobama.Keys)
                 {

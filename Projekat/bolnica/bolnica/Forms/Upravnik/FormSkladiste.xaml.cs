@@ -37,13 +37,8 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
-        public class Skladiste
-        {
-            public string Prostorija { get; set; }
-            public int Kolicina { get; set; }
-        }
 
-        public static ObservableCollection<Skladiste> Skladista
+        public static ObservableCollection<Zaliha> Zalihe
         {
             get;
             set;
@@ -53,8 +48,9 @@ namespace Bolnica.Forms.Upravnik
 
         private int kolicina;
 
-        private Oprema oprema;
-        private Skladiste magacin;
+        private Zaliha magacin;
+
+        private Oprema novaOprema;
 
         public int Kolicina
         {
@@ -72,7 +68,7 @@ namespace Bolnica.Forms.Upravnik
             }
         }
        
-        public FormSkladiste(int UkKolicina)
+        public FormSkladiste(Oprema oprema)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -81,34 +77,83 @@ namespace Bolnica.Forms.Upravnik
             List<Prostorija> prostorije = storage.GetAllProstorije();
             foreach(Prostorija p in prostorije)
             {
-                ProstorijeZaSkladistenje.Add(p);
+                if(!p.Obrisana)
+                    ProstorijeZaSkladistenje.Add(p);
             }
+
             List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
-                ProstorijeZaSkladistenje.Add(b);
+                if(!b.Obrisana)
+                    ProstorijeZaSkladistenje.Add(b);
             }
-            Skladista = new ObservableCollection<Skladiste>();
-            magacin = new Skladiste { Prostorija = "magacin", Kolicina = UkKolicina};
-            Skladista.Add(magacin);
+
+            Zalihe = new ObservableCollection<Zaliha>();
+            novaOprema = oprema;
+            int UkKolicnina = novaOprema.Kolicina;
+            bool imaMagacin = false;
+            foreach(string k in novaOprema.OpremaPoSobama.Keys)
+            {
+                Zaliha z = new Zaliha();
+                z.Prostorija = k;
+                z.Kolicina = novaOprema.OpremaPoSobama.GetValueOrDefault<string, int>(k);
+                z.Oprema = novaOprema.Sifra;
+                Zalihe.Add(z);
+                UkKolicnina -= z.Kolicina;
+                if(z.Prostorija == "magacin")
+                {
+                    imaMagacin = true;
+                }
+            }
+            magacin = new Zaliha { Prostorija = "magacin", Kolicina = UkKolicnina};
+            if(!imaMagacin)
+            {
+                Zalihe.Add(magacin);
+            }
+            //Skladista.Add(magacin);
         }
         private void Button_Click_Prebaci(object sender, RoutedEventArgs e)
         {
             if(GridSkladiste.SelectedCells.Count > 0)
             {
-                Prostorija row = (Prostorija)GridSkladiste.SelectedItem;
-                Skladiste skladiste = new Skladiste();
-                skladiste.Prostorija = row.BrojProstorije.ToString();
-                skladiste.Kolicina = kolicina;
-                Skladista.Add(skladiste);
-                
-                Skladista.Remove(magacin);
-                magacin.Kolicina -= kolicina;
-                Skladista.Add(magacin);
+                if (kolicina != 0 && kolicina <= novaOprema.Kolicina)
+                {
+                    Prostorija row = (Prostorija)GridSkladiste.SelectedItem;
+                    for(int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
+                    {
+                        if (ProstorijeZaSkladistenje[i].BrojProstorije == row.BrojProstorije)
+                            ProstorijeZaSkladistenje.Remove(ProstorijeZaSkladistenje[i]);
+                    }
+                    Zaliha zaliha = new Zaliha();
+                    zaliha.Prostorija = row.BrojProstorije.ToString();
+                    zaliha.Kolicina = kolicina;
+                    zaliha.Oprema = novaOprema.Sifra;
+                    Zalihe.Add(zaliha);
+                    Zalihe.Remove(magacin);
+                    magacin.Kolicina -= kolicina;
+                    Zalihe.Add(magacin);
+                } else
+                {
+                    MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od ukupne količine opreme.");
+                }
             }
         }
 
+        private void Button_Click_Vrati(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         public void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
+        {
+            for(int i = 0; i < Zalihe.Count; i++)
+            {
+                novaOprema.OpremaPoSobama.Add(Zalihe[i].Prostorija, Zalihe[i].Kolicina);
+            }
+            Close();
+        }
+
+        public void Button_Click_Odustani(object sender, RoutedEventArgs e)
         {
             Close();
         }

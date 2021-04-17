@@ -152,6 +152,28 @@ namespace bolnica.Forms
                     }
                 }
             }
+            else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
+            {
+                Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
+                string sifraOpreme = row.Sifra;
+                List<Oprema> oprema = storageOprema.GetAll();
+                var s = new ViewFormOprema(sifraOpreme);
+                foreach (Oprema o in oprema)
+                {
+                    if (o.Sifra == row.Sifra)
+                    {
+                        s.lblSifra.Content = o.Sifra;
+                        s.lblNaziv.Content = o.Naziv;
+                        if (o.TipOpreme == TipOpreme.dinamicka)
+                            s.lblTipOpreme.Content = "Dinamička";
+                        else
+                            s.lblTipOpreme.Content = "Statička";
+                        s.lblKolicina.Content = o.Kolicina.ToString();
+                        s.Show();
+                        break;
+                    }
+                }
+            }
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
