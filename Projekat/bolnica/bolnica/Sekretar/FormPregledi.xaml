@@ -1,0 +1,169 @@
+﻿<Window x:Class="Bolnica.Sekretar.FormPregledi"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Sekretar"
+        mc:Ignorable="d"
+        Title="FormPregledi" Height="450" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="211*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Zakaži termin" Margin="300,13,600,0" VerticalAlignment="Top" Click="ZakaziTermin" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button Content="Pomeri termin" Margin="524,13,376,0" VerticalAlignment="Top" Click="PomeriTermin" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button Content="Otkaži termin" Margin="750,13,150,0" VerticalAlignment="Top" Click="OtkaziTermin" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button Content="Pacijenti" Margin="10,53,812,0" VerticalAlignment="Top" Click="Button_Click_Pacijenti" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button Content="Pregledi" Margin="10,93,812,0" VerticalAlignment="Top" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button Content="Obaveštenja" Margin="10,132,812,0" VerticalAlignment="Top" Click="Button_Click_Obavestenja" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <DataGrid x:Name="dataGridPregledi" IsReadOnly="True" ItemsSource="{Binding Pregledi}"
+                  SelectionMode="Single" AutoGenerateColumns="False"
+                  Height="300" Margin="199,53,50,0" VerticalAlignment="Top"
+                  HeadersVisibility="Column" RowHeaderWidth="0" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ime pacijenta" Binding="{Binding Pacijent.Ime}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime pacijenta" Binding="{Binding Pacijent.Prezime}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="JMBG pacijenta" Binding="{Binding Pacijent.Jmbg}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="MBR lekara" Binding="{Binding Lekar.Mbr}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

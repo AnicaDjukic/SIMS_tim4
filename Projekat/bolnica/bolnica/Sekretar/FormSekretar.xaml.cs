@@ -1,4 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
+using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -28,6 +30,7 @@ namespace Bolnica.Forms
         }
         private FileStoragePacijenti storage;
         public static bool clickedDodaj;
+        public static string korisnik;
 
         public FormSekretar()
         {
@@ -35,6 +38,7 @@ namespace Bolnica.Forms
             dataGridPacijenti.DataContext = this;
             Pacijenti = new ObservableCollection<Pacijent>();
             clickedDodaj = false;
+            korisnik = "Sekretar";
             storage = new FileStoragePacijenti();
             
             List<Pacijent> pacijenti = storage.GetAll();
@@ -47,9 +51,10 @@ namespace Bolnica.Forms
 
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
-            var s = new FormDodajPacijenta();
             clickedDodaj = true;
-            s.Show();
+            FormDodajPacijenta s = new FormDodajPacijenta();
+            s.btnAlergeni.Content = "Dodaj";
+            s.ShowDialog();
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
@@ -58,7 +63,9 @@ namespace Bolnica.Forms
             if (pacijent != null)
             {
                 List<Pacijent> pacijenti = storage.GetAll();
-                var s = new FormDodajPacijenta();
+                FormDodajPacijenta s = new FormDodajPacijenta();
+                
+                s.btnAlergeni.Content = "Izmeni";
                 foreach (Pacijent p in pacijenti)
                 {
                     if (p.Jmbg == pacijent.Jmbg)
@@ -71,10 +78,13 @@ namespace Bolnica.Forms
                         else
                             s.rb2.IsChecked = true;
                         s.dpDatumRodjenja.SelectedDate = p.DatumRodjenja;
+                        s.dpDatumRodjenja.IsEnabled = false;
                         s.txtJMBG.Text = p.Jmbg;
+                        s.txtJMBG.IsEnabled = false;
                         s.txtAdresaStanovanja.Text = p.AdresaStanovanja;
                         s.txtBrojTelefona.Text = p.BrojTelefona;
                         s.txtEmail.Text = p.Email;
+                        
 
                         if (!p.Guest)
                         {
@@ -82,22 +92,30 @@ namespace Bolnica.Forms
                             s.txtLozinka.Text = p.Lozinka;
                             s.txtZanimanje.Text = p.ZdravstveniKarton.Zanimanje;
                             s.txtIDKarton.Text = p.ZdravstveniKarton.BrojKartona.ToString();
+                            s.txtIDKarton.IsEnabled = false;
                             s.checkOsiguranje.IsChecked = p.ZdravstveniKarton.Osiguranje;
                             if (p.ZdravstveniKarton.BracniStatus == BracniStatus.neozenjen_neudata)
-                                s.lblBracniStatus.Content = "Neozenjen/Neudata";
+                                s.comboBracniStatus.SelectedIndex = 0;
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.ozenjen_udata)
-                                s.lblBracniStatus.Content = "Ozenjen/Ozenjena";
+                                s.comboBracniStatus.SelectedIndex = 1;
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.udovac_udovica)
-                                s.lblBracniStatus.Content = "Udovac/Udovica";
+                                s.comboBracniStatus.SelectedIndex = 2;
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.razveden_razvedena)
-                                s.lblBracniStatus.Content = "Razveden/Razvedena";
+                                s.comboBracniStatus.SelectedIndex = 3;
                         }
 
                         clickedDodaj = false;
-                        s.Show();
+                        s.ShowDialog();
                         break;
                     }
                 }
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Odaberite pacijenta za izmenu njegovih informacija.",
+                                          "Izmena pacijenta",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
             }
         }
         private void Button_Click_Obrisi(object sender, RoutedEventArgs e)
@@ -105,14 +123,28 @@ namespace Bolnica.Forms
             Pacijent pacijent = (Pacijent)dataGridPacijenti.SelectedItem;
             if (pacijent != null)
             {
-                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                FileStorageKorisnici storageKorisnici = new FileStorageKorisnici();
-                storageKorisnici.Delete(korisnik);
-                Pacijenti.Remove(pacijent);
-                List<Pacijent> pacijenti = storage.GetAll();
-                storage.Delete(pacijent);
-                pacijent.Obrisan = true;
-                storage.Save(pacijent);
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite izbrisati ovog pacijenta?",
+                                          "Brisanje pacijenta",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                    FileStorageKorisnici storageKorisnici = new FileStorageKorisnici();
+                    storageKorisnici.Delete(korisnik);
+                    Pacijenti.Remove(pacijent);
+                    List<Pacijent> pacijenti = storage.GetAll();
+                    storage.Delete(pacijent);
+                    pacijent.Obrisan = true;
+                    storage.Save(pacijent);
+                }
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Odaberite pacijenta za brisanje.",
+                                          "Brisanje pacijenta",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
             }
         }
 
@@ -132,15 +164,23 @@ namespace Bolnica.Forms
                         s.lblIme.Content = p.Ime;
                         s.lblPrezime.Content = p.Prezime;
                         if (p.Pol == Pol.muski)
-                            s.lblPol.Content = "Muski";
+                            s.lblPol.Content = "Muški";
                         else
-                            s.lblPol.Content = "Zenski";
+                            s.lblPol.Content = "Ženski";
                         s.lblDatumRodjenja.Content = p.DatumRodjenja.ToShortDateString();
                         s.lblJMBG.Content = p.Jmbg;
                         s.lblAdresaStanovanja.Content = p.AdresaStanovanja;
                         s.lblBrojTelefona.Content = p.BrojTelefona;
                         s.lblEmail.Content = p.Email;
-
+                        if (p.Alergeni != null)
+                        {
+                            s.lblAlergeni.Content = p.Alergeni[0].Naziv;
+                            for (int i = 1; i < p.Alergeni.Count; i++)
+                                s.lblAlergeni.Content = s.lblAlergeni.Content + ", " + p.Alergeni[i].Naziv;
+                        }
+                        else
+                            s.lblAlergeni.Content = "Nema";
+       
                         s.lblKorisnickoIme.Visibility = Visibility.Hidden;
                         s.lblKorIme.Visibility = Visibility.Hidden;
                         s.lblLozinka.Visibility = Visibility.Hidden;
@@ -163,9 +203,9 @@ namespace Bolnica.Forms
                             s.checkOsig.IsChecked = p.ZdravstveniKarton.Osiguranje;
                             s.checkOsig.IsEnabled = false;
                             if (p.ZdravstveniKarton.BracniStatus == BracniStatus.neozenjen_neudata)
-                                s.lblBrStatus.Content = "Neozenjen/Neudata";
+                                s.lblBrStatus.Content = "Neoženjen/Neudata";
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.ozenjen_udata)
-                                s.lblBrStatus.Content = "Ozenjen/Ozenjena";
+                                s.lblBrStatus.Content = "Oženjen/Udata";
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.udovac_udovica)
                                 s.lblBrStatus.Content = "Udovac/Udovica";
                             else if (p.ZdravstveniKarton.BracniStatus == BracniStatus.razveden_razvedena)
@@ -190,6 +230,27 @@ namespace Bolnica.Forms
                     }
                 }
             }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Odaberite pacijenta za prikaz njegovih informacija.",
+                                          "Prikaz pacijenta",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
+        {
+            var s = new FormObavestenja();
+            s.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Pregledi(object sender, RoutedEventArgs e)
+        {
+            var s = new FormPregledi();
+            s.Show();
+            this.Close();
         }
     }
 }

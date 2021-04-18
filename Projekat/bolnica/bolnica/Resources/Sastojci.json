@@ -1,0 +1,38 @@
+[
+    {
+        "Id": 1,
+        "Naziv": "Aspirin"
+    },
+    {
+        "Id": 2,
+        "Naziv": "Benzodiazepin"
+    },
+    {
+        "Id": 3,
+        "Naziv": "Baktrim"
+    },
+    {
+        "Id": 4,
+        "Naziv": "Cliacil"
+    },
+    {
+        "Id": 5,
+        "Naziv": "Gentamicin"
+    },
+    {
+        "Id": 6,
+        "Naziv": "Ibuprofen"
+    },
+    {
+        "Id": 7,
+        "Naziv": "Novalgetol"
+    },
+    {
+        "Id": 8,
+        "Naziv": "Sulfonamid"
+    },
+    {
+        "Id": 9,
+        "Naziv": "Tetraciklin"
+    }
+]

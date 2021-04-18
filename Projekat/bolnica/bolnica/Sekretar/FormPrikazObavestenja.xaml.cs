@@ -10,14 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Bolnica.Forms
+namespace Bolnica.Sekretar
 {
     /// <summary>
-    /// Interaction logic for ViewFormProstorije.xaml
+    /// Interaction logic for FormPrikazObavestenja.xaml
     /// </summary>
-    public partial class ViewFormProstorije : Window
+    public partial class FormPrikazObavestenja : Window
     {
-        public ViewFormProstorije()
+        public FormPrikazObavestenja()
         {
             InitializeComponent();
         }
