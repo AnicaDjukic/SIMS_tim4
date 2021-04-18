@@ -19,7 +19,6 @@ namespace Model.Pregledi
         public TimeSpan VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
-       
    
    }
 }

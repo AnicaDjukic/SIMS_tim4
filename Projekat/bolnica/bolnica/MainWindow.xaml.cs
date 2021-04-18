@@ -1,4 +1,4 @@
-﻿//using bolnica.Forms;
+
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Model.Korisnici;
@@ -38,6 +38,7 @@ namespace bolnica
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
                 /*    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+
                     {
                         var s = new FormUpravnik();
                         s.Show();
@@ -51,8 +52,9 @@ namespace bolnica
                     {
                         var s = new FormLekar();
                         s.Show();
+
                     }
-                    /* else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
+                    else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
                         FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
                         List<Pacijent> pacijenti = storagePacijenti.GetAll();
@@ -67,7 +69,9 @@ namespace bolnica
                         }
                         var s = new FormPacijent(pac);
                         s.Show();
-                    }*/
+                        s.PrikaziObavestenja();
+                    }
+
                     found = true;
                     break;
                 }

@@ -21,5 +21,6 @@ namespace Model.Pregledi
         public DateTime Trajanje { get; set; }
 
 
+
     }
 }
