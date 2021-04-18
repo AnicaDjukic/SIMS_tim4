@@ -154,7 +154,10 @@ namespace Bolnica.Forms.Upravnik
                 for (int i = 0; i < Zalihe.Count; i++)
                 {
                     if (Zalihe[i].Prostorija == row.Prostorija)
+                    {
+                        opremaZaSkladistenje.OpremaPoSobama.Remove(Zalihe[i].Prostorija);
                         Zalihe.Remove(Zalihe[i]);
+                    }
                 }
 
                 List<Prostorija> prostorije = storage.GetAllProstorije();
@@ -190,6 +193,8 @@ namespace Bolnica.Forms.Upravnik
         {
             for(int i = 0; i < Zalihe.Count; i++)
             {
+                if (opremaZaSkladistenje.OpremaPoSobama.ContainsKey(Zalihe[i].Prostorija))
+                    opremaZaSkladistenje.OpremaPoSobama.Remove(Zalihe[i].Prostorija);
                 opremaZaSkladistenje.OpremaPoSobama.Add(Zalihe[i].Prostorija, Zalihe[i].Kolicina);
             }
             Close();
