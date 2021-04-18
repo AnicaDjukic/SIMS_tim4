@@ -64,10 +64,23 @@ namespace Bolnica.Forms
             l22.Odobren = false;
             l22.Id = 2;
             l22.KolicinaUMg = 300;
+            Lek l3 = new Lek();
+            l3.Id = 3;
+            l3.Naziv = "Paracetamol";
+            l3.KolicinaUMg = 200;
+            l3.Odobren = true;
+            Lek l4 = new Lek();
+            l4.Id = 4;
+            l4.Naziv = "Andol";
+            l4.KolicinaUMg = 200;
+            l4.Odobren = true;
             trenturniPacijent = p1.Pacijent;
             
             lekovi.Add(l11);
             lekovi.Add(l22);
+            lekovi.Add(l3);
+            lekovi.Add(l4);
+
             listaAnamneza = anam.GetAll();
 
             Recepti = new ObservableCollection<PrikazRecepta>();
@@ -157,6 +170,16 @@ namespace Bolnica.Forms
             l22.Odobren = false;
             l22.Id = 2;
             l22.KolicinaUMg = 300;
+            Lek l3 = new Lek();
+            l3.Id = 3;
+            l3.Naziv = "Paracetamol";
+            l3.KolicinaUMg = 200;
+            l3.Odobren = true;
+            Lek l4 = new Lek();
+            l4.Id = 4;
+            l4.Naziv = "Andol";
+            l4.KolicinaUMg = 200;
+            l4.Odobren = true;
 
             trenturniPacijent = op.Pacijent;
 
@@ -166,7 +189,9 @@ namespace Bolnica.Forms
 
             lekovi.Add(l11);
             lekovi.Add(l22);
-            
+            lekovi.Add(l3);
+            lekovi.Add(l4);
+
 
             trenutnaOperacija = op;
             lekariTrenutni = l1;
