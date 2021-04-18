@@ -48,21 +48,21 @@ namespace Model.Pregledi
             }
          }
       }
-      
-      /// <summary>
-      /// Add a new Alergen in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
 
-      public void AddSastojak(Sastojak newSastojak)
-      {
-         if (newSastojak == null)
-            return;
-         if (this.sastojak == null)
-            this.sastojak = new List<Sastojak>();
-         if (!this.sastojak.Contains(newSastojak))
-            this.sastojak.Add(newSastojak);
+        /// <summary>
+        /// Add a new Alergen in the collection
+        /// </summary>
+        /// <pdGenerated>Default Add</pdGenerated>
 
+        public void AddSastojak(Sastojak newSastojak)
+        {
+            if (newSastojak == null)
+                return;
+            if (this.sastojak == null)
+                this.sastojak = new List<Sastojak>();
+            if (!this.sastojak.Contains(newSastojak))
+                this.sastojak.Add(newSastojak);
+        }
       
       /// <summary>
       /// Remove an existing Alergen from the collection
@@ -70,24 +70,24 @@ namespace Model.Pregledi
       /// <pdGenerated>Default Remove</pdGenerated>
 
       public void RemoveSastojak(Sastojak oldSastojak)
-      {
-         if (oldSastojak == null)
-            return;
-         if (this.sastojak != null)
-            if (this.sastojak.Contains(oldSastojak))
-               this.sastojak.Remove(oldSastojak);
+            {
+                if (oldSastojak == null)
+                    return;
+                if (this.sastojak != null)
+                    if (this.sastojak.Contains(oldSastojak))
+                        this.sastojak.Remove(oldSastojak);
 
-      
+            }
       /// <summary>
       /// Remove all instances of Alergen from the collection
       /// </summary>
       /// <pdGenerated>Default removeAll</pdGenerated>
 
       public void RemoveAllSastojak()
-      {
-         if (sastojak != null)
-          sastojak.Clear();
-
+            {
+                if (sastojak != null)
+                    sastojak.Clear();
+            }
    
    }
 }

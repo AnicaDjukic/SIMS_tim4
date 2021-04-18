@@ -61,10 +61,13 @@ namespace bolnica
                         Pacijent pac = new Pacijent();
                         foreach (Pacijent p in pacijenti)
                         {
-                            if (p.KorisnickoIme.Equals(korisnickoIme) && p.Lozinka.Equals(lozinka))
+                            if (!p.Obrisan)
                             {
-                                pac = p;
-                                break;
+                                if (p.KorisnickoIme.Equals(korisnickoIme) && p.Lozinka.Equals(lozinka))
+                                {
+                                    pac = p;
+                                    break;
+                                }
                             }
                         }
                         var s = new FormPacijent(pac);
