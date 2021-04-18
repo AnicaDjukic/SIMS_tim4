@@ -317,7 +317,7 @@ namespace bolnica.Forms
                 Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
                 List<Oprema> oprema = storageOprema.GetAll();
 
-                string sMessageBoxText = "Da lis te sigurni da želite da obrišete opremu sa nazivom \"" + row.Naziv + "\" i šifrom \"" + row.Sifra + "\"?";
+                string sMessageBoxText = "Da li ste sigurni da želite da obrišete opremu sa nazivom \"" + row.Naziv + "\" i šifrom \"" + row.Sifra + "\"?";
                 string sCaption = "Brisanje opreme";
 
                 MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;

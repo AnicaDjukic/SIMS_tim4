@@ -20,15 +20,15 @@ namespace Bolnica.Forms.Upravnik
     /// <summary>
     /// Interaction logic for FormSkladiste.xaml
     /// </summary>
-    public partial class FormSkladiste : Window
+    public partial class FormSkladiste : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string name)
         {
-            if (PropertyChanged != null)
+            if (this.PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Bolnica.Forms.Upravnik
 
         private Zaliha magacin;
 
-        private Oprema novaOprema;
+        private Oprema opremaZaSkladistenje;
 
         public int Kolicina
         {
@@ -89,33 +89,41 @@ namespace Bolnica.Forms.Upravnik
             }
 
             Zalihe = new ObservableCollection<Zaliha>();
-            novaOprema = oprema;
-            int UkKolicnina = novaOprema.Kolicina;
+            opremaZaSkladistenje = oprema;
+            if(!imaMagacin())
+            {
+                magacin = new Zaliha { Prostorija = "magacin", Kolicina = opremaZaSkladistenje.Kolicina };
+                Zalihe.Add(magacin);
+            }
+        }
+
+        private bool imaMagacin()
+        {
             bool imaMagacin = false;
-            foreach(string k in novaOprema.OpremaPoSobama.Keys)
+            foreach (string k in opremaZaSkladistenje.OpremaPoSobama.Keys)
             {
                 Zaliha z = new Zaliha();
                 z.Prostorija = k;
-                z.Kolicina = novaOprema.OpremaPoSobama.GetValueOrDefault<string, int>(k);
-                z.Oprema = novaOprema.Sifra;
+                z.Kolicina = opremaZaSkladistenje.OpremaPoSobama.GetValueOrDefault<string, int>(k);
+                z.Oprema = opremaZaSkladistenje.Sifra;
                 Zalihe.Add(z);
-                UkKolicnina -= z.Kolicina;
-                if(z.Prostorija == "magacin")
+                if (z.Prostorija != "magacin")
+                    opremaZaSkladistenje.Kolicina -= z.Kolicina;
+                else
                 {
                     imaMagacin = true;
+                    magacin = z;
                 }
             }
-            magacin = new Zaliha { Prostorija = "magacin", Kolicina = UkKolicnina};
-            if(!imaMagacin)
-            {
-                Zalihe.Add(magacin);
-            }
+            if (imaMagacin)
+                magacin.Kolicina = opremaZaSkladistenje.Kolicina;
+            return imaMagacin;
         }
         private void Button_Click_Prebaci(object sender, RoutedEventArgs e)
         {
             if(GridProstorije.SelectedCells.Count > 0)
             {
-                if (kolicina != 0 && kolicina <= novaOprema.Kolicina)
+                if (kolicina != 0 && kolicina <= opremaZaSkladistenje.Kolicina)
                 {
                     Prostorija row = (Prostorija)GridProstorije.SelectedItem;
                     for(int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
@@ -126,7 +134,7 @@ namespace Bolnica.Forms.Upravnik
                     Zaliha zaliha = new Zaliha();
                     zaliha.Prostorija = row.BrojProstorije.ToString();
                     zaliha.Kolicina = kolicina;
-                    zaliha.Oprema = novaOprema.Sifra;
+                    zaliha.Oprema = opremaZaSkladistenje.Sifra;
                     Zalihe.Add(zaliha);
                     Zalihe.Remove(magacin);
                     magacin.Kolicina -= kolicina;
@@ -172,7 +180,7 @@ namespace Bolnica.Forms.Upravnik
                 }
 
                 Zalihe.Remove(magacin);
-                //Kolicina = row.Kolicina;
+                Kolicina = row.Kolicina;
                 magacin.Kolicina += row.Kolicina;
                 Zalihe.Add(magacin);
             }
@@ -182,7 +190,7 @@ namespace Bolnica.Forms.Upravnik
         {
             for(int i = 0; i < Zalihe.Count; i++)
             {
-                novaOprema.OpremaPoSobama.Add(Zalihe[i].Prostorija, Zalihe[i].Kolicina);
+                opremaZaSkladistenje.OpremaPoSobama.Add(Zalihe[i].Prostorija, Zalihe[i].Kolicina);
             }
             Close();
         }

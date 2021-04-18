@@ -127,8 +127,22 @@ namespace Bolnica.Forms.Upravnik
         private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
         {
             oprema.Kolicina = kolicina;
-            var s = new FormSkladiste(oprema);
-            s.Show();
+            if (UkKolicinaValidna(kolicina))
+            {
+                var s = new FormSkladiste(oprema);
+                s.Show();
+            }
+        }
+
+        private bool UkKolicinaValidna(int ukKolicina)
+        {
+            if (ukKolicina <= 0)
+            {
+                MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
+                return false;
+            }
+                
+            return true;
         }
 
         private void update()
