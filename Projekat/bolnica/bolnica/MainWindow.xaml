@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bolnica"
         mc:Ignorable="d"
-        Title="Prijava" Height="300" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+        Title="Prijava" Height="300" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="112,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.564,-1.228"/>
         <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="149,119,0,0" VerticalAlignment="Top"/>
