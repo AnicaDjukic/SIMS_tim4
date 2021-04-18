@@ -14,7 +14,7 @@ using Model.Korisnici;
 using Model.Prostorije;
 using Model.Pacijenti;
 using Bolnica.Validation;
-
+using Bolnica.Model.Pregledi;
 
 namespace Bolnica.Forms
 {

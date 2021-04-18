@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,21 +13,19 @@ using System.Windows.Shapes;
 namespace Bolnica.Forms
 {
     /// <summary>
-    /// Interaction logic for FormObavestenja.xaml
+    /// Interaction logic for FormPrikazPacijenta.xaml
     /// </summary>
-    public partial class FormObavestenjaPacijent : Window
+    public partial class FormPrikazPacijenta : Window
     {
-        public static ObservableCollection<string> ObavestenjaZaPacijente
-        {
-            get;
-            set;
-        }
-
-        public FormObavestenjaPacijent()
+        public FormPrikazPacijenta()
         {
             InitializeComponent();
+        }
 
-            this.DataContext = this;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
+

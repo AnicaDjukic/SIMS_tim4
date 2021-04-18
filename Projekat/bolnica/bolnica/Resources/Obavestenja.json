@@ -1,16 +1,1 @@
-[
-    {
-        "Id": 1,
-        "Datum": "2021-04-22T00:00:00",
-        "Sadrzaj": "Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.",
-        "Naslov": "Donirane posteljine",
-        "Obrisan": false
-    },
-    {
-        "Id": 2,
-        "Datum": "2021-04-15T00:00:00",
-        "Sadrzaj": "Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.",
-        "Naslov": "Uspešno okončana još jedna specijalizacija",
-        "Obrisan": false
-    }
-]
+[{"Id":2,"Datum":"2021-04-15T00:00:00","Sadrzaj":"Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.","Naslov":"Uspešno okončana još jedna specijalizacija","Obrisan":false},{"Id":1,"Datum":"2021-04-22T00:00:00","Sadrzaj":"Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.","Naslov":"Donirane posteljine","Obrisan":false}]

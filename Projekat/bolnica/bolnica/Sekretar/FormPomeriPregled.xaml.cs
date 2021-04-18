@@ -85,13 +85,13 @@ namespace Bolnica.Sekretar
 
         private void PomeriTermin(object sender, RoutedEventArgs e)
         {
-            string s = dpDatum.Text;
-            s = s.Replace("/", "-");
-            string[] d = s.Split("-");
-            string year = d[2];
-            string month = d[0];
-            string day = d[1];
-            trenutniPregled.Datum = DateTime.Parse(year + "-" + month + "-" + day + "T" + TimeSpan.Parse(comboVreme.Text));
+            DateTime datum = (DateTime)dpDatum.SelectedDate;
+            int godina = datum.Year;
+            int mesec = datum.Month;
+            int dan = datum.Day;
+            string sati = comboVreme.Text.Split(":")[0];
+            string minuti = comboVreme.Text.Split(":")[1];
+            trenutniPregled.Datum = new DateTime(godina, mesec, dan, Int32.Parse(sati), Int32.Parse(minuti), 0);
             trenutniPregled.Trajanje = int.Parse(txtTrajanje.Text);
 
             for (int i = 0; i < lekari.Count; i++)

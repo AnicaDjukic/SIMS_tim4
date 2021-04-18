@@ -34,8 +34,8 @@ namespace bolnica
                     if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
-                        var s = new FormUpravnik();
-                        s.Show();
+                        //var s = new FormUpravnik();
+                        //s.Show();
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
@@ -55,7 +55,7 @@ namespace bolnica
                         Pacijent pac = new Pacijent();
                         foreach (Pacijent p in pacijenti)
                         {
-                            if (!p.Obrisan)
+                            if (!p.Obrisan && !p.Guest)
                             {
                                 if (p.KorisnickoIme.Equals(korisnickoIme) && p.Lozinka.Equals(lozinka))
                                 {

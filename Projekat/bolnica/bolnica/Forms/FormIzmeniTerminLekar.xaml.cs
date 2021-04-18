@@ -13,6 +13,7 @@ using Model.Pregledi;
 using Model.Korisnici;
 using Model.Prostorije;
 using Model.Pacijenti;
+using Bolnica.Model.Pregledi;
 
 namespace Bolnica.Forms
 {
