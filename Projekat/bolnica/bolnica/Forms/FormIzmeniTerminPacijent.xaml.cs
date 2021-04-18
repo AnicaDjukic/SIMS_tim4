@@ -20,11 +20,12 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIzmeniTerminPacijent : Window
     {
-        private Pregled pregled;
+        private PrikazPregleda prikazPregleda;
+        private List<Lekar> lekari = new List<Lekar>();
 
-        public FormIzmeniTerminPacijent(Pregled p)
+        public FormIzmeniTerminPacijent(PrikazPregleda p)
         {
-            pregled = p;
+            prikazPregleda = p;
 
             DateTime datPre = p.Datum;
             string[] div = datPre.ToString().Split(" ");
@@ -125,6 +126,11 @@ namespace Bolnica.Forms
             l4.TipKorisnika = TipKorisnika.lekar;
             l4.Zaposlen = true;
 
+            lekari.Add(l1);
+            lekari.Add(l2);
+            lekari.Add(l3);
+            lekari.Add(l4);
+
             comboLekar.Items.Add(l1.Ime + " " + l1.Prezime);
             comboLekar.Items.Add(l2.Ime + " " + l2.Prezime);
             comboLekar.Items.Add(l3.Ime + " " + l3.Prezime);
@@ -163,21 +169,30 @@ namespace Bolnica.Forms
                 int godina = datum.Year;
                 int sat = comboSat.SelectedIndex;
                 int minut = comboMinut.SelectedIndex * 15;
-                DateTime datumPregleda = new DateTime(godina, mesec, dan, sat, minut, 0);
+                DateTime datumIVremePregleda = new DateTime(godina, mesec, dan, sat, minut, 0);
 
                 string imeLekara = comboLekar.Text;
                 String[] splited = imeLekara.Split(" ");
                 string ime = splited[0];
-                string prezime = splited[1];
+                string prezime = splited[1];               
+
+                PrikazPregleda prikaz = new PrikazPregleda();
+                prikaz.Id = prikazPregleda.Id;
+                prikaz.Pacijent = prikazPregleda.Pacijent;
+                prikaz.Datum = datumIVremePregleda;
+                prikaz.Zavrsen = false;
+                prikaz.Trajanje = 30;
 
                 Lekar l = new Lekar();
-                l.Ime = ime;
-                l.Prezime = prezime;
-
-                Pregled pre = new Pregled();
-                pre.Datum = datumPregleda;
-                pre.Lekar = l;
-                pre.Trajanje = 15;
+                foreach (Lekar lek in lekari)
+                {
+                    if (ime.Equals(lek.Ime) && prezime.Equals(lek.Prezime))
+                    {
+                        l = lek;
+                        break;
+                    }
+                }
+                prikaz.Lekar = l;
 
                 FileStorageProstorija storageProstorije = new FileStorageProstorija();
                 List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
@@ -189,7 +204,7 @@ namespace Bolnica.Forms
                     {
                         if (pro.Obrisana == false)
                         {
-                            pre.Prostorija = pro;
+                            prikaz.Prostorija = pro;
                             slobodna = true;
                             break;
                         }
@@ -202,11 +217,21 @@ namespace Bolnica.Forms
                 }
                 else
                 {
-                    FormPacijent.Pregledi.Remove(pregled);
-                    FormPacijent.Pregledi.Add(pre);
+                    FormPacijent.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
+                    FormPacijent.PrikazNezavrsenihPregleda.Add(prikaz);
+
+                    Pregled pregled = new Pregled();
+                    pregled.Id = prikaz.Id;
+                    pregled.Datum = prikaz.Datum;
+                    pregled.Trajanje = prikaz.Trajanje;
+                    pregled.Zavrsen = prikaz.Zavrsen;
+                    pregled.AnamnezaId = prikazPregleda.AnamnezaId;
+                    pregled.lekarJmbg = prikaz.Lekar.Jmbg;
+                    pregled.brojProstorije = prikaz.Prostorija.BrojProstorije;
+                    pregled.pacijentJmbg = prikaz.Pacijent.Jmbg;
 
                     FileStoragePregledi storagePregledi = new FileStoragePregledi();
-                    storagePregledi.Izmeni(pre);
+                    storagePregledi.Izmeni(pregled);
 
                     this.Close();
                 }
@@ -219,5 +244,48 @@ namespace Bolnica.Forms
             this.Close();
         }
 
+        private void NasiPredlozi(object sender, RoutedEventArgs e)
+        {
+            DateTime datum = new DateTime(1, 1, 1);
+            int sat = -1;
+            int minut = -1;
+            string imeLekara = "";
+            Lekar lekar = new Lekar();
+
+            if (!(datumPicker.SelectedDate is null))
+            {
+                datum = (DateTime)datumPicker.SelectedDate;
+            }
+
+            if (comboSat.SelectedIndex >= 0)
+            {
+                sat = comboSat.SelectedIndex;
+            }
+
+            if (comboMinut.SelectedIndex >= 0)
+            {
+                minut = comboMinut.SelectedIndex * 15;
+            }
+
+            if (!comboLekar.Text.Equals(""))
+            {
+                imeLekara = comboLekar.Text;
+                String[] splited = imeLekara.Split(" ");
+                string ime = splited[0];
+                string prezime = splited[1];
+                foreach (Lekar lek in lekari)
+                {
+                    if (ime.Equals(lek.Ime) && prezime.Equals(lek.Prezime))
+                    {
+                        lekar = lek;
+                        break;
+                    }
+                }
+            }
+
+            var s = new FormNasiPredlozi(prikazPregleda.Pacijent, datum, sat, minut, lekar);
+            s.Show();
+            this.Close();
+        }
     }
 }
