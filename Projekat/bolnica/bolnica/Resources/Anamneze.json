@@ -1,48 +1,126 @@
 [
-  
   {
-    "Id": 0,
+    "Id": 1,
     "Simptomi": "",
     "Dijagnoza": "",
     "Recept": [
       {
         "Lek_id": 1,
-        "Id": 0,
+        "Id": 1,
         "DatumIzdavanja": "0001-01-01T00:00:00",
         "Kolicina": 5,
-        "VremeUzimanja": "02:15:00",
-        "Trajanje": "2021-04-20T00:00:00"
+        "VremeUzimanja": "24:00:00",
+        "Trajanje": "2021-04-22T00:00:00",
+        "Sedmicno": 4
       },
       {
         "Lek_id": 2,
-        "Id": 0,
+        "Id": 2,
         "DatumIzdavanja": "0001-01-01T00:00:00",
         "Kolicina": 4,
-        "VremeUzimanja": "02:45:00",
-        "Trajanje": "2021-04-11T00:00:00"
+        "VremeUzimanja": "12:00:00",
+        "Trajanje": "2021-04-21T00:00:00",
+        "Sedmicno": 4
       }
     ]
   },
   {
-    "Id": 1,
+    "Id": 2,
+    "Simptomi": "",
+    "Dijagnoza": "",
+    "Recept": [
+      {
+        "Lek_id": 1,
+        "Id": 1,
+        "DatumIzdavanja": "0001-01-01T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-04-30T00:00:00",
+        "Sedmicno": 4
+      },
+      {
+        "Lek_id": 3,
+        "Id": 2,
+        "DatumIzdavanja": "0001-01-01T00:00:00",
+        "Kolicina": 4,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-05-11T00:00:00",
+        "Sedmicno": 4
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Simptomi": "",
+    "Dijagnoza": "",
+    "Recept": [
+      {
+        "Lek_id": 4,
+        "Id": 1,
+        "DatumIzdavanja": "2021-04-18T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-04-28T00:00:00",
+        "Sedmicno": 4
+      },
+      {
+        "Lek_id": 2,
+        "Id": 2,
+        "DatumIzdavanja": "0001-01-01T00:00:00",
+        "Kolicina": 4,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-04-11T00:00:00",
+        "Sedmicno": 4
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Simptomi": "",
+    "Dijagnoza": "",
+    "Recept": [
+      {
+        "Lek_id": 3,
+        "Id": 0,
+        "DatumIzdavanja": "0001-01-01T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-04-10T00:00:00",
+        "Sedmicno": 4
+      },
+      {
+        "Lek_id": 4,
+        "Id": 0,
+        "DatumIzdavanja": "0001-01-01T00:00:00",
+        "Kolicina": 4,
+        "VremeUzimanja": "08:00:00",
+        "Trajanje": "2021-04-21T00:00:00",
+        "Sedmicno": 4
+      }
+    ]
+  },
+  {
+    "Id": 5,
     "Simptomi": "NestoDrugo",
     "Dijagnoza": "nestoDrugo",
     "Recept": [
       {
-        "Lek_id": 2,
-        "Id": 0,
+        "Lek_id": 3,
+        "Id": 1,
         "DatumIzdavanja": "0001-01-01T00:00:00",
         "Kolicina": 3,
-        "VremeUzimanja": "00:30:00",
-        "Trajanje": "2021-04-11T00:00:00"
+        "VremeUzimanja": "12:00:00",
+        "Trajanje": "2021-04-25T00:00:00",
+        "Sedmicno": 3
       },
       {
-        "Lek_id": 1,
-        "Id": 0,
+        "Lek_id": 2,
+        "Id": 2,
         "DatumIzdavanja": "0001-01-01T00:00:00",
         "Kolicina": 3,
-        "VremeUzimanja": "02:45:00",
-        "Trajanje": "2021-04-11T00:00:00"
+        "VremeUzimanja": "12:00:00",
+        "Trajanje": "2021-04-27T00:00:00",
+        "Sedmicno": 4
       }
     ]
   }
