@@ -28,6 +28,11 @@ namespace Bolnica.Forms
             prikazPregleda = p;
 
             DateTime datPre = p.Datum;
+            int dan = datPre.Day;
+            int mesec = datPre.Month;
+            int godina = datPre.Year;
+            int sat = datPre.Hour;
+            int minut = datPre.Minute;
             string[] div = datPre.ToString().Split(" ");
             string[] d = div[0].Split(".");
             string[] v = div[1].Split(":");
@@ -136,10 +141,24 @@ namespace Bolnica.Forms
             comboLekar.Items.Add(l3.Ime + " " + l3.Prezime);
             comboLekar.Items.Add(l4.Ime + " " + l4.Prezime);
 
-            DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
+            DateTime dat = new DateTime(godina, mesec, dan);
             datumPicker.SelectedDate = dat;
-            comboSat.Text = v[0];
-            comboMinut.Text = v[1];
+            if (sat < 10)
+            {
+                comboSat.Text = "0" + sat.ToString();
+            }
+            else
+            {
+                comboSat.Text = sat.ToString();
+            }
+            if (minut == 0)
+            {
+                comboMinut.Text = "0" + minut.ToString();
+            }
+            else
+            {
+                comboMinut.Text = minut.ToString();
+            }
             comboLekar.Text = imeL + " " + prezimeL;
         }
 
