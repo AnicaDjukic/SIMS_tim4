@@ -1,14 +1,8 @@
-
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Model.Korisnici;
 using Model.Pacijenti;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 
@@ -37,7 +31,7 @@ namespace bolnica
             {
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                /*    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
                         var s = new FormUpravnik();
@@ -47,8 +41,8 @@ namespace bolnica
                     {
                         var s = new FormSekretar();
                         s.Show();
-                    } */
-                    if (korisnik.TipKorisnika == TipKorisnika.lekar)
+                    }
+                    else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
                         var s = new FormLekar();
                         s.Show();

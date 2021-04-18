@@ -1,9 +1,3 @@
-// File:    Lek.cs
-// Author:  Anica
-// Created: 3. ????? 2021 14:53:18
-// Purpose: Definition of Class Lek
-
-
 using Bolnica.Model.Pregledi;
 
 using System;
@@ -13,7 +7,6 @@ namespace Model.Pregledi
 {
    public class Lek
    {
-     
         public int Id { get; set; }
         public string Naziv { get; set; }
         public int KolicinaUMg { get; set; }
@@ -91,3 +84,4 @@ namespace Model.Pregledi
    
    }
 }
+

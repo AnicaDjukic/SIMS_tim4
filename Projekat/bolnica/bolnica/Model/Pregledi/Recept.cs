@@ -1,8 +1,3 @@
-// File:    Recept.cs
-// Author:  Anica
-// Created: 3. ????? 2021 14:42:34
-// Purpose: Definition of Class Recept
-
 using System;
 
 namespace Model.Pregledi

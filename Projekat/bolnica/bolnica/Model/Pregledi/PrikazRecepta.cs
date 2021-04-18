@@ -19,8 +19,5 @@ namespace Model.Pregledi
         public int Kolicina { get; set; }
         public TimeSpan VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
-
-
-
     }
 }

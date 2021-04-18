@@ -1,15 +1,16 @@
-﻿using System;
+using Model.Korisnici;
+using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.Pregledi
+namespace Bolnica.Model.Pregledi
 {
     public class PrikazPregleda
     {
-
-        public Model.Korisnici.Lekar lekar;
-        public Model.Prostorije.Prostorija prostorija;
-        public Model.Korisnici.Pacijent pacijent;
+        public Lekar lekar;
+        public Prostorija prostorija;
+        public Pacijent pacijent;
 
         public int Id { get; set; }
         public DateTime Datum { get; set; }
@@ -17,7 +18,7 @@ namespace Model.Pregledi
         public bool Zavrsen { get; set; }
 
         public int AnamnezaId { get; set; }
-        public Model.Korisnici.Lekar Lekar
+        public Lekar Lekar
         {
             get
             {
@@ -28,7 +29,7 @@ namespace Model.Pregledi
                 this.lekar = value;
             }
         }
-        public Model.Prostorije.Prostorija Prostorija
+        public Prostorija Prostorija
         {
             get
             {
@@ -39,7 +40,7 @@ namespace Model.Pregledi
                 this.prostorija = value;
             }
         }
-        public Model.Korisnici.Pacijent Pacijent
+        public Pacijent Pacijent
         {
             get
             {
@@ -50,8 +51,5 @@ namespace Model.Pregledi
                 this.pacijent = value;
             }
         }
-
-        
-
     }
 }

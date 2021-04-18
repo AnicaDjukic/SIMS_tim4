@@ -1,8 +1,3 @@
-// File:    Anamneza.cs
-// Author:  Anica
-// Created: 3. ????? 2021 14:41:40
-// Purpose: Definition of Class Anamneza
-
 using System;
 using System.Collections.Generic;
 
@@ -32,3 +27,4 @@ namespace Model.Pregledi
    
    }
 }
+

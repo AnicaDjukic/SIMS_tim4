@@ -4,8 +4,6 @@ namespace Model.Pregledi
 {
    public class Pregled
    {  
-      
-      
       public int Id { get; set; }
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
@@ -17,8 +15,5 @@ namespace Model.Pregledi
       public int brojProstorije { get; set; }
       
       public string pacijentJmbg { get; set; }
-
-      
-   
-   }
+    }
 }
