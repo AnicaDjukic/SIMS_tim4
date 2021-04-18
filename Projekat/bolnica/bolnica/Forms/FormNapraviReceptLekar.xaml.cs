@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Model.Pregledi;
+using Model.Korisnici;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -27,37 +28,29 @@ namespace Bolnica.Forms
         public string vremeUzimanja { get; set; }
         public DateTime datumPrekida { get; set; }
 
+        private Pacijent trePac = new Pacijent();
+
         private List<Lek> lekovi;
-        public FormNapraviReceptLekar(List<Lek> lek,Pacijent trenutniPacijent)
+        public FormNapraviReceptLekar(List<Lek> lek, Pacijent trenutniPacijent)
         {
             lekovi = lek;
-
+            trePac = trenutniPacijent;
             InitializeComponent();
 
             this.DataContext = this;
 
             datumIzdavanja = DateTime.Now;
 
-            for (int i = 0; i< lekovi.Count; i++)
+            for (int i = 0; i < lekovi.Count; i++)
             {
                 int dozvolica = 0;
-                for(int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+                for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
                 {
                     if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(lekovi[i].Id))
                     {
                         dozvolica = 1;
                     }
-                   /* for (int o = 0; o < trenutniPacijent.Alergeni.Count; o++)
-                    {
-                        for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
-                        {
-                            if (trenutniPacijent.Alergeni[o].Equals(lekovi[i].Sastojak[m]))
-                            {
-                                dozvolica = 1;
-                            }
 
-                        }
-                    } dio za ako je alergican*/
 
                 }
                 if (dozvolica == 0)
@@ -66,9 +59,9 @@ namespace Bolnica.Forms
                     textDoza.Items.Add(lekovi[i].KolicinaUMg);
                 }
             }
-            
-               
-            
+
+
+
             for (int i = 1; i < 10; i++)
             {
                 textBrojKutija.Items.Add(i);
@@ -91,7 +84,32 @@ namespace Bolnica.Forms
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
-            Recept r = new Recept();
+            Lek izabraniLek = new Lek();
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
+                {
+                    izabraniLek = lekovi[i];
+                }
+            }
+            List<Sastojak>? alergeniPacijenta = trePac?.Alergeni;
+            if (alergeniPacijenta != null)
+            {
+                for (int o = 0; o < alergeniPacijenta.Count; o++)
+                {
+                    for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
+                    {
+                        if (alergeniPacijenta[o].Equals(izabraniLek.Sastojak[m]))
+                        {
+                            MessageBox.Show("Pacijent je alergican na izabrani lek");
+                            return;
+                        }
+
+                    }
+                }
+            }
+        
+                Recept r = new Recept();
             PrikazRecepta rr = new PrikazRecepta();
             r.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
             rr.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);

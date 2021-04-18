@@ -716,7 +716,8 @@ namespace Bolnica.Forms
                 if (objekat.GetType().Equals(prikazPregleda.GetType()))
                 {
                     PrikazPregleda pri = objekat as PrikazPregleda;
-                   
+                    if (pri.Datum < DateTime.Now)
+                    {
                         for (int i = 0; i < listaPregleda.Count; i++)
                         {
                             if (pri.Id.Equals(listaPregleda[i].Id))
@@ -728,13 +729,20 @@ namespace Bolnica.Forms
                                 break;
                             }
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pregled nije poceo");
+                        return;
+                    }
                     
 
                 }
                 if (objekat.GetType().Equals(prikazOperacije.GetType()))
                 {
                     PrikazOperacije pri = objekat as PrikazOperacije;
-                    
+                    if (pri.Datum < DateTime.Now)
+                    {
                         for (int i = 0; i < listaOperacija.Count; i++)
                         {
                             if (pri.Id.Equals(listaOperacija[i].Id))
@@ -747,7 +755,14 @@ namespace Bolnica.Forms
                                 break;
                             }
                         }
-                    
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Operacija nije pocela");
+                        return;
+                    }
+
                 }
                 
             }

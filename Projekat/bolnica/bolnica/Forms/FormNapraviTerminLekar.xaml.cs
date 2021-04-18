@@ -199,7 +199,7 @@ namespace Bolnica.Forms
                     Operacija o = new Operacija();
                     if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
                     {
-                        
+                        trenutnaOperacija.AnamnezaId = -1;
                         o.Id = trenutnaOperacija.Id;
                         o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
                         o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
@@ -230,7 +230,7 @@ namespace Bolnica.Forms
                     Pregled o = new Pregled();
                     if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
                     {
-                        
+                        trenutniPregled.AnamnezaId = -1;
                         o.Id = trenutniPregled.Id;
                         o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
                         o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
