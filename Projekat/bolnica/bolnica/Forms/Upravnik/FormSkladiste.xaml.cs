@@ -72,24 +72,24 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             this.DataContext = this;
+            opremaZaSkladistenje = oprema;
             ProstorijeZaSkladistenje = new ObservableCollection<Prostorija>();
             storage = new FileStorageProstorija();
             List<Prostorija> prostorije = storage.GetAllProstorije();
             foreach(Prostorija p in prostorije)
             {
-                if(!p.Obrisana)
+                if(!p.Obrisana && !opremaZaSkladistenje.OpremaPoSobama.ContainsKey(p.BrojProstorije.ToString()))
                     ProstorijeZaSkladistenje.Add(p);
             }
 
             List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
-                if(!b.Obrisana)
+                if(!b.Obrisana && !opremaZaSkladistenje.OpremaPoSobama.ContainsKey(b.BrojProstorije.ToString()))
                     ProstorijeZaSkladistenje.Add(b);
             }
 
             Zalihe = new ObservableCollection<Zaliha>();
-            opremaZaSkladistenje = oprema;
             if(!imaMagacin())
             {
                 magacin = new Zaliha { Prostorija = "magacin", Kolicina = opremaZaSkladistenje.Kolicina };
