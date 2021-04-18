@@ -5,7 +5,6 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -52,13 +51,13 @@ namespace bolnica.Forms
             List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
             foreach (Prostorija p in prostorije)
             {
-                if(p.Obrisana == false)
+                if (p.Obrisana == false)
                     Prostorije.Add(p);
             }
             List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
-                if(b.Obrisana == false)
+                if (b.Obrisana == false)
                     Prostorije.Add(b);
             }
 
@@ -78,8 +77,8 @@ namespace bolnica.Forms
             storageOprema.Save(o1);*/
 
             List<Oprema> oprema = storageOprema.GetAll();
-            
-            foreach(Oprema o in oprema)
+
+            foreach (Oprema o in oprema)
             {
                 Oprema.Add(o);
             }
@@ -88,11 +87,12 @@ namespace bolnica.Forms
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
             clickedDodaj = true;
-            if(Tabovi.SelectedIndex == 0)
+            if (Tabovi.SelectedIndex == 0)
             {
                 var s = new CreateFormProstorije();
                 s.Show();
-            } else if (Tabovi.SelectedIndex == 1)
+            }
+            else if (Tabovi.SelectedIndex == 1)
             {
                 var o = new CreateFormOprema();
                 o.Show();
@@ -190,7 +190,7 @@ namespace bolnica.Forms
                 {
                     if (p.BrojProstorije == row.BrojProstorije)
                     {
-                        s.BrojProstorije= p.BrojProstorije;
+                        s.BrojProstorije = p.BrojProstorije;
                         s.Sprat = p.Sprat;
                         s.Kvadratura = p.Kvadratura;
                         if (p.TipProstorije == TipProstorije.salaZaPreglede)
@@ -220,13 +220,14 @@ namespace bolnica.Forms
                             s.UkBrojKreveta = b.UkBrojKreveta;
                             s.lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
                             s.txtBrojSlobodnihKreveta.Visibility = Visibility.Visible;
-                            s.BrojSlobodnihKreveta= b.BrojSlobodnihKreveta;
+                            s.BrojSlobodnihKreveta = b.BrojSlobodnihKreveta;
                             s.Show();
                             break;
                         }
                     }
                 }
-            } else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
+            }
+            else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 clickedDodaj = false;
                 Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
@@ -307,6 +308,40 @@ namespace bolnica.Forms
 
                                 break;
                             }
+                        }
+                    }
+                }
+            }
+            else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
+            {
+                Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
+                List<Oprema> oprema = storageOprema.GetAll();
+
+                string sMessageBoxText = "Da lis te sigurni da želite da obrišete opremu sa nazivom \"" + row.Naziv + "\" i šifrom \"" + row.Sifra + "\"?";
+                string sCaption = "Brisanje opreme";
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+                if(rsltMessageBox == MessageBoxResult.Yes)
+                {
+                    foreach (Oprema o in oprema)
+                    {
+                        if (o.Sifra == row.Sifra)
+                        {
+                            storageOprema.Delete(o);
+
+                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+                            {
+                                if (FormUpravnik.Oprema[i].Sifra == row.Sifra)
+                                {
+                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
                 }
