@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="FormPacijent" Height="450" Width="900">
     <Grid>
-        <DataGrid Name="pacijentGrid" ItemsSource="{Binding Pregledi}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+        <DataGrid Name="pacijentGrid" ItemsSource="{Binding PrikazNezavrsenihPregleda}" HorizontalAlignment="Right" VerticalAlignment="Top" 
                   Height="450" Width="780" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -33,5 +33,6 @@
         <Button Content="Otkaži pregled" HorizontalAlignment="Left" Margin="0,114,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="OtkaziPregled"/>
         <Button Content="Izmeni pregled" HorizontalAlignment="Left" Margin="0,171,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="IzmeniPregled"/>
         <Button Content="Istorija pregleda" HorizontalAlignment="Left" Margin="0,228,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="IstorijaPregleda"/>
+        <Button Content="Obaveštenja" HorizontalAlignment="Left" Margin="0,370,0,0" VerticalAlignment="Top" Height="35" Width="99" Click="ObavestenjaPacijent"/>
     </Grid>
 </Window>

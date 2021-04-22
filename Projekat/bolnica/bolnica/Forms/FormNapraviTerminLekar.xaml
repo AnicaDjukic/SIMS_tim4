@@ -5,10 +5,70 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="FormNapraviTerminLekar" Height="350" Width="325">
-    <Grid>
+        Title="FormNapraviTerminLekar" Height="775" Width="775">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="Background" Value="#FF09F3D5"/>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+           
+               
+            <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                        <Setter Property="IsDropDownOpen" Value="true"/>
+                    </Trigger>
+                </Style.Triggers>
+            
+            
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SaveButton">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textDatum}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textVreme}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textTrajanje}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textIme}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textPrezime}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textJmbg}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textLekar}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textProstorija}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textOperacija}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="#FF09F3D5">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -27,31 +87,216 @@
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <CheckBox  Content="" Grid.Column="1" Grid.Row="1" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija" KeyDown="CheckOnEnter"/>
-        <DatePicker Name="textDatum"  Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" MinWidth="70" KeyDown="DatumDateOpen"  />
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textVreme" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="VremeComboOpen"/>
-        <TextBox  Name="textTrajanje" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70"/>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textIme" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboIme" DropDownClosed="filterIme" ></ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" DropDownClosed="filterPrezime" KeyDown="OpenComboPrezime"/>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textJmbg" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OpenComboJmbg" DropDownClosed="filterJMBG"/>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProstorija" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboProstorija"/>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="LekarComboOpen"/>
-        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboOperacija"/>
-        
+        <CheckBox  Content="" Grid.Column="2" Grid.Row="1" Name="checkOperacija" HorizontalAlignment="Center" VerticalAlignment="Center" Click="isOperacija" KeyDown="CheckOnEnter"/>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="LekarComboOpen"/>
+        <DatePicker  Name="textDatum"  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" MinWidth="70" KeyDown="DatumDateKey">
+            <DatePicker.SelectedDate>
+                <Binding Path="datumB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:DatePickerDatumValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </DatePicker>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textVreme" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="VremeComboOpen">
+            <ComboBox.Text>
+                <Binding Path="vremeB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxVremeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
+        <TextBox  Name="textTrajanje" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70">
+        <TextBox.Text>
+            <Binding Path="trajanjeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding.ValidationRules>
+                    <val:TextBoxTrajanjeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox.Text>
+        <Validation.ErrorTemplate>
+            <ControlTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                </Grid>
+            </ControlTemplate>
+        </Validation.ErrorTemplate>
+        </TextBox>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textIme" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboIme" >
+            <ComboBox.Text>
+                <Binding Path="imeB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxImeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OpenComboPrezime">
+            <ComboBox.Text>
+                <Binding Path="prezimeB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxPrezimeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True"  Name="textJmbg" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OpenComboJmbg">
+            <ComboBox.Text>
+                <Binding Path="jmbgB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxJmbgValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProstorija" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboProstorija">
+            <ComboBox.Text>
+                <Binding Path="brojProstorijeB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxProstorijaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
+        <ComboBox Visibility="Hidden"  Name="textOperacija" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="OpenComboOperacija">
+            <ComboBox.Text>
+                <Binding Path="tipOperacijeB" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ComboBoxTipOperacijeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="False"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}" />
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </ComboBox>
 
-        <Label Content="Operacija" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Datum" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Vreme" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Trajanje" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Ime pacijenta" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Prezime pacijenta" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="JMBG pacijenta" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Prostorija" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Lekar" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Visibility="Hidden" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
 
-        <Button Content="Potvrdi" Grid.Column="0" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="PotvrdiIzmenu"/>
-        <Button Content="Otkaži" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="OtkaziIzmenu"/>
+        <Label Content="Operacija" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Label Content="Lekar" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Datum" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Vreme(min)" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Trajanje" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Ime pacijenta" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Prezime pacijenta" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="JMBG pacijenta" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Prostorija" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Visibility="Hidden" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+        <Button Style="{StaticResource SaveButton}" Content="Potvrdi" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="PotvrdiIzmenu"/>
+        <Button Content="Otkaži" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="OtkaziIzmenu"/>
+        
     </Grid>
 </Window>

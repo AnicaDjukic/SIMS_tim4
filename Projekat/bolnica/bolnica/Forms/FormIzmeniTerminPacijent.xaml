@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FormIzmeniTerminPacijent" Height="350" Width="400">
     <Grid>
-        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="230,40,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" DisplayDateStart="03/26/2021 02:08:38" SelectedDateFormat="Short"/>
+        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="230,40,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}" SelectedDateFormat="Short"/>
         <ComboBox  Name="comboSat"  HorizontalAlignment="Left" Margin="230,80,0,0"  VerticalAlignment="Top" Width="55">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="01"></ComboBoxItem>
@@ -48,5 +48,6 @@
 
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="115,254,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>
         <Button Content="Otkaži" HorizontalAlignment="Left" Margin="212,254,0,0" VerticalAlignment="Top" Width="55" Click="OtkaziIzmenu"/>
+        <Button Content="Naši predlozi" HorizontalAlignment="Left" Margin="200,170,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="NasiPredlozi"/>
     </Grid>
 </Window>

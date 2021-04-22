@@ -7,7 +7,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\LekarIstorija.png" />
+    <None Remove="Resources\LekarPregled.png" />
+    <None Remove="Forms\Images\add.png" />
+    <None Remove="Forms\Images\delete-bin.png" />
+    <None Remove="Forms\Images\diamond.png" />
+    <None Remove="Forms\Images\document.png" />
+    <None Remove="Forms\Images\edit.png" />
+    <None Remove="Forms\Images\left-arrow.png" />
+    <None Remove="Forms\Images\notification.png" />
+    <None Remove="Forms\Images\recycle.png" />
+    <None Remove="Forms\Images\right-arrow.png" />
+    <None Remove="Forms\Images\search.png" />
+    <None Remove="Forms\Images\shopping.png" />
+    <None Remove="Forms\Images\view-details.png" />
+    <None Remove="Forms\Images\woman-profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\LekarIstorija.png" />
+    <Resource Include="Resources\LekarPregled.png" />
+    <Resource Include="Forms\Images\add.png" />
+    <Resource Include="Forms\Images\delete-bin.png" />
+    <Resource Include="Forms\Images\diamond.png" />
+    <Resource Include="Forms\Images\document.png" />
+    <Resource Include="Forms\Images\edit.png" />
+    <Resource Include="Forms\Images\left-arrow.png" />
+    <Resource Include="Forms\Images\notification.png" />
+    <Resource Include="Forms\Images\recycle.png" />
+    <Resource Include="Forms\Images\right-arrow.png" />
+    <Resource Include="Forms\Images\search.png" />
+    <Resource Include="Forms\Images\shopping.png" />
+    <Resource Include="Forms\Images\view-details.png" />
+    <Resource Include="Forms\Images\woman-profile.png" />
   </ItemGroup>
 
 </Project>

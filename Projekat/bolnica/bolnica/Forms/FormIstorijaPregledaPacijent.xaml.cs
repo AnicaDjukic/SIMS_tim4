@@ -25,7 +25,7 @@ namespace Bolnica.Forms
         {
             InitializeComponent();
 
-            storage = new FileStoragePregledi();
+            /*storage = new FileStoragePregledi();
 
             List<Pregled> pregledi = storage.GetAllPregledi();
             foreach (Pregled p in pregledi)
@@ -44,7 +44,7 @@ namespace Bolnica.Forms
                     if (o.Zavrsen == true && o.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
                         pacijentIstorijaGrid.Items.Add(o);
                 }
-            }
+            }*/
 
             /*listaPregleda = new List<Pregled>();
             listaOperacija = new List<Operacija>();
