@@ -180,7 +180,7 @@ namespace Bolnica.Sekretar
         private void ZakaziTermin(object sender, RoutedEventArgs e)
         {
             FormZakaziPregled s = new FormZakaziPregled(listaLekara);
-            s.Show();
+            s.ShowDialog();
         }
 
         private void PomeriTermin(object sender, RoutedEventArgs e)
@@ -200,7 +200,7 @@ namespace Bolnica.Sekretar
                         {
                             pp = dataGridPregledi.SelectedItem as PrikazPregleda;
                             FormPomeriPregled s = new FormPomeriPregled(pp, listaLekara);
-                            s.Show();
+                            s.ShowDialog();
                             break;
                         }
                     }

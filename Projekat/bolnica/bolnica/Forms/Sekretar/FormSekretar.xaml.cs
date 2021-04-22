@@ -172,14 +172,6 @@ namespace Bolnica.Forms
                         s.lblAdresaStanovanja.Content = p.AdresaStanovanja;
                         s.lblBrojTelefona.Content = p.BrojTelefona;
                         s.lblEmail.Content = p.Email;
-                        if (p.Alergeni != null)
-                        {
-                            s.lblAlergeni.Content = p.Alergeni[0].Naziv;
-                            for (int i = 1; i < p.Alergeni.Count; i++)
-                                s.lblAlergeni.Content = s.lblAlergeni.Content + ", " + p.Alergeni[i].Naziv;
-                        }
-                        else
-                            s.lblAlergeni.Content = "Nema";
        
                         s.lblKorisnickoIme.Visibility = Visibility.Hidden;
                         s.lblKorIme.Visibility = Visibility.Hidden;
@@ -225,7 +217,7 @@ namespace Bolnica.Forms
                             s.lblOsiguranje.Visibility = Visibility.Visible;
                         }
 
-                        s.Show();
+                        s.ShowDialog();
                         break;
                     }
                 }

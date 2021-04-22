@@ -33,13 +33,13 @@
         <Label x:Name="lblAdresaStanovanja" HorizontalAlignment="Left" Margin="150,215,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblBrojTelefona" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblEmail" HorizontalAlignment="Left" Margin="150,275,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAlergeni" HorizontalAlignment="Left" Margin="150,305,0,0" VerticalAlignment="Top" Height="70" Width="173"/>
+        <Button x:Name="btnAlergeni" Content="Prikaži" Click="PrikaziAlergene" Height="20" Width="80" Margin="55,309,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblKorIme" HorizontalAlignment="Left" Margin="150,365,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblLoz" HorizontalAlignment="Left" Margin="150,395,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblIDKar" HorizontalAlignment="Left" Margin="150,425,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblZan" HorizontalAlignment="Left" Margin="150,455,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblBrStatus" HorizontalAlignment="Left" Margin="150,485,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkOsig" HorizontalAlignment="Left" Margin="150,522,0,0" VerticalAlignment="Top"/>
-        <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,561,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click"/>
+        <Button Content="Zatvori" HorizontalAlignment="Center" Height="20" Width="80" Margin="0,561,0,0" VerticalAlignment="Top" Click="Button_Click"/>
     </Grid>
 </Window>

@@ -65,7 +65,7 @@ namespace Bolnica.Sekretar
                         s.lblNaslov.Content = o.Naslov;
                         s.tbText.Text = o.Sadrzaj;
                         
-                        s.Show();
+                        s.ShowDialog();
                         break;
                     }
                 }

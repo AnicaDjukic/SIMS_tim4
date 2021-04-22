@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using Bolnica.Sekretar;
 using System.Linq;
+using Bolnica.Model.Pregledi;
 
 namespace Bolnica.Forms
 {
@@ -138,7 +139,7 @@ namespace Bolnica.Forms
                         Osiguranje = osiguranje
                     },
                     Alergeni = FormAlergeniDodaj.DodatiAlergeni.ToList()
-                };
+            };
 
                 addPatient(pacijent);
             }
