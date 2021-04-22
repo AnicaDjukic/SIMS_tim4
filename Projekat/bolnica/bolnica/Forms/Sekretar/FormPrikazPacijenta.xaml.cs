@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Bolnica.Forms.Sekretar;
+using Bolnica.Model.Pregledi;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +28,12 @@ namespace Bolnica.Forms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void PrikaziAlergene(object sender, RoutedEventArgs e)
+        {
+            FormAlergeniPrikaz s = new FormAlergeniPrikaz(lblJMBG);
+            s.ShowDialog();
         }
     }
 }

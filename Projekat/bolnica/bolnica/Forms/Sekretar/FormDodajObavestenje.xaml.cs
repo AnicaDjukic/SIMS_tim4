@@ -55,11 +55,14 @@ namespace Bolnica.Sekretar
                 return;
             }
 
-            int idPrethodnog = obavestenja[obavestenja.Count - 1].Id;
+            int max = 0;
+            foreach (Obavestenje o in obavestenja)
+                if (o.Id > max)
+                    max = o.Id;
 
             Obavestenje obavestenje = new Obavestenje();
             if (FormObavestenja.clickedDodaj)
-                obavestenje.Id = idPrethodnog + 1;
+                obavestenje.Id = max + 1;
             else
                 obavestenje.Id = id;
             obavestenje.Datum = datumKreiranja;
