@@ -110,6 +110,71 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
+            /*oprema.Sifra = sifra;
+            oprema.Naziv = naziv;
+            oprema.Kolicina = kolicina;
+            if (ComboTipOpreme.SelectedIndex == 0)
+                oprema.TipOpreme = TipOpreme.staticka;
+            else
+                oprema.TipOpreme = TipOpreme.dinamicka;*/
+
+            //update();
+
+            /*if (FormUpravnik.clickedDodaj)
+            {
+                foreach (Zaliha z in FormSkladiste.Zalihe)
+                {
+                    z.Oprema = oprema;
+                    FormSkladiste.storageZaliha.Save(z);
+                }
+            }*/
+            List<Oprema> svaOprema = storage.GetAll();
+            bool postoji = false;
+            if (svaOprema != null)
+            {
+                foreach (Oprema o in svaOprema)
+                {
+                    if (o.Sifra == oprema.Sifra)
+                    {
+                        if (FormUpravnik.clickedDodaj)
+                        {
+                            MessageBox.Show("Oprema sa istom šifrom već postoji");
+                            postoji = true;
+                            FormUpravnik.clickedDodaj = false;
+                        }
+                        else
+                        {
+                            storage.Delete(o);
+                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+                            {
+                                if (FormUpravnik.Oprema[i].Sifra == oprema.Sifra)
+                                {
+                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+                }
+                if (!postoji)
+                {
+                    storage.Save(oprema);
+                    FormUpravnik.Oprema.Add(oprema);
+                }
+            }
+            else
+            {
+                storage.Save(oprema);
+                FormUpravnik.Oprema.Add(oprema);
+            }
+
+        Close();
+
+        }
+
+        private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
+        {
             oprema.Sifra = sifra;
             oprema.Naziv = naziv;
             oprema.Kolicina = kolicina;
@@ -118,15 +183,6 @@ namespace Bolnica.Forms.Upravnik
             else
                 oprema.TipOpreme = TipOpreme.dinamicka;
 
-            update();
-
-            Close();
-
-        }
-
-        private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
-        {
-            oprema.Kolicina = kolicina;
             if (UkKolicinaValidna(kolicina))
             {
                 var s = new FormSkladiste(oprema);
@@ -145,40 +201,5 @@ namespace Bolnica.Forms.Upravnik
             return true;
         }
 
-        private void update()
-        {
-            List<Oprema> svaOprema = storage.GetAll();
-            bool postoji = false;
-            foreach (Oprema o in svaOprema)
-            {
-                if (o.Sifra == oprema.Sifra)
-                {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Oprema sa istom šifrom već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(o);
-                        for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
-                        {
-                            if (FormUpravnik.Oprema[i].Sifra == oprema.Sifra)
-                            {
-                                FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
-                                break;
-                            }
-
-                        }
-                    }
-                }
-            }
-            if (!postoji)
-            {
-                storage.Save(oprema);
-                FormUpravnik.Oprema.Add(oprema);
-            }
-        }
     }
 }

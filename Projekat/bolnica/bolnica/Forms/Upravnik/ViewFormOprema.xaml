@@ -42,7 +42,7 @@
                     <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="300">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija}" Width="*"/>
+                            <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
                             <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>

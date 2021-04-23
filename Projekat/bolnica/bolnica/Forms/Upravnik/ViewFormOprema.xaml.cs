@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,18 +32,14 @@ namespace Bolnica.Forms.Upravnik
             this.DataContext = this;
             Zalihe = new ObservableCollection<Zaliha>();
 
-            FileStorageOprema storage = new FileStorageOprema();
-            List<Oprema> oprema = storage.GetAll();
+            FileStorageZaliha storage = new FileStorageZaliha();
+            List<Zaliha> zalihe = storage.GetAll();
             
-            foreach(Oprema o in oprema)
+            foreach(Zaliha z in zalihe)
             {
-                if(o.Sifra == sifraOpreme)
+                if(z.Oprema.Sifra == sifraOpreme)
                 {
-                    foreach (string brojProstorije in o.OpremaPoSobama.Keys)
-                    {
-                        Zaliha z = new Zaliha { Prostorija = brojProstorije, Kolicina = o.OpremaPoSobama.GetValueOrDefault<string, int>(brojProstorije), Oprema = o.Sifra };
-                        Zalihe.Add(z);
-                    }
+                    Zalihe.Add(z);
                 }
             }
 

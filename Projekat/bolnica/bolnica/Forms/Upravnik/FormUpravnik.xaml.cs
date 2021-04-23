@@ -77,10 +77,12 @@ namespace bolnica.Forms
             storageOprema.Save(o1);*/
 
             List<Oprema> oprema = storageOprema.GetAll();
-
-            foreach (Oprema o in oprema)
+            if (oprema != null)
             {
-                Oprema.Add(o);
+                foreach (Oprema o in oprema)
+                {
+                    Oprema.Add(o);
+                }
             }
         }
 
@@ -104,7 +106,7 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
-                int brojProstorije = row.BrojProstorije;
+                string brojProstorije = row.BrojProstorije;
                 List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
                 List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
                 var s = new ViewFormProstorije(brojProstorije);

@@ -23,12 +23,12 @@ namespace Bolnica.Forms
             }
         }
 
-        private int brojProstorije;
+        private string brojProstorije;
         private int sprat;
         private double kvadratura;
         private int brojSlobodnihKreveta;
         private int ukBrojKreveta;
-        public int BrojProstorije
+        public string BrojProstorije
         {
             get
             {

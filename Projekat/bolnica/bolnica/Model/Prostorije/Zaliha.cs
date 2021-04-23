@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,8 @@ namespace Bolnica.Model.Prostorije
 {
     public class Zaliha
     {
-        public string Prostorija { get; set; }
         public int Kolicina { get; set; }
-        public string Oprema { get; set; }
+        public Oprema Oprema { get; set; }
+        public Prostorija Prostorija { get; set; }
     }
 }
