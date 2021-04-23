@@ -110,13 +110,13 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            /*oprema.Sifra = sifra;
+            oprema.Sifra = sifra;
             oprema.Naziv = naziv;
             oprema.Kolicina = kolicina;
             if (ComboTipOpreme.SelectedIndex == 0)
                 oprema.TipOpreme = TipOpreme.staticka;
             else
-                oprema.TipOpreme = TipOpreme.dinamicka;*/
+                oprema.TipOpreme = TipOpreme.dinamicka;
 
             //update();
 

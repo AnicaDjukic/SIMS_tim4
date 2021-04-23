@@ -32,7 +32,14 @@ namespace Bolnica.Forms
                 {
                     if (z.Prostorija.BrojProstorije == brojProstorije)
                     {
-                        OpremaSobe.Add(z);
+                        foreach(Oprema o in oprema)
+                        {
+                            if(o.Sifra == z.Oprema.Sifra)
+                            {
+                                z.Oprema = o;
+                                OpremaSobe.Add(z);
+                            }
+                        }
                     }
                 }
             }

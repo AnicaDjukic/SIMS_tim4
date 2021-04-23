@@ -18,7 +18,7 @@ namespace Model.Prostorije
         public List<Zaliha> GetAll()
         {
             var json = File.ReadAllText(fileLocation);
-            var zalihe = JsonConvert.DeserializeObject<List<Zaliha>>(json);
+            List<Zaliha> zalihe = JsonConvert.DeserializeObject<List<Zaliha>>(json);
             return zalihe;
         }
 
