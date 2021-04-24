@@ -50,9 +50,9 @@
                     <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaSobe}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="300" HeadersVisibility="Column">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Sifra}" Width="auto"/>
-                            <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
-                            <DataGridComboBoxColumn Header="TIP OPREME" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal1:TipOpreme}}}" SelectedValueBinding="{Binding TipOpreme}" Width="*"/>
+                            <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Oprema.Sifra}" Width="auto"/>
+                            <DataGridTextColumn Header="NAZIV" Binding="{Binding Oprema.Naziv}" Width="*"/>
+                            <DataGridComboBoxColumn Header="TIP OPREME" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal1:TipOpreme}}}" SelectedValueBinding="{Binding Oprema.TipOpreme}" Width="*"/>
                             <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>

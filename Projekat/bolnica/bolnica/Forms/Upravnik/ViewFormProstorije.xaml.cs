@@ -1,18 +1,9 @@
-﻿using bolnica.Forms;
+﻿using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Prostorije;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -21,33 +12,37 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class ViewFormProstorije : Window
     {
-        public static ObservableCollection<Oprema> OpremaSobe
+        public static ObservableCollection<Zaliha> OpremaSobe
         {
             get;
             set;
         }
-        public ViewFormProstorije(int brojProstorije)
+        public ViewFormProstorije(string brojProstorije)
         {
             InitializeComponent();
             this.DataContext = this;
-            OpremaSobe = new ObservableCollection<Oprema>();
-
-            foreach(Oprema o in FormUpravnik.Oprema)
+            OpremaSobe = new ObservableCollection<Zaliha>();
+            FileStorageZaliha storageZaliha = new FileStorageZaliha();
+            List<Zaliha> zalihe = storageZaliha.GetAll();
+            FileStorageOprema storageOprema = new FileStorageOprema();
+            List<Oprema> oprema = storageOprema.GetAll();
+            if (zalihe != null)
             {
-                foreach(string key in o.OpremaPoSobama.Keys)
+                foreach (Zaliha z in zalihe)
                 {
-                    if(brojProstorije.ToString() == key)
+                    if (z.BrojProstorije == brojProstorije)
                     {
-                        Oprema op = new Oprema();
-                        op.Sifra = o.Sifra;
-                        op.Naziv = o.Naziv;
-                        op.TipOpreme = o.TipOpreme;
-                        op.Kolicina = o.OpremaPoSobama.GetValueOrDefault<string, int>(key);
-                        OpremaSobe.Add(op);
+                        foreach(Oprema o in oprema)
+                        {
+                            if(o.Sifra == z.SifraOpreme)
+                            {
+                                z.Oprema = o;
+                                OpremaSobe.Add(z);
+                            }
+                        }
                     }
                 }
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

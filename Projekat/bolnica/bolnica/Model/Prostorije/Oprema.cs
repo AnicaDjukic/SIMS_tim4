@@ -12,12 +12,7 @@ namespace Bolnica.Model.Prostorije
         public TipOpreme TipOpreme { get; set; }
         public int Kolicina { get; set; }
 
-        public Dictionary<string, int> OpremaPoSobama { get; set; }
-
-        public Oprema()
-        {
-            OpremaPoSobama = new Dictionary<string, int>();
-        }
+        //public Dictionary<string, int> OpremaPoSobama { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using bolnica.Forms;
 using Bolnica.Model.Prostorije;
+using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -118,15 +119,71 @@ namespace Bolnica.Forms.Upravnik
             else
                 oprema.TipOpreme = TipOpreme.dinamicka;
 
-            update();
+            //update();
 
-            Close();
+            /*if (FormUpravnik.clickedDodaj)
+            {
+                foreach (Zaliha z in FormSkladiste.Zalihe)
+                {
+                    z.Oprema = oprema;
+                    FormSkladiste.storageZaliha.Save(z);
+                }
+            }*/
+            List<Oprema> svaOprema = storage.GetAll();
+            bool postoji = false;
+            if (svaOprema != null)
+            {
+                foreach (Oprema o in svaOprema)
+                {
+                    if (o.Sifra == oprema.Sifra)
+                    {
+                        if (FormUpravnik.clickedDodaj)
+                        {
+                            MessageBox.Show("Oprema sa istom šifrom već postoji");
+                            postoji = true;
+                            FormUpravnik.clickedDodaj = false;
+                        }
+                        else
+                        {
+                            storage.Delete(o);
+                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+                            {
+                                if (FormUpravnik.Oprema[i].Sifra == oprema.Sifra)
+                                {
+                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+                }
+                if (!postoji)
+                {
+                    storage.Save(oprema);
+                    FormUpravnik.Oprema.Add(oprema);
+                }
+            }
+            else
+            {
+                storage.Save(oprema);
+                FormUpravnik.Oprema.Add(oprema);
+            }
+
+        Close();
 
         }
 
         private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
         {
+            oprema.Sifra = sifra;
+            oprema.Naziv = naziv;
             oprema.Kolicina = kolicina;
+            if (ComboTipOpreme.SelectedIndex == 0)
+                oprema.TipOpreme = TipOpreme.staticka;
+            else
+                oprema.TipOpreme = TipOpreme.dinamicka;
+
             if (UkKolicinaValidna(kolicina))
             {
                 var s = new FormSkladiste(oprema);
@@ -141,44 +198,43 @@ namespace Bolnica.Forms.Upravnik
                 MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
                 return false;
             }
-                
-            return true;
-        }
-
-        private void update()
-        {
-            List<Oprema> svaOprema = storage.GetAll();
-            bool postoji = false;
-            foreach (Oprema o in svaOprema)
+            else
             {
-                if (o.Sifra == oprema.Sifra)
+                if (!FormUpravnik.clickedDodaj)
                 {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Oprema sa istom šifrom već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(o);
-                        for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
-                        {
-                            if (FormUpravnik.Oprema[i].Sifra == oprema.Sifra)
-                            {
-                                FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
-                                break;
-                            }
+                    FileStorageZaliha storageZalihe = new FileStorageZaliha();
+                    List<Zaliha> zalihe = storageZalihe.GetAll();
 
+                    if (zalihe != null)
+                    {
+                        int rezervisanaKolicina = 0;
+                        foreach (Zaliha z in zalihe)
+                        {
+                            if (z.SifraOpreme == oprema.Sifra && z.BrojProstorije != "magacin")
+                                rezervisanaKolicina += z.Kolicina;
+                        }
+
+                        foreach (Zaliha z in zalihe)
+                        {
+                            if (z.SifraOpreme == oprema.Sifra && z.BrojProstorije == "magacin")
+                            {
+                                if (ukKolicina - rezervisanaKolicina >= 0)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
+                                    return false;
+                                }
+                            }
                         }
                     }
                 }
             }
-            if (!postoji)
-            {
-                storage.Save(oprema);
-                FormUpravnik.Oprema.Add(oprema);
-            }
+
+            return true;
         }
+
     }
 }
