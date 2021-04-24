@@ -1,6 +1,8 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Forms.Upravnik;
+using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Model.Pregledi;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -23,10 +25,17 @@ namespace bolnica.Forms
 
         private FileStorageProstorija storageProstorije;
         private FileStorageOprema storageOprema;
+        private FileStorageLek storageLekovi;
 
         public static bool clickedDodaj;
 
         public static ObservableCollection<Oprema> Oprema
+        {
+            get;
+            set;
+        }
+
+        public static ObservableCollection<Lek> Lekovi
         {
             get;
             set;
@@ -64,24 +73,24 @@ namespace bolnica.Forms
             Oprema = new ObservableCollection<Oprema>();
             storageOprema = new FileStorageOprema();
 
-            /*Oprema o1 = new Oprema();
-
-            o1.Sifra = "a123";
-            o1.Naziv = "Stolica";
-            o1.Kolicina = 100;
-            o1.TipOpreme = TipOpreme.staticka;
-            o1.OpremaPoSobama.Add(111,50);
-            o1.OpremaPoSobama.Add(103, 50);
-
-            Oprema.Add(o1);
-            storageOprema.Save(o1);*/
-
             List<Oprema> oprema = storageOprema.GetAll();
             if (oprema != null)
             {
                 foreach (Oprema o in oprema)
                 {
                     Oprema.Add(o);
+                }
+            }
+
+            Lekovi = new ObservableCollection<Lek>();
+            storageLekovi = new FileStorageLek();
+
+            List<Lek> lekovi = storageLekovi.GetAll();
+            if(lekovi != null)
+            {
+                foreach(Lek l in lekovi)
+                {
+                    Lekovi.Add(l);
                 }
             }
         }

@@ -1,0 +1,53 @@
+[
+  
+  {
+    "Id": 1234,
+    "Naziv": "Paracetamol",
+    "Proizvodjac": "Sinofarm",
+    "KolicinaUMg": 500,
+    "Status": 0,
+    "Zalihe": 1000,
+    "Odobren": false,
+    "Sastojak": []
+  },
+  {
+    "Id": 2345,
+    "Naziv": "Probiotik",
+    "Proizvodjac": "GoodWill",
+    "KolicinaUMg": 300,
+    "Status": 0,
+    "Zalihe": 2000,
+    "Odobren": false,
+    "Sastojak": []
+  },
+  {
+    "Id": 2435,
+    "Naziv": "Panadol",
+    "Proizvodjac": "Galenika",
+    "KolicinaUMg": 200,
+    "Status": 0,
+    "Zalihe": 5000,
+    "Odobren": false,
+    "Sastojak": []
+  },
+  {
+    "Id": 2341,
+    "Naziv": "Febricet",
+    "Proizvodjac": "Hemofarm",
+    "KolicinaUMg": 300,
+    "Status": 2,
+    "Zalihe": 0,
+    "Odobren": false,
+    "Sastojak": []
+  },
+  {
+    "Id": 3452,
+    "Naziv": "Amoksicilin",
+    "Proizvodjac": "Sinofarm",
+    "KolicinaUMg": 500,
+    "Status": 2,
+    "Zalihe": 0,
+    "Odobren": false,
+    "Sastojak": []
+  }
+]
