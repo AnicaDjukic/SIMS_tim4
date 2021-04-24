@@ -10,10 +10,14 @@ namespace Model.Pregledi
         public int Id { get; set; }
         public string Naziv { get; set; }
         public int KolicinaUMg { get; set; }
-        public bool Odobren { get; set; }
-      
+        public StatusLeka Status { get; set; }
 
-      public List<Sastojak> sastojak;
+        public string Proizvodjac { get; set; }
+
+        public int Zalihe { get; set; }
+        public List<int> ZamenaId { get; set; }
+
+        public List<Sastojak> sastojak;
 
 
       

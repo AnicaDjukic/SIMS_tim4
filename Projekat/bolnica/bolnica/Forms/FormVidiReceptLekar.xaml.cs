@@ -23,12 +23,22 @@ namespace Bolnica.Forms
         public string doza { get; set; }
         public string brojKutija { get; set; }
         public string vremeUzimanja { get; set; }
+
+        public string proizvodjac { get; set; }
         public DateTime datumPrekida { get; set; }
 
         private List<Lek> lekovi;
         public FormVidiReceptLekar(List<Lek> leko,Recept r)
         {
             lekovi = leko;
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                {
+                    lekovi.RemoveAt(i);
+                    i--;
+                }
+            }
 
             InitializeComponent();
 
@@ -42,11 +52,13 @@ namespace Bolnica.Forms
                 {
                     lek = lekovi[i].Naziv;
                     doza = lekovi[i].KolicinaUMg.ToString();
+                    proizvodjac = lekovi[i].Proizvodjac;
                 }
             }
             brojKutija = r.Kolicina.ToString();
             vremeUzimanja = r.VremeUzimanja.ToString();
             datumPrekida = r.Trajanje;
+           
 
 
         }

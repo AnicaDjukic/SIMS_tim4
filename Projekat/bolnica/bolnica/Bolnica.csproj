@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Resources\LekarIstorija.png" />
+    <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
     <None Remove="Forms\Images\add.png" />
     <None Remove="Forms\Images\delete-bin.png" />
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\LekarIstorija.png" />
+    <Resource Include="Resources\LekarLek.png" />
     <Resource Include="Resources\LekarPregled.png" />
     <Resource Include="Forms\Images\add.png" />
     <Resource Include="Forms\Images\delete-bin.png" />

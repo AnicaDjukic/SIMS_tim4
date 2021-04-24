@@ -17,6 +17,7 @@ namespace Bolnica.Model.Pregledi
         public int Trajanje { get; set; }
         public bool Zavrsen { get; set; }
 
+        public bool Hitan { get; set; }
         public int AnamnezaId { get; set; }
         public Lekar Lekar
         {
