@@ -164,10 +164,19 @@ namespace Bolnica.Forms.Upravnik
                     if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
                     {
                         if (z.Prostorija.BrojProstorije == "magacin")
+                        {
                             magacin = z;
-                        Zalihe.Add(z);
+                        }
+                        else
+                        {
+                            opremaZaSkladistenje.Kolicina -= z.Kolicina;
+                            Zalihe.Add(z);
+                        }
                     }
                 }
+
+                magacin.Kolicina = opremaZaSkladistenje.Kolicina;
+                Zalihe.Add(magacin);
             }
         }
 
@@ -212,7 +221,7 @@ namespace Bolnica.Forms.Upravnik
                     Zalihe.Add(magacin);
                 } else
                 {
-                    MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od ukupne količine opreme.");
+                    MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od količine opreme u magacinu.");
                 }
             }
         }

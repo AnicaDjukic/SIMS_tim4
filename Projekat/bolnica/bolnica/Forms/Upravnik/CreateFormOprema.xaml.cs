@@ -1,5 +1,6 @@
 ﻿using bolnica.Forms;
 using Bolnica.Model.Prostorije;
+using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -197,7 +198,41 @@ namespace Bolnica.Forms.Upravnik
                 MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
                 return false;
             }
-                
+            else
+            {
+                if (!FormUpravnik.clickedDodaj)
+                {
+                    FileStorageZaliha storageZalihe = new FileStorageZaliha();
+                    List<Zaliha> zalihe = storageZalihe.GetAll();
+
+                    if (zalihe != null)
+                    {
+                        int rezervisanaKolicina = 0;
+                        foreach (Zaliha z in zalihe)
+                        {
+                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije != "magacin")
+                                rezervisanaKolicina += z.Kolicina;
+                        }
+
+                        foreach (Zaliha z in zalihe)
+                        {
+                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije == "magacin")
+                            {
+                                if (ukKolicina - rezervisanaKolicina >= 0)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             return true;
         }
 
