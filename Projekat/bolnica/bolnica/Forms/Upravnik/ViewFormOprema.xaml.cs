@@ -32,12 +32,11 @@ namespace Bolnica.Forms.Upravnik
             this.DataContext = this;
             Zalihe = new ObservableCollection<Zaliha>();
 
-            FileStorageZaliha storage = new FileStorageZaliha();
-            List<Zaliha> zalihe = storage.GetAll();
-            
+            FileStorageZaliha storageZalihe = new FileStorageZaliha();
+            List<Zaliha> zalihe = storageZalihe.GetAll();
             foreach(Zaliha z in zalihe)
             {
-                if(z.Oprema.Sifra == sifraOpreme)
+                if(z.SifraOpreme == sifraOpreme)
                 {
                     Zalihe.Add(z);
                 }

@@ -157,9 +157,9 @@ namespace bolnica.Forms
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
-                string sifraOpreme = row.Sifra;
+                string sifra = row.Sifra;
+                var s = new ViewFormOprema(sifra);
                 List<Oprema> oprema = storageOprema.GetAll();
-                var s = new ViewFormOprema(sifraOpreme);
                 foreach (Oprema o in oprema)
                 {
                     if (o.Sifra == row.Sifra)

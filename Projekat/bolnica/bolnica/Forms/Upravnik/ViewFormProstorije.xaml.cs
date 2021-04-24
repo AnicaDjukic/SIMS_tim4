@@ -30,11 +30,11 @@ namespace Bolnica.Forms
             {
                 foreach (Zaliha z in zalihe)
                 {
-                    if (z.Prostorija.BrojProstorije == brojProstorije)
+                    if (z.BrojProstorije == brojProstorije)
                     {
                         foreach(Oprema o in oprema)
                         {
-                            if(o.Sifra == z.Oprema.Sifra)
+                            if(o.Sifra == z.SifraOpreme)
                             {
                                 z.Oprema = o;
                                 OpremaSobe.Add(z);

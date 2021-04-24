@@ -42,7 +42,7 @@ namespace Model.Prostorije
             {
                 for (int i = 0; i < zalihe.Count; i++)
                 {
-                    if (zalihe[i].Prostorija.BrojProstorije == zaliha.Prostorija.BrojProstorije && zalihe[i].Oprema.Sifra == zaliha.Oprema.Sifra)
+                    if (zalihe[i].BrojProstorije == zaliha.BrojProstorije && zalihe[i].SifraOpreme == zaliha.SifraOpreme)
                     {
                         zalihe.Remove(zalihe[i]);
                         break;
