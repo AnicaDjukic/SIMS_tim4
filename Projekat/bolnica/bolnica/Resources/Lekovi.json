@@ -1,5 +1,4 @@
 [
-  
   {
     "Id": 1234,
     "Naziv": "Paracetamol",
@@ -49,5 +48,63 @@
     "Zalihe": 0,
     "Odobren": false,
     "Sastojak": []
+  },
+  {
+    "Id": 3567,
+    "Naziv": "Kardiopirin",
+    "Proizvodjac": "Galenika",
+    "KolicinaUMg": 200,
+    "Status": 2,
+    "Zalihe": 0,
+    "Odobren": false,
+    "Sastojak": [
+      {
+        "Id": 1,
+        "Naziv": "Aspirin"
+      },
+      {
+        "Id": 2,
+        "Naziv": "Benzodiazepin"
+      },
+      {
+        "Id": 4,
+        "Naziv": "Cliacil"
+      },
+      {
+        "Id": 7,
+        "Naziv": "Novalgetol"
+      }
+    ]
+  },
+  {
+    "Id": 1235,
+    "Naziv": "Leksilijum",
+    "Proizvodjac": "Galenika",
+    "KolicinaUMg": 200,
+    "Status": 2,
+    "Zalihe": 0,
+    "Odobren": false,
+    "Sastojak": [
+      {
+        "Id": 1,
+        "Naziv": "Aspirin"
+      },
+      {
+        "Id": 2,
+        "Naziv": "Benzodiazepin"
+      },
+      {
+        "Id": 3,
+        "Naziv": "Baktrim"
+      },
+      {
+        "Id": 4,
+        "Naziv": "Cliacil"
+      },
+      {
+        "Id": 5,
+        "Naziv": "Gentamicin"
+      }
+    ]
   }
 ]

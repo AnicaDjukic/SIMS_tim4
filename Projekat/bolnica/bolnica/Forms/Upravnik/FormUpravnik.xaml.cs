@@ -100,13 +100,17 @@ namespace bolnica.Forms
             clickedDodaj = true;
             if (Tabovi.SelectedIndex == 0)
             {
-                var s = new CreateFormProstorije();
-                s.Show();
+                var p = new CreateFormProstorije();
+                p.Show();
             }
             else if (Tabovi.SelectedIndex == 1)
             {
                 var o = new CreateFormOprema();
                 o.Show();
+            } else if(Tabovi.SelectedIndex == 2)
+            {
+                var l = new CreateFormLekovi();
+                l.Show();
             }
         }
 

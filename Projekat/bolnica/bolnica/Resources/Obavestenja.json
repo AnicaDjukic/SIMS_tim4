@@ -1,1 +1,67 @@
-[{"Id":2,"Datum":"2021-04-15T00:00:00","Sadrzaj":"Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.","Naslov":"Uspešno okončana još jedna specijalizacija","Obrisan":false},{"Id":1,"Datum":"2021-04-22T00:00:00","Sadrzaj":"Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.","Naslov":"Donirane posteljine","Obrisan":false}]
+[
+  
+  {
+    "Id": 2,
+    "Datum": "2021-04-15T00:00:00",
+    "Sadrzaj": "Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.",
+    "Naslov": "Uspešno okončana još jedna specijalizacija",
+    "Obrisan": false,
+    "KorisnickaImena": [ "upravnik", "lekar", "Pero", "Peki", "vatro", "bodi", "stefo", "pero" ]
+  },
+  {
+    "Id": 1,
+    "Datum": "2021-04-22T00:00:00",
+    "Sadrzaj": "Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.",
+    "Naslov": "Donirane posteljine",
+    "Obrisan": false,
+    "KorisnickaImena": [ "upravnik", "lekar", "Pero", "Peki", "vatro", "bodi", "stefo", "pero" ]
+  },
+  {
+    "Id": 3,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za upravnika",
+    "Obrisan": false,
+    "KorisnickaImena": [ "upravnik" ]
+  },
+  {
+    "Id": 4,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za lekare",
+    "Obrisan": false,
+    "KorisnickaImena": [ "lekar", "Pero", "Peki", "vatro", "bodi" ]
+  },
+  {
+    "Id": 5,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za sve pacijente",
+    "Obrisan": false,
+    "KorisnickaImena": [ "stefo", "pero" ]
+  },
+  {
+    "Id": 6,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za upravnika i Stefu",
+    "Obrisan": false,
+    "KorisnickaImena": [ "upravnik", "stefo" ]
+  },
+  {
+    "Id": 7,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za lekare i sve pacijente",
+    "Obrisan": false,
+    "KorisnickaImena": [ "lekar", "Pero", "Peki", "vatro", "bodi", "stefo", "pero" ]
+  },
+  {
+    "Id": 8,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za Stefu",
+    "Obrisan": false,
+    "KorisnickaImena": [ "stefo" ]
+  }
+]
