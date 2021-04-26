@@ -189,6 +189,33 @@ namespace bolnica.Forms
                     }
                 }
             }
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                int id = row.Id;
+                var s = new ViewFormLek(id);
+                List<Lek> lekovi = storageLekovi.GetAll();
+                foreach (Lek l in lekovi)
+                {
+                    if (l.Id == row.Id)
+                    {
+                        s.lblId.Content = l.Id;
+                        s.lblNaziv.Content = l.Naziv;
+                        s.lblKolicinaUMg.Content = l.KolicinaUMg;
+                        s.lblProizvodjac.Content = l.Proizvodjac;
+                        if (l.Status == StatusLeka.odobren)
+                            s.lblStatus.Content = "Odobren";
+                        else if (l.Status == StatusLeka.odbijen)
+                            s.lblStatus.Content = "Odbijen";
+                        else
+                            s.lblStatus.Content = "Čeka validaciju";
+
+                        s.lblZalihe.Content = l.Zalihe;
+                        s.Show();
+                        break;
+                    }
+                }
+            }
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
