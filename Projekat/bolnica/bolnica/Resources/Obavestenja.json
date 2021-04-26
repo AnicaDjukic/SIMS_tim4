@@ -63,5 +63,13 @@
     "Naslov": "Za Stefu",
     "Obrisan": false,
     "KorisnickaImena": [ "stefo" ]
+  },
+  {
+    "Id": 9,
+    "Datum": "2021-04-26T00:00:00+02:00",
+    "Sadrzaj": "Za lek \"Leksilijum\" je potrebno izvršiti validaciju",
+    "Naslov": "Lek za validaciju",
+    "Obrisan": false,
+    "KorisnickaImena": [ "lekar" ]
   }
 ]

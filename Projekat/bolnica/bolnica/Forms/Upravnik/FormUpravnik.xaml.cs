@@ -109,7 +109,8 @@ namespace bolnica.Forms
                 o.Show();
             } else if(Tabovi.SelectedIndex == 2)
             {
-                var l = new CreateFormLekovi();
+                Lek noviLek = new Lek();
+                var l = new CreateFormLekovi(noviLek);
                 l.Show();
             }
         }
@@ -288,6 +289,50 @@ namespace bolnica.Forms
                         else
                             s.ComboTipOpreme.SelectedIndex = 1;
                         s.Show();
+                        break;
+                    }
+                }
+            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                clickedDodaj = false;
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                List<Lek> sviLekovi = storageLekovi.GetAll();
+                foreach (Lek l in sviLekovi)
+                {
+                    if (l.Id == row.Id)
+                    {
+                        var s = new CreateFormLekovi(l);
+                        s.Id = l.Id;
+                        s.Naziv = l.Naziv;
+                        s.KolicinaUMg = l.KolicinaUMg;
+                        s.Proizvodjac = l.Proizvodjac;
+                        s.Zalihe = l.Zalihe;
+                        foreach (Sastojak sastojak in l.Sastojak)
+                        {
+                            CreateFormLekovi.Sastojci.Add(sastojak);
+                        }
+                        if (l.Status == StatusLeka.odobren)
+                        {
+                            s.txtId.IsEnabled = false;
+                            s.txtNaziv.IsEnabled = false;
+                            s.txtKolicinaUMg.IsEnabled = false;
+                            s.txtProizvodjac.IsEnabled = false;
+                            s.btnValidacija.Content = "Potvrdi";
+                            s.btnDodaj.IsEnabled = false;
+                            s.btnUkloni.IsEnabled = false;
+                            s.Show();
+                        }
+                        else if (l.Status == StatusLeka.odbijen)
+                        {
+                            s.lblZalihe.Visibility = Visibility.Hidden;
+                            s.txtZalihe.Visibility = Visibility.Hidden;
+                            s.txtZalihe.IsEnabled = false;
+                            s.Show();
+                        } else
+                        {
+                            MessageBox.Show("Nije moguće izmeniti lek koji čeka validaciju!");
+                        }
+
                         break;
                     }
                 }
