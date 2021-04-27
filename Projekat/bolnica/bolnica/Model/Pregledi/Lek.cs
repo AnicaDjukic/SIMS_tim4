@@ -15,76 +15,21 @@ namespace Model.Pregledi
 
         public bool Odobren { get; set; }
 
+        public bool Obrisan { get; set; }
+
+        public List<int> IdZamena { get; set; }
         [JsonIgnore]
-        public List<Sastojak> sastojak;
+        public List<Lek> Zamena { get; set; }
 
+        public List<Sastojak> Sastojak { get; set; }
 
-
-        /// <summary>
-        /// Property for collection of Alergen
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-
-        public List<Sastojak> Sastojak
+        public Lek()
         {
-            get
-            {
-                if (sastojak == null)
-                    sastojak = new List<Sastojak>();
-                return sastojak;
-            }
-            set
-            {
-                RemoveAllSastojak();
-                if (value != null)
-                {
-                    foreach (Sastojak oSastojak in value)
-                        AddSastojak(oSastojak);
-
-                }
-            }
+            Sastojak = new List<Sastojak>();
+            Zamena = new List<Lek>();
+            IdZamena = new List<int>();
+            Obrisan = false;
         }
-
-        /// <summary>
-        /// Add a new Alergen in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-
-        public void AddSastojak(Sastojak newSastojak)
-        {
-            if (newSastojak == null)
-                return;
-            if (this.sastojak == null)
-                this.sastojak = new List<Sastojak>();
-            if (!this.sastojak.Contains(newSastojak))
-                this.sastojak.Add(newSastojak);
-        }
-
-        /// <summary>
-        /// Remove an existing Alergen from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-
-        public void RemoveSastojak(Sastojak oldSastojak)
-        {
-            if (oldSastojak == null)
-                return;
-            if (this.sastojak != null)
-                if (this.sastojak.Contains(oldSastojak))
-                    this.sastojak.Remove(oldSastojak);
-
-        }
-        /// <summary>
-        /// Remove all instances of Alergen from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-
-        public void RemoveAllSastojak()
-        {
-            if (sastojak != null)
-                sastojak.Clear();
-        }
-
     }
 }
 

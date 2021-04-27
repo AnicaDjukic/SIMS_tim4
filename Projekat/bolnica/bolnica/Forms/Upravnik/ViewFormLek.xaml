@@ -48,6 +48,19 @@
                         </DataGrid>
                     </Grid>
                 </TabItem>
+                <TabItem Header="ZAMENE">
+                    <Grid>
+                        <DataGrid x:Name="dataGridZamene" ItemsSource="{Binding LekoviZamene}"
+                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                                <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
+                                <DataGridTextColumn Header="KOLIČINA U MG" Binding="{Binding KolicinaUMg}" Width="*"/>
+                                <DataGridTextColumn Header="ZALIHE" Binding="{Binding Zalihe}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
             </TabControl>
             <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,20,0,0" Width="70" Click="Button_Click"/>
         </StackPanel>

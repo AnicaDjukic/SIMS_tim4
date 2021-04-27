@@ -26,21 +26,38 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
+
+        public static ObservableCollection<Lek> LekoviZamene
+        {
+            get;
+            set;
+        }
         public ViewFormLek(int idLeka)
         {
             InitializeComponent();
             this.DataContext = this;
             Sastojci = new ObservableCollection<Sastojak>();
-
+            LekoviZamene = new ObservableCollection<Lek>();
             FileStorageLek storageLek = new FileStorageLek();
             List<Lek> lekovi = storageLek.GetAll();
             Lek lek = new Lek();
             foreach (Lek l in lekovi)
             {
-                if (l.Id == idLeka)
+                if (l.Id == idLeka && !l.Obrisan)
                 {
                     lek = l;
                     break;
+                }
+            }
+
+            foreach (Lek l in lekovi)
+            {
+                foreach (int id in lek.IdZamena)
+                {
+                    if(l.Id == id)
+                    {
+                        LekoviZamene.Add(l);
+                    }
                 }
             }
 
