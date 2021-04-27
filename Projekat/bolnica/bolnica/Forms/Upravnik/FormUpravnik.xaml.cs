@@ -1,6 +1,8 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Forms.Upravnik;
+using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Model.Pregledi;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -23,10 +25,17 @@ namespace bolnica.Forms
 
         private FileStorageProstorija storageProstorije;
         private FileStorageOprema storageOprema;
+        private FileStorageLek storageLekovi;
 
         public static bool clickedDodaj;
 
         public static ObservableCollection<Oprema> Oprema
+        {
+            get;
+            set;
+        }
+
+        public static ObservableCollection<Lek> Lekovi
         {
             get;
             set;
@@ -64,24 +73,25 @@ namespace bolnica.Forms
             Oprema = new ObservableCollection<Oprema>();
             storageOprema = new FileStorageOprema();
 
-            /*Oprema o1 = new Oprema();
-
-            o1.Sifra = "a123";
-            o1.Naziv = "Stolica";
-            o1.Kolicina = 100;
-            o1.TipOpreme = TipOpreme.staticka;
-            o1.OpremaPoSobama.Add(111,50);
-            o1.OpremaPoSobama.Add(103, 50);
-
-            Oprema.Add(o1);
-            storageOprema.Save(o1);*/
-
             List<Oprema> oprema = storageOprema.GetAll();
             if (oprema != null)
             {
                 foreach (Oprema o in oprema)
                 {
                     Oprema.Add(o);
+                }
+            }
+
+            Lekovi = new ObservableCollection<Lek>();
+            storageLekovi = new FileStorageLek();
+
+            List<Lek> lekovi = storageLekovi.GetAll();
+            if(lekovi != null)
+            {
+                foreach(Lek l in lekovi)
+                {
+                    if(!l.Obrisan)
+                        Lekovi.Add(l);
                 }
             }
         }
@@ -91,13 +101,18 @@ namespace bolnica.Forms
             clickedDodaj = true;
             if (Tabovi.SelectedIndex == 0)
             {
-                var s = new CreateFormProstorije();
-                s.Show();
+                var p = new CreateFormProstorije();
+                p.Show();
             }
             else if (Tabovi.SelectedIndex == 1)
             {
                 var o = new CreateFormOprema();
                 o.Show();
+            } else if(Tabovi.SelectedIndex == 2)
+            {
+                Lek noviLek = new Lek();
+                var l = new CreateFormLekovi(noviLek);
+                l.Show();
             }
         }
 
@@ -171,6 +186,33 @@ namespace bolnica.Forms
                         else
                             s.lblTipOpreme.Content = "Statička";
                         s.lblKolicina.Content = o.Kolicina.ToString();
+                        s.Show();
+                        break;
+                    }
+                }
+            }
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                int id = row.Id;
+                var s = new ViewFormLek(id);
+                List<Lek> lekovi = storageLekovi.GetAll();
+                foreach (Lek l in lekovi)
+                {
+                    if (l.Id == row.Id)
+                    {
+                        s.lblId.Content = l.Id;
+                        s.lblNaziv.Content = l.Naziv;
+                        s.lblKolicinaUMg.Content = l.KolicinaUMg;
+                        s.lblProizvodjac.Content = l.Proizvodjac;
+                        if (l.Status == StatusLeka.odobren)
+                            s.lblStatus.Content = "Odobren";
+                        else if (l.Status == StatusLeka.odbijen)
+                            s.lblStatus.Content = "Odbijen";
+                        else
+                            s.lblStatus.Content = "Čeka validaciju";
+
+                        s.lblZalihe.Content = l.Zalihe;
                         s.Show();
                         break;
                     }
@@ -251,6 +293,50 @@ namespace bolnica.Forms
                         break;
                     }
                 }
+            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                clickedDodaj = false;
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                List<Lek> sviLekovi = storageLekovi.GetAll();
+                foreach (Lek l in sviLekovi)
+                {
+                    if (l.Id == row.Id)
+                    {
+                        var s = new CreateFormLekovi(l);
+                        s.Id = l.Id;
+                        s.Naziv = l.Naziv;
+                        s.KolicinaUMg = l.KolicinaUMg;
+                        s.Proizvodjac = l.Proizvodjac;
+                        s.Zalihe = l.Zalihe;
+                        foreach (Sastojak sastojak in l.Sastojak)
+                        {
+                            CreateFormLekovi.Sastojci.Add(sastojak);
+                        }
+                        if (l.Status == StatusLeka.odobren)
+                        {
+                            s.txtId.IsEnabled = false;
+                            s.txtNaziv.IsEnabled = false;
+                            s.txtKolicinaUMg.IsEnabled = false;
+                            s.txtProizvodjac.IsEnabled = false;
+                            s.btnValidacija.Content = "Potvrdi";
+                            s.btnDodaj.IsEnabled = false;
+                            s.btnUkloni.IsEnabled = false;
+                            s.Show();
+                        }
+                        else if (l.Status == StatusLeka.odbijen)
+                        {
+                            s.lblZalihe.Visibility = Visibility.Hidden;
+                            s.txtZalihe.Visibility = Visibility.Hidden;
+                            s.txtZalihe.IsEnabled = false;
+                            s.Show();
+                        } else
+                        {
+                            MessageBox.Show("Nije moguće izmeniti lek koji čeka validaciju!");
+                        }
+
+                        break;
+                    }
+                }
             }
         }
 
@@ -278,11 +364,11 @@ namespace bolnica.Forms
                             p.Obrisana = true;
                             storageProstorije.Save(p);
 
-                            for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
+                            for (int i = 0; i < Prostorije.Count; i++)
                             {
-                                if (FormUpravnik.Prostorije[i].BrojProstorije == row.BrojProstorije)
+                                if (Prostorije[i].BrojProstorije == row.BrojProstorije)
                                 {
-                                    FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
+                                    Prostorije.Remove(Prostorije[i]);
                                 }
                             }
                             found = true;
@@ -300,11 +386,11 @@ namespace bolnica.Forms
                                 b.Obrisana = true;
                                 storageProstorije.Save(b);
 
-                                for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
+                                for (int i = 0; i < Prostorije.Count; i++)
                                 {
-                                    if (FormUpravnik.Prostorije[i].BrojProstorije == row.BrojProstorije)
+                                    if (Prostorije[i].BrojProstorije == row.BrojProstorije)
                                     {
-                                        FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
+                                        Prostorije.Remove(Prostorije[i]);
                                     }
                                 }
 
@@ -335,11 +421,11 @@ namespace bolnica.Forms
                         {
                             storageOprema.Delete(o);
 
-                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+                            for (int i = 0; i < Oprema.Count; i++)
                             {
-                                if (FormUpravnik.Oprema[i].Sifra == row.Sifra)
+                                if (Oprema[i].Sifra == row.Sifra)
                                 {
-                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                                    Oprema.Remove(Oprema[i]);
                                     break;
                                 }
                             }
@@ -347,7 +433,59 @@ namespace bolnica.Forms
                         }
                     }
                 }
+            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                List<Lek> lekovi = storageLekovi.GetAll();
+
+                if (row.Status != StatusLeka.cekaValidaciju)
+                {
+                    string sMessageBoxText = "Da li ste sigurni da želite da obrišete lek sa nazivom \"" + row.Naziv + "\" i id-jem \"" + row.Id + "\"?";
+                    string sCaption = "Brisanje opreme";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                    MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+
+                    if (rsltMessageBox == MessageBoxResult.Yes)
+                    {
+                        foreach (Lek l in lekovi)
+                        {
+                            if (l.Id == row.Id)
+                            {
+                               
+                                storageLekovi.Delete(l);
+                                if(l.Status == StatusLeka.odobren)
+                                {
+                                    l.Obrisan = true;
+                                    storageLekovi.Save(l);
+                                } 
+
+                                for (int i = 0; i < Lekovi.Count; i++)
+                                {
+                                    if (Lekovi[i].Id == l.Id)
+                                    {
+                                        Lekovi.Remove(Lekovi[i]);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }                
+                } else
+                {
+                    MessageBox.Show("Nije moguće obrisati lek koji čeka validaciju!");
+                }
             }
+        }
+
+        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
+        {
+            FormObavestenja s = new FormObavestenja();
+            s.Show();
         }
     }
 }

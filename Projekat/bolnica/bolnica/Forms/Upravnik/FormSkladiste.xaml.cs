@@ -204,7 +204,7 @@ namespace Bolnica.Forms.Upravnik
         {
             if(GridProstorije.SelectedCells.Count > 0)
             {
-                if (kolicina != 0 && kolicina <= opremaZaSkladistenje.Kolicina)
+                if (kolicina != 0 && kolicina <= magacin.Kolicina)
                 {
                     Prostorija row = (Prostorija)GridProstorije.SelectedItem;
                     for(int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
@@ -236,7 +236,7 @@ namespace Bolnica.Forms.Upravnik
                 Zaliha row = (Zaliha)GridZalihe.SelectedItem;
                 for (int i = 0; i < Zalihe.Count; i++)
                 {
-                    if (Zalihe[i].Prostorija == row.Prostorija)
+                    if (Zalihe[i].BrojProstorije == row.BrojProstorije)
                     {
                         Zalihe.Remove(Zalihe[i]);
                     }

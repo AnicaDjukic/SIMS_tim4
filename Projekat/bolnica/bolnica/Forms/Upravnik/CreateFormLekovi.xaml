@@ -1,0 +1,65 @@
+﻿<Window x:Class="Bolnica.Forms.Upravnik.CreateFormLekovi"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        mc:Ignorable="d"
+        Title="Dodavanje leka" Height="425" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
+    <Grid>
+        <StackPanel>
+            <TabControl Height="310" Width="376" Margin="0,20,0,0">
+                <TabItem Header="INFORMACIJE">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Naziv:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Količina u mg:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Proizvođač:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label x:Name="lblZalihe" Grid.Row="4" Grid.Column="0" Content="Zalihe:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                        <TextBox x:Name="txtId" Grid.Row="0" Grid.Column="1" Text ="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                        <TextBox x:Name="txtNaziv" Grid.Row="1" Grid.Column="1" Text ="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                        <TextBox x:Name="txtKolicinaUMg" Grid.Row="2" Grid.Column="1" Text ="{Binding Path=KolicinaUMg, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                        <TextBox x:Name="txtProizvodjac" Grid.Row="3" Grid.Column="1" Text ="{Binding Path=Proizvodjac, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                        <TextBox x:Name="txtZalihe" Grid.Row="4" Grid.Column="1" Text ="{Binding Path=Zalihe, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="SASTOJCI">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                            <Button x:Name="btnDodaj" Content="DODAJ" Height="20" Width="50" Click="Button_Click_Dodaj"/>
+                            <Button x:Name="btnUkloni" Content="UKLONI" Height="20" Width="50" Margin="20,0,0,0" Click="Button_Click_Ukloni"/>
+                        </StackPanel>
+                        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="10" ItemsSource="{Binding Sastojci}"
+                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" Height="25">
+                <Button x:Name="btnValidacija" Content="Validacija" HorizontalAlignment="Center" Margin="0,0,0,0" Width="70" Click="Button_Click_Validacija"/>
+                <Button Content="Odustani" HorizontalAlignment="Center" Margin="40,0,0,0" Width="70" Click="Button_Click_Odustani"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

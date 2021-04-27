@@ -7,6 +7,7 @@
         xmlns:dislocal ="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:dislocal1="clr-namespace:Bolnica.Model.Prostorije"
+        xmlns:dislocal2="clr-namespace:Bolnica.Model.Pregledi"
         mc:Ignorable="d"
         Title="Upravnik" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
         Background="LightCyan" WindowStartupLocation="CenterScreen">
@@ -101,10 +102,23 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
+            <TabItem Header="LEKOVI">
+                <DataGrid x:Name="dataGridLekovi" ItemsSource="{Binding Lekovi}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top" HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="id" Header="ID" Binding="{Binding Id}" Width="*"/>
+                        <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
+                        <DataGridTextColumn Header="PROIZVOĐAČ" Binding="{Binding Proizvodjac}" Width="*"/>
+                        <DataGridTextColumn Header="KOLIČINA U MG" Binding="{Binding KolicinaUMg}" Width="*"/>
+                        <DataGridComboBoxColumn Header="STATUS" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal2:StatusLeka}}}" SelectedValueBinding="{Binding Status}" Width="*"/>
+                        <DataGridTextColumn Header="ZALIHE" Binding="{Binding Zalihe}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
         </TabControl>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,35,10,0">
-            <Button Margin="10,0,10,10" Background="#FFEEF5FD">
+            <Button Margin="10,0,10,10" Background="#FFEEF5FD" Click="Button_Click_Obavestenja">
                 <StackPanel Width="130" Orientation="Horizontal">
                     <Image Source="../Images/notification.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="OBAVEŠTENJA"/>

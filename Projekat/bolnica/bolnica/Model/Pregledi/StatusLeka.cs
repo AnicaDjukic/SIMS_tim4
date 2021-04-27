@@ -1,18 +1,19 @@
-/***********************************************************************
- * Module:  StatusLeka.cs
- * Author:  Minja
- * Purpose: Definition of the Class Model.Pregledi.StatusLeka
- ***********************************************************************/
-
+using Bolnica.Model.Prostorije;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
 
-namespace Model.Pregledi
+namespace Bolnica.Model.Pregledi
 {
-   public enum StatusLeka
-   {
-      Odobren,
-      Odbijen,
-      CekaValidaciju
-   
-   }
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
+    public enum StatusLeka
+    {
+        [Description("Odobren")]
+        odobren,
+        [Description("Odbijen")]
+        odbijen,
+        [Description("Čeka validaciju")]
+        cekaValidaciju
+    }
 }
