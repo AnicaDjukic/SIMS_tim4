@@ -300,20 +300,21 @@ namespace Bolnica.Forms
                     }
                     trenutnaOperacija.Id = max + 1;
                     Operacija o = new Operacija();
+                    trenutnaOperacija.AnamnezaId = -1;
+                    trenutnaOperacija.Hitan = (bool)checkHitan.IsChecked;
+                    o.Id = trenutnaOperacija.Id;
+                    o.Hitan = (bool)checkHitan.IsChecked;
+                    o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                    o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                    o.TipOperacije = trenutnaOperacija.TipOperacije;
+                    o.Trajanje = trenutnaOperacija.Trajanje;
+                    o.Zavrsen = trenutnaOperacija.Zavrsen;
+                    o.AnamnezaId = -1;
+                    o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                    o.Datum = trenutnaOperacija.Datum;
                     if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
                     {
-                        trenutnaOperacija.AnamnezaId = -1;
-                        trenutnaOperacija.Hitan  = (bool)checkHitan.IsChecked;
-                        o.Id = trenutnaOperacija.Id;
-                        o.Hitan = (bool)checkHitan.IsChecked;
-                        o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
-                        o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
-                        o.TipOperacije = trenutnaOperacija.TipOperacije;
-                        o.Trajanje = trenutnaOperacija.Trajanje;
-                        o.Zavrsen = trenutnaOperacija.Zavrsen;
-                        o.AnamnezaId = -1;
-                        o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
-                        o.Datum = trenutnaOperacija.Datum;
+                       
                         FormLekar.listaOperacija.Add(o);
                         FormLekar.dataList.Items.Add(trenutnaOperacija);
                         FormLekar.data();
@@ -333,19 +334,20 @@ namespace Bolnica.Forms
                     }
                     trenutniPregled.Id = max + 1;
                     Pregled o = new Pregled();
+                    trenutniPregled.AnamnezaId = -1;
+                    trenutniPregled.Hitan = false;
+                    o.Id = trenutniPregled.Id;
+                    o.Hitan = false;
+                    o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                    o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                    o.Trajanje = trenutniPregled.Trajanje;
+                    o.Zavrsen = trenutniPregled.Zavrsen;
+                    o.AnamnezaId = -1;
+                    o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                    o.Datum = trenutniPregled.Datum;
                     if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
                     {
-                        trenutniPregled.AnamnezaId = -1;
-                        trenutniPregled.Hitan = false;
-                        o.Id = trenutniPregled.Id;
-                        o.Hitan = false;
-                        o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-                        o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
-                        o.Trajanje = trenutniPregled.Trajanje;
-                        o.Zavrsen = trenutniPregled.Zavrsen;
-                        o.AnamnezaId = -1;
-                        o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
-                        o.Datum = trenutniPregled.Datum;
+                        
                         FormLekar.listaPregleda.Add(o);
                         FormLekar.dataList.Items.Add(trenutniPregled);
                         FormLekar.data();

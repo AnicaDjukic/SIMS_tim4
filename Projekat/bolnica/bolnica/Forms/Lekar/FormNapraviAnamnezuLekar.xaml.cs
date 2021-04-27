@@ -69,6 +69,7 @@ namespace Bolnica.Forms
                     i--;
                 }
             }
+            trenturniPacijent = p1.Pacijent;
 
             listaAnamneza = anam.GetAll();
 
