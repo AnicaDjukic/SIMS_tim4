@@ -63,7 +63,7 @@ namespace Bolnica.Forms
 
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                if (lekovi[i].Status.Equals(StatusLeka.odbijen))
                 {
                     lekovi.RemoveAt(i);
                     i--;

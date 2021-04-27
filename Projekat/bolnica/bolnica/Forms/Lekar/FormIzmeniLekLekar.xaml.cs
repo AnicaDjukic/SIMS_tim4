@@ -45,7 +45,7 @@ namespace Bolnica.Forms
             lekovi = sviLekovi.GetAll();
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                if (lekovi[i].Status.Equals(StatusLeka.odbijen))
                 {
                     lekovi.RemoveAt(i);
                     i--;
@@ -106,12 +106,12 @@ namespace Bolnica.Forms
             for (int i = 0; i < lekovi.Count; i++)
             {
                 int dozvola = 0;
-                for (int m = 0; m < l.ZamenaId.Count; m++)
+                for (int m = 0; m < l.IdZamena.Count; m++)
                 {
                     Lek novi = new Lek();
                     for(int mo = 0; mo < lekovi.Count; mo++)
                     {
-                        if (l.ZamenaId[m].Equals(lekovi[mo].Id))
+                        if (l.IdZamena[m].Equals(lekovi[mo].Id))
                         {
                             novi = lekovi[mo];
                         }
@@ -239,7 +239,7 @@ namespace Bolnica.Forms
             lekk.Proizvodjac = proizvodjac;
             lekk.Zalihe = l.Zalihe;
             lekk.Sastojak = new List<Sastojak>();
-            lekk.ZamenaId = new List<int>();
+            lekk.IdZamena = new List<int>();
             lekk.Status = l.Status;
             PrikazLek lekpri = new PrikazLek();
             lekpri.Sastojak = "";
@@ -276,7 +276,7 @@ namespace Bolnica.Forms
                         string k = lekovi[h].Proizvodjac + ", " + lekovi[h].Naziv + ", " + lekovi[h].KolicinaUMg;
                         if (k.Equals(item.Content as string))
                         {
-                            lekk.ZamenaId.Add(lekovi[h].Id);
+                            lekk.IdZamena.Add(lekovi[h].Id);
                             if (dozz == 0)
                             {
                                 lekpri.Zamena = lekpri.Zamena + " " + lekovi[h].Naziv;

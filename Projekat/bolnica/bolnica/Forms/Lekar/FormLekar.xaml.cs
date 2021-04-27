@@ -68,7 +68,7 @@ namespace Bolnica.Forms
 
             for(int i = 0; i < lekovi.Count; i++)
             {
-                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
                 {
                     lekovi.RemoveAt(i);
                     i--;
@@ -271,7 +271,7 @@ namespace Bolnica.Forms
             lekarGridIstorija.ItemsSource = dataListIstorija.Items;
             for(int i = 0; i < lekovi.Count; i++)
             {
-                if (!lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                if (!lekovi[i].Status.Equals(StatusLeka.odbijen))
                 {
                     PrikazLek p = new PrikazLek();
                     p.Id = lekovi[i].Id;
@@ -280,24 +280,24 @@ namespace Bolnica.Forms
                     p.Status = lekovi[i].Status;
                     p.Proizvodjac = lekovi[i].Proizvodjac;
                     string l = "";
-                    for (int m = 0; m < lekovi[i].sastojak.Count; m++)
+                    for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
                     {
                         if (m == 0)
                         {
-                            l = l + " " + lekovi[i].sastojak[m].Naziv;
+                            l = l + " " + lekovi[i].Sastojak[m].Naziv;
                         }
                         else
                         {
-                            l = l + ", " + lekovi[i].sastojak[m].Naziv;
+                            l = l + ", " + lekovi[i].Sastojak[m].Naziv;
                         }
                     }
                     string h = "";
-                    for (int m = 0; m < lekovi[i].ZamenaId.Count; m++)
+                    for (int m = 0; m < lekovi[i].IdZamena.Count; m++)
                     {
                         Lek novi = new Lek();
                         for (int mo = 0; mo < lekovi.Count; mo++)
                         {
-                            if (lekovi[i].ZamenaId[m].Equals(lekovi[mo].Id))
+                            if (lekovi[i].IdZamena[m].Equals(lekovi[mo].Id))
                             {
                                 novi = lekovi[mo];
                                 break;
@@ -870,13 +870,13 @@ namespace Bolnica.Forms
         private void OdobriLek(object sender, RoutedEventArgs e)
         {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
-            if (p.Status.Equals(StatusLeka.CekaValidaciju))
+            if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
                 for (int i = 0; i < lekovi.Count; i++)
                 {
                     if (lekovi[i].Id.Equals(p.Id))
                     {
-                        lekovi[i].Status = StatusLeka.Odobren;
+                        lekovi[i].Status = StatusLeka.odobren;
                         sviLekovi.Delete(lekovi[i]);
                         sviLekovi.Save(lekovi[i]);
                         break;
@@ -887,7 +887,7 @@ namespace Bolnica.Forms
                 {
                     if (lekoviPrikaz[i].Id.Equals(p.Id))
                     {
-                        lekoviPrikaz[i].Status = StatusLeka.Odobren;
+                        lekoviPrikaz[i].Status = StatusLeka.odobren;
                         dataGridLekovi.Items.Refresh();
                         break;
 
@@ -936,7 +936,7 @@ namespace Bolnica.Forms
         {
             
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
-            if (p.Status.Equals(StatusLeka.CekaValidaciju))
+            if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
                 FormKomentarLekaLekar lek = new FormKomentarLekaLekar(p);
                 lek.Show();
