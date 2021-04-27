@@ -56,7 +56,8 @@ namespace Bolnica.Forms.Upravnik
                 {
                     if(l.Id == id)
                     {
-                        LekoviZamene.Add(l);
+                        if(!l.Obrisan)
+                            LekoviZamene.Add(l);
                     }
                 }
             }

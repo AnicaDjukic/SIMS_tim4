@@ -90,7 +90,8 @@ namespace bolnica.Forms
             {
                 foreach(Lek l in lekovi)
                 {
-                    Lekovi.Add(l);
+                    if(!l.Obrisan)
+                        Lekovi.Add(l);
                 }
             }
         }
@@ -420,17 +421,63 @@ namespace bolnica.Forms
                         {
                             storageOprema.Delete(o);
 
-                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+                            for (int i = 0; i < Oprema.Count; i++)
                             {
-                                if (FormUpravnik.Oprema[i].Sifra == row.Sifra)
+                                if (Oprema[i].Sifra == row.Sifra)
                                 {
-                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                                    Oprema.Remove(Oprema[i]);
                                     break;
                                 }
                             }
                             break;
                         }
                     }
+                }
+            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            {
+                Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                List<Lek> lekovi = storageLekovi.GetAll();
+
+                if (row.Status != StatusLeka.cekaValidaciju)
+                {
+                    string sMessageBoxText = "Da li ste sigurni da želite da obrišete lek sa nazivom \"" + row.Naziv + "\" i id-jem \"" + row.Id + "\"?";
+                    string sCaption = "Brisanje opreme";
+
+                    MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+                    MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                    MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+
+                    if (rsltMessageBox == MessageBoxResult.Yes)
+                    {
+                        foreach (Lek l in lekovi)
+                        {
+                            if (l.Id == row.Id)
+                            {
+                               
+                                storageLekovi.Delete(l);
+                                if(l.Status == StatusLeka.odobren)
+                                {
+                                    l.Obrisan = true;
+                                    storageLekovi.Save(l);
+                                } 
+
+                                for (int i = 0; i < Lekovi.Count; i++)
+                                {
+                                    if (Lekovi[i].Id == l.Id)
+                                    {
+                                        Lekovi.Remove(Lekovi[i]);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }                
+                } else
+                {
+                    MessageBox.Show("Nije moguće obrisati lek koji čeka validaciju!");
                 }
             }
         }
