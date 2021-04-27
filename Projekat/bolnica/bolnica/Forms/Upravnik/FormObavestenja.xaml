@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
         mc:Ignorable="d"
-        Title="Obaveštenja" Height="440" Width="650">
+        Title="Obaveštenja" Height="440" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -14,12 +14,12 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Margin="50,20,50,20" Text="Ako želite da vidite celo obaveštenje, potrebno je da dvokliknete na obaveštenje koje želite da pročitate:" FontSize="18" TextWrapping="Wrap"/>
-        <ListView Grid.Row="1" Margin="50,0,50,0" Name="lvDataBinding">
+        <ListView Grid.Row="1" Margin="50,0,50,0" Name="lvDataBinding" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Naslov}" FontWeight="Bold" FontSize="20" />
-                        <TextBlock Text="{Binding Sadrzaj}" TextWrapping="Wrap" Height="auto" FontSize="15"/>
+                        <TextBlock Text="{Binding Sadrzaj}" TextWrapping="Wrap" Height="auto" Width ="400" FontSize="15"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

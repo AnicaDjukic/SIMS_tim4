@@ -364,11 +364,11 @@ namespace bolnica.Forms
                             p.Obrisana = true;
                             storageProstorije.Save(p);
 
-                            for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
+                            for (int i = 0; i < Prostorije.Count; i++)
                             {
-                                if (FormUpravnik.Prostorije[i].BrojProstorije == row.BrojProstorije)
+                                if (Prostorije[i].BrojProstorije == row.BrojProstorije)
                                 {
-                                    FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
+                                    Prostorije.Remove(Prostorije[i]);
                                 }
                             }
                             found = true;
@@ -386,11 +386,11 @@ namespace bolnica.Forms
                                 b.Obrisana = true;
                                 storageProstorije.Save(b);
 
-                                for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
+                                for (int i = 0; i < Prostorije.Count; i++)
                                 {
-                                    if (FormUpravnik.Prostorije[i].BrojProstorije == row.BrojProstorije)
+                                    if (Prostorije[i].BrojProstorije == row.BrojProstorije)
                                     {
-                                        FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
+                                        Prostorije.Remove(Prostorije[i]);
                                     }
                                 }
 
