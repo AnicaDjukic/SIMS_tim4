@@ -15,6 +15,7 @@ using Model.Prostorije;
 using Model.Pacijenti;
 using Bolnica.Validation;
 using Bolnica.Model.Pregledi;
+using Bolnica.Model.Korisnici;
 
 namespace Bolnica.Forms
 {
@@ -35,6 +36,7 @@ namespace Bolnica.Forms
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
         private List<Pacijent> pacijentiZa = new List<Pacijent>();
         private List<Prostorija> prostorijaZa = new List<Prostorija>();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
 
         private int dozvola = 0;
         private string zaFilLek = "";
@@ -57,12 +59,12 @@ namespace Bolnica.Forms
         public string tipOperacijeB { get; set; }
 
         public string trajanjeB { get; set; }
-        public FormNapraviTerminLekar(List<Lekar> l1, Lekar neki)
+        public FormNapraviTerminLekar(Lekar neki)
         {
 
             specijalizacije = new List<String>();
             ulogovaniLekar = neki;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             InitializeComponent();
 
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -102,9 +104,9 @@ namespace Bolnica.Forms
 
             }
 
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("opsta"))
+            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
             {
-                textOperacija.IsEnabled = false;
+                checkOperacija.IsEnabled = false;
             }
 
             trajanjeB = "30";
@@ -134,12 +136,12 @@ namespace Bolnica.Forms
 
         }
 
-        public FormNapraviTerminLekar(List<Lekar> l1, Lekar neki,Pacijent pacij)
+        public FormNapraviTerminLekar(Lekar neki,Pacijent pacij)
         {
 
             specijalizacije = new List<String>();
             ulogovaniLekar = neki;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             InitializeComponent();
 
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -179,9 +181,9 @@ namespace Bolnica.Forms
 
             }
 
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("opsta"))
+            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
             {
-                textOperacija.IsEnabled = false;
+                checkOperacija.IsEnabled = false;
             }
 
             trajanjeB = "30";

@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -42,6 +43,7 @@ namespace Bolnica.Forms
         private PrikazOperacije staraOperacija = new PrikazOperacije();
         private List<Anamneza> listaAnamneza = new List<Anamneza>();
         private FileStorageAnamneza anam = new FileStorageAnamneza();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
         private int idAnamneze;
         private int jePregled = 0;
 
@@ -52,7 +54,7 @@ namespace Bolnica.Forms
         }
 
 
-        public FormNapraviAnamnezuLekar(PrikazPregleda p1, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazPregleda p1, Lekar neki)
         {
             jePregled = 1;
 
@@ -76,7 +78,7 @@ namespace Bolnica.Forms
             dijagnoza = "";
             
             trenutniPregled = p1;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             stariPregled = p1;
             ulogovaniLekar = neki;
             
@@ -146,7 +148,7 @@ namespace Bolnica.Forms
 
         }
 
-        public FormNapraviAnamnezuLekar(PrikazOperacije op, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazOperacije op, Lekar neki)
         {
            
 
@@ -160,7 +162,7 @@ namespace Bolnica.Forms
 
 
             trenutnaOperacija = op;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             staraOperacija = op;
             ulogovaniLekar = neki;
 
@@ -436,7 +438,7 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar form = new FormNapraviTerminLekar(lekariTrenutni,ulogovaniLekar,trenturniPacijent);
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar,trenturniPacijent);
             form.Show();
         }
 

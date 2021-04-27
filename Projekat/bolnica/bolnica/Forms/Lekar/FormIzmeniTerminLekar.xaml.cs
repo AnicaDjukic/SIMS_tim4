@@ -14,6 +14,7 @@ using Model.Korisnici;
 using Model.Prostorije;
 using Model.Pacijenti;
 using Bolnica.Model.Pregledi;
+using Bolnica.Model.Korisnici;
 
 namespace Bolnica.Forms
 {
@@ -26,6 +27,7 @@ namespace Bolnica.Forms
         private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
         private List<Pacijent> pacijentiZa = new List<Pacijent>();
         private List<Prostorija> prostorijaZa = new List<Prostorija>();
         private int dozvolaIme = 0;
@@ -60,11 +62,11 @@ namespace Bolnica.Forms
 
 
 
-        public FormIzmeniTerminLekar(PrikazPregleda p1, List<Lekar> l1, Lekar neki)
+        public FormIzmeniTerminLekar(PrikazPregleda p1, Lekar neki)
         {
 
             trenutniPregled = p1;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             stariPregled = p1;
             ulogovaniLekar = neki;
             specijalizacije = new List<String>();
@@ -152,10 +154,10 @@ namespace Bolnica.Forms
 
         }
 
-        public FormIzmeniTerminLekar(PrikazOperacije op, List<Lekar> l1, Lekar neki)
+        public FormIzmeniTerminLekar(PrikazOperacije op, Lekar neki)
         {
             trenutnaOperacija = op;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             staraOperacija = op;
             ulogovaniLekar = neki;
             specijalizacije = new List<String>();

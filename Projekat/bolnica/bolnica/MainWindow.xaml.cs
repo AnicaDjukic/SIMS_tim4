@@ -45,7 +45,18 @@ namespace bolnica
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
-                        var s = new FormLekar();
+                        FileStorageLekar storageLekar = new FileStorageLekar();
+                        List<Lekar> lekari = storageLekar.GetAll();
+                        Lekar l = new Lekar();
+                        foreach(Lekar ln in lekari)
+                        {
+                            if(ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
+                            {
+                                l = ln;
+                                break;
+                            }
+                        }
+                        var s = new FormLekar(l);
                         s.Show();
 
                     }
