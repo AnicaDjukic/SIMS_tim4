@@ -63,18 +63,6 @@
     ]
   },
   {
-    "Id": 1234,
-    "Naziv": "Paracetamol",
-    "Proizvodjac": "Sinofarm",
-    "KolicinaUMg": 500,
-    "Status": 0,
-    "Zalihe": 2000,
-    "Odobren": false,
-    "Obrisan": false,
-    "IdZamena": [],
-    "Sastojak": []
-  },
-  {
     "Id": 2435,
     "Naziv": "Panadol",
     "Proizvodjac": "Galenika",
@@ -139,5 +127,17 @@
         "Naziv": "Novalgetol"
       }
     ]
+  },
+  {
+    "Id": 1234,
+    "Naziv": "Paracetamol",
+    "Proizvodjac": "Sinofarm",
+    "KolicinaUMg": 500,
+    "Status": 0,
+    "Zalihe": 3000,
+    "Odobren": false,
+    "Obrisan": false,
+    "IdZamena": [],
+    "Sastojak": []
   }
 ]

@@ -481,5 +481,11 @@ namespace bolnica.Forms
                 }
             }
         }
+
+        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
+        {
+            FormObavestenja s = new FormObavestenja();
+            s.Show();
+        }
     }
 }
