@@ -1,5 +1,5 @@
 using Bolnica.Model.Pregledi;
-
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +17,7 @@ namespace Model.Pregledi
         public int Zalihe { get; set; }
         public List<int> ZamenaId { get; set; }
 
+        [JsonIgnore]
         public List<Sastojak> sastojak;
 
 

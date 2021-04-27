@@ -26,9 +26,11 @@ namespace Bolnica.Forms
         private PrikazLek prik = new PrikazLek();
 
         private List<Lek> leko = new List<Lek>();
-        public FormKomentarLekaLekar(PrikazLek p,List<Lek> lekovi)
+
+        private FileStorageLek sviLekovi = new FileStorageLek();
+        public FormKomentarLekaLekar(PrikazLek p)
         {
-            leko = lekovi;
+            leko = sviLekovi.GetAll();
             for (int i = 0; i < leko.Count; i++)
             {
                 if (leko[i].Status.Equals(StatusLeka.Odbijen))
@@ -85,6 +87,8 @@ namespace Bolnica.Forms
                 if (leko[i].Id.Equals(prik.Id))
                 {
                     leko[i].Status = StatusLeka.Odbijen;
+                    sviLekovi.Delete(leko[i]);
+                    sviLekovi.Save(leko[i]);
                 }
             }
 

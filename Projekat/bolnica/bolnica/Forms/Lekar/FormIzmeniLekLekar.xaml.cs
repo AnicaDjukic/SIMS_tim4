@@ -35,13 +35,14 @@ namespace Bolnica.Forms
         public List<Lek> zamene { get; set; }
 
         private FileStorageSastojak sviSastojci = new FileStorageSastojak();
+        private FileStorageLek sviLekovi = new FileStorageLek();
 
         private List<Lek> lekovi = new List<Lek>();
         private List<Sastojak> sas = new List<Sastojak>();
 
-        public FormIzmeniLekLekar(Lek p,List<Lek> leko)
+        public FormIzmeniLekLekar(Lek p)
         {
-            lekovi = leko;
+            lekovi = sviLekovi.GetAll();
             for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
@@ -305,6 +306,8 @@ namespace Bolnica.Forms
                     FormLekar.lekoviPrikaz[j] = lekpri;
                 }
             }
+            sviLekovi.Delete(lekk);
+            sviLekovi.Save(lekk);
 
             this.Close();
 

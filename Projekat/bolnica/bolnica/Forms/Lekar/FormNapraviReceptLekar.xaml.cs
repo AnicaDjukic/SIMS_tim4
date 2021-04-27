@@ -33,9 +33,11 @@ namespace Bolnica.Forms
         private Pacijent trePac = new Pacijent();
 
         private List<Lek> lekovi;
-        public FormNapraviReceptLekar(List<Lek> lek, Pacijent trenutniPacijent)
+
+        private FileStorageLek sviLekovi = new FileStorageLek();
+        public FormNapraviReceptLekar(Pacijent trenutniPacijent)
         {
-            lekovi = lek;
+            lekovi = sviLekovi.GetAll();
             for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
@@ -119,7 +121,7 @@ namespace Bolnica.Forms
                 {
                     for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
                     {
-                        if (alergeniPacijenta[o].Equals(izabraniLek.Sastojak[m]))
+                        if (alergeniPacijenta[o].Naziv.Equals(izabraniLek.Sastojak[m].Naziv))
                         {
                             MessageBox.Show("Pacijent je alergican na izabrani lek");
                             return;

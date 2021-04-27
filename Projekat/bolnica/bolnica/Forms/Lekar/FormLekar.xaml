@@ -24,17 +24,6 @@
     <TabControl TabStripPlacement="Left" Loaded="focusTab">
         <TabControl.Resources>
             <Style TargetType="{x:Type TabItem}" x:Key="PrviTab" >
-                <Setter Property="HeaderTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <ContentPresenter Content="{TemplateBinding Content}">
-                                <ContentPresenter.LayoutTransform>
-                                    <RotateTransform Angle="270" />
-                                </ContentPresenter.LayoutTransform>
-                            </ContentPresenter>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Header">
                     <Setter.Value>
 
@@ -46,17 +35,6 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
             <Style TargetType="{x:Type TabItem}" x:Key="DrugiTab" >
-                <Setter Property="HeaderTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <ContentPresenter Content="{TemplateBinding Content}">
-                                <ContentPresenter.LayoutTransform>
-                                    <RotateTransform Angle="270" />
-                                </ContentPresenter.LayoutTransform>
-                            </ContentPresenter>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Header">
                     <Setter.Value>
 
@@ -74,17 +52,6 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
             <Style TargetType="{x:Type TabItem}" x:Key="TreciTab" >
-                <Setter Property="HeaderTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <ContentPresenter Content="{TemplateBinding Content}">
-                                <ContentPresenter.LayoutTransform>
-                                    <RotateTransform Angle="270" />
-                                </ContentPresenter.LayoutTransform>
-                            </ContentPresenter>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Header">
                     <Setter.Value>
 

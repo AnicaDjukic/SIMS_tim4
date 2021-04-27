@@ -42,6 +42,7 @@ namespace Bolnica.Forms
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
         private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileStorageLek sviLekovi = new FileStorageLek();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
@@ -61,65 +62,9 @@ namespace Bolnica.Forms
             //Owner = Application.Current.MainWindow;
             //this.WindowState = WindowState.Maximized;
             Application.Current.MainWindow = this;
-            Sastojak a = new Sastojak();
-            Sastojak b = new Sastojak();
-            Sastojak c = new Sastojak();
-            Sastojak d = new Sastojak();
-            a.Naziv = "aaaaaaa";
-            b.Naziv = "bbbbbbb";
-            c.Naziv = "Aspirin";
-            d.Naziv = "Cliacil";
-            c.Id = 1; 
-            Lek l11 = new Lek();
-            Lek l22 = new Lek();
-            l11.Naziv = "Aspirin";
-            l11.Status = StatusLeka.Odobren;
-            l11.Id = 1;
-            l11.Proizvodjac = "Google";
-            l11.KolicinaUMg = 200;
-            l11.ZamenaId = new List<int>();
-            l22.Naziv = "Brufen";
-            l22.Status = StatusLeka.CekaValidaciju;
-            l22.Id = 2;
-            l22.KolicinaUMg = 300;
-            l22.Proizvodjac = "Amazon";
-            l22.ZamenaId = new List<int>();
-            Lek l3 = new Lek();
-            l3.Id = 3;
-            l3.Naziv = "Aspirin";
-            l3.KolicinaUMg = 300;
-            l3.Status = StatusLeka.Odbijen;
-            l3.Proizvodjac = "Masina";
-            l3.ZamenaId = new List<int>();
-            Lek l4 = new Lek();
-            l4.Id = 4;
-            l4.Naziv = "Andol";
-            l4.KolicinaUMg = 200;
-            l4.Status = StatusLeka.Odobren;
-            l4.Proizvodjac = "Masina";
-            l4.ZamenaId = new List<int>();
-            l22.Sastojak.Add(a);
-            l3.Sastojak.Add(a);
-            l4.Sastojak.Add(a);
-            l22.Sastojak.Add(b);
-            l3.Sastojak.Add(b);
-            l4.Sastojak.Add(b);
-            l11.Sastojak.Add(c);
-            l22.Sastojak.Add(c);
-            l3.Sastojak.Add(c);
-            l4.Sastojak.Add(c);
-            l11.Sastojak.Add(d);
-            l22.Sastojak.Add(d);
-            l3.Sastojak.Add(d);
-            l4.Sastojak.Add(d);
-            l11.ZamenaId.Add(l22.Id);
-            l11.ZamenaId.Add(l4.Id);
-            l22.ZamenaId.Add(l4.Id);
-            l3.ZamenaId.Add(l4.Id);
-            lekovi.Add(l11);
-            lekovi.Add(l22);
-            lekovi.Add(l3);
-            lekovi.Add(l4);
+
+            lekovi = sviLekovi.GetAll();
+
             for(int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
@@ -961,7 +906,7 @@ namespace Bolnica.Forms
             {
                 if (lekovi[i].Id.Equals(p.Id))
                 {
-                    FormIzmeniLekLekar form = new FormIzmeniLekLekar(lekovi[i],lekovi);
+                    FormIzmeniLekLekar form = new FormIzmeniLekLekar(lekovi[i]);
                     form.Show();
                     break;
 
@@ -1018,6 +963,8 @@ namespace Bolnica.Forms
                     if (lekovi[i].Id.Equals(p.Id))
                     {
                         lekovi[i].Status = StatusLeka.Odobren;
+                        sviLekovi.Delete(lekovi[i]);
+                        sviLekovi.Save(lekovi[i]);
                         break;
 
                     }
@@ -1077,7 +1024,7 @@ namespace Bolnica.Forms
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
             if (p.Status.Equals(StatusLeka.CekaValidaciju))
             {
-                FormKomentarLekaLekar lek = new FormKomentarLekaLekar(p, lekovi);
+                FormKomentarLekaLekar lek = new FormKomentarLekaLekar(p);
                 lek.Show();
             }
             else
