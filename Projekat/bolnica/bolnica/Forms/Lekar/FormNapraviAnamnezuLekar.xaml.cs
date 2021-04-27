@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -30,6 +31,7 @@ namespace Bolnica.Forms
         private List<Lek> lekovi = new List<Lek>();
 
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private FileStorageLek sviLekovi = new FileStorageLek();
         private List<Pregled> sviPreg = new List<Pregled>();
         private List<Operacija> sveOpe = new List<Operacija>();
         private List<Lekar> lekariTrenutni = new List<Lekar>();
@@ -41,6 +43,7 @@ namespace Bolnica.Forms
         private PrikazOperacije staraOperacija = new PrikazOperacije();
         private List<Anamneza> listaAnamneza = new List<Anamneza>();
         private FileStorageAnamneza anam = new FileStorageAnamneza();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
         private int idAnamneze;
         private int jePregled = 0;
 
@@ -51,35 +54,22 @@ namespace Bolnica.Forms
         }
 
 
-        public FormNapraviAnamnezuLekar(PrikazPregleda p1, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazPregleda p1, Lekar neki)
         {
             jePregled = 1;
-            Lek l11 = new Lek();
-            Lek l22 = new Lek();
-            l11.Naziv = "Aspirin";
-            l11.Odobren = true;
-            l11.Id = 1;
-            l11.KolicinaUMg = 200;
-            l22.Naziv = "Brufen";
-            l22.Odobren = false;
-            l22.Id = 2;
-            l22.KolicinaUMg = 300;
-            Lek l3 = new Lek();
-            l3.Id = 3;
-            l3.Naziv = "Paracetamol";
-            l3.KolicinaUMg = 200;
-            l3.Odobren = true;
-            Lek l4 = new Lek();
-            l4.Id = 4;
-            l4.Naziv = "Andol";
-            l4.KolicinaUMg = 200;
-            l4.Odobren = true;
+
+
+            lekovi = sviLekovi.GetAll();
+
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                {
+                    lekovi.RemoveAt(i);
+                    i--;
+                }
+            }
             trenturniPacijent = p1.Pacijent;
-            
-            lekovi.Add(l11);
-            lekovi.Add(l22);
-            lekovi.Add(l3);
-            lekovi.Add(l4);
 
             listaAnamneza = anam.GetAll();
 
@@ -89,7 +79,7 @@ namespace Bolnica.Forms
             dijagnoza = "";
             
             trenutniPregled = p1;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             stariPregled = p1;
             ulogovaniLekar = neki;
             
@@ -99,7 +89,8 @@ namespace Bolnica.Forms
             InitializeComponent();
             this.DataContext = this;
 
-            
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
 
 
             for (int i = 0; i < listaAnamneza.Count; i++)
@@ -158,28 +149,9 @@ namespace Bolnica.Forms
 
         }
 
-        public FormNapraviAnamnezuLekar(PrikazOperacije op, List<Lekar> l1, Lekar neki)
+        public FormNapraviAnamnezuLekar(PrikazOperacije op, Lekar neki)
         {
-            Lek l11 = new Lek();
-            Lek l22 = new Lek();
-            l11.Naziv = "Aspirin";
-            l11.Odobren = true;
-            l11.Id = 1;
-            l11.KolicinaUMg = 200;
-            l22.Naziv = "Brufen";
-            l22.Odobren = false;
-            l22.Id = 2;
-            l22.KolicinaUMg = 300;
-            Lek l3 = new Lek();
-            l3.Id = 3;
-            l3.Naziv = "Paracetamol";
-            l3.KolicinaUMg = 200;
-            l3.Odobren = true;
-            Lek l4 = new Lek();
-            l4.Id = 4;
-            l4.Naziv = "Andol";
-            l4.KolicinaUMg = 200;
-            l4.Odobren = true;
+           
 
             trenturniPacijent = op.Pacijent;
 
@@ -187,14 +159,11 @@ namespace Bolnica.Forms
             simptomi = "";
             dijagnoza = "";
 
-            lekovi.Add(l11);
-            lekovi.Add(l22);
-            lekovi.Add(l3);
-            lekovi.Add(l4);
+            lekovi = sviLekovi.GetAll();
 
 
             trenutnaOperacija = op;
-            lekariTrenutni = l1;
+            lekariTrenutni = sviLekari.GetAll();
             staraOperacija = op;
             ulogovaniLekar = neki;
 
@@ -275,7 +244,7 @@ namespace Bolnica.Forms
 
         private void DodajLek(object sender, RoutedEventArgs e)
         {
-            FormNapraviReceptLekar form = new FormNapraviReceptLekar(lekovi,trenturniPacijent);
+            FormNapraviReceptLekar form = new FormNapraviReceptLekar(trenturniPacijent);
             form.Show();
         }
 
@@ -329,6 +298,7 @@ namespace Bolnica.Forms
                                 
                                 Pregled o = new Pregled();
                                 o.Id = trenutniPregled.Id;
+                                 o.Hitan = trenutniPregled.Hitan;
                                 o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
                                 o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
                                 o.Trajanje = trenutniPregled.Trajanje;
@@ -366,6 +336,7 @@ namespace Bolnica.Forms
 
                                 Operacija o = new Operacija();
                                 o.Id = trenutnaOperacija.Id;
+                            o.Hitan = trenutnaOperacija.Hitan;
                                 o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
                                 o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
                                 o.TipOperacije = trenutnaOperacija.TipOperacije;
@@ -405,6 +376,7 @@ namespace Bolnica.Forms
 
                             Pregled o = new Pregled();
                             o.Id = trenutniPregled.Id;
+                            o.Hitan = trenutniPregled.Hitan;
                             o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
                             o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
                             o.Trajanje = trenutniPregled.Trajanje;
@@ -436,6 +408,7 @@ namespace Bolnica.Forms
 
                             Operacija o = new Operacija();
                             o.Id = trenutnaOperacija.Id;
+                            o.Hitan = trenutnaOperacija.Hitan;
                             o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
                             o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
                             o.TipOperacije = trenutnaOperacija.TipOperacije;
@@ -466,7 +439,7 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar form = new FormNapraviTerminLekar(lekariTrenutni,ulogovaniLekar);
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar,trenturniPacijent);
             form.Show();
         }
 
@@ -489,7 +462,7 @@ namespace Bolnica.Forms
                 a.Trajanje = r.Trajanje;
                 a.VremeUzimanja = r.VremeUzimanja;
                
-                FormVidiReceptLekar form = new FormVidiReceptLekar(lekovi,a);
+                FormVidiReceptLekar form = new FormVidiReceptLekar(a);
                 form.Show();  
             }
         }

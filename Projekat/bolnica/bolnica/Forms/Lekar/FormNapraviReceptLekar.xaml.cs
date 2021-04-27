@@ -26,14 +26,26 @@ namespace Bolnica.Forms
         public string doza { get; set; }
         public string brojKutija { get; set; }
         public string vremeUzimanja { get; set; }
+
+        public string proizvodjac { get; set; }
         public DateTime datumPrekida { get; set; }
 
         private Pacijent trePac = new Pacijent();
 
         private List<Lek> lekovi;
-        public FormNapraviReceptLekar(List<Lek> lek, Pacijent trenutniPacijent)
+
+        private FileStorageLek sviLekovi = new FileStorageLek();
+        public FormNapraviReceptLekar(Pacijent trenutniPacijent)
         {
-            lekovi = lek;
+            lekovi = sviLekovi.GetAll();
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                {
+                    lekovi.RemoveAt(i);
+                    i--;
+                }
+            }
             trePac = trenutniPacijent;
             InitializeComponent();
 
@@ -55,8 +67,18 @@ namespace Bolnica.Forms
                 }
                 if (dozvolica == 0)
                 {
-                    textLek.Items.Add(lekovi[i].Naziv);
-                    textDoza.Items.Add(lekovi[i].KolicinaUMg);
+                    if (!textLek.Items.Contains(lekovi[i].Naziv))
+                    {
+                        textLek.Items.Add(lekovi[i].Naziv);
+                    }
+                    if (!textDoza.Items.Contains(lekovi[i].KolicinaUMg))
+                    {
+                        textDoza.Items.Add(lekovi[i].KolicinaUMg);
+                    }
+                    if (!textProizvodjac.Items.Contains(lekovi[i].Proizvodjac))
+                    {
+                        textProizvodjac.Items.Add(lekovi[i].Proizvodjac);
+                    }
                 }
             }
 
@@ -87,7 +109,7 @@ namespace Bolnica.Forms
             Lek izabraniLek = new Lek();
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
+                if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac)&&textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
                 {
                     izabraniLek = lekovi[i];
                 }
@@ -99,7 +121,7 @@ namespace Bolnica.Forms
                 {
                     for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
                     {
-                        if (alergeniPacijenta[o].Equals(izabraniLek.Sastojak[m]))
+                        if (alergeniPacijenta[o].Naziv.Equals(izabraniLek.Sastojak[m].Naziv))
                         {
                             MessageBox.Show("Pacijent je alergican na izabrani lek");
                             return;
@@ -153,7 +175,7 @@ namespace Bolnica.Forms
                     textDoza.Items.Clear();
                     for (int i = 0; i < lekovi.Count; i++)
                     {
-                        if (textLek.Text.Equals(lekovi[i].Naziv))
+                        if (textLek.Text.Equals(lekovi[i].Naziv) && !textDoza.Items.Contains(lekovi[i].KolicinaUMg))
                         {
                             textDoza.Items.Add(lekovi[i].KolicinaUMg);
                         }
@@ -187,6 +209,26 @@ namespace Bolnica.Forms
             }
         }
 
-       
+        private void IsPro(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Tab)
+            {
+                if (textProizvodjac.Text.Length > 2)
+                {
+                    textLek.Items.Clear();
+                    for (int i = 0; i < lekovi.Count; i++)
+                    {
+                        if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && !textLek.Items.Contains(lekovi[i].Naziv))
+                        {
+                            textLek.Items.Add(lekovi[i].Naziv);
+                        }
+                    }
+                }
+            }
+            else if(e.Key == Key.Enter)
+            {
+                textProizvodjac.IsDropDownOpen = true;
+            }
+        }
     }
 }

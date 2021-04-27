@@ -20,7 +20,8 @@ namespace Bolnica.Forms
         public FormPrikazInformacijaOPacijentuLekar(Pacijent p1)
         {
             InitializeComponent();
-
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
             checkGuest.IsChecked = p1.Guest;
             ime.Content = p1.Ime;
             prezime.Content = p1.Prezime;

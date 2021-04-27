@@ -8,7 +8,7 @@ namespace Model.Pregledi
       public DateTime Datum { get; set; }
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }
-
+      public bool Hitan { get; set; }
       public int AnamnezaId { get; set; }
       public string lekarJmbg { get; set; }
       

@@ -28,7 +28,7 @@ namespace Bolnica.Validation
                         return new ValidationResult(true, null);
                     }
                 }
-                return new ValidationResult(false, "Ne postoji pacijent sa tim imenom");
+                return new ValidationResult(false, "Ne postoji pacijent");
             }
             return new ValidationResult(false, "Popunite");
 
@@ -57,7 +57,7 @@ namespace Bolnica.Validation
                         return new ValidationResult(true, null);
                     }
                 }
-                return new ValidationResult(false, "Ne postoji pacijent sa tim prezimenom");
+                return new ValidationResult(false, "Ne postoji pacijent");
             }
             return new ValidationResult(false, "Popunite");
         }
@@ -86,7 +86,7 @@ namespace Bolnica.Validation
                         return new ValidationResult(true, null);
                     }
                 }
-                return new ValidationResult(false, "Ne postoji pacijent sa tim jmbg-om");
+                return new ValidationResult(false, "Ne postoji pacijent");
             }
             return new ValidationResult(false, "Popunite");
         }
@@ -115,7 +115,7 @@ namespace Bolnica.Validation
                         return new ValidationResult(true, null);
                     }
                 }
-                return new ValidationResult(false, "Ne postoji slobodna prostorija sa tim brojem");
+                return new ValidationResult(false, "Ne postoji slobodna prostorija");
             }
             return new ValidationResult(false, "Popunite");
         }
@@ -145,7 +145,7 @@ namespace Bolnica.Validation
                     }
 
                 }
-                return new ValidationResult(false, "Nije moguce zakazati termin u to vrijeme");
+                return new ValidationResult(false, "Nije moguce u to vrijeme");
 
 
 

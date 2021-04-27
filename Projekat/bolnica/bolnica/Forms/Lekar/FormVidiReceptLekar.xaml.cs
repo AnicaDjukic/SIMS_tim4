@@ -1,4 +1,5 @@
-﻿using Model.Pregledi;
+﻿using Bolnica.Model.Pregledi;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,12 +24,24 @@ namespace Bolnica.Forms
         public string doza { get; set; }
         public string brojKutija { get; set; }
         public string vremeUzimanja { get; set; }
+
+        public string proizvodjac { get; set; }
         public DateTime datumPrekida { get; set; }
 
         private List<Lek> lekovi;
-        public FormVidiReceptLekar(List<Lek> leko,Recept r)
+
+        private FileStorageLek sviLekovi = new FileStorageLek();
+        public FormVidiReceptLekar(Recept r)
         {
-            lekovi = leko;
+            lekovi = sviLekovi.GetAll();
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (lekovi[i].Status.Equals(StatusLeka.Odbijen))
+                {
+                    lekovi.RemoveAt(i);
+                    i--;
+                }
+            }
 
             InitializeComponent();
 
@@ -42,11 +55,13 @@ namespace Bolnica.Forms
                 {
                     lek = lekovi[i].Naziv;
                     doza = lekovi[i].KolicinaUMg.ToString();
+                    proizvodjac = lekovi[i].Proizvodjac;
                 }
             }
             brojKutija = r.Kolicina.ToString();
             vremeUzimanja = r.VremeUzimanja.ToString();
             datumPrekida = r.Trajanje;
+           
 
 
         }
