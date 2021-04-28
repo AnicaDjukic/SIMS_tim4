@@ -584,5 +584,11 @@ namespace bolnica.Forms
                 }
             }
         }
+
+        private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
+        {
+            FormRenoviranje formRenoviranje = new FormRenoviranje();
+            formRenoviranje.Show();
+        }
     }
 }

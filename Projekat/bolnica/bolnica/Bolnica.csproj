@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Forms\Images\clock.png" />
     <None Remove="Resources\LekarIstorija.png" />
     <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
@@ -30,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Forms\Images\clock.png">
+      <Generator>s</Generator>
+    </Resource>
     <Resource Include="Resources\LekarIstorija.png" />
     <Resource Include="Resources\LekarLek.png" />
     <Resource Include="Resources\LekarPregled.png" />
