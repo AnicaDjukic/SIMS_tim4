@@ -86,11 +86,11 @@ namespace bolnica.Forms
             storageLekovi = new FileStorageLek();
 
             List<Lek> lekovi = storageLekovi.GetAll();
-            if(lekovi != null)
+            if (lekovi != null)
             {
-                foreach(Lek l in lekovi)
+                foreach (Lek l in lekovi)
                 {
-                    if(!l.Obrisan)
+                    if (!l.Obrisan)
                         Lekovi.Add(l);
                 }
             }
@@ -108,7 +108,8 @@ namespace bolnica.Forms
             {
                 var o = new CreateFormOprema();
                 o.Show();
-            } else if(Tabovi.SelectedIndex == 2)
+            }
+            else if (Tabovi.SelectedIndex == 2)
             {
                 Lek noviLek = new Lek();
                 var l = new CreateFormLekovi(noviLek);
@@ -293,7 +294,8 @@ namespace bolnica.Forms
                         break;
                     }
                 }
-            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            }
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 clickedDodaj = false;
                 Lek row = (Lek)dataGridLekovi.SelectedItems[0];
@@ -329,7 +331,8 @@ namespace bolnica.Forms
                             s.txtZalihe.Visibility = Visibility.Hidden;
                             s.txtZalihe.IsEnabled = false;
                             s.Show();
-                        } else
+                        }
+                        else
                         {
                             MessageBox.Show("Nije moguće izmeniti lek koji čeka validaciju!");
                         }
@@ -413,7 +416,7 @@ namespace bolnica.Forms
 
                 MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
 
-                if(rsltMessageBox == MessageBoxResult.Yes)
+                if (rsltMessageBox == MessageBoxResult.Yes)
                 {
                     foreach (Oprema o in oprema)
                     {
@@ -433,7 +436,8 @@ namespace bolnica.Forms
                         }
                     }
                 }
-            } else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
+            }
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek row = (Lek)dataGridLekovi.SelectedItems[0];
                 List<Lek> lekovi = storageLekovi.GetAll();
@@ -455,13 +459,13 @@ namespace bolnica.Forms
                         {
                             if (l.Id == row.Id)
                             {
-                               
+
                                 storageLekovi.Delete(l);
-                                if(l.Status == StatusLeka.odobren)
+                                if (l.Status == StatusLeka.odobren)
                                 {
                                     l.Obrisan = true;
                                     storageLekovi.Save(l);
-                                } 
+                                }
 
                                 for (int i = 0; i < Lekovi.Count; i++)
                                 {
@@ -474,8 +478,9 @@ namespace bolnica.Forms
                                 break;
                             }
                         }
-                    }                
-                } else
+                    }
+                }
+                else
                 {
                     MessageBox.Show("Nije moguće obrisati lek koji čeka validaciju!");
                 }
@@ -486,6 +491,98 @@ namespace bolnica.Forms
         {
             FormObavestenja s = new FormObavestenja();
             s.Show();
+        }
+
+        private void Button_Click_Search(object sender, RoutedEventArgs e)
+        {
+            List<Oprema> svaOprema = storageOprema.GetAll();
+            List<Oprema> oprema = new List<Oprema>();
+            foreach (Oprema o in svaOprema)
+            {
+                if (o.Sifra.ToLower().Contains(txtSearch.Text.ToLower()))
+                {
+                    oprema.Remove(o);
+                    oprema.Add(o);
+                }
+
+                if (o.Naziv.ToLower().Contains(txtSearch.Text.ToLower()))
+                {
+                    oprema.Remove(o);
+                    oprema.Add(o);
+                }
+
+                if (o.TipOpreme == TipOpreme.dinamicka)
+                {
+                    string dinamicka = "dinamička";
+                    if (dinamicka.Contains(txtSearch.Text.ToLower()))
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                }
+
+                if (o.TipOpreme == TipOpreme.staticka)
+                {
+                    string staticka = "statička";
+                    if (staticka.Contains(txtSearch.Text.ToLower()))
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                }
+            }
+            Oprema.Clear();
+            foreach (Oprema o in oprema)
+            {
+                if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
+                    Oprema.Add(o);
+                else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+                    Oprema.Add(o);
+                else if (comboTipOpreme.SelectedIndex == 0)
+                    Oprema.Add(o);
+            }
+        }
+
+        private void Tabovi_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (Tabovi.SelectedIndex == 1)
+                comboTipOpreme.Visibility = Visibility.Visible;
+            else
+                comboTipOpreme.Visibility = Visibility.Hidden;
+        }
+
+        private void comboTipOpreme_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (comboTipOpreme.Visibility == Visibility.Visible)
+            {
+                storageOprema = new FileStorageOprema();
+                List<Oprema> svaOprema = storageOprema.GetAll();
+                List<Oprema> oprema = new List<Oprema>();
+
+                foreach (Oprema o in svaOprema)
+                {
+                    if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                    else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                    else if (comboTipOpreme.SelectedIndex == 0)
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                }
+                Oprema.Clear();
+                foreach (Oprema o in oprema)
+                {
+                    Oprema.Add(o);
+                }
+            }
         }
     }
 }

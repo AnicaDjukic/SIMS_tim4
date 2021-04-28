@@ -76,12 +76,18 @@ namespace Bolnica.Forms.Upravnik
             opremaZaSkladistenje = oprema;
             storageZaliha = new FileStorageZaliha();
             List<Zaliha> zalihe = storageZaliha.GetAll();
+            List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            foreach(Zaliha z in zalihe)
+            {
+                if (oprema.Sifra == z.SifraOpreme)
+                    zaliheOpreme.Add(z);
+            }
             ProstorijeZaSkladistenje = new ObservableCollection<Prostorija>();
             storageProstorija = new FileStorageProstorija();
             List<Prostorija> prostorije = storageProstorija.GetAllProstorije();
             List<BolnickaSoba> bolnickeSobe = storageProstorija.GetAllBolnickeSobe();
             List<Prostorija> koriscene = new List<Prostorija>();
-            if (zalihe == null)
+            if (zaliheOpreme.Count == 0)
             {
                 foreach (Prostorija p in prostorije)
                 {

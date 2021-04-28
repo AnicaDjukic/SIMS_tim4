@@ -61,15 +61,23 @@
             </MenuItem>
         </Menu>
 
-        <!--<StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <TextBox Height="20" Width="150"/>
-            <Button Height="20" VerticalAlignment="Bottom" >
-                <Image Source="../Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
-            </Button>
-        </StackPanel>-->
-        
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,3,0">
+            <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipOpreme" Margin ="0,0,20,0" 
+                      VerticalAlignment="Center" Width="100" Visibility="Hidden" SelectionChanged="comboTipOpreme_SelectionChanged">
+                <ComboBoxItem Content="Nema filtera" IsSelected="True"/>
+                <ComboBoxItem Content="Statička"/>
+                <ComboBoxItem Content="Dinamička"/>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBox x:Name="txtSearch" Width="150" IsEnabled="True"/>
+                <Button Height="20" VerticalAlignment="Bottom" Click="Button_Click_Search">
+                    <Image Source="../Images/search.png" Width="15" Height="20" HorizontalAlignment="Left"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
         <TabControl Grid.Row="2" Grid.Column="0" x:Name="Tabovi" Height="320" BorderBrush="LightCyan" Background="LightCyan" 
-                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,0,0" SelectionChanged="Tabovi_SelectionChanged">
             <TabItem Header="PROSTORIJE">
                 <StackPanel>
                     <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
