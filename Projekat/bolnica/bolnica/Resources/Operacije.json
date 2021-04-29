@@ -1,1 +1,51 @@
-[{"TipOperacije":0,"Id":9,"Datum":"2021-04-25T08:00:00","Trajanje":100,"Zavrsen":true,"Hitan":true,"AnamnezaId":12,"lekarJmbg":"123456789","brojProstorije":106,"pacijentJmbg":"2512002149573"},{"TipOperacije":0,"Id":10,"Datum":"2021-04-25T10:30:00","Trajanje":100,"Zavrsen":false,"Hitan":false,"AnamnezaId":-1,"lekarJmbg":"123456789","brojProstorije":106,"pacijentJmbg":"2512002149573"},{"TipOperacije":0,"Id":11,"Datum":"2021-04-25T06:00:00","Trajanje":100,"Zavrsen":false,"Hitan":true,"AnamnezaId":-1,"lekarJmbg":"123456789","brojProstorije":106,"pacijentJmbg":"0910990130002"},{"TipOperacije":1,"Id":12,"Datum":"2021-04-26T14:30:00","Trajanje":150,"Zavrsen":true,"Hitan":true,"AnamnezaId":14,"lekarJmbg":"123456789","brojProstorije":106,"pacijentJmbg":"1212000190000"}]
+[
+  
+  {
+    "TipOperacije": 0,
+    "Id": 9,
+    "Datum": "2021-04-25T08:00:00",
+    "Trajanje": 100,
+    "Zavrsen": true,
+    "Hitan": true,
+    "AnamnezaId": 12,
+    "lekarJmbg": "123456789",
+    "brojProstorije": 106,
+    "pacijentJmbg": "2512002149573"
+  },
+  {
+    "TipOperacije": 0,
+    "Id": 10,
+    "Datum": "2021-04-25T10:30:00",
+    "Trajanje": 100,
+    "Zavrsen": false,
+    "Hitan": false,
+    "AnamnezaId": -1,
+    "lekarJmbg": "123456789",
+    "brojProstorije": 106,
+    "pacijentJmbg": "2512002149573"
+  },
+  {
+    "TipOperacije": 0,
+    "Id": 11,
+    "Datum": "2021-04-25T06:00:00",
+    "Trajanje": 100,
+    "Zavrsen": false,
+    "Hitan": true,
+    "AnamnezaId": -1,
+    "lekarJmbg": "123456789",
+    "brojProstorije": 106,
+    "pacijentJmbg": "0910990130002"
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 12,
+    "Datum": "2021-04-26T14:30:00",
+    "Trajanje": 150,
+    "Zavrsen": true,
+    "Hitan": true,
+    "AnamnezaId": 14,
+    "lekarJmbg": "123456789",
+    "brojProstorije": 106,
+    "pacijentJmbg": "1212000190000"
+  }
+]

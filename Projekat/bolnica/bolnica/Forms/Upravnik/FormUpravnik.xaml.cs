@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace bolnica.Forms
@@ -26,6 +27,7 @@ namespace bolnica.Forms
         private FileStorageProstorija storageProstorije;
         private FileStorageOprema storageOprema;
         private FileStorageLek storageLekovi;
+        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
 
         public static bool clickedDodaj;
 
@@ -587,8 +589,46 @@ namespace bolnica.Forms
 
         private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
         {
-            FormRenoviranje formRenoviranje = new FormRenoviranje();
-            formRenoviranje.Show();
+            if(dataGridProstorije.SelectedCells.Count > 0)
+            {
+                List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
+                if (renoviranja == null)
+                    return;
+                FormRenoviranje formRenoviranje = new FormRenoviranje();
+                Prostorija row = (Prostorija)dataGridProstorije.SelectedItem;
+                List<Renoviranje> renoviranjaProstorije = new List<Renoviranje>();
+                foreach (Renoviranje r in renoviranja)
+                {
+                    if (r.BrojProstorije == row.BrojProstorije)
+                        renoviranjaProstorije.Add(r);
+                }
+                foreach(Renoviranje r in renoviranjaProstorije)
+                {
+                    formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
+                }
+                FileStoragePregledi storagePregledi = new FileStoragePregledi();
+                List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+                foreach(Pregled p in pregledi)
+                {
+                    if(p.brojProstorije == row.BrojProstorije)
+                    {
+                        formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
+                    }
+                }
+                if(row.TipProstorije == TipProstorije.operacionaSala)
+                {
+                    List<Operacija> operacije = storagePregledi.GetAllOperacije();
+                    foreach(Operacija o in operacije)
+                    {
+                        if(o.brojProstorije == row.BrojProstorije)
+                        {
+                            formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(o.Datum));
+                        }
+                    }
+                }
+                formRenoviranje.Show();
+            }
+            
         }
     }
 }

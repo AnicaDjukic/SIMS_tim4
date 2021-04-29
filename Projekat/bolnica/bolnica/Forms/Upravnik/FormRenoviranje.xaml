@@ -29,7 +29,23 @@
                     <Viewbox Grid.Column="0" Grid.RowSpan="5" HorizontalAlignment="Center"
                         Margin="0,25,0,0"
                         VerticalAlignment="Top" Height="230" Width="260" Stretch="Fill">
-                        <Calendar/>
+                        <Calendar x:Name="Calendar" SelectionMode="MultipleRange">
+                            <Calendar.CalendarDayButtonStyle>
+                                <Style TargetType="CalendarDayButton" BasedOn="{StaticResource {x:Type CalendarDayButton}}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsBlackedOut" Value="True">
+                                            <Setter Property="Background" Value="LightGray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsToday" Value="True">
+                                            <Setter Property="Background" Value="LightSkyBlue"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Calendar.CalendarDayButtonStyle>
+                            <Calendar.BlackoutDates>
+                                <CalendarDateRange Start="24-June-2014" End="25-June-2014"/>
+                            </Calendar.BlackoutDates>
+                        </Calendar>
                     </Viewbox>
                     <Label Grid.Column="1" Grid.Row="1" Content="POČETAK:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     <DatePicker Grid.Column="2" Grid.Row="1" Margin="10,0" VerticalAlignment="Center"/>
