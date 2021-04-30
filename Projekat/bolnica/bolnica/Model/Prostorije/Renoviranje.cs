@@ -8,7 +8,6 @@ namespace Bolnica.Model.Prostorije
 {
     public class Renoviranje
     {
-        public int Id { get; set; }
         public DateTime PocetakRenoviranja { get; set; }
         public DateTime KrajRenoviranja { get; set; }
         public string Opis { get; set; }

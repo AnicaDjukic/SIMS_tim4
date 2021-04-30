@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,7 @@ namespace Bolnica.Forms.Upravnik
 
         private FileStorageRenoviranje storage;
         private DateTime? datumPocetka;
-        private DateTime? datumKraja;
+        private DateTime? datumKraja; 
 
         [Required(ErrorMessage = "Valid Date is Required")]
         public DateTime? DatumPocetka
@@ -99,33 +100,59 @@ namespace Bolnica.Forms.Upravnik
 
         private void DatePicker_SelectedDateChanged_Pocetak(object sender, SelectionChangedEventArgs e)
         {
-            if (datumPocetka != null) {
+            if (datumPocetka != null && datePickerPocetak.SelectedDate != null) {
                 novoRenoviranje.PocetakRenoviranja = (DateTime)datumPocetka;
                 datePickerKraj.DisplayDateStart = datumPocetka;
+                if (datumKraja != null)
+                    btnZakazi.IsEnabled = true;
+                else
+                    btnZakazi.IsEnabled = false;
             } 
             else
             {
-                datePickerKraj.DisplayDateStart = DateTime.Now;
+                btnZakazi.IsEnabled = false;
             }
         }
 
         private void datePickerKraj_SelectedDateChanged_Kraj(object sender, SelectionChangedEventArgs e)
         {
-            if(datumPocetka != null)
-            novoRenoviranje.KrajRenoviranja = (DateTime)datumKraja;
+            if(datumKraja != null && datePickerKraj.SelectedDate != null)
+            {
+                novoRenoviranje.KrajRenoviranja = (DateTime)datumKraja;
+                if (datumPocetka != null)
+                    btnZakazi.IsEnabled = true;
+                else
+                    btnZakazi.IsEnabled = false;
+            }
+            else
+            {
+                btnZakazi.IsEnabled = false;
+            }
         }
 
         private void Button_Click_Zakazi(object sender, RoutedEventArgs e)
         {
-            List<Renoviranje> renoviranja = storage.GetAll();
-            int maxId = 0;
-            foreach(Renoviranje r in renoviranja)
+           if(datumPocetka > datumKraja)
             {
-                if (r.Id > maxId)
-                    maxId = r.Id;
+                MessageBox.Show("Datm kraja renoviranja mora biti posle datuma početka renoviranja!");
+                return;
+            } 
+            if(Calendar.BlackoutDates.Contains(datePickerPocetak.SelectedDate.Value) || Calendar.BlackoutDates.Contains(datePickerKraj.SelectedDate.Value))
+            {
+                btnZakazi.IsEnabled = false;
+                return;
             }
+
+            for (DateTime? date = datumPocetka; date < DatumKraja; date = date.Value.AddDays(1.0))
+            {
+                if(Calendar.BlackoutDates.Contains((DateTime)date))
+                {
+                    MessageBox.Show("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!");
+                    return;
+                }
+            }
+
             novoRenoviranje.Opis = txtOpis.Text;
-            novoRenoviranje.Id = maxId + 1;
             storage.Save(novoRenoviranje);
             Close();
         }

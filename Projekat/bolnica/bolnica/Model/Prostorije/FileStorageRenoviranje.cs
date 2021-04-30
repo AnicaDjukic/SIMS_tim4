@@ -34,23 +34,5 @@ namespace Bolnica.Model.Prostorije
             renoviranja.Add(novoRenoviranje);
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(renoviranja));
         }
-
-        public void Delete(Renoviranje renoviranjeZaBrisanje)
-        {
-            var json = File.ReadAllText(fileLocation);
-            List<Renoviranje> renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
-            if (renoviranja != null)
-            {
-                for (int i = 0; i < renoviranja.Count; i++)
-                {
-                    if (renoviranja[i].Id == renoviranjeZaBrisanje.Id)
-                    {
-                        renoviranja.Remove(renoviranja[i]);
-                        break;
-                    }
-                }
-                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(renoviranja));
-            }
-        }
     }
 }

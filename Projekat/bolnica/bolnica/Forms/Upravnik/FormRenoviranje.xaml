@@ -53,7 +53,7 @@
                         <DatePicker.SelectedDate>
                             <Binding Path="DatumPocetka" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
-                                    <val:DateValidationRenoviranje ValidationStep="ConvertedProposedValue"/>
+                                    <val:DateValidationRenoviranje ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </DatePicker.SelectedDate>
@@ -79,7 +79,7 @@
                         <DatePicker.SelectedDate>
                             <Binding Path="DatumKraja" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
-                                    <val:DateValidationRenoviranje ValidationStep="ConvertedProposedValue"/>
+                                    <val:DateValidationRenoviranje ValidationStep="RawProposedValue"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </DatePicker.SelectedDate>
@@ -103,7 +103,7 @@
 
                     <Label Content="OPIS:" Grid.Column="1" Grid.Row="3"/>
                     <TextBox x:Name="txtOpis" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="40,5,10,0"/>
-                    <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="30" 
+                    <Button x:Name="btnZakazi" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="30" 
                             Width="115" VerticalAlignment="Center" Margin="50,0,0,0" Click="Button_Click_Zakazi">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/clock.png" Width="20" Height="25"/>
@@ -116,8 +116,8 @@
                 <DataGrid x:Name="dataGridRenoviranja" ItemsSource="{Binding Renoviranja}" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="POČETAK" Binding="{Binding PocetakRenoviranja}" Width="auto"/>
-                        <DataGridTextColumn Header="KRAJ" Binding="{Binding KrajRenoviranja}" Width="auto"/>
+                        <DataGridTextColumn Header="POČETAK" Binding="{Binding PocetakRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
+                        <DataGridTextColumn Header="KRAJ" Binding="{Binding KrajRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
                         <DataGridTextColumn Header="OPIS" Binding="{Binding Opis}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>

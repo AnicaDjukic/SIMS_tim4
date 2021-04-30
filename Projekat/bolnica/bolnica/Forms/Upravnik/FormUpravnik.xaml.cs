@@ -630,6 +630,7 @@ namespace bolnica.Forms
                 
                 formRenoviranje.datePickerPocetak.DisplayDateStart = DateTime.Now;
                 formRenoviranje.datePickerKraj.DisplayDateStart = DateTime.Now;
+                formRenoviranje.btnZakazi.IsEnabled = false;
                 formRenoviranje.Show();
             }
             

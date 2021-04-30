@@ -57,10 +57,8 @@ namespace Bolnica.Validation
                         }
                     }
                 }
-
                 return new ValidationResult(true, null);
             }
-
             return new ValidationResult(false, "Popunite");
         }
     }
