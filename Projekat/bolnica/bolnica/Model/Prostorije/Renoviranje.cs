@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Bolnica.Model.Prostorije
 {
-    class Renoviranje
+    public class Renoviranje
     {
         public int Id { get; set; }
         public DateTime PocetakRenoviranja { get; set; }

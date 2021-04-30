@@ -7,6 +7,7 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -594,8 +595,8 @@ namespace bolnica.Forms
                 List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
                 if (renoviranja == null)
                     return;
-                FormRenoviranje formRenoviranje = new FormRenoviranje();
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItem;
+                FormRenoviranje formRenoviranje = new FormRenoviranje(row.BrojProstorije);
                 List<Renoviranje> renoviranjaProstorije = new List<Renoviranje>();
                 foreach (Renoviranje r in renoviranja)
                 {
@@ -613,7 +614,7 @@ namespace bolnica.Forms
                     if(p.brojProstorije == row.BrojProstorije)
                     {
                         formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
-                    }
+                    } 
                 }
                 if(row.TipProstorije == TipProstorije.operacionaSala)
                 {
@@ -626,6 +627,9 @@ namespace bolnica.Forms
                         }
                     }
                 }
+                
+                formRenoviranje.datePickerPocetak.DisplayDateStart = DateTime.Now;
+                formRenoviranje.datePickerKraj.DisplayDateStart = DateTime.Now;
                 formRenoviranje.Show();
             }
             

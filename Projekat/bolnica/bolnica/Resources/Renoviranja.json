@@ -1,1 +1,24 @@
-[{"Id":1,"PocetakRenoviranja":"2021-04-29T00:00:00","KrajRenoviranja":"2021-05-05T00:00:00","Opis":"Krečenje","BrojProstorije":"103"}]
+[
+  
+  {
+    "Id": 0,
+    "PocetakRenoviranja": "2021-04-29T00:00:00",
+    "KrajRenoviranja": "2021-05-05T00:00:00",
+    "Opis": "Krečenje",
+    "BrojProstorije": "103"
+  },
+  {
+    "Id": 2,
+    "PocetakRenoviranja": "2021-05-09T00:00:00",
+    "KrajRenoviranja": "2021-05-10T00:00:00",
+    "Opis": "Menjanje instalacija",
+    "BrojProstorije": "103"
+  },
+  {
+    "Id": 3,
+    "PocetakRenoviranja": "2021-05-01T00:00:00",
+    "KrajRenoviranja": "2021-05-02T00:00:00",
+    "Opis": "hjjkhk",
+    "BrojProstorije": "106"
+  }
+]
