@@ -10,33 +10,7 @@ using Model.Prostorije;
 
 namespace Bolnica.Validation
 {
-    public class ComboBoxImeValidationRule : ValidationRule
-    {
-        private FileStoragePacijenti storage { get; set; }
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
-            if (value as string != "" && value != null)
-            {
-                storage = new FileStoragePacijenti();
-
-                List<Pacijent> sviPacijenti = new List<Pacijent>();
-                sviPacijenti = storage.GetAll();
-                for (int i = 0; i < sviPacijenti.Count; i++)
-                {
-                    if (sviPacijenti[i].Ime.Equals(value as string))
-                    {
-                        return new ValidationResult(true, null);
-                    }
-                }
-                return new ValidationResult(false, "Ne postoji pacijent");
-            }
-            return new ValidationResult(false, "Popunite");
-
-        }
-
-
-
-    }
+   
 
     public class ComboBoxPrezimeValidationRule : ValidationRule
     {
@@ -52,7 +26,9 @@ namespace Bolnica.Validation
 
                 for (int i = 0; i < sviPacijenti.Count; i++)
                 {
-                    if (sviPacijenti[i].Prezime.Equals(value as string))
+                    string s;
+                    s = sviPacijenti[i].Prezime + ' ' + sviPacijenti[i].Ime + ' ' + sviPacijenti[i].Jmbg;
+                    if (s.Equals(value as string))
                     {
                         return new ValidationResult(true, null);
                     }
@@ -66,34 +42,7 @@ namespace Bolnica.Validation
 
     }
 
-    public class ComboBoxJmbgValidationRule : ValidationRule
-    {
-        private FileStoragePacijenti storage { get; set; }
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
-            if (value as string != "" && value != null)
-            {
-                storage = new FileStoragePacijenti();
-
-                List<Pacijent> sviPacijenti = new List<Pacijent>();
-                sviPacijenti = storage.GetAll();
-
-
-                for (int i = 0; i < sviPacijenti.Count; i++)
-                {
-                    if (sviPacijenti[i].Jmbg.Equals(value as string))
-                    {
-                        return new ValidationResult(true, null);
-                    }
-                }
-                return new ValidationResult(false, "Ne postoji pacijent");
-            }
-            return new ValidationResult(false, "Popunite");
-        }
-
-
-
-    }
+    
 
     public class ComboBoxProstorijaValidationRule : ValidationRule
     {

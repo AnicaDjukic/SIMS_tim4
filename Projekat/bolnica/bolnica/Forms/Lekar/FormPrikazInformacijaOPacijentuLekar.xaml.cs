@@ -63,9 +63,29 @@ namespace Bolnica.Forms
 
         }
 
-        private void Zatvori(object sender, RoutedEventArgs e)
+        public void Zatvori()
         {
             this.Close();
+        }
+        private void Zatvori(object sender, RoutedEventArgs e)
+        {
+            Zatvori();
+        }
+
+        private void isAkcelerator(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.Q:
+                        Zatvori();
+                        break;
+                    
+
+
+                }
+            }
         }
     }
 }

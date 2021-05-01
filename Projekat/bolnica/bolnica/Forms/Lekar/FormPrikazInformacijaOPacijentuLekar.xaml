@@ -18,7 +18,7 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF34FFF4">
+    <Grid Background="#FF34FFF4" KeyDown="isAkcelerator">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -78,6 +78,7 @@
         <CheckBox IsEnabled="False" Name="osiguranje2" Grid.Column="2" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Content="Zatvori" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" HorizontalAlignment="Center"  VerticalAlignment="Center" Click="Zatvori"/>
+        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         
     </Grid>
 </Window>

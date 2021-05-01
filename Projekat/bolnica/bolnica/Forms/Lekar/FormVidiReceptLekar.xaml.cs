@@ -66,17 +66,31 @@ namespace Bolnica.Forms
 
         }
 
+        public void Potvrdi()
+        {
+            this.Close();
+        }
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
-            
-            this.Close();
+
+            Potvrdi();
 
         }
 
-        
+        private void isAkcelerator(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.Q:
+                        Potvrdi();
+                        break;
 
-       
 
-       
+
+                }
+            }
+        }
     }
 }

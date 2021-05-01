@@ -41,7 +41,7 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF34FFF4">
+    <Grid Background="#FF34FFF4" KeyDown="isAkcelerator">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -115,5 +115,7 @@
                          Background="#FF1E93F4" Content="Potvrdi" Grid.Column="1" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Potvrdi"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Content="Odustani" Grid.Column="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Odustani"/>
+        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>
 </Window>
