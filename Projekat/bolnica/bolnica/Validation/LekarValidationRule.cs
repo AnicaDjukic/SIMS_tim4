@@ -4,13 +4,73 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using Bolnica.Model.Korisnici;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Prostorije;
 
 namespace Bolnica.Validation
 {
-   
+
+    public class ComboBoxLekarValidationRule : ValidationRule
+    {
+        private FileStorageLekar storage { get; set; }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value as string != "" && value != null)
+            {
+                storage = new FileStorageLekar();
+
+                List<Lekar> sviLekari = new List<Lekar>();
+                sviLekari = storage.GetAll();
+
+                for (int i = 0; i < sviLekari.Count; i++)
+                {
+                    string s;
+                    s = sviLekari[i].Prezime + ' ' + sviLekari[i].Ime + ' ' + sviLekari[i].Jmbg;
+                    if (s.Equals(value as string))
+                    {
+                        return new ValidationResult(true, null);
+                    }
+                }
+                return new ValidationResult(false, "Ne postoji lekar");
+            }
+            return new ValidationResult(false, "Popunite");
+        }
+
+
+
+    }
+
+    public class ComboBoxSpecijalizacijaValidationRule : ValidationRule
+    {
+        private FileStorageLekar storage { get; set; }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value as string != "" && value != null)
+            {
+                storage = new FileStorageLekar();
+
+                List<Lekar> sviLekari = new List<Lekar>();
+                sviLekari = storage.GetAll();
+
+                for (int i = 0; i < sviLekari.Count; i++)
+                {
+                    string s;
+                    s = sviLekari[i].Specijalizacija.OblastMedicine;
+                    if (s.Equals(value as string))
+                    {
+                        return new ValidationResult(true, null);
+                    }
+                }
+                return new ValidationResult(false, "Ne postoji specijalizacija");
+            }
+            return new ValidationResult(false, "Popunite");
+        }
+
+
+
+    }
 
     public class ComboBoxPrezimeValidationRule : ValidationRule
     {

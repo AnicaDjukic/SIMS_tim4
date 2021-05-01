@@ -30,7 +30,6 @@ namespace Bolnica.Forms
         private FileStorageLekar sviLekari = new FileStorageLekar();
         private List<Pacijent> pacijentiZa = new List<Pacijent>();
         private List<Prostorija> prostorijaZa = new List<Prostorija>();
-
         private Lekar ulogovaniLekar = new Lekar();
         private PrikazPregleda trenutniPregled = new PrikazPregleda();
         private PrikazOperacije trenutnaOperacija = new PrikazOperacije();
@@ -40,6 +39,8 @@ namespace Bolnica.Forms
         private DateTime zaFilLekDat = new DateTime();
 
         public string specijalizacija { get; set; }
+
+        public string lekarB { get; set; }
         public string prezimeB { get; set; }
 
         public DateTime datumB { get; set; }
@@ -53,9 +54,8 @@ namespace Bolnica.Forms
         public string trajanjeB { get; set; }
 
         public List<String> specijalizacije { get; set; }
+
         private string proslaSpecijalizacija = "";
-
-
 
         public FormIzmeniTerminLekar(PrikazPregleda p1, Lekar neki)
         {
@@ -89,8 +89,9 @@ namespace Bolnica.Forms
                     textSpecijalizacija.Items.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
                 }
             }
-            textLekar.Items.Add(trenutniPregled.Lekar.Prezime);
-
+            string ss = trenutniPregled.Lekar.Prezime + ' ' + trenutniPregled.Lekar.Ime + ' ' + trenutniPregled.Lekar.Jmbg;
+            textLekar.Items.Add(ss);
+            lekarB = ss;
             for (int vre = 1; vre < 25; vre++)
             {
                 for (int min = 0; min < 61;)
@@ -106,7 +107,7 @@ namespace Bolnica.Forms
             string[] d = div[0].Split(".");
             string v = div[1];
             DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
-            textLekar.Text = trenutniPregled.Lekar.Prezime;
+            
 
             specijalizacija = trenutniPregled.Lekar.Specijalizacija.OblastMedicine;
             proslaSpecijalizacija = specijalizacija;
@@ -140,7 +141,7 @@ namespace Bolnica.Forms
 
             for (int pr = 0; pr < prostorijaZa.Count; pr++)
             {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false)
+                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
                 {
                     textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
                 }
@@ -192,8 +193,9 @@ namespace Bolnica.Forms
                     textSpecijalizacija.Items.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
                 }
             }
-            textLekar.Items.Add(trenutnaOperacija.Lekar.Prezime);
-
+            string ss = trenutnaOperacija.Lekar.Prezime + ' ' + trenutnaOperacija.Lekar.Ime + ' ' + trenutnaOperacija.Lekar.Jmbg;
+            textLekar.Items.Add(ss);
+            lekarB = ss;
             for (int vre = 0; vre < 24; vre++)
             {
                 for (int min = 0; min < 59;)
@@ -209,7 +211,7 @@ namespace Bolnica.Forms
             string[] d = div[0].Split(".");
             string v = div[1];
             DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
-            textLekar.Text = trenutnaOperacija.Lekar.Prezime;
+            
 
             datumB = dat;
             vremeB = v;
@@ -252,7 +254,7 @@ namespace Bolnica.Forms
 
             for (int pr = 0; pr < prostorijaZa.Count; pr++)
             {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false)
+                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.operacionaSala))
                 {
                     textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
                 }
@@ -482,6 +484,7 @@ namespace Bolnica.Forms
                 }
             }
         }
+
         public void PotvrdiIzmenu(object sender, RoutedEventArgs e)
         {
             PotvrdiIzmenu();
@@ -493,6 +496,7 @@ namespace Bolnica.Forms
             OtkaziIzmenu();
 
         }
+
         public void OtkaziIzmenu()
         {
             this.Close();
@@ -503,10 +507,6 @@ namespace Bolnica.Forms
             return true;
         }
 
-
-
-        
-
         private void OpenComboPrezime(object sender, KeyEventArgs e)
         {
 
@@ -516,8 +516,6 @@ namespace Bolnica.Forms
 
             }
         }
-
-        
 
         private void OpenComboProstorija(object sender, KeyEventArgs e)
         {
@@ -535,8 +533,6 @@ namespace Bolnica.Forms
             }
         }
 
-
-
         private void VremeComboOpen(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -553,6 +549,15 @@ namespace Bolnica.Forms
                 {
                     filterLekar();
                     zaFilLek = textLekar.Text;
+                    for (int le = 0; le < lekariTrenutni.Count; le++)
+                    {
+                        string h = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
+                        if (h.Equals(textLekar.Text))
+                        {
+                            textSpecijalizacija.Text = lekariTrenutni[le].Specijalizacija.OblastMedicine;
+                        }
+
+                    }
 
                 }
             }
@@ -563,6 +568,7 @@ namespace Bolnica.Forms
 
             }
         }
+
         public void filterLekar()
         {
             textVreme.Items.Clear();
@@ -580,7 +586,8 @@ namespace Bolnica.Forms
 
             for (int lek = 0; lek < lekariTrenutni.Count; lek++)
             {
-                if (lekariTrenutni[lek].Prezime.Equals(textLekar.Text) && lekariTrenutni[lek].Specijalizacija.OblastMedicine != null)
+                string h = lekariTrenutni[lek].Prezime + ' ' + lekariTrenutni[lek].Ime + ' ' + lekariTrenutni[lek].Jmbg;
+                if (h.Equals(textLekar.Text) && lekariTrenutni[lek].Specijalizacija.OblastMedicine != null)
                 {
 
                     List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -591,7 +598,8 @@ namespace Bolnica.Forms
                     string jmbgLekar = "";
                     for(int l = 0; l < lekar.Count; l++)
                     {
-                        if (lekar[l].Prezime.Equals(textLekar.Text))
+                        string hh = lekar[l].Prezime + ' ' + lekar[l].Ime + ' ' + lekar[l].Jmbg;
+                        if (hh.Equals(textLekar.Text))
                         {
                             jmbgLekar = lekar[l].Jmbg;
                             break;
@@ -685,7 +693,8 @@ namespace Bolnica.Forms
                         {
                             if (lekariTrenutni[le].Specijalizacija.OblastMedicine.Equals(textSpecijalizacija.Text))
                             {
-                                textLekar.Items.Add(lekariTrenutni[le].Prezime);
+                                string ss = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
+                                textLekar.Items.Add(ss);
                             }
                         }
                     }

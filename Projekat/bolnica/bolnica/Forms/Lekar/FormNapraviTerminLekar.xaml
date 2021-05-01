@@ -59,6 +59,7 @@
                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textVreme}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textTrajanje}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textPrezime}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textSpecijalizacija}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textLekar}" Value="False"/>
                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textProstorija}" Value="False"/>
                             <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textOperacija}" Value="False"/>
@@ -101,10 +102,54 @@
         <CheckBox Visibility="Hidden"  Content="" Grid.Column="2" Grid.Row="2" Name="checkHitan" HorizontalAlignment="Center" VerticalAlignment="Center" KeyDown="check" />
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Grid.Column="2" Grid.Row="3" Name="textSpecijalizacija" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="SpecijalizacijaComboOpeen">
             <ComboBox.Text>
-                <Binding Path="specijalizacija" UpdateSourceTrigger="PropertyChanged" />
+                <Binding Path="specijalizacija" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                        <val:ComboBoxSpecijalizacijaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                </Binding.ValidationRules>
+                </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+            
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="LekarComboOpeen"/>
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70" KeyDown="LekarComboOpeen">
+            <ComboBox.Text>
+                <Binding Path="lekarB" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ComboBoxLekarValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+
+        </ComboBox>
         <DatePicker  Name="textDatum"  Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" MinWidth="70" KeyDown="DatumDateKey">
             <DatePicker.SelectedDate>
                 <Binding Path="datumB" UpdateSourceTrigger="PropertyChanged" >
