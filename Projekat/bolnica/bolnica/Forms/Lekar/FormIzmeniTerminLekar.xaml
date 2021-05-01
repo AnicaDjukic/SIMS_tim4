@@ -7,7 +7,7 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormIzmeniTerminLekar" Height="670" Width="630">
+        Title="FormIzmeniTerminLekar" Height="670" Width="630" KeyDown="isAkcelerator">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -58,7 +58,7 @@
 
 
     </Window.Resources>
-    <Grid Background="#FF34FFF4" KeyDown="isAkcelerator">
+    <Grid Background="#FF34FFF4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#FF34FFF4">
+        Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#FF34FFF4" KeyDown="isAkcelerator">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -35,7 +35,7 @@
             <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
-    <Grid KeyDown="isAkcelerator">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>

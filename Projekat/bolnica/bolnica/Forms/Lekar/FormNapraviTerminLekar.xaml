@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="FormNapraviTerminLekar" Height="670" Width="630">
+        Title="FormNapraviTerminLekar" Height="670" Width="630" KeyDown="isAkcelerator">
     <Window.Resources>
 
 
@@ -71,7 +71,7 @@
 
     </Window.Resources>
 
-    <Grid Background="#FF34FFF4" KeyDown="isAkcelerator" >
+    <Grid Background="#FF34FFF4" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>

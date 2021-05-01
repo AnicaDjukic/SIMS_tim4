@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviReceptLekar" Height="670" Width="630">
+        Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="isAkcelerator">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -41,7 +41,7 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF34FFF4" KeyDown="isAkcelerator">
+    <Grid Background="#FF34FFF4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
