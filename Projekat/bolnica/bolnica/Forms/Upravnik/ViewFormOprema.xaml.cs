@@ -31,8 +31,44 @@ namespace Bolnica.Forms.Upravnik
             InitializeComponent();
             this.DataContext = this;
             Zalihe = new ObservableCollection<Zaliha>();
-
-            FileStorageZaliha storageZalihe = new FileStorageZaliha();
+            FileStorageBuducaZaliha storageBuducaZaliha = new FileStorageBuducaZaliha();
+            List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
+            if (storageBuducaZaliha.GetAll() != null)
+            {
+                foreach (BuducaZaliha bz in storageBuducaZaliha.GetAll())
+                {
+                    if (bz.SifraOpreme == sifraOpreme && bz.Datum <= DateTime.Now.Date)
+                    {
+                        buduceZalihe.Add(bz);
+                        storageBuducaZaliha.Delete(bz);
+                    }
+                }
+            }
+            FileStorageZaliha storageZaliha = new FileStorageZaliha();
+            //List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            if (buduceZalihe.Count > 0)
+            {
+                foreach (Zaliha z in storageZaliha.GetAll())
+                {
+                    if (z.SifraOpreme == sifraOpreme)
+                        storageZaliha.Delete(z);
+                }
+                foreach (BuducaZaliha bz in buduceZalihe)
+                {
+                    Zaliha z = new Zaliha { Kolicina = bz.Kolicina, SifraOpreme = bz.SifraOpreme, BrojProstorije = bz.BrojProstorije };
+                    storageZaliha.Save(z);
+                    Zalihe.Add(z);
+                }
+            }
+            else
+            {
+                foreach (Zaliha z in storageZaliha.GetAll())
+                {
+                    if (sifraOpreme == z.SifraOpreme)
+                        Zalihe.Add(z);
+                }
+            }
+            /*FileStorageZaliha storageZalihe = new FileStorageZaliha();
             List<Zaliha> zalihe = storageZalihe.GetAll();
             foreach(Zaliha z in zalihe)
             {
@@ -40,7 +76,7 @@ namespace Bolnica.Forms.Upravnik
                 {
                     Zalihe.Add(z);
                 }
-            }
+            }*/
 
         }
 

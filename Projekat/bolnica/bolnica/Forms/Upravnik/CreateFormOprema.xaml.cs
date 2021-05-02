@@ -236,5 +236,9 @@ namespace Bolnica.Forms.Upravnik
             return true;
         }
 
+        private void Button_Click_Odustani(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

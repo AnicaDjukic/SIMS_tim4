@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Bolnica.Model.Prostorije
 {
-    class FileStorageRenoviranje
+    public class FileStorageRenoviranje
     {
         private string fileLocation;
 

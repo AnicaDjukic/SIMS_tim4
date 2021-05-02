@@ -1,19 +1,10 @@
-﻿using bolnica.Forms;
-using Bolnica.Model.Prostorije;
+﻿using Bolnica.Model.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -32,7 +23,7 @@ namespace Bolnica.Forms.Upravnik
             }
         }
 
-        public ObservableCollection<Prostorija> ProstorijeZaSkladistenje 
+        public ObservableCollection<Prostorija> ProstorijeZaSkladistenje
         {
             get;
             set;
@@ -45,26 +36,27 @@ namespace Bolnica.Forms.Upravnik
         }
 
         private FileStorageProstorija storageProstorija;
+        public FileStorageBuducaZaliha storageBuducaZaliha;
         public static FileStorageZaliha storageZaliha;
 
-        private int kolicina;
+        private int kolicinaZaPremestanje;
 
         private Zaliha magacin;
 
         private Oprema opremaZaSkladistenje;
 
-        public int Kolicina
+        public int KolicinaZaPremestanje
         {
             get
             {
-                return kolicina;
+                return kolicinaZaPremestanje;
             }
             set
             {
-                if (value != kolicina)
+                if (value != kolicinaZaPremestanje)
                 {
-                    kolicina = value;
-                    OnPropertyChanged("Kolicina");
+                    kolicinaZaPremestanje = value;
+                    OnPropertyChanged("KolicinaZaPremestanje");
                 }
             }
         }
@@ -74,14 +66,45 @@ namespace Bolnica.Forms.Upravnik
             InitializeComponent();
             this.DataContext = this;
             opremaZaSkladistenje = oprema;
-            storageZaliha = new FileStorageZaliha();
-            List<Zaliha> zalihe = storageZaliha.GetAll();
-            List<Zaliha> zaliheOpreme = new List<Zaliha>();
-            foreach(Zaliha z in zalihe)
+            // uzmi buduce zalihe i upisi ih u fajl sa zalihama
+            storageBuducaZaliha = new FileStorageBuducaZaliha();
+            List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
+            if (storageBuducaZaliha.GetAll() != null)
             {
-                if (oprema.Sifra == z.SifraOpreme)
-                    zaliheOpreme.Add(z);
+                foreach (BuducaZaliha bz in storageBuducaZaliha.GetAll())
+                {
+                    if (bz.SifraOpreme == opremaZaSkladistenje.Sifra && bz.Datum <= DateTime.Now.Date)
+                    {
+                        buduceZalihe.Add(bz);
+                        storageBuducaZaliha.Delete(bz);
+                    }
+                }
             }
+            storageZaliha = new FileStorageZaliha();
+            List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            if (buduceZalihe.Count > 0)
+            {
+                foreach (Zaliha z in storageZaliha.GetAll())
+                {
+                    if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
+                        storageZaliha.Delete(z);
+                }
+                foreach (BuducaZaliha bz in buduceZalihe)
+                {
+                    Zaliha z = new Zaliha { Kolicina = bz.Kolicina, SifraOpreme = bz.SifraOpreme, BrojProstorije = bz.BrojProstorije };
+                    storageZaliha.Save(z);
+                    zaliheOpreme.Add(z);
+                }
+            }
+            else
+            {
+                foreach (Zaliha z in storageZaliha.GetAll())
+                {
+                    if (oprema.Sifra == z.SifraOpreme)
+                        zaliheOpreme.Add(z);
+                }
+            }
+            // kraj
             ProstorijeZaSkladistenje = new ObservableCollection<Prostorija>();
             storageProstorija = new FileStorageProstorija();
             List<Prostorija> prostorije = storageProstorija.GetAllProstorije();
@@ -103,86 +126,81 @@ namespace Bolnica.Forms.Upravnik
             }
             else
             {
-                foreach (Zaliha z in zalihe)
+                foreach (Zaliha z in zaliheOpreme)
                 {
-                    if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
+                    foreach (Prostorija k in koriscene)
                     {
-                        foreach (Prostorija k in koriscene)
+                        prostorije.Remove(k);
+                    }
+
+                    foreach (Prostorija p in prostorije)
+                    {
+                        if (z.BrojProstorije != p.BrojProstorije && !p.Obrisana)
                         {
-                            prostorije.Remove(k);
+                            ProstorijeZaSkladistenje.Remove(p);
+                            ProstorijeZaSkladistenje.Add(p);
+                        }
+                        else
+                        {
+                            ProstorijeZaSkladistenje.Remove(p);
+                            koriscene.Add(p);
                         }
 
-                        foreach (Prostorija p in prostorije)
-                        {
-                            if (z.BrojProstorije != p.BrojProstorije && !p.Obrisana)
-                            {
-                                ProstorijeZaSkladistenje.Remove(p);
-                                ProstorijeZaSkladistenje.Add(p);
-                            } else
-                            {
-                                ProstorijeZaSkladistenje.Remove(p);
-                                koriscene.Add(p);
-                            }
-
-                        }
                     }
                 }
 
-                foreach (Zaliha z in zalihe)
+                foreach (Zaliha z in zaliheOpreme)
                 {
-                    if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
+
+                    foreach (Prostorija k in koriscene)
                     {
-                        foreach (Prostorija k in koriscene)
+                        prostorije.Remove(k);
+                    }
+
+                    foreach (Prostorija b in bolnickeSobe)
+                    {
+                        if (z.BrojProstorije != b.BrojProstorije && !b.Obrisana)
                         {
-                            prostorije.Remove(k);
+                            ProstorijeZaSkladistenje.Remove(b);
+                            ProstorijeZaSkladistenje.Add(b);
+                        }
+                        else
+                        {
+                            ProstorijeZaSkladistenje.Remove(b);
+                            koriscene.Add(b);
                         }
 
-                        foreach (Prostorija b in bolnickeSobe)
-                        {
-                            if (z.BrojProstorije != b.BrojProstorije && !b.Obrisana)
-                            {
-                                ProstorijeZaSkladistenje.Remove(b);
-                                ProstorijeZaSkladistenje.Add(b);
-                            }
-                            else
-                            {
-                                ProstorijeZaSkladistenje.Remove(b);
-                                koriscene.Add(b);
-                            }
-
-                        }
                     }
                 }
             }
 
             Zalihe = new ObservableCollection<Zaliha>();
-            if(!imaMagacin())
+            if (!imaMagacin())
             {
                 Prostorija prostorijaMagacin = new Prostorija { BrojProstorije = "magacin" };
-                magacin = new Zaliha { Prostorija = prostorijaMagacin , Oprema = opremaZaSkladistenje, SifraOpreme = opremaZaSkladistenje.Sifra, BrojProstorije = "magacin", Kolicina = opremaZaSkladistenje.Kolicina };
+                magacin = new Zaliha { Prostorija = prostorijaMagacin, Oprema = opremaZaSkladistenje, SifraOpreme = opremaZaSkladistenje.Sifra, BrojProstorije = "magacin", Kolicina = opremaZaSkladistenje.Kolicina };
                 Zalihe.Add(magacin);
-                
-            } else
+
+            }
+            else
             {
-                foreach (Zaliha z in zalihe)
+                int kolicinaUMagacinu = opremaZaSkladistenje.Kolicina;
+                foreach (Zaliha z in zaliheOpreme)
                 {
-                    if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
+                    if (z.BrojProstorije == "magacin")
                     {
-                        if (z.BrojProstorije == "magacin")
-                        {
-                            magacin = z;
-                            magacin.BrojProstorije = "magacin";
-                            magacin.SifraOpreme = opremaZaSkladistenje.Sifra;
-                        }
-                        else
-                        {
-                            opremaZaSkladistenje.Kolicina -= z.Kolicina;
-                            Zalihe.Add(z);
-                        }
+                        magacin = z;
+                        magacin.BrojProstorije = "magacin";
+                        magacin.SifraOpreme = opremaZaSkladistenje.Sifra;
+                    }
+                    else
+                    {
+                        kolicinaUMagacinu -= z.Kolicina;
+                        Zalihe.Add(z);
                     }
                 }
 
-                magacin.Kolicina = opremaZaSkladistenje.Kolicina;
+                magacin.Kolicina = kolicinaUMagacinu;
                 Zalihe.Add(magacin);
             }
         }
@@ -208,12 +226,12 @@ namespace Bolnica.Forms.Upravnik
         }
         private void Button_Click_Prebaci(object sender, RoutedEventArgs e)
         {
-            if(GridProstorije.SelectedCells.Count > 0)
+            if (GridProstorije.SelectedCells.Count > 0)
             {
-                if (kolicina != 0 && kolicina <= magacin.Kolicina)
+                if (kolicinaZaPremestanje != 0 && kolicinaZaPremestanje <= magacin.Kolicina)
                 {
                     Prostorija row = (Prostorija)GridProstorije.SelectedItem;
-                    for(int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
+                    for (int i = 0; i < ProstorijeZaSkladistenje.Count; i++)
                     {
                         if (ProstorijeZaSkladistenje[i].BrojProstorije == row.BrojProstorije)
                             ProstorijeZaSkladistenje.Remove(ProstorijeZaSkladistenje[i]);
@@ -221,14 +239,15 @@ namespace Bolnica.Forms.Upravnik
                     Zaliha zaliha = new Zaliha();
                     zaliha.Prostorija = row;
                     zaliha.BrojProstorije = row.BrojProstorije;
-                    zaliha.Kolicina = kolicina;
+                    zaliha.Kolicina = kolicinaZaPremestanje;
                     zaliha.Oprema = opremaZaSkladistenje;
                     zaliha.SifraOpreme = opremaZaSkladistenje.Sifra;
                     Zalihe.Add(zaliha);
                     Zalihe.Remove(magacin);
-                    magacin.Kolicina -= kolicina;
+                    magacin.Kolicina -= kolicinaZaPremestanje;
                     Zalihe.Add(magacin);
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od količine opreme u magacinu.");
                 }
@@ -252,7 +271,7 @@ namespace Bolnica.Forms.Upravnik
                 bool found = false;
                 foreach (Prostorija p in prostorije)
                 {
-                    if(p.BrojProstorije == row.BrojProstorije)
+                    if (p.BrojProstorije == row.BrojProstorije)
                     {
                         ProstorijeZaSkladistenje.Add(p);
                         found = true;
@@ -263,7 +282,7 @@ namespace Bolnica.Forms.Upravnik
                     List<BolnickaSoba> bolnickeSobe = storageProstorija.GetAllBolnickeSobe();
                     foreach (BolnickaSoba b in bolnickeSobe)
                     {
-                        if (b.BrojProstorije == row.Prostorija.BrojProstorije)
+                        if (b.BrojProstorije == row.BrojProstorije)
                         {
                             ProstorijeZaSkladistenje.Add(b);
                         }
@@ -271,7 +290,7 @@ namespace Bolnica.Forms.Upravnik
                 }
 
                 Zalihe.Remove(magacin);
-                Kolicina = row.Kolicina;
+                KolicinaZaPremestanje = row.Kolicina;
                 magacin.Kolicina += row.Kolicina;
                 Zalihe.Add(magacin);
             }
@@ -279,18 +298,27 @@ namespace Bolnica.Forms.Upravnik
 
         public void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            List<Zaliha> zalihe = storageZaliha.GetAll();
-            if(zalihe != null)
+            if (opremaZaSkladistenje.TipOpreme != TipOpreme.staticka)
             {
-                foreach (Zaliha z in zalihe)
+                List<Zaliha> zalihe = storageZaliha.GetAll();
+                if (zalihe != null)
                 {
-                    if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
-                        storageZaliha.Delete(z);
+                    foreach (Zaliha z in zalihe)
+                    {
+                        if (z.SifraOpreme == opremaZaSkladistenje.Sifra)
+                            storageZaliha.Delete(z);
+                    }
                 }
-            }
 
-            foreach (Zaliha z in Zalihe)
-                FormSkladiste.storageZaliha.Save(z);
+                foreach (Zaliha z in Zalihe)
+                    storageZaliha.Save(z);
+            }
+            else
+            {
+                FormDatumPremestanja formPremestanje = new FormDatumPremestanja();
+                formPremestanje.datePickerDatum.DisplayDateStart = DateTime.Now;
+                formPremestanje.Show();
+            }
 
             Close();
         }

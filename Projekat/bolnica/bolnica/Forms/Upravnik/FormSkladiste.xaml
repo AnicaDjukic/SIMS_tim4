@@ -31,7 +31,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center" />
-        <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" Width="50" Height="20" Margin="20,0,0,0" Text="{Binding Path=Kolicina, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" Width="50" Height="20" Margin="20,0,0,0" Text="{Binding Path=KolicinaZaPremestanje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <DataGrid x:Name="GridProstorije" Grid.Column="0" Grid.Row="1" Margin="10,10,5,10" ItemsSource="{Binding ProstorijeZaSkladistenje}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="Column">
