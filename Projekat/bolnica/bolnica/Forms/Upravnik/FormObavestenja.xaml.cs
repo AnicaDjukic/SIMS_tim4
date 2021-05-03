@@ -31,8 +31,22 @@ namespace Bolnica.Forms.Upravnik
                 {
                     if (k == "upravnik")
                     {
+                        o.Sadrzaj = o.Sadrzaj.Split(",")[0] + "...";
                         obavestenjaZaPrikaz.Add(o);
                         break;
+                    }
+                }
+            }
+            Obavestenje temp = new Obavestenje();
+            for (int j = 0; j <= obavestenjaZaPrikaz.Count - 2; j++)
+            {
+                for (int i = 0; i <= obavestenjaZaPrikaz.Count - 2; i++)
+                {
+                    if (obavestenjaZaPrikaz[i].Datum < obavestenjaZaPrikaz[i + 1].Datum)
+                    {
+                        temp = obavestenjaZaPrikaz[i + 1];
+                        obavestenjaZaPrikaz[i + 1] = obavestenjaZaPrikaz[i];
+                        obavestenjaZaPrikaz[i] = temp;
                     }
                 }
             }
@@ -41,7 +55,8 @@ namespace Bolnica.Forms.Upravnik
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            ViewFormObavestenje viewForm = new ViewFormObavestenje(((Obavestenje)lvDataBinding.SelectedItem).Id);
+            viewForm.Show();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
