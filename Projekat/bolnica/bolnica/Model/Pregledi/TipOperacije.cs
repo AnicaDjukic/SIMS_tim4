@@ -6,6 +6,7 @@ namespace Model.Pregledi
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum TipOperacije
    {
+
         [Description("Operacija I kategorije")]
         prvaKat,
         [Description("Operacija II kategorije")]

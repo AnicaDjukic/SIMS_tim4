@@ -1,4 +1,3 @@
-using bolnica.Forms;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Model.Korisnici;
@@ -35,13 +34,13 @@ namespace bolnica
                     if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
-                        var s = new FormUpravnik();
-                        s.Show();
+                        //var s = new FormUpravnik();
+                        //s.Show();
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
                         var s = new FormSekretar();
-                        s.Show();
+                            s.Show();
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
@@ -76,9 +75,9 @@ namespace bolnica
                                 }
                             }
                         }
-                        var s = new FormPacijent(pac);
-                        s.Show();
-                        s.PrikaziObavestenja();
+                        //var s = new FormPacijent(pac);
+                        //s.Show();
+                        //s.PrikaziObavestenja();
                     }
 
                     found = true;

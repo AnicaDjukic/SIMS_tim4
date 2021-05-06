@@ -9,11 +9,13 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Datum kreiranja:" HorizontalAlignment="Left" Margin="40,65,0,0" VerticalAlignment="Top"/>
-        <Label Content="Naslov:" HorizontalAlignment="Left" Margin="89,95,0,0" VerticalAlignment="Top"/>
-        <Label Content="Tekst:" HorizontalAlignment="Center" Margin="0,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="Primaoci:" HorizontalAlignment="Left" Margin="79,95,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pacijenti primaoci:" HorizontalAlignment="Left" Margin="32,125,0,0" VerticalAlignment="Top"/>
+        <Label Content="Naslov:" HorizontalAlignment="Left" Margin="89,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="Tekst:" HorizontalAlignment="Center" Margin="0,215,0,0" VerticalAlignment="Top"/>
         <DatePicker Name="dpDatum" HorizontalAlignment="Left" Margin="150,66,0,0" VerticalAlignment="Top" Width="163"/>
-        <TextBox x:Name="txtNaslov" Margin="150,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="163"/>
-        <TextBlock IsHitTestVisible="False" Text="Donirane posteljine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,99,0,0" Foreground="DarkGray">
+        <TextBox x:Name="txtNaslov" Margin="150,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="163"/>
+        <TextBlock IsHitTestVisible="False" Text="Donirane posteljine" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,159,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -38,6 +40,8 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Button Content="Potvrdi" Margin="125,530,125,60" Click="Button_Click"/>
+        <Button x:Name="btnDodajPrimaoce" Content="Dodaj" Width="80" Height="20" Margin="145,0,100,393" Click="Button_Click_Dodaj_Primaoce"/>
+        <Button x:Name="btnDodajPacijente" Content="Dodaj" Width="80" Height="20" Margin="145,110,100,443" Click="Button_Click_Dodaj_Pacijente"/>
+        <Button Content="Potvrdi" Width="80" Height="20" Margin="125,530,125,60" Click="Button_Click"/>
     </Grid>
 </Window>

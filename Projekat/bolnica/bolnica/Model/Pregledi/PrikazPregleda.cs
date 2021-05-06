@@ -2,6 +2,7 @@ using Model.Korisnici;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Bolnica.Model.Pregledi
@@ -16,7 +17,6 @@ namespace Bolnica.Model.Pregledi
         public DateTime Datum { get; set; }
         public int Trajanje { get; set; }
         public bool Zavrsen { get; set; }
-
         public bool Hitan { get; set; }
         public int AnamnezaId { get; set; }
         public Lekar Lekar
