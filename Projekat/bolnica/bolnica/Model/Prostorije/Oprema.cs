@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model.Prostorije;
+using Newtonsoft.Json;
 
 namespace Bolnica.Model.Prostorije
 {
@@ -8,11 +10,23 @@ namespace Bolnica.Model.Prostorije
     {
         public string Sifra { get; set; }
         public string Naziv { get; set; }
-
+        public bool ShouldSerializeNaziv()
+        {
+            
+            return FileStorageZaliha.serializeOprema;
+        }
         public TipOpreme TipOpreme { get; set; }
-        public int Kolicina { get; set; }
+        public bool ShouldSerializeTipOpreme()
+        {
 
-        //public Dictionary<string, int> OpremaPoSobama { get; set; }
+            return FileStorageZaliha.serializeOprema;
+        }
+        public int Kolicina { get; set; }
+        public bool ShouldSerializeKolicina()
+        {
+
+            return FileStorageZaliha.serializeOprema;
+        }
 
     }
 }

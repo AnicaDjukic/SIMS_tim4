@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,18 +28,26 @@ namespace Bolnica.Forms.Upravnik
         {
             FileStorageBuducaZaliha storage = new FileStorageBuducaZaliha();
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
+            int maxId = 0;
+            foreach (BuducaZaliha bz in storage.GetAll())
+            {
+                if (bz.Id > maxId)
+                    maxId = bz.Id;
+            }
             string sifraOpreme = "";
             foreach (Zaliha z in FormSkladiste.Zalihe)
             {
-                BuducaZaliha bz = new BuducaZaliha { Kolicina = z.Kolicina, BrojProstorije = z.BrojProstorije, SifraOpreme = z.SifraOpreme, Datum = datePickerDatum.SelectedDate.Value };
-                sifraOpreme = bz.SifraOpreme;
+                BuducaZaliha bz = new BuducaZaliha { Id = maxId + 1, Kolicina = z.Kolicina, Datum = datePickerDatum.SelectedDate.Value };
+                bz.Prostorija = z.Prostorija;
+                bz.Oprema = z.Oprema;
+                sifraOpreme = z.Oprema.Sifra;
                 buduceZalihe.Add(bz);
             }
             if (storage.GetAll() != null)
             {
                 foreach (BuducaZaliha bz in storage.GetAll())
                 {
-                    if (bz.SifraOpreme == sifraOpreme && bz.Datum == datePickerDatum.SelectedDate.Value)
+                    if (bz.Oprema.Sifra == sifraOpreme && bz.Datum == datePickerDatum.SelectedDate.Value)
                         storage.Delete(bz);
                 }
             }

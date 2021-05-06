@@ -44,7 +44,7 @@
         <DataGrid x:Name="GridZalihe" Grid.Column="3" Grid.Row="1" Margin="5,10,10,10" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding BrojProstorije}" Width="*"/>
+                <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
                 <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

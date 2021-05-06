@@ -9,6 +9,8 @@ namespace Model.Prostorije
     public class FileStorageZaliha
     {
         private string fileLocation;
+        public static bool serializeOprema;
+        public static bool serializeProstorija;
 
         public FileStorageZaliha()
         {
@@ -17,6 +19,8 @@ namespace Model.Prostorije
         }
         public List<Zaliha> GetAll()
         {
+            serializeOprema = false;
+            serializeProstorija = false;
             var json = File.ReadAllText(fileLocation);
             List<Zaliha> zalihe = JsonConvert.DeserializeObject<List<Zaliha>>(json);
             return zalihe;
@@ -24,6 +28,8 @@ namespace Model.Prostorije
 
         public void Save(Zaliha novaZaliha)
         {
+            serializeOprema = false;
+            serializeProstorija = false;
             var json = File.ReadAllText(fileLocation);
             List<Zaliha> zalihe = JsonConvert.DeserializeObject<List<Zaliha>>(json);
             if (zalihe == null)
@@ -36,13 +42,15 @@ namespace Model.Prostorije
 
         public void Delete(Zaliha zaliha)
         {
+            serializeOprema = false;
+            serializeProstorija = false;
             var json = File.ReadAllText(fileLocation);
             List<Zaliha> zalihe = JsonConvert.DeserializeObject<List<Zaliha>>(json);
             if (zalihe != null)
             {
                 for (int i = 0; i < zalihe.Count; i++)
                 {
-                    if (zalihe[i].BrojProstorije == zaliha.BrojProstorije && zalihe[i].SifraOpreme == zaliha.SifraOpreme)
+                    if (zalihe[i].Id == zaliha.Id)
                     {
                         zalihe.Remove(zalihe[i]);
                         break;

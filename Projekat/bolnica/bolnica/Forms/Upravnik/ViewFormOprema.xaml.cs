@@ -37,7 +37,7 @@ namespace Bolnica.Forms.Upravnik
             {
                 foreach (BuducaZaliha bz in storageBuducaZaliha.GetAll())
                 {
-                    if (bz.SifraOpreme == sifraOpreme && bz.Datum <= DateTime.Now.Date)
+                    if (bz.Oprema.Sifra == sifraOpreme && bz.Datum <= DateTime.Now.Date)
                     {
                         buduceZalihe.Add(bz);
                         storageBuducaZaliha.Delete(bz);
@@ -45,17 +45,24 @@ namespace Bolnica.Forms.Upravnik
                 }
             }
             FileStorageZaliha storageZaliha = new FileStorageZaliha();
-            //List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            int maxId = 0;
+            foreach(Zaliha z in storageZaliha.GetAll())
+            {
+                if (z.Id > maxId)
+                    maxId = z.Id;
+            }
             if (buduceZalihe.Count > 0)
             {
                 foreach (Zaliha z in storageZaliha.GetAll())
                 {
-                    if (z.SifraOpreme == sifraOpreme)
+                    if (z.Oprema.Sifra == sifraOpreme)
                         storageZaliha.Delete(z);
                 }
                 foreach (BuducaZaliha bz in buduceZalihe)
                 {
-                    Zaliha z = new Zaliha { Kolicina = bz.Kolicina, SifraOpreme = bz.SifraOpreme, BrojProstorije = bz.BrojProstorije };
+                    Zaliha z = new Zaliha { Id = maxId + 1, Kolicina = bz.Kolicina };
+                    z.Prostorija = bz.Prostorija;
+                    z.Oprema = bz.Oprema;
                     storageZaliha.Save(z);
                     Zalihe.Add(z);
                 }
@@ -64,7 +71,7 @@ namespace Bolnica.Forms.Upravnik
             {
                 foreach (Zaliha z in storageZaliha.GetAll())
                 {
-                    if (sifraOpreme == z.SifraOpreme)
+                    if (sifraOpreme == z.Oprema.Sifra)
                         Zalihe.Add(z);
                 }
             }

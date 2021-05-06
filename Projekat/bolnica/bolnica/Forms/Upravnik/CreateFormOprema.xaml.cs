@@ -210,13 +210,13 @@ namespace Bolnica.Forms.Upravnik
                         int rezervisanaKolicina = 0;
                         foreach (Zaliha z in zalihe)
                         {
-                            if (z.SifraOpreme == oprema.Sifra && z.BrojProstorije != "magacin")
+                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije != "magacin")
                                 rezervisanaKolicina += z.Kolicina;
                         }
 
                         foreach (Zaliha z in zalihe)
                         {
-                            if (z.SifraOpreme == oprema.Sifra && z.BrojProstorije == "magacin")
+                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije == "magacin")
                             {
                                 if (ukKolicina - rezervisanaKolicina >= 0)
                                 {
