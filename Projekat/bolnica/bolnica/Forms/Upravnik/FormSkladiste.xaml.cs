@@ -66,7 +66,35 @@ namespace Bolnica.Forms.Upravnik
             InitializeComponent();
             this.DataContext = this;
             opremaZaSkladistenje = oprema;
+            List<Zaliha> zaliheOpreme = FindZaliheOpreme(opremaZaSkladistenje);
+            InitializeZalihe(zaliheOpreme);
+            InitializeProstorijeZaSkladistenje(zaliheOpreme);
+        }
+
+        private List<Zaliha> FindZaliheOpreme(Oprema oprema)
+        {
             // uzmi buduce zalihe i upisi ih u fajl sa zalihama
+            List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            
+            List<BuducaZaliha> buduceZalihe = FindBuduceZalihe();
+            if (buduceZalihe.Count > 0)
+            {
+                DeleteOldZalihe();
+                SaveBuduceZaliheToStorageZalihe(buduceZalihe);
+            }
+
+            storageZaliha = new FileStorageZaliha();
+            foreach (Zaliha z in storageZaliha.GetAll())
+            {
+                if (oprema.Sifra == z.Oprema.Sifra)
+                    zaliheOpreme.Add(z);
+            }
+
+            return zaliheOpreme;
+        }
+
+        private List<BuducaZaliha> FindBuduceZalihe()
+        {
             storageBuducaZaliha = new FileStorageBuducaZaliha();
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
             if (storageBuducaZaliha.GetAll() != null)
@@ -80,40 +108,106 @@ namespace Bolnica.Forms.Upravnik
                     }
                 }
             }
+
+            return buduceZalihe;
+        }
+
+        private void DeleteOldZalihe()
+        {
             storageZaliha = new FileStorageZaliha();
-            List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            foreach (Zaliha z in storageZaliha.GetAll())
+            {
+                if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
+                    storageZaliha.Delete(z);
+            }
+        }
+
+        private static void SaveBuduceZaliheToStorageZalihe(List<BuducaZaliha> buduceZalihe)
+        {
             int maxId = 0;
             foreach (Zaliha z in storageZaliha.GetAll())
             {
                 if (z.Id > maxId)
                     maxId = z.Id;
             }
-            if (buduceZalihe.Count > 0)
+            foreach (BuducaZaliha bz in buduceZalihe)
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
-                {
-                    if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
-                        storageZaliha.Delete(z);
-                }
-                foreach (BuducaZaliha bz in buduceZalihe)
-                {
-                    Zaliha z = new Zaliha { Id = maxId + 1, Kolicina = bz.Kolicina};
-                    z.Prostorija = bz.Prostorija;
-                    z.Oprema = bz.Oprema;
-                    storageZaliha.Save(z);
-                    zaliheOpreme.Add(z);
-                }
+                Zaliha z = new Zaliha {Id = maxId + 1, Kolicina = bz.Kolicina};
+                z.Prostorija = bz.Prostorija;
+                z.Oprema = bz.Oprema;
+                storageZaliha.Save(z);
+            }
+        }
+
+        private void InitializeZalihe(List<Zaliha> zaliheOpreme)
+        {
+            Zalihe = new ObservableCollection<Zaliha>();
+
+            if (!ImaMagacin())
+            {
+                magacin = CreateMagacin();
+                Zalihe.Add(magacin);
             }
             else
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
+                AddZalihe(zaliheOpreme);
+            }
+        }
+
+        private bool ImaMagacin()
+        {
+            bool imaMagacin = false;
+            List<Zaliha> zalihe = storageZaliha.GetAll();
+            if (zalihe != null)
+            {
+                foreach (Zaliha z in zalihe)
                 {
-                    if (oprema.Sifra == z.Oprema.Sifra)
-                        zaliheOpreme.Add(z);
+                    if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
+                    {
+                        imaMagacin = true;
+                        break;
+                    }
+
                 }
             }
-            // kraj
+
+            return imaMagacin;
+        }
+
+        private Zaliha CreateMagacin()
+        {
+            Prostorija prostorijaMagacin = new Prostorija { BrojProstorije = "magacin" };
+            magacin = new Zaliha { Prostorija = prostorijaMagacin, Oprema = opremaZaSkladistenje, Kolicina = opremaZaSkladistenje.Kolicina };
+            magacin.Oprema = opremaZaSkladistenje;
+            return magacin;
+        }
+
+        private void AddZalihe(List<Zaliha> zaliheOpreme)
+        {
+            int kolicinaUMagacinu = opremaZaSkladistenje.Kolicina;
+            foreach (Zaliha z in zaliheOpreme)
+            {
+                if (z.Prostorija.BrojProstorije == "magacin")
+                {
+                    magacin = z;
+                    magacin.Prostorija = z.Prostorija;
+                    magacin.Oprema = opremaZaSkladistenje;
+                }
+                else
+                {
+                    kolicinaUMagacinu -= z.Kolicina;
+                    Zalihe.Add(z);
+                }
+            }
+
+            magacin.Kolicina = kolicinaUMagacinu;
+            Zalihe.Add(magacin);
+        }
+
+        private void InitializeProstorijeZaSkladistenje(List<Zaliha> zaliheOpreme)
+        {
             ProstorijeZaSkladistenje = new ObservableCollection<Prostorija>();
+
             storageProstorija = new FileStorageProstorija();
             List<Prostorija> prostorije = storageProstorija.GetAllProstorije();
             List<BolnickaSoba> bolnickeSobe = storageProstorija.GetAllBolnickeSobe();
@@ -154,13 +248,11 @@ namespace Bolnica.Forms.Upravnik
                             ProstorijeZaSkladistenje.Remove(p);
                             korisceneProstorije.Add(p);
                         }
-
                     }
                 }
 
                 foreach (Zaliha z in zaliheOpreme)
                 {
-
                     foreach (BolnickaSoba k in korisceneBolnicke)
                     {
                         bolnickeSobe.Remove(k);
@@ -178,63 +270,9 @@ namespace Bolnica.Forms.Upravnik
                             ProstorijeZaSkladistenje.Remove(b);
                             korisceneBolnicke.Add(b);
                         }
-
                     }
                 }
             }
-
-            Zalihe = new ObservableCollection<Zaliha>();
-            if (!imaMagacin())
-            {
-                Prostorija prostorijaMagacin = new Prostorija { BrojProstorije = "magacin" };
-                magacin = new Zaliha { Prostorija = prostorijaMagacin, Oprema = opremaZaSkladistenje, Kolicina = opremaZaSkladistenje.Kolicina };
-                magacin.Prostorija = new Prostorija();
-                magacin.Prostorija.BrojProstorije = "magacin";
-                magacin.Oprema = opremaZaSkladistenje;
-                Zalihe.Add(magacin);
-
-            }
-            else
-            {
-                int kolicinaUMagacinu = opremaZaSkladistenje.Kolicina;
-                foreach (Zaliha z in zaliheOpreme)
-                {
-                    if (z.Prostorija.BrojProstorije == "magacin")
-                    {
-                        magacin = z;
-                        magacin.Prostorija.BrojProstorije = "magacin";
-                        magacin.Oprema.Sifra = opremaZaSkladistenje.Sifra;
-                    }
-                    else
-                    {
-                        kolicinaUMagacinu -= z.Kolicina;
-                        Zalihe.Add(z);
-                    }
-                }
-
-                magacin.Kolicina = kolicinaUMagacinu;
-                Zalihe.Add(magacin);
-            }
-        }
-
-        private bool imaMagacin()
-        {
-            bool imaMagacin = false;
-            List<Zaliha> zalihe = storageZaliha.GetAll();
-            if (zalihe != null)
-            {
-                foreach (Zaliha z in zalihe)
-                {
-                    if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
-                    {
-                        imaMagacin = true;
-                        break;
-                    }
-
-                }
-            }
-
-            return imaMagacin;
         }
         private void Button_Click_Prebaci(object sender, RoutedEventArgs e)
         {
