@@ -46,10 +46,9 @@ namespace Bolnica.Forms
             Owner = Application.Current.MainWindow;
         }
 
-        private void Potvrdi(object sender, RoutedEventArgs e)
-        {
+        public void Potvrdi() {
             komentar = textbox.Text;
-            
+
             Obavestenje obavestenje = new Obavestenje();
             obavestenje.KorisnickaImena = new List<string>();
             FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
@@ -76,13 +75,13 @@ namespace Bolnica.Forms
             }
             obavestenje.Naslov = "Lek " + prik.Naziv + " je odbijen";
             obavestenje.Obrisan = false;
-            obavestenje.Sadrzaj = "Lek " + prik.Naziv + " sa dozom " + prik.KolicinaUMg + " i sastojcima: " + prik.Sastojak + " je odbijen. "+"Komentar: "+komentar;
+            obavestenje.Sadrzaj = "Lek " + prik.Naziv + " sa dozom " + prik.KolicinaUMg + " i sastojcima: " + prik.Sastojak + " je odbijen. " + "Komentar: " + komentar;
             obavestenje.Datum = DateTime.Now;
             FileStorageObavestenja oba = new FileStorageObavestenja();
             oba.Save(obavestenje);
 
             FormLekar.lekoviPrikaz.Remove(prik);
-            for(int i = 0; i < leko.Count; i++)
+            for (int i = 0; i < leko.Count; i++)
             {
                 if (leko[i].Id.Equals(prik.Id))
                 {
@@ -94,12 +93,40 @@ namespace Bolnica.Forms
 
             this.Close();
         }
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Potvrdi();
+        }
 
         private void Otkazi(object sender, RoutedEventArgs e)
         {
+
+            Otkazi();
             
+        
+        }
+
+        public void Otkazi()
+        {
             this.Close();
-            
+        }
+
+        private void isAkcelerator(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.Q:
+                        Potvrdi();
+                        break;
+                    case Key.W:
+                        Otkazi();
+                        break;
+
+
+                }
+            }
         }
     }
 }

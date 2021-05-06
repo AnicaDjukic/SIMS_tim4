@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviAnamnezuLekar" Height="670" Width="630">
+        Title="FormNapraviAnamnezuLekar" Height="670" Width="630" KeyDown="isAkcelerator">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -217,9 +217,11 @@
                          Background="#FF1E93F4" Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" Click="VidiDetalje"/>
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="Obrisi"/>
+                    <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                    <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                    <Label FontSize="12" Content="Ctrl+O" Grid.Row="7" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
 
-
-            </Grid>
+                </Grid>
                 <Grid Background="#FF34FFF4" MinHeight="250">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -304,6 +306,9 @@
                          Background="#FF1E93F4" Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" Click="ZakaziPregled"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="otkazi"/>
-      
+        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+        <Label FontSize="12" Content="Ctrl+P" Grid.Row="17" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+        <Label FontSize="12" Content="Ctrl+W" Grid.Row="17" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

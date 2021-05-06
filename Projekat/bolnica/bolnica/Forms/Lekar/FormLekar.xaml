@@ -6,10 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormLekar" Background="#FF34FFF4" >
+        Title="Bolnica" Background="#FF34FFF4" >
 
     <Window.Resources>
-
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            
+        </Style>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
@@ -69,7 +74,7 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
         </TabControl.Resources>
-        <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}"   >
+        <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}" KeyDown="isPreglediTab"   >
 
             <Grid Height="Auto" MinHeight="300" MinWidth="500" >
                 <Grid.ColumnDefinitions>
@@ -188,10 +193,14 @@
                 <Button FontWeight="SemiBold"  BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Grid.Column="25" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "   GotFocus="Collor" Click="InformacijeOPacijentu" FontSize="13"/>
 
-
+                <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+I" Grid.Row="29" Grid.Column="25" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </TabItem>
-        <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
+        <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" KeyDown="isIstorijaTab" >
             <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -295,10 +304,11 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
+                <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza "   Click="AnamnezaIstorija" Background="#FF1E93F4" BorderBrush="#FF1E93F4" GotFocus="CollorIstorija"/>
             </Grid>
         </TabItem>
-        <TabItem Name="lekTab" Style="{StaticResource TreciTab}">
+        <TabItem Name="lekTab" Style="{StaticResource TreciTab}" KeyDown="isLekTab">
             <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -409,9 +419,12 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="IzmeniLek"/>
-                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="OdobriLek" />
-                <Button Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="VratiNaIzmenu" />
+                <Button Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="IzmeniLek"/>
+                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="OdobriLek" />
+                <Button Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Click="VratiNaIzmenu" />
+                <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </TabItem>
     </TabControl>

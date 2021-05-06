@@ -232,6 +232,43 @@ namespace Bolnica.Forms
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
+            Potvrdi();
+
+        }
+
+        private void Odustani(object sender, RoutedEventArgs e)
+        {
+            Odustani();
+        }
+
+        private void IsPro(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                if (textProizvodjac.Text.Length > 2)
+                {
+                    if (!stariProizvodjac.Equals(textProizvodjac.Text))
+                    {
+                        stariProizvodjac = proizvodjac;
+                        textLek.Items.Clear();
+                        for (int i = 0; i < lekovi.Count; i++)
+                        {
+                            if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && !textLek.Items.Contains(lekovi[i].Naziv))
+                            {
+                                textLek.Items.Add(lekovi[i].Naziv);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (e.Key == Key.Enter)
+            {
+                textProizvodjac.IsDropDownOpen = true;
+            }
+        }
+
+        public void Potvrdi()
+        {
             Lek lekk = new Lek();
             lekk.Id = l.Id;
             lekk.KolicinaUMg = int.Parse(doza);
@@ -250,7 +287,8 @@ namespace Bolnica.Forms
                 ListBoxItem item = textSastojci.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
                 if (item.IsSelected.Equals(true))
                 {
-                    for (int h = 0; h < sas.Count; h++) {
+                    for (int h = 0; h < sas.Count; h++)
+                    {
                         if (sas[h].Naziv.Equals(item.Content as string))
                         {
                             lekk.Sastojak.Add(sas[h]);
@@ -264,7 +302,8 @@ namespace Bolnica.Forms
                                 lekpri.Sastojak = lekpri.Sastojak + "," + sas[h].Naziv;
                             }
                         }
-                } }
+                    }
+                }
             }
             for (int i = 0; i < textZamene.Items.Count; i++)
             {
@@ -298,7 +337,7 @@ namespace Bolnica.Forms
             lekpri.Zalihe = l.Zalihe;
             lekpri.Proizvodjac = proizvodjac;
             lekpri.Status = l.Status;
-            
+
             for (int j = 0; j < FormLekar.lekoviPrikaz.Count; j++)
             {
                 if (FormLekar.lekoviPrikaz[j].Id.Equals(lekpri.Id))
@@ -310,37 +349,28 @@ namespace Bolnica.Forms
             sviLekovi.Save(lekk);
 
             this.Close();
-
         }
 
-        private void Odustani(object sender, RoutedEventArgs e)
+        public void Odustani()
         {
             this.Close();
         }
 
-        private void IsPro(object sender, KeyEventArgs e)
+        private void isAkcelerator(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab)
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {
-                if (textProizvodjac.Text.Length > 2)
+                switch (e.Key)
                 {
-                    if (!stariProizvodjac.Equals(textProizvodjac.Text))
-                    {
-                        stariProizvodjac = proizvodjac;
-                        textLek.Items.Clear();
-                        for (int i = 0; i < lekovi.Count; i++)
-                        {
-                            if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && !textLek.Items.Contains(lekovi[i].Naziv))
-                            {
-                                textLek.Items.Add(lekovi[i].Naziv);
-                            }
-                        }
-                    }
+                    case Key.Q:
+                        Potvrdi();
+                        break;
+                    case Key.W:
+                        Odustani();
+                        break;
+                    
+
                 }
-            }
-            else if (e.Key == Key.Enter)
-            {
-                textProizvodjac.IsDropDownOpen = true;
             }
         }
     }

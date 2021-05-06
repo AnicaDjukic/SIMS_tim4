@@ -104,12 +104,12 @@ namespace Bolnica.Forms
 
         }
 
-        private void Potvrdi(object sender, RoutedEventArgs e)
+        public void Potvrdi()
         {
             Lek izabraniLek = new Lek();
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac)&&textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
+                if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
                 {
                     izabraniLek = lekovi[i];
                 }
@@ -130,8 +130,8 @@ namespace Bolnica.Forms
                     }
                 }
             }
-        
-                Recept r = new Recept();
+
+            Recept r = new Recept();
             PrikazRecepta rr = new PrikazRecepta();
             r.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
             rr.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
@@ -153,12 +153,19 @@ namespace Bolnica.Forms
 
             FormNapraviAnamnezuLekar.Recepti.Add(rr);
             this.Close();
-            
+        }
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Potvrdi();
         }
 
-        private void Odustani(object sender, RoutedEventArgs e)
+        public void Odustani()
         {
             this.Close();
+        }
+        private void Odustani(object sender, RoutedEventArgs e)
+        {
+            Odustani();
         }
 
         private void isTab(object sender, KeyEventArgs e)
@@ -228,6 +235,24 @@ namespace Bolnica.Forms
             else if(e.Key == Key.Enter)
             {
                 textProizvodjac.IsDropDownOpen = true;
+            }
+        }
+
+        private void isAkcelerator(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.Q:
+                        Potvrdi();
+                        break;
+                    case Key.W:
+                        Odustani();
+                        break;
+
+
+                }
             }
         }
     }

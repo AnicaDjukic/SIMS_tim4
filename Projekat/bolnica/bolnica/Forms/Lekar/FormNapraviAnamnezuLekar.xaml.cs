@@ -239,19 +239,29 @@ namespace Bolnica.Forms
 
         private void OtkaziDugme(object sender, RoutedEventArgs e)
         {
+            OtkaziDugme();
+        }
+
+        public void OtkaziDugme()
+        {
             this.Close();
         }
 
         private void DodajLek(object sender, RoutedEventArgs e)
         {
+            DodajLek();
+        }
+
+        public void DodajLek()
+        {
             FormNapraviReceptLekar form = new FormNapraviReceptLekar(trenturniPacijent);
             form.Show();
         }
 
-        private void Potvrdi(object sender, RoutedEventArgs e)
+        public void Potvrdi()
         {
             Anamneza a = new Anamneza();
-           
+
             a.Simptomi = textSimptomi.Text;
             a.Dijagnoza = textDijagnoza.Text;
             a.Recept = new List<Recept>();
@@ -281,83 +291,84 @@ namespace Bolnica.Forms
                 anam.Save(a);
                 if (jePregled == 1)
                 {
-                   
-                       
-                        for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+
+
+                    for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                    {
+                        if (FormLekar.dataList.Items[p].Equals(stariPregled))
                         {
-                            if (FormLekar.dataList.Items[p].Equals(stariPregled))
-                            {
-                                trenutniPregled.AnamnezaId = a.Id;
-                                
-                                trenutniPregled.Zavrsen = true;
-                                FormLekar.dataListIstorija.Items.Add(trenutniPregled);
-                                FormLekar.dataList.Items.RemoveAt(p);
+                            trenutniPregled.AnamnezaId = a.Id;
 
-                                FormLekar.dataIstorija();
-                                FormLekar.data();
-                                
-                                Pregled o = new Pregled();
-                                o.Id = trenutniPregled.Id;
-                                 o.Hitan = trenutniPregled.Hitan;
-                                o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-                                o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
-                                o.Trajanje = trenutniPregled.Trajanje;
-                                o.Zavrsen = trenutniPregled.Zavrsen;
-                                o.AnamnezaId = a.Id;
-                                o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
-                                o.Datum = trenutniPregled.Datum;
-                                o.Zavrsen = true;
-                                sviPregledi.Izmeni(o);
-                            }
+                            trenutniPregled.Zavrsen = true;
+                            FormLekar.dataListIstorija.Items.Add(trenutniPregled);
+                            FormLekar.dataList.Items.RemoveAt(p);
 
+                            FormLekar.dataIstorija();
+                            FormLekar.data();
+
+                            Pregled o = new Pregled();
+                            o.Id = trenutniPregled.Id;
+                            o.Hitan = trenutniPregled.Hitan;
+                            o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                            o.Trajanje = trenutniPregled.Trajanje;
+                            o.Zavrsen = trenutniPregled.Zavrsen;
+                            o.AnamnezaId = a.Id;
+                            o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                            o.Datum = trenutniPregled.Datum;
+                            o.Zavrsen = true;
+                            sviPregledi.Izmeni(o);
                         }
 
-                    
-                    
+                    }
+
+
+
                 }
                 else
                 {
-                    
-                        
-                        for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+
+
+                    for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+                    {
+                        if (FormLekar.dataList.Items[p].Equals(staraOperacija))
                         {
-                            if (FormLekar.dataList.Items[p].Equals(staraOperacija))
-                            {
-                                trenutnaOperacija.AnamnezaId = a.Id;
+                            trenutnaOperacija.AnamnezaId = a.Id;
 
 
 
-                                trenutnaOperacija.Zavrsen = true;
-                                FormLekar.dataListIstorija.Items.Add(trenutnaOperacija);
-                                FormLekar.dataList.Items.RemoveAt(p);
+                            trenutnaOperacija.Zavrsen = true;
+                            FormLekar.dataListIstorija.Items.Add(trenutnaOperacija);
+                            FormLekar.dataList.Items.RemoveAt(p);
 
-                                FormLekar.dataIstorija();
-                                FormLekar.data();
+                            FormLekar.dataIstorija();
+                            FormLekar.data();
 
-                                Operacija o = new Operacija();
-                                o.Id = trenutnaOperacija.Id;
+                            Operacija o = new Operacija();
+                            o.Id = trenutnaOperacija.Id;
                             o.Hitan = trenutnaOperacija.Hitan;
-                                o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
-                                o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
-                                o.TipOperacije = trenutnaOperacija.TipOperacije;
-                                o.Trajanje = trenutnaOperacija.Trajanje;
-                                o.Zavrsen = trenutnaOperacija.Zavrsen;
-                                o.AnamnezaId = a.Id;
-                                o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
-                                o.Datum = trenutnaOperacija.Datum;
-                                o.Zavrsen = true;
-                                sviPregledi.Izmeni(o);
-                            }
+                            o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
+                            o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                            o.TipOperacije = trenutnaOperacija.TipOperacije;
+                            o.Trajanje = trenutnaOperacija.Trajanje;
+                            o.Zavrsen = trenutnaOperacija.Zavrsen;
+                            o.AnamnezaId = a.Id;
+                            o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                            o.Datum = trenutnaOperacija.Datum;
+                            o.Zavrsen = true;
+                            sviPregledi.Izmeni(o);
                         }
-                    
-                    
+                    }
+
+
                 }
 
             }
-            else {
+            else
+            {
                 a.Id = idAnamneze;
                 anam.Izmeni(a);
-                if(jePregled == 1)
+                if (jePregled == 1)
                 {
                     for (int p = 0; p < FormLekar.dataListIstorija.Items.Count; p++)
                     {
@@ -422,13 +433,22 @@ namespace Bolnica.Forms
                         }
                     }
                 }
-                
+
             }
-            
+
             this.Close();
+        }
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Potvrdi();
         }
 
         private void Obrisi(object sender, RoutedEventArgs e)
+        {
+            Obrisi();
+        }
+
+        public void Obrisi()
         {
             if (dataGridLekovi.SelectedCells.Count > 0)
             {
@@ -436,19 +456,28 @@ namespace Bolnica.Forms
                 Recepti.RemoveAt(index);
             }
         }
-
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar,trenturniPacijent);
+            ZakaziPregled();
+        }
+
+        public void ZakaziPregled()
+        {
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar, trenturniPacijent);
             form.Show();
         }
 
         private void otkazi(object sender, RoutedEventArgs e)
         {
+            otkazi();
+        }
+
+        public void otkazi()
+        {
             this.Close();
         }
 
-        private void VidiDetalje(object sender, RoutedEventArgs e)
+        public void VidiDetalje()
         {
             if (dataGridLekovi.SelectedCells.Count > 0)
             {
@@ -461,9 +490,43 @@ namespace Bolnica.Forms
                 a.Lek_id = r.lek.Id;
                 a.Trajanje = r.Trajanje;
                 a.VremeUzimanja = r.VremeUzimanja;
-               
+
                 FormVidiReceptLekar form = new FormVidiReceptLekar(a);
-                form.Show();  
+                form.Show();
+            }
+        }
+        private void VidiDetalje(object sender, RoutedEventArgs e)
+        {
+            VidiDetalje();
+        }
+
+        private void isAkcelerator(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.D:
+                        DodajLek();
+                        break;
+                    case Key.I:
+                        VidiDetalje();
+                        break;
+                    case Key.O:
+                        Obrisi();
+                        break;
+                    case Key.P:
+                        ZakaziPregled();
+                        break;
+                    case Key.Q:
+                        Potvrdi();
+                        break;
+                    case Key.W:
+                        otkazi();
+                        break;
+
+
+                }
             }
         }
     }

@@ -49,9 +49,9 @@ namespace Bolnica.Forms
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
         private PrikazOperacije prikazOperacije = new PrikazOperacije();
         private List<Lek> lekovi = new List<Lek>();
-        
-        
-       
+
+
+
 
 
 
@@ -66,7 +66,7 @@ namespace Bolnica.Forms
 
             lekovi = sviLekovi.GetAll();
 
-            for(int i = 0; i < lekovi.Count; i++)
+            for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
                 {
@@ -98,7 +98,7 @@ namespace Bolnica.Forms
             {
                 if (!listaOperacija[l].lekarJmbg.Equals(lekarTrenutni.Jmbg))
                 {
-                    listaOperacija.RemoveAt(l); 
+                    listaOperacija.RemoveAt(l);
                     l = l - 1;
                 }
             }
@@ -120,25 +120,25 @@ namespace Bolnica.Forms
                     prikazPregleda.Datum = listaPregleda[i].Datum;
                     prikazPregleda.AnamnezaId = listaPregleda[i].AnamnezaId;
                     prikazPregleda.Hitan = listaPregleda[i].Hitan;
-                    for (int p = 0; p<listaPacijenata.Count;p++)
+                    for (int p = 0; p < listaPacijenata.Count; p++)
                     {
-                        if (listaPregleda[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg)&& listaPacijenata[p].Obrisan == false)
+                        if (listaPregleda[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
                             prikazPregleda.Pacijent = listaPacijenata[p];
                             break;
                         }
-                        
+
 
                     }
                     for (int p = 0; p < listaProstorija.Count; p++)
                     {
-                            if (listaPregleda[i].brojProstorije.Equals(listaProstorija[p].BrojProstorije)&& listaProstorija[p].Obrisana == false)
+                        if (listaPregleda[i].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
                         {
                             prikazPregleda.Prostorija = listaProstorija[p];
                             break;
                         }
                     }
-                    for (int p=0;p < listaLekara.Count; p++)
+                    for (int p = 0; p < listaLekara.Count; p++)
                     {
                         if (listaPregleda[i].lekarJmbg.Equals(listaLekara[p].Jmbg))
                         {
@@ -266,10 +266,10 @@ namespace Bolnica.Forms
             }
             data();
             dataIstorija();
-           
+
             lekarGrid.ItemsSource = dataList.Items;
             lekarGridIstorija.ItemsSource = dataListIstorija.Items;
-            for(int i = 0; i < lekovi.Count; i++)
+            for (int i = 0; i < lekovi.Count; i++)
             {
                 if (!lekovi[i].Status.Equals(StatusLeka.odbijen))
                 {
@@ -318,11 +318,16 @@ namespace Bolnica.Forms
                 }
             }
             dataGridLekovi.ItemsSource = lekoviPrikaz;
-            
-           
+
+
         }
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
+        {
+            ZakaziPregled();
+        }
+
+        public void ZakaziPregled()
         {
             FormNapraviTerminLekar forma = new FormNapraviTerminLekar(lekarTrenutni);
             forma.Show();
@@ -330,7 +335,14 @@ namespace Bolnica.Forms
 
         private void OtkaziPregled(object sender, RoutedEventArgs e)
         {
-            
+
+            OtkaziPregled();
+
+
+        }
+
+        public void OtkaziPregled()
+        {
             if (lekarGrid.SelectedCells.Count > 0)
             {
                 var objekat = lekarGrid.SelectedValue;
@@ -366,14 +378,19 @@ namespace Bolnica.Forms
                 data();
             }
 
-
         }
 
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
+            IzmeniPregled();
+
+        }
+
+        public void IzmeniPregled()
+        {
             if (lekarGrid.SelectedCells.Count > 0)
             {
-                
+
                 var objekat = lekarGrid.SelectedValue;
                 PrikazPregleda p1 = new PrikazPregleda();
                 PrikazOperacije op = new PrikazOperacije();
@@ -417,8 +434,8 @@ namespace Bolnica.Forms
                         MessageBox.Show("Nemate ovlastenje da menjate operacije");
                     }
                 }
-                
-                
+
+
             }
 
         }
@@ -444,10 +461,15 @@ namespace Bolnica.Forms
 
         private void InformacijeOPacijentu(object sender, RoutedEventArgs e)
         {
-            
+            InformacijeOPacijentu();
+
+        }
+
+        public void InformacijeOPacijentu()
+        {
             if (lekarGrid.SelectedCells.Count > 0)
             {
-                
+
                 var objekat = lekarGrid.SelectedValue;
                 PrikazPregleda p1 = new PrikazPregleda();
                 PrikazOperacije op = new PrikazOperacije();
@@ -482,17 +504,17 @@ namespace Bolnica.Forms
                         }
                     }
                 }
-                
+
             }
         }
 
         private void JumpOnButton(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 e.Handled = true;
                 Zakazi.Focus();
-               
+
             }
 
             if (e.Key == Key.Left)
@@ -501,17 +523,17 @@ namespace Bolnica.Forms
                 PreglediTab.Focus();
             }
 
-           
+
 
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
                 var row = lekarGrid.SelectedIndex;
-                if (row < lekarGrid.Items.Count-1)
+                if (row < lekarGrid.Items.Count - 1)
                 {
                     row = row + 1;
                     lekarGrid.SelectedIndex = row;
-                    
+
 
                 }
                 else
@@ -532,13 +554,13 @@ namespace Bolnica.Forms
                 AnamnezaIstorijaDugme.Focus();
             }
 
-            if(e.Key== Key.Left)
+            if (e.Key == Key.Left)
             {
                 e.Handled = true;
                 IstorijaTab.Focus();
             }
 
-            
+
 
             if (e.Key == Key.Tab)
             {
@@ -622,13 +644,13 @@ namespace Bolnica.Forms
 
         public void CollorLekarGridIstorija()
         {
-            
+
             DateTime trenutni = new DateTime();
             int dozvola = 0;
             PrikazPregleda preg = new PrikazPregleda();
             PrikazOperacije oper = new PrikazOperacije();
 
-            for (int i = 0; i < lekarGridIstorija.Items.Count+1; i++)
+            for (int i = 0; i < lekarGridIstorija.Items.Count + 1; i++)
             {
 
                 var row = (DataGridRow)lekarGridIstorija.ItemContainerGenerator.ContainerFromIndex(i);
@@ -679,7 +701,7 @@ namespace Bolnica.Forms
             }
         }
 
-        
+
 
         private void Collor(object sender, RoutedEventArgs e)
         {
@@ -691,7 +713,7 @@ namespace Bolnica.Forms
             CollorLekarGridIstorija();
         }
 
-        
+
 
         private void focusTab(object sender, RoutedEventArgs e)
         {
@@ -700,9 +722,14 @@ namespace Bolnica.Forms
 
         private void Anamneza(object sender, RoutedEventArgs e)
         {
+            Anamneza();
+        }
+
+        public void Anamneza()
+        {
             if (lekarGrid.SelectedCells.Count > 0)
             {
-                
+
                 var objekat = lekarGrid.SelectedValue;
                 PrikazPregleda p1 = new PrikazPregleda();
                 PrikazOperacije op = new PrikazOperacije();
@@ -729,7 +756,7 @@ namespace Bolnica.Forms
                         MessageBox.Show("Pregled nije poceo");
                         return;
                     }
-                    
+
 
                 }
                 if (objekat.GetType().Equals(prikazOperacije.GetType()))
@@ -758,13 +785,18 @@ namespace Bolnica.Forms
                     }
 
                 }
-                
+
             }
         }
 
         
 
         private void AnamnezaIstorija(object sender, RoutedEventArgs e)
+        {
+            AnamnezaIstorija();
+        }
+
+        public void AnamnezaIstorija()
         {
             if (lekarGridIstorija.SelectedCells.Count > 0)
             {
@@ -776,47 +808,53 @@ namespace Bolnica.Forms
                 if (objekat.GetType().Equals(prikazPregleda.GetType()))
                 {
                     PrikazPregleda pri = objekat as PrikazPregleda;
-                   
-                        for (int i = 0; i < listaPregleda.Count; i++)
-                        {
-                            if (pri.Id.Equals(listaPregleda[i].Id))
-                            {
 
-                                p1 = lekarGridIstorija.SelectedItem as PrikazPregleda;
-                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, lekarTrenutni);
-                                form.Show();
-                                break;
-                            }
+                    for (int i = 0; i < listaPregleda.Count; i++)
+                    {
+                        if (pri.Id.Equals(listaPregleda[i].Id))
+                        {
+
+                            p1 = lekarGridIstorija.SelectedItem as PrikazPregleda;
+                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(p1, lekarTrenutni);
+                            form.Show();
+                            break;
                         }
-                   
+                    }
+
                 }
                 if (objekat.GetType().Equals(prikazOperacije.GetType()))
                 {
                     PrikazOperacije pri = objekat as PrikazOperacije;
-                   
-                        for (int i = 0; i < listaOperacija.Count; i++)
+
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (pri.Id.Equals(listaOperacija[i].Id))
                         {
-                            if (pri.Id.Equals(listaOperacija[i].Id))
-                            {
 
-                                op = lekarGridIstorija.SelectedItem as PrikazOperacije;
+                            op = lekarGridIstorija.SelectedItem as PrikazOperacije;
 
-                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, lekarTrenutni);
-                                form.Show();
-                                break;
-                            }
+                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(op, lekarTrenutni);
+                            form.Show();
+                            break;
                         }
-                   
-                }   
-               
+                    }
+
+                }
+
 
             }
         }
 
         private void IzmeniLek(object sender, RoutedEventArgs e)
         {
+            IzmeniLek();
+            
+        }
+
+        public void IzmeniLek()
+        {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
-            for(int i =0; i < lekovi.Count; i++)
+            for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Id.Equals(p.Id))
                 {
@@ -826,7 +864,6 @@ namespace Bolnica.Forms
 
                 }
             }
-            
         }
 
         private void JumpOnButtonLek(object sender, KeyEventArgs e)
@@ -868,6 +905,11 @@ namespace Bolnica.Forms
         }
 
         private void OdobriLek(object sender, RoutedEventArgs e)
+        {
+            OdobriLek();
+        }
+
+        public void OdobriLek()
         {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
             if (p.Status.Equals(StatusLeka.cekaValidaciju))
@@ -924,7 +966,7 @@ namespace Bolnica.Forms
                 FileStorageObavestenja oba = new FileStorageObavestenja();
                 oba.Save(obavestenje);
 
-               
+
             }
             else
             {
@@ -934,7 +976,12 @@ namespace Bolnica.Forms
 
         private void VratiNaIzmenu(object sender, RoutedEventArgs e)
         {
+            VratiNaIzmenu();      
             
+        }
+
+        public void VratiNaIzmenu()
+        {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
             if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
@@ -945,8 +992,67 @@ namespace Bolnica.Forms
             {
                 MessageBox.Show("Niste odabrali lek koji ceka validaciju");
             }
-            
-            
+        }
+
+        private void isPreglediTab(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.P:
+                        ZakaziPregled();
+                        break;
+                    case Key.O:
+                        OtkaziPregled();
+                        break;
+                    case Key.H:
+                        IzmeniPregled();
+                        break;
+                    case Key.N:
+                        Anamneza();
+                        break;
+                    case Key.I:
+                        InformacijeOPacijentu();
+                        break;
+                }
+            }
+        }
+
+        private void isIstorijaTab(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    
+                    case Key.N:
+                        AnamnezaIstorija();
+                        break;
+                    
+                }
+            }
+
+        }
+
+        private void isLekTab(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.P:
+                        OdobriLek();
+                        break;
+                    case Key.O:
+                        VratiNaIzmenu();
+                        break;
+                    case Key.H:
+                        IzmeniLek();
+                        break;
+                    
+                }
+            }
         }
     }
 }
