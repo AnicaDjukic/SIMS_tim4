@@ -29,12 +29,23 @@ namespace Bolnica.Forms.Sekretar
             storage = new FileStorageSastojak();
             List<Sastojak> alergeni = storage.GetAll();
 
-            for (int i = 0; i < FormSekretar.Pacijenti.Count; i++)
+            for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
             { 
-                if (String.Equals(lblJMBG.Content, FormSekretar.Pacijenti[i].Jmbg))
+                if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Jmbg))
                 {
-                    if (FormSekretar.Pacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.Pacijenti[i].Alergeni)
+                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                            Alergeni.Add(s);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
+            {
+                if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Jmbg))
+                {
+                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
                             Alergeni.Add(s);
                     break;
                 }

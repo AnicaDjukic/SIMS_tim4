@@ -46,7 +46,9 @@ namespace Bolnica.Sekretar
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
             clickedDodaj = true;
-            FormDodajObavestenje s = new FormDodajObavestenje(-1);
+            FormDodajObavestenje s = new FormDodajObavestenje(-1, null);
+            s.btnDodajPacijente.Content = "Dodaj";
+            s.btnDodajPrimaoce.Content = "Dodaj";
             s.ShowDialog();
         }
 
@@ -56,7 +58,7 @@ namespace Bolnica.Sekretar
             if (obavestenje != null)
             {
                 List<Obavestenje> obavestenja = storage.GetAll();
-                var s = new FormPrikazObavestenja();
+                var s = new FormPrikazObavestenja(obavestenje.Id);
                 foreach (Obavestenje o in obavestenja)
                 {
                     if (o.Id == obavestenje.Id)
@@ -85,8 +87,10 @@ namespace Bolnica.Sekretar
             if (obavestenje != null)
             {
                 List<Obavestenje> obavestenja = storage.GetAll();
-                FormDodajObavestenje s = new FormDodajObavestenje(obavestenje.Id);
+                FormDodajObavestenje s = new FormDodajObavestenje(obavestenje.Id, obavestenje.KorisnickaImena);
 
+                s.btnDodajPacijente.Content = "Izmeni";
+                s.btnDodajPrimaoce.Content = "Izmeni";
                 foreach (Obavestenje o in obavestenja)
                 {
                     if (o.Id == obavestenje.Id)

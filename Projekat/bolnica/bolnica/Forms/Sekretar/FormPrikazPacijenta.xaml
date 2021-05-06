@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPrikazPacijenta" Height="650" Width="350"
+        Title="FormPrikazPacijenta" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Guest nalog:" HorizontalAlignment="Left" Margin="62,8,0,0" VerticalAlignment="Top"/>
         <Label Content="Ime:" HorizontalAlignment="Left" Margin="105,65,0,0" VerticalAlignment="Top"/>
         <Label Content="Prezime:" HorizontalAlignment="Left" Margin="83,95,0,0" VerticalAlignment="Top"/>
         <Label Content="Pol:" HorizontalAlignment="Left" Margin="109,125,0,0" VerticalAlignment="Top"/>
@@ -18,13 +17,12 @@
         <Label Content="Broj telefona:" HorizontalAlignment="Left" Margin="58,245,0,0" VerticalAlignment="Top"/>
         <Label Content="Email adresa:" HorizontalAlignment="Left" Margin="58,275,0,0" VerticalAlignment="Top"/>
         <Label Content="Alergeni:" HorizontalAlignment="Left" Margin="81,305,0,0" VerticalAlignment="Top"/>
-        <Label Content="Korisničko ime:" x:Name="lblKorisnickoIme" HorizontalAlignment="Left" Margin="49,365,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lozinka:" x:Name="lblLozinka" HorizontalAlignment="Left" Margin="86,395,0,0" VerticalAlignment="Top"/>
-        <Label Content="ID kartona:" x:Name="lblIDKarton" HorizontalAlignment="Left" Margin="71,425,0,0" VerticalAlignment="Top"/>
-        <Label Content="Zanimanje:" x:Name="lblZanimanje" HorizontalAlignment="Left" Margin="71,455,0,0" VerticalAlignment="Top"/>
-        <Label Content="Bračni status:" x:Name="lblBracniStatus" HorizontalAlignment="Left" Margin="59,484,0,0" VerticalAlignment="Top"/>
-        <Label Content="Osiguranje:" x:Name="lblOsiguranje" HorizontalAlignment="Left" Margin="69,515,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkGuest" HorizontalAlignment="Left" Margin="150,13,0,0" VerticalAlignment="Top"/>
+        <Label Content="Korisničko ime:" x:Name="lblKorisnickoIme" HorizontalAlignment="Left" Margin="425,64,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lozinka:" x:Name="lblLozinka" HorizontalAlignment="Left" Margin="462,94,0,0" VerticalAlignment="Top"/>
+        <Label Content="ID kartona:" x:Name="lblIDKarton" HorizontalAlignment="Left" Margin="447,124,0,0" VerticalAlignment="Top"/>
+        <Label Content="Zanimanje:" x:Name="lblZanimanje" HorizontalAlignment="Left" Margin="447,154,0,0" VerticalAlignment="Top"/>
+        <Label Content="Bračni status:" x:Name="lblBracniStatus" HorizontalAlignment="Left" Margin="435,184,0,0" VerticalAlignment="Top"/>
+        <Label Content="Osiguranje:" x:Name="lblOsiguranje" HorizontalAlignment="Left" Margin="445,213,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblIme" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblPrezime" HorizontalAlignment="Left" Margin="150,95,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblPol" HorizontalAlignment="Left" Margin="150,125,0,0" VerticalAlignment="Top"/>
@@ -33,13 +31,13 @@
         <Label x:Name="lblAdresaStanovanja" HorizontalAlignment="Left" Margin="150,215,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblBrojTelefona" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblEmail" HorizontalAlignment="Left" Margin="150,275,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnAlergeni" Content="Prikaži" Click="PrikaziAlergene" Height="20" Width="80" Margin="55,309,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblKorIme" HorizontalAlignment="Left" Margin="150,365,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblLoz" HorizontalAlignment="Left" Margin="150,395,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblIDKar" HorizontalAlignment="Left" Margin="150,425,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblZan" HorizontalAlignment="Left" Margin="150,455,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblBrStatus" HorizontalAlignment="Left" Margin="150,485,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="checkOsig" HorizontalAlignment="Left" Margin="150,522,0,0" VerticalAlignment="Top"/>
-        <Button Content="Zatvori" HorizontalAlignment="Center" Height="20" Width="80" Margin="0,561,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="btnAlergeni" Content="Prikaži" Click="PrikaziAlergene" Height="20" Width="80" Margin="153,309,551,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblKorIme" HorizontalAlignment="Left" Margin="530,64,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblLoz" HorizontalAlignment="Left" Margin="530,94,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblIDKar" HorizontalAlignment="Left" Margin="530,124,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblZan" HorizontalAlignment="Left" Margin="530,154,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblBrStatus" HorizontalAlignment="Left" Margin="530,184,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkOsig" HorizontalAlignment="Left" Margin="533,220,0,0" VerticalAlignment="Top"/>
+        <Button Content="Zatvori" HorizontalAlignment="Center" Height="20" Width="80" Margin="0,385,0,38" VerticalAlignment="Top" Click="Button_Click"/>
     </Grid>
 </Window>

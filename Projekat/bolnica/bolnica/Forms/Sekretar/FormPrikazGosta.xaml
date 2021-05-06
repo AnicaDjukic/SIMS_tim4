@@ -1,0 +1,31 @@
+﻿<Window x:Class="Bolnica.Forms.Sekretar.FormPrikazGosta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
+        mc:Ignorable="d"
+        Title="FormPrikazGosta" Height="500" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Ime:" HorizontalAlignment="Left" Margin="106,65,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prezime:" HorizontalAlignment="Left" Margin="83,95,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pol:" HorizontalAlignment="Left" Margin="109,125,0,0" VerticalAlignment="Top"/>
+        <Label Content="JMBG:" HorizontalAlignment="Left" Margin="95,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="Datum rođenja:" HorizontalAlignment="Left" Margin="46,186,0,0" VerticalAlignment="Top"/>
+        <Label Content="Adresa stanovanja:" HorizontalAlignment="Left" Margin="29,215,0,0" VerticalAlignment="Top"/>
+        <Label Content="Broj telefona:" HorizontalAlignment="Left" Margin="59,245,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email adresa:" HorizontalAlignment="Left" Margin="60,275,0,0" VerticalAlignment="Top"/>
+        <Label Content="Alergeni:" x:Name="lblAlergeni" HorizontalAlignment="Left" Margin="82,303,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblIme" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPrezime" HorizontalAlignment="Left" Margin="150,95,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblPol" HorizontalAlignment="Left" Margin="150,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblJMBG" HorizontalAlignment="Left" Margin="150,155,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblDatumRodjenja" HorizontalAlignment="Left" Margin="150,185,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblAdresaStanovanja" HorizontalAlignment="Left" Margin="150,215,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblBrojTelefona" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblEmail" HorizontalAlignment="Left" Margin="150,275,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAlergeni" Content="Prikaži" Click="PrikaziAlergene" Height="20" Width="80" Margin="155,309,149,0" VerticalAlignment="Top"/>
+        <Button Content="Zatvori" Height="20" Width="80" Margin="0,330,0,0" Click="Zatvori"/>
+    </Grid>
+</Window>

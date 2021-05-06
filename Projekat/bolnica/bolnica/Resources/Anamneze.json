@@ -1,72 +1,56 @@
 [
-  
-  {
-    "Id": 1,
-    "Simptomi": "",
-    "Dijagnoza": "",
-    "Recept": [
-      {
-        "Lek_id": 1,
-        "Id": 1,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 5,
-        "VremeUzimanja": "08:00:00",
-        "Trajanje": "2021-04-22T00:00:00"
-      },
-      {
-        "Lek_id": 2,
-        "Id": 2,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 4,
-        "VremeUzimanja": "12:00:00",
-        "Trajanje": "2021-04-21T00:00:00"
-      }
-    ]
-  },
-  {
-    "Id": 2,
-    "Simptomi": "",
-    "Dijagnoza": "",
-    "Recept": [
-      {
-        "Lek_id": 3,
-        "Id": 1,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 5,
-        "VremeUzimanja": "08:00:00",
-        "Trajanje": "2021-04-30T00:00:00"
-      },
-      {
-        "Lek_id": 4,
-        "Id": 2,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 4,
-        "VremeUzimanja": "08:00:00",
-        "Trajanje": "2021-05-11T00:00:00"
-      }
-    ]
-  },
-  {
-    "Id": 6,
-    "Simptomi": "Mari",
-    "Dijagnoza": "Drago",
-    "Recept": [
-      {
-        "Lek_id": 2,
-        "Id": 0,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 2,
-        "VremeUzimanja": "02:00:00",
-        "Trajanje": "2021-04-18T00:00:00"
-      },
-      {
-        "Lek_id": 1,
-        "Id": 0,
-        "DatumIzdavanja": "2021-04-18T00:00:00",
-        "Kolicina": 2,
-        "VremeUzimanja": "00:30:00",
-        "Trajanje": "2021-04-18T00:00:00"
-      }
-    ]
-  }
+
+    {
+        "Id": 11,
+        "Simptomi": "Glavobolja",
+        "Dijagnoza": "Migrena",
+        "Recept": [
+            {
+                "Lek_id": 2341,
+                "Id": 0,
+                "DatumIzdavanja": "2021-04-25T00:00:00",
+                "Kolicina": 5,
+                "VremeUzimanja": "08:00:00",
+                "Trajanje": "2021-05-25T00:00:00"
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Simptomi": "Bol u stomaku",
+        "Dijagnoza": "Slijepo crijevo",
+        "Recept": [
+            {
+                "Lek_id": 2345,
+                "Id": 0,
+                "DatumIzdavanja": "2021-04-25T00:00:00",
+                "Kolicina": 4,
+                "VremeUzimanja": "02:00:00",
+                "Trajanje": "2021-05-25T00:00:00"
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Simptomi": "Kasalj",
+        "Dijagnoza": "Korona",
+        "Recept": [
+            {
+                "Lek_id": 3567,
+                "Id": 0,
+                "DatumIzdavanja": "2021-04-25T00:00:00",
+                "Kolicina": 1,
+                "VremeUzimanja": "12:00:00",
+                "Trajanje": "2021-05-26T00:00:00"
+            },
+            {
+                "Lek_id": 1234,
+                "Id": 0,
+                "DatumIzdavanja": "2021-04-25T00:00:00",
+                "Kolicina": 2,
+                "VremeUzimanja": "06:00:00",
+                "Trajanje": "2021-05-30T00:00:00"
+            }
+        ]
+    }
 ]

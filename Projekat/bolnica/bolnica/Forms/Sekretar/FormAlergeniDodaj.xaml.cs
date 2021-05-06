@@ -39,11 +39,23 @@ namespace Bolnica.Sekretar
             List<Sastojak> alergeni = storage.GetAll();
             List<Sastojak> dodati = new List<Sastojak>();
 
-            for (int i = 0; i < FormSekretar.Pacijenti.Count; i++)
-                if(String.Equals(txtJMBG.Text, FormSekretar.Pacijenti[i].Jmbg))
+            for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
+                if(String.Equals(txtJMBG.Text, FormSekretar.RedovniPacijenti[i].Jmbg))
                 {
-                    if (FormSekretar.Pacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.Pacijenti[i].Alergeni)
+                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                        {
+                            DodatiAlergeni.Add(s);
+                            dodati.Add(s);
+                        }
+                    break;
+                }
+
+            for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
+                if (String.Equals(txtJMBG.Text, FormSekretar.GostiPacijenti[i].Jmbg))
+                {
+                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
                         {
                             DodatiAlergeni.Add(s);
                             dodati.Add(s);
@@ -115,7 +127,10 @@ namespace Bolnica.Sekretar
             if (ti1.IsSelected)
             {
                 btnUkloni.IsEnabled = false;
-                btnDodaj.IsEnabled = true;
+                if (SviAlergeni.Count != 0)
+                    btnDodaj.IsEnabled = true;
+                else
+                    btnDodaj.IsEnabled = false;
             }
             else if (ti2.IsSelected) 
             {

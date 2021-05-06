@@ -1,4 +1,6 @@
 ﻿using Bolnica.Forms;
+using Bolnica.Forms.Sekretar;
+using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -25,119 +27,31 @@ namespace Bolnica.Sekretar
     public partial class FormPregledi : Window
     {
         public static List<Pregled> listaPregleda = new List<Pregled>();
+        public static List<Operacija> listaOperacija = new List<Operacija>();
         public static ObservableCollection<PrikazPregleda> Pregledi { get; set; }
         public static List<Lekar> listaLekara = new List<Lekar>();
-        private Lekar lekarTrenutni = new Lekar();
-        private Lekar lekarPomocni = new Lekar();
-        private Lekar l3 = new Lekar();
-        private Lekar l4 = new Lekar();
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private FileStoragePregledi sveOperacije = new FileStoragePregledi();
         private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
+        private PrikazOperacije prikazOperacije = new PrikazOperacije();
 
         public FormPregledi()
         {
             InitializeComponent();
             dataGridPregledi.DataContext = this;
             Pregledi = new ObservableCollection<PrikazPregleda>();
-            lekarTrenutni.AdresaStanovanja = "AAA";
-            lekarTrenutni.BrojSlobodnihDana = 15;
-            lekarTrenutni.BrojTelefona = "111111";
-            lekarTrenutni.DatumRodjenja = new DateTime();
-            lekarTrenutni.Email = "dada@dada.com";
-            lekarTrenutni.GodineStaza = 11;
-            lekarTrenutni.Ime = "Mico";
-            lekarTrenutni.Prezime = "Govedarica";
-            lekarTrenutni.Jmbg = "342425";
-            lekarTrenutni.KorisnickoIme = "Pero";
-            lekarTrenutni.Lozinka = "Admin";
-            lekarTrenutni.Mbr = 21312;
-            lekarTrenutni.Plata = 1000;
-            Specijalizacija sp = new Specijalizacija();
-            sp.Id = 121;
-            sp.Naziv = "neka";
-            sp.OblastMedicine = "nekaa";
-            lekarTrenutni.Specijalizacija = sp;
-            lekarTrenutni.TipKorisnika = TipKorisnika.lekar;
-            lekarTrenutni.Zaposlen = true;
-
-            lekarPomocni.AdresaStanovanja = "BBB";
-            lekarPomocni.BrojSlobodnihDana = 15;
-            lekarPomocni.BrojTelefona = "22222";
-            lekarPomocni.DatumRodjenja = new DateTime();
-            lekarPomocni.Email = "bada@dada.com";
-            lekarPomocni.GodineStaza = 7;
-            lekarPomocni.Ime = "Mio";
-            lekarPomocni.Prezime = "Prodano";
-            lekarPomocni.Jmbg = "222222";
-            lekarPomocni.KorisnickoIme = "Peki";
-            lekarPomocni.Lozinka = "Baja";
-            lekarPomocni.Mbr = 3232;
-            lekarPomocni.Plata = 10000;
-            Specijalizacija spa = new Specijalizacija();
-            spa.Id = 1211;
-            spa.Naziv = "neeka";
-            spa.OblastMedicine = "nekaaa";
-            lekarPomocni.Specijalizacija = spa;
-            lekarPomocni.TipKorisnika = TipKorisnika.lekar;
-            lekarPomocni.Zaposlen = true;
-
-            l3.AdresaStanovanja = "Tolstojeva 1";
-            l3.BrojSlobodnihDana = 20;
-            l3.BrojTelefona = "0642354578";
-            l3.DatumRodjenja = new DateTime(1965, 3, 3);
-            l3.Email = "pap@gmail.com";
-            l3.GodineStaza = 30;
-            l3.Ime = "Vatroslav";
-            l3.Prezime = "Pap";
-            l3.Jmbg = "0303965123456";
-            l3.KorisnickoIme = "vatro";
-            l3.Lozinka = "vatro";
-            l3.Mbr = 123123;
-            l3.Plata = 15000;
-            Specijalizacija sp3 = new Specijalizacija();
-            sp3.Id = 1251;
-            sp3.Naziv = "kardioloski majstor";
-            sp3.OblastMedicine = "kardiologija";
-            l3.Specijalizacija = sp3;
-            l3.TipKorisnika = TipKorisnika.lekar;
-            l3.Zaposlen = true;
-
-            l4.AdresaStanovanja = "Balzakova 21";
-            l4.BrojSlobodnihDana = 17;
-            l4.BrojTelefona = "0613579624";
-            l4.DatumRodjenja = new DateTime(1988, 9, 9);
-            l4.Email = "bodi@gmail.com";
-            l4.GodineStaza = 6;
-            l4.Ime = "Radmilo";
-            l4.Prezime = "Bodiroga";
-            l4.Jmbg = "090988131533";
-            l4.KorisnickoIme = "bodi";
-            l4.Lozinka = "bodi";
-            l4.Mbr = 123456;
-            l4.Plata = 8000;
-            Specijalizacija sp4 = new Specijalizacija();
-            sp4.Id = 1251;
-            sp4.Naziv = "slusni specijalista";
-            sp4.OblastMedicine = "otorinolaringologija";
-            l4.Specijalizacija = sp3;
-            l4.TipKorisnika = TipKorisnika.lekar;
-            l4.Zaposlen = true;
-
-
-
-            listaLekara.Add(lekarTrenutni);
-            listaLekara.Add(lekarPomocni);
-            listaLekara.Add(l3);
-            listaLekara.Add(l4);
-
+            
 
             listaPregleda = sviPregledi.GetAllPregledi();
+            listaOperacija = sveOperacije.GetAllOperacije();
             listaPacijenata = sviPacijenti.GetAll();
             listaProstorija = sveProstorije.GetAllProstorije();
+            listaLekara = sviLekari.GetAll();
 
             for (int i = 0; i < listaPregleda.Count; i++)
             {
@@ -149,6 +63,7 @@ namespace Bolnica.Sekretar
                     prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
                     prikazPregleda.Datum = listaPregleda[i].Datum;
                     prikazPregleda.AnamnezaId = listaPregleda[i].AnamnezaId;
+                    prikazPregleda.Hitan = listaPregleda[i].Hitan;
                     for (int p = 0; p < listaPacijenata.Count; p++)
                     {
                         if (listaPregleda[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
@@ -175,11 +90,50 @@ namespace Bolnica.Sekretar
                     Pregledi.Add(prikazPregleda);
                 }
             }
+
+            for (int i = 0; i < listaOperacija.Count; i++)
+            {
+                if (listaOperacija[i].Zavrsen.Equals(false))
+                {
+                    prikazOperacije = new PrikazOperacije();
+                    prikazOperacije.Id = listaOperacija[i].Id;
+                    prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
+                    prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
+                    prikazOperacije.Datum = listaOperacija[i].Datum;
+                    prikazOperacije.AnamnezaId = listaOperacija[i].AnamnezaId;
+                    prikazOperacije.Hitan = listaOperacija[i].Hitan;
+                    prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
+                    for (int p = 0; p < listaOperacija.Count; p++)
+                    {
+                        if (listaOperacija[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
+                        {
+                            prikazOperacije.Pacijent = listaPacijenata[p];
+                            break;
+                        }
+                    }
+                    for (int p = 0; p < listaProstorija.Count; p++)
+                    {
+                        if (listaOperacija[i].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
+                        {
+                            prikazOperacije.Prostorija = listaProstorija[p];
+                            break;
+                        }
+                    }
+                    for (int p = 0; p < listaLekara.Count; p++)
+                    {
+                        if (listaOperacija[i].lekarJmbg.Equals(listaLekara[p].Jmbg))
+                        {
+                            prikazOperacije.Lekar = listaLekara[p];
+                        }
+                    }
+                    Pregledi.Add(prikazOperacije);
+                }
+            }
         }
 
         private void ZakaziTermin(object sender, RoutedEventArgs e)
         {
-            FormZakaziPregled s = new FormZakaziPregled(listaLekara);
+            FormZakaziPregled s = new FormZakaziPregled();
             s.ShowDialog();
         }
 
@@ -199,7 +153,7 @@ namespace Bolnica.Sekretar
                         if (pregled.Id.Equals(listaPregleda[i].Id))
                         {
                             pp = dataGridPregledi.SelectedItem as PrikazPregleda;
-                            FormPomeriPregled s = new FormPomeriPregled(pp, listaLekara);
+                            FormPomeriPregled s = new FormPomeriPregled(pp);
                             s.ShowDialog();
                             break;
                         }
@@ -215,7 +169,7 @@ namespace Bolnica.Sekretar
             }
         }
 
-        
+
 
         private void Button_Click_Pacijenti(object sender, RoutedEventArgs e)
         {
@@ -267,6 +221,12 @@ namespace Bolnica.Sekretar
                                           MessageBoxButton.OK,
                                           MessageBoxImage.Information);
             }
+        }
+
+        private void ZakaziHitanTermin(object sender, RoutedEventArgs e)
+        {
+            FormZakaziHitanTermin s = new FormZakaziHitanTermin(dataGridPregledi);
+            s.ShowDialog();
         }
     }
 }

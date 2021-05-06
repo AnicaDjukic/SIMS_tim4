@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -25,18 +26,19 @@ namespace Bolnica.Sekretar
     {
         private List<Lekar> lekari = new List<Lekar>();
         private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileStorageLekar sviLekari = new FileStorageLekar();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
         private FileStoragePregledi sviPregledi = new FileStoragePregledi();
         private List<Pacijent> pacijentiSaObrisanim = new List<Pacijent>();
         private List<Pacijent> pacijenti = new List<Pacijent>();
         private List<Prostorija> prostorije = new List<Prostorija>();
 
-        public FormZakaziPregled(List<Lekar> lekari)
+        public FormZakaziPregled()
         {
             InitializeComponent();
-            this.lekari = lekari;
             this.DataContext = this;
 
+            lekari = sviLekari.GetAll();
             pacijentiSaObrisanim = sviPacijenti.GetAll();
             prostorije = sveProstorije.GetAllProstorije();
 
@@ -45,9 +47,10 @@ namespace Bolnica.Sekretar
                     pacijenti.Add(p);
 
             foreach (Prostorija p in prostorije)
-                comboProstorija.Items.Add(p.BrojProstorije);
+                if(!p.Obrisana)
+                    comboProstorija.Items.Add(p.BrojProstorije);
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
             {
                 bool postoji = false;
                 foreach (string cbi in comboImeLekara.Items)
@@ -60,7 +63,7 @@ namespace Bolnica.Sekretar
                     comboImeLekara.Items.Add(l.Ime);
             }
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
             {
                 bool postoji = false;
                 foreach (string cbi in comboPrezimeLekara.Items)
@@ -73,7 +76,7 @@ namespace Bolnica.Sekretar
                     comboPrezimeLekara.Items.Add(l.Prezime);
             }
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
             {
                 bool postoji = false;
                 foreach (int cbi in comboMbrLekara.Items)
@@ -99,7 +102,7 @@ namespace Bolnica.Sekretar
                     comboImePacijenta.Items.Add(p.Ime);
             }
 
-            foreach (Pacijent p in pacijenti) 
+            foreach (Pacijent p in pacijenti)
             {
                 bool postoji = false;
                 foreach (string cbi in comboPrezimePacijenta.Items)
@@ -112,7 +115,7 @@ namespace Bolnica.Sekretar
                     comboPrezimePacijenta.Items.Add(p.Prezime);
             }
 
-            foreach (Pacijent p in pacijenti) 
+            foreach (Pacijent p in pacijenti)
             {
                 bool postoji = false;
                 foreach (string cbi in comboJmbgPacijenta.Items)
@@ -131,7 +134,7 @@ namespace Bolnica.Sekretar
                 {
                     TimeSpan ts = new TimeSpan(vre, min, 0);
                     min = min + 15;
-                    comboVreme.Items.Add(ts);
+                    comboVreme.Items.Add(string.Format("{0:00}:{1:00}", ts.Hours, ts.Minutes));
                 }
             }
 
@@ -152,6 +155,7 @@ namespace Bolnica.Sekretar
             trenutniPregled.Datum = new DateTime(godina, mesec, dan, Int32.Parse(sati), Int32.Parse(minuti), 0);
             trenutniPregled.Trajanje = int.Parse(txtTrajanje.Text);
             trenutniPregled.Zavrsen = false;
+            trenutniPregled.Hitan = false;
 
             for (int i = 0; i < lekari.Count; i++)
             {
@@ -161,7 +165,7 @@ namespace Bolnica.Sekretar
                     break;
                 }
             }
-            if(trenutniPregled.Lekar == null)
+            if (trenutniPregled.Lekar == null)
             {
                 MessageBox.Show("Nepostojeći lekar", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 comboImeLekara.Focusable = true;
@@ -201,7 +205,7 @@ namespace Bolnica.Sekretar
                 return;
             }
 
-            if (PacijentZauzet(trenutniPregled.Pacijent, trenutniPregled.Datum, trenutniPregled.Trajanje)) 
+            if (PacijentZauzet(trenutniPregled.Pacijent, trenutniPregled.Datum, trenutniPregled.Trajanje))
             {
                 MessageBox.Show("Pacijent je zauzet u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 comboImePacijenta.Focusable = true;
@@ -243,6 +247,7 @@ namespace Bolnica.Sekretar
             p.AnamnezaId = -1;
             p.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
             p.Datum = trenutniPregled.Datum;
+            p.Hitan = trenutniPregled.Hitan;
 
             sviPregledi.Save(p);
             FormPregledi.listaPregleda.Add(p);
@@ -250,12 +255,15 @@ namespace Bolnica.Sekretar
             this.Close();
         }
 
-        private bool ProstorijaZauzeta(Prostorija prostorija, DateTime datum, int trajanje) 
+        private bool ProstorijaZauzeta(Prostorija prostorija, DateTime datum, int trajanje)
         {
             bool zauzet = false;
             List<Pregled> pregledi = new List<Pregled>();
             List<Pregled> preglediProstorije = new List<Pregled>();
+            List<Operacija> operacije = new List<Operacija>();
+            List<Operacija> operacijeProstorije = new List<Operacija>();
             pregledi = sviPregledi.GetAllPregledi();
+            operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
                 if (p.brojProstorije.Equals(prostorija.BrojProstorije))
@@ -269,7 +277,26 @@ namespace Bolnica.Sekretar
                     break;
                 }
 
-                if (DateTime.Compare(datum, p.Datum) < 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+            }
+
+            foreach (Operacija o in operacije)
+                if (o.brojProstorije.Equals(prostorija.BrojProstorije))
+                    operacijeProstorije.Add(o);
+
+            foreach (Operacija o in operacijeProstorije)
+            {
+                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+
+                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
                 {
                     zauzet = true;
                     break;
@@ -279,12 +306,15 @@ namespace Bolnica.Sekretar
             return zauzet;
         }
 
-        private bool LekarZauzet (Lekar lekar, DateTime datum, int trajanje) 
+        private bool LekarZauzet(Lekar lekar, DateTime datum, int trajanje)
         {
             bool zauzet = false;
             List<Pregled> pregledi = new List<Pregled>();
             List<Pregled> preglediLekara = new List<Pregled>();
+            List<Operacija> operacije = new List<Operacija>();
+            List<Operacija> operacijeLekara = new List<Operacija>();
             pregledi = sviPregledi.GetAllPregledi();
+            operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
                 if (p.lekarJmbg.Equals(lekar.Jmbg))
@@ -298,7 +328,26 @@ namespace Bolnica.Sekretar
                     break;
                 }
 
-                if (DateTime.Compare(datum, p.Datum) < 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+            }
+
+            foreach (Operacija o in operacije)
+                if (o.lekarJmbg.Equals(lekar.Jmbg))
+                    operacijeLekara.Add(o);
+
+            foreach (Operacija o in operacijeLekara)
+            {
+                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+
+                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
                 {
                     zauzet = true;
                     break;
@@ -308,18 +357,21 @@ namespace Bolnica.Sekretar
             return zauzet;
         }
 
-        private bool PacijentZauzet (Pacijent pacijent, DateTime datum, int trajanje) 
+        private bool PacijentZauzet(Pacijent pacijent, DateTime datum, int trajanje)
         {
             bool zauzet = false;
             List<Pregled> pregledi = new List<Pregled>();
             List<Pregled> preglediPacijenta = new List<Pregled>();
+            List<Operacija> operacije = new List<Operacija>();
+            List<Operacija> operacijePacijenta = new List<Operacija>();
             pregledi = sviPregledi.GetAllPregledi();
+            operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
                 if (p.pacijentJmbg.Equals(pacijent.Jmbg))
                     preglediPacijenta.Add(p);
 
-            foreach (Pregled p in preglediPacijenta) 
+            foreach (Pregled p in preglediPacijenta)
             {
                 if (DateTime.Compare(datum, p.Datum) >= 0 && DateTime.Compare(datum, p.Datum.AddMinutes(trajanje)) < 0)
                 {
@@ -327,7 +379,26 @@ namespace Bolnica.Sekretar
                     break;
                 }
 
-                if (DateTime.Compare(datum, p.Datum) < 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+            }
+
+            foreach (Operacija o in operacije)
+                if (o.pacijentJmbg.Equals(pacijent.Jmbg))
+                    operacijePacijenta.Add(o);
+
+            foreach (Operacija o in operacijePacijenta)
+            {
+                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
+                {
+                    zauzet = true;
+                    break;
+                }
+
+                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
                 {
                     zauzet = true;
                     break;
@@ -363,12 +434,12 @@ namespace Bolnica.Sekretar
             {
                 foreach (Pacijent p in pacijenti)
                     if (p.Prezime.Equals(comboPrezimePacijenta.Text))
-                            mogucaImena.Add(p.Ime);
+                        mogucaImena.Add(p.Ime);
 
                 foreach (string cbi in comboImePacijenta.Items)
                 {
                     neIzbacuj = false;
-                    for (int j = 0; j < mogucaImena.Count; j++) 
+                    for (int j = 0; j < mogucaImena.Count; j++)
                     {
                         if (cbi.Equals(mogucaImena[j]))
                             neIzbacuj = true;
@@ -582,7 +653,7 @@ namespace Bolnica.Sekretar
             for (int i = comboImeLekara.Items.Count - 1; i >= 0; i--)
                 comboImeLekara.Items.RemoveAt(i);
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
             {
                 bool postoji = false;
                 foreach (string cbi in comboImeLekara.Items)
@@ -597,7 +668,7 @@ namespace Bolnica.Sekretar
 
             if (!string.IsNullOrEmpty(comboPrezimeLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Prezime.Equals(comboPrezimeLekara.Text))
                         mogucaImena.Add(l.Ime);
 
@@ -622,7 +693,7 @@ namespace Bolnica.Sekretar
             mogucaImena.Clear();
             if (!string.IsNullOrEmpty(comboMbrLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Mbr == Int32.Parse(comboMbrLekara.Text))
                         mogucaImena.Add(l.Ime);
 
@@ -658,7 +729,7 @@ namespace Bolnica.Sekretar
             for (int i = comboPrezimeLekara.Items.Count - 1; i >= 0; i--)
                 comboPrezimeLekara.Items.RemoveAt(i);
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
             {
                 bool postoji = false;
                 foreach (string cbi in comboPrezimeLekara.Items)
@@ -673,7 +744,7 @@ namespace Bolnica.Sekretar
 
             if (!string.IsNullOrEmpty(comboImeLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Ime.Equals(comboImeLekara.Text))
                         mogucaPrezimena.Add(l.Prezime);
 
@@ -698,7 +769,7 @@ namespace Bolnica.Sekretar
             mogucaPrezimena.Clear();
             if (!string.IsNullOrEmpty(comboMbrLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Mbr == Int32.Parse(comboMbrLekara.Text))
                         mogucaPrezimena.Add(l.Prezime);
 
@@ -734,12 +805,12 @@ namespace Bolnica.Sekretar
             for (int i = comboMbrLekara.Items.Count - 1; i >= 0; i--)
                 comboMbrLekara.Items.RemoveAt(i);
 
-            foreach (Lekar l in this.lekari)
+            foreach (Lekar l in lekari)
                 comboMbrLekara.Items.Add(l.Mbr);
 
             if (!string.IsNullOrEmpty(comboImeLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Ime.Equals(comboImeLekara.Text))
                         moguciMbr.Add(l.Mbr);
 
@@ -764,7 +835,7 @@ namespace Bolnica.Sekretar
             moguciMbr.Clear();
             if (!string.IsNullOrEmpty(comboPrezimeLekara.Text))
             {
-                foreach (Lekar l in this.lekari)
+                foreach (Lekar l in lekari)
                     if (l.Prezime.Equals(comboPrezimeLekara.Text))
                         moguciMbr.Add(l.Mbr);
 
