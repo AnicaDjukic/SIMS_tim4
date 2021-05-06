@@ -1,17 +1,18 @@
-using System;
-using System.Collections.Generic;
+using Model.Prostorije;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Model.Pregledi
 {
-   public class FileStoragePregledi
-   {
-      
-      public string FileLocationPregledi { get; set; }
+    public class FileStoragePregledi
+    {
+        public string FileLocationPregledi { get; set; }
 
-      public string FileLocationOperacije { get; set; }
-      public FileStoragePregledi()
+        public string FileLocationOperacije { get; set; }
+
+        public static bool serializeKorisnik;
+        public FileStoragePregledi()
         {
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationPregledi = System.IO.Path.Combine(FileLocation, @"Resources\", "Pregledi.json");
@@ -19,30 +20,38 @@ namespace Model.Pregledi
 
         }
 
-      public List<Pregled> GetAllPregledi()
-      {
+        public List<Pregled> GetAllPregledi()
+        {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             var json = File.ReadAllText(FileLocationPregledi);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
             return pregledi;
         }
 
-      public List<Operacija> GetAllOperacije()
-      {
+        public List<Operacija> GetAllOperacije()
+        {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             var json = File.ReadAllText(FileLocationOperacije);
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
             return operacije;
         }
 
         public void Save(Pregled noviPregled)
-      {
+        {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
             noviPregledi.Add(noviPregled);
             File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
         }
-      
+
         public void Save(Operacija novaOperacija)
         {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
             noveOperacije.Add(novaOperacija);
@@ -51,6 +60,8 @@ namespace Model.Pregledi
 
         public void Izmeni(Pregled noviPregled)
         {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
 
@@ -68,13 +79,15 @@ namespace Model.Pregledi
 
         public void Izmeni(Operacija novaOperacija)
         {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
             for (int i = 0; i < noveOperacije.Count; i++)
             {
                 if (noveOperacije[i].Id.Equals(novaOperacija.Id))
                 {
-                    noveOperacije[i]=novaOperacija;
+                    noveOperacije[i] = novaOperacija;
                     break;
                 }
             }
@@ -82,35 +95,39 @@ namespace Model.Pregledi
         }
         public void Delete(Pregled noviPregled)
         {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
 
             for (int i = 0; i < noviPregledi.Count; i++)
+            {
+                if (noviPregledi[i].Id.Equals(noviPregled.Id))
                 {
-                    if (noviPregledi[i].Id.Equals(noviPregled.Id))
-                    {
-                        noviPregledi.RemoveAt(i);
-                        break;
-                    }
+                    noviPregledi.RemoveAt(i);
+                    break;
                 }
-                File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
-            
+            }
+            File.WriteAllText(FileLocationPregledi, JsonConvert.SerializeObject(noviPregledi));
+
         }
 
         public void Delete(Operacija novaOperacija)
         {
+            serializeKorisnik = false;
+            FileStorageZaliha.serializeProstorija = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
-                for (int i = 0; i < noveOperacije.Count; i++)
+            for (int i = 0; i < noveOperacije.Count; i++)
+            {
+                if (noveOperacije[i].Id.Equals(novaOperacija.Id))
                 {
-                    if (noveOperacije[i].Id.Equals(novaOperacija.Id))
-                    {
-                        noveOperacije.RemoveAt(i);
-                        break;
-                    }
+                    noveOperacije.RemoveAt(i);
+                    break;
                 }
-                File.WriteAllText(FileLocationOperacije, JsonConvert.SerializeObject(noveOperacije));
             }
+            File.WriteAllText(FileLocationOperacije, JsonConvert.SerializeObject(noveOperacije));
         }
-    
+    }
+
 }

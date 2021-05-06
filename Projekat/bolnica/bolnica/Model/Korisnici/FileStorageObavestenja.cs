@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
+using Model.Pregledi;
 
 namespace Bolnica.Model.Korisnici
 {
@@ -18,6 +19,7 @@ namespace Bolnica.Model.Korisnici
 
         public List<Obavestenje> GetAll()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(fileLocation);
             var obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
             return obavestenja;
@@ -25,6 +27,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Save(Obavestenje novoObavestenje)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(fileLocation);
             List<Obavestenje> obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
             if (obavestenja == null)
@@ -37,6 +40,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Delete(Obavestenje obavestenje)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(fileLocation);
             List<Obavestenje> obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
             if (obavestenja != null)

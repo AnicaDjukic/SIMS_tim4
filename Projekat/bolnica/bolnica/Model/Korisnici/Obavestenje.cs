@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Korisnici;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,8 @@ namespace Bolnica.Model.Korisnici
         public string Naslov { get; set; }
         public bool Obrisan { get; set; }
         public List<string> KorisnickaImena { get; set; }
+
+        public List<Korisnik> Korisnici { get; set; }
 
         public Obavestenje()
         {

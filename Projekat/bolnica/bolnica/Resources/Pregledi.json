@@ -8,8 +8,11 @@
     "Hitan": true,
     "AnamnezaId": -1,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 8,
@@ -19,8 +22,11 @@
     "Hitan": false,
     "AnamnezaId": -1,
     "lekarJmbg": "0303965123456",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 9,
@@ -30,8 +36,11 @@
     "Hitan": true,
     "AnamnezaId": -1,
     "lekarJmbg": "0303965123456",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 12,
@@ -41,8 +50,11 @@
     "Hitan": false,
     "AnamnezaId": -1,
     "lekarJmbg": "222222",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 14,
@@ -52,8 +64,11 @@
     "Hitan": false,
     "AnamnezaId": 11,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 15,
@@ -63,8 +78,11 @@
     "Hitan": false,
     "AnamnezaId": 13,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 16,
@@ -74,8 +92,11 @@
     "Hitan": false,
     "AnamnezaId": -1,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "1212000190000"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "1212000190000",
+    "Pacijent": null
   },
   {
     "Id": 17,
@@ -85,8 +106,11 @@
     "Hitan": false,
     "AnamnezaId": -1,
     "lekarJmbg": "234567891",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
   },
   {
     "Id": 18,
@@ -96,8 +120,11 @@
     "Hitan": false,
     "AnamnezaId": 15,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "1212000190000"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "1212000190000",
+    "Pacijent": null
   },
   {
     "Id": 19,
@@ -107,8 +134,52 @@
     "Hitan": false,
     "AnamnezaId": -1,
     "lekarJmbg": "123456789",
-    "brojProstorije": 103,
-    "pacijentJmbg": "2512002149573"
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": null,
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
+  },
+  {
+    "Id": 20,
+    "Datum": "2021-05-06T00:15:00",
+    "Trajanje": 30,
+    "Zavrsen": false,
+    "Hitan": false,
+    "AnamnezaId": -1,
+    "lekarJmbg": "234567891",
+    "Lekar": null,
+    "brojProstorije": "102",
+    "Prostorija": { "BrojProstorije": "102" },
+    "pacijentJmbg": "1212000190000",
+    "Pacijent": null
+  },
+  {
+    "Id": 21,
+    "Datum": "2021-05-07T00:00:00",
+    "Trajanje": 30,
+    "Zavrsen": false,
+    "Hitan": false,
+    "AnamnezaId": -1,
+    "lekarJmbg": "234567891",
+    "Lekar": null,
+    "brojProstorije": "103",
+    "Prostorija": { "BrojProstorije": "103" },
+    "pacijentJmbg": "2512002149573",
+    "Pacijent": null
+  },
+  {
+    "Id": 22,
+    "Datum": "2021-05-07T00:30:00",
+    "Trajanje": 30,
+    "Zavrsen": false,
+    "Hitan": false,
+    "AnamnezaId": -1,
+    "lekarJmbg": "234567891",
+    "Lekar": null,
+    "brojProstorije": "102",
+    "Prostorija": { "BrojProstorije": "102" },
+    "pacijentJmbg": "1212000190000",
+    "Pacijent": null
   }
 ]
-

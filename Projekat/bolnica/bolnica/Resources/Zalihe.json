@@ -1,1 +1,51 @@
-[{"Id":17,"Kolicina":10,"Oprema":{"Sifra":"sad"},"Prostorija":{"BrojProstorije":"106"}},{"Id":17,"Kolicina":20,"Oprema":{"Sifra":"sad"},"Prostorija":{"BrojProstorije":"103"}},{"Id":17,"Kolicina":70,"Oprema":{"Sifra":"sad"},"Prostorija":{"BrojProstorije":"magacin"}},{"Id":0,"Kolicina":300,"Oprema":{"Sifra":"sad1245"},"Prostorija":{"BrojProstorije":"103"}},{"Id":0,"Kolicina":200,"Oprema":{"Sifra":"sad1245"},"Prostorija":{"BrojProstorije":"111"}},{"Id":3,"Kolicina":1000,"Oprema":{"Sifra":"sad1245"},"Prostorija":{"BrojProstorije":"magacin"}},{"Id":0,"Kolicina":10,"Oprema":{"Sifra":"ahsja"},"Prostorija":{"BrojProstorije":"111"}},{"Id":0,"Kolicina":10,"Oprema":{"Sifra":"ahsja"},"Prostorija":{"BrojProstorije":"111"}},{"Id":5,"Kolicina":40,"Oprema":{"Sifra":"ahsja"},"Prostorija":{"BrojProstorije":"magacin"}},{"Id":22,"Kolicina":20,"Oprema":{"Sifra":"asa"},"Prostorija":{"BrojProstorije":"106"}},{"Id":22,"Kolicina":10,"Oprema":{"Sifra":"asa"},"Prostorija":{"BrojProstorije":"111"}},{"Id":22,"Kolicina":70,"Oprema":{"Sifra":"asa"},"Prostorija":{"BrojProstorije":"magacin"}}]
+[
+  
+  {
+    "Id": 17,
+    "Kolicina": 10,
+    "Oprema": { "Sifra": "sad" },
+    "Prostorija": { "BrojProstorije": "106" }
+  },
+  {
+    "Id": 17,
+    "Kolicina": 20,
+    "Oprema": { "Sifra": "sad" },
+    "Prostorija": { "BrojProstorije": "103" }
+  },
+  {
+    "Id": 17,
+    "Kolicina": 70,
+    "Oprema": { "Sifra": "sad" },
+    "Prostorija": { "BrojProstorije": "magacin" }
+  },
+  {
+    "Id": 3,
+    "Kolicina": 1000,
+    "Oprema": { "Sifra": "sad1245" },
+    "Prostorija": { "BrojProstorije": "magacin" }
+  },
+  {
+    "Id": 0,
+    "Kolicina": 10,
+    "Oprema": { "Sifra": "ahsja" },
+    "Prostorija": { "BrojProstorije": "111" }
+  },
+  {
+    "Id": 22,
+    "Kolicina": 20,
+    "Oprema": { "Sifra": "asa" },
+    "Prostorija": { "BrojProstorije": "106" }
+  },
+  {
+    "Id": 22,
+    "Kolicina": 70,
+    "Oprema": { "Sifra": "asa" },
+    "Prostorija": { "BrojProstorije": "magacin" }
+  },
+  {
+    "Id": 5,
+    "Kolicina": 40,
+    "Oprema": { "Sifra": "ahsja" },
+    "Prostorija": { "BrojProstorije": "magacin" }
+  }
+]

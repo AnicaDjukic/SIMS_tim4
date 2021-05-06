@@ -246,6 +246,7 @@ namespace Bolnica.Sekretar
             p.Zavrsen = trenutniPregled.Zavrsen;
             p.AnamnezaId = -1;
             p.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+            p.Prostorija = trenutniPregled.Prostorija;
             p.Datum = trenutniPregled.Datum;
             p.Hitan = trenutniPregled.Hitan;
 
