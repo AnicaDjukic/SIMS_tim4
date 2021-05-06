@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Validation;
+using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -85,12 +86,13 @@ namespace Bolnica.Forms.Upravnik
             List<Renoviranje> renoviranja = storage.GetAll();
             foreach (Renoviranje r in renoviranja)
             {
-                if (r.BrojProstorije == brojProstorije)
+                if (r.Prostorija.BrojProstorije == brojProstorije)
                 {
                     Renoviranja.Add(r);
                 }
             }
-            novoRenoviranje.BrojProstorije = brojProstorije;
+            novoRenoviranje.Prostorija = new Prostorija();
+            novoRenoviranje.Prostorija.BrojProstorije = brojProstorije;
         }
 
         private void Button_Click_Zatvori(object sender, RoutedEventArgs e)

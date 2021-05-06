@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Model.Prostorije;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Bolnica.Model.Prostorije
 {
-    class FileStorageRenoviranje
+    public class FileStorageRenoviranje
     {
         private string fileLocation;
 
@@ -18,6 +19,7 @@ namespace Bolnica.Model.Prostorije
 
         public List<Renoviranje> GetAll()
         {
+            FileStorageZaliha.serializeProstorija = false;
             var json = File.ReadAllText(fileLocation);
             var renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
             return renoviranja;
@@ -25,6 +27,7 @@ namespace Bolnica.Model.Prostorije
 
         public void Save(Renoviranje novoRenoviranje)
         {
+            FileStorageZaliha.serializeProstorija = false;
             var json = File.ReadAllText(fileLocation);
             List<Renoviranje> renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
             if (renoviranja == null)

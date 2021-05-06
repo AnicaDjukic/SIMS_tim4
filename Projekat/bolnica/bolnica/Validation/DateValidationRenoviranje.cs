@@ -26,7 +26,7 @@ namespace Bolnica.Validation
 
                 foreach(Renoviranje r in renoviranja)
                 {
-                    if(r.BrojProstorije == FormRenoviranje.novoRenoviranje.BrojProstorije)
+                    if(r.Prostorija.BrojProstorije == FormRenoviranje.novoRenoviranje.Prostorija.BrojProstorije)
                     {
                         if ((DateTime)value >= r.PocetakRenoviranja && (DateTime)value <= r.KrajRenoviranja)
                         {
@@ -38,7 +38,7 @@ namespace Bolnica.Validation
 
                 foreach(Pregled p in pregledi)
                 {
-                    if(p.brojProstorije.ToString() == FormRenoviranje.novoRenoviranje.BrojProstorije)
+                    if(p.brojProstorije.ToString() == FormRenoviranje.novoRenoviranje.Prostorija.BrojProstorije)
                     {
                         if(((DateTime)value).Date == p.Datum.Date)
                         {
@@ -49,7 +49,7 @@ namespace Bolnica.Validation
 
                 foreach (Operacija o in operacije)
                 {
-                    if (o.brojProstorije.ToString() == FormRenoviranje.novoRenoviranje.BrojProstorije)
+                    if (o.brojProstorije.ToString() == FormRenoviranje.novoRenoviranje.Prostorija.BrojProstorije)
                     {
                         if (((DateTime)value).Date == o.Datum.Date)
                         {

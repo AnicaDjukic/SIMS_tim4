@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Model.Prostorije;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,8 @@ namespace Bolnica.Model.Prostorije
         }
 
         public List<Oprema> GetAll()
-        { 
+        {
+            FileStorageZaliha.serializeOprema = true;
             var json = File.ReadAllText(fileLocation);
             var oprema = JsonConvert.DeserializeObject<List<Oprema>>(json);
             return oprema;
@@ -25,6 +27,7 @@ namespace Bolnica.Model.Prostorije
 
         public void Save(Oprema novaOprema)
         {
+            FileStorageZaliha.serializeOprema = true;
             var json = File.ReadAllText(fileLocation);
             List<Oprema> oprema = JsonConvert.DeserializeObject<List<Oprema>>(json);
             if (oprema == null)
@@ -37,6 +40,7 @@ namespace Bolnica.Model.Prostorije
 
         public void Delete(Oprema opremaZaBrisanje)
         {
+            FileStorageZaliha.serializeOprema = true;
             var json = File.ReadAllText(fileLocation);
             List<Oprema> oprema = JsonConvert.DeserializeObject<List<Oprema>>(json);
             if (oprema != null)

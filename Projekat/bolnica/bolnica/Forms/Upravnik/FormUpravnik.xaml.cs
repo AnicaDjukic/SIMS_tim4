@@ -600,7 +600,7 @@ namespace bolnica.Forms
                 List<Renoviranje> renoviranjaProstorije = new List<Renoviranje>();
                 foreach (Renoviranje r in renoviranja)
                 {
-                    if (r.BrojProstorije == row.BrojProstorije)
+                    if (r.Prostorija.BrojProstorije == row.BrojProstorije)
                         renoviranjaProstorije.Add(r);
                 }
                 foreach(Renoviranje r in renoviranjaProstorije)
