@@ -11,7 +11,7 @@ namespace Model.Pregledi
         public bool Hitan { get; set; }
         public int AnamnezaId { get; set; }
         public string lekarJmbg { get; set; }
-        public int brojProstorije { get; set; }
+        public string brojProstorije { get; set; }
         public string pacijentJmbg { get; set; }
     }
 }

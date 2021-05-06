@@ -302,7 +302,7 @@ namespace Bolnica.Forms.Sekretar
 
                                 if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(pregled.Trajanje)) >= 0)
                                     continue;
-                                else if (pregled.Prostorija.BrojProstorije == p.brojProstorije || pregled.Lekar.Jmbg.Equals(p.lekarJmbg) || pregled.Pacijent.Jmbg.Equals(p.pacijentJmbg))
+                                else if (pregled.Prostorija.BrojProstorije.Equals(p.brojProstorije) || pregled.Lekar.Jmbg.Equals(p.lekarJmbg) || pregled.Pacijent.Jmbg.Equals(p.pacijentJmbg))
                                     zauzet = true;
                             }
 
