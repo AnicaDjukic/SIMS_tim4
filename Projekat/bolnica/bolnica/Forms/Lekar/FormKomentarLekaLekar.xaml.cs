@@ -33,7 +33,7 @@ namespace Bolnica.Forms
             leko = sviLekovi.GetAll();
             for (int i = 0; i < leko.Count; i++)
             {
-                if (leko[i].Status.Equals(StatusLeka.odbijen))
+                if (leko[i].Status.Equals(StatusLeka.odbijen) || leko[i].Obrisan)
                 {
                     leko.RemoveAt(i);
                     i--;

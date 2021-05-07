@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="isAkcelerator">
+        Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="AkoJeAkceleratorPritisnut">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -68,37 +68,37 @@
 
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="textDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
             <DatePicker.SelectedDate>
-                <Binding Path="datumIzdavanja" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="datumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged"/>
             </DatePicker.SelectedDate>
         </DatePicker>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="IsPro" >
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterProizvodjac" >
             <ComboBox.Text>
-                <Binding Path="proizvodjac" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="proizvodjacLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isTab">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterLek">
             <ComboBox.Text>
-                <Binding Path="lek" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="nazivLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isEnterDoza">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterDoza">
             <ComboBox.Text>
-                <Binding Path="doza" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="dozaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isEnterBrojKutija">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterBrojKutija">
             <ComboBox.Text>
-                <Binding Path="brojKutija" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="brojKutijaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isEnterVreme">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterVreme">
             <ComboBox.Text>
-                <Binding Path="vremeUzimanja" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="vremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="textDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
             <DatePicker.SelectedDate>
-                <Binding Path="datumPrekida" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="datumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged"/>
             </DatePicker.SelectedDate>
         </DatePicker>
 

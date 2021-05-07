@@ -33,7 +33,6 @@ namespace Bolnica.Forms
         public static DataGrid dataList = new DataGrid();
         public static DataGrid dataListIstorija = new DataGrid();
         public static ObservableCollection<PrikazLek> lekoviPrikaz = new ObservableCollection<PrikazLek>();
-
         public static List<Lekar> listaLekara = new List<Lekar>();
         private Lekar lekarTrenutni = new Lekar();
         private Lekar lekarPomocni = new Lekar();
@@ -49,12 +48,6 @@ namespace Bolnica.Forms
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
         private PrikazOperacije prikazOperacije = new PrikazOperacije();
         private List<Lek> lekovi = new List<Lek>();
-
-
-
-
-
-
 
         public FormLekar(Lekar ln)
         {
@@ -912,8 +905,19 @@ namespace Bolnica.Forms
         public void OdobriLek()
         {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
+            
             if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
+                lekovi = sviLekovi.GetAll();
+
+                for (int i = 0; i < lekovi.Count; i++)
+                {
+                    if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
+                    {
+                        lekovi.RemoveAt(i);
+                        i--;
+                    }
+                }
                 for (int i = 0; i < lekovi.Count; i++)
                 {
                     if (lekovi[i].Id.Equals(p.Id))

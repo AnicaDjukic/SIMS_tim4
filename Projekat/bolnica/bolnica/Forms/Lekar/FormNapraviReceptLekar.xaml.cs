@@ -20,74 +20,172 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormNapraviReceptLekar : Window
     {
+        public DateTime datumIzdavanjaRecepta { get; set; }
+        public string nazivLeka { get; set; }
+        public string dozaLeka { get; set; }
+        public string brojKutijaLeka { get; set; }
+        public string vremeUzimanjaLeka { get; set; }
+        public string proizvodjacLeka { get; set; }
+        public DateTime datumPrekidaRecepta { get; set; }
 
-        public DateTime datumIzdavanja { get; set; }
-        public string lek { get; set; }
-        public string doza { get; set; }
-        public string brojKutija { get; set; }
-        public string vremeUzimanja { get; set; }
+        private Pacijent trenutniPacijent = new Pacijent();
 
-        public string proizvodjac { get; set; }
-        public DateTime datumPrekida { get; set; }
+        private List<Lek> sviLekovi;
 
-        private Pacijent trePac = new Pacijent();
-
-        private List<Lek> lekovi;
-
-        private FileStorageLek sviLekovi = new FileStorageLek();
+        private FileStorageLek storageLekovi = new FileStorageLek();
         public FormNapraviReceptLekar(Pacijent trenutniPacijent)
         {
-            lekovi = sviLekovi.GetAll();
-            for (int i = 0; i < lekovi.Count; i++)
-            {
-                if (lekovi[i].Status.Equals(StatusLeka.odbijen))
-                {
-                    lekovi.RemoveAt(i);
-                    i--;
-                }
-            }
-            trePac = trenutniPacijent;
+            FiltrirajLekove();
+            this.trenutniPacijent = trenutniPacijent;
             InitializeComponent();
-
             this.DataContext = this;
+            PopuniComboBoxoveIDatePickere();
+        }
 
-            datumIzdavanja = DateTime.Now;
-
-            for (int i = 0; i < lekovi.Count; i++)
+        public void Potvrdi()
+        {
+            Lek izabraniLek = DobijIzabraniLek();
+            if (DaLiJePacijentAlergicanNaLek(izabraniLek))
             {
-                int dozvolica = 0;
-                for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+                return;
+            }
+            FormNapraviAnamnezuLekar.Recepti.Add(NapraviRecept());
+            this.Close();
+        }
+
+        public Lek DobijIzabraniLek()
+        {
+            Lek izabraniLek = new Lek();
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (textProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && textLek.Text.Equals(sviLekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(sviLekovi[i].KolicinaUMg))
                 {
-                    if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(lekovi[i].Id))
-                    {
-                        dozvolica = 1;
-                    }
-
-
+                    izabraniLek = sviLekovi[i];
                 }
-                if (dozvolica == 0)
+            }
+            return izabraniLek;
+        }
+
+        public bool DaLiJePacijentAlergicanNaLek(Lek izabraniLek) {
+            List<Sastojak>? alergeniPacijenta = trenutniPacijent?.Alergeni;
+            if (alergeniPacijenta != null)
+            {
+                for (int o = 0; o < alergeniPacijenta.Count; o++)
                 {
-                    if (!textLek.Items.Contains(lekovi[i].Naziv))
+                    for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
                     {
-                        textLek.Items.Add(lekovi[i].Naziv);
-                    }
-                    if (!textDoza.Items.Contains(lekovi[i].KolicinaUMg))
-                    {
-                        textDoza.Items.Add(lekovi[i].KolicinaUMg);
-                    }
-                    if (!textProizvodjac.Items.Contains(lekovi[i].Proizvodjac))
-                    {
-                        textProizvodjac.Items.Add(lekovi[i].Proizvodjac);
+                        if (alergeniPacijenta[o].Naziv.Equals(izabraniLek.Sastojak[m].Naziv))
+                        {
+                            MessageBox.Show("Pacijent je alergican na izabrani lek");
+                            return true;
+                        }
+
                     }
                 }
             }
+            return false;
+
+        }
+
+        public PrikazRecepta NapraviRecept()
+        {
+            Recept noviRecept = new Recept();
+            PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
+            noviRecept.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
+            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (sviLekovi[i].Naziv.Equals(textLek.Text) && sviLekovi[i].KolicinaUMg.Equals(int.Parse(textDoza.Text)))
+                {
+                    noviRecept.Lek = sviLekovi[i];
+                    noviPrikazRecepta.lek = sviLekovi[i];
+                    break;
+                }
+            }
+            noviRecept.Kolicina = int.Parse(textBrojKutija.Text);
+            noviRecept.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
+            noviRecept.Trajanje = DateTime.Parse(textDatumPrekida.Text);
+            noviPrikazRecepta.Kolicina = int.Parse(textBrojKutija.Text);
+            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
+            noviPrikazRecepta.Trajanje = DateTime.Parse(textDatumPrekida.Text);
+            return noviPrikazRecepta;
+
+        }
+        public void PopuniComboBoxoveIDatePickere()
+        {
+            PopuniComboBoxLek();
+            PopuniComboBoxDoza();
+            PopuniComboBoxProizvodjac();
+            PopuniComboBoxVremeUzimanja();
+            PopuniComboBoxBrojKutija();
+            datumIzdavanjaRecepta = DateTime.Now;
+            datumPrekidaRecepta = DateTime.Now;
+        }
+
+        public int DaLiJeLekVecDodat(int i)
+        {
+            int lekVecDodat = 0;
+            for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+            {
+                if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
+                {
+                    lekVecDodat = 1;
+                }
+            }
+            return lekVecDodat;
+        }
+        public void PopuniComboBoxLek()
+        {
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (DaLiJeLekVecDodat(i) == 0)
+                {
+                    if (!textLek.Items.Contains(sviLekovi[i].Naziv))
+                    {
+                        textLek.Items.Add(sviLekovi[i].Naziv);
+                    }
+                }
+            }
+        }
+        public void PopuniComboBoxDoza()
+        {
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (DaLiJeLekVecDodat(i) == 0)
+                {
+                    if (!textDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
+                    {
+                        textDoza.Items.Add(sviLekovi[i].KolicinaUMg);
+                    }
+                }
+            }
+        }
+
+        public void PopuniComboBoxProizvodjac()
+        {
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (DaLiJeLekVecDodat(i) == 0)
+                {
+                    if (!textProizvodjac.Items.Contains(sviLekovi[i].Proizvodjac))
+                    {
+                        textProizvodjac.Items.Add(sviLekovi[i].Proizvodjac);
+                    }
+                }
+            }
+        }
 
 
-
+        public void PopuniComboBoxBrojKutija()
+        {
             for (int i = 1; i < 10; i++)
             {
                 textBrojKutija.Items.Add(i);
             }
+        }
+
+        public void PopuniComboBoxVremeUzimanja()
+        {
             for (int vre = 0; vre < 24; vre++)
             {
                 for (int min = 0; min < 59;)
@@ -98,62 +196,21 @@ namespace Bolnica.Forms
                 }
 
             }
-
-            datumPrekida = DateTime.Now;
-
-
         }
 
-        public void Potvrdi()
+        public void FiltrirajLekove()
         {
-            Lek izabraniLek = new Lek();
-            for (int i = 0; i < lekovi.Count; i++)
+            sviLekovi = storageLekovi.GetAll();
+            for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && textLek.Text.Equals(lekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(lekovi[i].KolicinaUMg))
+                if (sviLekovi[i].Status.Equals(StatusLeka.odbijen) || sviLekovi[i].Obrisan)
                 {
-                    izabraniLek = lekovi[i];
+                    sviLekovi.RemoveAt(i);
+                    i--;
                 }
             }
-            List<Sastojak>? alergeniPacijenta = trePac?.Alergeni;
-            if (alergeniPacijenta != null)
-            {
-                for (int o = 0; o < alergeniPacijenta.Count; o++)
-                {
-                    for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
-                    {
-                        if (alergeniPacijenta[o].Naziv.Equals(izabraniLek.Sastojak[m].Naziv))
-                        {
-                            MessageBox.Show("Pacijent je alergican na izabrani lek");
-                            return;
-                        }
-
-                    }
-                }
-            }
-
-            Recept r = new Recept();
-            PrikazRecepta rr = new PrikazRecepta();
-            r.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
-            rr.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
-            for (int i = 0; i < lekovi.Count; i++)
-            {
-                if (lekovi[i].Naziv.Equals(textLek.Text) && lekovi[i].KolicinaUMg.Equals(int.Parse(textDoza.Text)))
-                {
-                    r.Lek = lekovi[i];
-                    rr.lek = lekovi[i];
-                    break;
-                }
-            }
-            r.Kolicina = int.Parse(textBrojKutija.Text);
-            r.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            r.Trajanje = DateTime.Parse(textDatumPrekida.Text);
-            rr.Kolicina = int.Parse(textBrojKutija.Text);
-            rr.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            rr.Trajanje = DateTime.Parse(textDatumPrekida.Text);
-
-            FormNapraviAnamnezuLekar.Recepti.Add(rr);
-            this.Close();
         }
+
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             Potvrdi();
@@ -168,7 +225,7 @@ namespace Bolnica.Forms
             Odustani();
         }
 
-        private void isTab(object sender, KeyEventArgs e)
+        private void OtvoriIFiltirajNaEnterLek(object sender, KeyEventArgs e)
         {   
             if(e.Key == Key.Enter)
             {
@@ -180,11 +237,11 @@ namespace Bolnica.Forms
                 if (textLek.Text.Length > 2)
                 {
                     textDoza.Items.Clear();
-                    for (int i = 0; i < lekovi.Count; i++)
+                    for (int i = 0; i < sviLekovi.Count; i++)
                     {
-                        if (textLek.Text.Equals(lekovi[i].Naziv) && !textDoza.Items.Contains(lekovi[i].KolicinaUMg))
+                        if (textLek.Text.Equals(sviLekovi[i].Naziv) && !textDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
                         {
-                            textDoza.Items.Add(lekovi[i].KolicinaUMg);
+                            textDoza.Items.Add(sviLekovi[i].KolicinaUMg);
                         }
                     }
                 }
@@ -192,7 +249,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void isEnterDoza(object sender, KeyEventArgs e)
+        private void OtvoriNaEnterDoza(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -200,7 +257,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void isEnterBrojKutija(object sender, KeyEventArgs e)
+        private void OtvoriNaEnterBrojKutija(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -208,7 +265,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void isEnterVreme(object sender, KeyEventArgs e)
+        private void OtvoriNaEnterVreme(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -216,18 +273,18 @@ namespace Bolnica.Forms
             }
         }
 
-        private void IsPro(object sender, KeyEventArgs e)
+        private void OtvoriIFiltirajNaEnterProizvodjac(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Tab)
             {
                 if (textProizvodjac.Text.Length > 2)
                 {
                     textLek.Items.Clear();
-                    for (int i = 0; i < lekovi.Count; i++)
+                    for (int i = 0; i < sviLekovi.Count; i++)
                     {
-                        if (textProizvodjac.Text.Equals(lekovi[i].Proizvodjac) && !textLek.Items.Contains(lekovi[i].Naziv))
+                        if (textProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && !textLek.Items.Contains(sviLekovi[i].Naziv)&& DaLiJeLekVecDodat(i) == 0)
                         {
-                            textLek.Items.Add(lekovi[i].Naziv);
+                            textLek.Items.Add(sviLekovi[i].Naziv);
                         }
                     }
                 }
@@ -238,7 +295,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void isAkcelerator(object sender, KeyEventArgs e)
+        private void AkoJeAkceleratorPritisnut(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {
