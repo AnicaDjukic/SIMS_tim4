@@ -52,7 +52,7 @@ namespace Bolnica.Model.Prostorije
             {
                 for (int i = 0; i < buduceZalihe.Count; i++)
                 {
-                    if (buduceZalihe[i].Id == buducaZalihaZaBrisanje.Id)
+                    if (buduceZalihe[i].Prostorija.BrojProstorije == buducaZalihaZaBrisanje.Prostorija.BrojProstorije && buduceZalihe[i].Oprema.Sifra == buducaZalihaZaBrisanje.Oprema.Sifra)
                     {
                         buduceZalihe.Remove(buduceZalihe[i]);
                         break;

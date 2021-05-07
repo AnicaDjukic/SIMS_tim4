@@ -83,12 +83,7 @@ namespace Bolnica.Forms.Upravnik
                 SaveBuduceZaliheToStorageZalihe(buduceZalihe);
             }
 
-            storageZaliha = new FileStorageZaliha();
-            foreach (Zaliha z in storageZaliha.GetAll())
-            {
-                if (oprema.Sifra == z.Oprema.Sifra)
-                    zaliheOpreme.Add(z);
-            }
+            zaliheOpreme = LoadZaliheFromFile(oprema);
 
             return zaliheOpreme;
         }
@@ -112,6 +107,19 @@ namespace Bolnica.Forms.Upravnik
             return buduceZalihe;
         }
 
+        private static List<Zaliha> LoadZaliheFromFile(Oprema oprema)
+        {
+            List<Zaliha> zaliheOpreme = new List<Zaliha>();
+            storageZaliha = new FileStorageZaliha();
+            foreach (Zaliha z in storageZaliha.GetAll())
+            {
+                if (oprema.Sifra == z.Oprema.Sifra)
+                    zaliheOpreme.Add(z);
+            }
+
+            return zaliheOpreme;
+        }
+
         private void DeleteOldZalihe()
         {
             storageZaliha = new FileStorageZaliha();
@@ -124,15 +132,9 @@ namespace Bolnica.Forms.Upravnik
 
         private static void SaveBuduceZaliheToStorageZalihe(List<BuducaZaliha> buduceZalihe)
         {
-            int maxId = 0;
-            foreach (Zaliha z in storageZaliha.GetAll())
-            {
-                if (z.Id > maxId)
-                    maxId = z.Id;
-            }
             foreach (BuducaZaliha bz in buduceZalihe)
             {
-                Zaliha z = new Zaliha {Id = maxId + 1, Kolicina = bz.Kolicina};
+                Zaliha z = new Zaliha { Kolicina = bz.Kolicina};
                 z.Prostorija = bz.Prostorija;
                 z.Oprema = bz.Oprema;
                 storageZaliha.Save(z);
@@ -369,6 +371,8 @@ namespace Bolnica.Forms.Upravnik
                 formPremestanje.datePickerDatum.DisplayDateStart = DateTime.Now;
                 formPremestanje.Show();
             }
+
+            //Zalihe.Clear();
 
             Close();
         }

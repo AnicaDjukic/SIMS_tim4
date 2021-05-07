@@ -12,17 +12,11 @@ namespace Model.Pregledi
         public int KolicinaUMg { get; set; }
         public StatusLeka Status { get; set; }
         public int Zalihe { get; set; }
-
-        public bool Odobren { get; set; }
-
         public bool Obrisan { get; set; }
-
         public List<int> IdZamena { get; set; }
         [JsonIgnore]
         public List<Lek> Zamena { get; set; }
-
         public List<Sastojak> Sastojak { get; set; }
-
         public Lek()
         {
             Sastojak = new List<Sastojak>();

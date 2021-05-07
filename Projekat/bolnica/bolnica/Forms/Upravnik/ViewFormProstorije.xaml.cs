@@ -25,12 +25,6 @@ namespace Bolnica.Forms
             OpremaSobe = new ObservableCollection<Zaliha>();
             FileStorageBuducaZaliha storageBuducaZaliha = new FileStorageBuducaZaliha();
             FileStorageZaliha storageZaliha = new FileStorageZaliha();
-            int maxId = 0;
-            foreach (Zaliha z in storageZaliha.GetAll())
-            {
-                if (z.Id > maxId)
-                    maxId = z.Id;
-            }
             List<Zaliha> noveZalihe = new List<Zaliha>();
             if (storageBuducaZaliha.GetAll() != null)
             {
@@ -38,7 +32,7 @@ namespace Bolnica.Forms
                 {
                     if (bz.Datum <= DateTime.Now.Date)
                     {
-                        Zaliha z = new Zaliha { Id = maxId + 1,  Kolicina = bz.Kolicina };
+                        Zaliha z = new Zaliha { Kolicina = bz.Kolicina };
                         z.Prostorija = bz.Prostorija;
                         z.Oprema = bz.Oprema;
                         noveZalihe.Add(z);

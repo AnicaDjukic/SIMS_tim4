@@ -44,13 +44,8 @@ namespace Bolnica.Forms.Upravnik
                     }
                 }
             }
+
             FileStorageZaliha storageZaliha = new FileStorageZaliha();
-            int maxId = 0;
-            foreach(Zaliha z in storageZaliha.GetAll())
-            {
-                if (z.Id > maxId)
-                    maxId = z.Id;
-            }
             if (buduceZalihe.Count > 0)
             {
                 foreach (Zaliha z in storageZaliha.GetAll())
@@ -60,7 +55,7 @@ namespace Bolnica.Forms.Upravnik
                 }
                 foreach (BuducaZaliha bz in buduceZalihe)
                 {
-                    Zaliha z = new Zaliha { Id = maxId + 1, Kolicina = bz.Kolicina };
+                    Zaliha z = new Zaliha { Kolicina = bz.Kolicina };
                     z.Prostorija = bz.Prostorija;
                     z.Oprema = bz.Oprema;
                     storageZaliha.Save(z);

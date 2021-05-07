@@ -28,16 +28,11 @@ namespace Bolnica.Forms.Upravnik
         {
             FileStorageBuducaZaliha storage = new FileStorageBuducaZaliha();
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
-            int maxId = 0;
-            foreach (BuducaZaliha bz in storage.GetAll())
-            {
-                if (bz.Id > maxId)
-                    maxId = bz.Id;
-            }
+            
             string sifraOpreme = "";
             foreach (Zaliha z in FormSkladiste.Zalihe)
             {
-                BuducaZaliha bz = new BuducaZaliha { Id = maxId + 1, Kolicina = z.Kolicina, Datum = datePickerDatum.SelectedDate.Value };
+                BuducaZaliha bz = new BuducaZaliha { Kolicina = z.Kolicina, Datum = datePickerDatum.SelectedDate.Value };
                 bz.Prostorija = z.Prostorija;
                 bz.Oprema = z.Oprema;
                 sifraOpreme = z.Oprema.Sifra;
