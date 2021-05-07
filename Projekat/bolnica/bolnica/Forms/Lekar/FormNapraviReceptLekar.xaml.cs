@@ -139,7 +139,7 @@ namespace Bolnica.Forms
             {
                 if (lekovi[i].Naziv.Equals(textLek.Text) && lekovi[i].KolicinaUMg.Equals(int.Parse(textDoza.Text)))
                 {
-                    r.Lek_id = lekovi[i].Id;
+                    r.Lek = lekovi[i];
                     rr.lek = lekovi[i];
                     break;
                 }

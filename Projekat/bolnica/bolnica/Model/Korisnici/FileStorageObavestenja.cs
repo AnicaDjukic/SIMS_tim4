@@ -13,6 +13,7 @@ namespace Bolnica.Model.Korisnici
 
         public FileStorageObavestenja()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources", "Obavestenja.json");
         }

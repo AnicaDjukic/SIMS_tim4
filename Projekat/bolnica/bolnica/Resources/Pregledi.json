@@ -1,185 +1,54 @@
 [
   
   {
-    "Id": 5,
-    "Datum": "2021-04-25T03:45:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": true,
-    "AnamnezaId": -1,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 8,
-    "Datum": "2021-07-06T01:30:00",
+    "Id": 1,
+    "Datum": "2021-05-07T08:00:00",
     "Trajanje": 30,
     "Zavrsen": false,
     "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "0303965123456",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 9,
-    "Datum": "2021-06-26T01:30:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": true,
-    "AnamnezaId": -1,
-    "lekarJmbg": "0303965123456",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 12,
-    "Datum": "2021-04-19T08:45:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "222222",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 14,
-    "Datum": "2021-04-25T09:45:00",
-    "Trajanje": 30,
-    "Zavrsen": true,
-    "Hitan": false,
-    "AnamnezaId": 11,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 15,
-    "Datum": "2021-04-25T12:15:00",
-    "Trajanje": 30,
-    "Zavrsen": true,
-    "Hitan": false,
-    "AnamnezaId": 13,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 16,
-    "Datum": "2021-09-29T23:45:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "1212000190000",
-    "Pacijent": null
-  },
-  {
-    "Id": 17,
-    "Datum": "2021-04-27T00:30:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "234567891",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 18,
-    "Datum": "2021-04-27T01:00:00",
-    "Trajanje": 30,
-    "Zavrsen": true,
-    "Hitan": false,
-    "AnamnezaId": 15,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "1212000190000",
-    "Pacijent": null
-  },
-  {
-    "Id": 19,
-    "Datum": "2021-04-27T03:00:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "123456789",
-    "Lekar": null,
-    "brojProstorije": "103",
-    "Prostorija": null,
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
-  },
-  {
-    "Id": 20,
-    "Datum": "2021-05-06T00:15:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "234567891",
-    "Lekar": null,
-    "brojProstorije": "102",
-    "Prostorija": { "BrojProstorije": "102" },
-    "pacijentJmbg": "1212000190000",
-    "Pacijent": null
-  },
-  {
-    "Id": 21,
-    "Datum": "2021-05-07T00:00:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "234567891",
-    "Lekar": null,
-    "brojProstorije": "103",
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
     "Prostorija": { "BrojProstorije": "103" },
-    "pacijentJmbg": "2512002149573",
-    "Pacijent": null
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
   },
   {
-    "Id": 22,
-    "Datum": "2021-05-07T00:30:00",
+    "Id": 2,
+    "Datum": "2021-05-07T01:00:00",
+    "Trajanje": 30,
+    "Zavrsen": true,
+    "Hitan": false,
+    "Anamneza": { "Id": 2 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "103" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "Id": 3,
+    "Datum": "2021-05-07T01:45:00",
     "Trajanje": 30,
     "Zavrsen": false,
     "Hitan": false,
-    "AnamnezaId": -1,
-    "lekarJmbg": "234567891",
-    "Lekar": null,
-    "brojProstorije": "102",
-    "Prostorija": { "BrojProstorije": "102" },
-    "pacijentJmbg": "1212000190000",
-    "Pacijent": null
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "103" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
   }
 ]

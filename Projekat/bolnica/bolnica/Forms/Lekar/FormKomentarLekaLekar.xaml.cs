@@ -50,7 +50,6 @@ namespace Bolnica.Forms
             komentar = textbox.Text;
 
             Obavestenje obavestenje = new Obavestenje();
-            obavestenje.KorisnickaImena = new List<string>();
             FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
             FileStorageKorisnici sviKorisnici = new FileStorageKorisnici();
             List<Korisnik> svi = sviKorisnici.GetAll();
@@ -70,7 +69,7 @@ namespace Bolnica.Forms
             {
                 if (svi[i].TipKorisnika.Equals(TipKorisnika.upravnik))
                 {
-                    obavestenje.KorisnickaImena.Add(svi[i].KorisnickoIme);
+                    obavestenje.Korisnici.Add(svi[i]);
                 }
             }
             obavestenje.Naslov = "Lek " + prik.Naziv + " je odbijen";

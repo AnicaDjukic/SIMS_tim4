@@ -8,20 +8,62 @@ namespace Model.Pregledi
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
-        public string Proizvodjac { get; set; }
-        public int KolicinaUMg { get; set; }
-        public StatusLeka Status { get; set; }
-        public int Zalihe { get; set; }
+        public bool ShouldSerializeNaziv()
+        {
 
-        public bool Odobren { get; set; }
+            return FileStorageLek.serializeLek;
+        }
+        public string Proizvodjac { get; set; }
+        public bool ShouldSerializeProizvodjac()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
+        public int KolicinaUMg { get; set; }
+        public bool ShouldSerializeKolicinaUMg()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
+        public StatusLeka Status { get; set; }
+        public bool ShouldSerializeStatus()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
+        public int Zalihe { get; set; }
+        public bool ShouldSerializeZalihe()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
 
         public bool Obrisan { get; set; }
+        public bool ShouldSerializeObrisan()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
 
         public List<int> IdZamena { get; set; }
+
+        public bool ShouldSerializeIdZamena()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
+
         [JsonIgnore]
         public List<Lek> Zamena { get; set; }
+       
 
         public List<Sastojak> Sastojak { get; set; }
+
+        public bool ShouldSerializeSastojak()
+        {
+
+            return FileStorageLek.serializeLek;
+        }
 
         public Lek()
         {

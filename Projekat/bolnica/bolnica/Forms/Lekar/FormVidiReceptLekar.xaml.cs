@@ -51,7 +51,7 @@ namespace Bolnica.Forms
 
             for (int i = 0;i < lekovi.Count; i++)
             {
-                if (lekovi[i].Id.Equals(r.Lek_id))
+                if (lekovi[i].Id.Equals(r.Lek.Id))
                 {
                     lek = lekovi[i].Naziv;
                     doza = lekovi[i].KolicinaUMg.ToString();

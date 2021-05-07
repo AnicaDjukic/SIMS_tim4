@@ -12,13 +12,11 @@ namespace Bolnica.Model.Korisnici
         public string Sadrzaj { get; set; }
         public string Naslov { get; set; }
         public bool Obrisan { get; set; }
-        public List<string> KorisnickaImena { get; set; }
-
         public List<Korisnik> Korisnici { get; set; }
 
         public Obavestenje()
         {
-            KorisnickaImena = new List<string>();
+            Korisnici = new List<Korisnik>();
         }
     }
 }

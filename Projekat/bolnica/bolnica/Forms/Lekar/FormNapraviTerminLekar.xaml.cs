@@ -340,17 +340,17 @@ namespace Bolnica.Forms
                     }
                     trenutnaOperacija.Id = max + 1;
                     Operacija o = new Operacija();
-                    trenutnaOperacija.AnamnezaId = -1;
+                    trenutnaOperacija.Anamneza.Id = -1;
                     trenutnaOperacija.Hitan = (bool)checkHitan.IsChecked;
                     o.Id = trenutnaOperacija.Id;
                     o.Hitan = (bool)checkHitan.IsChecked;
-                    o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
-                    o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                    o.Lekar = trenutnaOperacija.Lekar;
+                    o.Pacijent = trenutnaOperacija.Pacijent;
                     o.TipOperacije = trenutnaOperacija.TipOperacije;
                     o.Trajanje = trenutnaOperacija.Trajanje;
                     o.Zavrsen = trenutnaOperacija.Zavrsen;
-                    o.AnamnezaId = -1;
-                    o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                    o.Anamneza.Id = -1;
+                    o.Prostorija = trenutnaOperacija.Prostorija;
                     o.Datum = trenutnaOperacija.Datum;
                     if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
                     {
@@ -374,16 +374,16 @@ namespace Bolnica.Forms
                     }
                     trenutniPregled.Id = max + 1;
                     Pregled o = new Pregled();
-                    trenutniPregled.AnamnezaId = -1;
+                    trenutniPregled.Anamneza.Id = -1;
                     trenutniPregled.Hitan = false;
                     o.Id = trenutniPregled.Id;
                     o.Hitan = false;
-                    o.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-                    o.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                    o.Lekar = trenutniPregled.Lekar;
+                    o.Pacijent = trenutniPregled.Pacijent;
                     o.Trajanje = trenutniPregled.Trajanje;
                     o.Zavrsen = trenutniPregled.Zavrsen;
-                    o.AnamnezaId = -1;
-                    o.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                    o.Anamneza.Id = -1;
+                    o.Prostorija = trenutniPregled.Prostorija;
                     o.Datum = trenutniPregled.Datum;
                     if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
                     {
@@ -453,7 +453,7 @@ namespace Bolnica.Forms
                     }
                     for (int da = 0; da < preglediLekara1.Count; da++)
                     {
-                        if (!preglediLekara1[da].lekarJmbg.Equals(jmbgLekar))
+                        if (!preglediLekara1[da].Lekar.Jmbg.Equals(jmbgLekar))
                         {
                             preglediLekara1.RemoveAt(da);
                             da = da - 1;
@@ -461,7 +461,7 @@ namespace Bolnica.Forms
                     }
                     for (int ad = 0; ad < operacijeLekara1.Count; ad++)
                     {
-                        if (!operacijeLekara1[ad].lekarJmbg.Equals(jmbgLekar))
+                        if (!operacijeLekara1[ad].Lekar.Jmbg.Equals(jmbgLekar))
                         {
                             operacijeLekara1.RemoveAt(ad);
                             ad = ad - 1;
@@ -549,7 +549,7 @@ namespace Bolnica.Forms
                     }
                     for (int da = 0; da < preglediPacijenta1.Count; da++)
                     {
-                        if (!preglediPacijenta1[da].pacijentJmbg.Equals(jmbgPacijent))
+                        if (!preglediPacijenta1[da].Pacijent.Jmbg.Equals(jmbgPacijent))
                         {
                             preglediPacijenta1.RemoveAt(da);
                             da = da - 1;
@@ -557,7 +557,7 @@ namespace Bolnica.Forms
                     }
                     for (int ad = 0; ad < operacijePacijenta1.Count; ad++)
                     {
-                        if (!operacijePacijenta1[ad].pacijentJmbg.Equals(jmbgPacijent))
+                        if (!operacijePacijenta1[ad].Pacijent.Jmbg.Equals(jmbgPacijent))
                         {
                             operacijePacijenta1.RemoveAt(ad);
                             ad = ad - 1;
@@ -755,7 +755,7 @@ namespace Bolnica.Forms
                     }
                     for (int da = 0; da < preglediLekara.Count; da++)
                     {
-                        if (!preglediLekara[da].lekarJmbg.Equals(jmbgLekar))
+                        if (!preglediLekara[da].Lekar.Jmbg.Equals(jmbgLekar))
                         {
                             preglediLekara.RemoveAt(da);
                             da = da - 1;
@@ -763,7 +763,7 @@ namespace Bolnica.Forms
                     }
                     for (int ad = 0; ad < operacijeLekara.Count; ad++)
                     {
-                        if (!operacijeLekara[ad].lekarJmbg.Equals(jmbgLekar))
+                        if (!operacijeLekara[ad].Lekar.Jmbg.Equals(jmbgLekar))
                         {
                             operacijeLekara.RemoveAt(ad);
                             ad = ad - 1;
