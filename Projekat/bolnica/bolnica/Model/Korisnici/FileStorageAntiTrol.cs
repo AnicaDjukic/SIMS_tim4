@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Bolnica.Model.Pregledi
+namespace Bolnica.Model.Korisnici
 {
     class FileStorageAntiTrol
     {

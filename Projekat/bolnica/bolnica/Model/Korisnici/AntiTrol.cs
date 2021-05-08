@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bolnica.Model.Pregledi
+namespace Bolnica.Model.Korisnici
 {
     class AntiTrol
     {
