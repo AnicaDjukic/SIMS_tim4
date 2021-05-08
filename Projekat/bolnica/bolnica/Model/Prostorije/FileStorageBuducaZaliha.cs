@@ -23,8 +23,8 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
-            var buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
+            string json = File.ReadAllText(fileLocation);
+            List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             return buduceZalihe;
         }
 
@@ -32,7 +32,7 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
+            string json = File.ReadAllText(fileLocation);
             List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             if (buduceZalihe == null)
             {
@@ -46,7 +46,7 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
+            string json = File.ReadAllText(fileLocation);
             List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             if (buduceZalihe != null)
             {

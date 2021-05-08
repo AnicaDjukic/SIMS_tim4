@@ -20,15 +20,15 @@ namespace Bolnica.Model.Prostorije
         public List<Renoviranje> GetAll()
         {
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
-            var renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
+            string json = File.ReadAllText(fileLocation);
+            List<Renoviranje> renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
             return renoviranja;
         }
 
         public void Save(Renoviranje novoRenoviranje)
         {
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
+            string json = File.ReadAllText(fileLocation);
             List<Renoviranje> renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
             if (renoviranja == null)
             {
