@@ -37,24 +37,6 @@ namespace Model.Pacijenti
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
         }
 
-        public void Update(Pacijent pacijent)
-        {
-            FileStoragePregledi.serializeKorisnik = true;
-            List<Pacijent> pacijenti = new List<Pacijent>();
-            pacijenti = GetAll();
-
-            for (int i = 0; i < pacijenti.Count; i++)
-            {
-                if (pacijenti[i].Jmbg.Equals(pacijent.Jmbg))
-                {
-                    pacijenti[i] = pacijent;
-                    break;
-                }
-            }
-            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
-
-        }
-
         public void Delete(Pacijent pacijent)
         {
             FileStoragePregledi.serializeKorisnik = true;
