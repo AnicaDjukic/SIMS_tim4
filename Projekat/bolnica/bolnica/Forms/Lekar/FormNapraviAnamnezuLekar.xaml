@@ -82,7 +82,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="16" VerticalScrollBarVisibility="Visible">
+        <ScrollViewer Name="ScroolBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="16" VerticalScrollBarVisibility="Visible" PreviewKeyUp="zaustaviStrelice">
         <StackPanel Orientation="Vertical">
                 <Grid Background="#FF34FFF4" MinHeight="250">
         <Grid.ColumnDefinitions>
@@ -127,12 +127,12 @@
                 <Label Content="Simptomi:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"></Label>
                 <Label Content="Dijagnoza:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"></Label>
 
-                    <TextBox Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70"   >
+                    <TextBox Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70" PreviewKeyDown="PredjiNaScrollBar"   >
                         <TextBox.Text>
                             <Binding Path="simptomi" UpdateSourceTrigger="PropertyChanged"/>
                         </TextBox.Text>
                     </TextBox>
-                    <TextBox Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70"  >
+                    <TextBox Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" PreviewKeyDown="PredjiNaScrollBar"  >
                         <TextBox.Text>
                             <Binding Path="dijagnoza" UpdateSourceTrigger="PropertyChanged"/>
                         </TextBox.Text>
@@ -187,7 +187,7 @@
 
                 <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
                 <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
-                    <DataGrid Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True" KeyDown="PredjiNaScrollBar">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF1E93F4"></Setter>
@@ -216,7 +216,7 @@
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" Click="VidiDetaljePritisnuto"/>
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
-                         Background="#FF1E93F4" Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="ObrisiReceptPritisnuto"/>
+                         Background="#FF1E93F4" Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="ObrisiReceptPritisnuto" KeyDown="PredjiNaScrollBar"/>
                     <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                     <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                     <Label FontSize="12" Content="Ctrl+O" Grid.Row="7" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
@@ -268,7 +268,7 @@
                 <Label Content="Popis potrosene robe" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Grid.ColumnSpan="10"  FontSize="30" />
                 <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
 
-                <DataGrid Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18">
+                <DataGrid Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" KeyDown="PredjiNaScrollBar">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF1E93F4"></Setter>
@@ -305,7 +305,7 @@
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" Click="ZakaziPregledPritisnuto"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
-                         Background="#FF1E93F4" Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OtkaziPritisnuto"/>
+                         Background="#FF1E93F4" Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="OtkaziPritisnuto" KeyDown="PredjiNaScrollBar"/>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+P" Grid.Row="17" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="17" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>

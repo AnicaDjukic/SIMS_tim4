@@ -864,7 +864,7 @@ namespace Bolnica.Forms
             if (e.Key == Key.Enter)
             {
                 e.Handled = true;
-                Izmeni.Focus();
+                Odobri.Focus();
 
             }
 

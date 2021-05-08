@@ -66,37 +66,37 @@
         </Grid.RowDefinitions>
 
 
-        <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="textDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
+        <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
             <DatePicker.SelectedDate>
                 <Binding Path="datumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged"/>
             </DatePicker.SelectedDate>
         </DatePicker>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterProizvodjac" >
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterProizvodjac" >
             <ComboBox.Text>
                 <Binding Path="proizvodjacLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterLek">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterLek">
             <ComboBox.Text>
                 <Binding Path="nazivLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterDoza">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterDoza">
             <ComboBox.Text>
                 <Binding Path="dozaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterBrojKutija">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterBrojKutija">
             <ComboBox.Text>
                 <Binding Path="brojKutijaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterVreme">
+        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterVreme">
             <ComboBox.Text>
                 <Binding Path="vremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged"/>
             </ComboBox.Text>
         </ComboBox>
-        <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="textDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
+        <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
             <DatePicker.SelectedDate>
                 <Binding Path="datumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged"/>
             </DatePicker.SelectedDate>

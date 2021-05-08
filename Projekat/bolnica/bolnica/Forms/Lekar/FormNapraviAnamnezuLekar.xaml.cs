@@ -298,7 +298,6 @@ namespace Bolnica.Forms
             novaAnamneza.Recept = new List<Recept>();
             for (int i = 0; i < Recepti.Count; i++)
             {
-
                 novaAnamneza.Recept.Add(PopuniRecept(i));
             }
 
@@ -506,6 +505,22 @@ namespace Bolnica.Forms
             }
         }
 
+        private void PredjiNaScrollBar(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Right))
+            {
+                 IzbrisiButton.MoveFocus(new TraversalRequest(FocusNavigationDirection.Right));
+                
+            }
+        }
 
+        private void zaustaviStrelice(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Up))
+                {
+
+                ScroolBar.ScrollToVerticalOffset(20); 
+            }
+        }
     }
 }

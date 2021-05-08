@@ -285,6 +285,7 @@
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
                         </Style>
                     </DataGrid.Resources>
 
@@ -393,6 +394,7 @@
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>

@@ -123,7 +123,7 @@ namespace Bolnica.Forms
                 }
                 string k = lekovi[i].Proizvodjac + ", " + lekovi[i].Naziv + ", " + lekovi[i].KolicinaUMg;
 
-
+                
                 textZamene.Items.Add(k);
                 if (dozvola == 1)
                 {
@@ -132,6 +132,19 @@ namespace Bolnica.Forms
 
 
 
+            }
+            for(int m=0; m < textZamene.Items.Count; m++)
+            {
+                for(int a=0; a < lekovi.Count; a++)
+                {
+                    if(textZamene.Items[m].ToString().Equals(lekovi[a].Proizvodjac + ", " + lekovi[a].Naziv + ", " + lekovi[a].KolicinaUMg)){
+                        if (lekovi[a].Status.Equals(StatusLeka.cekaValidaciju))
+                        {
+                            textZamene.Items.RemoveAt(m);
+                            m--;
+                        }
+                    }
+                }
             }
 
 

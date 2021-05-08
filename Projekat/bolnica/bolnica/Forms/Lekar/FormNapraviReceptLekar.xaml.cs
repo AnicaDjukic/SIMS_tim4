@@ -58,7 +58,7 @@ namespace Bolnica.Forms
             Lek izabraniLek = new Lek();
             for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (textProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && textLek.Text.Equals(sviLekovi[i].Naziv) && int.Parse(textDoza.Text).Equals(sviLekovi[i].KolicinaUMg))
+                if (ComboBoxProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && ComboBoxLek.Text.Equals(sviLekovi[i].Naziv) && int.Parse(ComboBoxDoza.Text).Equals(sviLekovi[i].KolicinaUMg))
                 {
                     izabraniLek = sviLekovi[i];
                 }
@@ -91,23 +91,23 @@ namespace Bolnica.Forms
         {
             Recept noviRecept = new Recept();
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-            noviRecept.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
-            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(textDatumIzdavanja.Text);
+            noviRecept.DatumIzdavanja = DateTime.Parse(DatePickerDatumIzdavanja.Text);
+            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(DatePickerDatumIzdavanja.Text);
             for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (sviLekovi[i].Naziv.Equals(textLek.Text) && sviLekovi[i].KolicinaUMg.Equals(int.Parse(textDoza.Text)))
+                if (sviLekovi[i].Naziv.Equals(ComboBoxLek.Text) && sviLekovi[i].KolicinaUMg.Equals(int.Parse(ComboBoxDoza.Text)))
                 {
                     noviRecept.Lek = sviLekovi[i];
                     noviPrikazRecepta.lek = sviLekovi[i];
                     break;
                 }
             }
-            noviRecept.Kolicina = int.Parse(textBrojKutija.Text);
-            noviRecept.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            noviRecept.Trajanje = DateTime.Parse(textDatumPrekida.Text);
-            noviPrikazRecepta.Kolicina = int.Parse(textBrojKutija.Text);
-            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(textVremeUzimanja.Text);
-            noviPrikazRecepta.Trajanje = DateTime.Parse(textDatumPrekida.Text);
+            noviRecept.Kolicina = int.Parse(ComboBoxBrojKutija.Text);
+            noviRecept.VremeUzimanja = TimeSpan.Parse(ComboBoxVremeUzimanja.Text);
+            noviRecept.Trajanje = DateTime.Parse(DatePickerDatumPrekida.Text);
+            noviPrikazRecepta.Kolicina = int.Parse(ComboBoxBrojKutija.Text);
+            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(ComboBoxVremeUzimanja.Text);
+            noviPrikazRecepta.Trajanje = DateTime.Parse(DatePickerDatumPrekida.Text);
             return noviPrikazRecepta;
 
         }
@@ -140,9 +140,9 @@ namespace Bolnica.Forms
             {
                 if (DaLiJeLekVecDodat(i) == 0)
                 {
-                    if (!textLek.Items.Contains(sviLekovi[i].Naziv))
+                    if (!ComboBoxLek.Items.Contains(sviLekovi[i].Naziv))
                     {
-                        textLek.Items.Add(sviLekovi[i].Naziv);
+                        ComboBoxLek.Items.Add(sviLekovi[i].Naziv);
                     }
                 }
             }
@@ -153,9 +153,9 @@ namespace Bolnica.Forms
             {
                 if (DaLiJeLekVecDodat(i) == 0)
                 {
-                    if (!textDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
+                    if (!ComboBoxDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
                     {
-                        textDoza.Items.Add(sviLekovi[i].KolicinaUMg);
+                        ComboBoxDoza.Items.Add(sviLekovi[i].KolicinaUMg);
                     }
                 }
             }
@@ -167,9 +167,9 @@ namespace Bolnica.Forms
             {
                 if (DaLiJeLekVecDodat(i) == 0)
                 {
-                    if (!textProizvodjac.Items.Contains(sviLekovi[i].Proizvodjac))
+                    if (!ComboBoxProizvodjac.Items.Contains(sviLekovi[i].Proizvodjac))
                     {
-                        textProizvodjac.Items.Add(sviLekovi[i].Proizvodjac);
+                        ComboBoxProizvodjac.Items.Add(sviLekovi[i].Proizvodjac);
                     }
                 }
             }
@@ -180,7 +180,7 @@ namespace Bolnica.Forms
         {
             for (int i = 1; i < 10; i++)
             {
-                textBrojKutija.Items.Add(i);
+                ComboBoxBrojKutija.Items.Add(i);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Bolnica.Forms
                 {
                     TimeSpan ts = new TimeSpan(vre, min, 0);
                     min = min + 15;
-                    textVremeUzimanja.Items.Add(ts);
+                    ComboBoxVremeUzimanja.Items.Add(ts);
                 }
 
             }
@@ -229,19 +229,19 @@ namespace Bolnica.Forms
         {   
             if(e.Key == Key.Enter)
             {
-                textLek.IsDropDownOpen = true;
+                ComboBoxLek.IsDropDownOpen = true;
             }
             if (e.Key == Key.Tab)
 
             {
-                if (textLek.Text.Length > 2)
+                if (ComboBoxLek.Text?.Length > 2)
                 {
-                    textDoza.Items.Clear();
+                    ComboBoxDoza.Items.Clear();
                     for (int i = 0; i < sviLekovi.Count; i++)
                     {
-                        if (textLek.Text.Equals(sviLekovi[i].Naziv) && !textDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
+                        if (ComboBoxLek.Text.Equals(sviLekovi[i].Naziv) && !ComboBoxDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
                         {
-                            textDoza.Items.Add(sviLekovi[i].KolicinaUMg);
+                            ComboBoxDoza.Items.Add(sviLekovi[i].KolicinaUMg);
                         }
                     }
                 }
@@ -253,7 +253,7 @@ namespace Bolnica.Forms
         {
             if (e.Key == Key.Enter)
             {
-                textDoza.IsDropDownOpen = true;
+                ComboBoxDoza.IsDropDownOpen = true;
             }
         }
 
@@ -261,7 +261,7 @@ namespace Bolnica.Forms
         {
             if (e.Key == Key.Enter)
             {
-                textBrojKutija.IsDropDownOpen = true;
+                ComboBoxBrojKutija.IsDropDownOpen = true;
             }
         }
 
@@ -269,7 +269,7 @@ namespace Bolnica.Forms
         {
             if (e.Key == Key.Enter)
             {
-                textVremeUzimanja.IsDropDownOpen = true;
+                ComboBoxVremeUzimanja.IsDropDownOpen = true;
             }
         }
 
@@ -277,21 +277,21 @@ namespace Bolnica.Forms
         {
             if(e.Key == Key.Tab)
             {
-                if (textProizvodjac.Text.Length > 2)
+                if (ComboBoxProizvodjac.Text?.Length > 2)
                 {
-                    textLek.Items.Clear();
+                    ComboBoxLek.Items.Clear();
                     for (int i = 0; i < sviLekovi.Count; i++)
                     {
-                        if (textProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && !textLek.Items.Contains(sviLekovi[i].Naziv)&& DaLiJeLekVecDodat(i) == 0)
+                        if (ComboBoxProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && !ComboBoxLek.Items.Contains(sviLekovi[i].Naziv)&& DaLiJeLekVecDodat(i) == 0)
                         {
-                            textLek.Items.Add(sviLekovi[i].Naziv);
+                            ComboBoxLek.Items.Add(sviLekovi[i].Naziv);
                         }
                     }
                 }
             }
             else if(e.Key == Key.Enter)
             {
-                textProizvodjac.IsDropDownOpen = true;
+                ComboBoxProizvodjac.IsDropDownOpen = true;
             }
         }
 
