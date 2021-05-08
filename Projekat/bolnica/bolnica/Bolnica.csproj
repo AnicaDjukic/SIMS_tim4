@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Forms\Images\clock.png" />
+    <None Remove="Resources\hospital.png" />
     <None Remove="Resources\LekarIstorija.png" />
     <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
@@ -24,6 +25,7 @@
     <None Remove="Forms\Images\shopping.png" />
     <None Remove="Forms\Images\view-details.png" />
     <None Remove="Forms\Images\woman-profile.png" />
+    <None Remove="Resources\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,9 @@
   <ItemGroup>
     <Resource Include="Forms\Images\clock.png">
       <Generator>s</Generator>
+    </Resource>
+    <Resource Include="Resources\hospital.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LekarIstorija.png" />
     <Resource Include="Resources\LekarLek.png" />
@@ -50,6 +55,9 @@
     <Resource Include="Forms\Images\shopping.png" />
     <Resource Include="Forms\Images\view-details.png" />
     <Resource Include="Forms\Images\woman-profile.png" />
+    <Resource Include="Resources\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
