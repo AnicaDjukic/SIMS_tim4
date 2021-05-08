@@ -1,0 +1,30 @@
+﻿<Page x:Class="Bolnica.Forms.FormOceniLekaraPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Bolnica.Forms"
+      mc:Ignorable="d" 
+      d:DesignHeight="390" d:DesignWidth="1000"
+      Title="FormOceniLekaraPage">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" Width="920" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Text="Izabrani lekar je:" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" Width="150"></TextBlock>
+            <TextBlock Name="lekarIme" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Width="400"></TextBlock>
+        </StackPanel>
+        <TextBlock Text="Odaberite jednu od ocena za izabranog lekara:" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,60,0,0" FontSize="16" Width="400"></TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="0,80,0,0" Width="900" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <RadioButton Name="jedan" Content="1 (loš/a)" FontSize="18" Margin="0,10,0,0"></RadioButton>
+            <RadioButton Name="dva" Content="2 (osrednji/a)" FontSize="18" Margin="25,10,0,0"></RadioButton>
+            <RadioButton Name="tri" Content="3 (dobar/dobra)" FontSize="18" Margin="25,10,0,0"></RadioButton>
+            <RadioButton Name="cetiri" Content="4 (veoma dobar/dobra)" FontSize="18" Margin="25,10,0,0"></RadioButton>
+            <RadioButton Name="pet" Content="5 (odličan/odlična)" FontSize="18" Margin="25,10,0,0"></RadioButton>
+        </StackPanel>
+        <TextBlock Text="Ako zelite, ovde mozete ostaviti i dodatni komentar o lekaru:" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Margin="20,140,0,0" FontSize="16" Width="600"></TextBlock>
+        <TextBox Name="sadrzaj" Margin="40,170,0,0" Width="500" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"></TextBox>
+        <Button Content="Potvrdi" Height="30" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,290,0,0" Click="Button_Click_Potvrdi"></Button>
+        <Button Content="Otkazi" Height="30" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="330,290,0,0" Click="Button_Click_Otkazi"></Button>
+    </Grid>
+</Page>

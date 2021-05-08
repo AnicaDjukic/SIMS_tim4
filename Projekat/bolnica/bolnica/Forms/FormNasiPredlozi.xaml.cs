@@ -647,6 +647,13 @@ namespace Bolnica.Forms
                         pregled.pacijentJmbg = prikaz.Pacijent.Jmbg;
                         FileStoragePregledi storage = new FileStoragePregledi();
                         storage.Save(pregled);
+
+                        FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+                        AntiTrol antiTrol = new AntiTrol();
+                        antiTrol.PacijentJMBG = prikaz.Pacijent.Jmbg;
+                        antiTrol.Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                        storageAntiTrol.Save(antiTrol);
+
                         this.Close();
                     }
                 }

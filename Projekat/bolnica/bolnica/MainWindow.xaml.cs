@@ -76,9 +76,16 @@ namespace bolnica
                                 }
                             }
                         }
-                        var s = new FormPacijent(pac);
-                        s.Show();
-                        s.PrikaziObavestenja();
+                        if (pac.Jmbg is null)
+                        {
+                            MessageBox.Show("Vas nalog je guest ili je obrisan.");
+                        }
+                        else
+                        {
+                            var s = new FormPacijentWeb(pac);
+                            s.Show();
+                            s.DanasnjaObavestenja();
+                        }
                     }
 
                     found = true;

@@ -9,7 +9,8 @@ namespace Model.Pregledi
       public int Trajanje { get; set; }
       public bool Zavrsen { get; set; }
       public bool Hitan { get; set; }
-      public int AnamnezaId { get; set; }
+        public DateTime DatumZakazivanja { get; set; }
+        public int AnamnezaId { get; set; }
       public string lekarJmbg { get; set; }
       
       public string brojProstorije { get; set; }

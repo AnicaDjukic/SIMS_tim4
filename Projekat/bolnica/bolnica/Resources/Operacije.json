@@ -1,5 +1,5 @@
 [
-  
+
   {
     "TipOperacije": 0,
     "Id": 9,
@@ -8,7 +8,7 @@
     "Zavrsen": true,
     "Hitan": true,
     "AnamnezaId": 12,
-    "lekarJmbg": "123456789",
+    "lekarJmbg": "222222",
     "brojProstorije": 106,
     "pacijentJmbg": "2512002149573"
   },
@@ -20,7 +20,7 @@
     "Zavrsen": false,
     "Hitan": false,
     "AnamnezaId": -1,
-    "lekarJmbg": "123456789",
+    "lekarJmbg": "222222",
     "brojProstorije": 106,
     "pacijentJmbg": "2512002149573"
   },
@@ -32,7 +32,7 @@
     "Zavrsen": false,
     "Hitan": true,
     "AnamnezaId": -1,
-    "lekarJmbg": "123456789",
+    "lekarJmbg": "222222",
     "brojProstorije": 106,
     "pacijentJmbg": "0910990130002"
   },
@@ -44,7 +44,7 @@
     "Zavrsen": true,
     "Hitan": true,
     "AnamnezaId": 14,
-    "lekarJmbg": "123456789",
+    "lekarJmbg": "222222",
     "brojProstorije": 106,
     "pacijentJmbg": "1212000190000"
   }
