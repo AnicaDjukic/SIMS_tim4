@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviAnamnezuLekar" Height="670" Width="630" KeyDown="AkoJeAkceleratorPritisnut">
+        Title="FormNapraviAnamnezuLekar" Height="670" Width="630" KeyDown="AkceleratorPritisnut">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>

@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="AkoJeAkceleratorPritisnut">
+        Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="AkceleratorPritisnut">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>

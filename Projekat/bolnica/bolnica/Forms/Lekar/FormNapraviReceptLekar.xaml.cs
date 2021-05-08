@@ -45,7 +45,7 @@ namespace Bolnica.Forms
         public void Potvrdi()
         {
             Lek izabraniLek = DobijIzabraniLek();
-            if (DaLiJePacijentAlergicanNaLek(izabraniLek))
+            if (PacijentAlergicanNaLek(izabraniLek))
             {
                 return;
             }
@@ -66,7 +66,7 @@ namespace Bolnica.Forms
             return izabraniLek;
         }
 
-        public bool DaLiJePacijentAlergicanNaLek(Lek izabraniLek) {
+        public bool PacijentAlergicanNaLek(Lek izabraniLek) {
             List<Sastojak>? alergeniPacijenta = trenutniPacijent?.Alergeni;
             if (alergeniPacijenta != null)
             {
@@ -89,27 +89,20 @@ namespace Bolnica.Forms
 
         public PrikazRecepta NapraviRecept()
         {
-            Recept noviRecept = new Recept();
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-            noviRecept.DatumIzdavanja = DateTime.Parse(DatePickerDatumIzdavanja.Text);
             noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(DatePickerDatumIzdavanja.Text);
             for (int i = 0; i < sviLekovi.Count; i++)
             {
                 if (sviLekovi[i].Naziv.Equals(ComboBoxLek.Text) && sviLekovi[i].KolicinaUMg.Equals(int.Parse(ComboBoxDoza.Text)))
                 {
-                    noviRecept.Lek = sviLekovi[i];
                     noviPrikazRecepta.lek = sviLekovi[i];
                     break;
                 }
             }
-            noviRecept.Kolicina = int.Parse(ComboBoxBrojKutija.Text);
-            noviRecept.VremeUzimanja = TimeSpan.Parse(ComboBoxVremeUzimanja.Text);
-            noviRecept.Trajanje = DateTime.Parse(DatePickerDatumPrekida.Text);
             noviPrikazRecepta.Kolicina = int.Parse(ComboBoxBrojKutija.Text);
             noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(ComboBoxVremeUzimanja.Text);
             noviPrikazRecepta.Trajanje = DateTime.Parse(DatePickerDatumPrekida.Text);
             return noviPrikazRecepta;
-
         }
         public void PopuniComboBoxoveIDatePickere()
         {
@@ -122,7 +115,7 @@ namespace Bolnica.Forms
             datumPrekidaRecepta = DateTime.Now;
         }
 
-        public int DaLiJeLekVecDodat(int i)
+        public int LekVecDodat(int i)
         {
             int lekVecDodat = 0;
             for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
@@ -138,7 +131,7 @@ namespace Bolnica.Forms
         {
             for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (DaLiJeLekVecDodat(i) == 0)
+                if (LekVecDodat(i) == 0)
                 {
                     if (!ComboBoxLek.Items.Contains(sviLekovi[i].Naziv))
                     {
@@ -151,7 +144,7 @@ namespace Bolnica.Forms
         {
             for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (DaLiJeLekVecDodat(i) == 0)
+                if (LekVecDodat(i) == 0)
                 {
                     if (!ComboBoxDoza.Items.Contains(sviLekovi[i].KolicinaUMg))
                     {
@@ -165,7 +158,7 @@ namespace Bolnica.Forms
         {
             for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (DaLiJeLekVecDodat(i) == 0)
+                if (LekVecDodat(i) == 0)
                 {
                     if (!ComboBoxProizvodjac.Items.Contains(sviLekovi[i].Proizvodjac))
                     {
@@ -282,7 +275,7 @@ namespace Bolnica.Forms
                     ComboBoxLek.Items.Clear();
                     for (int i = 0; i < sviLekovi.Count; i++)
                     {
-                        if (ComboBoxProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && !ComboBoxLek.Items.Contains(sviLekovi[i].Naziv)&& DaLiJeLekVecDodat(i) == 0)
+                        if (ComboBoxProizvodjac.Text.Equals(sviLekovi[i].Proizvodjac) && !ComboBoxLek.Items.Contains(sviLekovi[i].Naziv)&& LekVecDodat(i) == 0)
                         {
                             ComboBoxLek.Items.Add(sviLekovi[i].Naziv);
                         }
@@ -295,7 +288,7 @@ namespace Bolnica.Forms
             }
         }
 
-        private void AkoJeAkceleratorPritisnut(object sender, KeyEventArgs e)
+        private void AkceleratorPritisnut(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {

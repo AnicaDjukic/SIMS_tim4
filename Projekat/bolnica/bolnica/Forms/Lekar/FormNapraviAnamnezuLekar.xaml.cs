@@ -51,12 +51,20 @@ namespace Bolnica.Forms
             DaLiJePregled = 1;
             FiltirajLekove();
             InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
-            InitializeComponent();
-            this.DataContext = this;
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
+            InicirajContextILokaciju();
+            PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
+        }
 
+        public FormNapraviAnamnezuLekar(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
+        {
+            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
+            FiltirajLekove();
+            InicirajContextILokaciju();
+            PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
+        }
 
+        private void PopuniIliKreirajAnamnezuPregleda(PrikazPregleda izabraniPregled)
+        {
             for (int i = 0; i < sveAnamneze.Count; i++)
             {
                 if (izabraniPregled.Anamneza.Id == sveAnamneze[i].Id)
@@ -74,15 +82,10 @@ namespace Bolnica.Forms
                 textDijagnoza.Text = dijagnoza;
                 Recepti = new ObservableCollection<PrikazRecepta>();
             }
-
         }
 
-        public FormNapraviAnamnezuLekar(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
+        private void PopuniIliKreirajAnamnezuOperacije(PrikazOperacije izabranaOperacija)
         {
-            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
-            FiltirajLekove();
-            InitializeComponent();
-            this.DataContext = this;
             for (int i = 0; i < sveAnamneze.Count; i++)
             {
                 if (izabranaOperacija.Anamneza.Id == sveAnamneze[i].Id)
@@ -100,45 +103,31 @@ namespace Bolnica.Forms
                 Recepti = new ObservableCollection<PrikazRecepta>();
             }
         }
-
+        private void InicirajContextILokaciju()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = Application.Current.MainWindow;
+        }
         private void PopuniAnamnezu(PrikazPregleda izabraniPregled, int i)
         {
             idAnamneze = izabraniPregled.Anamneza.Id;
             simptomi = sveAnamneze[i].Simptomi;
             dijagnoza = sveAnamneze[i].Dijagnoza;
-            PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-
-
-            for (int r = 0; r < sveAnamneze[i].Recept.Count; r++)
-            {
-                noviPrikazRecepta = new PrikazRecepta();
-                noviPrikazRecepta.DatumIzdavanja = sveAnamneze[i].Recept[r].DatumIzdavanja;
-                noviPrikazRecepta.Id = sveAnamneze[i].Recept[r].Id;
-                noviPrikazRecepta.Kolicina = sveAnamneze[i].Recept[r].Kolicina;
-
-                noviPrikazRecepta.Trajanje = sveAnamneze[i].Recept[r].Trajanje;
-                noviPrikazRecepta.VremeUzimanja = sveAnamneze[i].Recept[r].VremeUzimanja;
-                for (int le = 0; le < sviLekovi.Count; le++)
-                {
-                    if (sveAnamneze[i].Recept[r].Lek.Id.Equals(sviLekovi[le].Id))
-                    {
-                        noviPrikazRecepta.lek = sviLekovi[le];
-                        break;
-                    }
-                }
-                Recepti.Add(noviPrikazRecepta);
-
-            }
-
+            popuniRecepte(i);
         }
         private void PopuniAnamnezu(PrikazOperacije izabranaOperacija, int i)
         {
             idAnamneze = izabranaOperacija.Anamneza.Id;
             simptomi = sveAnamneze[i].Simptomi;
             dijagnoza = sveAnamneze[i].Dijagnoza;
+            popuniRecepte(i);
+        }
+
+        private void popuniRecepte(int i)
+        {
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-
-
             for (int r = 0; r < sveAnamneze[i].Recept.Count; r++)
             {
                 noviPrikazRecepta = new PrikazRecepta();
@@ -475,7 +464,7 @@ namespace Bolnica.Forms
             VidiDetaljeOReceptu();
         }
 
-        private void AkoJeAkceleratorPritisnut(object sender, KeyEventArgs e)
+        private void AkceleratorPritisnut(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
             {
