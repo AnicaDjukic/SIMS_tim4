@@ -1,4 +1,5 @@
 ﻿using bolnica;
+using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;

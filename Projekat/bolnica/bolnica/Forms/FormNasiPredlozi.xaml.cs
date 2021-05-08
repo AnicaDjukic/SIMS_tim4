@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -182,7 +183,7 @@ namespace Bolnica.Forms
                 p1.Trajanje = 30;
                 p1.Zavrsen = false;
                 p1.Pacijent = pacijent;
-                p1.AnamnezaId = -1;
+                p1.Anamneza.Id = -1;
 
                 PrikazPregleda p2 = new PrikazPregleda();
                 p2.Datum = DateTime.Today.AddDays(4).AddHours(11).AddMinutes(45);
@@ -190,7 +191,7 @@ namespace Bolnica.Forms
                 p2.Trajanje = 30;
                 p2.Zavrsen = false;
                 p2.Pacijent = pacijent;
-                p2.AnamnezaId = -1;
+                p2.Anamneza.Id = -1;
 
                 PrikazPregleda p3 = new PrikazPregleda();
                 p3.Datum = DateTime.Today.AddDays(5).AddHours(18).AddMinutes(15);
@@ -198,7 +199,7 @@ namespace Bolnica.Forms
                 p3.Trajanje = 30;
                 p3.Zavrsen = false;
                 p3.Pacijent = pacijent;
-                p3.AnamnezaId = -1;
+                p3.Anamneza.Id = -1;
 
                 PrikazPregleda p4 = new PrikazPregleda();
                 p4.Datum = DateTime.Today.AddDays(6).AddHours(7).AddMinutes(30);
@@ -206,7 +207,7 @@ namespace Bolnica.Forms
                 p4.Trajanje = 30;
                 p4.Zavrsen = false;
                 p4.Pacijent = pacijent;
-                p4.AnamnezaId = -1;
+                p4.Anamneza.Id = -1;
 
                 if (slobodneProstorije.Count > 0)
                 {
@@ -268,7 +269,7 @@ namespace Bolnica.Forms
                 p1.Trajanje = 30;
                 p1.Zavrsen = false;
                 p1.Pacijent = pacijent;
-                p1.AnamnezaId = -1;
+                p1.Anamneza.Id = -1;
 
                 PrikazPregleda p2 = new PrikazPregleda();
                 p2.Datum = datum.AddHours(sat+1).AddMinutes(minut+15);
@@ -276,7 +277,7 @@ namespace Bolnica.Forms
                 p2.Trajanje = 30;
                 p2.Zavrsen = false;
                 p2.Pacijent = pacijent;
-                p2.AnamnezaId = -1;
+                p2.Anamneza.Id = -1;
 
                 PrikazPregleda p3 = new PrikazPregleda();
                 p3.Datum = datum.AddHours(sat+2).AddMinutes(minut);
@@ -284,7 +285,7 @@ namespace Bolnica.Forms
                 p3.Trajanje = 30;
                 p3.Zavrsen = false;
                 p3.Pacijent = pacijent;
-                p3.AnamnezaId = -1;
+                p3.Anamneza.Id = -1;
 
                 PrikazPregleda p4 = new PrikazPregleda();
                 p4.Datum = datum.AddHours(sat+3).AddMinutes(minut+45);
@@ -292,7 +293,7 @@ namespace Bolnica.Forms
                 p4.Trajanje = 30;
                 p4.Zavrsen = false;
                 p4.Pacijent = pacijent;
-                p4.AnamnezaId = -1;
+                p4.Anamneza.Id = -1;
 
                 if (slobodneProstorije.Count > 0)
                 {
@@ -358,7 +359,7 @@ namespace Bolnica.Forms
                     p1.Trajanje = 30;
                     p1.Zavrsen = false;
                     p1.Pacijent = pacijent;
-                    p1.AnamnezaId = -1;
+                    p1.Anamneza.Id = -1;
 
                     PrikazPregleda p2 = new PrikazPregleda();
                     p2.Datum = dat;
@@ -366,7 +367,7 @@ namespace Bolnica.Forms
                     p2.Trajanje = 30;
                     p2.Zavrsen = false;
                     p2.Pacijent = pacijent;
-                    p2.AnamnezaId = -1;
+                    p2.Anamneza.Id = -1;
 
                     PrikazPregleda p3 = new PrikazPregleda();
                     p3.Datum = dat;
@@ -374,7 +375,7 @@ namespace Bolnica.Forms
                     p3.Trajanje = 30;
                     p3.Zavrsen = false; 
                     p3.Pacijent = pacijent;
-                    p3.AnamnezaId = -1;
+                    p3.Anamneza.Id = -1;
 
                     PrikazPregleda p4 = new PrikazPregleda();
                     p4.Datum = dat;
@@ -382,7 +383,7 @@ namespace Bolnica.Forms
                     p4.Trajanje = 30;
                     p4.Zavrsen = false;
                     p4.Pacijent = pacijent;
-                    p4.AnamnezaId = -1;
+                    p4.Anamneza.Id = -1;
 
                     if (slobodneProstorije.Count > 0)
                     {
@@ -449,7 +450,7 @@ namespace Bolnica.Forms
                     p1.Trajanje = 30;
                     p1.Zavrsen = false;
                     p1.Pacijent = pacijent;
-                    p1.AnamnezaId = -1;
+                    p1.Anamneza.Id = -1;
 
                     PrikazPregleda p2 = new PrikazPregleda();
                     p2.Datum = dat2;
@@ -457,7 +458,7 @@ namespace Bolnica.Forms
                     p2.Trajanje = 30;
                     p2.Zavrsen = false;
                     p2.Pacijent = pacijent; 
-                    p2.AnamnezaId = -1;
+                    p2.Anamneza.Id = -1;
 
                     PrikazPregleda p3 = new PrikazPregleda();
                     p3.Datum = dat3;
@@ -465,7 +466,7 @@ namespace Bolnica.Forms
                     p3.Trajanje = 30; 
                     p3.Zavrsen = false; 
                     p3.Pacijent = pacijent;
-                    p3.AnamnezaId = -1;
+                    p3.Anamneza.Id = -1;
 
                     PrikazPregleda p4 = new PrikazPregleda();
                     p4.Datum = dat4;
@@ -473,7 +474,7 @@ namespace Bolnica.Forms
                     p4.Trajanje = 30;
                     p4.Zavrsen = false;
                     p4.Pacijent = pacijent;
-                    p4.AnamnezaId = -1;
+                    p4.Anamneza.Id = -1;
 
                     if (slobodneProstorije.Count > 0)
                     {
@@ -538,7 +539,7 @@ namespace Bolnica.Forms
                 p1.Trajanje = 30;
                 p1.Zavrsen = false;
                 p1.Pacijent = pacijent;
-                p1.AnamnezaId = -1;
+                p1.Anamneza.Id = -1;
 
                 PrikazPregleda p2 = new PrikazPregleda();
                 p2.Datum = DateTime.Today.AddDays(4).AddHours(17).AddMinutes(30);
@@ -546,7 +547,7 @@ namespace Bolnica.Forms
                 p2.Trajanje = 30;
                 p2.Zavrsen = false;
                 p2.Pacijent = pacijent;
-                p2.AnamnezaId = -1;
+                p2.Anamneza.Id = -1;
 
                 PrikazPregleda p3 = new PrikazPregleda();
                 p3.Datum = DateTime.Today.AddDays(5).AddHours(8);
@@ -554,7 +555,7 @@ namespace Bolnica.Forms
                 p3.Trajanje = 30;
                 p3.Zavrsen = false;
                 p3.Pacijent = pacijent;
-                p3.AnamnezaId = -1;
+                p3.Anamneza.Id = -1;
 
                 PrikazPregleda p4 = new PrikazPregleda();
                 p4.Datum = DateTime.Today.AddDays(6).AddHours(14).AddMinutes(15); ;
@@ -562,7 +563,7 @@ namespace Bolnica.Forms
                 p4.Trajanje = 30;
                 p4.Zavrsen = false;
                 p4.Pacijent = pacijent;
-                p4.AnamnezaId = -1;
+                p4.Anamneza.Id = -1;
 
                 if (slobodneProstorije.Count > 0)
                 {
@@ -635,16 +636,16 @@ namespace Bolnica.Forms
                 {
                     if (prikaz.Equals(p))
                     {
-                        FormPacijent.PrikazNezavrsenihPregleda.Add(prikaz);
+                        FormPacijentPage.PrikazNezavrsenihPregleda.Add(prikaz);
                         Pregled pregled = new Pregled();
                         pregled.Id = prikaz.Id;
                         pregled.Datum = prikaz.Datum;
                         pregled.Trajanje = prikaz.Trajanje;
                         pregled.Zavrsen = prikaz.Zavrsen;
-                        pregled.brojProstorije = prikaz.Prostorija.BrojProstorije;
-                        pregled.AnamnezaId = prikaz.AnamnezaId;
-                        pregled.lekarJmbg = prikaz.Lekar.Jmbg;
-                        pregled.pacijentJmbg = prikaz.Pacijent.Jmbg;
+                        pregled.Prostorija = prikaz.Prostorija;
+                        pregled.Anamneza = prikaz.Anamneza;
+                        pregled.Lekar = prikaz.Lekar;
+                        pregled.Pacijent = prikaz.Pacijent;
                         FileStoragePregledi storage = new FileStoragePregledi();
                         storage.Save(pregled);
 

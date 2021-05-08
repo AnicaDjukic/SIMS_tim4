@@ -3,6 +3,7 @@ using Model.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Model.Pregledi;
 
 namespace Model.Pacijenti
 {
@@ -17,6 +18,7 @@ namespace Model.Pacijenti
 
         public List<Pacijent> GetAll()
         {
+            FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             var pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
             return pacijenti;
@@ -24,6 +26,7 @@ namespace Model.Pacijenti
       
         public void Save(Pacijent noviPacijent)
         {
+            FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
             if (pacijenti == null)
@@ -34,8 +37,27 @@ namespace Model.Pacijenti
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
         }
 
+        public void Update(Pacijent pacijent)
+        {
+            FileStoragePregledi.serializeKorisnik = true;
+            List<Pacijent> pacijenti = new List<Pacijent>();
+            pacijenti = GetAll();
+
+            for (int i = 0; i < pacijenti.Count; i++)
+            {
+                if (pacijenti[i].Jmbg.Equals(pacijent.Jmbg))
+                {
+                    pacijenti[i] = pacijent;
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
+
+        }
+
         public void Delete(Pacijent pacijent)
         {
+            FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
             if (pacijenti != null)
@@ -50,23 +72,6 @@ namespace Model.Pacijenti
                 }
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
             }
-        }
-
-        public void Update(Pacijent pacijent)
-        {
-            List<Pacijent> pacijenti = new List<Pacijent>();
-            pacijenti = GetAll();
-
-            for (int i = 0; i < pacijenti.Count; i++)
-            {
-                if (pacijenti[i].Jmbg.Equals(pacijent.Jmbg))
-                {
-                    pacijenti[i] = pacijent;
-                    break;
-                }
-            }
-            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
-
         }
     }
 }

@@ -1,1 +1,43 @@
-[{"BrojProstorije":102,"Sprat":1,"Kvadratura":65.0,"TipProstorije":1,"Zauzeta":true,"Obrisana":false},{"BrojProstorije":101,"Sprat":1,"Kvadratura":50.5,"TipProstorije":0,"Zauzeta":true,"Obrisana":true},{"BrojProstorije":103,"Sprat":2,"Kvadratura":20.5,"TipProstorije":0,"Zauzeta":false,"Obrisana":false},{"BrojProstorije":106,"Sprat":2,"Kvadratura":12.3,"TipProstorije":1,"Zauzeta":false,"Obrisana":false},{"BrojProstorije":0,"Sprat":0,"Kvadratura":0.0,"TipProstorije":1,"Zauzeta":false,"Obrisana":true}]
+[
+  
+  {
+    "BrojProstorije": "102",
+    "Sprat": 1,
+    "Kvadratura": 65.0,
+    "TipProstorije": 1,
+    "Zauzeta": true,
+    "Obrisana": false
+  },
+  {
+    "BrojProstorije": "101",
+    "Sprat": 1,
+    "Kvadratura": 50.5,
+    "TipProstorije": 0,
+    "Zauzeta": true,
+    "Obrisana": true
+  },
+  {
+    "BrojProstorije": "103",
+    "Sprat": 2,
+    "Kvadratura": 20.5,
+    "TipProstorije": 0,
+    "Zauzeta": false,
+    "Obrisana": false
+  },
+  {
+    "BrojProstorije": "0",
+    "Sprat": 0,
+    "Kvadratura": 0.0,
+    "TipProstorije": 1,
+    "Zauzeta": false,
+    "Obrisana": true
+  },
+  {
+    "BrojProstorije": "106",
+    "Sprat": 2,
+    "Kvadratura": 12.0,
+    "TipProstorije": 1,
+    "Zauzeta": false,
+    "Obrisana": false
+  }
+]

@@ -17,6 +17,7 @@ namespace Model.Prostorije
         }
         public List<Prostorija> GetAllProstorije()
         {
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationProstorije);
             var prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             return prostorije;
@@ -24,6 +25,8 @@ namespace Model.Prostorije
 
         public List<BolnickaSoba> GetAllBolnickeSobe()
         {
+
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationBolnickeSobe);
             var prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             return prostorije;
@@ -31,6 +34,7 @@ namespace Model.Prostorije
 
         public void Save(Prostorija novaProstorija)
         {
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationProstorije);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije == null)
@@ -43,6 +47,7 @@ namespace Model.Prostorije
 
         public void Save(BolnickaSoba novaBolnickaSoba)
         {
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationBolnickeSobe);
             var bolnickeSobe = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             if (bolnickeSobe == null)
@@ -55,6 +60,7 @@ namespace Model.Prostorije
 
         public void Delete(Prostorija prostorija)
         {
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationProstorije);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije != null)
@@ -73,6 +79,7 @@ namespace Model.Prostorije
 
         public void Delete(BolnickaSoba bolnickaSoba)
         {
+            FileStorageZaliha.serializeProstorija = true;
             var json = File.ReadAllText(fileLocationBolnickeSobe);
             List<BolnickaSoba> prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             if (prostorije != null)
