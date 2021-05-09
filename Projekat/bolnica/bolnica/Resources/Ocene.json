@@ -1,1 +1,30 @@
-[{"IdOcene":1,"Datum":"2021-05-07T15:46:51.901033+02:00","BrojOcene":1,"Sadrzaj":"Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.","PosiljalacJMBG":"2512002149573","Primalac":"Radmilo Bodiroga"},{"IdOcene":2,"Datum":"2021-05-07T15:47:12.4832102+02:00","BrojOcene":4,"Sadrzaj":"Jedna od boljih bolnica u kojoj sam se lecio.","PosiljalacJMBG":"2512002149573","Primalac":"Bolnica"}]
+[
+  {
+    "IdOcene": 1,
+    "Datum": "2021-05-07T15:46:51.901033+02:00",
+    "BrojOcene": 1,
+    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    }
+  },
+  {
+    "IdOcene": 2,
+    "Datum": "2021-05-07T15:47:12.4832102+02:00",
+    "BrojOcene": 4,
+    "Sadrzaj": "Jedna od boljih bolnica u kojoj sam se lecio.",
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    },
+    "Lekar": {
+      "Jmbg": "null",
+      "KorisnickoIme": "null"
+    }
+  }
+]

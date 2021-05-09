@@ -78,77 +78,81 @@ namespace Bolnica.Forms
                 string ime = splited[0];
                 string prezime = splited[1];
 
-                Lekar l = new Lekar();
-                foreach (Lekar lek in lekari)
+                Lekar lekar = new Lekar();
+                foreach (Lekar l in lekari)
                 {
-                    if (ime.Equals(lek.Ime) && prezime.Equals(lek.Prezime))
+                    if (ime.Equals(l.Ime) && prezime.Equals(l.Prezime))
                     {
-                        l = lek;
+                        lekar = l;
                         break;
                     }
                 }
 
-                PrikazPregleda p = new PrikazPregleda();
-                p.Datum = datumPregleda;
-                p.Lekar = l;
-                p.Trajanje = 15;
-                p.Zavrsen = false;
-                p.Pacijent = pacijent;
+                PrikazPregleda prikaz = new PrikazPregleda
+                {
+                    Datum = datumPregleda,
+                    Lekar = lekar,
+                    Trajanje = 15,
+                    Zavrsen = false,
+                    Pacijent = pacijent
+                };
 
                 FileStorageProstorija storageProstorije = new FileStorageProstorija();
                 List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
 
                 bool slobodna = false;
-                foreach (Prostorija pro in prostorije)
+                foreach (Prostorija p in prostorije)
                 {
-                    if (pro.TipProstorije.Equals(TipProstorije.salaZaPreglede))
+                    if (p.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !p.Obrisana)
                     {
-                        if (pro.Obrisana == false)
-                        {
-                            p.Prostorija = pro;
-                            slobodna = true;
-                            break;
-                        }
+                        prikaz.Prostorija = p;
+                        slobodna = true;
+                        break;
                     }
                 }
-                if (slobodna == false)
+                if (!slobodna)
                 {
                     MessageBox.Show("U izabranom terminu nema slobodnih sala za pregled! Molimo Vas odaberite neki drugi termin.");
                 }
                 else
                 {
-                    FileStoragePregledi sviPregledi = new FileStoragePregledi();
-                    List<Pregled> zaId = sviPregledi.GetAllPregledi();
-                    int max = 0;
-                    for (int i = 0; i < zaId.Count; i++)
-                    {
-                        if (zaId[i].Id > max)
-                            max = zaId[i].Id;
-                    }
-                    p.Id = max + 1;
-
-                    FormPacijentPage.PrikazNezavrsenihPregleda.Add(p);
-
-                    Pregled pre = new Pregled();
-                    pre.Id = p.Id;
-                    pre.Lekar = p.Lekar;
-                    pre.Pacijent = p.Pacijent;
-                    pre.Prostorija = p.Prostorija;
-                    pre.Anamneza.Id = -1;
-                    pre.Datum = p.Datum;
-                    pre.Trajanje = p.Trajanje;
-                    pre.Zavrsen = p.Zavrsen;
-
                     FileStoragePregledi storagePregledi = new FileStoragePregledi();
-                    storagePregledi.Save(pre);
+                    List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+                    int max = 0;
+                    for (int i = 0; i < pregledi.Count; i++)
+                    {
+                        if (pregledi[i].Id > max)
+                        {
+                            max = pregledi[i].Id;
+                        }
+                    }
+                    prikaz.Id = max + 1;
+
+                    FormPacijentPage.PrikazNezavrsenihPregleda.Add(prikaz);
+
+                    Pregled pregled = new Pregled
+                    {
+                        Id = prikaz.Id,
+                        Lekar = prikaz.Lekar,
+                        Pacijent = prikaz.Pacijent,
+                        Prostorija = prikaz.Prostorija,
+                        Datum = prikaz.Datum,
+                        Trajanje = prikaz.Trajanje,
+                        Zavrsen = prikaz.Zavrsen
+                    };
+                    pregled.Anamneza.Id = -1;
+
+                    storagePregledi.Save(pregled);
 
                     FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-                    AntiTrol antiTrol = new AntiTrol();
-                    antiTrol.PacijentJMBG = p.Pacijent.Jmbg;
-                    antiTrol.Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                    AntiTrol antiTrol = new AntiTrol
+                    {
+                        Pacijent = prikaz.Pacijent,
+                        Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
+                    };
                     storageAntiTrol.Save(antiTrol);
 
-                    form.Pocetna.Content = new FormPacijentPage(p.Pacijent, form);
+                    form.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent, form);
                 }
             }
         }
@@ -163,7 +167,7 @@ namespace Bolnica.Forms
             DateTime datum = new DateTime(1, 1, 1);
             int sat = -1;
             int minut = -1;
-            string imeLekara = "";
+            string imeLekara;
             Lekar lekar = new Lekar();
 
             if (!(datumPicker.SelectedDate is null))
@@ -187,18 +191,18 @@ namespace Bolnica.Forms
                 String[] splited = imeLekara.Split(" ");
                 string ime = splited[0];
                 string prezime = splited[1];
-                foreach (Lekar lek in lekari)
+                foreach (Lekar l in lekari)
                 {
-                    if (ime.Equals(lek.Ime) && prezime.Equals(lek.Prezime))
+                    if (ime.Equals(l.Ime) && prezime.Equals(l.Prezime))
                     {
-                        lekar = lek;
+                        lekar = l;
                         break;
                     }
                 }
             }
 
-            var s = new FormNasiPredlozi(pacijent, datum, sat, minut, lekar);
-            s.Show();
+            form.Pocetna.Content = new FormNasiPredloziPage(pacijent, datum, sat, minut, lekar, form);
+
         }
 
         private void RadioButton_Checked_Datum(object sender, RoutedEventArgs e)

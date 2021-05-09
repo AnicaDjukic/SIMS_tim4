@@ -14,6 +14,7 @@ namespace bolnica
     public partial class MainWindow : Window
     {
         private FileStorageKorisnici storage = new FileStorageKorisnici();
+        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
 
         public MainWindow()
         {
@@ -34,19 +35,13 @@ namespace bolnica
                     if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
-
-                        //var s = new FormUpravnik();
-                        //s.Show();
-
-
-                        /*var s = new FormUpravnik();
-                        s.Show();*/
-
+                        var s = new FormUpravnik();
+                        s.Show();
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
-                        /*var s = new FormSekretar();
-                        s.Show();*/
+                        var s = new FormSekretar();
+                        s.Show();
 
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.lekar)
@@ -62,37 +57,32 @@ namespace bolnica
                                 break;
                             }
                         }
-                        //var s = new FormLekar(l);
-                        //s.Show();
+                        var s = new FormLekar(l);
+                        s.Show();
 
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
-                        FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
                         List<Pacijent> pacijenti = storagePacijenti.GetAll();
-                        Pacijent pac = new Pacijent();
+                        Pacijent pacijent = new Pacijent();
                         foreach (Pacijent p in pacijenti)
                         {
-                            if (!p.Obrisan && !p.Guest)
+                            if (korisnickoIme.Equals(p.KorisnickoIme) && lozinka.Equals(p.Lozinka) && !p.Obrisan && !p.Guest)
                             {
-                                if (p.KorisnickoIme.Equals(korisnickoIme) && p.Lozinka.Equals(lozinka))
-                                {
-                                    pac = p;
-                                    break;
-                                }
+                                pacijent = p;
+                                break;
                             }
                         }
-                        if (pac.Jmbg is null)
+                        if (pacijent.Jmbg is null)
                         {
                             MessageBox.Show("Vas nalog je guest ili je obrisan.");
                         }
                         else
                         {
-                           // var s = new FormPacijentWeb(pac);
-                      //      s.Show();
-                         //   s.DanasnjaObavestenja();
+                            var s = new FormPacijentWeb(pacijent);
+                            s.Show();
+                            s.DanasnjaObavestenja();
                         }
-
                     }
 
                     found = true;

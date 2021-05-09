@@ -13,7 +13,7 @@
         <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="900" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center">
             <RadioButton Name="jedan" Content="1 (nimalo)" FontSize="18" Margin="0,10,0,0"></RadioButton>
             <RadioButton Name="dva" Content="2 (jako malo)" FontSize="18" Margin="35,10,0,0"></RadioButton>
-            <RadioButton Name="tri" Content="3 (srednej)" FontSize="18" Margin="35,10,0,0"></RadioButton>
+            <RadioButton Name="tri" Content="3 (srednje)" FontSize="18" Margin="35,10,0,0"></RadioButton>
             <RadioButton Name="cetiri" Content="4 (zadovoljan)" FontSize="18" Margin="35,10,0,0"></RadioButton>
             <RadioButton Name="pet" Content="5 (prezadovoljan)" FontSize="18" Margin="35,10,0,0"></RadioButton>
         </StackPanel>

@@ -2,19 +2,10 @@
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
-using Model.Pregledi;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -25,6 +16,8 @@ namespace Bolnica.Forms
     {
         private Pacijent pacijent = new Pacijent();
         private PrikazPregleda prikaz = new PrikazPregleda();
+
+        private FileStorageOcene storageOcene = new FileStorageOcene();
 
         private FormPacijentWeb form;
 
@@ -37,7 +30,6 @@ namespace Bolnica.Forms
             prikaz = prikazPregleda;
 
             lekarIme.Text = prikazPregleda.Lekar.Ime + " " + prikazPregleda.Lekar.Prezime;
-
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
@@ -48,14 +40,11 @@ namespace Bolnica.Forms
             }
             else
             {
-                FileStorageOcene storageOcene = new FileStorageOcene();
                 List<Ocena> ocene = storageOcene.GetAll();
                 if (ocene is null)
                 {
                     ocene = new List<Ocena>();
                 }
-
-                Ocena ocena = new Ocena();
 
                 int max = 0;
                 foreach (Ocena o in ocene)
@@ -65,9 +54,6 @@ namespace Bolnica.Forms
                         max = o.IdOcene;
                     }
                 }
-                ocena.IdOcene = max + 1;
-
-                ocena.Datum = DateTime.Now;
 
                 int brojOcene = 0;
                 if (jedan.IsChecked == true)
@@ -90,13 +76,16 @@ namespace Bolnica.Forms
                 {
                     brojOcene = 5;
                 }
-                ocena.BrojOcene = brojOcene;
 
-                ocena.Sadrzaj = sadrzaj.Text;
-
-                ocena.PosiljalacJMBG = pacijent.Jmbg;
-
-                ocena.Primalac = prikaz.Lekar.Ime + " " + prikaz.Lekar.Prezime;
+                Ocena ocena = new Ocena
+                {
+                    IdOcene = max + 1,
+                    BrojOcene = brojOcene,
+                    Datum = DateTime.Now,
+                    Sadrzaj = sadrzaj.Text,
+                    Pacijent = pacijent,
+                    Lekar = prikaz.Lekar
+                };
 
                 storageOcene.Save(ocena);
 

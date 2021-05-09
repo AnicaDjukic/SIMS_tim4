@@ -6,13 +6,17 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
         Title="FormPacijentWeb" Height="500" Width="1000">
-    <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" Width="1000" Background="AliceBlue">
+    <Grid Background="AliceBlue">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" Width="1000" Background="LightBlue">
             <Image Source="/Resources/hospital.png" Height="40" Width="40" Margin="70,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
             <TextBlock Text="Zdravo bolnica Novi Sad" Foreground="DarkBlue" TextWrapping="Wrap" TextAlignment="Center" Height="40" Width="120" FontSize="16" Margin="10,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBlock>
-            <Label Content="Stefan Savic" Height="40" Width="200" FontSize="16" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="300,0,0,0"></Label>
+            <Label Height="40" Width="200" FontSize="16" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="300,0,0,0">
+                <Label.Content>
+                    <Binding Path="ImeIPre"></Binding>
+                </Label.Content>
+            </Label>
             <Image Source="/Resources/user.png" Height="40" Width="40" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
-            <Label Content="Odjavi se" Height="40" FontSize="16" VerticalContentAlignment="Center" Margin="100,0,0,0"></Label>
+            <Button Content="Odjavi se" Height="30" FontSize="16" Margin="100,0,0,0" Background="AliceBlue" BorderBrush="AliceBlue" Click="Button_Click_Odjava"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,60,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30">
             <Button Content="Pocetna stranica" BorderBrush="Aqua" MinWidth="140" FontSize="16" Click="Button_Click_Pocetna_Stranica"></Button>
@@ -20,7 +24,7 @@
             <Button Content="Zdravstveni karton" BorderBrush="Aqua" MinWidth="140" FontSize="16"></Button>
             <Button Content="Istorija pregleda" BorderBrush="Aqua" MinWidth="140" FontSize="16" Click="Button_Click_Istorija_Pregleda"></Button>
             <Button Content="Lekovi i terapije" BorderBrush="Aqua" MinWidth="140" FontSize="16"></Button>
-            <Button Content="Obavestenja" BorderBrush="Aqua" MinWidth="140" FontSize="16"></Button>
+            <Button Content="Obavestenja" BorderBrush="Aqua" MinWidth="140" FontSize="16" Click="Button_Click_Obavestenja"></Button>
             <Button Content="Pomoc" BorderBrush="Aqua" MinWidth="140" FontSize="16"></Button>
         </StackPanel>
         <Frame x:Name="Pocetna" Margin="0,90,0,0"></Frame>

@@ -8,16 +8,8 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -26,8 +18,8 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormPacijentPage : Page
     {
+        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
-
         public static ObservableCollection<PrikazPregleda> PrikazNezavrsenihPregleda
         {
             get;
@@ -35,18 +27,20 @@ namespace Bolnica.Forms
         }
 
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageProstorija storageProstorija = new FileStorageProstorija();
         private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileStorageProstorija storageProstorija = new FileStorageProstorija();
         private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private List<Lekar> lekari = new List<Lekar>();
 
         private List<PrikazPregleda> preglediPrikaz = new List<PrikazPregleda>();
         private List<PrikazOperacije> operacijePrikaz = new List<PrikazOperacije>();
+        private List<Pregled> pregledi = new List<Pregled>();
+        private List<Operacija> operacije = new List<Operacija>();
+        private List<Pacijent> pacijenti = new List<Pacijent>();
+        private List<Lekar> lekari = new List<Lekar>();
+        private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Anamneza> anamneze = new List<Anamneza>();
-
-        private FormPacijentWeb form;
 
         public FormPacijentPage(Pacijent pacijent, FormPacijentWeb formPacijentWeb)
         {
@@ -55,35 +49,31 @@ namespace Bolnica.Forms
             this.DataContext = this;
 
             form = formPacijentWeb;
-
             trenutniPacijent = pacijent;
-
-            List<Pregled> pregledi = storagePregledi.GetAllPregledi();
-            List<Operacija> operacije = storagePregledi.GetAllOperacije();
-
             PrikazNezavrsenihPregleda = new ObservableCollection<PrikazPregleda>();
-            FormObavestenjaPacijent.ObavestenjaZaPacijente = new ObservableCollection<string>();
+            FormObavestenjaPacijentPage.ObavestenjaZaPacijente = new ObservableCollection<string>();
 
-            storagePregledi = new FileStoragePregledi();
-
+            pregledi = storagePregledi.GetAllPregledi();
+            operacije = storagePregledi.GetAllOperacije();
+            pacijenti = storagePacijenti.GetAll();
             lekari = storageLekari.GetAll();
-
+            prostorije = storageProstorija.GetAllProstorije();
             anamneze = storageAnamneza.GetAll();
-            List<Prostorija> prostorije = storageProstorija.GetAllProstorije();
-            List<Pacijent> pacijenti = storagePacijenti.GetAll();
 
-            foreach (Pregled p in pregledi)
+            foreach (Pregled pregled in pregledi)
             {
-                PrikazPregleda prikaz = new PrikazPregleda();
-                prikaz.Datum = p.Datum;
-                prikaz.Trajanje = p.Trajanje;
-                prikaz.Zavrsen = p.Zavrsen;
-                prikaz.Id = p.Id;
-                prikaz.Anamneza = p.Anamneza;
+                PrikazPregleda prikaz = new PrikazPregleda
+                {
+                    Datum = pregled.Datum,
+                    Trajanje = pregled.Trajanje,
+                    Zavrsen = pregled.Zavrsen,
+                    Id = pregled.Id,
+                    Anamneza = pregled.Anamneza
+                };
 
                 foreach (Prostorija pro in prostorije)
                 {
-                    if (p.Prostorija.BrojProstorije.Equals(pro.BrojProstorije))
+                    if (pregled.Prostorija.BrojProstorije.Equals(pro.BrojProstorije))
                     {
                         prikaz.Prostorija = pro;
                         break;
@@ -92,7 +82,7 @@ namespace Bolnica.Forms
 
                 foreach (Pacijent pac in pacijenti)
                 {
-                    if (p.Pacijent.Jmbg.Equals(pac.Jmbg))
+                    if (pregled.Pacijent.Jmbg.Equals(pac.Jmbg))
                     {
                         prikaz.Pacijent = pac;
                         break;
@@ -101,7 +91,7 @@ namespace Bolnica.Forms
 
                 foreach (Lekar l in lekari)
                 {
-                    if (p.Lekar.Jmbg.Equals(l.Jmbg))
+                    if (pregled.Lekar.Jmbg.Equals(l.Jmbg))
                     {
                         prikaz.Lekar = l;
                         break;
@@ -111,33 +101,29 @@ namespace Bolnica.Forms
                 preglediPrikaz.Add(prikaz);
             }
 
-            foreach (PrikazPregleda p in preglediPrikaz)
+            foreach (PrikazPregleda prikaz in preglediPrikaz)
             {
-                if (p.Pacijent.Guest == false)
+                if (pacijent.Jmbg.Equals(prikaz.Pacijent.Jmbg) && !prikaz.Pacijent.Guest && !prikaz.Zavrsen)
                 {
-                    if (p.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
-                    {
-                        if (p.Zavrsen == false)
-                        {
-                            PrikazNezavrsenihPregleda.Add(p);
-                        }
-                    }
+                    PrikazNezavrsenihPregleda.Add(prikaz);
                 }
             }
 
-            foreach (Operacija o in operacije)
+            foreach (Operacija operacija in operacije)
             {
-                PrikazOperacije prikaz = new PrikazOperacije();
-                prikaz.Datum = o.Datum;
-                prikaz.Trajanje = o.Trajanje;
-                prikaz.Zavrsen = o.Zavrsen;
-                prikaz.Id = o.Id;
-                prikaz.Anamneza = o.Anamneza;
-                prikaz.TipOperacije = o.TipOperacije;
+                PrikazOperacije prikaz = new PrikazOperacije
+                {
+                    Datum = operacija.Datum,
+                    Trajanje = operacija.Trajanje,
+                    Zavrsen = operacija.Zavrsen,
+                    Id = operacija.Id,
+                    Anamneza = operacija.Anamneza,
+                    TipOperacije = operacija.TipOperacije
+                };
 
                 foreach (Prostorija pro in prostorije)
                 {
-                    if (o.Prostorija.BrojProstorije.Equals(pro.BrojProstorije))
+                    if (operacija.Prostorija.BrojProstorije.Equals(pro.BrojProstorije))
                     {
                         prikaz.Prostorija = pro;
                         break;
@@ -146,7 +132,7 @@ namespace Bolnica.Forms
 
                 foreach (Pacijent pac in pacijenti)
                 {
-                    if (o.Pacijent.Jmbg.Equals(pac.Jmbg))
+                    if (operacija.Pacijent.Jmbg.Equals(pac.Jmbg))
                     {
                         prikaz.Pacijent = pac;
                         break;
@@ -155,7 +141,7 @@ namespace Bolnica.Forms
 
                 foreach (Lekar l in lekari)
                 {
-                    if (o.Lekar.Jmbg.Equals(l.Jmbg))
+                    if (operacija.Lekar.Jmbg.Equals(l.Jmbg))
                     {
                         prikaz.Lekar = l;
                         break;
@@ -165,75 +151,66 @@ namespace Bolnica.Forms
                 operacijePrikaz.Add(prikaz);
             }
 
-            foreach (PrikazOperacije o in operacijePrikaz)
+            foreach (PrikazOperacije prikaz in operacijePrikaz)
             {
-                if (o.Pacijent.Guest == false)
+                if (pacijent.Jmbg.Equals(prikaz.Pacijent.Jmbg) && !prikaz.Pacijent.Guest && !prikaz.Zavrsen)
                 {
-                    if (o.Zavrsen == false && o.Pacijent.KorisnickoIme.Equals(pacijent.KorisnickoIme))
-                        PrikazNezavrsenihPregleda.Add(o);
+                    PrikazNezavrsenihPregleda.Add(prikaz);
                 }
             }
         }
 
         public void PrikaziObavestenja()
         {
-            foreach (PrikazPregleda p in preglediPrikaz)
+            foreach (PrikazPregleda prikaz in preglediPrikaz)
             {
-                if (p.Pacijent.Guest == false)
+                if (trenutniPacijent.Jmbg.Equals(prikaz.Pacijent.Jmbg) && !prikaz.Pacijent.Guest && prikaz.Zavrsen)
                 {
-                    if (p.Pacijent.KorisnickoIme.Equals(trenutniPacijent.KorisnickoIme))
+                    foreach (Anamneza a in anamneze)
                     {
-                        if (p.Zavrsen == true)
+                        if (prikaz.Anamneza.Id.Equals(a.Id))
                         {
-                            foreach (Anamneza a in anamneze)
+                            foreach (Recept r in a.Recept)
                             {
-                                if (p.Anamneza.Id.Equals(a.Id))
+                                if (r.DatumIzdavanja.CompareTo(DateTime.Today) == 0)
                                 {
-                                    foreach (Recept r in a.Recept)
+                                    string poruka;
+                                    if (r.VremeUzimanja.Hours == 0)
                                     {
-                                        if (r.DatumIzdavanja.CompareTo(DateTime.Today) == 0)
-                                        {
-                                            string poruka = "";
-                                            if (r.VremeUzimanja.Hours == 0)
-                                            {
-                                                poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
-                                                r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
-                                                "' koji treba da pijete jednom" +
-                                                " dnevno u razmaku.";
-                                                MessageBox.Show(poruka, "Obaveštenje");
-                                                FormObavestenjaPacijent.ObavestenjaZaPacijente.Add(poruka);
-                                            }
-                                            else
-                                            {
-                                                poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
-                                                r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
-                                                "' koji treba da pijete " + 24 / r.VremeUzimanja.Hours +
-                                                " puta dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
-                                                MessageBox.Show(poruka, "Obaveštenje");
-                                                FormObavestenjaPacijent.ObavestenjaZaPacijente.Add(poruka);
-                                            }
+                                        poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
+                                        r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
+                                        "' koji treba da pijete jednom dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
+                                        MessageBox.Show(poruka, "Obaveštenje");
+                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
+                                    }
+                                    else
+                                    {
+                                        poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
+                                        r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
+                                        "' koji treba da pijete " + 24 / r.VremeUzimanja.Hours +
+                                        " puta dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
+                                        MessageBox.Show(poruka, "Obaveštenje");
+                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
+                                    }
 
-                                        }
-                                        if (r.Trajanje.CompareTo(DateTime.Now) > 0)
-                                        {
-                                            string poruka = "";
-                                            if (r.VremeUzimanja.Hours == 0)
-                                            {
-                                                poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
-                                                "'. Ovaj lek se pije " + " jednom dnevno.";
-                                                MessageBox.Show(poruka, "Obaveštenje");
-                                                FormObavestenjaPacijent.ObavestenjaZaPacijente.Add(poruka);
-                                            }
-                                            else
-                                            {
-                                                poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
-                                                "'. Ovaj lek se pije " + 24 / r.VremeUzimanja.Hours + " puta dnevno u razmaku od po "
-                                                + r.VremeUzimanja.Hours + " sati.";
-                                                MessageBox.Show(poruka, "Obaveštenje");
-                                                FormObavestenjaPacijent.ObavestenjaZaPacijente.Add(poruka);
-                                            }
-
-                                        }
+                                }
+                                if (r.Trajanje.CompareTo(DateTime.Now) > 0)
+                                {
+                                    string poruka;
+                                    if (r.VremeUzimanja.Hours == 0)
+                                    {
+                                        poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
+                                        "'. Ovaj lek se pije " + " jednom dnevno od po " + r.VremeUzimanja.Hours + " sati.";
+                                        MessageBox.Show(poruka, "Obaveštenje");
+                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
+                                    }
+                                    else
+                                    {
+                                        poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
+                                        "'. Ovaj lek se pije " + 24 / r.VremeUzimanja.Hours + " puta dnevno u razmaku od po "
+                                        + r.VremeUzimanja.Hours + " sati.";
+                                        MessageBox.Show(poruka, "Obaveštenje");
+                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
                                     }
                                 }
                             }
@@ -245,32 +222,16 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            storageAntiTrol = new FileStorageAntiTrol();
-            List<AntiTrol> antiTrol = storageAntiTrol.GetAll();
-            int brojac = 0;
-            foreach (AntiTrol a in antiTrol)
-            {
-                if (a.PacijentJMBG.Equals(trenutniPacijent.Jmbg))
-                {
-                    if (a.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
-                    {
-                        brojac++;
-                    }
-                }
-            }
+            int brojac = form.DobijBrojAktivnosti();
+            
             if (brojac > 5)
             {
-                trenutniPacijent.Obrisan = true;
-                storagePacijenti.Update(trenutniPacijent);
-                MessageBox.Show("Zbog zloupotrebe nase aplikacije prinudjeni smo da Vam onemogucimo pristup istoj. " +
-                    "Vas nalog ce biti obrisan i vise necete moci da se ulogujete na Vas profil!", "Iskljucenje");
-                var s = new MainWindow();
-                s.Show();
+                form.BlokirajPacijenta();
                 form.Close();
             }
             else
             {
-                if (brojac > 3)
+                if (brojac > 4)
                 {
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
@@ -282,14 +243,13 @@ namespace Bolnica.Forms
         private void OtkaziPregled(object sender, RoutedEventArgs e)
         {
             var objekat = pacijentGrid.SelectedValue;
-
             if (objekat != null)
             {
                 Operacija operacija = new Operacija();
 
-                PrikazPregleda p = (PrikazPregleda)pacijentGrid.SelectedItem;
+                PrikazPregleda prikaz = (PrikazPregleda)pacijentGrid.SelectedItem;
 
-                DateTime datum = p.Datum;
+                DateTime datum = prikaz.Datum;
                 int dan = datum.Day;
                 int mesec = datum.Month;
                 int godina = datum.Year;
@@ -311,15 +271,15 @@ namespace Bolnica.Forms
                             if (objekat.Equals(PrikazNezavrsenihPregleda[i]))
                             {
                                 PrikazNezavrsenihPregleda.RemoveAt(i);
-                                PrikazOperacije prikaz = (PrikazOperacije)objekat;
-                                operacija.Id = prikaz.Id;
-                                FileStoragePregledi storage = new FileStoragePregledi();
-                                storage.Delete(operacija);
+                                PrikazOperacije prikazOperacije = (PrikazOperacije)objekat;
+                                operacija.Id = prikazOperacije.Id;
+                                storagePregledi.Delete(operacija);
 
-                                FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-                                AntiTrol antiTrol = new AntiTrol();
-                                antiTrol.PacijentJMBG = prikaz.Pacijent.Jmbg;
-                                antiTrol.Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                                AntiTrol antiTrol = new AntiTrol
+                                {
+                                    Pacijent = prikazOperacije.Pacijent,
+                                    Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
+                                };
                                 storageAntiTrol.Save(antiTrol);
                             }
                         }
@@ -331,16 +291,18 @@ namespace Bolnica.Forms
                             if (objekat.Equals(PrikazNezavrsenihPregleda[i]))
                             {
                                 PrikazNezavrsenihPregleda.RemoveAt(i);
-                                PrikazPregleda prikaz = (PrikazPregleda)objekat;
-                                Pregled pregled = new Pregled();
-                                pregled.Id = prikaz.Id;
-                                FileStoragePregledi storage = new FileStoragePregledi();
-                                storage.Delete(pregled);
+                                PrikazPregleda prikazPregleda = (PrikazPregleda)objekat;
+                                Pregled pregled = new Pregled
+                                {
+                                    Id = prikazPregleda.Id
+                                };
+                                storagePregledi.Delete(pregled);
 
-                                FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-                                AntiTrol antiTrol = new AntiTrol();
-                                antiTrol.PacijentJMBG = prikaz.Pacijent.Jmbg;
-                                antiTrol.Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                                AntiTrol antiTrol = new AntiTrol
+                                {
+                                    Pacijent = prikazPregleda.Pacijent,
+                                    Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
+                                };
                                 storageAntiTrol.Save(antiTrol);
                             }
                         }
@@ -356,20 +318,17 @@ namespace Bolnica.Forms
         private void IzmeniPregled(object sender, RoutedEventArgs e)
         {
             var objekat = pacijentGrid.SelectedValue;
-
             if (objekat != null)
             {
-                Operacija o = new Operacija();
-
-                if (objekat.GetType().Equals(o.GetType()))
+                if (objekat.GetType().Equals(new Operacija().GetType()))
                 {
                     MessageBox.Show("Ne mozete da izmenite operaciju!");
                 }
                 else
                 {
-                    PrikazPregleda p = (PrikazPregleda)pacijentGrid.SelectedItem;
+                    PrikazPregleda prikaz = (PrikazPregleda)pacijentGrid.SelectedItem;
 
-                    DateTime datum = p.Datum;
+                    DateTime datum = prikaz.Datum;
                     int dan = datum.Day;
                     int mesec = datum.Month;
                     int godina = datum.Year;
@@ -384,7 +343,22 @@ namespace Bolnica.Forms
                     }
                     else
                     {
-                        form.Pocetna.Content = new FormIzmeniPacijentPage(p, form);
+                        int brojac = form.DobijBrojAktivnosti();
+
+                        if (brojac > 5)
+                        {
+                            form.BlokirajPacijenta();
+                            form.Close();
+                        }
+                        else
+                        {
+                            if (brojac > 4)
+                            {
+                                MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
+                                    "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
+                            }
+                            form.Pocetna.Content = new FormIzmeniPacijentPage(prikaz, form);
+                        }
                     }
                 }
             }
@@ -401,15 +375,13 @@ namespace Bolnica.Forms
 
         private void ObavestenjaPacijent(object sender, RoutedEventArgs e)
         {
-            var s = new FormObavestenjaPacijent();
-            s.Show();
+            form.Pocetna.Content = new FormObavestenjaPacijentPage();
         }
 
         private string GetNazivLeka(int id)
         {
-            List<Lek> lekovi = new List<Lek>();
             FileStorageLek storageLekovi = new FileStorageLek();
-            lekovi = storageLekovi.GetAll();
+            List<Lek> lekovi = storageLekovi.GetAll();
             foreach (Lek l in lekovi)
             {
                 if (l.Id.Equals(id))
