@@ -1,1 +1,275 @@
-[{"Id":2,"Datum":"2021-04-15T00:00:00","Sadrzaj":"Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.","Naslov":"Uspešno okončana još jedna specijalizacija","Obrisan":false,"Korisnici":null},{"Id":1,"Datum":"2021-04-22T00:00:00","Sadrzaj":"Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.","Naslov":"Donirane posteljine","Obrisan":false,"Korisnici":null},{"Id":3,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za upravnika","Obrisan":false,"Korisnici":null},{"Id":4,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za lekare","Obrisan":false,"Korisnici":null},{"Id":5,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za sve pacijente","Obrisan":false,"Korisnici":null},{"Id":6,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za upravnika i Stefu","Obrisan":false,"Korisnici":null},{"Id":7,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za lekare i sve pacijente","Obrisan":false,"Korisnici":null},{"Id":8,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za Stefu","Obrisan":false,"Korisnici":null},{"Id":9,"Datum":"2021-04-26T00:00:00+02:00","Sadrzaj":"Za lek \"Leksilijum\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"Korisnici":null},{"Id":10,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Enterobiotik\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"Korisnici":null},{"Id":11,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Probiotik\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"Korisnici":null},{"Id":12,"Datum":"2021-04-27T20:16:58.2569216+02:00","Sadrzaj":"Lek Kardiopirin sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Cliacil, Novalgetol je prihvacen. ","Naslov":"Lek Kardiopirin je prihvacen","Obrisan":false,"Korisnici":null},{"Id":13,"Datum":"2021-04-27T20:18:16.768608+02:00","Sadrzaj":"Lek Febricet sa dozom 300 i sastojcima:  Cliacil, Gentamicin je odbijen. Komentar: sdgash","Naslov":"Lek Febricet je odbijen","Obrisan":false,"Korisnici":null},{"Id":14,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Febricet\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"Korisnici":null},{"Id":15,"Datum":"2021-04-27T20:19:52.5987212+02:00","Sadrzaj":"Lek Febricet sa dozom 400 i sastojcima:  Cliacil, Gentamicin je prihvacen. ","Naslov":"Lek Febricet je prihvacen","Obrisan":false,"Korisnici":null},{"Id":16,"Datum":"2021-05-07T02:57:06.0819703+02:00","Sadrzaj":"Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ","Naslov":"Lek Probiotik je prihvacen","Obrisan":false,"Korisnici":null},{"Id":17,"Datum":"2021-05-07T02:57:15.8477795+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin, Ibuprofen, Sulfonamid je odbijen. Komentar: Neki nesto","Naslov":"Lek Enterobiotik je odbijen","Obrisan":false,"Korisnici":null},{"Id":18,"Datum":"2021-05-07T03:12:14.4362937+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  je prihvacen. ","Naslov":"Lek Amoksicilin je prihvacen","Obrisan":false,"Korisnici":null},{"Id":19,"Datum":"2021-05-07T03:21:16.4965727+02:00","Sadrzaj":"Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ","Naslov":"Lek Probiotik je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":20,"Datum":"2021-05-07T03:21:28.9832479+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  je odbijen. Komentar: ","Naslov":"Lek Amoksicilin je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":21,"Datum":"2021-05-07T03:35:43.5526496+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Baktrim, Cliacil, Gentamicin, Ibuprofen, Novalgetol, Sulfonamid, Tetraciklin je odbijen. Komentar: nesto","Naslov":"Lek Enterobiotik je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":22,"Datum":"2021-05-07T19:30:22.7120344+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ","Naslov":"Lek Enterobiotik je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":23,"Datum":"2021-05-07T19:30:40.3181559+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim,Gentamicin je odbijen. Komentar: neki komentar ","Naslov":"Lek Amoksicilin je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":24,"Datum":"2021-05-07T19:43:42.9161529+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ","Naslov":"Lek Enterobiotik je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":25,"Datum":"2021-05-07T19:44:02.7883415+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim,Cliacil,Ibuprofen je odbijen. Komentar: neki","Naslov":"Lek Amoksicilin je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":26,"Datum":"2021-05-07T19:45:34.5951638+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ","Naslov":"Lek Enterobiotik je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":27,"Datum":"2021-05-07T19:49:11.6460017+02:00","Sadrzaj":"Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Novalgetol,Sulfonamid je prihvacen. ","Naslov":"Lek Enterobiotik je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":28,"Datum":"2021-05-07T19:49:52.2321315+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  Ibuprofen je odbijen. Komentar: jes","Naslov":"Lek Amoksicilin je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":29,"Datum":"2021-05-08T16:00:27.2018428+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim, Cliacil, Gentamicin, Ibuprofen je odbijen. Komentar: poz","Naslov":"Lek Amoksicilin je odbijen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]},{"Id":30,"Datum":"2021-05-08T16:51:08.4235136+02:00","Sadrzaj":"Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim, Cliacil, Gentamicin, Ibuprofen je prihvacen. ","Naslov":"Lek Amoksicilin je prihvacen","Obrisan":false,"Korisnici":[{"KorisnickoIme":"upravnik"}]}]
+[
+  
+  {
+    "Id": 2,
+    "Datum": "2021-04-15T00:00:00",
+    "Sadrzaj": "Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.",
+    "Naslov": "Uspešno okončana još jedna specijalizacija",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 1,
+    "Datum": "2021-04-22T00:00:00",
+    "Sadrzaj": "Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.",
+    "Naslov": "Donirane posteljine",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 3,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za upravnika",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 4,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za lekare",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 5,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za sve pacijente",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 6,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za upravnika i Stefu",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 7,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za lekare i sve pacijente",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 8,
+    "Datum": "2021-04-24T00:00:00",
+    "Sadrzaj": ".",
+    "Naslov": "Za Stefu",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 9,
+    "Datum": "2021-04-26T00:00:00+02:00",
+    "Sadrzaj": "Za lek \"Leksilijum\" je potrebno izvršiti validaciju",
+    "Naslov": "Lek za validaciju",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 10,
+    "Datum": "2021-04-27T00:00:00+02:00",
+    "Sadrzaj": "Za lek \"Enterobiotik\" je potrebno izvršiti validaciju",
+    "Naslov": "Lek za validaciju",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 11,
+    "Datum": "2021-04-27T00:00:00+02:00",
+    "Sadrzaj": "Za lek \"Probiotik\" je potrebno izvršiti validaciju",
+    "Naslov": "Lek za validaciju",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 12,
+    "Datum": "2021-04-27T20:16:58.2569216+02:00",
+    "Sadrzaj": "Lek Kardiopirin sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Cliacil, Novalgetol je prihvacen. ",
+    "Naslov": "Lek Kardiopirin je prihvacen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 13,
+    "Datum": "2021-04-27T20:18:16.768608+02:00",
+    "Sadrzaj": "Lek Febricet sa dozom 300 i sastojcima:  Cliacil, Gentamicin je odbijen. Komentar: sdgash",
+    "Naslov": "Lek Febricet je odbijen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 14,
+    "Datum": "2021-04-27T00:00:00+02:00",
+    "Sadrzaj": "Za lek \"Febricet\" je potrebno izvršiti validaciju",
+    "Naslov": "Lek za validaciju",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 15,
+    "Datum": "2021-04-27T20:19:52.5987212+02:00",
+    "Sadrzaj": "Lek Febricet sa dozom 400 i sastojcima:  Cliacil, Gentamicin je prihvacen. ",
+    "Naslov": "Lek Febricet je prihvacen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 16,
+    "Datum": "2021-05-07T02:57:06.0819703+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ",
+    "Naslov": "Lek Probiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 17,
+    "Datum": "2021-05-07T02:57:15.8477795+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin, Ibuprofen, Sulfonamid je odbijen. Komentar: Neki nesto",
+    "Naslov": "Lek Enterobiotik je odbijen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 18,
+    "Datum": "2021-05-07T03:12:14.4362937+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  je prihvacen. ",
+    "Naslov": "Lek Amoksicilin je prihvacen",
+    "Obrisan": false,
+    "Korisnici": null
+  },
+  {
+    "Id": 19,
+    "Datum": "2021-05-07T03:21:16.4965727+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ",
+    "Naslov": "Lek Probiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 20,
+    "Datum": "2021-05-07T03:21:28.9832479+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  je odbijen. Komentar: ",
+    "Naslov": "Lek Amoksicilin je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 21,
+    "Datum": "2021-05-07T03:35:43.5526496+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Baktrim, Cliacil, Gentamicin, Ibuprofen, Novalgetol, Sulfonamid, Tetraciklin je odbijen. Komentar: nesto",
+    "Naslov": "Lek Enterobiotik je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 22,
+    "Datum": "2021-05-07T19:30:22.7120344+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ",
+    "Naslov": "Lek Enterobiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 23,
+    "Datum": "2021-05-07T19:30:40.3181559+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim,Gentamicin je odbijen. Komentar: neki komentar ",
+    "Naslov": "Lek Amoksicilin je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 24,
+    "Datum": "2021-05-07T19:43:42.9161529+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ",
+    "Naslov": "Lek Enterobiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 25,
+    "Datum": "2021-05-07T19:44:02.7883415+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim,Cliacil,Ibuprofen je odbijen. Komentar: neki",
+    "Naslov": "Lek Amoksicilin je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 26,
+    "Datum": "2021-05-07T19:45:34.5951638+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Benzodiazepin,Baktrim,Cliacil,Gentamicin,Ibuprofen,Novalgetol,Sulfonamid je prihvacen. ",
+    "Naslov": "Lek Enterobiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 27,
+    "Datum": "2021-05-07T19:49:11.6460017+02:00",
+    "Sadrzaj": "Lek Enterobiotik sa dozom 200 i sastojcima:  Aspirin,Novalgetol,Sulfonamid je prihvacen. ",
+    "Naslov": "Lek Enterobiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 28,
+    "Datum": "2021-05-07T19:49:52.2321315+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  Ibuprofen je odbijen. Komentar: jes",
+    "Naslov": "Lek Amoksicilin je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 29,
+    "Datum": "2021-05-08T16:00:27.2018428+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim, Cliacil, Gentamicin, Ibuprofen je odbijen. Komentar: poz",
+    "Naslov": "Lek Amoksicilin je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 30,
+    "Datum": "2021-05-08T16:51:08.4235136+02:00",
+    "Sadrzaj": "Lek Amoksicilin sa dozom 500 i sastojcima:  Baktrim, Cliacil, Gentamicin, Ibuprofen je prihvacen. ",
+    "Naslov": "Lek Amoksicilin je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 31,
+    "Datum": "2021-05-09T19:15:51.3997378+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ",
+    "Naslov": "Lek Probiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 32,
+    "Datum": "2021-05-09T19:16:42.0727679+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je odbijen. Komentar: Nesto",
+    "Naslov": "Lek Probiotik je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 33,
+    "Datum": "2021-05-09T19:17:44.9779765+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je prihvacen. ",
+    "Naslov": "Lek Probiotik je prihvacen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  },
+  {
+    "Id": 34,
+    "Datum": "2021-05-09T19:20:14.8190548+02:00",
+    "Sadrzaj": "Lek Probiotik sa dozom 300 i sastojcima:  Benzodiazepin, Cliacil, Gentamicin, Novalgetol je odbijen. Komentar: ",
+    "Naslov": "Lek Probiotik je odbijen",
+    "Obrisan": false,
+    "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+  }
+]

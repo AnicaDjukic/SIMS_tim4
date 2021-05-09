@@ -83,9 +83,9 @@ namespace bolnica
                         }
                         else
                         {
-                            var s = new FormPacijentWeb(pac);
-                            s.Show();
-                            s.DanasnjaObavestenja();
+                           // var s = new FormPacijentWeb(pac);
+                      //      s.Show();
+                         //   s.DanasnjaObavestenja();
                         }
 
                     }

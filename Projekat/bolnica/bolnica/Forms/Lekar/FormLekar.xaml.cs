@@ -847,6 +847,16 @@ namespace Bolnica.Forms
         public void IzmeniLek()
         {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
+            lekovi = sviLekovi.GetAll();
+
+            for (int i = 0; i < lekovi.Count; i++)
+            {
+                if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
+                {
+                    lekovi.RemoveAt(i);
+                    i--;
+                }
+            }
             for (int i = 0; i < lekovi.Count; i++)
             {
                 if (lekovi[i].Id.Equals(p.Id))

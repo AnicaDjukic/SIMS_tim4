@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
         Title="FormNapraviReceptLekar" Height="670" Width="630" KeyDown="AkceleratorPritisnut">
@@ -40,6 +41,25 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+        <Style TargetType="Button" x:Key="SaveButton">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DatePickerDatumIzdavanja}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxProizvodjac}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxLek}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxDoza}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxBrojKutija}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxVremeUzimanja}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DatePickerDatumPrekida}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid Background="#FF34FFF4">
         <Grid.ColumnDefinitions>
@@ -68,38 +88,171 @@
 
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
             <DatePicker.SelectedDate>
-                <Binding Path="datumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="datumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                         <val:DatePickerDatumIzdavanjaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                 </Binding>
             </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </DatePicker>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterProizvodjac" >
             <ComboBox.Text>
-                <Binding Path="proizvodjacLeka" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="proizvodjacLeka" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:ComboBoxProizvodjacValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </ComboBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriIFiltirajNaEnterLek">
             <ComboBox.Text>
-                <Binding Path="nazivLeka" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="nazivLeka" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:ComboBoxLekValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </ComboBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterDoza">
             <ComboBox.Text>
-                <Binding Path="dozaLeka" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="dozaLeka" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:ComboBoxDozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </ComboBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterBrojKutija">
             <ComboBox.Text>
-                <Binding Path="brojKutijaLeka" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="brojKutijaLeka" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:ComboBoxBrojKutijaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </ComboBox>
         <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="OtvoriNaEnterVreme">
             <ComboBox.Text>
-                <Binding Path="vremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="vremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:ComboBoxVremeUzimanjaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </ComboBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </ComboBox>
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
             <DatePicker.SelectedDate>
-                <Binding Path="datumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged"/>
+                <Binding Path="datumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <val:DatePickerDatumPrekidaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+            </Binding.ValidationRules>
+            </Binding>
             </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </DatePicker>
 
         <Label Content="Terapija" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -111,7 +264,7 @@
         <Label Content="Vreme uzimanja" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Datum prekida" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" 
                          Background="#FF1E93F4" Content="Potvrdi" Grid.Column="1" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Potvrdi"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
                          Background="#FF1E93F4" Content="Odustani" Grid.Column="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Odustani"/>
