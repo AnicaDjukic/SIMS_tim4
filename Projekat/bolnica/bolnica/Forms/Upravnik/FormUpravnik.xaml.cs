@@ -313,9 +313,15 @@ namespace bolnica.Forms
                         s.KolicinaUMg = l.KolicinaUMg;
                         s.Proizvodjac = l.Proizvodjac;
                         s.Zalihe = l.Zalihe;
+                        FileStorageSastojak storageSastojak = new FileStorageSastojak();
                         foreach (Sastojak sastojak in l.Sastojak)
                         {
-                            CreateFormLekovi.Sastojci.Add(sastojak);
+                            foreach(Sastojak sas in storageSastojak.GetAll())
+                            {
+                                if(sastojak.Id == sas.Id)
+                                    CreateFormLekovi.Sastojci.Add(sas);
+                            }
+                            
                         }
                         if (l.Status == StatusLeka.odobren)
                         {

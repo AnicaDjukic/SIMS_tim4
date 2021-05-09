@@ -31,11 +31,7 @@ namespace Model.Pregledi
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocationPregledi);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
-            if (pregledi?.Count == null)
-            {
-                pregledi = new List<Pregled>();
-            var pregledi= JsonConvert.DeserializeObject<List<Pregled>>(json);
-            if(pregledi?.Count == null)
+            if(pregledi == null)
             {
                 pregledi = new  List<Pregled>();
             }
@@ -49,7 +45,7 @@ namespace Model.Pregledi
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocationOperacije);
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
-            if (operacije?.Count == null)
+            if (operacije == null)
             {
                 operacije = new List<Operacija>();
             }

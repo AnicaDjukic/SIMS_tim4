@@ -89,7 +89,7 @@ namespace Bolnica.Forms
                 int dozvola = 0;
                 for(int m=0; m < l.Sastojak.Count; m++)
                 {
-                    if (l.Sastojak[m].Naziv.Equals(sas[i].Naziv))
+                    if (l.Sastojak[m].Id.Equals(sas[i].Id))
                     {
                         dozvola = 1;
                     }
@@ -142,6 +142,7 @@ namespace Bolnica.Forms
                         {
                             textZamene.Items.RemoveAt(m);
                             m--;
+                            break;
                         }
                     }
                 }

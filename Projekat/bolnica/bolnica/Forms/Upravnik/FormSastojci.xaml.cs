@@ -45,6 +45,7 @@ namespace Bolnica.Forms.Upravnik
             if(dataGridSastojci.SelectedItems.Count > 0)
             {
                var selected = dataGridSastojci.SelectedItems;
+
                 foreach(Sastojak s in selected)
                 {
                     noviLek.Sastojak.Add(s);

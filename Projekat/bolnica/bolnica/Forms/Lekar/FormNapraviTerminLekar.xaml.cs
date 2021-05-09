@@ -16,6 +16,7 @@ using Model.Pacijenti;
 using Bolnica.Validation;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Korisnici;
+using Bolnica.Model.Prostorije;
 
 namespace Bolnica.Forms
 {
@@ -219,7 +220,7 @@ namespace Bolnica.Forms
             }
             for (int pr = 0; pr < prostorijaZa.Count; pr++)
             {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
+                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(prostorijaZa[pr]))
                 {
                     textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
                 }
@@ -227,9 +228,23 @@ namespace Bolnica.Forms
            
           
             textPrezime.IsEnabled = false;
-            
 
+        }
 
+        private bool naRenoviranju(Prostorija p)
+        {
+            FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
+            foreach(Renoviranje r in storageRenoviranje.GetAll())
+            {
+                if(r.Prostorija.BrojProstorije == p.BrojProstorije)
+                {
+                    if(r.PocetakRenoviranja.Date <= textDatum.SelectedDate.Value && textDatum.SelectedDate.Value <= r.KrajRenoviranja.Date)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         public void PotvrdiIzmenu()

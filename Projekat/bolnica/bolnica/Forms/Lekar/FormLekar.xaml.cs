@@ -273,15 +273,20 @@ namespace Bolnica.Forms
                     p.Status = lekovi[i].Status;
                     p.Proizvodjac = lekovi[i].Proizvodjac;
                     string l = "";
+                    FileStorageSastojak storageSastojak = new FileStorageSastojak();
                     for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
                     {
-                        if (m == 0)
-                        {
-                            l = l + " " + lekovi[i].Sastojak[m].Naziv;
-                        }
-                        else
-                        {
-                            l = l + ", " + lekovi[i].Sastojak[m].Naziv;
+                        foreach (Sastojak s in storageSastojak.GetAll()) {
+                            if (m == 0)
+                            {
+                                if (lekovi[i].Sastojak[m].Id == s.Id)
+                                    l = l + " " + s.Naziv;
+                            }
+                            else
+                            {
+                                if (lekovi[i].Sastojak[m].Id == s.Id)
+                                    l = l + ", " + s.Naziv;
+                            }
                         }
                     }
                     string h = "";
