@@ -10,7 +10,8 @@
 
     <Grid>
         <DataGrid Name="nasiPredloziGrid" ItemsSource="{Binding PredlozeniTermini}" VerticalAlignment="Top" HorizontalAlignment="Center" 
-                  AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True" Height="280" Width="800" Margin="0,20,0,0">
+                  AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True"
+                  Height="280" Width="800" Margin="0,20,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>

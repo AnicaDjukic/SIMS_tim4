@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Model.Prostorije;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -16,11 +17,16 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormZakaziPacijentPage : Page
     {
-        private Pacijent pacijent = new Pacijent();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private List<Lekar> lekari = new List<Lekar>();
-
         private FormPacijentWeb form;
+        private Pacijent pacijent = new Pacijent();
+
+        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
+        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+
+        private List<Pregled> pregledi = new List<Pregled>();
+        private List<Lekar> lekari = new List<Lekar>();
 
         public FormZakaziPacijentPage(Pacijent trenutniPacijent, FormPacijentWeb formPacijentWeb)
         {
@@ -103,7 +109,7 @@ namespace Bolnica.Forms
                 bool slobodna = false;
                 foreach (Prostorija p in prostorije)
                 {
-                    if (p.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !p.Obrisana)
+                    if (p.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !p.Obrisana && !NaRenoviranju(p))
                     {
                         prikaz.Prostorija = p;
                         slobodna = true;
@@ -113,17 +119,18 @@ namespace Bolnica.Forms
                 if (!slobodna)
                 {
                     MessageBox.Show("U izabranom terminu nema slobodnih sala za pregled! Molimo Vas odaberite neki drugi termin.");
+                    datumPicker.IsEnabled = true;
+                    datumPicker.Background = Brushes.Aqua;
                 }
                 else
                 {
-                    FileStoragePregledi storagePregledi = new FileStoragePregledi();
-                    List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+                    pregledi = storagePregledi.GetAllPregledi();
                     int max = 0;
-                    for (int i = 0; i < pregledi.Count; i++)
+                    foreach (Pregled p in pregledi)
                     {
-                        if (pregledi[i].Id > max)
+                        if (p.Id > max)
                         {
-                            max = pregledi[i].Id;
+                            max = p.Id;
                         }
                     }
                     prikaz.Id = max + 1;
@@ -144,7 +151,6 @@ namespace Bolnica.Forms
 
                     storagePregledi.Save(pregled);
 
-                    FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
                     AntiTrol antiTrol = new AntiTrol
                     {
                         Pacijent = prikaz.Pacijent,
@@ -200,9 +206,23 @@ namespace Bolnica.Forms
                     }
                 }
             }
-
             form.Pocetna.Content = new FormNasiPredloziPage(pacijent, datum, sat, minut, lekar, form);
+        }
 
+        private bool NaRenoviranju(Prostorija p)
+        {
+            List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
+            foreach (Renoviranje r in renoviranja)
+            {
+                if (p.BrojProstorije.Equals(r.Prostorija.BrojProstorije))
+                {
+                    if (r.PocetakRenoviranja.Date <= datumPicker.SelectedDate.Value && datumPicker.SelectedDate.Value <= r.KrajRenoviranja.Date)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void RadioButton_Checked_Datum(object sender, RoutedEventArgs e)
