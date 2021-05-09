@@ -17,6 +17,7 @@ namespace Bolnica.Forms
     
     public partial class FormPrikazInformacijaOPacijentuLekar : Window
     {
+       
         public FormPrikazInformacijaOPacijentuLekar(Pacijent p1)
         {
             InitializeComponent();
@@ -32,11 +33,18 @@ namespace Bolnica.Forms
             brojTelefona.Content = p1.BrojTelefona;
             emailAdresa.Content = p1.Email;
             List<Sastojak>? l = p1.Alergeni;
+            FileStorageSastojak storageSas = new FileStorageSastojak();
             if (l != null)
             {
                 for (int i = 0; i < p1.Alergeni.Count; i++)
                 {
-                    alergeni2.Items.Add(p1.Alergeni[i].Naziv);
+                    foreach (Sastojak s in storageSas.GetAll())
+                    {
+                        if (p1.Alergeni[i].Id.Equals(s.Id))
+                        {
+                            alergeni2.Items.Add(s.Naziv);
+                        }
+                    }
                 }
             }
 

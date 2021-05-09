@@ -74,7 +74,7 @@ namespace Bolnica.Forms
                 {
                     for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
                     {
-                        if (alergeniPacijenta[o].Naziv.Equals(izabraniLek.Sastojak[m].Naziv))
+                        if (alergeniPacijenta[o].Id.Equals(izabraniLek.Sastojak[m].Id))
                         {
                             MessageBox.Show("Pacijent je alergican na izabrani lek");
                             return true;

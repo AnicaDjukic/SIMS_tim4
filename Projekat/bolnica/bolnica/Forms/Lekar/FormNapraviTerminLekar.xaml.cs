@@ -220,7 +220,7 @@ namespace Bolnica.Forms
             }
             for (int pr = 0; pr < prostorijaZa.Count; pr++)
             {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(prostorijaZa[pr]))
+                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
                 {
                     textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
                 }
@@ -240,11 +240,11 @@ namespace Bolnica.Forms
                 {
                     if(r.PocetakRenoviranja.Date <= textDatum.SelectedDate.Value && textDatum.SelectedDate.Value <= r.KrajRenoviranja.Date)
                     {
-                        return false;
+                        return true;
                     }
                 }
             }
-            return true;
+            return false;
         }
 
         public void PotvrdiIzmenu()
@@ -650,6 +650,10 @@ namespace Bolnica.Forms
 
                 if (prostorijaZa[i].BrojProstorije.ToString().Equals(textProstorija.Text) && !prostorijaZa[i].Obrisana)
                 {
+                    if (naRenoviranju(prostorijaZa[i]))
+                    {
+                        return false;
+                    }
                     if (prostorijaZa[i].Zauzeta)
                     {
                         return false;
@@ -939,6 +943,14 @@ namespace Bolnica.Forms
                 {
                     filterLekar();
                     zaFilLekDat = (DateTime)textDatum.SelectedDate;
+                    textProstorija.Items.Clear();
+                    for (int pr = 0; pr < prostorijaZa.Count; pr++)
+                    {
+                        if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(prostorijaZa[pr]))
+                        {
+                            textProstorija.Items.Add(prostorijaZa[pr].BrojProstorije);
+                        }
+                    }
                 }
             }
         }
