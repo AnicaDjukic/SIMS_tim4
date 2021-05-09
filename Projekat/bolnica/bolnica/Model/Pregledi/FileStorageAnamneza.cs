@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Bolnica.Model.Pregledi
 {
+   
     public class FileStorageAnamneza
     {
         public string FileLocationAnamneza { get; set; }
@@ -19,8 +20,6 @@ namespace Bolnica.Model.Pregledi
             FileStorageLek.serializeLek = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationAnamneza = System.IO.Path.Combine(FileLocation, @"Resources\", "Anamneze.json");
-
-
         }
 
         public List<Anamneza> GetAll()
@@ -45,10 +44,8 @@ namespace Bolnica.Model.Pregledi
             noveAnamneze.Add(novaAnamneza);
             File.WriteAllText(FileLocationAnamneza, JsonConvert.SerializeObject(noveAnamneze));
         }
+        public void Izmeni(Anamneza izabranaAnamneza)
 
-
-
-        public void Izmeni(Anamneza novaAnamneza)
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
@@ -57,27 +54,25 @@ namespace Bolnica.Model.Pregledi
 
             for (int i = 0; i < noveAnamneze.Count; i++)
             {
-                if (noveAnamneze[i].Id.Equals(novaAnamneza.Id))
+                if (noveAnamneze[i].Id.Equals(izabranaAnamneza.Id))
                 {
-                    noveAnamneze[i] = novaAnamneza;
+                    noveAnamneze[i] = izabranaAnamneza;
                     break;
                 }
             }
             File.WriteAllText(FileLocationAnamneza, JsonConvert.SerializeObject(noveAnamneze));
 
         }
-
-
-        public void Delete(Anamneza novaAnamneza)
+        
+        public void Delete(Anamneza izabranaAnamneza)
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
-
             for (int i = 0; i < noveAnamneze.Count; i++)
             {
-                if (noveAnamneze[i].Id.Equals(novaAnamneza.Id))
+                if (noveAnamneze[i].Id.Equals(izabranaAnamneza.Id))
                 {
                     noveAnamneze.RemoveAt(i);
                     break;

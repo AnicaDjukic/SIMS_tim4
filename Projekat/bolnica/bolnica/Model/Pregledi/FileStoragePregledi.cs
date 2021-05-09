@@ -34,6 +34,10 @@ namespace Model.Pregledi
             if (pregledi?.Count == null)
             {
                 pregledi = new List<Pregled>();
+            var pregledi= JsonConvert.DeserializeObject<List<Pregled>>(json);
+            if(pregledi?.Count == null)
+            {
+                pregledi = new  List<Pregled>();
             }
             return pregledi;
         }

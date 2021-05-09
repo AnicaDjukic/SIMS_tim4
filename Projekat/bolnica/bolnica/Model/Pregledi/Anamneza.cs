@@ -24,11 +24,6 @@ namespace Model.Pregledi
 
             return FileStorageAnamneza.serializeAnamneza;
         }
-
-        /// <summary>
-        /// Property for collection of Recept
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Recept> Recept
         {
             get; set;

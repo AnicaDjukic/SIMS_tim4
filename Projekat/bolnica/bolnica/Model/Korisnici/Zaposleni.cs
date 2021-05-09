@@ -2,6 +2,7 @@ using Model.Pregledi;
 
 namespace Model.Korisnici
 {
+
    public class Zaposleni : Osoba
    {
       public int Mbr { get; set; }
@@ -34,5 +35,5 @@ namespace Model.Korisnici
 
           return FileStoragePregledi.serializeKorisnik;
       }
-    }
+   }
 }

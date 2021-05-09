@@ -55,6 +55,7 @@ namespace Model.Pregledi
 
         [JsonIgnore]
         public List<Lek> Zamena { get; set; }
+       
 
 
         public List<Sastojak> Sastojak { get; set; }
