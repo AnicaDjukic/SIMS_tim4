@@ -62,11 +62,11 @@ namespace Bolnica.Sekretar
                     prikazPregleda.Trajanje = listaPregleda[i].Trajanje;
                     prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
                     prikazPregleda.Datum = listaPregleda[i].Datum;
-                    prikazPregleda.AnamnezaId = listaPregleda[i].AnamnezaId;
+                    prikazPregleda.Anamneza.Id = listaPregleda[i].Anamneza.Id;
                     prikazPregleda.Hitan = listaPregleda[i].Hitan;
                     for (int p = 0; p < listaPacijenata.Count; p++)
                     {
-                        if (listaPregleda[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
+                        if (listaPregleda[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
                             prikazPregleda.Pacijent = listaPacijenata[p];
                             break;
@@ -74,7 +74,7 @@ namespace Bolnica.Sekretar
                     }
                     for (int p = 0; p < listaProstorija.Count; p++)
                     {
-                        if (listaPregleda[i].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
+                        if (listaPregleda[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
                         {
                             prikazPregleda.Prostorija = listaProstorija[p];
                             break;
@@ -82,7 +82,7 @@ namespace Bolnica.Sekretar
                     }
                     for (int p = 0; p < listaLekara.Count; p++)
                     {
-                        if (listaPregleda[i].lekarJmbg.Equals(listaLekara[p].Jmbg))
+                        if (listaPregleda[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
                         {
                             prikazPregleda.Lekar = listaLekara[p];
                         }
@@ -100,12 +100,12 @@ namespace Bolnica.Sekretar
                     prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
                     prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
                     prikazOperacije.Datum = listaOperacija[i].Datum;
-                    prikazOperacije.AnamnezaId = listaOperacija[i].AnamnezaId;
+                    prikazOperacije.Anamneza.Id = listaOperacija[i].Anamneza.Id;
                     prikazOperacije.Hitan = listaOperacija[i].Hitan;
                     prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
                     for (int p = 0; p < listaOperacija.Count; p++)
                     {
-                        if (listaOperacija[i].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
+                        if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
                             prikazOperacije.Pacijent = listaPacijenata[p];
                             break;
@@ -113,7 +113,7 @@ namespace Bolnica.Sekretar
                     }
                     for (int p = 0; p < listaProstorija.Count; p++)
                     {
-                        if (listaOperacija[i].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
+                        if (listaOperacija[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
                         {
                             prikazOperacije.Prostorija = listaProstorija[p];
                             break;
@@ -121,7 +121,7 @@ namespace Bolnica.Sekretar
                     }
                     for (int p = 0; p < listaLekara.Count; p++)
                     {
-                        if (listaOperacija[i].lekarJmbg.Equals(listaLekara[p].Jmbg))
+                        if (listaOperacija[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
                         {
                             prikazOperacije.Lekar = listaLekara[p];
                         }

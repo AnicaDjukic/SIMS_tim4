@@ -43,11 +43,15 @@ namespace Bolnica.Forms.Sekretar
             for (int i = 0; i < FormObavestenja.Obavestenja.Count; i++)
                 if (id == FormObavestenja.Obavestenja[i].Id)
                 {
+                    List<string> korImena = new List<string>();
+                    foreach (Korisnik k in FormObavestenja.Obavestenja[i].Korisnici)
+                        korImena.Add(k.KorisnickoIme);
+
                     foreach (Pacijent p in pacijenti)
                     {
                         if (!p.Guest)
                         {
-                            if (FormObavestenja.Obavestenja[i].KorisnickaImena.Contains(p.KorisnickoIme)) 
+                            if (korImena.Contains(p.KorisnickoIme)) 
                             {
                                 DodatiPrimaoci.Add(p);
                                 dodati.Add(p);

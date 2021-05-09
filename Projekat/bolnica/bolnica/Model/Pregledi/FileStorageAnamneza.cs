@@ -11,33 +11,47 @@ namespace Bolnica.Model.Pregledi
     {
         public string FileLocationAnamneza { get; set; }
 
+        public static bool serializeAnamneza;
+
         public FileStorageAnamneza()
         {
+            serializeAnamneza = true;
+            FileStorageLek.serializeLek = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationAnamneza = System.IO.Path.Combine(FileLocation, @"Resources\", "Anamneze.json");
-            
+
 
         }
 
         public List<Anamneza> GetAll()
         {
+            serializeAnamneza = true;
+            FileStorageLek.serializeLek = false;
             var json = File.ReadAllText(FileLocationAnamneza);
             var anameze = JsonConvert.DeserializeObject<List<Anamneza>>(json);
+            if (anameze?.Count == null)
+            {
+                anameze = new List<Anamneza>();
+            }
             return anameze;
         }
 
         public void Save(Anamneza novaAnamneza)
         {
+            serializeAnamneza = true;
+            FileStorageLek.serializeLek = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
             noveAnamneze.Add(novaAnamneza);
             File.WriteAllText(FileLocationAnamneza, JsonConvert.SerializeObject(noveAnamneze));
         }
 
-       
+
 
         public void Izmeni(Anamneza novaAnamneza)
         {
+            serializeAnamneza = true;
+            FileStorageLek.serializeLek = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
 
@@ -53,9 +67,11 @@ namespace Bolnica.Model.Pregledi
 
         }
 
-       
+
         public void Delete(Anamneza novaAnamneza)
         {
+            serializeAnamneza = true;
+            FileStorageLek.serializeLek = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
 
@@ -71,6 +87,6 @@ namespace Bolnica.Model.Pregledi
 
         }
 
-       
+
     }
 }

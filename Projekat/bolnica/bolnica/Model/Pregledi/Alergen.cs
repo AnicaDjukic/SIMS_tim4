@@ -9,9 +9,6 @@ namespace Model.Pregledi
 {
    public class Alergen
    {
-      private int id;
-      private int naziv;
-
       public int Id { get; set; }
       public int Naziv { get; set; }
    

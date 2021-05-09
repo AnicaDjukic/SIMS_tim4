@@ -39,7 +39,7 @@ namespace Model.Korisnici
             return FileStoragePregledi.serializeKorisnik;
         }
         public string Email { get; set; }
-        public bool ShouldSerializeAdresaEmail()
+        public bool ShouldSerializeEmail()
         {
 
             return FileStoragePregledi.serializeKorisnik;

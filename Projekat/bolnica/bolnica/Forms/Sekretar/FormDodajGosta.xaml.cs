@@ -24,11 +24,11 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormDodajGosta : Window
     {
         public static Pacijent pacijent;
-        private TextBox txtPacijent;
-        public FormDodajGosta(TextBox txtPacijent)
+        private ComboBox comboPacijent;
+        public FormDodajGosta(ComboBox comboPacijent)
         {
             InitializeComponent();
-            this.txtPacijent = txtPacijent;
+            this.comboPacijent = comboPacijent;
             pacijent = new Pacijent();
             FormAlergeniDodaj.DodatiAlergeni = null;
             FormAlergeniDodaj.SviAlergeni = null;
@@ -171,7 +171,7 @@ namespace Bolnica.Forms.Sekretar
             }
 
             pacijent = pac;
-            txtPacijent.Text = pacijent.Ime + " " + pacijent.Prezime;
+            comboPacijent.Text = pacijent.Ime + " " + pacijent.Prezime + " " + pacijent.Jmbg;
             FormZakaziHitanTermin.guest = true;
             this.Close();
         }

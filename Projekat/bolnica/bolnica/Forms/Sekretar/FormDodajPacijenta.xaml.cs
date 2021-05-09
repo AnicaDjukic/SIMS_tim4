@@ -88,6 +88,13 @@ namespace Bolnica.Forms
                 Keyboard.Focus(txtIDKarton);
                 return;
             }
+            catch (OverflowException)
+            {
+                MessageBox.Show("Unet je preveliki broj za broj kartona", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtIDKarton.Focusable = true;
+                Keyboard.Focus(txtIDKarton);
+                return;
+            }
             bool osiguranje = (bool)checkOsiguranje.IsChecked;
             int selectedBracniStatus = comboBracniStatus.SelectedIndex;
             BracniStatus bracniStatus = new BracniStatus();

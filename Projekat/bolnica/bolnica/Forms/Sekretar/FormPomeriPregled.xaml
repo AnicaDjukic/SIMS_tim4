@@ -5,29 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Sekretar"
         mc:Ignorable="d"
-        Title="FormPomeriPregled" Height="550" Width="400"
+        Title="FormPomeriPregled" Height="400" Width="400"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Ime pacijenta:" HorizontalAlignment="Left" Margin="67,61,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prezime pacijenta:" HorizontalAlignment="Left" Margin="44,90,0,0" VerticalAlignment="Top"/>
-        <Label Content="JMBG pacijenta:" HorizontalAlignment="Left" Margin="56,121,0,0" VerticalAlignment="Top"/>
-        <Label Content="Ime lekara:" HorizontalAlignment="Left" Margin="83,151,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prezime lekara:" HorizontalAlignment="Left" Margin="60,181,0,0" VerticalAlignment="Top"/>
-        <Label Content="MBR lekara:" HorizontalAlignment="Left" Margin="77,211,0,0" VerticalAlignment="Top"/>
-        <Label Content="Broj prostorije:" HorizontalAlignment="Left" Margin="62,270,0,0" VerticalAlignment="Top"/>
-        <Label Content="Datum:" HorizontalAlignment="Left" Margin="101,301,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="103,331,0,0" VerticalAlignment="Top"/>
-        <Label Content="Trajanje:" HorizontalAlignment="Left" Margin="96,361,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboImePacijenta" Margin="150,65,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboPrezimePacijenta" Margin="150,95,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboJmbgPacijenta" Margin="150,125,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboImeLekara" KeyDown="comboImeLekara_KeyDown" DropDownOpened="filterImeLekara" Margin="150,155,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboPrezimeLekara" KeyDown="comboPrezimeLekara_KeyDown" DropDownOpened="filterPrezimeLekara" Margin="150,185,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboMbrLekara" KeyDown="comboMbrLekara_KeyDown" DropDownOpened="filterMbrLekara" Margin="150,215,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboProstorija" KeyDown="comboProstorija_KeyDown" Margin="150,275,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <DatePicker x:Name="dpDatum" HorizontalAlignment="Left" Margin="150,305,0,0" VerticalAlignment="Top" Width="180"/>
-        <ComboBox x:Name="comboVreme" KeyDown="comboVreme_KeyDown" SelectedIndex="0" HorizontalAlignment="Left" Margin="150,335,0,0" VerticalAlignment="Top" Width="180"/>
-        <TextBox x:Name="txtTrajanje" Margin="150,365,0,0" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <Button Content="Pomeri" Margin="150,445,150,45" Click="PomeriTermin"/>
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="67,61,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="80,91,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prostorija:" HorizontalAlignment="Left" Margin="58,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.598,0.567"/>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="72,151,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="74,181,0,0" VerticalAlignment="Top"/>
+        <Label Content="Trajanje:" HorizontalAlignment="Left" Margin="68,209,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboPacijent" IsTextSearchEnabled="True" IsEditable="True" Margin="126,65,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="comboLekar" IsTextSearchEnabled="True" IsEditable="True" Margin="126,95,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="comboProstorija" IsTextSearchEnabled="True" IsEditable="True" Margin="126,125,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <DatePicker x:Name="dpDatum" HorizontalAlignment="Left" Margin="126,155,0,0" VerticalAlignment="Top" Width="204"/>
+        <ComboBox x:Name="comboVreme" SelectedIndex="0" HorizontalAlignment="Left" Margin="126,185,0,0" VerticalAlignment="Top" Width="204"/>
+        <TextBox x:Name="txtTrajanje" Margin="126,215,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <Button Content="Pomeri" Width="80" Height="20" Margin="150,295,150,45" Click="PomeriTermin"/>
     </Grid>
 </Window>

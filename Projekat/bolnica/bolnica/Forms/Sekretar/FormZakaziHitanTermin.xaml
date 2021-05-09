@@ -11,19 +11,18 @@
         <Label Content="Operacija:" HorizontalAlignment="Left" Margin="74,61,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkOperacija" HorizontalAlignment="Left" Margin="145,68,0,0" VerticalAlignment="Top" Checked="CheckBoxChecked" Unchecked="CheckBoxUnchecked"/>
         <Label x:Name="lblTipOperacije" Content="Kategorija operacije:" HorizontalAlignment="Left" Margin="18,92,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboTipOperacije" SelectedIndex="2" HorizontalAlignment="Left" Margin="145,95,0,0" VerticalAlignment="Top" Width="180">
+        <ComboBox x:Name="comboTipOperacije" SelectedIndex="2" HorizontalAlignment="Left" Margin="145,95,0,0" VerticalAlignment="Top" Width="200">
             <ComboBoxItem Content="Operacija III kategorije"/>
             <ComboBoxItem Content="Operacija II kategorije"/>
             <ComboBoxItem Content="Operacija I kategorije"/>
         </ComboBox>
         <Label Content="Trajanje:" HorizontalAlignment="Left" Margin="83,120,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTrajanje" Margin="145,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtTrajanje" Margin="145,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="83,151,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPacijent" IsEnabled="False" Margin="145,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" HorizontalAlignment="Left"/>
-        <Button Content="Izaberi" Height="20" Width="80" Margin="220,20,0,0" Click="IzaberiRedovnogPacijenta"/>
-        <Button Content="Kreiraj" Height="20" Width="80" Margin="405,20,0,0" Click="KreirajGosta"/>
+        <ComboBox x:Name="comboPacijent" IsTextSearchEnabled="True" IsEditable="True" Margin="145,157,0,0" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left"/>
+        <Button Content="Kreiraj" Height="20" Width="80" Margin="260,25,0,0" Click="KreirajGosta"/>
         <Label Content="Specijalizacija:" HorizontalAlignment="Left" Margin="52,182,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboSpecijalizacija" HorizontalAlignment="Left" Margin="145,185,0,0" VerticalAlignment="Top" Width="180"/>
+        <ComboBox x:Name="comboSpecijalizacija" HorizontalAlignment="Left" Margin="145,185,0,0" VerticalAlignment="Top" Width="200"/>
         <Button Content="Zakaži" Height="20" Width="80" Margin="0,256,120,30" Click="ZakaziHitanTermin"/>
         <Button Content="Zatvori" Height="20" Width="80" Margin="120,256,0,30" Click="Zatvori"/>
     </Grid>

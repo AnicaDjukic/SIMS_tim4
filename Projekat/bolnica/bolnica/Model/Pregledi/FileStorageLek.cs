@@ -1,4 +1,5 @@
-﻿using Model.Pregledi;
+﻿using Model.Pacijenti;
+using Model.Pregledi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,32 @@ namespace Bolnica.Model.Pregledi
     {
         private string fileLocation;
 
+        public static bool serializeLek;
+
         public FileStorageLek()
         {
+            serializeLek = true;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources\", "Lekovi.json");
         }
 
         public List<Lek> GetAll()
         {
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             var lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
+            if (lekovi?.Count == null)
+            {
+                lekovi = new List<Lek>();
+            }
             return lekovi;
         }
 
         public void Save(Lek noviLek)
         {
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi == null)
@@ -38,6 +50,8 @@ namespace Bolnica.Model.Pregledi
 
         public void Delete(Lek lekZaBrisanje)
         {
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi != null)

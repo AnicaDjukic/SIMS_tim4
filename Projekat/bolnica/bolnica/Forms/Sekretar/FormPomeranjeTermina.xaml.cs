@@ -101,14 +101,14 @@ namespace Bolnica.Forms.Sekretar
 
                         if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(listaPregledaUTerminuHitnog[i].Trajanje)) >= 0)
                             continue;
-                        else if (listaPregledaUTerminuHitnog[i].brojProstorije == p.brojProstorije || listaPregledaUTerminuHitnog[i].lekarJmbg.Equals(p.lekarJmbg) || listaPregledaUTerminuHitnog[i].pacijentJmbg.Equals(p.pacijentJmbg))
+                        else if (listaPregledaUTerminuHitnog[i].Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || listaPregledaUTerminuHitnog[i].Lekar.Jmbg.Equals(p.Lekar.Jmbg) || listaPregledaUTerminuHitnog[i].Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                             zauzet = true;
                     }
 
                     foreach (Operacija o in listaOperacija)
-                        if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(listaOperacijaUTerminuHitnog[i].Trajanje)) >= 0)
+                        if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(listaPregledaUTerminuHitnog[i].Trajanje)) >= 0)
                             continue;
-                        else if (listaOperacijaUTerminuHitnog[i].brojProstorije == o.brojProstorije || listaOperacijaUTerminuHitnog[i].lekarJmbg.Equals(o.lekarJmbg) || listaOperacijaUTerminuHitnog[i].pacijentJmbg.Equals(o.pacijentJmbg))
+                        else if (listaPregledaUTerminuHitnog[i].Prostorija.BrojProstorije.Equals(o.Prostorija.BrojProstorije) || listaPregledaUTerminuHitnog[i].Lekar.Jmbg.Equals(o.Lekar.Jmbg) || listaPregledaUTerminuHitnog[i].Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
                             zauzet = true;
 
                     if (zauzet)
@@ -132,7 +132,7 @@ namespace Bolnica.Forms.Sekretar
                     foreach (Pregled p in listaPregleda)
                         if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(listaOperacijaUTerminuHitnog[i].Trajanje)) >= 0)
                             continue;
-                        else if (listaOperacijaUTerminuHitnog[i].brojProstorije == p.brojProstorije || listaOperacijaUTerminuHitnog[i].lekarJmbg.Equals(p.lekarJmbg) || listaOperacijaUTerminuHitnog[i].pacijentJmbg.Equals(p.pacijentJmbg))
+                        else if (listaOperacijaUTerminuHitnog[i].Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || listaOperacijaUTerminuHitnog[i].Lekar.Jmbg.Equals(p.Lekar.Jmbg) || listaOperacijaUTerminuHitnog[i].Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                             zauzet = true;
 
                     foreach (Operacija o in listaOperacija)
@@ -142,7 +142,7 @@ namespace Bolnica.Forms.Sekretar
 
                         if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(listaOperacijaUTerminuHitnog[i].Trajanje)) >= 0)
                             continue;
-                        else if (listaOperacijaUTerminuHitnog[i].brojProstorije == o.brojProstorije || listaOperacijaUTerminuHitnog[i].lekarJmbg.Equals(o.lekarJmbg) || listaOperacijaUTerminuHitnog[i].pacijentJmbg.Equals(o.pacijentJmbg))
+                        else if (listaOperacijaUTerminuHitnog[i].Prostorija.BrojProstorije.Equals(o.Prostorija.BrojProstorije) || listaOperacijaUTerminuHitnog[i].Lekar.Jmbg.Equals(o.Lekar.Jmbg) || listaOperacijaUTerminuHitnog[i].Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
                             zauzet = true;
                     }
                     
@@ -177,11 +177,11 @@ namespace Bolnica.Forms.Sekretar
                     prikazPregleda.Trajanje = lista1[najveciIndeks].Trajanje;
                     prikazPregleda.Zavrsen = lista1[najveciIndeks].Zavrsen;
                     prikazPregleda.Datum = lista1[najveciIndeks].Datum;
-                    prikazPregleda.AnamnezaId = lista1[najveciIndeks].AnamnezaId;
+                    prikazPregleda.Anamneza.Id = lista1[najveciIndeks].Anamneza.Id;
                     prikazPregleda.Hitan = lista1[najveciIndeks].Hitan;
                     for (int p = 0; p < listaPacijenata.Count; p++)
                     {
-                        if (lista1[najveciIndeks].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
+                        if (lista1[najveciIndeks].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
                             prikazPregleda.Pacijent = listaPacijenata[p];
                             break;
@@ -189,7 +189,7 @@ namespace Bolnica.Forms.Sekretar
                     }
                     for (int p = 0; p < listaProstorija.Count; p++)
                     {
-                        if (lista1[najveciIndeks].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
+                        if (lista1[najveciIndeks].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
                         {
                             prikazPregleda.Prostorija = listaProstorija[p];
                             break;
@@ -197,7 +197,7 @@ namespace Bolnica.Forms.Sekretar
                     }
                     for (int p = 0; p < listaLekara.Count; p++)
                     {
-                        if (lista1[najveciIndeks].lekarJmbg.Equals(listaLekara[p].Jmbg))
+                        if (lista1[najveciIndeks].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
                         {
                             prikazPregleda.Lekar = listaLekara[p];
                         }
@@ -215,12 +215,12 @@ namespace Bolnica.Forms.Sekretar
                     prikazOperacije.Trajanje = lista2[indeks].Trajanje;
                     prikazOperacije.Zavrsen = lista2[indeks].Zavrsen;
                     prikazOperacije.Datum = lista2[indeks].Datum;
-                    prikazOperacije.AnamnezaId = lista2[indeks].AnamnezaId;
+                    prikazOperacije.Anamneza.Id = lista2[indeks].Anamneza.Id;
                     prikazOperacije.Hitan = lista2[indeks].Hitan;
                     prikazOperacije.TipOperacije = lista2[indeks].TipOperacije;
                     for (int p = 0; p < listaPacijenata.Count; p++)
                     {
-                        if (lista2[indeks].pacijentJmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
+                        if (lista2[indeks].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
                             prikazOperacije.Pacijent = listaPacijenata[p];
                             break;
@@ -228,7 +228,7 @@ namespace Bolnica.Forms.Sekretar
                     }
                     for (int p = 0; p < listaProstorija.Count; p++)
                     {
-                        if (lista2[indeks].brojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
+                        if (lista2[indeks].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
                         {
                             prikazOperacije.Prostorija = listaProstorija[p];
                             break;
@@ -236,7 +236,7 @@ namespace Bolnica.Forms.Sekretar
                     }
                     for (int p = 0; p < listaLekara.Count; p++)
                     {
-                        if (lista2[indeks].lekarJmbg.Equals(listaLekara[p].Jmbg))
+                        if (lista2[indeks].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
                         {
                             prikazOperacije.Lekar = listaLekara[p];
                         }
@@ -279,7 +279,7 @@ namespace Bolnica.Forms.Sekretar
                         PrikazPregleda pregled = objekat as PrikazPregleda;
                         bool zauzet;
 
-                        DateTime datum = datumHitnogTermina;
+                        DateTime datum = new DateTime(datumHitnogTermina.Year, datumHitnogTermina.Month, datumHitnogTermina.Day, datumHitnogTermina.Hour, datumHitnogTermina.Minute, 0);
                         if (trajanjeHitnogTermina % 15 == 0)
                             datum = datum.AddMinutes(trajanjeHitnogTermina);
                         else
@@ -302,14 +302,14 @@ namespace Bolnica.Forms.Sekretar
 
                                 if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(pregled.Trajanje)) >= 0)
                                     continue;
-                                else if (pregled.Prostorija.BrojProstorije.Equals(p.brojProstorije) || pregled.Lekar.Jmbg.Equals(p.lekarJmbg) || pregled.Pacijent.Jmbg.Equals(p.pacijentJmbg))
+                                else if (pregled.Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || pregled.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                                     zauzet = true;
                             }
 
                             foreach (PrikazPregleda p in pomereniPregledi)
                                 if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(pregled.Trajanje)) >= 0)
                                     continue;
-                                else if (pregled.Prostorija.BrojProstorije == p.Prostorija.BrojProstorije || pregled.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
+                                else if (pregled.Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || pregled.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                                     zauzet = true;
 
                             foreach (Operacija o in listaOperacija)
@@ -324,14 +324,14 @@ namespace Bolnica.Forms.Sekretar
 
                                 if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(pregled.Trajanje)) >= 0)
                                     continue;
-                                else if (pregled.Prostorija.BrojProstorije == o.brojProstorije || pregled.Lekar.Jmbg.Equals(o.lekarJmbg) || pregled.Pacijent.Jmbg.Equals(o.pacijentJmbg))
+                                else if (pregled.Prostorija.BrojProstorije.Equals(o.Prostorija.BrojProstorije) || pregled.Lekar.Jmbg.Equals(o.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
                                     zauzet = true;
                             }
 
                             foreach (PrikazOperacije o in pomereneOperacije)
                                 if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(pregled.Trajanje)) >= 0)
                                     continue;
-                                else if (pregled.Prostorija.BrojProstorije == o.Prostorija.BrojProstorije || pregled.Lekar.Jmbg.Equals(o.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
+                                else if (pregled.Prostorija.BrojProstorije.Equals(o.Prostorija.BrojProstorije) || pregled.Lekar.Jmbg.Equals(o.Lekar.Jmbg) || pregled.Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
                                     zauzet = true;
 
                             if (zauzet)
@@ -349,7 +349,7 @@ namespace Bolnica.Forms.Sekretar
                         PrikazOperacije operacija = objekat as PrikazOperacije;
                         bool zauzet;
 
-                        DateTime datum = datumHitnogTermina;
+                        DateTime datum = new DateTime(datumHitnogTermina.Year, datumHitnogTermina.Month, datumHitnogTermina.Day, datumHitnogTermina.Hour, datumHitnogTermina.Minute, 0); ;
                         if (trajanjeHitnogTermina % 15 == 0)
                             datum = datum.AddMinutes(trajanjeHitnogTermina);
                         else
@@ -369,14 +369,14 @@ namespace Bolnica.Forms.Sekretar
 
                                 if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(operacija.Trajanje)) >= 0)
                                     continue;
-                                else if (operacija.Prostorija.BrojProstorije == p.brojProstorije || operacija.Lekar.Jmbg.Equals(p.lekarJmbg) || operacija.Pacijent.Jmbg.Equals(p.pacijentJmbg))
+                                else if (operacija.Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || operacija.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || operacija.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                                     zauzet = true;
                             }
 
                             foreach (PrikazPregleda p in pomereniPregledi)
                                 if (DateTime.Compare(p.Datum.AddMinutes(p.Trajanje), datum) <= 0 || DateTime.Compare(p.Datum, datum.AddMinutes(operacija.Trajanje)) >= 0)
                                     continue;
-                                else if (operacija.Prostorija.BrojProstorije == p.Prostorija.BrojProstorije || operacija.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || operacija.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
+                                else if (operacija.Prostorija.BrojProstorije.Equals(p.Prostorija.BrojProstorije) || operacija.Lekar.Jmbg.Equals(p.Lekar.Jmbg) || operacija.Pacijent.Jmbg.Equals(p.Pacijent.Jmbg))
                                     zauzet = true;
 
                             foreach (Operacija o in listaOperacija)
@@ -394,7 +394,7 @@ namespace Bolnica.Forms.Sekretar
 
                                 if (DateTime.Compare(o.Datum.AddMinutes(o.Trajanje), datum) <= 0 || DateTime.Compare(o.Datum, datum.AddMinutes(operacija.Trajanje)) >= 0)
                                     continue;
-                                else if (operacija.Prostorija.BrojProstorije == o.brojProstorije || operacija.Lekar.Jmbg.Equals(o.lekarJmbg) || operacija.Pacijent.Jmbg.Equals(o.pacijentJmbg))
+                                else if (operacija.Prostorija.BrojProstorije == o.Prostorija.BrojProstorije || operacija.Lekar.Jmbg.Equals(o.Lekar.Jmbg) || operacija.Pacijent.Jmbg.Equals(o.Pacijent.Jmbg))
                                     zauzet = true;
                             }
 
@@ -471,18 +471,18 @@ namespace Bolnica.Forms.Sekretar
                     trenutniPregled.Id = max + 1;
                     Pregled p = new Pregled();
                     p.Id = trenutniPregled.Id;
-                    p.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-                    p.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                    p.Lekar = trenutniPregled.Lekar;
+                    p.Pacijent = trenutniPregled.Pacijent;
                     p.Trajanje = trenutniPregled.Trajanje;
                     p.Zavrsen = trenutniPregled.Zavrsen;
-                    p.AnamnezaId = -1;
-                    p.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                    p.Anamneza.Id = -1;
+                    p.Prostorija = trenutniPregled.Prostorija;
                     p.Datum = trenutniPregled.Datum;
                     p.Hitan = trenutniPregled.Hitan;
 
                     bool guest = true;
                     foreach (Pacijent pac in listaPacijenata)
-                        if (pac.Jmbg.Equals(p.pacijentJmbg))
+                        if (pac.Jmbg.Equals(p.Pacijent.Jmbg))
                             guest = false;
 
                     if (guest)
@@ -490,6 +490,7 @@ namespace Bolnica.Forms.Sekretar
 
                     sviPregledi.Save(p);
                     FormPregledi.listaPregleda.Add(p);
+                    listaPregleda.Add(p);
                     FormPregledi.Pregledi.Add(trenutniPregled);
 
                     foreach(PrikazPregleda pp in pomereniPregledi) 
@@ -507,10 +508,6 @@ namespace Bolnica.Forms.Sekretar
                         for (int i = 0; i < FormPregledi.listaPregleda.Count; i++)
                             if (pp.Id == FormPregledi.listaPregleda[i].Id)
                                 FormPregledi.listaPregleda[i].Datum = pp.Datum;
-
-                        for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
-                            if (pp.Id == FormPregledi.Pregledi[i].Id)
-                                FormPregledi.Pregledi[i].Datum = pp.Datum;
 
                         for (int i = 0; i < listaPregledaUTerminuHitnog.Count; i++)
                             if (pp.Id == listaPregledaUTerminuHitnog[i].Id)
@@ -533,13 +530,87 @@ namespace Bolnica.Forms.Sekretar
                             if (po.Id == FormPregledi.listaOperacija[i].Id)
                                 FormPregledi.listaOperacija[i].Datum = po.Datum;
 
-                        for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
-                            if (po.Id == FormPregledi.Pregledi[i].Id)
-                                FormPregledi.Pregledi[i].Datum = po.Datum;
-
                         for (int i = 0; i < listaOperacijaUTerminuHitnog.Count; i++)
                             if (po.Id == listaOperacijaUTerminuHitnog[i].Id)
                                 listaOperacijaUTerminuHitnog[i].Datum = po.Datum;
+                    }
+
+                    FormPregledi.Pregledi.Clear();
+                    for (int i = 0; i < listaPregleda.Count; i++)
+                    {
+                        if (listaPregleda[i].Zavrsen.Equals(false))
+                        {
+                            prikazPregleda = new PrikazPregleda();
+                            prikazPregleda.Id = listaPregleda[i].Id;
+                            prikazPregleda.Trajanje = listaPregleda[i].Trajanje;
+                            prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
+                            prikazPregleda.Datum = listaPregleda[i].Datum;
+                            prikazPregleda.Anamneza.Id = listaPregleda[i].Anamneza.Id;
+                            prikazPregleda.Hitan = listaPregleda[i].Hitan;
+                            for (int j = 0; j < listaPacijenata.Count; j++)
+                            {
+                                if (listaPregleda[i].Pacijent.Jmbg.Equals(listaPacijenata[j].Jmbg) && listaPacijenata[j].Obrisan == false)
+                                {
+                                    prikazPregleda.Pacijent = listaPacijenata[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaProstorija.Count; j++)
+                            {
+                                if (listaPregleda[i].Prostorija.BrojProstorije.Equals(listaProstorija[j].BrojProstorije) && listaProstorija[j].Obrisana == false)
+                                {
+                                    prikazPregleda.Prostorija = listaProstorija[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaLekara.Count; j++)
+                            {
+                                if (listaPregleda[i].Lekar.Jmbg.Equals(listaLekara[j].Jmbg))
+                                {
+                                    prikazPregleda.Lekar = listaLekara[j];
+                                }
+                            }
+                            FormPregledi.Pregledi.Add(prikazPregleda);
+                        }
+                    }
+
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (listaOperacija[i].Zavrsen.Equals(false))
+                        {
+                            prikazOperacije = new PrikazOperacije();
+                            prikazOperacije.Id = listaOperacija[i].Id;
+                            prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
+                            prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
+                            prikazOperacije.Datum = listaOperacija[i].Datum;
+                            prikazOperacije.Anamneza.Id = listaOperacija[i].Anamneza.Id;
+                            prikazOperacije.Hitan = listaOperacija[i].Hitan;
+                            prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
+                            for (int j = 0; j < listaOperacija.Count; j++)
+                            {
+                                if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[j].Jmbg) && listaPacijenata[j].Obrisan == false)
+                                {
+                                    prikazOperacije.Pacijent = listaPacijenata[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaProstorija.Count; j++)
+                            {
+                                if (listaOperacija[i].Prostorija.BrojProstorije.Equals(listaProstorija[j].BrojProstorije) && listaProstorija[j].Obrisana == false)
+                                {
+                                    prikazOperacije.Prostorija = listaProstorija[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaLekara.Count; j++)
+                            {
+                                if (listaOperacija[i].Lekar.Jmbg.Equals(listaLekara[j].Jmbg))
+                                {
+                                    prikazOperacije.Lekar = listaLekara[j];
+                                }
+                            }
+                            FormPregledi.Pregledi.Add(prikazOperacije);
+                        }
                     }
                 }
                 else
@@ -598,19 +669,19 @@ namespace Bolnica.Forms.Sekretar
                     trenutnaOperacija.Id = max + 1;
                     Operacija o = new Operacija();
                     o.Id = trenutnaOperacija.Id;
-                    o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
-                    o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                    o.Lekar = trenutnaOperacija.Lekar;
+                    o.Pacijent = trenutnaOperacija.Pacijent;
                     o.Trajanje = trenutnaOperacija.Trajanje;
                     o.Zavrsen = trenutnaOperacija.Zavrsen;
-                    o.AnamnezaId = -1;
-                    o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                    o.Anamneza.Id = -1;
+                    o.Prostorija = trenutnaOperacija.Prostorija;
                     o.Datum = trenutnaOperacija.Datum;
                     o.Hitan = trenutnaOperacija.Hitan;
                     o.TipOperacije = trenutnaOperacija.TipOperacije;
 
                     bool guest = true;
                     foreach (Pacijent pac in listaPacijenata)
-                        if (pac.Jmbg.Equals(o.pacijentJmbg))
+                        if (pac.Jmbg.Equals(o.Pacijent.Jmbg))
                             guest = false;
 
                     if (guest)
@@ -618,6 +689,7 @@ namespace Bolnica.Forms.Sekretar
 
                     sviPregledi.Save(o);
                     FormPregledi.listaOperacija.Add(o);
+                    listaOperacija.Add(o);
                     FormPregledi.Pregledi.Add(trenutnaOperacija);
 
                     foreach (PrikazPregleda pp in pomereniPregledi)
@@ -635,10 +707,6 @@ namespace Bolnica.Forms.Sekretar
                         for (int i = 0; i < FormPregledi.listaPregleda.Count; i++)
                             if (pp.Id == FormPregledi.listaPregleda[i].Id)
                                 FormPregledi.listaPregleda[i].Datum = pp.Datum;
-
-                        for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
-                            if (pp.Id == FormPregledi.Pregledi[i].Id)
-                                FormPregledi.Pregledi[i].Datum = pp.Datum;
 
                         for (int i = 0; i < listaPregledaUTerminuHitnog.Count; i++)
                             if (pp.Id == listaPregledaUTerminuHitnog[i].Id)
@@ -661,13 +729,87 @@ namespace Bolnica.Forms.Sekretar
                             if (po.Id == FormPregledi.listaOperacija[i].Id)
                                 FormPregledi.listaOperacija[i].Datum = po.Datum;
 
-                        for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
-                            if (po.Id == FormPregledi.Pregledi[i].Id)
-                                FormPregledi.Pregledi[i].Datum = po.Datum;
-
                         for (int i = 0; i < listaOperacijaUTerminuHitnog.Count; i++)
                             if (po.Id == listaOperacijaUTerminuHitnog[i].Id)
                                 listaOperacijaUTerminuHitnog[i].Datum = po.Datum;
+                    }
+
+                    FormPregledi.Pregledi.Clear();
+                    for (int i = 0; i < listaPregleda.Count; i++)
+                    {
+                        if (listaPregleda[i].Zavrsen.Equals(false))
+                        {
+                            prikazPregleda = new PrikazPregleda();
+                            prikazPregleda.Id = listaPregleda[i].Id;
+                            prikazPregleda.Trajanje = listaPregleda[i].Trajanje;
+                            prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
+                            prikazPregleda.Datum = listaPregleda[i].Datum;
+                            prikazPregleda.Anamneza.Id = listaPregleda[i].Anamneza.Id;
+                            prikazPregleda.Hitan = listaPregleda[i].Hitan;
+                            for (int j = 0; j < listaPacijenata.Count; j++)
+                            {
+                                if (listaPregleda[i].Pacijent.Jmbg.Equals(listaPacijenata[j].Jmbg) && listaPacijenata[j].Obrisan == false)
+                                {
+                                    prikazPregleda.Pacijent = listaPacijenata[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaProstorija.Count; j++)
+                            {
+                                if (listaPregleda[i].Prostorija.BrojProstorije.Equals(listaProstorija[j].BrojProstorije) && listaProstorija[j].Obrisana == false)
+                                {
+                                    prikazPregleda.Prostorija = listaProstorija[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaLekara.Count; j++)
+                            {
+                                if (listaPregleda[i].Lekar.Jmbg.Equals(listaLekara[j].Jmbg))
+                                {
+                                    prikazPregleda.Lekar = listaLekara[j];
+                                }
+                            }
+                            FormPregledi.Pregledi.Add(prikazPregleda);
+                        }
+                    }
+
+                    for (int i = 0; i < listaOperacija.Count; i++)
+                    {
+                        if (listaOperacija[i].Zavrsen.Equals(false))
+                        {
+                            prikazOperacije = new PrikazOperacije();
+                            prikazOperacije.Id = listaOperacija[i].Id;
+                            prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
+                            prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
+                            prikazOperacije.Datum = listaOperacija[i].Datum;
+                            prikazOperacije.Anamneza.Id = listaOperacija[i].Anamneza.Id;
+                            prikazOperacije.Hitan = listaOperacija[i].Hitan;
+                            prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
+                            for (int j = 0; j < listaOperacija.Count; j++)
+                            {
+                                if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[j].Jmbg) && listaPacijenata[j].Obrisan == false)
+                                {
+                                    prikazOperacije.Pacijent = listaPacijenata[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaProstorija.Count; j++)
+                            {
+                                if (listaOperacija[i].Prostorija.BrojProstorije.Equals(listaProstorija[j].BrojProstorije) && listaProstorija[j].Obrisana == false)
+                                {
+                                    prikazOperacije.Prostorija = listaProstorija[j];
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < listaLekara.Count; j++)
+                            {
+                                if (listaOperacija[i].Lekar.Jmbg.Equals(listaLekara[j].Jmbg))
+                                {
+                                    prikazOperacije.Lekar = listaLekara[j];
+                                }
+                            }
+                            FormPregledi.Pregledi.Add(prikazOperacije);
+                        }
                     }
                 }
                 dataGrid.Items.Refresh();
@@ -687,7 +829,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.brojProstorije.Equals(prostorija.BrojProstorije))
+                if (p.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
                     preglediProstorije.Add(p);
 
             foreach (Pregled p in preglediProstorije)
@@ -730,7 +872,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
             foreach (Operacija o in operacije)
-                if (o.brojProstorije.Equals(prostorija.BrojProstorije))
+                if (o.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
                     operacijeProstorije.Add(o);
 
             foreach (Operacija o in operacijeProstorije)
@@ -786,7 +928,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.lekarJmbg.Equals(lekar.Jmbg))
+                if (p.Lekar.Jmbg.Equals(lekar.Jmbg))
                     preglediLekara.Add(p);
 
             foreach (Pregled p in preglediLekara)
@@ -829,7 +971,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
             foreach (Operacija o in operacije)
-                if (o.lekarJmbg.Equals(lekar.Jmbg))
+                if (o.Lekar.Jmbg.Equals(lekar.Jmbg))
                     operacijeLekara.Add(o);
 
             foreach (Operacija o in operacijeLekara)
@@ -885,7 +1027,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.pacijentJmbg.Equals(pacijent.Jmbg))
+                if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                     preglediPacijenta.Add(p);
 
             foreach (Pregled p in preglediPacijenta)
@@ -928,7 +1070,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
             foreach (Operacija o in operacije)
-                if (o.pacijentJmbg.Equals(pacijent.Jmbg))
+                if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                     operacijePacijenta.Add(o);
 
             foreach (Operacija o in operacijePacijenta)

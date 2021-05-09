@@ -49,6 +49,11 @@ namespace Bolnica.Forms.Sekretar
             sviPregledi = new FileStoragePregledi();
             dataGrid = dg;
 
+            foreach (Pacijent p in pacijenti)
+            {
+                if(!p.Obrisan && !p.Guest)
+                    comboPacijent.Items.Add(p.Ime + " " + p.Prezime + " " + p.Jmbg);
+            }
 
             foreach (Lekar l in lekari)
                 if (!comboSpecijalizacija.Items.Contains(l.Specijalizacija.OblastMedicine) && !l.Specijalizacija.OblastMedicine.Equals("Opsta"))
@@ -76,12 +81,6 @@ namespace Bolnica.Forms.Sekretar
             comboSpecijalizacija.Items.Add("Opsta");
         }
 
-        private void IzaberiRedovnogPacijenta(object sender, RoutedEventArgs e)
-        {
-            FormIzaberiPacijenta s = new FormIzaberiPacijenta(txtPacijent);
-            s.ShowDialog();
-        }
-
         private void Zatvori(object sender, RoutedEventArgs e)
         {
             Close();
@@ -89,7 +88,7 @@ namespace Bolnica.Forms.Sekretar
 
         private void KreirajGosta(object sender, RoutedEventArgs e)
         {
-            FormDodajGosta s = new FormDodajGosta(txtPacijent);
+            FormDodajGosta s = new FormDodajGosta(comboPacijent);
             s.ShowDialog();
         }
 
@@ -103,9 +102,44 @@ namespace Bolnica.Forms.Sekretar
                 trenutniPregled.Zavrsen = false;
                 trenutniPregled.Hitan = true;
 
-                if (txtPacijent.Text.Equals("")) 
+                string imePacijenta;
+                string prezimePacijenta;
+                string jmbgPacijenta;
+                try
                 {
-                    MessageBox.Show("Nije izabran pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    imePacijenta = comboPacijent.Text.Split(" ")[0];
+                    prezimePacijenta = comboPacijent.Text.Split(" ")[1];
+                    jmbgPacijenta = comboPacijent.Text.Split(" ")[2];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboPacijent.Focusable = true;
+                    Keyboard.Focus(comboPacijent);
+                    return;
+                }
+
+                bool pacijentSet = false;
+                for (int i = 0; i < pacijenti.Count; i++)
+                {
+                    if(!pacijenti[i].Obrisan && !pacijenti[i].Guest)
+                        if (pacijenti[i].Ime == imePacijenta && pacijenti[i].Prezime == prezimePacijenta && pacijenti[i].Jmbg == jmbgPacijenta)
+                        {
+                            pacijentSet = true;
+                            guest = false;
+                            break;
+                        }
+                }
+
+                if (guest)
+                    if(FormDodajGosta.pacijent.Ime == imePacijenta && FormDodajGosta.pacijent.Prezime == prezimePacijenta && FormDodajGosta.pacijent.Jmbg == jmbgPacijenta)
+                        pacijentSet = true;
+
+                if (!pacijentSet)
+                {
+                    MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboPacijent.Focusable = true;
+                    Keyboard.Focus(comboPacijent);
                     return;
                 }
 
@@ -114,7 +148,7 @@ namespace Bolnica.Forms.Sekretar
                 else 
                 {
                     foreach (Pacijent pac in pacijenti)
-                        if (pac.Jmbg.Equals(FormIzaberiPacijenta.Jmbg))
+                        if (pac.Jmbg.Equals(jmbgPacijenta))
                             trenutniPregled.Pacijent = pac;
                 }
 
@@ -228,12 +262,12 @@ namespace Bolnica.Forms.Sekretar
                 trenutniPregled.Id = max + 1;
                 Pregled p = new Pregled();
                 p.Id = trenutniPregled.Id;
-                p.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-                p.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
+                p.Lekar = trenutniPregled.Lekar;
+                p.Pacijent = trenutniPregled.Pacijent;
                 p.Trajanje = trenutniPregled.Trajanje;
                 p.Zavrsen = trenutniPregled.Zavrsen;
-                p.AnamnezaId = -1;
-                p.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
+                p.Anamneza.Id = -1;
+                p.Prostorija = trenutniPregled.Prostorija;
                 p.Datum = trenutniPregled.Datum;
                 p.Hitan = trenutniPregled.Hitan;
 
@@ -275,9 +309,44 @@ namespace Bolnica.Forms.Sekretar
                     return;
                 }
 
-                if (txtPacijent.Text.Equals(""))
+                string imePacijenta;
+                string prezimePacijenta;
+                string jmbgPacijenta;
+                try
                 {
-                    MessageBox.Show("Nije izabran pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    imePacijenta = comboPacijent.Text.Split(" ")[0];
+                    prezimePacijenta = comboPacijent.Text.Split(" ")[1];
+                    jmbgPacijenta = comboPacijent.Text.Split(" ")[2];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboPacijent.Focusable = true;
+                    Keyboard.Focus(comboPacijent);
+                    return;
+                }
+
+                bool pacijentSet = false;
+                for (int i = 0; i < pacijenti.Count; i++)
+                {
+                    if (!pacijenti[i].Obrisan && !pacijenti[i].Guest)
+                        if (pacijenti[i].Ime == imePacijenta && pacijenti[i].Prezime == prezimePacijenta && pacijenti[i].Jmbg == jmbgPacijenta)
+                        {
+                            pacijentSet = true;
+                            guest = false;
+                            break;
+                        }
+                }
+
+                if (guest)
+                    if (FormDodajGosta.pacijent.Ime == imePacijenta && FormDodajGosta.pacijent.Prezime == prezimePacijenta && FormDodajGosta.pacijent.Jmbg == jmbgPacijenta)
+                        pacijentSet = true;
+
+                if (!pacijentSet)
+                {
+                    MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboPacijent.Focusable = true;
+                    Keyboard.Focus(comboPacijent);
                     return;
                 }
 
@@ -286,7 +355,7 @@ namespace Bolnica.Forms.Sekretar
                 else
                 {
                     foreach (Pacijent p in pacijenti)
-                        if (p.Jmbg.Equals(FormIzaberiPacijenta.Jmbg))
+                        if (p.Jmbg.Equals(jmbgPacijenta))
                             trenutnaOperacija.Pacijent = p;
                 }
 
@@ -400,12 +469,12 @@ namespace Bolnica.Forms.Sekretar
                 trenutnaOperacija.Id = max + 1;
                 Operacija o = new Operacija();
                 o.Id = trenutnaOperacija.Id;
-                o.lekarJmbg = trenutnaOperacija.Lekar.Jmbg;
-                o.pacijentJmbg = trenutnaOperacija.Pacijent.Jmbg;
+                o.Lekar = trenutnaOperacija.Lekar;
+                o.Pacijent = trenutnaOperacija.Pacijent;
                 o.Trajanje = trenutnaOperacija.Trajanje;
                 o.Zavrsen = trenutnaOperacija.Zavrsen;
-                o.AnamnezaId = -1;
-                o.brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije;
+                o.Anamneza.Id = -1;
+                o.Prostorija = trenutnaOperacija.Prostorija;
                 o.Datum = trenutnaOperacija.Datum;
                 o.Hitan = trenutnaOperacija.Hitan;
                 o.TipOperacije = trenutnaOperacija.TipOperacije;
@@ -431,7 +500,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.brojProstorije.Equals(prostorija.BrojProstorije))
+                if (p.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
                     preglediProstorije.Add(p);
 
             foreach (Pregled p in preglediProstorije)
@@ -450,7 +519,7 @@ namespace Bolnica.Forms.Sekretar
             }
 
             foreach (Operacija o in operacije)
-                if (o.brojProstorije.Equals(prostorija.BrojProstorije))
+                if (o.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
                     operacijeProstorije.Add(o);
 
             foreach (Operacija o in operacijeProstorije)
@@ -482,7 +551,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.lekarJmbg.Equals(lekar.Jmbg))
+                if (p.Lekar.Jmbg.Equals(lekar.Jmbg))
                     preglediLekara.Add(p);
 
             foreach (Pregled p in preglediLekara)
@@ -501,7 +570,7 @@ namespace Bolnica.Forms.Sekretar
             }
 
             foreach (Operacija o in operacije)
-                if (o.lekarJmbg.Equals(lekar.Jmbg))
+                if (o.Lekar.Jmbg.Equals(lekar.Jmbg))
                     operacijeLekara.Add(o);
 
             foreach (Operacija o in operacijeLekara)
@@ -533,7 +602,7 @@ namespace Bolnica.Forms.Sekretar
             operacije = sviPregledi.GetAllOperacije();
 
             foreach (Pregled p in pregledi)
-                if (p.pacijentJmbg.Equals(pacijent.Jmbg))
+                if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                     preglediPacijenta.Add(p);
 
             foreach (Pregled p in preglediPacijenta)
@@ -552,7 +621,7 @@ namespace Bolnica.Forms.Sekretar
             }
 
             foreach (Operacija o in operacije)
-                if (o.pacijentJmbg.Equals(pacijent.Jmbg))
+                if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                     operacijePacijenta.Add(o);
 
             foreach (Operacija o in operacijePacijenta)

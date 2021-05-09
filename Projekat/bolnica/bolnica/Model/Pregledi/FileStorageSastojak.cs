@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.IO;
+using Model.Pacijenti;
 
 namespace Bolnica.Model.Pregledi
 {
@@ -18,6 +19,7 @@ namespace Bolnica.Model.Pregledi
 
         public List<Sastojak> GetAll()
         {
+            FileStoragePacijenti.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             var alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             return alergeni;
@@ -25,6 +27,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Save(Sastojak noviAlergen)
         {
+            FileStoragePacijenti.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             if (alergeni == null)
@@ -37,6 +40,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Delete(Sastojak alergen)
         {
+            FileStoragePacijenti.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             if (alergeni != null)

@@ -24,873 +24,392 @@ namespace Bolnica.Sekretar
     /// </summary>
     public partial class FormZakaziPregled : Window
     {
-        private List<Lekar> lekari = new List<Lekar>();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private List<Pacijent> pacijentiSaObrisanim = new List<Pacijent>();
-        private List<Pacijent> pacijenti = new List<Pacijent>();
-        private List<Prostorija> prostorije = new List<Prostorija>();
+        public const int BROJ_SATI_U_DANU = 24;
+        public const int BROJ_MINUTA_U_SATU = 60;
+        public const int POMAK_IZMEDJU_TERMINA = 15;
+        public const int TRAJANJE_PREGLEDA = 30;
+        public const int PRAZNA_ANAMNEZA = -1;
+        private FileStoragePacijenti skladistePacijenata;
+        private FileStorageLekar skladisteLekara;
+        private FileStorageProstorija skladisteProstorija;
+        private FileStoragePregledi skladisteTermina;
+        private List<Pacijent> sviPacijenti;
+        private List<Lekar> sviLekari;
+        private List<Prostorija> sveProstorije;
+        private List<Pregled> sviPregledi;
+        private List<Operacija> sveOperacije;
+        private Pregled zakazivaniPregled;
 
         public FormZakaziPregled()
         {
             InitializeComponent();
-            this.DataContext = this;
-
-            lekari = sviLekari.GetAll();
-            pacijentiSaObrisanim = sviPacijenti.GetAll();
-            prostorije = sveProstorije.GetAllProstorije();
-
-            foreach (Pacijent p in pacijentiSaObrisanim)
-                if (!p.Obrisan)
-                    pacijenti.Add(p);
-
-            foreach (Prostorija p in prostorije)
-                if(!p.Obrisana)
-                    comboProstorija.Items.Add(p.BrojProstorije);
-
-            foreach (Lekar l in lekari)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboImeLekara.Items)
-                {
-                    if (cbi.Equals(l.Ime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboImeLekara.Items.Add(l.Ime);
-            }
-
-            foreach (Lekar l in lekari)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboPrezimeLekara.Items)
-                {
-                    if (cbi.Equals(l.Prezime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboPrezimeLekara.Items.Add(l.Prezime);
-            }
-
-            foreach (Lekar l in lekari)
-            {
-                bool postoji = false;
-                foreach (int cbi in comboMbrLekara.Items)
-                {
-                    if (cbi == l.Mbr)
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboMbrLekara.Items.Add(l.Mbr);
-            }
-
-            foreach (Pacijent p in pacijenti)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboImePacijenta.Items)
-                {
-                    if (cbi.Equals(p.Ime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboImePacijenta.Items.Add(p.Ime);
-            }
-
-            foreach (Pacijent p in pacijenti)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboPrezimePacijenta.Items)
-                {
-                    if (cbi.Equals(p.Prezime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboPrezimePacijenta.Items.Add(p.Prezime);
-            }
-
-            foreach (Pacijent p in pacijenti)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboJmbgPacijenta.Items)
-                {
-                    if (cbi.Equals(p.Jmbg))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboJmbgPacijenta.Items.Add(p.Jmbg);
-            }
-
-            for (int vre = 0; vre < 24; vre++)
-            {
-                for (int min = 0; min < 60;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    comboVreme.Items.Add(string.Format("{0:00}:{1:00}", ts.Hours, ts.Minutes));
-                }
-            }
-
-            dpDatum.SelectedDate = DateTime.Now;
-            txtTrajanje.Text = "30";
-            txtTrajanje.IsEnabled = false;
+            inicijalizujPoljaKlase();
+            inicijalizujGUIElemente();
         }
 
-        private void ZakaziTermin(object sender, RoutedEventArgs e)
+        private void inicijalizujPoljaKlase()
         {
-            PrikazPregleda trenutniPregled = new PrikazPregleda();
-            DateTime datum = (DateTime)dpDatum.SelectedDate;
-            int godina = datum.Year;
-            int mesec = datum.Month;
-            int dan = datum.Day;
-            string sati = comboVreme.Text.Split(":")[0];
-            string minuti = comboVreme.Text.Split(":")[1];
-            trenutniPregled.Datum = new DateTime(godina, mesec, dan, Int32.Parse(sati), Int32.Parse(minuti), 0);
-            trenutniPregled.Trajanje = int.Parse(txtTrajanje.Text);
-            trenutniPregled.Zavrsen = false;
-            trenutniPregled.Hitan = false;
+            skladisteTermina = new FileStoragePregledi();
+            skladistePacijenata = new FileStoragePacijenti();
+            skladisteLekara = new FileStorageLekar();
+            skladisteProstorija = new FileStorageProstorija();
+            sviPacijenti = skladistePacijenata.GetAll();
+            sviLekari = skladisteLekara.GetAll();
+            sveProstorije = skladisteProstorija.GetAllProstorije();
+            sviPregledi = skladisteTermina.GetAllPregledi();
+            sveOperacije = skladisteTermina.GetAllOperacije();
+            zakazivaniPregled = new Pregled();
+        }
 
-            for (int i = 0; i < lekari.Count; i++)
-            {
-                if (lekari[i].Ime.Equals(comboImeLekara.Text) && lekari[i].Prezime.Equals(comboPrezimeLekara.Text) && lekari[i].Mbr.Equals(Int32.Parse(comboMbrLekara.Text)))
+        private void inicijalizujGUIElemente()
+        {
+            inicijalizujComboBoxPacijenata();
+            inicijalizujComboBoxLekara();
+            inicijalizujComboBoxProstorija();
+            inicijalizujDatePickerDatumaTermina();
+            inicijalizujComboBoxVremenaTermina();
+            inicijalizujTextBoxTrajanjeTermina();
+        }
+
+        private void inicijalizujComboBoxProstorija()
+        {
+            foreach (Prostorija p in sveProstorije)
+                if (!p.Obrisana)
+                    comboBoxProstorija.Items.Add(p.BrojProstorije);
+        }
+
+        private void inicijalizujComboBoxLekara()
+        {
+            foreach (Lekar l in sviLekari)
+                comboBoxLekara.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
+        }
+
+        private void inicijalizujComboBoxPacijenata()
+        {
+            foreach (Pacijent p in sviPacijenti)
+                if (!p.Obrisan)
+                    comboBoxPacijenata.Items.Add(p.Ime + " " + p.Prezime + " " + p.Jmbg);
+        }
+
+        private void inicijalizujComboBoxVremenaTermina()
+        {
+            for (int sat = 0; sat < BROJ_SATI_U_DANU; sat++)
+                for (int min = 0; min < BROJ_MINUTA_U_SATU;)
                 {
-                    trenutniPregled.Lekar = lekari[i];
-                    break;
+                    TimeSpan ts = new TimeSpan(sat, min, 0);
+                    min = min + POMAK_IZMEDJU_TERMINA;
+                    comboBoxVremenaPregleda.Items.Add(string.Format("{0:00}:{1:00}", ts.Hours, ts.Minutes));
                 }
-            }
-            if (trenutniPregled.Lekar == null)
-            {
-                MessageBox.Show("Nepostojeći lekar", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboImeLekara.Focusable = true;
-                Keyboard.Focus(comboImeLekara);
+        }
+
+        private void inicijalizujDatePickerDatumaTermina()
+        {
+            datePickerDatumPregleda.SelectedDate = DateTime.Now;
+        }
+
+        private void inicijalizujTextBoxTrajanjeTermina()
+        {
+            textBoxTrajanjePregleda.Text = TRAJANJE_PREGLEDA.ToString();
+            textBoxTrajanjePregleda.IsEnabled = false;
+        }
+
+        private void ZakaziPregled(object sender, RoutedEventArgs e)
+        {
+            if (!PostavljenaSvaPoljaZakazanogPregleda() || TerminZauzet())
                 return;
-            }
 
-            for (int i = 0; i < pacijenti.Count; i++)
-            {
-                if (pacijenti[i].Ime == comboImePacijenta.Text && pacijenti[i].Prezime == comboPrezimePacijenta.Text && pacijenti[i].Jmbg == comboJmbgPacijenta.Text)
-                {
-                    trenutniPregled.Pacijent = pacijenti[i];
-                    break;
-                }
-            }
-            if (trenutniPregled.Pacijent == null)
-            {
-                MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboImePacijenta.Focusable = true;
-                Keyboard.Focus(comboImePacijenta);
-                return;
-            }
+            SnimiZakazaniPregled();
+            DodajZakazaniPregledNaPrikaz();
 
-            for (int i = 0; i < prostorije.Count; i++)
-            {
-                if (prostorije[i].BrojProstorije.ToString().Equals(comboProstorija.Text))
-                {
-                    trenutniPregled.Prostorija = prostorije[i];
-                    break;
-                }
-            }
-            if (trenutniPregled.Prostorija == null)
-            {
-                MessageBox.Show("Nepostojeća prostorija", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboProstorija.Focusable = true;
-                Keyboard.Focus(comboProstorija);
-                return;
-            }
-
-            if (PacijentZauzet(trenutniPregled.Pacijent, trenutniPregled.Datum, trenutniPregled.Trajanje))
-            {
-                MessageBox.Show("Pacijent je zauzet u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboImePacijenta.Focusable = true;
-                Keyboard.Focus(comboImePacijenta);
-                return;
-            }
-
-            if (LekarZauzet(trenutniPregled.Lekar, trenutniPregled.Datum, trenutniPregled.Trajanje))
-            {
-                MessageBox.Show("Lekar je zauzet u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboImeLekara.Focusable = true;
-                Keyboard.Focus(comboImeLekara);
-                return;
-            }
-
-            if (ProstorijaZauzeta(trenutniPregled.Prostorija, trenutniPregled.Datum, trenutniPregled.Trajanje))
-            {
-                MessageBox.Show("Prostorija je zauzeta u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboProstorija.Focusable = true;
-                Keyboard.Focus(comboProstorija);
-                return;
-            }
-
-            List<Pregled> pregledi = new List<Pregled>();
-            pregledi = sviPregledi.GetAllPregledi();
-            int max = 0;
-            for (int i = 0; i < pregledi.Count; i++)
-            {
-                if (pregledi[i].Id > max)
-                    max = pregledi[i].Id;
-            }
-            trenutniPregled.Id = max + 1;
-            Pregled p = new Pregled();
-            p.Id = trenutniPregled.Id;
-            p.lekarJmbg = trenutniPregled.Lekar.Jmbg;
-            p.pacijentJmbg = trenutniPregled.Pacijent.Jmbg;
-            p.Trajanje = trenutniPregled.Trajanje;
-            p.Zavrsen = trenutniPregled.Zavrsen;
-            p.AnamnezaId = -1;
-            p.brojProstorije = trenutniPregled.Prostorija.BrojProstorije;
-            p.Prostorija = trenutniPregled.Prostorija;
-            p.Datum = trenutniPregled.Datum;
-            p.Hitan = trenutniPregled.Hitan;
-
-            sviPregledi.Save(p);
-            FormPregledi.listaPregleda.Add(p);
-            FormPregledi.Pregledi.Add(trenutniPregled);
             this.Close();
         }
 
-        private bool ProstorijaZauzeta(Prostorija prostorija, DateTime datum, int trajanje)
+        private bool PostavljenaSvaPoljaZakazanogPregleda()
         {
-            bool zauzet = false;
-            List<Pregled> pregledi = new List<Pregled>();
-            List<Pregled> preglediProstorije = new List<Pregled>();
-            List<Operacija> operacije = new List<Operacija>();
-            List<Operacija> operacijeProstorije = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-
-            foreach (Pregled p in pregledi)
-                if (p.brojProstorije.Equals(prostorija.BrojProstorije))
-                    preglediProstorije.Add(p);
-
-            foreach (Pregled p in preglediProstorije)
-            {
-                if (DateTime.Compare(datum, p.Datum) >= 0 && DateTime.Compare(datum, p.Datum.AddMinutes(trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            foreach (Operacija o in operacije)
-                if (o.brojProstorije.Equals(prostorija.BrojProstorije))
-                    operacijeProstorije.Add(o);
-
-            foreach (Operacija o in operacijeProstorije)
-            {
-                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            return zauzet;
+            PostaviPoljeIdZakazivanogPregleda();
+            PostaviPoljeHitanZakazivanogPregleda();
+            PostaviPoljeAnamnezaZakazivanogPregleda();
+            PostaviPoljeZavrsenZakazivanogPregleda();
+            PostaviPoljeTrajanjeZakazivanogPregleda();
+            PostaviPoljeDatumZakazivanogPregleda();
+            
+            if (!PostavljenaPoljaPacijentLekarProstorijaZakazivanogPregleda())
+                return false;
+            
+            return true;
         }
 
-        private bool LekarZauzet(Lekar lekar, DateTime datum, int trajanje)
+        private void PostaviPoljeIdZakazivanogPregleda() 
         {
-            bool zauzet = false;
-            List<Pregled> pregledi = new List<Pregled>();
-            List<Pregled> preglediLekara = new List<Pregled>();
-            List<Operacija> operacije = new List<Operacija>();
-            List<Operacija> operacijeLekara = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-
-            foreach (Pregled p in pregledi)
-                if (p.lekarJmbg.Equals(lekar.Jmbg))
-                    preglediLekara.Add(p);
-
-            foreach (Pregled p in preglediLekara)
-            {
-                if (DateTime.Compare(datum, p.Datum) >= 0 && DateTime.Compare(datum, p.Datum.AddMinutes(trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            foreach (Operacija o in operacije)
-                if (o.lekarJmbg.Equals(lekar.Jmbg))
-                    operacijeLekara.Add(o);
-
-            foreach (Operacija o in operacijeLekara)
-            {
-                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            return zauzet;
+            int maxId = 0;
+            for (int i = 0; i < sviPregledi.Count; i++)
+                if (sviPregledi[i].Id > maxId)
+                    maxId = sviPregledi[i].Id;
+            
+            zakazivaniPregled.Id = maxId + 1;
         }
 
-        private bool PacijentZauzet(Pacijent pacijent, DateTime datum, int trajanje)
+        private void PostaviPoljeAnamnezaZakazivanogPregleda() 
         {
-            bool zauzet = false;
-            List<Pregled> pregledi = new List<Pregled>();
-            List<Pregled> preglediPacijenta = new List<Pregled>();
-            List<Operacija> operacije = new List<Operacija>();
-            List<Operacija> operacijePacijenta = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-
-            foreach (Pregled p in pregledi)
-                if (p.pacijentJmbg.Equals(pacijent.Jmbg))
-                    preglediPacijenta.Add(p);
-
-            foreach (Pregled p in preglediPacijenta)
-            {
-                if (DateTime.Compare(datum, p.Datum) >= 0 && DateTime.Compare(datum, p.Datum.AddMinutes(trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, p.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), p.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            foreach (Operacija o in operacije)
-                if (o.pacijentJmbg.Equals(pacijent.Jmbg))
-                    operacijePacijenta.Add(o);
-
-            foreach (Operacija o in operacijePacijenta)
-            {
-                if (DateTime.Compare(datum, o.Datum) >= 0 && DateTime.Compare(datum, o.Datum.AddMinutes(o.Trajanje)) < 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-
-                if (DateTime.Compare(datum, o.Datum) <= 0 && DateTime.Compare(datum.AddMinutes(trajanje), o.Datum) > 0)
-                {
-                    zauzet = true;
-                    break;
-                }
-            }
-
-            return zauzet;
+            zakazivaniPregled.Anamneza.Id = PRAZNA_ANAMNEZA;
         }
 
-        private void filterImePacijenta(object sender, EventArgs e)
+        private void PostaviPoljeHitanZakazivanogPregleda() 
         {
-            List<string> mogucaImena = new List<string>();
-            bool neIzbacuj = false;
-            List<string> zaIzbaciti = new List<string>();
+            zakazivaniPregled.Hitan = false;
+        }
 
-            for (int i = comboImePacijenta.Items.Count - 1; i >= 0; i--)
-                comboImePacijenta.Items.RemoveAt(i);
+        private void PostaviPoljeZavrsenZakazivanogPregleda()
+        {
+            zakazivaniPregled.Zavrsen = false;
+        }
 
-            foreach (Pacijent p in pacijenti)
+        private void PostaviPoljeTrajanjeZakazivanogPregleda()
+        {
+            zakazivaniPregled.Trajanje = TRAJANJE_PREGLEDA;
+        }
+
+        private void PostaviPoljeDatumZakazivanogPregleda() 
+        {
+            DateTime datum = (DateTime)datePickerDatumPregleda.SelectedDate;
+            string sati = comboBoxVremenaPregleda.Text.Split(":")[0];
+            string minuti = comboBoxVremenaPregleda.Text.Split(":")[1];
+            zakazivaniPregled.Datum = new DateTime(datum.Year, datum.Month, datum.Day, Int32.Parse(sati), Int32.Parse(minuti), 0);
+        }
+
+        private bool PostavljenaPoljaPacijentLekarProstorijaZakazivanogPregleda()
+        {
+            if (!PostavljenoPoljePacijentZakazivanogPregleda() || !PostavljenoPoljeLekarZakazivanogPregleda() || !PostavljenoPoljeProstorijaZakazivanogPregleda())
+                return false;
+
+            return true;
+        }
+
+        private bool PostavljenoPoljePacijentZakazivanogPregleda()
+        {
+            string[] pacijentPodaci = comboBoxPacijenata.Text.Split(" ");
+
+            if (pacijentPodaci.Length != 3 || !PostaviPoljePacijentZakazivanogPregleda(pacijentPodaci))
             {
-                bool postoji = false;
-                foreach (string cbi in comboImePacijenta.Items)
-                {
-                    if (cbi.Equals(p.Ime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboImePacijenta.Items.Add(p.Ime);
+                PacijentNepostojeciGreska();
+                return false;
             }
 
-            if (!string.IsNullOrEmpty(comboPrezimePacijenta.Text))
-            {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Prezime.Equals(comboPrezimePacijenta.Text))
-                        mogucaImena.Add(p.Ime);
+            return true;
+        }
 
-                foreach (string cbi in comboImePacijenta.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaImena.Count; j++)
+        private bool PostavljenoPoljeLekarZakazivanogPregleda()
+        {
+            string[] lekarPodaci = comboBoxLekara.Text.Split(" ");
+
+            if (lekarPodaci.Length != 3 || !PostaviPoljeLekarZakazivanogPregleda(lekarPodaci))
+            {
+                LekarNepostojeciGreska();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool PostavljenoPoljeProstorijaZakazivanogPregleda()
+        {
+            if (!PostaviPoljeProstorijaZakazivanogPregleda())
+            {
+                ProstorijaNepostojecaGreska();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool PostaviPoljeProstorijaZakazivanogPregleda() 
+        {
+            for (int i = 0; i < sveProstorije.Count; i++)
+                    if (!sveProstorije[i].Obrisana && sveProstorije[i].BrojProstorije.ToString().Equals(comboBoxProstorija.Text))
                     {
-                        if (cbi.Equals(mogucaImena[j]))
-                            neIzbacuj = true;
+                        zakazivaniPregled.Prostorija = sveProstorije[i];
+                        return true;
                     }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboImePacijenta.Items.Remove(zaIzbaciti[i]);
-            }
-
-            neIzbacuj = false;
-            mogucaImena.Clear();
-            if (!string.IsNullOrEmpty(comboJmbgPacijenta.Text))
-            {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Jmbg.Equals(comboJmbgPacijenta.Text))
-                        mogucaImena.Add(p.Ime);
-
-                foreach (string cbi in comboImePacijenta.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaImena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaImena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboImePacijenta.Items.Remove(zaIzbaciti[i]);
-            }
-
-            if (comboImePacijenta.Items.Count == 0)
-                comboImePacijenta.IsDropDownOpen = false;
-            else
-                comboImePacijenta.IsDropDownOpen = true;
+            
+            return false;
         }
 
-        private void filterPrezimePacijenta(object sender, EventArgs e)
+        private bool PostaviPoljeLekarZakazivanogPregleda(string[] lekarPodaci) 
         {
-            List<string> mogucaPrezimena = new List<string>();
-            bool neIzbacuj = false;
-            List<string> zaIzbaciti = new List<string>();
+            string imeLekara = lekarPodaci[0];
+            string prezimeLekara = lekarPodaci[1];
+            string jmbgLekara = lekarPodaci[2];
 
-            for (int i = comboPrezimePacijenta.Items.Count - 1; i >= 0; i--)
-                comboPrezimePacijenta.Items.RemoveAt(i);
-
-            foreach (Pacijent p in pacijenti)
-            {
-                bool postoji = false;
-                foreach (string cbi in comboPrezimePacijenta.Items)
+            for (int i = 0; i < sviLekari.Count; i++)
+                if (sviLekari[i].Ime.Equals(imeLekara) && sviLekari[i].Prezime.Equals(prezimeLekara) && sviLekari[i].Jmbg.Equals(jmbgLekara))
                 {
-                    if (cbi.Equals(p.Prezime))
-                        postoji = true;
+                    zakazivaniPregled.Lekar = sviLekari[i];
+                    return true;
                 }
-
-                if (!postoji)
-                    comboPrezimePacijenta.Items.Add(p.Prezime);
-            }
-
-            if (!string.IsNullOrEmpty(comboImePacijenta.Text))
-            {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Ime.Equals(comboImePacijenta.Text))
-                        mogucaPrezimena.Add(p.Prezime);
-
-                foreach (string cbi in comboPrezimePacijenta.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaPrezimena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaPrezimena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboPrezimePacijenta.Items.Remove(zaIzbaciti[i]);
-            }
-
-            neIzbacuj = false;
-            mogucaPrezimena.Clear();
-            if (!string.IsNullOrEmpty(comboJmbgPacijenta.Text))
-            {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Jmbg.Equals(comboJmbgPacijenta.Text))
-                        mogucaPrezimena.Add(p.Prezime);
-
-                foreach (string cbi in comboPrezimePacijenta.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaPrezimena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaPrezimena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboPrezimePacijenta.Items.Remove(zaIzbaciti[i]);
-            }
-
-            if (comboPrezimePacijenta.Items.Count == 0)
-                comboPrezimePacijenta.IsDropDownOpen = false;
-            else
-                comboPrezimePacijenta.IsDropDownOpen = true;
+            
+            return false;
         }
 
-        private void filterJmbgPacijenta(object sender, EventArgs e)
+        private bool PostaviPoljePacijentZakazivanogPregleda(string[] pacijentPodaci) 
         {
-            List<string> moguciJmbg = new List<string>();
-            bool neIzbacuj = false;
-            List<string> zaIzbaciti = new List<string>();
+            string imePacijenta = pacijentPodaci[0];
+            string prezimePacijenta = pacijentPodaci[1];
+            string jmbgPacijenta = pacijentPodaci[2];
 
-            for (int i = comboJmbgPacijenta.Items.Count - 1; i >= 0; i--)
-                comboJmbgPacijenta.Items.RemoveAt(i);
-
-            foreach (Pacijent p in pacijenti)
-                comboJmbgPacijenta.Items.Add(p.Jmbg);
-
-            if (!string.IsNullOrEmpty(comboImePacijenta.Text))
+            for (int i = 0; i < sviPacijenti.Count; i++)
             {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Ime.Equals(comboImePacijenta.Text))
-                        moguciJmbg.Add(p.Jmbg);
-
-                foreach (string cbi in comboJmbgPacijenta.Items)
+                if (!sviPacijenti[i].Obrisan && sviPacijenti[i].Ime.Equals(imePacijenta) && sviPacijenti[i].Prezime.Equals(prezimePacijenta) && sviPacijenti[i].Jmbg.Equals(jmbgPacijenta))
                 {
-                    neIzbacuj = false;
-                    for (int j = 0; j < moguciJmbg.Count; j++)
-                    {
-                        if (cbi.Equals(moguciJmbg[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
+                    zakazivaniPregled.Pacijent = sviPacijenti[i];
+                    return true;
                 }
+            }
+            
+            return false;
+        }
 
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboJmbgPacijenta.Items.Remove(zaIzbaciti[i]);
+        private void ProstorijaNepostojecaGreska() 
+        {
+            MessageBox.Show("Nepostojeća prostorija", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxProstorija.Focusable = true;
+            Keyboard.Focus(comboBoxProstorija);
+        }
+        
+        private void LekarNepostojeciGreska() 
+        {
+            MessageBox.Show("Nepostojeći lekar", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxLekara.Focusable = true;
+            Keyboard.Focus(comboBoxLekara);
+        }
+
+        private void PacijentNepostojeciGreska()
+        {
+            MessageBox.Show("Nepostojeći pacijent", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxPacijenata.Focusable = true;
+            Keyboard.Focus(comboBoxPacijenata);
+        }
+
+        private bool TerminZauzet()
+        {
+            if (PacijentZauzet())
+            {
+                PacijentZauzetGreska();
+                return true;
             }
 
-            neIzbacuj = false;
-            moguciJmbg.Clear();
-            if (!string.IsNullOrEmpty(comboPrezimePacijenta.Text))
+            if (LekarZauzet())
             {
-                foreach (Pacijent p in pacijenti)
-                    if (p.Prezime.Equals(comboPrezimePacijenta.Text))
-                        moguciJmbg.Add(p.Jmbg);
-
-                foreach (string cbi in comboJmbgPacijenta.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < moguciJmbg.Count; j++)
-                    {
-                        if (cbi.Equals(moguciJmbg[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboJmbgPacijenta.Items.Remove(zaIzbaciti[i]);
+                LekarZauzetGreska();
+                return true;
             }
 
-            if (comboJmbgPacijenta.Items.Count == 0)
-                comboJmbgPacijenta.IsDropDownOpen = false;
-            else
-                comboJmbgPacijenta.IsDropDownOpen = true;
-        }
-
-        private void comboPrezimePacijenta_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboPrezimePacijenta.IsDropDownOpen = true;
-        }
-
-        private void comboImePacijenta_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboImePacijenta.IsDropDownOpen = true;
-        }
-
-        private void comboJmbgPacijenta_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboJmbgPacijenta.IsDropDownOpen = true;
-        }
-
-        private void filterImeLekara(object sender, EventArgs e)
-        {
-            List<string> mogucaImena = new List<string>();
-            bool neIzbacuj = false;
-            List<string> zaIzbaciti = new List<string>();
-
-            for (int i = comboImeLekara.Items.Count - 1; i >= 0; i--)
-                comboImeLekara.Items.RemoveAt(i);
-
-            foreach (Lekar l in lekari)
+            if (ProstorijaZauzeta())
             {
-                bool postoji = false;
-                foreach (string cbi in comboImeLekara.Items)
-                {
-                    if (cbi.Equals(l.Ime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboImeLekara.Items.Add(l.Ime);
+                ProstorijaZauzetaGreska();
+                return true;
             }
 
-            if (!string.IsNullOrEmpty(comboPrezimeLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Prezime.Equals(comboPrezimeLekara.Text))
-                        mogucaImena.Add(l.Ime);
-
-                foreach (string cbi in comboImeLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaImena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaImena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboImeLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            neIzbacuj = false;
-            mogucaImena.Clear();
-            if (!string.IsNullOrEmpty(comboMbrLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Mbr == Int32.Parse(comboMbrLekara.Text))
-                        mogucaImena.Add(l.Ime);
-
-                foreach (string cbi in comboImeLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaImena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaImena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboImeLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            if (comboImeLekara.Items.Count == 0)
-                comboImeLekara.IsDropDownOpen = false;
-            else
-                comboImeLekara.IsDropDownOpen = true;
+            return false;
         }
 
-        private void filterPrezimeLekara(object sender, EventArgs e)
+        private bool ProstorijaZauzeta()
         {
-            List<string> mogucaPrezimena = new List<string>();
-            bool neIzbacuj = false;
-            List<string> zaIzbaciti = new List<string>();
+            foreach (Pregled p in sviPregledi)
+                if (p.Prostorija.BrojProstorije.Equals(zakazivaniPregled.Prostorija.BrojProstorije) && UTerminuPregleda(p))
+                    return true;
 
-            for (int i = comboPrezimeLekara.Items.Count - 1; i >= 0; i--)
-                comboPrezimeLekara.Items.RemoveAt(i);
+            foreach (Operacija o in sveOperacije)
+                if (o.Prostorija.BrojProstorije.Equals(zakazivaniPregled.Prostorija.BrojProstorije) && UTerminuOperacije(o))
+                    return true;
 
-            foreach (Lekar l in lekari)
+            return false;
+        }
+
+        private bool LekarZauzet()
+        {
+            foreach (Pregled p in sviPregledi)
+                if (p.Lekar.Jmbg.Equals(zakazivaniPregled.Lekar.Jmbg) && UTerminuPregleda(p))
+                    return true;
+
+            foreach (Operacija o in sveOperacije)
+                if (o.Lekar.Jmbg.Equals(zakazivaniPregled.Lekar.Jmbg) && UTerminuOperacije(o))
+                    return true;
+
+            return false;
+        }
+
+        private bool PacijentZauzet()
+        {
+            foreach (Pregled p in sviPregledi)
+                if (p.Pacijent.Jmbg.Equals(zakazivaniPregled.Pacijent.Jmbg) && UTerminuPregleda(p))
+                    return true;
+
+            foreach (Operacija o in sveOperacije)
+                if (o.Pacijent.Jmbg.Equals(zakazivaniPregled.Pacijent.Jmbg) && UTerminuOperacije(o))
+                    return true;
+
+            return false;
+        }
+
+        private bool UTerminuPregleda(Pregled p)
+        {
+            if ((DateTime.Compare(zakazivaniPregled.Datum, p.Datum) >= 0 && DateTime.Compare(zakazivaniPregled.Datum, p.Datum.AddMinutes(p.Trajanje)) < 0) || (DateTime.Compare(zakazivaniPregled.Datum, p.Datum) <= 0 && DateTime.Compare(zakazivaniPregled.Datum.AddMinutes(zakazivaniPregled.Trajanje), p.Datum) > 0))
+                return true;
+
+            return false;
+        }
+
+        private bool UTerminuOperacije(Operacija o)
+        {
+            if ((DateTime.Compare(zakazivaniPregled.Datum, o.Datum) >= 0 && DateTime.Compare(zakazivaniPregled.Datum, o.Datum.AddMinutes(o.Trajanje)) < 0) || (DateTime.Compare(zakazivaniPregled.Datum, o.Datum) <= 0 && DateTime.Compare(zakazivaniPregled.Datum.AddMinutes(zakazivaniPregled.Trajanje), o.Datum) > 0))
+                return true;
+
+            return false;
+        }
+
+        private void PacijentZauzetGreska() 
+        {
+            MessageBox.Show("Pacijent je zauzet u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxPacijenata.Focusable = true;
+            Keyboard.Focus(comboBoxPacijenata);
+        }
+
+        private void LekarZauzetGreska() 
+        {
+            MessageBox.Show("Lekar je zauzet u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxPacijenata.Focusable = true;
+            Keyboard.Focus(comboBoxPacijenata);
+        }
+
+        private void ProstorijaZauzetaGreska() 
+        {
+            MessageBox.Show("Prostorija je zauzeta u tom terminu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxProstorija.Focusable = true;
+            Keyboard.Focus(comboBoxProstorija);
+            return;
+        }
+
+        private void SnimiZakazaniPregled() 
+        {
+            skladisteTermina.Save(zakazivaniPregled);
+        }
+
+        private void DodajZakazaniPregledNaPrikaz() 
+        {
+            PrikazPregleda trenutniPregled = new PrikazPregleda
             {
-                bool postoji = false;
-                foreach (string cbi in comboPrezimeLekara.Items)
-                {
-                    if (cbi.Equals(l.Prezime))
-                        postoji = true;
-                }
-
-                if (!postoji)
-                    comboPrezimeLekara.Items.Add(l.Prezime);
-            }
-
-            if (!string.IsNullOrEmpty(comboImeLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Ime.Equals(comboImeLekara.Text))
-                        mogucaPrezimena.Add(l.Prezime);
-
-                foreach (string cbi in comboPrezimeLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaPrezimena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaPrezimena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboPrezimeLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            neIzbacuj = false;
-            mogucaPrezimena.Clear();
-            if (!string.IsNullOrEmpty(comboMbrLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Mbr == Int32.Parse(comboMbrLekara.Text))
-                        mogucaPrezimena.Add(l.Prezime);
-
-                foreach (string cbi in comboPrezimeLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < mogucaPrezimena.Count; j++)
-                    {
-                        if (cbi.Equals(mogucaPrezimena[j]))
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboPrezimeLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            if (comboPrezimeLekara.Items.Count == 0)
-                comboPrezimeLekara.IsDropDownOpen = false;
-            else
-                comboPrezimeLekara.IsDropDownOpen = true;
-        }
-
-        private void filterMbrLekara(object sender, EventArgs e)
-        {
-            List<int> moguciMbr = new List<int>();
-            bool neIzbacuj = false;
-            List<int> zaIzbaciti = new List<int>();
-
-            for (int i = comboMbrLekara.Items.Count - 1; i >= 0; i--)
-                comboMbrLekara.Items.RemoveAt(i);
-
-            foreach (Lekar l in lekari)
-                comboMbrLekara.Items.Add(l.Mbr);
-
-            if (!string.IsNullOrEmpty(comboImeLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Ime.Equals(comboImeLekara.Text))
-                        moguciMbr.Add(l.Mbr);
-
-                foreach (int cbi in comboMbrLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < moguciMbr.Count; j++)
-                    {
-                        if (cbi == moguciMbr[j])
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboMbrLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            neIzbacuj = false;
-            moguciMbr.Clear();
-            if (!string.IsNullOrEmpty(comboPrezimeLekara.Text))
-            {
-                foreach (Lekar l in lekari)
-                    if (l.Prezime.Equals(comboPrezimeLekara.Text))
-                        moguciMbr.Add(l.Mbr);
-
-                foreach (int cbi in comboMbrLekara.Items)
-                {
-                    neIzbacuj = false;
-                    for (int j = 0; j < moguciMbr.Count; j++)
-                    {
-                        if (cbi == moguciMbr[j])
-                            neIzbacuj = true;
-                    }
-
-                    if (!neIzbacuj)
-                        zaIzbaciti.Add(cbi);
-                }
-
-                for (int i = zaIzbaciti.Count - 1; i >= 0; i--)
-                    comboMbrLekara.Items.Remove(zaIzbaciti[i]);
-            }
-
-            if (comboMbrLekara.Items.Count == 0)
-                comboMbrLekara.IsDropDownOpen = false;
-            else
-                comboMbrLekara.IsDropDownOpen = true;
-        }
-
-        private void comboPrezimeLekara_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboPrezimeLekara.IsDropDownOpen = true;
-        }
-
-        private void comboImeLekara_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboImeLekara.IsDropDownOpen = true;
-        }
-
-        private void comboMbrLekara_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboMbrLekara.IsDropDownOpen = true;
-        }
-
-        private void comboProstorija_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboProstorija.IsDropDownOpen = true;
-        }
-
-        private void comboVreme_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-                comboVreme.IsDropDownOpen = true;
+                Id = zakazivaniPregled.Id,
+                Anamneza = zakazivaniPregled.Anamneza,
+                Hitan = zakazivaniPregled.Hitan,
+                Trajanje = zakazivaniPregled.Trajanje,
+                Datum = zakazivaniPregled.Datum,
+                Pacijent = zakazivaniPregled.Pacijent,
+                Lekar = zakazivaniPregled.Lekar,
+                Prostorija = zakazivaniPregled.Prostorija,
+                Zavrsen = zakazivaniPregled.Zavrsen
+            };
+            FormPregledi.listaPregleda.Add(zakazivaniPregled);
+            FormPregledi.Pregledi.Add(trenutniPregled);
         }
     }
 }

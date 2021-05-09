@@ -87,7 +87,7 @@ namespace Bolnica.Sekretar
             if (obavestenje != null)
             {
                 List<Obavestenje> obavestenja = storage.GetAll();
-                FormDodajObavestenje s = new FormDodajObavestenje(obavestenje.Id, obavestenje.KorisnickaImena);
+                FormDodajObavestenje s = new FormDodajObavestenje(obavestenje.Id, obavestenje.Korisnici);
 
                 s.btnDodajPacijente.Content = "Izmeni";
                 s.btnDodajPrimaoce.Content = "Izmeni";

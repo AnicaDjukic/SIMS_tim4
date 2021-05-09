@@ -33,12 +33,16 @@ namespace Bolnica.Sekretar
             for (int i = 0; i < FormObavestenja.Obavestenja.Count; i++)
                 if (id == FormObavestenja.Obavestenja[i].Id)
                 {
+                    List<string> korImena = new List<string>();
+                    foreach (Korisnik k in FormObavestenja.Obavestenja[i].Korisnici)
+                        korImena.Add(k.KorisnickoIme);
+
                     bool svi = true;
                     foreach (Pacijent p in pacijenti)
                     {
                         if (!p.Guest)
                         {
-                            if (!FormObavestenja.Obavestenja[i].KorisnickaImena.Contains(p.KorisnickoIme))
+                            if (!korImena.Contains(p.KorisnickoIme))
                                 svi = false;
                         }
                     }
@@ -48,7 +52,7 @@ namespace Bolnica.Sekretar
                     {
                         if (!p.Guest)
                         {
-                            if (FormObavestenja.Obavestenja[i].KorisnickaImena.Contains(p.KorisnickoIme))
+                            if (korImena.Contains(p.KorisnickoIme))
                                 barJedanPacijent = true;
                         }
                     }
@@ -59,8 +63,8 @@ namespace Bolnica.Sekretar
 
                     bool enabledPrimaoci = false;
                     btnDodajPrimaoce.IsEnabled = false;
-                    foreach (string s in FormObavestenja.Obavestenja[i].KorisnickaImena)
-                        if (s.Equals("upravnik") || s.Equals("lekar") || svi)
+                    foreach (string s in korImena)
+                        if (s.Equals("upravnik") || s.Equals("mico") || svi)
                             enabledPrimaoci = true;
 
                     if (enabledPrimaoci)

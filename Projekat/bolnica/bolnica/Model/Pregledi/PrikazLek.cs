@@ -7,7 +7,6 @@ namespace Bolnica.Model.Pregledi
 {
     public class PrikazLek
     {
-
         public int Id { get; set; }
         public string Naziv { get; set; }
         public int KolicinaUMg { get; set; }

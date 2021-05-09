@@ -1,4 +1,5 @@
-﻿using Bolnica.Sekretar;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -48,13 +49,17 @@ namespace Bolnica.Forms.Sekretar
             for (int i = 0; i < FormObavestenja.Obavestenja.Count; i++)
                 if (id == FormObavestenja.Obavestenja[i].Id)
                 {
-                    if (FormObavestenja.Obavestenja[i].KorisnickaImena.Contains("upravnik")) 
+                    List<string> korImena = new List<string>();
+                    foreach (Korisnik k in FormObavestenja.Obavestenja[i].Korisnici)
+                        korImena.Add(k.KorisnickoIme);
+
+                    if (korImena.Contains("upravnik")) 
                     {
                         DodatiPrimaoci.Add(p1);
                         dodati.Add(p1);
                     }
 
-                    if (FormObavestenja.Obavestenja[i].KorisnickaImena.Contains("lekar"))
+                    if (korImena.Contains("mico"))
                     {
                         DodatiPrimaoci.Add(p2);
                         dodati.Add(p2);
@@ -65,7 +70,7 @@ namespace Bolnica.Forms.Sekretar
                     {
                         if (!p.Guest) 
                         {
-                            if (!FormObavestenja.Obavestenja[i].KorisnickaImena.Contains(p.KorisnickoIme))
+                            if (!korImena.Contains(p.KorisnickoIme))
                                 svi = false;
                         }
                     }

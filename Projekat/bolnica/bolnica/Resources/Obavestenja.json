@@ -1,1 +1,164 @@
-[{"Id":2,"Datum":"2021-04-15T00:00:00","Sadrzaj":"Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.","Naslov":"Uspešno okončana još jedna specijalizacija","Obrisan":false,"KorisnickaImena":["upravnik","lekar","Pero","Peki","vatro","bodi","stefo","pero"]},{"Id":1,"Datum":"2021-04-22T00:00:00","Sadrzaj":"Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.","Naslov":"Donirane posteljine","Obrisan":false,"KorisnickaImena":["upravnik","lekar","Pero","Peki","vatro","bodi","stefo","pero"]},{"Id":3,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za upravnika","Obrisan":false,"KorisnickaImena":["upravnik"]},{"Id":4,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za lekare","Obrisan":false,"KorisnickaImena":["lekar","Pero","Peki","vatro","bodi"]},{"Id":5,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za sve pacijente","Obrisan":false,"KorisnickaImena":["stefo","pero"]},{"Id":6,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za upravnika i Stefu","Obrisan":false,"KorisnickaImena":["upravnik","stefo"]},{"Id":7,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za lekare i sve pacijente","Obrisan":false,"KorisnickaImena":["lekar","Pero","Peki","vatro","bodi","stefo","pero"]},{"Id":8,"Datum":"2021-04-24T00:00:00","Sadrzaj":".","Naslov":"Za Stefu","Obrisan":false,"KorisnickaImena":["stefo"]},{"Id":9,"Datum":"2021-04-26T00:00:00+02:00","Sadrzaj":"Za lek \"Leksilijum\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"KorisnickaImena":["lekar"]},{"Id":10,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Enterobiotik\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"KorisnickaImena":["lekar"]},{"Id":11,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Probiotik\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"KorisnickaImena":["lekar"]},{"Id":12,"Datum":"2021-04-27T20:16:58.2569216+02:00","Sadrzaj":"Lek Kardiopirin sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Cliacil, Novalgetol je prihvacen. ","Naslov":"Lek Kardiopirin je prihvacen","Obrisan":false,"KorisnickaImena":["upravnik"]},{"Id":13,"Datum":"2021-04-27T20:18:16.768608+02:00","Sadrzaj":"Lek Febricet sa dozom 300 i sastojcima:  Cliacil, Gentamicin je odbijen. Komentar: sdgash","Naslov":"Lek Febricet je odbijen","Obrisan":false,"KorisnickaImena":["upravnik"]},{"Id":14,"Datum":"2021-04-27T00:00:00+02:00","Sadrzaj":"Za lek \"Febricet\" je potrebno izvršiti validaciju","Naslov":"Lek za validaciju","Obrisan":false,"KorisnickaImena":["lekar"]},{"Id":15,"Datum":"2021-04-27T20:19:52.5987212+02:00","Sadrzaj":"Lek Febricet sa dozom 400 i sastojcima:  Cliacil, Gentamicin je prihvacen. ","Naslov":"Lek Febricet je prihvacen","Obrisan":false,"KorisnickaImena":["upravnik"]}]
+[
+    {
+        "Id": 2,
+        "Datum": "2021-04-15T00:00:00",
+        "Sadrzaj": "Nastavljena je ustaljena praksa menadžmenta Bolnice, da u kabinetu direktora ugoste nove specijaliste koji uspešno okončavaju svoju specijalizaciju.",
+        "Naslov": "Uspešno okončana još jedna specijalizacija",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "upravnik" },
+            { "KorisnickoIme": "mico" },
+            { "KorisnickoIme": "mio" },
+            { "KorisnickoIme": "vatro" },
+            { "KorisnickoIme": "bodi" },
+            { "KorisnickoIme": "stefo" },
+            { "KorisnickoIme": "pero" }
+        ]
+    },
+    {
+        "Id": 1,
+        "Datum": "2021-04-22T00:00:00",
+        "Sadrzaj": "Povod za poseetu našoj Bolnici je bila donacija 300 kompleta posteljina, kao znak zahvalnosti za dosadašnji trud i zalaganje, kao i podrška za dalju borbu sa korona virusom za medicinsko osoblje i menadžment Bolnice.",
+        "Naslov": "Donirane posteljine",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "upravnik" },
+            { "KorisnickoIme": "mico" },
+            { "KorisnickoIme": "mio" },
+            { "KorisnickoIme": "vatro" },
+            { "KorisnickoIme": "bodi" },
+            { "KorisnickoIme": "stefo" },
+            { "KorisnickoIme": "pero" }
+        ]
+    },
+    {
+        "Id": 3,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za upravnika",
+        "Obrisan": false,
+        "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+    },
+    {
+        "Id": 4,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za lekare",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" },
+            { "KorisnickoIme": "mio" },
+            { "KorisnickoIme": "vatro" },
+            { "KorisnickoIme": "bodi" }
+        ]
+    },
+    {
+        "Id": 5,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za sve pacijente",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "stefo" },
+            { "KorisnickoIme": "pero" }
+        ]
+    },
+    {
+        "Id": 6,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za upravnika i Stefu",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "upravnik" },
+            { "KorisnickoIme": "stefo" }
+        ]
+    },
+    {
+        "Id": 7,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za lekare i sve pacijente",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" },
+            { "KorisnickoIme": "mio" },
+            { "KorisnickoIme": "vatro" },
+            { "KorisnickoIme": "bodi" },
+            { "KorisnickoIme": "stefo" },
+            { "KorisnickoIme": "pero" }
+        ]
+    },
+    {
+        "Id": 8,
+        "Datum": "2021-04-24T00:00:00",
+        "Sadrzaj": ".",
+        "Naslov": "Za Stefu",
+        "Obrisan": false,
+        "Korisnici": [ { "KorisnickoIme": "stefo" } ]
+    },
+    {
+        "Id": 9,
+        "Datum": "2021-04-26T00:00:00+02:00",
+        "Sadrzaj": "Za lek \"Leksilijum\" je potrebno izvršiti validaciju",
+        "Naslov": "Lek za validaciju",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" }
+        ]
+    },
+    {
+        "Id": 10,
+        "Datum": "2021-04-27T00:00:00+02:00",
+        "Sadrzaj": "Za lek \"Enterobiotik\" je potrebno izvršiti validaciju",
+        "Naslov": "Lek za validaciju",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" }
+        ]
+    },
+    {
+        "Id": 11,
+        "Datum": "2021-04-27T00:00:00+02:00",
+        "Sadrzaj": "Za lek \"Probiotik\" je potrebno izvršiti validaciju",
+        "Naslov": "Lek za validaciju",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" }
+        ]
+    },
+    {
+        "Id": 12,
+        "Datum": "2021-04-27T20:16:58.2569216+02:00",
+        "Sadrzaj": "Lek Kardiopirin sa dozom 200 i sastojcima:  Aspirin, Benzodiazepin, Cliacil, Novalgetol je prihvacen. ",
+        "Naslov": "Lek Kardiopirin je prihvacen",
+        "Obrisan": false,
+        "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+    },
+    {
+        "Id": 13,
+        "Datum": "2021-04-27T20:18:16.768608+02:00",
+        "Sadrzaj": "Lek Febricet sa dozom 300 i sastojcima:  Cliacil, Gentamicin je odbijen. Komentar: sdgash",
+        "Naslov": "Lek Febricet je odbijen",
+        "Obrisan": false,
+        "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+    },
+    {
+        "Id": 14,
+        "Datum": "2021-04-27T00:00:00+02:00",
+        "Sadrzaj": "Za lek \"Febricet\" je potrebno izvršiti validaciju",
+        "Naslov": "Lek za validaciju",
+        "Obrisan": false,
+        "Korisnici": [
+            { "KorisnickoIme": "mico" }
+        ]
+    },
+    {
+        "Id": 15,
+        "Datum": "2021-04-27T20:19:52.5987212+02:00",
+        "Sadrzaj": "Lek Febricet sa dozom 400 i sastojcima:  Cliacil, Gentamicin je prihvacen. ",
+        "Naslov": "Lek Febricet je prihvacen",
+        "Obrisan": false,
+        "Korisnici": [ { "KorisnickoIme": "upravnik" } ]
+    }
+]
