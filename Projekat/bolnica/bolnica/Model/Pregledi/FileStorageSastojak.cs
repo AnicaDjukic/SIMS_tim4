@@ -25,7 +25,7 @@ namespace Bolnica.Model.Pregledi
             return alergeni;
         }
 
-        public void Save(Sastojak noviAlergen)
+        public void Save(Sastojak noviSastojak)
         {
             FileStoragePacijenti.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
@@ -34,11 +34,11 @@ namespace Bolnica.Model.Pregledi
             {
                 alergeni = new List<Sastojak>();
             }
-            alergeni.Add(noviAlergen);
+            alergeni.Add(noviSastojak);
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
         }
 
-        public void Delete(Sastojak alergen)
+        public void Delete(Sastojak sastojak)
         {
             FileStoragePacijenti.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
@@ -47,7 +47,7 @@ namespace Bolnica.Model.Pregledi
             {
                 for (int i = 0; i < alergeni.Count; i++)
                 {
-                    if (alergeni[i].Id == alergen.Id)
+                    if (alergeni[i].Id == sastojak.Id)
                     {
                         alergeni.Remove(alergeni[i]);
                         break;
