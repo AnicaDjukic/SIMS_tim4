@@ -87,7 +87,7 @@ namespace Bolnica.Sekretar
         private void inicijalizujComboBoxPacijenata()
         {
             foreach (Pacijent p in sviPacijenti)
-                if (!p.Obrisan)
+                if (!p.Obrisan && !p.Guest)
                     comboBoxPacijenata.Items.Add(p.Ime + " " + p.Prezime + " " + p.Jmbg);
         }
 
@@ -258,7 +258,7 @@ namespace Bolnica.Sekretar
 
             for (int i = 0; i < sviPacijenti.Count; i++)
             {
-                if (!sviPacijenti[i].Obrisan && sviPacijenti[i].Ime.Equals(imePacijenta) && sviPacijenti[i].Prezime.Equals(prezimePacijenta) && sviPacijenti[i].Jmbg.Equals(jmbgPacijenta))
+                if (!sviPacijenti[i].Obrisan && !sviPacijenti[i].Guest && sviPacijenti[i].Ime.Equals(imePacijenta) && sviPacijenti[i].Prezime.Equals(prezimePacijenta) && sviPacijenti[i].Jmbg.Equals(jmbgPacijenta))
                 {
                     zakazivaniPregled.Pacijent = sviPacijenti[i];
                     return true;
