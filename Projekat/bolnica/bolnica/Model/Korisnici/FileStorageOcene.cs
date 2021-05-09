@@ -1,10 +1,8 @@
 ﻿using Bolnica.Model.Korisnici;
-using Bolnica.Model.Pregledi;
+using Model.Pregledi;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Bolnica.Model
 {
@@ -14,12 +12,14 @@ namespace Bolnica.Model
 
         public FileStorageOcene()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocation = System.IO.Path.Combine(path, @"Resources\", "Ocene.json");
         }
 
         public List<Ocena> GetAll()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             var ocene = JsonConvert.DeserializeObject<List<Ocena>>(json);
             return ocene;
@@ -27,6 +27,7 @@ namespace Bolnica.Model
 
         public void Save(Ocena novaOcena)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<Ocena> ocene = JsonConvert.DeserializeObject<List<Ocena>>(json);
             if (ocene == null)
@@ -39,6 +40,7 @@ namespace Bolnica.Model
 
         public void Delete(Ocena ocena)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<Ocena> ocene = JsonConvert.DeserializeObject<List<Ocena>>(json);
             if (ocene != null)

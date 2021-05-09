@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using Model.Pregledi;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Bolnica.Model.Korisnici
 {
@@ -12,12 +11,14 @@ namespace Bolnica.Model.Korisnici
 
         public FileStorageAntiTrol()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocation = System.IO.Path.Combine(path, @"Resources\", "AntiTrol.json");
         }
 
         public List<AntiTrol> GetAll()
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             var antiTrol = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             return antiTrol;
@@ -25,6 +26,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Save(AntiTrol antiTrol)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<AntiTrol> antiTrolList = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             if (antiTrolList == null)
@@ -37,13 +39,14 @@ namespace Bolnica.Model.Korisnici
 
         public void Delete(AntiTrol antiTrol)
         {
+            FileStoragePregledi.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<AntiTrol> antiTrolList = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             if (antiTrolList != null)
             {
                 foreach (AntiTrol at in antiTrolList)
                 {
-                    if (at.PacijentJMBG.Equals(antiTrol.PacijentJMBG))
+                    if (at.Pacijent.Jmbg.Equals(antiTrol.Pacijent.Jmbg))
                     {
                         antiTrolList.Remove(at);
                         break;

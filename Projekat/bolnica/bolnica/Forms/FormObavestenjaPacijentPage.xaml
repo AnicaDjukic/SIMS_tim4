@@ -1,4 +1,4 @@
-﻿<Page x:Class="Bolnica.Forms.FormIstorijaOcenaPage"
+﻿<Page x:Class="Bolnica.Forms.FormObavestenjaPacijentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,11 @@
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
       d:DesignHeight="390" d:DesignWidth="1000"
-      Title="FormIstorijaOcenaPage">
+      Title="FormObavestenjaPacijentPage">
 
     <Grid>
-        <DataGrid Name="oceneGrid" ItemsSource="{Binding PrikazOcenaIKomentara}" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                  Height="330" Width="800" Margin="0,20,0,40" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True" Background="LightBlue">
+        <DataGrid Name="obavestenjaGrid" ItemsSource="{Binding ObavestenjaZaPacijente}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                  Width="800" Height="330" Margin="0,20,0,40" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True" Background="LightBlue">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -21,10 +21,13 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding Datum}"  Width="150"></DataGridTextColumn>
-                <DataGridTextColumn Header="Primalac" Binding="{Binding ImeIPrezime, FallbackValue='Bolnica'}" Width="200"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ocena" Binding="{Binding BrojOcene}" Width="50"></DataGridTextColumn>
-                <DataGridTextColumn Header="Komentar" Binding="{Binding Sadrzaj, FallbackValue='-'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Obavestenje" Binding="{Binding }" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -3,19 +3,10 @@ using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -24,19 +15,20 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIstorijaPregledaPage : Page
     {
+        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
-        private FileStoragePregledi storage;
         public static ObservableCollection<PrikazPregleda> PrikazZavrsenihPregleda
         {
             get;
             set;
         }
 
+        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
         private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileStorageProstorija storageProstorije = new FileStorageProstorija();
+
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
-
-        private FormPacijentWeb form;
 
         public FormIstorijaPregledaPage(Pacijent pacijent, FormPacijentWeb formPacijentWeb)
         {
@@ -51,27 +43,25 @@ namespace Bolnica.Forms
 
             lekari = storageLekari.GetAll();
 
-            FileStorageProstorija storageProstorije = new FileStorageProstorija();
             prostorije = storageProstorije.GetAllProstorije();
 
-            storage = new FileStoragePregledi();
-
-            List<Pregled> pregledi = storage.GetAllPregledi();
+            List<Pregled> pregledi = storagePregledi.GetAllPregledi();
             foreach (Pregled p in pregledi)
             {
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                 {
                     if (!pacijent.Obrisan && !pacijent.Guest && p.Zavrsen)
                     {
-                        PrikazPregleda prikaz = new PrikazPregleda();
-                        prikaz.Datum = p.Datum;
-                        prikaz.Trajanje = p.Trajanje;
-                        prikaz.Zavrsen = p.Zavrsen;
-                        prikaz.Hitan = p.Hitan;
-                        prikaz.Id = p.Id;
-                        prikaz.Anamneza = p.Anamneza;
-
-                        prikaz.Pacijent = pacijent;
+                        PrikazPregleda prikaz = new PrikazPregleda
+                        {
+                            Datum = p.Datum,
+                            Trajanje = p.Trajanje,
+                            Zavrsen = p.Zavrsen,
+                            Hitan = p.Hitan,
+                            Id = p.Id,
+                            Anamneza = p.Anamneza,
+                            Pacijent = pacijent
+                        };
 
                         foreach (Lekar l in lekari)
                         {
@@ -93,23 +83,24 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            List<Operacija> operacije = storage.GetAllOperacije();
+            List<Operacija> operacije = storagePregledi.GetAllOperacije();
             foreach (Operacija o in operacije)
             {
                 if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))
                 {
                     if (!pacijent.Obrisan && !pacijent.Guest && o.Zavrsen)
                     {
-                        PrikazOperacije prikaz = new PrikazOperacije();
-                        prikaz.Datum = o.Datum;
-                        prikaz.Trajanje = o.Trajanje;
-                        prikaz.Zavrsen = o.Zavrsen;
-                        prikaz.Hitan = o.Hitan;
-                        prikaz.Id = o.Id;
-                        prikaz.Anamneza = o.Anamneza;
-                        prikaz.TipOperacije = o.TipOperacije;
-
-                        prikaz.Pacijent = pacijent;
+                        PrikazOperacije prikaz = new PrikazOperacije
+                        {
+                            Datum = o.Datum,
+                            Trajanje = o.Trajanje,
+                            Zavrsen = o.Zavrsen,
+                            Hitan = o.Hitan,
+                            Id = o.Id,
+                            Anamneza = o.Anamneza,
+                            TipOperacije = o.TipOperacije,
+                            Pacijent = pacijent
+                        };
 
                         foreach (Lekar l in lekari)
                         {
@@ -119,11 +110,11 @@ namespace Bolnica.Forms
                             }
                         }
 
-                        foreach (Prostorija pro in prostorije)
+                        foreach (Prostorija p in prostorije)
                         {
-                            if (o.Prostorija.BrojProstorije.Equals(pro.BrojProstorije))
+                            if (o.Prostorija.BrojProstorije.Equals(p.BrojProstorije))
                             {
-                                prikaz.Prostorija = pro;
+                                prikaz.Prostorija = p;
                             }
                         }
 

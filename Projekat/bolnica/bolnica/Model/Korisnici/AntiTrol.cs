@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model.Korisnici;
+using System;
 
 namespace Bolnica.Model.Korisnici
 {
     class AntiTrol
     {
-        public string PacijentJMBG { get; set; }
+        public Pacijent Pacijent { get; set; }
         public DateTime Datum { get; set; }
     }
 }

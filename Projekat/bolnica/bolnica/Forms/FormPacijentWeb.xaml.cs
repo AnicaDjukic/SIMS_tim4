@@ -1,19 +1,10 @@
 ﻿using bolnica;
 using Bolnica.Model.Korisnici;
-using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -25,13 +16,21 @@ namespace Bolnica.Forms
         private Pacijent trenutniPacijent = new Pacijent();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
         private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private List<AntiTrol> antiTrol = new List<AntiTrol>();
+        public static string ImeIPre
+        {
+            get;
+            set;
+        }
 
         public FormPacijentWeb(Pacijent pacijent)
         {
             InitializeComponent();
 
+            this.DataContext = this;
             Pocetna.Content = new FormPacijentPage(pacijent, this);
             trenutniPacijent = pacijent;
+            ImeIPre = pacijent.Ime + " " + pacijent.Prezime;
         }
 
         private void Button_Click_Pocetna_Stranica(object sender, RoutedEventArgs e)
@@ -41,32 +40,16 @@ namespace Bolnica.Forms
 
         private void Button_Click_Zakazivanje_Pregleda(object sender, RoutedEventArgs e)
         {
-            storageAntiTrol = new FileStorageAntiTrol();
-            List<AntiTrol> antiTrol = storageAntiTrol.GetAll();
-            int brojac = 0;
-            foreach (AntiTrol a in antiTrol)
-            {
-                if (a.PacijentJMBG.Equals(trenutniPacijent.Jmbg))
-                {
-                    if (a.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
-                    {
-                        brojac++;
-                    }
-                }
-            }
+            int brojac = DobijBrojAktivnosti();
+            
             if (brojac > 5)
             {
-                trenutniPacijent.Obrisan = true;
-                storagePacijenti.Update(trenutniPacijent);
-                MessageBox.Show("Zbog zloupotrebe nase aplikacije prinudjeni smo da Vam onemogucimo pristup istoj. " +
-                    "Vas nalog ce biti obrisan i vise necete moci da se ulogujete na Vas profil!", "Iskljucenje");
-                var s = new MainWindow();
-                s.Show();
+                BlokirajPacijenta();
                 this.Close();
             }
             else
             {
-                if (brojac > 3)
+                if (brojac > 4)
                 {
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
@@ -84,6 +67,41 @@ namespace Bolnica.Forms
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)
         {
             Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent, this);
+        }
+
+        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
+        {
+            Pocetna.Content = new FormObavestenjaPacijentPage();
+        }
+
+        public int DobijBrojAktivnosti()
+        {
+            int brojac = 0;
+            storageAntiTrol = new FileStorageAntiTrol();
+            antiTrol = storageAntiTrol.GetAll();
+            foreach (AntiTrol a in antiTrol)
+            {
+                if (trenutniPacijent.Jmbg.Equals(a.Pacijent.Jmbg) && a.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
+                {
+                    brojac++;
+                }
+            }
+            return brojac;
+        }
+
+        public void BlokirajPacijenta()
+        {
+            trenutniPacijent.Obrisan = true;
+            storagePacijenti.Update(trenutniPacijent);
+            MessageBox.Show("Zbog zloupotrebe nase aplikacije prinudjeni smo da Vam onemogucimo pristup istoj. " +
+                "Vas nalog ce biti obrisan i vise necete moci da se ulogujete na Vas profil!", "Iskljucenje");
+            new MainWindow().Show();
+        }
+
+        private void Button_Click_Odjava(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
         }
     }
 }
