@@ -134,10 +134,12 @@ namespace Bolnica.Forms
                 }
 
                 int max = 0;
-                for (int i = 0; i < pregledi.Count; i++)
+                foreach (Pregled p in pregledi)
                 {
-                    if (pregledi[i].Id > max)
-                        max = pregledi[i].Id;
+                    if (p.Id > max)
+                    {
+                        max = p.Id;
+                    }
                 }
                 p1.Id = max + 1;
                 p2.Id = max + 1;
@@ -220,10 +222,12 @@ namespace Bolnica.Forms
                 }
 
                 int max = 0;
-                for (int i = 0; i < pregledi.Count; i++)
+                foreach (Pregled p in pregledi)
                 {
-                    if (pregledi[i].Id > max)
-                        max = pregledi[i].Id;
+                    if (p.Id > max)
+                    {
+                        max = p.Id;
+                    }
                 }
                 p1.Id = max + 1;
                 p2.Id = max + 1;
@@ -310,10 +314,12 @@ namespace Bolnica.Forms
                     }
 
                     int max = 0;
-                    for (int i = 0; i < pregledi.Count; i++)
+                    foreach (Pregled p in pregledi)
                     {
-                        if (pregledi[i].Id > max)
-                            max = pregledi[i].Id;
+                        if (p.Id > max)
+                        {
+                            max = p.Id;
+                        }
                     }
                     p1.Id = max + 1;
                     p2.Id = max + 1;
@@ -401,10 +407,12 @@ namespace Bolnica.Forms
                     }
 
                     int max = 0;
-                    for (int i = 0; i < pregledi.Count; i++)
+                    foreach (Pregled p in pregledi)
                     {
-                        if (pregledi[i].Id > max)
-                            max = pregledi[i].Id;
+                        if (p.Id > max)
+                        {
+                            max = p.Id;
+                        }
                     }
                     p1.Id = max + 1;
                     p2.Id = max + 1;
@@ -490,10 +498,12 @@ namespace Bolnica.Forms
                 }
 
                 int max = 0;
-                for (int i = 0; i < pregledi.Count; i++)
+                foreach (Pregled p in pregledi)
                 {
-                    if (pregledi[i].Id > max)
-                        max = pregledi[i].Id;
+                    if (p.Id > max)
+                    {
+                        max = p.Id;
+                    }
                 }
                 p1.Id = max + 1;
                 p2.Id = max + 1;

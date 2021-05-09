@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Model.Prostorije;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -21,6 +22,7 @@ namespace Bolnica.Forms
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
         private FileStorageLekar storageLekari = new FileStorageLekar();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
+        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
 
         private List<Lekar> lekari = new List<Lekar>();
@@ -216,12 +218,28 @@ namespace Bolnica.Forms
             prostorije = storageProstorije.GetAllProstorije();
             foreach (Prostorija prostorija in prostorije)
             {
-                if (prostorija.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !prostorija.Obrisana)
+                if (prostorija.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !prostorija.Obrisana && !NaRenoviranju(prostorija))
                 {
                     return prostorija;
                 }
             }
             return null;
+        }
+
+        private bool NaRenoviranju(Prostorija p)
+        {
+            List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
+            foreach (Renoviranje r in renoviranja)
+            {
+                if (p.BrojProstorije.Equals(r.Prostorija.BrojProstorije))
+                {
+                    if (r.PocetakRenoviranja.Date <= datumPicker.SelectedDate.Value && datumPicker.SelectedDate.Value <= r.KrajRenoviranja.Date)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private bool ProveriPopunjenostDatuma()
