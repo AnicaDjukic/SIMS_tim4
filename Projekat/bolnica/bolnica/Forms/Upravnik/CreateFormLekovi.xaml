@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Dodavanje leka" Height="425" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
     <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan" />
+        </Grid.Resources>
         <StackPanel>
             <TabControl Height="310" Width="376" Margin="0,20,0,0">
                 <TabItem Header="INFORMACIJE">

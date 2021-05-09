@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
     <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan" />
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
@@ -14,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
-            <TextBox Height="20" Width="130" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler"/>
             <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Click="Button_Click_Dodaj_Novi"/>
             <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Click="Button_Click_Obrisi"/>
         </StackPanel>

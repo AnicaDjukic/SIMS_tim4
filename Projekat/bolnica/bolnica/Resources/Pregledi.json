@@ -10,7 +10,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -24,7 +24,7 @@
     "lekarJmbg": "0303965123456",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -38,7 +38,7 @@
     "lekarJmbg": "0303965123456",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -52,7 +52,7 @@
     "lekarJmbg": "222222",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -66,7 +66,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -80,7 +80,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -94,7 +94,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "1212000190000",
     "Pacijent": null
   },
@@ -108,7 +108,7 @@
     "lekarJmbg": "234567891",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },
@@ -122,7 +122,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "1212000190000",
     "Pacijent": null
   },
@@ -136,7 +136,7 @@
     "lekarJmbg": "123456789",
     "Lekar": null,
     "brojProstorije": "103",
-    "Prostorija": null,
+    "Prostorija": { "BrojProstorije": "103" },
     "pacijentJmbg": "2512002149573",
     "Pacijent": null
   },

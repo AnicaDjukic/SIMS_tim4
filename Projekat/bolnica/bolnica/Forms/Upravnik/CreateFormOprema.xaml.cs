@@ -119,16 +119,6 @@ namespace Bolnica.Forms.Upravnik
             else
                 oprema.TipOpreme = TipOpreme.dinamicka;
 
-            //update();
-
-            /*if (FormUpravnik.clickedDodaj)
-            {
-                foreach (Zaliha z in FormSkladiste.Zalihe)
-                {
-                    z.Oprema = oprema;
-                    FormSkladiste.storageZaliha.Save(z);
-                }
-            }*/
             List<Oprema> svaOprema = storage.GetAll();
             bool postoji = false;
             if (svaOprema != null)

@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Title="Renoviranje prostorije" Height="425" Width="565" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
     <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>

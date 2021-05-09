@@ -611,7 +611,7 @@ namespace bolnica.Forms
                 List<Pregled> pregledi = storagePregledi.GetAllPregledi();
                 foreach(Pregled p in pregledi)
                 {
-                    if(p.brojProstorije == row.BrojProstorije)
+                    if(p.Prostorija.BrojProstorije == row.BrojProstorije)
                     {
                         formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
                     } 
@@ -621,7 +621,7 @@ namespace bolnica.Forms
                     List<Operacija> operacije = storagePregledi.GetAllOperacije();
                     foreach(Operacija o in operacije)
                     {
-                        if(o.brojProstorije == row.BrojProstorije)
+                        if(o.Prostorija.BrojProstorije == row.BrojProstorije)
                         {
                             formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(o.Datum));
                         }

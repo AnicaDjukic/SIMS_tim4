@@ -157,7 +157,7 @@ namespace Bolnica.Forms.Upravnik
 
         private bool ImaMagacin()
         {
-            bool found = false;
+            bool imaMagacin = false;
             List<Zaliha> zalihe = storageZaliha.GetAll();
             if (zalihe != null)
             {
@@ -165,13 +165,13 @@ namespace Bolnica.Forms.Upravnik
                 {
                     if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
                     {
-                        found = true;
+                        imaMagacin = true;
                         break;
                     }
                 }
             }
 
-            return found;
+            return imaMagacin;
         }
 
         private Zaliha CreateMagacin()
@@ -296,7 +296,7 @@ namespace Bolnica.Forms.Upravnik
         {
             if (GridProstorije.SelectedCells.Count > 0)
             {
-                if (kolicinaZaPremestanje != 0 && kolicinaZaPremestanje <= magacin.Kolicina)
+                if (ValidnaKolicina())
                 {
                     Prostorija row = (Prostorija)GridProstorije.SelectedItem;
                     RemoveProstorija(row);      // ukloni izabranu prostoriju iz prikaza prostorija
@@ -310,6 +310,11 @@ namespace Bolnica.Forms.Upravnik
                     MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od količine opreme u magacinu.");
                 }
             }
+        }
+
+        private bool ValidnaKolicina()
+        {
+            return kolicinaZaPremestanje != 0 && kolicinaZaPremestanje <= magacin.Kolicina;
         }
 
         private void RemoveProstorija(Prostorija prostorija)

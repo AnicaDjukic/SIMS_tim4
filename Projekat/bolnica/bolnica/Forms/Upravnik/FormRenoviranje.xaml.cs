@@ -42,7 +42,6 @@ namespace Bolnica.Forms.Upravnik
         private DateTime? datumPocetka;
         private DateTime? datumKraja; 
 
-        [Required(ErrorMessage = "Valid Date is Required")]
         public DateTime? DatumPocetka
         {
             get
@@ -136,7 +135,8 @@ namespace Bolnica.Forms.Upravnik
         {
            if(datumPocetka > datumKraja)
             {
-                MessageBox.Show("Datm kraja renoviranja mora biti posle datuma početka renoviranja!");
+                MessageBox.Show("Datum kraja renoviranja mora biti posle datuma početka renoviranja!");
+                Close();
                 return;
             } 
             if(Calendar.BlackoutDates.Contains(datePickerPocetak.SelectedDate.Value) || Calendar.BlackoutDates.Contains(datePickerKraj.SelectedDate.Value))
@@ -150,6 +150,7 @@ namespace Bolnica.Forms.Upravnik
                 if(Calendar.BlackoutDates.Contains((DateTime)date))
                 {
                     MessageBox.Show("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!");
+                    Close();
                     return;
                 }
             }
