@@ -18,8 +18,8 @@ namespace Model.Prostorije
         public List<Prostorija> GetAllProstorije()
         {
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationProstorije);
-            var prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
+            string json = File.ReadAllText(fileLocationProstorije);
+            List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             return prostorije;
         }
 
@@ -27,15 +27,15 @@ namespace Model.Prostorije
         {
 
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationBolnickeSobe);
-            var prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
+            string json = File.ReadAllText(fileLocationBolnickeSobe);
+            List<BolnickaSoba> prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             return prostorije;
         }
 
         public void Save(Prostorija novaProstorija)
         {
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationProstorije);
+            string json = File.ReadAllText(fileLocationProstorije);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije == null)
             {
@@ -48,8 +48,8 @@ namespace Model.Prostorije
         public void Save(BolnickaSoba novaBolnickaSoba)
         {
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationBolnickeSobe);
-            var bolnickeSobe = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
+            string json = File.ReadAllText(fileLocationBolnickeSobe);
+            List<BolnickaSoba> bolnickeSobe = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             if (bolnickeSobe == null)
             {
                 bolnickeSobe = new List<BolnickaSoba>();
@@ -61,7 +61,7 @@ namespace Model.Prostorije
         public void Delete(Prostorija prostorija)
         {
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationProstorije);
+            string json = File.ReadAllText(fileLocationProstorije);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije != null)
             {
@@ -80,7 +80,7 @@ namespace Model.Prostorije
         public void Delete(BolnickaSoba bolnickaSoba)
         {
             FileStorageZaliha.serializeProstorija = true;
-            var json = File.ReadAllText(fileLocationBolnickeSobe);
+            string json = File.ReadAllText(fileLocationBolnickeSobe);
             List<BolnickaSoba> prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
             if (prostorije != null)
             {

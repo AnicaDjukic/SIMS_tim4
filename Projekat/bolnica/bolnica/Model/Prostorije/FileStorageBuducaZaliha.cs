@@ -23,8 +23,8 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
-            var buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
+            string json = File.ReadAllText(fileLocation);
+            List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             return buduceZalihe;
         }
 
@@ -32,7 +32,7 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
+            string json = File.ReadAllText(fileLocation);
             List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             if (buduceZalihe == null)
             {
@@ -46,13 +46,13 @@ namespace Bolnica.Model.Prostorije
         {
             FileStorageZaliha.serializeOprema = false;
             FileStorageZaliha.serializeProstorija = false;
-            var json = File.ReadAllText(fileLocation);
+            string json = File.ReadAllText(fileLocation);
             List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
             if (buduceZalihe != null)
             {
                 for (int i = 0; i < buduceZalihe.Count; i++)
                 {
-                    if (buduceZalihe[i].Id == buducaZalihaZaBrisanje.Id)
+                    if (buduceZalihe[i].Prostorija.BrojProstorije == buducaZalihaZaBrisanje.Prostorija.BrojProstorije && buduceZalihe[i].Oprema.Sifra == buducaZalihaZaBrisanje.Oprema.Sifra)
                     {
                         buduceZalihe.Remove(buduceZalihe[i]);
                         break;

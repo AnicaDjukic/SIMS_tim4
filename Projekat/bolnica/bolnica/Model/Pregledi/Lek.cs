@@ -32,6 +32,7 @@ namespace Model.Pregledi
             return FileStorageLek.serializeLek;
         }
         public int Zalihe { get; set; }
+
         public bool ShouldSerializeZalihe()
         {
 
@@ -55,8 +56,6 @@ namespace Model.Pregledi
 
         [JsonIgnore]
         public List<Lek> Zamena { get; set; }
-       
-
 
         public List<Sastojak> Sastojak { get; set; }
 

@@ -1,1 +1,20 @@
-[{"PocetakRenoviranja":"2021-04-29T00:00:00","KrajRenoviranja":"2021-05-05T00:00:00","Opis":"Krečenje","Prostorija":{"BrojProstorije":"103"}},{"PocetakRenoviranja":"2021-05-09T00:00:00","KrajRenoviranja":"2021-05-10T00:00:00","Opis":"Promena instalacije","Prostorija":{"BrojProstorije":"103"}},{"PocetakRenoviranja":"2021-05-01T00:00:00","KrajRenoviranja":"2021-05-02T00:00:00","Opis":"Presvlačenje poda","Prostorija":{"BrojProstorije":"106"}},{"PocetakRenoviranja":"2021-05-06T00:00:00","KrajRenoviranja":"2021-05-08T00:00:00","Opis":"","Prostorija":{"BrojProstorije":"103"}}]
+[
+  {
+    "PocetakRenoviranja": "2021-04-29T00:00:00",
+    "KrajRenoviranja": "2021-05-05T00:00:00",
+    "Opis": "Krečenje",
+    "Prostorija": { "BrojProstorije": "103" }
+  },
+  {
+    "PocetakRenoviranja": "2021-05-09T00:00:00",
+    "KrajRenoviranja": "2021-05-10T00:00:00",
+    "Opis": "Promena instalacije",
+    "Prostorija": { "BrojProstorije": "103" }
+  },
+  {
+    "PocetakRenoviranja": "2021-05-01T00:00:00",
+    "KrajRenoviranja": "2021-05-02T00:00:00",
+    "Opis": "Presvlačenje poda",
+    "Prostorija": { "BrojProstorije": "106" }
+  }
+]

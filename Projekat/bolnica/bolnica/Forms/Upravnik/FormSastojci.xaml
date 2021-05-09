@@ -1,0 +1,40 @@
+﻿<Window x:Class="Bolnica.Forms.Upravnik.FormSastojci"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        mc:Ignorable="d"
+        Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
+    <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan" />
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
+            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler"/>
+            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Click="Button_Click_Dodaj_Novi"/>
+            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Click="Button_Click_Obrisi"/>
+        </StackPanel>
+        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding Sastojci}" 
+                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Potvrdi" Width="60" Height="25" Click="Button_Click_Potvrdi"/>
+            <Button Content="Odustani" Width="60" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
+
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>
