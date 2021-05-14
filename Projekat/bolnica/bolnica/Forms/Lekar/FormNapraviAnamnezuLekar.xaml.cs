@@ -423,8 +423,8 @@ namespace Bolnica.Forms
 
         public void ZakaziPregled()
         {
-            FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar, trenutniPacijent);
-            form.Show();
+       //     FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar, trenutniPacijent);
+            //form.Show();
         }
 
         private void OtkaziPritisnuto(object sender, RoutedEventArgs e)

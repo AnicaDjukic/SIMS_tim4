@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -327,8 +328,8 @@ namespace Bolnica.Forms
 
         public void ZakaziPregled()
         {
-            FormNapraviTerminLekar forma = new FormNapraviTerminLekar(lekarTrenutni);
-            forma.Show();
+            NapraviTerminLekarViewModel vm = new NapraviTerminLekarViewModel(lekarTrenutni);
+            FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
 
         private void OtkaziPregled(object sender, RoutedEventArgs e)
