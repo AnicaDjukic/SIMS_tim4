@@ -5,16 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="390" d:DesignWidth="1000"
+      d:DesignHeight="580" d:DesignWidth="1400"
       Title="FormIzmeniPacijentPage">
 
     <Grid>
-        <Label Content="Datum" HorizontalAlignment="Left" Margin="300,50,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vreme (sat i minut)" HorizontalAlignment="Left" Margin="300,100,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lekar" HorizontalAlignment="Left" Margin="300,150,0,0" VerticalAlignment="Top"/>
+        <Label Content="Datum" HorizontalAlignment="Left" Margin="420,100,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vreme (sat i minut)" HorizontalAlignment="Left" Margin="420,180,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lekar" HorizontalAlignment="Left" Margin="420,260,0,0" VerticalAlignment="Top"/>
 
-        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="450,50,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}"/>
-        <ComboBox  Name="comboSat"  HorizontalAlignment="Left" Margin="450,100,0,0"  VerticalAlignment="Top" Width="55">
+        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="620,100,0,0"  VerticalAlignment="Top" Width="120" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}"/>
+        <ComboBox  Name="comboSat"  HorizontalAlignment="Left" Margin="620,180,0,0"  VerticalAlignment="Top" Width="55">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="01"></ComboBoxItem>
             <ComboBoxItem Content="02"></ComboBoxItem>
@@ -40,16 +40,16 @@
             <ComboBoxItem Content="22"></ComboBoxItem>
             <ComboBoxItem Content="23"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboMinut"  HorizontalAlignment="Left" Margin="510,100,0,0"  VerticalAlignment="Top" Width="55">
+        <ComboBox  Name="comboMinut"  HorizontalAlignment="Left" Margin="685,180,0,0"  VerticalAlignment="Top" Width="55">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="15"></ComboBoxItem>
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="450,150,0,0"  VerticalAlignment="Top" Width="120"/>
+        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="620,260,0,0"  VerticalAlignment="Top" Width="120"/>
 
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="370,200,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>
-        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="470,200,0,0" VerticalAlignment="Top" Width="55" Click="OtkaziIzmenu"/>
-        <Button Content="Naši predlozi" HorizontalAlignment="Left" Margin="700,100,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="NasiPredlozi"/>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="500,350,0,0" VerticalAlignment="Top" Width="55" Click="PotvrdiIzmenu"/>
+        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="630,350,0,0" VerticalAlignment="Top" Width="55" Click="OtkaziIzmenu"/>
+        <Button Content="Naši predlozi" HorizontalAlignment="Left" Margin="900,180,0,0" VerticalAlignment="Top" Height="40" Width="150" Click="NasiPredlozi"/>
     </Grid>
 </Page>

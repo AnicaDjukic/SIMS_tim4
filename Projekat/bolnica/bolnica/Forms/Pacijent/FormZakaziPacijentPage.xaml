@@ -5,24 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="390" d:DesignWidth="1000"
+      d:DesignHeight="580" d:DesignWidth="1400"
       Title="FormZakaziPacijentPage">
 
     <Grid>
-        <StackPanel Orientation="Horizontal" Margin="150,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30">
-            <TextBlock Text="Odaberite prioritet pri zakazivanju pregleda:" FontSize="20"></TextBlock>
-            <RadioButton Name="datum" Content="Datum" Margin="30,0,0,0" FontSize="20" Checked="RadioButton_Checked_Datum"></RadioButton>
-            <RadioButton Name="lekar" Content="Lekar" Margin="30,0,0,0" FontSize="20" Checked="RadioButton_Checked_Lekar"></RadioButton>
+        <StackPanel Orientation="Horizontal" Margin="350,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30">
+            <TextBlock Text="Odaberite prioritet pri zakazivanju pregleda:" FontSize="24"></TextBlock>
+            <RadioButton Name="datum" Content="Datum" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Datum"></RadioButton>
+            <RadioButton Name="lekar" Content="Lekar" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Lekar"></RadioButton>
         </StackPanel>
         
-        <Label Content="Datum:" HorizontalAlignment="Left" Margin="220,100,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Vreme (sat i minut):" HorizontalAlignment="Left" Margin="220,150,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="220,200,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="420,100,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Vreme (sat i minut):" HorizontalAlignment="Left" Margin="420,180,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="420,260,0,0" VerticalAlignment="Top" FontSize="20"/>
 
-        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="420,100,0,0"  VerticalAlignment="Top" Width="200" FirstDayOfWeek="Monday" 
+        <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="620,100,0,0"  VerticalAlignment="Top" Width="200" FirstDayOfWeek="Monday" 
                     SelectedDateFormat="Short" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}" 
                     SelectedDateChanged="SelectedDateChanged_Datum" FontSize="20"/>
-        <ComboBox Name="comboSat"  HorizontalAlignment="Left" Margin="420,150,0,0"  VerticalAlignment="Top" Width="95"
+        <ComboBox Name="comboSat"  HorizontalAlignment="Left" Margin="620,180,0,0"  VerticalAlignment="Top" Width="95"
                     SelectionChanged="SelectionChanged_Sat" FontSize="20">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="01"></ComboBoxItem>
@@ -49,20 +49,20 @@
             <ComboBoxItem Content="22"></ComboBoxItem>
             <ComboBoxItem Content="23"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboMinut"  HorizontalAlignment="Left" Margin="525,150,0,0"  VerticalAlignment="Top" Width="95"
+        <ComboBox  Name="comboMinut"  HorizontalAlignment="Left" Margin="725,180,0,0"  VerticalAlignment="Top" Width="95"
                    SelectionChanged="SelectionChanged_Minut" FontSize="20">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="15"></ComboBoxItem>
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="420,200,0,0"  VerticalAlignment="Top" Width="200"
+        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="620,260,0,0" VerticalAlignment="Top" Width="200"
                    SelectionChanged="SelectionChanged_Lekar" FontSize="20"/>
 
-        <Button Name="potvrdi" Content="Potvrdi" HorizontalAlignment="Left" Margin="350,270,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Potvrdi"/>
-        <Button Name="otkazi" Content="Otkaži" HorizontalAlignment="Left" Margin="480,270,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Otkazi"/>
+        <Button Name="potvrdi" Content="Potvrdi" HorizontalAlignment="Left" Margin="550,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Potvrdi"/>
+        <Button Name="otkazi" Content="Otkaži" HorizontalAlignment="Left" Margin="680,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Otkazi"/>
         
-        <Button Name="nasiPredlozi" Content="Naši predlozi" HorizontalAlignment="Left" Margin="700,150,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Click="NasiPredlozi"/>
+        <Button Name="nasiPredlozi" Content="Naši predlozi" HorizontalAlignment="Left" Margin="950,180,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Click="NasiPredlozi"/>
 
     </Grid>
 </Page>

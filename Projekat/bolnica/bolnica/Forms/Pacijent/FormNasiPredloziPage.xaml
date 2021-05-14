@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="390" d:DesignWidth="1000"
+      d:DesignHeight="580" d:DesignWidth="1400"
       Title="FormNasiPredloziPage">
 
     <Grid>
         <DataGrid Name="nasiPredloziGrid" ItemsSource="{Binding PredlozeniTermini}" VerticalAlignment="Top" HorizontalAlignment="Center" 
                   AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True"
-                  Height="280" Width="800" Margin="0,20,0,0">
+                  Height="440" Width="1000" Margin="0,20,0,0">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -29,7 +29,7 @@
                 <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Potvrdi izabrani termin" HorizontalAlignment="Left" Margin="300,310,0,0" VerticalAlignment="Top" Height="35" Width="150" Click="PotvrdiIzabraniTermin"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="550,310,0,0" VerticalAlignment="Top" Height="35" Width="100" Click="Odustani"/>
+        <Button Content="Potvrdi izabrani termin" HorizontalAlignment="Left" Margin="500,490,0,0" VerticalAlignment="Top" Height="35" Width="150" Click="PotvrdiIzabraniTermin"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="800,490,0,0" VerticalAlignment="Top" Height="35" Width="100" Click="Odustani"/>
     </Grid>
 </Page>

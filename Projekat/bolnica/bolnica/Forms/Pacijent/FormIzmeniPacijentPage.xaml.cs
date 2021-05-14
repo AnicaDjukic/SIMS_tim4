@@ -16,7 +16,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIzmeniPacijentPage : Page
     {
-        private FormPacijentWeb form;
         private PrikazPregleda prikazPregleda;
 
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
@@ -28,11 +27,10 @@ namespace Bolnica.Forms
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
 
-        public FormIzmeniPacijentPage(PrikazPregleda prikazPre, FormPacijentWeb formPacijentWeb)
+        public FormIzmeniPacijentPage(PrikazPregleda prikazPre)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             prikazPregleda = prikazPre;
 
             DodajLekareUComboBox();
@@ -103,14 +101,14 @@ namespace Bolnica.Forms
                     };
                     storageAntiTrol.Save(antiTrol);
 
-                    form.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent, form);
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent);
                 }
             }
         }
 
         private void OtkaziIzmenu(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormPacijentPage(prikazPregleda.Pacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(prikazPregleda.Pacijent);
         }
 
         private void NasiPredlozi(object sender, RoutedEventArgs e)
@@ -137,7 +135,7 @@ namespace Bolnica.Forms
                 lekar = DobijLekara(DobijImeLekara(), DobijPrezimeLekara());
             }
 
-            form.Pocetna.Content = new FormNasiPredloziPage(prikazPregleda.Pacijent, datum, sat, minut, lekar, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormNasiPredloziPage(prikazPregleda.Pacijent, datum, sat, minut, lekar);
         }
         
         private PrikazPregleda SetPrikaz()
