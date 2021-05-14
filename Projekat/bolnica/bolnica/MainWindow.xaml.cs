@@ -80,7 +80,12 @@ namespace bolnica
                         }
                         else
                         {
-                            var s = new FormPacijentWeb(pacijent);
+                            var s = new FormPacijentWeb(pacijent)
+                            {
+                                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                                ResizeMode = ResizeMode.CanMinimize,
+                                Title = "Zdravo bolnica Novi Sad"
+                            };
                             s.Show();
                             s.DanasnjaObavestenja();
                         }

@@ -19,13 +19,10 @@ namespace Bolnica.Forms
 
         private FileStorageOcene storageOcene = new FileStorageOcene();
 
-        private FormPacijentWeb form;
-
-        public FormOceniLekaraPage(PrikazPregleda prikazPregleda, FormPacijentWeb formPacijentWeb)
+        public FormOceniLekaraPage(PrikazPregleda prikazPregleda)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             pacijent = prikazPregleda.Pacijent;
             prikaz = prikazPregleda;
 
@@ -89,13 +86,13 @@ namespace Bolnica.Forms
 
                 storageOcene.Save(ocena);
 
-                form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
             }
         }
 
         private void Button_Click_Otkazi(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
         }
     }
 }

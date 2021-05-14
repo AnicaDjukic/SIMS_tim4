@@ -24,7 +24,7 @@ namespace Bolnica.Forms
         private List<Ocena> ocene = new List<Ocena>();
         private List<Lekar> lekari = new List<Lekar>();
 
-        public FormIstorijaOcenaPage(Pacijent trenutniPacijent, FormPacijentWeb formPacijentWeb)
+        public FormIstorijaOcenaPage(Pacijent trenutniPacijent)
         {
             InitializeComponent();
 

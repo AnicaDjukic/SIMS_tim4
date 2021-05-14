@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="390" d:DesignWidth="1000"
+      d:DesignHeight="580" d:DesignWidth="1400"
       Title="FormIstorijaPregledaPage">
 
     <Grid>
         <DataGrid Name="pacijentIstorijaGrid" ItemsSource="{Binding PrikazZavrsenihPregleda}" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  Height="330" Width="820" AutoGenerateColumns="False" SelectionUnit="FullRow"
-                  SelectionMode="Single" IsReadOnly="True" Margin="20,20,0,40" Background="LightBlue">
+                  Height="530" Width="1200" AutoGenerateColumns="False" SelectionUnit="FullRow"
+                  SelectionMode="Single" IsReadOnly="True" Margin="40,20,0,40" Background="LightBlue">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
