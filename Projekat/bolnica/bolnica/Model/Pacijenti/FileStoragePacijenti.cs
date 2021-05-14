@@ -12,7 +12,6 @@ namespace Model.Pacijenti
         private string fileLocation;
 
         public static bool serializeAlergeni;
-        public static bool serializeKarton;
         public FileStoragePacijenti() {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources", "Pacijenti.json");
@@ -21,7 +20,6 @@ namespace Model.Pacijenti
         public List<Pacijent> GetAll()
         {
             serializeAlergeni = false;
-            serializeKarton = false;
             FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             var pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
@@ -31,7 +29,6 @@ namespace Model.Pacijenti
         public void Save(Pacijent noviPacijent)
         {
             serializeAlergeni = false;
-            serializeKarton = false;
             FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
@@ -64,7 +61,6 @@ namespace Model.Pacijenti
         public void Delete(Pacijent pacijent)
         {
             serializeAlergeni = false;
-            serializeKarton = false;
             FileStoragePregledi.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);

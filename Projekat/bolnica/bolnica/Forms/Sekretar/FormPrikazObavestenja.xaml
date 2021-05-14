@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Sekretar"
         mc:Ignorable="d"
-        Title="FormPrikazObavestenja" Height="650" Width="350"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="650" Width="350"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label x:Name="lblDatum" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Top"/>
         <Label Content="Primaoci:" HorizontalAlignment="Left" Margin="79,35,0,0" VerticalAlignment="Top"/>

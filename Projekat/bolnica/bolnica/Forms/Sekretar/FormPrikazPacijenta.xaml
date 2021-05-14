@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPrikazPacijenta" Height="500" Width="800"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Ime:" HorizontalAlignment="Left" Margin="105,65,0,0" VerticalAlignment="Top"/>
         <Label Content="Prezime:" HorizontalAlignment="Left" Margin="83,95,0,0" VerticalAlignment="Top"/>

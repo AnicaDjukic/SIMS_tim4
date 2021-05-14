@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Sekretar"
         mc:Ignorable="d"
-        Title="FormObavestenja" Height="500" Width="1200"
+        Title="Bolnica" Height="500" Width="1200"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +19,7 @@
         <Button Content="Pacijenti" FontSize="14" Margin="0,53,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Pacijenti" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button Content="Pregledi" FontSize="14" Margin="0,93,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Pregledi" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button Content="Obaveštenja" FontSize="14" Margin="0,133,987,0" Width="180" VerticalAlignment="Top" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
-        <DataGrid x:Name="dataGridObavestenja" IsReadOnly="True" ItemsSource="{Binding Obavestenja}"
+        <DataGrid x:Name="dataGridObavestenja" MouseLeftButtonDown="DataGridObavestenjaMouseLeftButtonDown" IsReadOnly="True" ItemsSource="{Binding Obavestenja}"
                   SelectionMode="Single" AutoGenerateColumns="False"
                   Height="300" Margin="199,53,50,0" VerticalAlignment="Top"
                   HeadersVisibility="Column" RowHeaderWidth="0" Grid.Row="1">

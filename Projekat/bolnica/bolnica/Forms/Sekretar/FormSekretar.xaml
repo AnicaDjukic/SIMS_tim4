@@ -7,15 +7,16 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:dislocal ="clr-namespace:Model.Pacijenti"
         mc:Ignorable="d"
-        Title="FormSekretar" Height="500" Width="1200"
+        Title="Bolnica" Height="500" Width="1200"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="211*"/>
         </Grid.RowDefinitions>
-        <Label Content="Pretraži:" Margin="892,10,240,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <TextBox x:Name="searchBox" Margin="954,14,50,0" Width="180" VerticalAlignment="Top" KeyUp="SearchBoxKeyUp" Grid.Row="1" />
+        <Label FontSize="14" Content="Pretraži:" Margin="880,10,233,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBox x:Name="searchBoxRedovni" VerticalContentAlignment="Center" Height="22" Margin="954,14,50,0" Width="180" VerticalAlignment="Top" KeyUp="SearchBoxRedovniKeyUp" Grid.Row="1" />
+        <TextBox x:Name="searchBoxGosti" Margin="954,14,50,0" Width="180" VerticalAlignment="Top" KeyUp="SearchBoxGostiKeyUp" Grid.Row="1" Height="22"/>
         <Button x:Name="btnDodaj" Content="Dodaj pacijenta" FontSize="14" Width="160" Margin="120,380,580,0" VerticalAlignment="Top" Click="Button_Click_Dodaj" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button x:Name="btnPrikazi" Content="Prikaži pacijenta" FontSize="14" Width="160" Margin="363,380,420,0" VerticalAlignment="Top" Click="Button_Click_Prikazi" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button x:Name="btnIzmeni" Content="Izmeni pacijenta" FontSize="14" Width="160" Margin="608,380,260,0" VerticalAlignment="Top" Click="Button_Click_Izmeni" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
