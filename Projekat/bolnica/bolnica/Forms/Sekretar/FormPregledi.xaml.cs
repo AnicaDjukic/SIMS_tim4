@@ -9,6 +9,7 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,14 +40,15 @@ namespace Bolnica.Sekretar
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
         private PrikazOperacije prikazOperacije = new PrikazOperacije();
+        private int selektovanComboSearchItemIndex;
 
         public FormPregledi()
         {
             InitializeComponent();
             dataGridPregledi.DataContext = this;
             Pregledi = new ObservableCollection<PrikazPregleda>();
-            
 
+            selektovanComboSearchItemIndex = 0;
             listaPregleda = sviPregledi.GetAllPregledi();
             listaOperacija = sveOperacije.GetAllOperacije();
             listaPacijenata = sviPacijenti.GetAll();
@@ -159,6 +161,13 @@ namespace Bolnica.Sekretar
                         }
                     }
                 }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("Samo lekar može upravljati operacijama.",
+                                          "Pomeranje termina",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
+                }
             }
             else
             {
@@ -189,6 +198,15 @@ namespace Bolnica.Sekretar
         {
             if (dataGridPregledi.SelectedCells.Count > 0)
             {
+                if (!dataGridPregledi.SelectedValue.GetType().Equals(prikazPregleda.GetType())) 
+                {
+                    MessageBoxResult msgBoxResult = MessageBox.Show("Samo lekar može upravljati operacijama.",
+                                                  "Otkazivanje termina",
+                                                  MessageBoxButton.OK,
+                                                  MessageBoxImage.Information);
+                    return;
+                }
+
                 MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite otkazati ovaj termin?",
                                           "Otkazivanje termina",
                                           MessageBoxButton.YesNo,
@@ -227,6 +245,70 @@ namespace Bolnica.Sekretar
         {
             FormZakaziHitanTermin s = new FormZakaziHitanTermin(dataGridPregledi);
             s.ShowDialog();
+        }
+
+        private void SearchBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (comboSearch.SelectedIndex == 0)
+            {
+                string[] searchBoxText = searchBox.Text.Split(" ");
+
+                if (searchBoxText.Length == 1)
+                {
+                    var filtered = Pregledi.Where(termin => termin.Pacijent.Ime.StartsWith(searchBox.Text, StringComparison.InvariantCultureIgnoreCase));
+                    dataGridPregledi.ItemsSource = filtered;
+                }
+                else if (searchBoxText.Length == 2)
+                {
+                    var filtered = Pregledi.Where(termin => termin.Pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && termin.Pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                    dataGridPregledi.ItemsSource = filtered;
+                }
+            }
+            else if (comboSearch.SelectedIndex == 1)
+            {
+                string[] searchBoxText = searchBox.Text.Split(" ");
+
+                if (searchBoxText.Length == 1)
+                {
+                    var filtered = Pregledi.Where(termin => termin.Lekar.Ime.StartsWith(searchBox.Text, StringComparison.InvariantCultureIgnoreCase));
+                    dataGridPregledi.ItemsSource = filtered;
+                }
+                else if (searchBoxText.Length == 2)
+                {
+                    var filtered = Pregledi.Where(termin => termin.Lekar.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && termin.Lekar.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                    dataGridPregledi.ItemsSource = filtered;
+                }
+            }
+            else 
+            {
+                var filtered = Pregledi.Where(termin => termin.Prostorija.BrojProstorije.StartsWith(searchBox.Text, StringComparison.InvariantCultureIgnoreCase));
+                dataGridPregledi.ItemsSource = filtered;
+            }
+        }
+
+        private void ComboSearchDropDownClosed(object sender, EventArgs e)
+        {
+            if (comboSearch.SelectedIndex == selektovanComboSearchItemIndex)
+                return;
+            searchBox.Text = "";
+            dataGridPregledi.ItemsSource = Pregledi;
+            selektovanComboSearchItemIndex = comboSearch.SelectedIndex;
+        }
+
+        private void DataGridPreglediLeftMouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender != null)
+            {
+                DataGrid grid = sender as DataGrid;
+                if (grid != null && grid.SelectedItems != null && grid.SelectedItems.Count == 1)
+                {
+                    DataGridRow dgr = grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem) as DataGridRow;
+                    if (!dgr.IsMouseOver)
+                    {
+                        (dgr as DataGridRow).IsSelected = false;
+                    }
+                }
+            }
         }
     }
 }

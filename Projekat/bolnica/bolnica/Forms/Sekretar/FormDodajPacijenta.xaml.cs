@@ -332,13 +332,15 @@ namespace Bolnica.Forms
             var s = new FormAlergeniDodaj(txtJMBG);
             if (FormSekretar.clickedDodaj)
             {
-                s.ti1.IsSelected = true;
                 s.btnUkloni.IsEnabled = false;
             }
             else
             {
-                s.ti2.IsSelected = true;
-                s.btnDodaj.IsEnabled = false;
+                if (FormAlergeniDodaj.SviAlergeni.Count != 0)
+                    s.btnDodaj.IsEnabled = true;
+                else
+                    s.btnDodaj.IsEnabled = false;
+
                 if (FormAlergeniDodaj.DodatiAlergeni.Count != 0)
                     s.btnUkloni.IsEnabled = true;
                 else

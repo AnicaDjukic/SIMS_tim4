@@ -7,6 +7,7 @@ using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +45,7 @@ namespace Bolnica.Forms
             dataGridRedovniPacijenti.DataContext = this;
             dataGridGostiPacijenti.DataContext = this;
 
+            searchBoxGosti.Visibility = Visibility.Hidden;
             RedovniPacijenti = new ObservableCollection<Pacijent>();
             GostiPacijenti = new ObservableCollection<Pacijent>();
             clickedDodaj = false;
@@ -65,6 +67,7 @@ namespace Bolnica.Forms
             clickedDodaj = true;
             FormDodajPacijenta s = new FormDodajPacijenta(null);
             s.btnAlergeni.Content = "Dodaj";
+            s.btnKreiraj.Content = "Kreiraj";
             s.ShowDialog();
         }
 
@@ -79,6 +82,7 @@ namespace Bolnica.Forms
                     FormDodajPacijenta s = new FormDodajPacijenta(pacijent.Alergeni);
 
                     s.btnAlergeni.Content = "Izmeni";
+                    s.btnKreiraj.Content = "Izmeni";
                     foreach (Pacijent p in pacijenti)
                     {
                         if (p.Jmbg == pacijent.Jmbg)
@@ -342,21 +346,52 @@ namespace Bolnica.Forms
         {
             if (ti1.IsSelected)
             {
+                searchBoxRedovni.Visibility = Visibility.Visible;
+                searchBoxGosti.Visibility = Visibility.Hidden;
                 btnDodaj.Visibility = Visibility.Visible;
                 btnIzmeni.Visibility = Visibility.Visible;
                 btnObrisi.Margin = new Thickness(845, 380, 100, 0);
             }
             else if (ti2.IsSelected)
             {
+                searchBoxRedovni.Visibility = Visibility.Hidden;
+                searchBoxGosti.Visibility = Visibility.Visible;
                 btnDodaj.Visibility = Visibility.Hidden;
                 btnIzmeni.Visibility = Visibility.Hidden;
                 btnObrisi.Margin = new Thickness(608, 380, 260, 0);
             }
         }
 
-        private void SearchBoxKeyUp(object sender, KeyEventArgs e)
+        private void SearchBoxRedovniKeyUp(object sender, KeyEventArgs e)
         {
+            string[] searchBoxText = searchBoxRedovni.Text.Split(" ");
 
+            if (searchBoxText.Length == 1)
+            {
+                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxRedovni.Text, StringComparison.InvariantCultureIgnoreCase));
+                dataGridRedovniPacijenti.ItemsSource = filtered;
+            }
+            else if (searchBoxText.Length == 2)
+            {
+                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                dataGridRedovniPacijenti.ItemsSource = filtered;
+            }
+        }
+
+        private void SearchBoxGostiKeyUp(object sender, KeyEventArgs e)
+        {
+            string[] searchBoxText = searchBoxGosti.Text.Split(" ");
+
+            if (searchBoxText.Length == 1)
+            {
+                var filtered = GostiPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxGosti.Text, StringComparison.InvariantCultureIgnoreCase));
+                dataGridGostiPacijenti.ItemsSource = filtered;
+            }
+            else if (searchBoxText.Length == 2)
+            {
+                var filtered = GostiPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                dataGridGostiPacijenti.ItemsSource = filtered;
+            }
         }
     }
 }

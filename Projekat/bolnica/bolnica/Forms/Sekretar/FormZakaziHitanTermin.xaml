@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
         mc:Ignorable="d"
-        Title="FormZakaziHitanTermin" Height="350" Width="560"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="350" Width="560"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Operacija:" HorizontalAlignment="Left" Margin="74,61,0,0" VerticalAlignment="Top"/>
         <CheckBox Name="checkOperacija" HorizontalAlignment="Left" Margin="145,68,0,0" VerticalAlignment="Top" Checked="CheckBoxChecked" Unchecked="CheckBoxUnchecked"/>

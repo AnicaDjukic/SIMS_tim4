@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormDodajPacijenta" Height="500" Width="800"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Ime:" HorizontalAlignment="Left" Margin="106,65,0,0" VerticalAlignment="Top"/>
         <Label Content="Prezime:" HorizontalAlignment="Left" Margin="83,95,0,0" VerticalAlignment="Top"/>
@@ -166,7 +166,7 @@
         </ComboBox>
         <CheckBox Name="checkOsiguranje" HorizontalAlignment="Left" Margin="525,219,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.127,0.621"/>
         <Button x:Name="btnAlergeni" Content="Dodaj" Height="20" Width="80" Margin="150,309,554,0" VerticalAlignment="Top" Click="Button_Click_Dodaj_Alergene"/>
-        <Button Content="Kreiraj" Height="20" Width="80" Margin="220,366,360,38" Click="Button_Click"/>
+        <Button x:Name="btnKreiraj" Content="Kreiraj" Height="20" Width="80" Margin="220,366,360,38" Click="Button_Click"/>
         <Button Content="Zatvori" Height="20" Width="80" Margin="360,366,220,38" Click="Zatvori"/>
     </Grid>
 </Window>

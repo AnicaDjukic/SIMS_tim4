@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
         mc:Ignorable="d"
-        Title="FormDodajPrimaoce" Height="500" Width="415"
+        Title="Bolnica" Height="500" Width="415"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
         <TabControl Width="400" Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="tc" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Svi" x:Name="ti1">

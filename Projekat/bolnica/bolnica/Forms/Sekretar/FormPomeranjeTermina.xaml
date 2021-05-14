@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
         mc:Ignorable="d"
-        Title="FormPomeranjeTermina" Height="600" Width="845"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="600" Width="845"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>

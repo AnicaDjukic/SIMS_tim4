@@ -179,7 +179,6 @@ namespace Bolnica.Forms.Sekretar
         private void DodajAlergene(object sender, RoutedEventArgs e)
         {
             var s = new FormAlergeniDodaj(txtJMBG);
-            s.ti1.IsSelected = true;
             s.btnUkloni.IsEnabled = false;
             s.ShowDialog();
         }

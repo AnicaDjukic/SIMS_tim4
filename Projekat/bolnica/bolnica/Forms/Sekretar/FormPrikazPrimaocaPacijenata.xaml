@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
         mc:Ignorable="d"
-        Title="FormPrikazPrimaocaPacijenata" Height="500" Width="415"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="500" Width="415"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <DataGrid x:Name="dataGridPrimaoci" IsReadOnly="True" ItemsSource="{Binding Primaoci}"
                           SelectionMode="Extended" AutoGenerateColumns="False"

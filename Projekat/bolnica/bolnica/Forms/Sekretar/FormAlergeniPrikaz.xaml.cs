@@ -35,7 +35,13 @@ namespace Bolnica.Forms.Sekretar
                 {
                     if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
                         foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }
@@ -46,7 +52,13 @@ namespace Bolnica.Forms.Sekretar
                 {
                     if (FormSekretar.GostiPacijenti[i].Alergeni != null)
                         foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }

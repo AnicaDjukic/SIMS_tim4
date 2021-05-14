@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
         mc:Ignorable="d"
-        Title="FormAlergeniPrikaz" Height="500" Width="415"
-        WindowStartupLocation="CenterScreen">
+        Title="Bolnica" Height="380" Width="300"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <DataGrid x:Name="dataGridAlergeni" IsReadOnly="True" ItemsSource="{Binding Alergeni}"
                           SelectionMode="Extended" AutoGenerateColumns="False"
-                          Height="350" VerticalAlignment="Top"
+                          Height="250" VerticalAlignment="Top"
                           HeadersVisibility="Column" RowHeaderWidth="0" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Alergeni" Binding="{Binding Naziv}" Width="*">
@@ -29,6 +29,6 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Click="Button_Clicked_Zatvori" Width="80" Height="20" Content="Zatvori" Margin="0,392,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" RenderTransformOrigin="-0.186,0.578"/>
+        <Button Click="Button_Clicked_Zatvori" Width="80" Height="20" Content="Zatvori" Margin="0,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" RenderTransformOrigin="-0.186,0.578"/>
     </Grid>
 </Window>
