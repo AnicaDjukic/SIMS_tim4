@@ -482,8 +482,8 @@ namespace Bolnica.Forms
                         {
 
                             p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                            FormPrikazInformacijaOPacijentuLekar forma = new FormPrikazInformacijaOPacijentuLekar(p1.Pacijent);
-                            forma.Show();
+                            InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(p1.Pacijent);
+                            FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
 
                             break;
                         }
@@ -497,8 +497,8 @@ namespace Bolnica.Forms
                         if (pri.Id.Equals(listaOperacija[i].Id))
                         {
                             op = lekarGrid.SelectedItem as PrikazOperacije;
-                            FormPrikazInformacijaOPacijentuLekar forma = new FormPrikazInformacijaOPacijentuLekar(op.Pacijent);
-                            forma.Show();
+                            InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(op.Pacijent);
+                            FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
                             break;
                         }
                     }
