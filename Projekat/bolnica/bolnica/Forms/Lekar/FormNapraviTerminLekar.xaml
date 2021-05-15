@@ -9,6 +9,18 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
         Title="FormNapraviTerminLekar" Height="670" Width="630" >
+    <Window.InputBindings>
+        <KeyBinding
+                    Key="Q" 
+                    Modifiers="Ctrl"
+                    Command="{Binding Path=DodajPregledLekarCommand}"
+                />
+        <KeyBinding
+                    Key="W" 
+                    Modifiers="Ctrl"
+                    Command="{Binding Path=ZatvoriCommand}"
+                />
+    </Window.InputBindings>
     <Window.Resources>
 
 
@@ -264,7 +276,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
-        <ComboBox IsDropDownOpen="{Binding ItemSourcePacijentComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourcePrezimeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" >
+        <ComboBox IsEnabled="{Binding PacijentEnabled,Mode=TwoWay}" IsDropDownOpen="{Binding ItemSourcePacijentComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourcePrezimeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -370,7 +382,7 @@
 
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajPregledLekarCommand}"
                          Background="#FF1E93F4" Style="{StaticResource SaveButton}" Content="Potvrdi" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
                          Background="#FF1E93F4" Content="Otkaži" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="15" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="15" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>

@@ -328,7 +328,7 @@ namespace Bolnica.Forms
 
         public void ZakaziPregled()
         {
-            NapraviTerminLekarViewModel vm = new NapraviTerminLekarViewModel(lekarTrenutni);
+            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarTrenutni);
             FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
 
@@ -405,8 +405,8 @@ namespace Bolnica.Forms
                         {
 
                             p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                            FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(p1, lekarTrenutni);
-                            forma.Show();
+                            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(p1,lekarTrenutni);
+                            FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
                             break;
                         }
                     }
@@ -422,8 +422,8 @@ namespace Bolnica.Forms
                             {
 
                                 op = lekarGrid.SelectedItem as PrikazOperacije;
-                                FormIzmeniTerminLekar forma = new FormIzmeniTerminLekar(op, lekarTrenutni);
-                                forma.Show();
+                                IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(op,lekarTrenutni);
+                                FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
                                 break;
                             }
                         }

@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -423,8 +424,8 @@ namespace Bolnica.Forms
 
         public void ZakaziPregled()
         {
-       //     FormNapraviTerminLekar form = new FormNapraviTerminLekar(ulogovaniLekar, trenutniPacijent);
-            //form.Show();
+            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(ulogovaniLekar,trenutniPacijent);
+            FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
 
         private void OtkaziPritisnuto(object sender, RoutedEventArgs e)
