@@ -867,7 +867,8 @@ namespace Bolnica.Forms
             {
                 if (lekovi[i].Id.Equals(p.Id))
                 {
-                    FormIzmeniLekLekar form = new FormIzmeniLekLekar(lekovi[i]);
+                    IzmeniLekLekarViewModel vm = new IzmeniLekLekarViewModel(lekovi[i]);
+                    FormIzmeniLekLekar form = new FormIzmeniLekLekar(vm);
                     form.Show();
                     break;
 
@@ -1004,8 +1005,8 @@ namespace Bolnica.Forms
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
             if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
-                FormKomentarLekaLekar lek = new FormKomentarLekaLekar(p);
-                lek.Show();
+                KomentarLekaLekarViewModel vm = new KomentarLekaLekarViewModel(p);
+                FormKomentarLekaLekar lek = new FormKomentarLekaLekar(vm);
             }
             else
             {

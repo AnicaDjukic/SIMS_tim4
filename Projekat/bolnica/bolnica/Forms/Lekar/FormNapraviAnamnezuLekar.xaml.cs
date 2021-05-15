@@ -231,7 +231,7 @@ namespace Bolnica.Forms
 
         public void DodajLek()
         {
-            NapraviIVidiReceptViewModel vm = new NapraviIVidiReceptViewModel(trenutniPacijent);
+            NapraviIVidiReceptLekarViewModel vm = new NapraviIVidiReceptLekarViewModel(trenutniPacijent);
             FormNapraviReceptLekar form = new FormNapraviReceptLekar(vm);
             
         }
@@ -443,8 +443,8 @@ namespace Bolnica.Forms
         {
             if (dataGridLekovi.SelectedCells.Count > 0)
             {
-                FormVidiReceptLekar form = new FormVidiReceptLekar(PretvoriPrikazReceptaURecept());
-                form.Show();
+                NapraviIVidiReceptLekarViewModel vm = new NapraviIVidiReceptLekarViewModel(trenutniPacijent, PretvoriPrikazReceptaURecept());
+                FormVidiReceptLekar form = new FormVidiReceptLekar(vm);
             }
         }
 

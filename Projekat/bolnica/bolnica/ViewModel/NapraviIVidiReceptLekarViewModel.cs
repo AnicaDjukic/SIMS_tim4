@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Bolnica.ViewModel
 {
-   public class NapraviIVidiReceptViewModel : ViewModel
+   public class NapraviIVidiReceptLekarViewModel : ViewModel
     {
         private List<string> itemSourceNazivLeka;
         public List<string> ItemSourceNazivLeka
@@ -354,7 +354,7 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
-        public NapraviIVidiReceptViewModel(Pacijent trenutniPacijent)
+        public NapraviIVidiReceptLekarViewModel(Pacijent trenutniPacijent)
         {
             ItemSourceProizvodjacLeka = new List<string>();
             ItemSourceVremeUzimanjaLeka = new List<TimeSpan>();
@@ -375,6 +375,43 @@ namespace Bolnica.ViewModel
             VremeUzimanjaComboOpenCommand = new RelayCommand(Executed_VremeUzimanjaComboOpenCommand, CanExecute_VremeUzimanjaComboOpenCommand);
             BrojKutijaComboOpenCommand = new RelayCommand(Executed_BrojKutijaComboOpenCommand, CanExecute_BrojKutijaComboOpenCommand);
             ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
+        }
+
+        public NapraviIVidiReceptLekarViewModel(Pacijent trenutniPacijent, Recept r)
+        {
+            ItemSourceProizvodjacLeka = new List<string>();
+            ItemSourceVremeUzimanjaLeka = new List<TimeSpan>();
+            ItemSourceBrojKutijaLeka = new List<int>();
+            ItemSourceDozaLeka = new List<int>();
+            ItemSourceNazivLeka = new List<string>();
+            Inject = new Injector();
+
+            FiltrirajLekove();
+            this.trenutniPacijent = trenutniPacijent;
+            PopuniComboBoxoveIDatePickere();
+            DodajReceptCommand = new RelayCommand(Executed_DodajReceptCommand, CanExecute_DodajReceptCommand);
+            LekComboOpenCommand = new RelayCommand(Executed_LekComboOpenCommand, CanExecute_LekComboOpenCommand);
+            LekComboOpenTabCommand = new RelayCommand(Executed_LekComboOpenTabCommand, CanExecute_LekComboOpenTabCommand);
+            ProizvodjacComboOpenCommand = new RelayCommand(Executed_ProizvodjacComboOpenCommand, CanExecute_ProizvodjacComboOpenCommand);
+            ProizvodjacComboOpenTabCommand = new RelayCommand(Executed_ProizvodjacComboOpenTabCommand, CanExecute_ProizvodjacComboOpenTabCommand);
+            DozaComboOpenCommand = new RelayCommand(Executed_DozaComboOpenCommand, CanExecute_DozaComboOpenCommand);
+            VremeUzimanjaComboOpenCommand = new RelayCommand(Executed_VremeUzimanjaComboOpenCommand, CanExecute_VremeUzimanjaComboOpenCommand);
+            BrojKutijaComboOpenCommand = new RelayCommand(Executed_BrojKutijaComboOpenCommand, CanExecute_BrojKutijaComboOpenCommand);
+            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
+            datumIzdavanjaRecepta = r.DatumIzdavanja;
+
+            for (int i = 0; i < sviLekovi.Count; i++)
+            {
+                if (sviLekovi[i].Id.Equals(r.Lek.Id))
+                {
+                    nazivLeka = sviLekovi[i].Naziv;
+                    dozaLeka = sviLekovi[i].KolicinaUMg.ToString();
+                    proizvodjacLeka = sviLekovi[i].Proizvodjac;
+                }
+            }
+            brojKutijaLeka = r.Kolicina.ToString();
+            vremeUzimanjaLeka = r.VremeUzimanja.ToString();
+            datumPrekidaRecepta = r.Trajanje;
         }
 
         public void FiltrirajLekove()

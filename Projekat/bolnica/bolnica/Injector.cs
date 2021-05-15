@@ -16,6 +16,10 @@ namespace Bolnica
 
         private ReceptService receptService = new ReceptService();
 
+        private KomentarLekaService komentarLekaService = new KomentarLekaService();
+
+        private IzmeniLekLekarService izmeniLekLekarService = new IzmeniLekLekarService();
+
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }
@@ -29,6 +33,16 @@ namespace Bolnica
         public ReceptService ReceptService
         {
             get { return receptService; }
+        }
+
+        public KomentarLekaService KomentarLekaService
+        {
+            get { return komentarLekaService; }
+        }
+
+        public IzmeniLekLekarService IzmeniLekLekarService
+        {
+            get { return izmeniLekLekarService; }
         }
     }
 }
