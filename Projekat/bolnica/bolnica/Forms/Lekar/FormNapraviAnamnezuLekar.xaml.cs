@@ -231,8 +231,9 @@ namespace Bolnica.Forms
 
         public void DodajLek()
         {
-            FormNapraviReceptLekar form = new FormNapraviReceptLekar(trenutniPacijent);
-            form.Show();
+            NapraviIVidiReceptViewModel vm = new NapraviIVidiReceptViewModel(trenutniPacijent);
+            FormNapraviReceptLekar form = new FormNapraviReceptLekar(vm);
+            
         }
 
         public void Potvrdi()

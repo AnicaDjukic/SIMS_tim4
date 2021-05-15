@@ -14,6 +14,8 @@ namespace Bolnica
 
         private PregledService pregledService = new PregledService();
 
+        private ReceptService receptService = new ReceptService();
+
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }
@@ -24,6 +26,9 @@ namespace Bolnica
             get { return pregledService; }
         }
 
-       
+        public ReceptService ReceptService
+        {
+            get { return receptService; }
+        }
     }
 }
