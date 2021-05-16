@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -9,14 +10,14 @@ using System.Windows;
 
 namespace Bolnica.Services
 {
-    public class ReceptService
+    public class NapraviIVidiReceptLekarService
     {
         private object sviLekovi;
 
         public void Potvrdi(string nazivLeka, string dozaLeka, List<Lek> sviLekovi, string datumIzdavanja, string brojKutijaLeka, string vremeUzimanjaLeka, string datumPrekida)
         {
            
-            FormNapraviAnamnezuLekar.Recepti.Add(NapraviRecept(datumIzdavanja, sviLekovi, nazivLeka, dozaLeka, brojKutijaLeka, vremeUzimanjaLeka, datumPrekida));
+            NapraviAnamnezuLekarViewModel.Recepti.Add(NapraviRecept(datumIzdavanja, sviLekovi, nazivLeka, dozaLeka, brojKutijaLeka, vremeUzimanjaLeka, datumPrekida));
             
         }
 
@@ -99,7 +100,8 @@ namespace Bolnica.Services
         public List<string> OtvoriIFiltirajNaTabProizvodjac(string proizvodjacLeka,List<Lek> sviLekovi)
         {
             
-                if (proizvodjacLeka?.Length > 2)
+                
+            if (proizvodjacLeka?.Length > 2)
                 {
                 List<string> naziviLekova = new List<string>();
                
@@ -119,9 +121,9 @@ namespace Bolnica.Services
         public int LekVecDodat(int i,List<Lek> sviLekovi)
         {
             int lekVecDodat = 0;
-            for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+            for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)
             {
-                if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
+                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
                 {
                     lekVecDodat = 1;
                 }

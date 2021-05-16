@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace Bolnica.Services
 {
-    public class PregledService
+    public class IzmeniINapraviTerminLekarService
     {
         private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();

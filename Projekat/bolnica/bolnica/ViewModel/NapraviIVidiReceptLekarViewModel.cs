@@ -514,9 +514,9 @@ namespace Bolnica.ViewModel
         public int LekVecDodat(int i)
         {
             int lekVecDodat = 0;
-            for (int p = 0; p < FormNapraviAnamnezuLekar.Recepti.Count; p++)
+            for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)
             {
-                if (FormNapraviAnamnezuLekar.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
+                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
                 {
                     lekVecDodat = 1;
                 }

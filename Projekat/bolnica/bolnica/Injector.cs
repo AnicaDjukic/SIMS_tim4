@@ -12,30 +12,31 @@ namespace Bolnica
     {
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
 
-        private PregledService pregledService = new PregledService();
+        private IzmeniINapraviTerminLekarService pregledService = new IzmeniINapraviTerminLekarService();
 
-        private ReceptService receptService = new ReceptService();
+        private NapraviIVidiReceptLekarService receptService = new NapraviIVidiReceptLekarService();
 
-        private KomentarLekaService komentarLekaService = new KomentarLekaService();
+        private KomentarLekaLekarService komentarLekaService = new KomentarLekaLekarService();
 
         private IzmeniLekLekarService izmeniLekLekarService = new IzmeniLekLekarService();
 
+        private NapraviAnamnezuLekarService napraviAnamnezuLekarService = new NapraviAnamnezuLekarService();
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }
         }
 
-        public PregledService PregledService
+        public IzmeniINapraviTerminLekarService PregledService
         {
             get { return pregledService; }
         }
 
-        public ReceptService ReceptService
+        public NapraviIVidiReceptLekarService ReceptService
         {
             get { return receptService; }
         }
 
-        public KomentarLekaService KomentarLekaService
+        public KomentarLekaLekarService KomentarLekaService
         {
             get { return komentarLekaService; }
         }
@@ -43,6 +44,11 @@ namespace Bolnica
         public IzmeniLekLekarService IzmeniLekLekarService
         {
             get { return izmeniLekLekarService; }
+        }
+
+        public NapraviAnamnezuLekarService NapraviAnamnezuLekarService
+        {
+            get { return napraviAnamnezuLekarService; }
         }
     }
 }

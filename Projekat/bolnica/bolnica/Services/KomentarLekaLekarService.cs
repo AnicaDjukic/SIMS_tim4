@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Bolnica.Services
 {
-    public class KomentarLekaService
+    public class KomentarLekaLekarService
     {
         private FileStorageLek sviLekovi = new FileStorageLek();
         public void Potvrdi(string komentar, PrikazLek prik,List <Lek> leko)

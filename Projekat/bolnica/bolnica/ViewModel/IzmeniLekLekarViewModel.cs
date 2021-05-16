@@ -334,13 +334,14 @@ namespace Bolnica.ViewModel
                 }
             }
             l = p;
-           
-        
+            
+
+
             List<string> ItemSourceLekovi = new List<string>();
             List<string> proizvodjaci = new List<string>();
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (!ItemSourceLekovi.Contains(lekovi[i].Naziv))
+                if (!ItemSourceLekovi.Contains(lekovi[i].Naziv) && lekovi[i].Proizvodjac.Equals(l.Proizvodjac))
                 {
                     ItemSourceLekovi.Add(lekovi[i].Naziv);
                 }
