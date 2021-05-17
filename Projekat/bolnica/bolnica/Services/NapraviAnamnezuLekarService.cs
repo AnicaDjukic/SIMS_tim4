@@ -100,14 +100,14 @@ namespace Bolnica.Services
 
         public void AzurirajIstorijuPregleda(Anamneza novaAnamneza,PrikazPregleda stariPregled,PrikazPregleda trenutniPregled)
         {
-            for (int p = 0; p < FormLekar.dataListIstorija.Items.Count; p++)
+            for (int p = 0; p < LekarViewModel.dataListIstorija.Items.Count; p++)
             {
-                if (FormLekar.dataListIstorija.Items[p].Equals(stariPregled))
+                if (LekarViewModel.dataListIstorija.Items[p].Equals(stariPregled))
                 {
                     stariPregled.Anamneza = novaAnamneza;
                     stariPregled.Zavrsen = true;
-                    FormLekar.dataListIstorija.Items[p] = stariPregled;
-                    FormLekar.dataIstorija();
+                    LekarViewModel.dataListIstorija.Items[p] = stariPregled;
+                    LekarViewModel.dataIstorija();
                     skladistePregleda.Izmeni(PopuniPregled(novaAnamneza,trenutniPregled));
                 }
             }
@@ -115,46 +115,46 @@ namespace Bolnica.Services
 
         public void AzurirajOperaciju(Anamneza novaAnamneza,PrikazOperacije staraOperacija,PrikazOperacije trenutnaOperacija)
         {
-            for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+            for (int p = 0; p < LekarViewModel.dataList.Items.Count; p++)
             {
-                if (FormLekar.dataList.Items[p].Equals(staraOperacija))
+                if (LekarViewModel.dataList.Items[p].Equals(staraOperacija))
                 {
                     trenutnaOperacija.Anamneza = novaAnamneza;
                     trenutnaOperacija.Zavrsen = true;
-                    FormLekar.dataListIstorija.Items.Add(trenutnaOperacija);
-                    FormLekar.dataList.Items.RemoveAt(p);
-                    FormLekar.dataIstorija();
-                    FormLekar.data();
+                    LekarViewModel.dataListIstorija.Items.Add(trenutnaOperacija);
+                    LekarViewModel.dataList.Items.RemoveAt(p);
+                    LekarViewModel.dataIstorija();
+                    LekarViewModel.data();
                     skladistePregleda.Izmeni(PopuniOperaciju(novaAnamneza,trenutnaOperacija));
                 }
             }
         }
         public void AzurirajPregled(Anamneza novaAnamneza,PrikazPregleda stariPregled,PrikazPregleda trenutniPregled)
         {
-            for (int p = 0; p < FormLekar.dataList.Items.Count; p++)
+            for (int p = 0; p < LekarViewModel.dataList.Items.Count; p++)
             {
-                if (FormLekar.dataList.Items[p].Equals(stariPregled))
+                if (LekarViewModel.dataList.Items[p].Equals(stariPregled))
                 {
                     trenutniPregled.Anamneza = novaAnamneza;
                     trenutniPregled.Zavrsen = true;
-                    FormLekar.dataListIstorija.Items.Add(trenutniPregled);
-                    FormLekar.dataList.Items.RemoveAt(p);
-                    FormLekar.dataIstorija();
-                    FormLekar.data();
+                    LekarViewModel.dataListIstorija.Items.Add(trenutniPregled);
+                    LekarViewModel.dataList.Items.RemoveAt(p);
+                    LekarViewModel.dataIstorija();
+                    LekarViewModel.data();
                     skladistePregleda.Izmeni(PopuniPregled(novaAnamneza,trenutniPregled));
                 }
             }
         }
         public void AzurirajIstorijuOperacija(Anamneza novaAnamneza,PrikazOperacije staraOperacija,PrikazOperacije trenutnaOperacija)
         {
-            for (int p = 0; p < FormLekar.dataListIstorija.Items.Count; p++)
+            for (int p = 0; p < LekarViewModel.dataListIstorija.Items.Count; p++)
             {
-                if (FormLekar.dataListIstorija.Items[p].Equals(staraOperacija))
+                if (LekarViewModel.dataListIstorija.Items[p].Equals(staraOperacija))
                 {
                     trenutnaOperacija.Anamneza = novaAnamneza;
                     trenutnaOperacija.Zavrsen = true;
-                    FormLekar.dataListIstorija.Items[p] = trenutnaOperacija;
-                    FormLekar.dataIstorija();
+                    LekarViewModel.dataListIstorija.Items[p] = trenutnaOperacija;
+                    LekarViewModel.dataIstorija();
                     skladistePregleda.Izmeni(PopuniOperaciju(novaAnamneza,trenutnaOperacija));
                 }
             }

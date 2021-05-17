@@ -39,6 +39,13 @@ namespace Bolnica.ViewModel
         public DataGrid lekarGrid;
         public DataGrid lekarGridIstorija;
         public DataGrid dataGridLekovi;
+        public Button Zakazi;
+        public TabItem PreglediTab;
+        public TabItem IstorijaTab;
+        public TabItem LekTab;
+        public Button AnamnezaIstorijaDugme;
+        public Button OdobriButton;
+
 
         private Injector inject;
         public Injector Inject
@@ -64,7 +71,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_ZakaziPregledCommand(object obj)
         {
-            
+            inject.LekarService.ZakaziPregled(lekarTrenutni);
+            inject.LekarService.CollorLekarGrid(lekarGrid);
         }
 
         public bool CanExecute_ZakaziPregledCommand(object obj)
@@ -84,7 +92,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_OtkaziPregledCommand(object obj)
         {
-           
+            inject.LekarService.OtkaziPregled(lekarGrid,prikazPregleda,listaPregleda,prikazOperacije,listaOperacija);
+            inject.LekarService.CollorLekarGrid(lekarGrid);
         }
 
         public bool CanExecute_OtkaziPregledCommand(object obj)
@@ -104,7 +113,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_IzmeniPregledCommand(object obj)
         {
-            
+            inject.LekarService.IzmeniPregled(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija,lekarTrenutni);
+            inject.LekarService.CollorLekarGrid(lekarGrid);
         }
 
         public bool CanExecute_IzmeniPregledCommand(object obj)
@@ -124,7 +134,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_InformacijeOPacijentuCommand(object obj)
         {
-          
+            inject.LekarService.InformacijeOPacijentu(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija);
         }
 
         public bool CanExecute_InformacijeOPacijentuCommand(object obj)
@@ -144,7 +154,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonEnterCommand(object obj)
         {
-            
+            inject.LekarService.JumpOnButtonEnter(Zakazi);
         }
 
         public bool CanExecute_JumpOnButtonEnterCommand(object obj)
@@ -164,7 +174,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonLeftCommand(object obj)
         {
-           
+            inject.LekarService.JumpOnButtonLeft(PreglediTab);
         }
 
         public bool CanExecute_JumpOnButtonLeftCommand(object obj)
@@ -184,7 +194,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonTabCommand(object obj)
         {
-            
+            inject.LekarService.JumpOnButtonTab(lekarGrid);
         }
 
         public bool CanExecute_JumpOnButtonTabCommand(object obj)
@@ -204,7 +214,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonIstorijaEnterCommand(object obj)
         {
-           
+            inject.LekarService.JumpOnButtonIstorijaEnter(AnamnezaIstorijaDugme);
         }
 
         public bool CanExecute_JumpOnButtonIstorijaEnterCommand(object obj)
@@ -224,7 +234,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonIstorijaLeftCommand(object obj)
         {
-            
+            inject.LekarService.JumpOnButtonIstorijaLeft(IstorijaTab);
         }
 
         public bool CanExecute_JumpOnButtonIstorijaLeftCommand(object obj)
@@ -244,7 +254,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonIstorijaTabCommand(object obj)
         {
-           
+            inject.LekarService.JumpOnButtonIstorijaTab(lekarGridIstorija);
         }
 
         public bool CanExecute_JumpOnButtonIstorijaTabCommand(object obj)
@@ -264,7 +274,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_CollorLekarGridCommand(object obj)
         {
-           
+           // inject.LekarService.CollorLekarGrid(lekarGrid);
         }
 
         public bool CanExecute_CollorLekarGridCommand(object obj)
@@ -284,7 +294,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_CollorLekarGridIstorijaCommand(object obj)
         {
-            
+          //  inject.LekarService.CollorLekarGridIstorija(lekarGridIstorija);
         }
 
         public bool CanExecute_CollorLekarGridIstorijaCommand(object obj)
@@ -304,7 +314,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_FocusTabCommand(object obj)
         {
-            
+            inject.LekarService.focusTab(PreglediTab);
         }
 
         public bool CanExecute_FocusTabCommand(object obj)
@@ -326,7 +336,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_AnamnezaCommand(object obj)
         {
-           
+            inject.LekarService.Anamneza(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija, lekarTrenutni);
+            
         }
 
         public bool CanExecute_AnamnezaCommand(object obj)
@@ -347,7 +358,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_AnamnezaIstorijaCommand(object obj)
         {
-
+            inject.LekarService.AnamnezaIstorija(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija, lekarTrenutni);
+           
         }
 
         public bool CanExecute_AnamnezaIstorijaCommand(object obj)
@@ -368,7 +380,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_IzmeniLekCommand(object obj)
         {
-
+            inject.LekarService.IzmeniLek(dataGridLekovi, lekovi);
         }
 
         public bool CanExecute_IzmeniLekCommand(object obj)
@@ -389,7 +401,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonLekEnterCommand(object obj)
         {
-
+            inject.LekarService.JumpOnButtonLekEnter(OdobriButton);
         }
 
         public bool CanExecute_JumpOnButtonLekEnterCommand(object obj)
@@ -410,7 +422,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonLekLeftCommand(object obj)
         {
-
+            inject.LekarService.JumpOnButtonLekLeft(LekTab);
         }
 
         public bool CanExecute_JumpOnButtonLekLeftCommand(object obj)
@@ -431,7 +443,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_JumpOnButtonLekTabCommand(object obj)
         {
-
+            inject.LekarService.JumpOnButtonLekTab(dataGridLekovi);
         }
 
         public bool CanExecute_JumpOnButtonLekTabCommand(object obj)
@@ -452,7 +464,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_OdobriLekCommand(object obj)
         {
-
+            inject.LekarService.OdobriLek(dataGridLekovi, lekovi, lekoviPrikaz);
         }
 
         public bool CanExecute_OdobriLekCommand(object obj)
@@ -473,7 +485,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_VratiNaIzmenuCommand(object obj)
         {
-
+            inject.LekarService.VratiNaIzmenu(dataGridLekovi);
         }
 
         public bool CanExecute_VratiNaIzmenuCommand(object obj)
@@ -485,12 +497,10 @@ namespace Bolnica.ViewModel
 
 
 
-        public LekarViewModel(Lekar ln,DataGrid lekarGrid,DataGrid lekarGridIstorija,DataGrid dataGridLekovi)
+        public LekarViewModel(Lekar ln)
         {
             Inject = new Injector();
-            lekarGrid = this.lekarGrid;
-            lekarGridIstorija = this.lekarGridIstorija;
-            dataGridLekovi = this.dataGridLekovi;
+           
             
             
 
@@ -534,6 +544,40 @@ namespace Bolnica.ViewModel
             }
            
 
+            
+           
+            ZakaziPregledCommand = new RelayCommand(Executed_ZakaziPregledCommand, CanExecute_ZakaziPregledCommand);
+            OtkaziPregledCommand = new RelayCommand(Executed_OtkaziPregledCommand, CanExecute_OtkaziPregledCommand);
+            IzmeniPregledCommand = new RelayCommand(Executed_IzmeniPregledCommand, CanExecute_IzmeniPregledCommand);
+            InformacijeOPacijentuCommand = new RelayCommand(Executed_InformacijeOPacijentuCommand, CanExecute_InformacijeOPacijentuCommand);
+            JumpOnButtonEnterCommand = new RelayCommand(Executed_JumpOnButtonEnterCommand, CanExecute_JumpOnButtonEnterCommand);
+            JumpOnButtonLeftCommand = new RelayCommand(Executed_JumpOnButtonLeftCommand, CanExecute_JumpOnButtonLeftCommand);
+            JumpOnButtonTabCommand = new RelayCommand(Executed_JumpOnButtonTabCommand, CanExecute_JumpOnButtonTabCommand );
+            JumpOnButtonIstorijaEnterCommand = new RelayCommand(Executed_JumpOnButtonIstorijaEnterCommand, CanExecute_JumpOnButtonIstorijaEnterCommand);
+            JumpOnButtonIstorijaLeftCommand = new RelayCommand(Executed_JumpOnButtonIstorijaLeftCommand, CanExecute_JumpOnButtonIstorijaLeftCommand);
+            JumpOnButtonIstorijaTabCommand = new RelayCommand(Executed_JumpOnButtonIstorijaTabCommand, CanExecute_JumpOnButtonIstorijaTabCommand);
+            CollorLekarGridCommand = new RelayCommand(Executed_CollorLekarGridCommand, CanExecute_CollorLekarGridCommand);
+            CollorLekarGridIstorijaCommand = new RelayCommand(Executed_CollorLekarGridIstorijaCommand, CanExecute_CollorLekarGridIstorijaCommand);
+            FocusTabCommand = new RelayCommand(Executed_FocusTabCommand, CanExecute_FocusTabCommand);
+            AnamnezaCommand = new RelayCommand(Executed_AnamnezaCommand, CanExecute_AnamnezaCommand);
+            AnamnezaIstorijaCommand = new RelayCommand(Executed_AnamnezaIstorijaCommand, CanExecute_AnamnezaIstorijaCommand);
+            IzmeniLekCommand = new RelayCommand(Executed_IzmeniLekCommand, CanExecute_IzmeniLekCommand);
+            JumpOnButtonLekEnterCommand = new RelayCommand(Executed_JumpOnButtonLekEnterCommand, CanExecute_JumpOnButtonLekEnterCommand);
+            JumpOnButtonLekLeftCommand = new RelayCommand(Executed_JumpOnButtonLekLeftCommand, CanExecute_JumpOnButtonLekLeftCommand);
+            JumpOnButtonLekTabCommand = new RelayCommand(Executed_JumpOnButtonLekTabCommand, CanExecute_JumpOnButtonLekTabCommand);
+            OdobriLekCommand = new RelayCommand(Executed_OdobriLekCommand, CanExecute_OdobriLekCommand);
+            VratiNaIzmenuCommand = new RelayCommand(Executed_VratiNaIzmenuCommand, CanExecute_VratiNaIzmenuCommand);
+            
+            
+
+
+
+        }
+        public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii)
+        {
+            lekarGrid = lekarGridd;
+            lekarGridIstorija = lekarGridIstorijaa;
+            dataGridLekovi = dataGridLekovii;
             dataListIstorija.Items.SortDescriptions.Clear();
             dataListIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Descending));
             dataList.Items.SortDescriptions.Clear();
@@ -753,31 +797,19 @@ namespace Bolnica.ViewModel
                 }
             }
             dataGridLekovi.ItemsSource = lekoviPrikaz;
-            ZakaziPregledCommand = new RelayCommand(Executed_ZakaziPregledCommand, CanExecute_ZakaziPregledCommand);
-            OtkaziPregledCommand = new RelayCommand(Executed_OtkaziPregledCommand, CanExecute_OtkaziPregledCommand);
-            IzmeniPregledCommand = new RelayCommand(Executed_IzmeniPregledCommand, CanExecute_IzmeniPregledCommand);
-            InformacijeOPacijentuCommand = new RelayCommand(Executed_InformacijeOPacijentuCommand, CanExecute_InformacijeOPacijentuCommand);
-            JumpOnButtonEnterCommand = new RelayCommand(Executed_JumpOnButtonEnterCommand, CanExecute_JumpOnButtonEnterCommand);
-            JumpOnButtonLeftCommand = new RelayCommand(Executed_JumpOnButtonLeftCommand, CanExecute_JumpOnButtonLeftCommand);
-            JumpOnButtonTabCommand = new RelayCommand(Executed_JumpOnButtonTabCommand, CanExecute_JumpOnButtonTabCommand );
-            JumpOnButtonIstorijaEnterCommand = new RelayCommand(Executed_JumpOnButtonIstorijaEnterCommand, CanExecute_JumpOnButtonIstorijaEnterCommand);
-            JumpOnButtonIstorijaLeftCommand = new RelayCommand(Executed_JumpOnButtonIstorijaLeftCommand, CanExecute_JumpOnButtonIstorijaLeftCommand);
-            JumpOnButtonIstorijaTabCommand = new RelayCommand(Executed_JumpOnButtonIstorijaTabCommand, CanExecute_JumpOnButtonIstorijaTabCommand);
-            CollorLekarGridCommand = new RelayCommand(Executed_CollorLekarGridCommand, CanExecute_CollorLekarGridCommand);
-            CollorLekarGridIstorijaCommand = new RelayCommand(Executed_CollorLekarGridIstorijaCommand, CanExecute_CollorLekarGridIstorijaCommand);
-            FocusTabCommand = new RelayCommand(Executed_FocusTabCommand, CanExecute_FocusTabCommand);
-            AnamnezaCommand = new RelayCommand(Executed_AnamnezaCommand, CanExecute_AnamnezaCommand);
-            AnamnezaIstorijaCommand = new RelayCommand(Executed_AnamnezaIstorijaCommand, CanExecute_AnamnezaIstorijaCommand);
-            IzmeniLekCommand = new RelayCommand(Executed_IzmeniLekCommand, CanExecute_IzmeniLekCommand);
-            JumpOnButtonLekEnterCommand = new RelayCommand(Executed_JumpOnButtonLekEnterCommand, CanExecute_JumpOnButtonLekEnterCommand);
-            JumpOnButtonLekLeftCommand = new RelayCommand(Executed_JumpOnButtonLekLeftCommand, CanExecute_JumpOnButtonLekLeftCommand);
-            JumpOnButtonLekTabCommand = new RelayCommand(Executed_JumpOnButtonLekTabCommand, CanExecute_JumpOnButtonLekTabCommand);
-            OdobriLekCommand = new RelayCommand(Executed_OdobriLekCommand, CanExecute_OdobriLekCommand);
-            VratiNaIzmenuCommand = new RelayCommand(Executed_VratiNaIzmenuCommand, CanExecute_VratiNaIzmenuCommand);
+           
+           
+        }
 
-
-
-
+        public void PodesiParametre(Button Zakazi,TabItem PreglediTab,TabItem IstorijaTab,TabItem LekTab,Button AnamenzaIstorijaDugme,Button Odobri)
+        {
+            this.Zakazi = Zakazi;
+            this.PreglediTab = PreglediTab;
+            this.IstorijaTab = IstorijaTab;
+            this.LekTab = LekTab;
+            this.AnamnezaIstorijaDugme = AnamenzaIstorijaDugme;
+            this.OdobriButton = Odobri;
+           
         }
         public static void data()
         {

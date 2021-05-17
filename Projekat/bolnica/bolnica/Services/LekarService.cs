@@ -8,6 +8,7 @@ using Model.Pregledi;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -170,21 +171,21 @@ namespace Bolnica.Services
             }
         }
 
-        private void JumpOnButtonEnter(Button Zakazi)
+        public void JumpOnButtonEnter(Button Zakazi)
         {
 
             Zakazi.Focus();
 
         }
 
-        private void JumpOnButtonLeft(TabItem PreglediTab)
+        public void JumpOnButtonLeft(TabItem PreglediTab)
         {
 
             PreglediTab.Focus();
 
         }
 
-        private void JumpOnButtonTab(DataGrid lekarGrid)
+        public void JumpOnButtonTab(DataGrid lekarGrid)
         {
 
             var row = lekarGrid.SelectedIndex;
@@ -203,17 +204,17 @@ namespace Bolnica.Services
 
         }
 
-        private void JumpOnButtonIstorijaEnter(Button AnamnezaIstorijaDugme)
+        public void JumpOnButtonIstorijaEnter(Button AnamnezaIstorijaDugme)
         {
 
             AnamnezaIstorijaDugme.Focus();
         }
-        private void JumpOnButtonIstorijaLeft(TabItem IstorijaTab)
+        public void JumpOnButtonIstorijaLeft(TabItem IstorijaTab)
         {
 
             IstorijaTab.Focus();
         }
-        private void JumpOnButtonIstorijaTab(DataGrid lekarGridIstorija)
+        public void JumpOnButtonIstorijaTab(DataGrid lekarGridIstorija)
         {
 
             var row = lekarGridIstorija.SelectedIndex;
@@ -241,7 +242,7 @@ namespace Bolnica.Services
             for (int i = 0; i < lekarGrid.Items.Count; i++)
             {
 
-                var row = (DataGridRow)lekarGrid.ItemContainerGenerator.ContainerFromIndex(i);
+                DataGridRow row = (DataGridRow)lekarGrid.ItemContainerGenerator.ContainerFromIndex(i);
                 if (row != null)
                 {
 
@@ -301,7 +302,7 @@ namespace Bolnica.Services
             for (int i = 0; i < lekarGridIstorija.Items.Count + 1; i++)
             {
 
-                var row = (DataGridRow)lekarGridIstorija.ItemContainerGenerator.ContainerFromIndex(i);
+                DataGridRow row = (DataGridRow)lekarGridIstorija.ItemContainerGenerator.ContainerFromIndex(i);
                 if (row != null)
                 {
 
@@ -352,7 +353,7 @@ namespace Bolnica.Services
 
 
 
-        private void focusTab(TabItem PreglediTab)
+        public void focusTab(TabItem PreglediTab)
         {
             PreglediTab.Focus();
         }
@@ -496,19 +497,19 @@ namespace Bolnica.Services
             }
         }
 
-        private void JumpOnButtonLekEnter(Button Odobri)
+        public void JumpOnButtonLekEnter(Button Odobri)
         {
 
             Odobri.Focus();
 
         }
-        private void JumpOnButtonLekLeft(TabItem lekTab)
+        public void JumpOnButtonLekLeft(TabItem lekTab)
         {
 
             lekTab.Focus();
 
         }
-        private void JumpOnButtonLekTab(DataGrid dataGridLekovi)
+        public void JumpOnButtonLekTab(DataGrid dataGridLekovi)
         {
 
             var row = dataGridLekovi.SelectedIndex;
@@ -527,7 +528,7 @@ namespace Bolnica.Services
 
         }
    
-        public void OdobriLek(DataGrid dataGridLekovi, List<Lek> lekovi,List<PrikazLek> lekoviPrikaz)
+        public void OdobriLek(DataGrid dataGridLekovi, List<Lek> lekovi,ObservableCollection<PrikazLek> lekoviPrikaz)
         {
             PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
 

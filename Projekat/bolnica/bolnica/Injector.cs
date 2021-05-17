@@ -21,6 +21,8 @@ namespace Bolnica
         private IzmeniLekLekarService izmeniLekLekarService = new IzmeniLekLekarService();
 
         private NapraviAnamnezuLekarService napraviAnamnezuLekarService = new NapraviAnamnezuLekarService();
+
+        private LekarService lekarService = new LekarService();
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }
@@ -49,6 +51,11 @@ namespace Bolnica
         public NapraviAnamnezuLekarService NapraviAnamnezuLekarService
         {
             get { return napraviAnamnezuLekarService; }
+        }
+
+        public LekarService LekarService
+        {
+            get { return lekarService; }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -46,7 +47,7 @@ namespace Bolnica.Services
             FileStorageObavestenja oba = new FileStorageObavestenja();
             oba.Save(obavestenje);
 
-            FormLekar.lekoviPrikaz.Remove(prik);
+            LekarViewModel.lekoviPrikaz.Remove(prik);
             for (int i = 0; i < leko.Count; i++)
             {
                 if (leko[i].Id.Equals(prik.Id))

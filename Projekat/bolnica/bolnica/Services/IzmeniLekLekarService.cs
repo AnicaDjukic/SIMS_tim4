@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -173,11 +174,11 @@ namespace Bolnica.Services
             lekpri.Proizvodjac = proizvodjac;
             lekpri.Status = l.Status;
 
-            for (int j = 0; j < FormLekar.lekoviPrikaz.Count; j++)
+            for (int j = 0; j < LekarViewModel.lekoviPrikaz.Count; j++)
             {
-                if (FormLekar.lekoviPrikaz[j].Id.Equals(lekpri.Id))
+                if (LekarViewModel.lekoviPrikaz[j].Id.Equals(lekpri.Id))
                 {
-                    FormLekar.lekoviPrikaz[j] = lekpri;
+                    LekarViewModel.lekoviPrikaz[j] = lekpri;
                 }
             }
             sviLekovi.Delete(lekk);

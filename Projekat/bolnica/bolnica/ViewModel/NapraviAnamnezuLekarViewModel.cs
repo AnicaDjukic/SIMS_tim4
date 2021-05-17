@@ -101,6 +101,7 @@ namespace Bolnica.ViewModel
         public void Executed_ZakaziPregledCommand(object obj)
         {
             inject.NapraviAnamnezuLekarService.ZakaziPregled(ulogovaniLekar, trenutniPacijent);
+
         }
 
         public bool CanExecute_ZakaziPregledCommand(object obj)
