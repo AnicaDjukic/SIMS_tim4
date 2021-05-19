@@ -1,6 +1,7 @@
 using bolnica.Forms;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System.Collections.Generic;
@@ -58,8 +59,10 @@ namespace bolnica
                                 break;
                             }
                         }
-                        var s = new FormLekar(l);
-                        s.Show();
+                        LekarViewModel vm = new LekarViewModel(l);
+                        FormLekar form = new FormLekar(vm);
+
+                        
 
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
