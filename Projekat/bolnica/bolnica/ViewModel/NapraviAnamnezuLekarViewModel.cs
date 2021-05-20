@@ -1,4 +1,5 @@
 ﻿using Bolnica.Commands;
+using Bolnica.DTO;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
@@ -17,7 +18,7 @@ namespace Bolnica.ViewModel
         public string dijagnoza { get; set; }
 
         public List<PrikazRecepta> recepti { get; set; }
-        private int DaLiPostojiAnamneza = 0;
+        private bool DaLiPostojiAnamneza = false;
         private List<Lek> sviLekovi = new List<Lek>();
         private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
         private FileStorageLek skladisteLekova = new FileStorageLek();
@@ -34,7 +35,7 @@ namespace Bolnica.ViewModel
         private FileStorageAnamneza skladisteAnamneza = new FileStorageAnamneza();
         private FileStorageLekar skladisteLekara = new FileStorageLekar();
         private int idAnamneze;
-        private int DaLiJePregled = 0;
+        private bool DaLiJePregled = false;
         public DataGrid dataGridLekovi;
         public Button izbrisiButton;
         public ScrollViewer ScrollBar;
@@ -53,7 +54,7 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
-        public Action CloseAction { get; set; }
+        public Action ZatvoriAction { get; set; }
 
         private bool datumProsao;
         public bool DatumProsao
@@ -66,191 +67,184 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private RelayCommand obrisiReceptCommand;
-        public RelayCommand ObrisiReceptCommand
+        private RelayCommand obrisiReceptKomanda;
+        public RelayCommand ObrisiReceptKomanda
         {
-            get { return obrisiReceptCommand; }
+            get { return obrisiReceptKomanda; }
             set
             {
-                obrisiReceptCommand = value;
+                obrisiReceptKomanda = value;
 
             }
         }
 
-        public void Executed_ObrisiReceptCommand(object obj)
+        public void Executed_ObrisiReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ObrisiRecept(dataGridLekovi);
+            inject.NapraviAnamnezuLekarService.ObrisiRecept(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi));
         }
 
-        public bool CanExecute_ObrisiReceptCommand(object obj)
+        public bool CanExecute_ObrisiReceptKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand zakaziPregledCommand;
-        public RelayCommand ZakaziPregledCommand
+        private RelayCommand zakaziPregledKomanda;
+        public RelayCommand ZakaziPregledKomanda
         {
-            get { return zakaziPregledCommand; }
+            get { return zakaziPregledKomanda; }
             set
             {
-                zakaziPregledCommand = value;
+                zakaziPregledKomanda = value;
 
             }
         }
 
-        public void Executed_ZakaziPregledCommand(object obj)
+        public void Executed_ZakaziPregledKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ZakaziPregled(ulogovaniLekar, trenutniPacijent);
+            inject.NapraviAnamnezuLekarService.ZakaziPregled(new NapraviAnamnezuLekarServiceDTO(ulogovaniLekar, trenutniPacijent));
 
         }
 
-        public bool CanExecute_ZakaziPregledCommand(object obj)
+        public bool CanExecute_ZakaziPregledKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand vidiReceptCommand;
-        public RelayCommand VidiReceptCommand
+        private RelayCommand vidiReceptKomanda;
+        public RelayCommand VidiReceptKomanda
         {
-            get { return vidiReceptCommand; }
+            get { return vidiReceptKomanda; }
             set
             {
-                vidiReceptCommand = value;
+                vidiReceptKomanda = value;
 
             }
         }
 
-        public void Executed_VidiReceptCommand(object obj)
+        public void Executed_VidiReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.VidiDetaljeOReceptu(dataGridLekovi, trenutniPacijent);
+            inject.NapraviAnamnezuLekarService.VidiDetaljeOReceptu(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi, trenutniPacijent));
         }
 
-        public bool CanExecute_VidiReceptCommand(object obj)
+        public bool CanExecute_VidiReceptKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand zatvoriCommand;
-        public RelayCommand ZatvoriCommand
+        private RelayCommand zatvoriKomanda;
+        public RelayCommand ZatvoriKomanda
         {
-            get { return zatvoriCommand; }
+            get { return zatvoriKomanda; }
             set
             {
-                zatvoriCommand = value;
+                zatvoriKomanda = value;
 
             }
         }
 
-        public void Executed_ZatvoriCommand(object obj)
+        public void Executed_ZatvoriKomanda(object obj)
         {
-            CloseAction();
+            ZatvoriAction();
         }
 
-        public bool CanExecute_ZatvoriCommand(object obj)
+        public bool CanExecute_ZatvoriKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand dodajReceptCommand;
-        public RelayCommand DodajReceptCommand
+        private RelayCommand dodajReceptKomanda;
+        public RelayCommand DodajReceptKomanda
         {
-            get { return dodajReceptCommand; }
+            get { return dodajReceptKomanda; }
             set
             {
-                dodajReceptCommand = value;
+                dodajReceptKomanda = value;
 
             }
         }
 
-        public void Executed_DodajReceptCommand(object obj)
+        public void Executed_DodajReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.DodajLek(trenutniPacijent);
+            inject.NapraviAnamnezuLekarService.DodajLek(new NapraviAnamnezuLekarServiceDTO(trenutniPacijent));
         }
 
-        public bool CanExecute_DodajReceptCommand(object obj)
+        public bool CanExecute_DodajReceptKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand potvrdiCommand;
-        public RelayCommand PotvrdiCommand
+        private RelayCommand potvrdiKomanda;
+        public RelayCommand PotvrdiKomanda
         {
-            get { return potvrdiCommand; }
+            get { return potvrdiKomanda; }
             set
             {
-                potvrdiCommand = value;
+                potvrdiKomanda = value;
 
             }
         }
 
-        public void Executed_PotvrdiCommand(object obj)
+        public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.Potvrdi(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze);
-            CloseAction();
+            inject.NapraviAnamnezuLekarService.Potvrdi(new NapraviAnamnezuLekarServiceDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
+            ZatvoriAction();
         }
 
-        public bool CanExecute_PotvrdiCommand(object obj)
+        public bool CanExecute_PotvrdiKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand predjiNaScrollBarCommand;
-        public RelayCommand PredjiNaScrollBarCommand
+        private RelayCommand predjiNaScrollBarKomanda;
+        public RelayCommand PredjiNaScrollBarKomanda
         {
-            get { return predjiNaScrollBarCommand; }
+            get { return predjiNaScrollBarKomanda; }
             set
             {
-                predjiNaScrollBarCommand = value;
+                predjiNaScrollBarKomanda = value;
 
             }
         }
 
-        public void Executed_PredjiNaScrollBarCommand(object obj)
+        public void Executed_PredjiNaScrollBarKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.PredjiNaScrollBar(izbrisiButton);
+            inject.NapraviAnamnezuLekarService.PredjiNaScrollBar(new NapraviAnamnezuLekarServiceDTO(izbrisiButton));
         }
 
-        public bool CanExecute_PredjiNaScrollBarCommand(object obj)
+        public bool CanExecute_PredjiNaScrollBarKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand zaustaviStrelicaCommand;
-        public RelayCommand ZaustaviStrelicaCommand
+        private RelayCommand zaustaviStreliceKomanda;
+        public RelayCommand ZaustaviStreliceKomanda
         {
-            get { return zaustaviStrelicaCommand; }
+            get { return zaustaviStreliceKomanda; }
             set
             {
-                zaustaviStrelicaCommand = value;
+                zaustaviStreliceKomanda = value;
 
             }
         }
 
-        public void Executed_ZaustaviStrelicaCommand(object obj)
+        public void Executed_ZaustaviStreliceKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ZaustaviStrelice(ScrollBar);
+            inject.NapraviAnamnezuLekarService.ZaustaviStrelice(new NapraviAnamnezuLekarServiceDTO(ScrollBar));
         }
 
-        public bool CanExecute_ZaustaviStrelicaCommand(object obj)
+        public bool CanExecute_ZaustaviStreliceKomanda(object obj)
         {
             return true;
         }
 
         public NapraviAnamnezuLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
-            DaLiJePregled = 1;
+            DaLiJePregled = true;
             Inject = new Injector();
             FiltirajLekove();
             InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
             PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
-            ZakaziPregledCommand = new RelayCommand(Executed_ZakaziPregledCommand, CanExecute_ZakaziPregledCommand);
-            ObrisiReceptCommand = new RelayCommand(Executed_ObrisiReceptCommand, CanExecute_ObrisiReceptCommand);
-            VidiReceptCommand = new RelayCommand(Executed_VidiReceptCommand, CanExecute_VidiReceptCommand);
-            DodajReceptCommand = new RelayCommand(Executed_DodajReceptCommand, CanExecute_DodajReceptCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-            PotvrdiCommand = new RelayCommand(Executed_PotvrdiCommand, CanExecute_PotvrdiCommand);
-            PredjiNaScrollBarCommand = new RelayCommand(Executed_PredjiNaScrollBarCommand, CanExecute_PredjiNaScrollBarCommand);
-            ZaustaviStrelicaCommand = new RelayCommand(Executed_ZaustaviStrelicaCommand, CanExecute_ZaustaviStrelicaCommand);
+            NapraviKomande();
         }
 
         public NapraviAnamnezuLekarViewModel(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
@@ -259,16 +253,20 @@ namespace Bolnica.ViewModel
             Inject = new Injector();
             FiltirajLekove();
             PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
-            ZakaziPregledCommand = new RelayCommand(Executed_ZakaziPregledCommand, CanExecute_ZakaziPregledCommand);
-            ObrisiReceptCommand = new RelayCommand(Executed_ObrisiReceptCommand, CanExecute_ObrisiReceptCommand);
-            VidiReceptCommand = new RelayCommand(Executed_VidiReceptCommand, CanExecute_VidiReceptCommand);
-            DodajReceptCommand = new RelayCommand(Executed_DodajReceptCommand, CanExecute_DodajReceptCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-            PotvrdiCommand = new RelayCommand(Executed_PotvrdiCommand, CanExecute_PotvrdiCommand);
-            PredjiNaScrollBarCommand = new RelayCommand(Executed_PredjiNaScrollBarCommand, CanExecute_PredjiNaScrollBarCommand);
-            ZaustaviStrelicaCommand = new RelayCommand(Executed_ZaustaviStrelicaCommand, CanExecute_ZaustaviStrelicaCommand);
+            NapraviKomande();
         }
 
+        public void NapraviKomande()
+        {
+            ZakaziPregledKomanda = new RelayCommand(Executed_ZakaziPregledKomanda, CanExecute_ZakaziPregledKomanda);
+            ObrisiReceptKomanda = new RelayCommand(Executed_ObrisiReceptKomanda, CanExecute_ObrisiReceptKomanda);
+            VidiReceptKomanda = new RelayCommand(Executed_VidiReceptKomanda, CanExecute_VidiReceptKomanda);
+            DodajReceptKomanda = new RelayCommand(Executed_DodajReceptKomanda, CanExecute_DodajReceptKomanda);
+            ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
+            PredjiNaScrollBarKomanda = new RelayCommand(Executed_PredjiNaScrollBarKomanda, CanExecute_PredjiNaScrollBarKomanda);
+            ZaustaviStreliceKomanda = new RelayCommand(Executed_ZaustaviStreliceKomanda, CanExecute_ZaustaviStreliceKomanda);
+        }
        
         
         private void PopuniAnamnezu(PrikazPregleda izabraniPregled, int i)
@@ -360,12 +358,12 @@ namespace Bolnica.ViewModel
                 {
                     ProveriValidnostDatumaIzdavanja(izabraniPregled);
                     PopuniAnamnezu(izabraniPregled, i);
-                    DaLiPostojiAnamneza = 1;
+                    DaLiPostojiAnamneza = true;
                     break;
                 }
             }
 
-            if (DaLiPostojiAnamneza == 0)
+            if (!DaLiPostojiAnamneza)
             {
              
                 Recepti = new ObservableCollection<PrikazRecepta>();
@@ -380,11 +378,11 @@ namespace Bolnica.ViewModel
                 {
                     ProveriValidnostDatumaIzdavanja(izabranaOperacija);
                     PopuniAnamnezu(izabranaOperacija, i);
-                    DaLiPostojiAnamneza = 1;
+                    DaLiPostojiAnamneza = true;
                     break;
                 }
             }
-            if (DaLiPostojiAnamneza == 0)
+            if (!DaLiPostojiAnamneza )
             {
                
                 Recepti = new ObservableCollection<PrikazRecepta>();

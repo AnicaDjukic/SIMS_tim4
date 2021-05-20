@@ -1,4 +1,5 @@
-﻿using Bolnica.Forms;
+﻿using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.ViewModel;
@@ -15,107 +16,84 @@ using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Bolnica.Services
-{
+{   
     public class LekarService
     {
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
-        private FileStorageLek sviLekovi = new FileStorageLek();
-        public void ZakaziPregled(Lekar lekarTrenutni)
+        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
+        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
+        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
+        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private FileStorageLek skladisteLekova = new FileStorageLek();
+        private FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
+        private FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
+        public void ZakaziPregled(LekarServiceDTO lekarServiceDTO)
         {
-            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarTrenutni);
+            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarServiceDTO.lekarTrenutni);
             FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
-        public void OtkaziPregled(DataGrid lekarGrid,PrikazPregleda prikazPregleda,List<Pregled> listaPregleda,PrikazOperacije prikazOperacije,List<Operacija> listaOperacija)
+        public void OtkaziPregled(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarGrid.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
             {
-                var objekat = lekarGrid.SelectedValue;
-                if (objekat.GetType().Equals(prikazPregleda.GetType()))
+                var objekat = lekarServiceDTO.tabela.SelectedValue;
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
                 {
-                    PrikazPregleda pri = objekat as PrikazPregleda;
-                    for (int i = 0; i < listaPregleda.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
-                        {
-
-                            sviPregledi.Delete(listaPregleda[i]);
-                            listaPregleda.RemoveAt(i);
-                            break;
-                        }
-                    }
+                    OtkaziPregledAkoJePregled(lekarServiceDTO);
                 }
-                else if (objekat.GetType().Equals(prikazOperacije.GetType()))
+                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
                 {
-                    PrikazPregleda pri = objekat as PrikazOperacije;
-                    for (int i = 0; i < listaOperacija.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaOperacija[i].Id))
-                        {
-                            sviPregledi.Delete(listaOperacija[i]);
-                            listaOperacija.RemoveAt(i);
-                            break;
-                        }
-                    }
+                    OtkaziPregledAkoJeOperacija(lekarServiceDTO);
                 }
-                int index = lekarGrid.SelectedIndex;
-                LekarViewModel.dataList.Items.RemoveAt(index);
-                LekarViewModel.data();
+                int index = lekarServiceDTO.tabela.SelectedIndex;
+                LekarViewModel.podaciLista.Items.RemoveAt(index);
+                LekarViewModel.RefreshPodaciListu();
             }
 
         }
 
-
-
-        public void IzmeniPregled(DataGrid lekarGrid,PrikazPregleda prikazPregleda, List<Pregled> listaPregleda, PrikazOperacije prikazOperacije, List<Operacija> listaOperacija, Lekar lekarTrenutni)
+        public void OtkaziPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarGrid.SelectedCells.Count > 0)
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazPregleda = objekat as PrikazPregleda;
+            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
+            {
+                if (izabraniPrikazPregleda.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
+                {
+                    skladistePregleda.Delete(lekarServiceDTO.listaPregleda[i]);
+                    lekarServiceDTO.listaPregleda.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        public void OtkaziPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        {
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazOperacije = objekat as PrikazOperacije;
+            for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
+            {
+                if (izabraniPrikazOperacije.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
+                {
+                    skladistePregleda.Delete(lekarServiceDTO.listaOperacija[i]);
+                    lekarServiceDTO.listaOperacija.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        public void IzmeniPregled(LekarServiceDTO lekarServiceDTO)
+        {
+            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
             {
 
-                var objekat = lekarGrid.SelectedValue;
-                PrikazPregleda p1 = new PrikazPregleda();
-                PrikazOperacije op = new PrikazOperacije();
-                p1.Pacijent = new Pacijent();
-                op.Pacijent = new Pacijent();
-
-                if (objekat.GetType().Equals(prikazPregleda.GetType()))
+                var objekat = lekarServiceDTO.tabela.SelectedValue;
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
                 {
-                    PrikazPregleda pri = objekat as PrikazPregleda;
-                    for (int i = 0; i < listaPregleda.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
-                        {
-
-                            p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(p1, lekarTrenutni);
-                            FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
-                            break;
-                        }
-                    }
+                    IzmeniPregledAkoJePregled(lekarServiceDTO);
                 }
-                else if (objekat.GetType().Equals(prikazOperacije.GetType()))
+                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
                 {
-                    if (!lekarTrenutni.Specijalizacija.OblastMedicine.Equals("Opsta"))
-                    {
-                        PrikazOperacije pri = objekat as PrikazOperacije;
-                        for (int i = 0; i < listaOperacija.Count; i++)
-                        {
-                            if (pri.Id.Equals(listaOperacija[i].Id))
-                            {
-
-                                op = lekarGrid.SelectedItem as PrikazOperacije;
-                                IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(op, lekarTrenutni);
-                                FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nemate ovlastenje da menjate operacije");
-                    }
+                    IzmeniPregledAkoJeOperacija(lekarServiceDTO);
                 }
 
 
@@ -124,478 +102,354 @@ namespace Bolnica.Services
         }
 
 
-
-
-
-
-        public void InformacijeOPacijentu(DataGrid lekarGrid, PrikazPregleda prikazPregleda, List<Pregled> listaPregleda, PrikazOperacije prikazOperacije, List<Operacija> listaOperacija)
+        public void IzmeniPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarGrid.SelectedCells.Count > 0)
+            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
+            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
             {
-
-                var objekat = lekarGrid.SelectedValue;
-                PrikazPregleda p1 = new PrikazPregleda();
-                PrikazOperacije op = new PrikazOperacije();
-
-                if (objekat.GetType().Equals(prikazPregleda.GetType()))
+                if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
                 {
-                    PrikazPregleda pri = objekat as PrikazPregleda;
-                    for (int i = 0; i < listaPregleda.Count; i++)
+                    izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
+                    IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                    FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
+                    break;
+                }
+            }
+        }
+
+        public void IzmeniPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        {
+            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            if (!lekarServiceDTO.lekarTrenutni.Specijalizacija.OblastMedicine.Equals("Opsta"))
+            {
+                PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
+                for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
+                {
+                    if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                     {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
-                        {
 
-                            p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                            InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(p1.Pacijent);
-                            FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
-
-                            break;
-                        }
+                        izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
+                        IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                        FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
+                        break;
                     }
                 }
-                else if (objekat.GetType().Equals(prikazOperacije.GetType()))
+            }
+            else
+            {
+                MessageBox.Show("Nemate ovlastenje da menjate operacije");
+            }
+        }
+
+
+
+
+
+        public void InformacijeOPacijentu(LekarServiceDTO lekarServiceDTO)
+        {
+            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            {
+                var objekat = lekarServiceDTO.tabela.SelectedValue;
+
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
                 {
-                    PrikazOperacije pri = objekat as PrikazOperacije;
-                    for (int i = 0; i < listaOperacija.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaOperacija[i].Id))
-                        {
-                            op = lekarGrid.SelectedItem as PrikazOperacije;
-                            InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(op.Pacijent);
-                            FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
-                            break;
-                        }
-                    }
+                    InformacijeOPacijentuAkoJePregled(lekarServiceDTO);
+                }
+                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
+                {
+                    InformacijeOPacijentuAkoJeOperacija(lekarServiceDTO);
                 }
 
             }
         }
 
-        public void JumpOnButtonEnter(Button Zakazi)
+        public void InformacijeOPacijentuAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
-
-            Zakazi.Focus();
-
-        }
-
-        public void JumpOnButtonLeft(TabItem PreglediTab)
-        {
-
-            PreglediTab.Focus();
-
-        }
-
-        public void JumpOnButtonTab(DataGrid lekarGrid)
-        {
-
-            var row = lekarGrid.SelectedIndex;
-            if (row < lekarGrid.Items.Count - 1)
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
+            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
+            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
             {
-                row = row + 1;
-                lekarGrid.SelectedIndex = row;
+                if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
+                {
 
+                    izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
+                    InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(izabraniPrikazPregleda.Pacijent);
+                    FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
+
+                    break;
+                }
+            }
+        }
+
+        public void InformacijeOPacijentuAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        {
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
+            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
+            for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
+            {
+                if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
+                {
+                    izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
+                    InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(izabraniPrikazOperacije.Pacijent);
+                    FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
+                    break;
+                }
+            }
+        }
+
+        public void SkociNaEnter(LekarServiceDTO lekarServiceDTO)
+        {
+
+            lekarServiceDTO.dugme.Focus();
+
+        }
+
+        public void SkociNaLevo(LekarServiceDTO lekarServiceDTO)
+        {
+
+            lekarServiceDTO.tab.Focus();
+
+        }
+
+        public void SkociNaTab(LekarServiceDTO lekarServiceDTO)
+        {
+
+            var red = lekarServiceDTO.tabela.SelectedIndex;
+            if (red < lekarServiceDTO.tabela.Items.Count - 1)
+            {
+                red = red + 1;
+                lekarServiceDTO.tabela.SelectedIndex = red;
 
             }
             else
             {
-                row = 0;
-                lekarGrid.SelectedIndex = row;
+                red = 0;
+                lekarServiceDTO.tabela.SelectedIndex = red;
             }
 
         }
 
-        public void JumpOnButtonIstorijaEnter(Button AnamnezaIstorijaDugme)
+        public void SkociNaEnterIstorija(LekarServiceDTO lekarServiceDTO)
         {
 
-            AnamnezaIstorijaDugme.Focus();
+            lekarServiceDTO.dugme.Focus();
         }
-        public void JumpOnButtonIstorijaLeft(TabItem IstorijaTab)
+        public void SkociNaLevoIstorija(LekarServiceDTO lekarServiceDTO)
         {
 
-            IstorijaTab.Focus();
+            lekarServiceDTO.tab.Focus();
         }
-        public void JumpOnButtonIstorijaTab(DataGrid lekarGridIstorija)
+        public void SkociNaTabIstorija(LekarServiceDTO lekarServiceDTO)
         {
 
-            var row = lekarGridIstorija.SelectedIndex;
-            if (row < lekarGridIstorija.Items.Count - 1)
+            var red = lekarServiceDTO.tabela.SelectedIndex;
+            if (red < lekarServiceDTO.tabela.Items.Count - 1)
             {
-                row = row + 1;
-                lekarGridIstorija.SelectedIndex = row;
+                red = red + 1;
+                lekarServiceDTO.tabela.SelectedIndex = red;
+            }
+            else
+            {
+                red = 0;
+                lekarServiceDTO.tabela.SelectedIndex = red;
+            }
+        }
 
+        public void Anamneza(LekarServiceDTO lekarServiceDTO)
+        {
+            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            { 
+                var objekat = lekarServiceDTO.tabela.SelectedValue;
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
+                {
+                    AnamnezaZaPregled(lekarServiceDTO);
+                }
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
+                {
+                    AnamnezaZaOperaciju(lekarServiceDTO);
+                }
+
+            }
+        }
+
+        public void AnamnezaZaPregled(LekarServiceDTO lekarServiceDTO)
+        {
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
+            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
+            if (izabraniPrikazPregledaIzTabele.Datum < DateTime.Now)
+            {
+                for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
+                {
+                    if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
+                    {
+                        izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
+                        NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                        FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Pregled nije poceo");
+                return;
+            }
+        }
+
+        public void AnamnezaZaOperaciju(LekarServiceDTO lekarServiceDTO)
+        {
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
+            PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
+            if (izabraniPrikazOperacijeIzTabele.Datum < DateTime.Now)
+            {
+                for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
+                {
+                    if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
+                    {
+                        izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
+                        NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                        FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
+                        break;
+                    }
+                }
 
             }
             else
             {
-                row = 0;
-                lekarGridIstorija.SelectedIndex = row;
+                MessageBox.Show("Operacija nije pocela");
+                return;
             }
         }
 
-        public void CollorLekarGrid(DataGrid lekarGrid)
+        public void AnamnezaIstorija(LekarServiceDTO lekarServiceDTO)
         {
-            DateTime trenutni = new DateTime();
-            int dozvola = 0;
-            PrikazPregleda preg = new PrikazPregleda();
-            PrikazOperacije oper = new PrikazOperacije();
-
-            for (int i = 0; i < lekarGrid.Items.Count; i++)
+            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
             {
-
-                DataGridRow row = (DataGridRow)lekarGrid.ItemContainerGenerator.ContainerFromIndex(i);
-                if (row != null)
+                var objekat = lekarServiceDTO.tabela.SelectedValue;
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
                 {
-
-
-                    var Objekat = row.Item;
-                    if (Objekat.GetType().Equals(preg.GetType()))
-                    {
-                        preg = Objekat as PrikazPregleda;
-                        if (trenutni.Date != preg.Datum.Date)
-                        {
-                            trenutni = preg.Datum;
-                            dozvola++;
-                            if (dozvola == 2)
-                            {
-                                dozvola = 0;
-                            }
-                        }
-                    }
-                    else if (Objekat.GetType().Equals(oper.GetType()))
-                    {
-                        oper = Objekat as PrikazOperacije;
-                        if (trenutni.Date != oper.Datum.Date)
-                        {
-                            trenutni = oper.Datum;
-                            dozvola++;
-                            if (dozvola == 2)
-                            {
-                                dozvola = 0;
-                            }
-                        }
-                    }
-
-                    if (dozvola == 0)
-                    {
-                        row.Foreground = Brushes.Black;
-                    }
-                    else if (dozvola == 1)
-                    {
-                        row.Foreground = Brushes.DarkViolet;
-                    }
-
-
-
+                    AnamnezaIstorijaZaPregled(lekarServiceDTO);
                 }
-            }
-
-        }
-
-        public void CollorLekarGridIstorija(DataGrid lekarGridIstorija)
-        {
-
-            DateTime trenutni = new DateTime();
-            int dozvola = 0;
-            PrikazPregleda preg = new PrikazPregleda();
-            PrikazOperacije oper = new PrikazOperacije();
-
-            for (int i = 0; i < lekarGridIstorija.Items.Count + 1; i++)
-            {
-
-                DataGridRow row = (DataGridRow)lekarGridIstorija.ItemContainerGenerator.ContainerFromIndex(i);
-                if (row != null)
+                if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
                 {
-
-
-                    var Objekat = row.Item;
-                    if (Objekat.GetType().Equals(preg.GetType()))
-                    {
-                        preg = Objekat as PrikazPregleda;
-                        if (trenutni.Date != preg.Datum.Date)
-                        {
-                            trenutni = preg.Datum;
-                            dozvola++;
-                            if (dozvola == 2)
-                            {
-                                dozvola = 0;
-                            }
-                        }
-                    }
-                    else if (Objekat.GetType().Equals(oper.GetType()))
-                    {
-                        oper = Objekat as PrikazOperacije;
-                        if (trenutni.Date != oper.Datum.Date)
-                        {
-                            trenutni = oper.Datum;
-                            dozvola++;
-                            if (dozvola == 2)
-                            {
-                                dozvola = 0;
-                            }
-                        }
-                    }
-
-                    if (dozvola == 0)
-                    {
-                        row.Foreground = Brushes.Black;
-                    }
-                    else if (dozvola == 1)
-                    {
-                        row.Foreground = Brushes.DarkViolet;
-                    }
-
-
-
+                    AnamnezaIstorijaZaOperaciju(lekarServiceDTO);
                 }
             }
         }
 
-
-
-
-        public void focusTab(TabItem PreglediTab)
+        public void AnamnezaIstorijaZaPregled(LekarServiceDTO lekarServiceDTO)
         {
-            PreglediTab.Focus();
-        }
-
-
-        public void Anamneza(DataGrid lekarGrid, PrikazPregleda prikazPregleda, List<Pregled> listaPregleda, PrikazOperacije prikazOperacije, List<Operacija> listaOperacija,Lekar lekarTrenutni)
-        {
-            if (lekarGrid.SelectedCells.Count > 0)
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
+            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
+            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
             {
-
-                var objekat = lekarGrid.SelectedValue;
-                PrikazPregleda p1 = new PrikazPregleda();
-                PrikazOperacije op = new PrikazOperacije();
-
-                if (objekat.GetType().Equals(prikazPregleda.GetType()))
+                if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
                 {
-                    PrikazPregleda pri = objekat as PrikazPregleda;
-                    if (pri.Datum < DateTime.Now)
-                    {
-                        for (int i = 0; i < listaPregleda.Count; i++)
-                        {
-                            if (pri.Id.Equals(listaPregleda[i].Id))
-                            {
-
-                                p1 = lekarGrid.SelectedItem as PrikazPregleda;
-                                NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(p1, lekarTrenutni);
-                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Pregled nije poceo");
-                        return;
-                    }
-
-
+                    izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
+                    NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                    FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
+                    break;
                 }
-                if (objekat.GetType().Equals(prikazOperacije.GetType()))
-                {
-                    PrikazOperacije pri = objekat as PrikazOperacije;
-                    if (pri.Datum < DateTime.Now)
-                    {
-                        for (int i = 0; i < listaOperacija.Count; i++)
-                        {
-                            if (pri.Id.Equals(listaOperacija[i].Id))
-                            {
-
-                                op = lekarGrid.SelectedItem as PrikazOperacije;
-
-                                NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(op, lekarTrenutni);
-                                FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
-                                break;
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Operacija nije pocela");
-                        return;
-                    }
-
-                }
-
             }
         }
 
-        public void AnamnezaIstorija(DataGrid lekarGridIstorija, PrikazPregleda prikazPregleda, List<Pregled> listaPregleda, PrikazOperacije prikazOperacije, List<Operacija> listaOperacija, Lekar lekarTrenutni)
+        public void AnamnezaIstorijaZaOperaciju(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarGridIstorija.SelectedCells.Count > 0)
+            var objekat = lekarServiceDTO.tabela.SelectedValue;
+            PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
+            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
+            for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
             {
-
-                var objekat = lekarGridIstorija.SelectedValue;
-                PrikazPregleda p1 = new PrikazPregleda();
-                PrikazOperacije op = new PrikazOperacije();
-
-                if (objekat.GetType().Equals(prikazPregleda.GetType()))
+                if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                 {
-                    PrikazPregleda pri = objekat as PrikazPregleda;
-
-                    for (int i = 0; i < listaPregleda.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaPregleda[i].Id))
-                        {
-
-                            p1 = lekarGridIstorija.SelectedItem as PrikazPregleda;
-                            NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(p1, lekarTrenutni);
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
-                            break;
-                        }
-                    }
-
+                    izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
+                    NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                    FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
+                    break;
                 }
-                if (objekat.GetType().Equals(prikazOperacije.GetType()))
-                {
-                    PrikazOperacije pri = objekat as PrikazOperacije;
-
-                    for (int i = 0; i < listaOperacija.Count; i++)
-                    {
-                        if (pri.Id.Equals(listaOperacija[i].Id))
-                        {
-
-                            op = lekarGridIstorija.SelectedItem as PrikazOperacije;
-                            NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(op, lekarTrenutni);
-                            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
-                            break;
-                        }
-                    }
-
-                }
-
-
             }
+
         }
-
-        public void IzmeniLek(DataGrid dataGridLekovi,List<Lek> lekovi)
+        public void IzmeniLek(LekarServiceDTO lekarServiceDTO)
         {
-            PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
-            lekovi = sviLekovi.GetAll();
-
-            for (int i = 0; i < lekovi.Count; i++)
+            PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
+            lekarServiceDTO.lekovi = skladisteLekova.GetAll();
+            IzfiltrirajLekove(lekarServiceDTO);
+            NapraviFormuZaIzmenuLeka(lekarServiceDTO,izabraniLek);
+            
+        }
+        public void IzfiltrirajLekove(LekarServiceDTO lekarServiceDTO)
+        {
+            for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
             {
-                if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
+                if (lekarServiceDTO.lekovi[i].Status.Equals(StatusLeka.odbijen) || lekarServiceDTO.lekovi[i].Obrisan)
                 {
-                    lekovi.RemoveAt(i);
+                    lekarServiceDTO.lekovi.RemoveAt(i);
                     i--;
                 }
             }
-            for (int i = 0; i < lekovi.Count; i++)
+        }
+        public void NapraviFormuZaIzmenuLeka(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
+        {
+            for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
             {
-                if (lekovi[i].Id.Equals(p.Id))
+                if (lekarServiceDTO.lekovi[i].Id.Equals(izabraniLek.Id))
                 {
-                    IzmeniLekLekarViewModel vm = new IzmeniLekLekarViewModel(lekovi[i]);
+                    IzmeniLekLekarViewModel vm = new IzmeniLekLekarViewModel(lekarServiceDTO.lekovi[i]);
                     FormIzmeniLekLekar form = new FormIzmeniLekLekar(vm);
                     form.Show();
                     break;
-
                 }
             }
         }
 
-        public void JumpOnButtonLekEnter(Button Odobri)
+        public void SkociNaEnterLek(LekarServiceDTO lekarServiceDTO)
         {
 
-            Odobri.Focus();
+            lekarServiceDTO.dugme.Focus();
 
         }
-        public void JumpOnButtonLekLeft(TabItem lekTab)
+        public void SkociNaLevoLek(LekarServiceDTO lekarServiceDTO)
         {
 
-            lekTab.Focus();
+            lekarServiceDTO.tab.Focus();
 
         }
-        public void JumpOnButtonLekTab(DataGrid dataGridLekovi)
+        public void SkociNaTabLek(LekarServiceDTO lekarServiceDTO)
         {
 
-            var row = dataGridLekovi.SelectedIndex;
-            if (row < dataGridLekovi.Items.Count - 1)
+            var red = lekarServiceDTO.tabela.SelectedIndex;
+            if (red < lekarServiceDTO.tabela.Items.Count - 1)
             {
-                row = row + 1;
-                dataGridLekovi.SelectedIndex = row;
-
-
+                red = red + 1;
+                lekarServiceDTO.tabela.SelectedIndex = red;
             }
             else
             {
-                row = 0;
-                dataGridLekovi.SelectedIndex = row;
+                red = 0;
+                lekarServiceDTO.tabela.SelectedIndex = red;
             }
 
         }
    
-        public void OdobriLek(DataGrid dataGridLekovi, List<Lek> lekovi,ObservableCollection<PrikazLek> lekoviPrikaz)
+        public void OdobriLek(LekarServiceDTO lekarServiceDTO)
         {
-            PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
+            PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
 
-            if (p.Status.Equals(StatusLeka.cekaValidaciju))
+            if (izabraniLek.Status.Equals(StatusLeka.cekaValidaciju))
             {
-                lekovi = sviLekovi.GetAll();
-
-                for (int i = 0; i < lekovi.Count; i++)
-                {
-                    if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
-                    {
-                        lekovi.RemoveAt(i);
-                        i--;
-                    }
-                }
-                for (int i = 0; i < lekovi.Count; i++)
-                {
-                    if (lekovi[i].Id.Equals(p.Id))
-                    {
-                        lekovi[i].Status = StatusLeka.odobren;
-                        sviLekovi.Delete(lekovi[i]);
-                        sviLekovi.Save(lekovi[i]);
-                        break;
-
-                    }
-                }
-                for (int i = 0; i < lekoviPrikaz.Count; i++)
-                {
-                    if (lekoviPrikaz[i].Id.Equals(p.Id))
-                    {
-                        lekoviPrikaz[i].Status = StatusLeka.odobren;
-                        dataGridLekovi.Items.Refresh();
-                        break;
-
-                    }
-                }
-                Obavestenje obavestenje = new Obavestenje();
-                FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
-                FileStorageKorisnici sviKorisnici = new FileStorageKorisnici();
-                List<Korisnik> svi = sviKorisnici.GetAll();
-                List<Obavestenje> sva = svaObavestenja.GetAll();
-                int max = 0;
-                for (int i = 0; i < sva.Count; i++)
-                {
-                    if (max < sva[i].Id)
-                    {
-                        max = sva[i].Id;
-                    }
-                }
-                max = max + 1;
-                obavestenje.Id = max;
-
-                for (int i = 0; i < svi.Count; i++)
-                {
-                    if (svi[i].TipKorisnika.Equals(TipKorisnika.upravnik))
-                    {
-                        obavestenje.Korisnici.Add(svi[i]);
-                    }
-                }
-                obavestenje.Naslov = "Lek " + p.Naziv + " je prihvacen";
-                obavestenje.Obrisan = false;
-                obavestenje.Sadrzaj = "Lek " + p.Naziv + " sa dozom " + p.KolicinaUMg + " i sastojcima: " + p.Sastojak + " je prihvacen. ";
-                obavestenje.Datum = DateTime.Now;
-                FileStorageObavestenja oba = new FileStorageObavestenja();
-                oba.Save(obavestenje);
-
-
+                IzfiltrirajLekove(lekarServiceDTO);
+                AzurirajLek(lekarServiceDTO,izabraniLek);
+                AzurirajTabeluLekova(lekarServiceDTO, izabraniLek);
+                PosaljiObavestenje(izabraniLek);
             }
             else
             {
@@ -603,9 +457,76 @@ namespace Bolnica.Services
             }
         }
 
-        public void VratiNaIzmenu(DataGrid dataGridLekovi)
+        public void AzurirajLek(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
         {
-            PrikazLek p = dataGridLekovi.SelectedItem as PrikazLek;
+            for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
+            {
+                if (lekarServiceDTO.lekovi[i].Id.Equals(izabraniLek.Id))
+                {
+                    lekarServiceDTO.lekovi[i].Status = StatusLeka.odobren;
+                    skladisteLekova.Delete(lekarServiceDTO.lekovi[i]);
+                    skladisteLekova.Save(lekarServiceDTO.lekovi[i]);
+                    break;
+
+                }
+            }
+        }
+        public void PosaljiObavestenje(PrikazLek izabraniLek)
+        {
+
+            FileStorageObavestenja oba = new FileStorageObavestenja();
+            oba.Save(PopuniObavestenje(izabraniLek));
+        }
+
+        public int IzracunajId(List<Obavestenje> sva)
+        {
+            int max = 0;
+            for (int i = 0; i < sva.Count; i++)
+            {
+                if (max < sva[i].Id)
+                {
+                    max = sva[i].Id;
+                }
+            }
+            max = max + 1;
+            return max;
+        }
+        public Obavestenje PopuniObavestenje(PrikazLek izabraniLek)
+        {
+            Obavestenje obavestenje = new Obavestenje();
+            List<Korisnik> sviKorisnici = skladisteKorisnika.GetAll();
+            List<Obavestenje> svaObavestenja = skladisteObavestenja.GetAll();
+            obavestenje.Id = IzracunajId(svaObavestenja);
+            for (int i = 0; i < sviKorisnici.Count; i++)
+            {
+                if (sviKorisnici[i].TipKorisnika.Equals(TipKorisnika.upravnik))
+                {
+                    obavestenje.Korisnici.Add(sviKorisnici[i]);
+                }
+            }
+            obavestenje.Naslov = "Lek " + izabraniLek.Naziv + " je prihvacen";
+            obavestenje.Obrisan = false;
+            obavestenje.Sadrzaj = "Lek " + izabraniLek.Naziv + " sa dozom " + izabraniLek.KolicinaUMg + " i sastojcima: " + izabraniLek.Sastojak + " je prihvacen. ";
+            obavestenje.Datum = DateTime.Now;
+            return obavestenje;
+        }
+        public void AzurirajTabeluLekova(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
+        {
+            for (int i = 0; i < LekarViewModel.lekoviPrikaz.Count; i++)
+            {
+                if (LekarViewModel.lekoviPrikaz[i].Id.Equals(izabraniLek.Id))
+                {
+                    LekarViewModel.lekoviPrikaz[i].Status = StatusLeka.odobren;
+                    lekarServiceDTO.tabela.Items.Refresh();
+                    break;
+
+                }
+            }
+        }
+
+        public void VratiNaIzmenu(LekarServiceDTO lekarServiceDTO)
+        {
+            PrikazLek p = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
             if (p.Status.Equals(StatusLeka.cekaValidaciju))
             {
                 KomentarLekaLekarViewModel vm = new KomentarLekaLekarViewModel(p);

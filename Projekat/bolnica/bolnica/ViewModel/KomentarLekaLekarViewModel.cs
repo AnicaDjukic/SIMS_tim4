@@ -1,4 +1,5 @@
 ﻿using Bolnica.Commands;
+using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Model.Pregledi;
 using System;
@@ -22,9 +23,9 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private PrikazLek prik = new PrikazLek();
+        private PrikazLek prikazLeka = new PrikazLek();
 
-        private List<Lek> leko = new List<Lek>();
+        private List<Lek> listaLekova = new List<Lek>();
 
         private FileStorageLek sviLekovi = new FileStorageLek();
 
@@ -37,66 +38,74 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
-        public Action CloseAction { get; set; }
+        public Action ZatvoriAkcija { get; set; }
 
-        private RelayCommand potvrdiCommand;
-        public RelayCommand PotvrdiCommand
+        private RelayCommand potvrdiKomanda;
+        public RelayCommand PotvrdiKomanda
         {
-            get { return potvrdiCommand; }
+            get { return potvrdiKomanda; }
             set
             {
-                potvrdiCommand = value;
+                potvrdiKomanda = value;
 
             }
         }
 
-        public void Executed_PotvrdiCommand(object obj)
+        public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.KomentarLekaService.Potvrdi(Komentar,prik,leko);
-            CloseAction();
+            inject.KomentarLekaService.Potvrdi(new KomentarLekaLekarServiceDTO(Komentar,prikazLeka,listaLekova));
+            ZatvoriAkcija();
         }
 
-        public bool CanExecute_PotvrdiCommand(object obj)
+        public bool CanExecute_PotvrdiKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand zatvoriCommand;
-        public RelayCommand ZatvoriCommand
+        private RelayCommand zatvoriKomanda;
+        public RelayCommand ZatvoriKomanda
         {
-            get { return zatvoriCommand; }
+            get { return zatvoriKomanda; }
             set
             {
-                zatvoriCommand = value;
+                zatvoriKomanda = value;
 
             }
         }
 
-        public void Executed_ZatvoriCommand(object obj)
+        public void Executed_ZatvoriKomanda(object obj)
         {
-            CloseAction();
+            ZatvoriAkcija();
         }
 
-        public bool CanExecute_ZatvoriCommand(object obj)
+        public bool CanExecute_ZatvoriKomanda(object obj)
         {
             return true;
         }
 
-        public KomentarLekaLekarViewModel(PrikazLek p)
+        public KomentarLekaLekarViewModel(PrikazLek izabraniLek)
+        {
+            InicirajPolja(izabraniLek);
+            NapraviKomande();
+        }
+        public void InicirajPolja(PrikazLek izabraniLek)
         {
             Komentar = "";
             Inject = new Injector();
-            leko = sviLekovi.GetAll();
-            for (int i = 0; i < leko.Count; i++)
+            listaLekova = sviLekovi.GetAll();
+            for (int i = 0; i < listaLekova.Count; i++)
             {
-                if (leko[i].Status.Equals(StatusLeka.odbijen) || leko[i].Obrisan)
+                if (listaLekova[i].Status.Equals(StatusLeka.odbijen) || listaLekova[i].Obrisan)
                 {
-                    leko.RemoveAt(i);
+                    listaLekova.RemoveAt(i);
                     i--;
                 }
             }
-            prik = p;
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-            PotvrdiCommand = new RelayCommand(Executed_PotvrdiCommand, CanExecute_PotvrdiCommand);
+            prikazLeka = izabraniLek;
+        }
+        public void NapraviKomande()
+        {
+            ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
         }
     }
 }

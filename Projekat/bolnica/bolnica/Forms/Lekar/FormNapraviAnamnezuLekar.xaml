@@ -8,12 +8,12 @@
         mc:Ignorable="d"
         Title="FormNapraviAnamnezuLekar" Height="670" Width="630">
     <Window.InputBindings>
-        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptCommand}" />
-        <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptCommand}" />
-        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding Path=ObrisiReceptCommand}" />
-        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiCommand}" />
-        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding Path=ZakaziPregledCommand}" />
-        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriCommand}" />
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}" />
+        <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptKomanda}" />
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding Path=ObrisiReceptKomanda}" />
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}" />
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding Path=ZakaziPregledKomanda}" />
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}" />
     </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">
@@ -107,7 +107,7 @@
         </Grid.RowDefinitions>
         <ScrollViewer Name="ScroolBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="16" VerticalScrollBarVisibility="Visible">
             <ScrollViewer.InputBindings>
-                <KeyBinding Key="Up" Command="{Binding Path=ZaustaviStrelicaCommand}"/>
+                <KeyBinding Key="Up" Command="{Binding Path=ZaustaviStreliceKomanda}"/>
             </ScrollViewer.InputBindings>
             <StackPanel Orientation="Vertical">
                 <Grid Background="#FF34FFF4" MinHeight="250">
@@ -155,7 +155,7 @@
 
                     <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </TextBox.InputBindings>
                         <TextBox.Text>
                             <Binding Path="simptomi" UpdateSourceTrigger="PropertyChanged">
@@ -182,7 +182,7 @@
                     </TextBox>
                     <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
                         <TextBox.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </TextBox.InputBindings>
                         <TextBox.Text>
                             <Binding Path="dijagnoza" UpdateSourceTrigger="PropertyChanged">
@@ -259,7 +259,7 @@
                     <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
                     <DataGrid Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </DataGrid.InputBindings>
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -284,14 +284,14 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptCommand}"
+                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
                          Background="#FF1E93F4" Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
-                    <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptCommand}"
+                    <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
                          Background="#FF1E93F4" Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
-                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptCommand}"
+                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
                          Background="#FF1E93F4" Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
                         <Button.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </Button.InputBindings>
                     </Button>
                     <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
@@ -347,7 +347,7 @@
 
                     <DataGrid Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18">
                         <DataGrid.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </DataGrid.InputBindings>
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -380,14 +380,14 @@
             </StackPanel>
         </ScrollViewer>
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.Row="16" Grid.RowSpan="2"  />
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiCommand}"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"
                          Background="#FF1E93F4" Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZakaziPregledCommand}"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZakaziPregledKomanda}"
                          Background="#FF1E93F4" Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
                          Background="#FF1E93F4" Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Button.InputBindings>
-                <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarCommand}"/>
+                <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
             </Button.InputBindings>
         </Button>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>

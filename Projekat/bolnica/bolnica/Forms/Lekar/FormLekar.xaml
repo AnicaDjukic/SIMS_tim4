@@ -78,11 +78,11 @@
         </TabControl.Resources>
         <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}" >
             <TabItem.InputBindings>
-                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=ZakaziPregledCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OtkaziPregledCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniPregledCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="I" Command="{Binding Path=InformacijeOPacijentuCommand}" />
+                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=ZakaziPregledKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OtkaziPregledKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniPregledKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="I" Command="{Binding Path=InformacijeOPacijentuKomanda}" />
             </TabItem.InputBindings>
 
             <Grid Height="Auto" MinHeight="300" MinWidth="500" >
@@ -157,9 +157,9 @@
                 </Grid.RowDefinitions>
                 <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
                     <DataGrid.InputBindings>
-                        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonEnterCommand}"/>
-                        <KeyBinding Key="Left" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonLeftCommand}"/>
-                        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonTabCommand}"/>
+                        <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterKomanda}"/>
+                        <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding Path=SkociNaTabKomanda}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -197,15 +197,15 @@
                 </DataGrid>
 
                 <Button FontWeight="SemiBold" Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Grid.Row="27"   Content="Zakaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=ZakaziPregledCommand}"/>
+                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=ZakaziPregledKomanda}"/>
                 <Button FontWeight="SemiBold" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Otkaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=OtkaziPregledCommand}"/>
+                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=OtkaziPregledKomanda}"/>
                 <Button FontWeight="SemiBold" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=IzmeniPregledCommand}"/>
+                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=IzmeniPregledKomanda}"/>
                 <Button FontWeight="SemiBold" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza "  BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=AnamnezaCommand}"/>
+                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=AnamnezaKomanda}"/>
                 <Button FontWeight="SemiBold"  BorderThickness="2" BorderBrush="#FF1E93F4"
-                         Background="#FF1E93F4" Grid.Column="25" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "  FontSize="13" Command="{Binding Path=InformacijeOPacijentuCommand}"/>
+                         Background="#FF1E93F4" Grid.Column="25" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "  FontSize="13" Command="{Binding Path=InformacijeOPacijentuKomanda}"/>
 
                 <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -216,7 +216,7 @@
         </TabItem>
         <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
             <TabItem.InputBindings>
-                <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaIstorijaCommand}" />
+                <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaIstorijaKomanda}" />
             </TabItem.InputBindings>
                     <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
@@ -290,9 +290,9 @@
                 </Grid.RowDefinitions>
                 <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
                     <DataGrid.InputBindings>
-                        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonIstorijaEnterCommand}"/>
-                        <KeyBinding Key="Left" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonIstorijaLeftCommand}"/>
-                        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonIstorijaTabCommand}"/>
+                        <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterIstorijaKomanda}"/>
+                        <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoIstorijaKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding Path=SkociNaTabIstorijaKomanda}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -328,14 +328,14 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaCommand}"/>
+                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}"/>
             </Grid>
         </TabItem>
         <TabItem Name="LekTab" Style="{StaticResource TreciTab}" >
             <TabItem.InputBindings>
-                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=IzmeniLekCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OdobriLekCommand}" />
-                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=VratiNaIzmenuCommand}" />
+                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=IzmeniLekKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OdobriLekKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=VratiNaIzmenuKomanda}" />
             </TabItem.InputBindings>
                     <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
@@ -409,9 +409,9 @@
                 </Grid.RowDefinitions>
                 <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="dataGridLekovi"  SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" >
                     <DataGrid.InputBindings>
-                        <KeyBinding Key="Enter" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonLekEnterCommand}"/>
-                        <KeyBinding Key="Left" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonLekLeftCommand}"/>
-                        <KeyBinding Key="Tab" Modifiers="Ctrl" Command="{Binding Path=JumpOnButtonLekTabCommand}"/>
+                        <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterLekKomanda}"/>
+                        <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoLekKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding Path=SkociNaTabLekKomanda}"/>
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -453,9 +453,9 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=IzmeniLekCommand}" />
-                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=OdobriLekCommand}"  />
-                <Button Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=VratiNaIzmenuCommand}" />
+                <Button Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=IzmeniLekKomanda}" />
+                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=OdobriLekKomanda}"  />
+                <Button Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=VratiNaIzmenuKomanda}" />
                 <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>

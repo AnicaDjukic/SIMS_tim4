@@ -23,8 +23,8 @@ namespace Bolnica.Forms
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
             this.DataContext = viewModel;
-            if (viewModel.CloseAction == null)
-                viewModel.CloseAction = new Action(this.Close);
+            if (viewModel.ZatvoriAction == null)
+                viewModel.ZatvoriAction = new Action(this.Close);
             viewModel.ScrollBar = ScroolBar;
             viewModel.izbrisiButton = IzbrisiButton;
             viewModel.dataGridLekovi = dataGridLekovi;

@@ -1,4 +1,5 @@
-﻿using Bolnica.Forms;
+﻿using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
@@ -12,32 +13,32 @@ namespace Bolnica.Services
 {
     public class NapraviIVidiReceptLekarService
     {
-        private object sviLekovi;
+   
 
-        public void Potvrdi(string nazivLeka, string dozaLeka, List<Lek> sviLekovi, string datumIzdavanja, string brojKutijaLeka, string vremeUzimanjaLeka, string datumPrekida)
+        public void Potvrdi(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
            
-            NapraviAnamnezuLekarViewModel.Recepti.Add(NapraviRecept(datumIzdavanja, sviLekovi, nazivLeka, dozaLeka, brojKutijaLeka, vremeUzimanjaLeka, datumPrekida));
+            NapraviAnamnezuLekarViewModel.Recepti.Add(NapraviRecept(receptDTO));
             
         }
 
-        public Lek DobijIzabraniLek(string proizvodjac, string nazivLeka, string dozaLeka,List<Lek> sviLekovi)
+        public Lek DobijIzabraniLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             Lek izabraniLek = new Lek();
-            for (int i = 0; i < sviLekovi.Count; i++)
+            for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
             {
-                if (proizvodjac.Equals(sviLekovi[i].Proizvodjac) && nazivLeka.Equals(sviLekovi[i].Naziv) && int.Parse(dozaLeka).Equals(sviLekovi[i].KolicinaUMg))
+                if (receptDTO.proizvodjac.Equals(receptDTO.sviLekovi[i].Proizvodjac) && receptDTO.nazivLeka.Equals(receptDTO.sviLekovi[i].Naziv) && int.Parse(receptDTO.dozaLeka).Equals(receptDTO.sviLekovi[i].KolicinaUMg))
                 {
-                    izabraniLek = sviLekovi[i];
+                    izabraniLek = receptDTO.sviLekovi[i];
                 }
             }
             return izabraniLek;
         }
 
-        public bool PacijentAlergicanNaLek(Pacijent trenutniPacijent, string proizvodjac, string nazivLeka, string dozaLeka, List<Lek> sviLekovi)
+        public bool PacijentAlergicanNaLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
-            Lek izabraniLek = DobijIzabraniLek(proizvodjac, nazivLeka, dozaLeka, sviLekovi);
-            List<Sastojak>? alergeniPacijenta = trenutniPacijent?.Alergeni;
+            Lek izabraniLek = DobijIzabraniLek(receptDTO);
+            List<Sastojak>? alergeniPacijenta = receptDTO.trenutniPacijent?.Alergeni;
             if (alergeniPacijenta != null)
             {
                 for (int o = 0; o < alergeniPacijenta.Count; o++)
@@ -57,35 +58,35 @@ namespace Bolnica.Services
 
         }
 
-        public PrikazRecepta NapraviRecept(string datumIzdavanja,List<Lek> sviLekovi,string nazivLeka,string dozaLeka,string brojKutijaLeka,string vremeUzimanjaLeka,string datumPrekida)
+        public PrikazRecepta NapraviRecept(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(datumIzdavanja);
-            for (int i = 0; i < sviLekovi.Count; i++)
+            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(receptDTO.datumIzdavanja);
+            for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
             {
-                if (sviLekovi[i].Naziv.Equals(nazivLeka) && sviLekovi[i].KolicinaUMg.Equals(int.Parse(dozaLeka)))
+                if (receptDTO.sviLekovi[i].Naziv.Equals(receptDTO.nazivLeka) && receptDTO.sviLekovi[i].KolicinaUMg.Equals(int.Parse(receptDTO.dozaLeka)))
                 {
-                    noviPrikazRecepta.lek = sviLekovi[i];
+                    noviPrikazRecepta.lek = receptDTO.sviLekovi[i];
                     break;
                 }
             }
-            noviPrikazRecepta.Kolicina = int.Parse(brojKutijaLeka);
-            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(vremeUzimanjaLeka);
-            noviPrikazRecepta.Trajanje = DateTime.Parse(datumPrekida);
+            noviPrikazRecepta.Kolicina = int.Parse(receptDTO.brojKutijaLeka);
+            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(receptDTO.vremeUzimanjaLeka);
+            noviPrikazRecepta.Trajanje = DateTime.Parse(receptDTO.datumPrekida);
             return noviPrikazRecepta;
         }
 
-        public List<int> OtvoriIFiltirajNaTabLek(string nazivLeka,List<Lek> sviLekovi,string proizvodjac)
+        public List<int> OtvoriIFiltirajNaTabLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
            
-                if (nazivLeka?.Length > 2 && proizvodjac?.Length > 2)
+                if (receptDTO.nazivLeka?.Length > 2 && receptDTO.proizvodjac?.Length > 2)
                 {
                 List<int> dozeLekova = new List<int>();
-                    for (int i = 0; i < sviLekovi.Count; i++)
+                    for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
                     {
-                        if (nazivLeka.Equals(sviLekovi[i].Naziv) && proizvodjac.Equals(sviLekovi[i].Proizvodjac) && !dozeLekova.Contains(sviLekovi[i].KolicinaUMg))
+                        if (receptDTO.nazivLeka.Equals(receptDTO.sviLekovi[i].Naziv) && receptDTO.proizvodjac.Equals(receptDTO.sviLekovi[i].Proizvodjac) && !dozeLekova.Contains(receptDTO.sviLekovi[i].KolicinaUMg))
                         {
-                            dozeLekova.Add(sviLekovi[i].KolicinaUMg);
+                            dozeLekova.Add(receptDTO.sviLekovi[i].KolicinaUMg);
                         }
                     }
                 return dozeLekova;
@@ -97,19 +98,19 @@ namespace Bolnica.Services
 
       
 
-        public List<string> OtvoriIFiltirajNaTabProizvodjac(string proizvodjacLeka,List<Lek> sviLekovi)
+        public List<string> OtvoriIFiltirajNaTabProizvodjac(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             
                 
-            if (proizvodjacLeka?.Length > 2)
+            if (receptDTO.proizvodjac?.Length > 2)
                 {
                 List<string> naziviLekova = new List<string>();
                
-                    for (int i = 0; i < sviLekovi.Count; i++)
+                    for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
                     {
-                        if (proizvodjacLeka.Equals(sviLekovi[i].Proizvodjac) && !naziviLekova.Contains(sviLekovi[i].Naziv) && LekVecDodat(i,sviLekovi) == 0)
+                        if (receptDTO.proizvodjac.Equals(receptDTO.sviLekovi[i].Proizvodjac) && !naziviLekova.Contains(receptDTO.sviLekovi[i].Naziv) && LekVecDodat(i, receptDTO) == 0)
                         {
-                        naziviLekova.Add(sviLekovi[i].Naziv);
+                        naziviLekova.Add(receptDTO.sviLekovi[i].Naziv);
                         }
                     }
                 return naziviLekova;
@@ -118,12 +119,12 @@ namespace Bolnica.Services
            
         }
 
-        public int LekVecDodat(int i,List<Lek> sviLekovi)
+        public int LekVecDodat(int i, NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             int lekVecDodat = 0;
             for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)
             {
-                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
+                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(receptDTO.sviLekovi[i].Id))
                 {
                     lekVecDodat = 1;
                 }

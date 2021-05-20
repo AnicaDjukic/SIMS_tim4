@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bolnica.Model.Korisnici
 {
-    class FileStorageLekar
+    public class FileStorageLekar
     {
 
         public string fileLocation { get; set; }

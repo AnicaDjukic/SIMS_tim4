@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#FF34FFF4">
     <Window.InputBindings>
-        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiCommand}"/>
-        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriCommand}"/>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
     </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">
@@ -69,8 +69,8 @@
                 <Binding Path="Komentar" UpdateSourceTrigger="PropertyChanged"/>
             </TextBox.Text>
         </TextBox>
-        <Button Command="{Binding Path=PotvrdiCommand}" Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi" Background="#FF1E93F4" BorderBrush="#FF1E93F4" MaxWidth="75"/>
-        <Button Command="{Binding Path=ZatvoriCommand}" Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi" Background="#FF1E93F4" BorderBrush="#FF1E93F4"  MaxWidth="75"/>
+        <Button Command="{Binding Path=PotvrdiKomanda}" Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi" Background="#FF1E93F4" BorderBrush="#FF1E93F4" MaxWidth="75"/>
+        <Button Command="{Binding Path=ZatvoriKomanda}" Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi" Background="#FF1E93F4" BorderBrush="#FF1E93F4"  MaxWidth="75"/>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.RowSpan="2" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>

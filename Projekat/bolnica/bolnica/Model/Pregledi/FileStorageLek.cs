@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bolnica.Model.Pregledi
 {
-    class FileStorageLek
+    public class FileStorageLek
     {
         private string fileLocation;
 

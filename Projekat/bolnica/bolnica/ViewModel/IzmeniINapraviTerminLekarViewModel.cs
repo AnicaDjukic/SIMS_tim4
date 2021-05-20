@@ -16,23 +16,22 @@ namespace Bolnica.ViewModel
 {
     public class IzmeniINapraviTerminLekarViewModel : ViewModel
     {
-        private List<Lekar> lekariTrenutni = new List<Lekar>();
+        private List<Lekar> sviLekari = new List<Lekar>();
         private Lekar ulogovaniLekar = new Lekar();
-        private bool jeOpe = false;
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private List<Pacijent> pacijentiZa = new List<Pacijent>();
-        private List<Prostorija> prostorijaZa = new List<Prostorija>();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
-        private string zaFilLek = "";
-        private DateTime zaFilLekDat = new DateTime();
-        private PrikazPregleda trenutniPregled = new PrikazPregleda();
+        private bool daLiJeOperacija = false;
+        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
+        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
+        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
+        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private List<Pacijent> sviPacijenti = new List<Pacijent>();
+        private List<Prostorija> sveProstorije = new List<Prostorija>();
+        private string nazivIzfiltriranogLeka = "";
+        private DateTime datumZaFiltriranjeLeka = new DateTime();
+        private PrikazPregleda trenutniPregled = new PrikazPregleda();  
         private PrikazOperacije trenutnaOperacija = new PrikazOperacije();
         private PrikazPregleda stariPregled = new PrikazPregleda();
         private PrikazOperacije staraOperacija = new PrikazOperacije();
         private string proslaSpecijalizacija = "";
-
         private List<Pregled> pregledi;
         private List<Operacija> operacije;
 
@@ -307,22 +306,22 @@ namespace Bolnica.ViewModel
                 MessageBox.Show("Lekar nije slobodan u to vreme");
                 return;
             }
-            if (!inject.PregledService.PacijentSlobodanUToVreme(pacijentiZa, prezimeB, datumB, TrajanjeB, vremeB))
+            if (!inject.PregledService.PacijentSlobodanUToVreme(sviPacijenti, prezimeB, datumB, TrajanjeB, vremeB))
             {
                 MessageBox.Show("Pacijent nije slobodan u to vreme");
                 return;
             }
-            if (!inject.PregledService.PostojiProstorija(prostorijaZa, brojProstorijeB))
+            if (!inject.PregledService.PostojiProstorija(sveProstorije, brojProstorijeB))
             {
                 MessageBox.Show("Prostorija ne postoji");
                 return;
             }
-            if (!inject.PregledService.ProstorijaSlobodna(prostorijaZa, brojProstorijeB, datumB))
+            if (!inject.PregledService.ProstorijaSlobodna(sveProstorije, brojProstorijeB, datumB))
             {
                 MessageBox.Show("Prostorija nije slobodna");
                 return;
             }
-            inject.PregledService.PotvrdiIzmenu(datumB.ToShortDateString(), vremeB, TrajanjeB, lekariTrenutni, lekarB, pacijentiZa, prezimeB, prostorijaZa, ItemSourceDaLiJeOperacije, tipOperacijeB, ItemSourceDaLiJeHitan, brojProstorijeB, ulogovaniLekar);
+            inject.PregledService.PotvrdiIzmenu(datumB.ToShortDateString(), vremeB, TrajanjeB, sviLekari, lekarB, sviPacijenti, prezimeB, sveProstorije, ItemSourceDaLiJeOperacije, tipOperacijeB, ItemSourceDaLiJeHitan, brojProstorijeB, ulogovaniLekar);
             CloseAction();
             
         }
@@ -355,22 +354,22 @@ namespace Bolnica.ViewModel
                 MessageBox.Show("Lekar nije slobodan u to vreme");
                 return;
             }
-            if (!inject.PregledService.PacijentSlobodanUToVremeIzmeni(pacijentiZa, prezimeB, datumB, TrajanjeB, vremeB,trenutniPregled,trenutnaOperacija))
+            if (!inject.PregledService.PacijentSlobodanUToVremeIzmeni(sviPacijenti, prezimeB, datumB, TrajanjeB, vremeB,trenutniPregled,trenutnaOperacija))
             {
                 MessageBox.Show("Pacijent nije slobodan u to vreme");
                 return;
             }
-            if (!inject.PregledService.PostojiProstorija(prostorijaZa, brojProstorijeB))
+            if (!inject.PregledService.PostojiProstorija(sveProstorije, brojProstorijeB))
             {
                 MessageBox.Show("Prostorija ne postoji");
                 return;
             }
-            if (!inject.PregledService.ProstorijaSlobodna(prostorijaZa, brojProstorijeB, datumB))
+            if (!inject.PregledService.ProstorijaSlobodna(sveProstorije, brojProstorijeB, datumB))
             {
                 MessageBox.Show("Prostorija nije slobodna");
                 return;
             }
-            inject.PregledService.PotvrdiIzmenuIzmenu(datumB.ToShortDateString(), vremeB, TrajanjeB, lekariTrenutni, lekarB, pacijentiZa, prezimeB, prostorijaZa, ItemSourceDaLiJeOperacije, tipOperacijeB, ItemSourceDaLiJeHitan, brojProstorijeB, ulogovaniLekar, staraOperacija, stariPregled);
+            inject.PregledService.PotvrdiIzmenuIzmenu(datumB.ToShortDateString(), vremeB, TrajanjeB, sviLekari, lekarB, sviPacijenti, prezimeB, sveProstorije, ItemSourceDaLiJeOperacije, tipOperacijeB, ItemSourceDaLiJeHitan, brojProstorijeB, ulogovaniLekar, staraOperacija, stariPregled);
             CloseAction();
 
         }
@@ -436,7 +435,7 @@ namespace Bolnica.ViewModel
         public void Executed_SpecijalizacijaComboOpenTabCommand(object obj)
         {
             
-            ItemSourceLekarB = inject.PregledService.SpecijalizacijaComboOpenTab(specijalizacije, Specijalizacija, lekariTrenutni);
+            ItemSourceLekarB = inject.PregledService.SpecijalizacijaComboNaTab(specijalizacije, Specijalizacija, sviLekari);
             ItemSourceSpecijalizacijaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -462,8 +461,8 @@ namespace Bolnica.ViewModel
         public void Executed_LekarComboOpenTabCommand(object obj)
         {
             
-            Specijalizacija = inject.PregledService.LekarComboOpenTab(zaFilLek, lekarB, lekariTrenutni, Specijalizacija);
-            ItemSourceVremeB = inject.PregledService.filterLekar(zaFilLek, ItemSourceVremeB, lekariTrenutni, lekarB, datumB);
+            Specijalizacija = inject.PregledService.LekarComboNaTab(nazivIzfiltriranogLeka, lekarB, sviLekari, Specijalizacija);
+            ItemSourceVremeB = inject.PregledService.LekarFiltriranje(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, lekarB, datumB);
             ItemSourceLekarComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -572,8 +571,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_DatumComboOpenTabCommand(object obj)
         {
-            ItemSourceBrojProstorije = inject.PregledService.DatumDateKey(zaFilLekDat, datumB, ItemSourceBrojProstorije, prostorijaZa);
-            ItemSourceVremeB = inject.PregledService.filterLekar(zaFilLek, ItemSourceVremeB, lekariTrenutni, lekarB, datumB);
+            ItemSourceBrojProstorije = inject.PregledService.DatumFiltriranje(datumZaFiltriranjeLeka, datumB, sveProstorije, ItemSourceBrojProstorije);
+            ItemSourceVremeB = inject.PregledService.LekarFiltriranje(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, lekarB, datumB);
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
         }
@@ -644,24 +643,27 @@ namespace Bolnica.ViewModel
 
         public void Executed_OperacijaCheckCommand(object obj)
         {
-            if (jeOpe)
+            if (daLiJeOperacija)
             {
                 TrajanjeB = "30";
                 ItemSourceDaLiJeTrajanje = false;
                 ItemSourceDaLiJeOperacije = false;
                 ItemSourceBrojProstorije = new List<String>();
                 List<String> zaBag = new List<String>();
-                for (int pr = 0; pr < prostorijaZa.Count; pr++)
+                for (int pr = 0; pr < sveProstorije.Count; pr++)
                 {
-                    if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
+                    if (sveProstorije[pr].Obrisana == false && sveProstorije[pr].Zauzeta == false && sveProstorije[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
                     {
-                        zaBag.Add(prostorijaZa[pr].BrojProstorije.ToString());
+                        zaBag.Add(sveProstorije[pr].BrojProstorije.ToString());
                     }
                 }
                 ItemSourceBrojProstorije = zaBag;
-                jeOpe = false;
+                daLiJeOperacija = false;
                 ItemSourceVisibility = Visibility.Hidden;
                 List<TipOperacije> tipOperacije = new List<TipOperacije>();
+                tipOperacije.Add(TipOperacije.prvaKat);
+                tipOperacije.Add(TipOperacije.drugaKat);
+                tipOperacije.Add(TipOperacije.trecaKat);
                 ItemSourceTipOperacije = tipOperacije;
                 ItemSourceDaLiJeOperacije = false;
             }
@@ -672,15 +674,15 @@ namespace Bolnica.ViewModel
                 ItemSourceDaLiJeOperacije = true;
                 ItemSourceBrojProstorije = new List<String>();
                 List<String> zaBag = new List<String>();
-                for (int pr = 0; pr < prostorijaZa.Count; pr++)
+                for (int pr = 0; pr < sveProstorije.Count; pr++)
                 {
-                    if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.operacionaSala))
+                    if (sveProstorije[pr].Obrisana == false && sveProstorije[pr].Zauzeta == false && sveProstorije[pr].TipProstorije.Equals(TipProstorije.operacionaSala))
                     {
-                        zaBag.Add(prostorijaZa[pr].BrojProstorije);
+                        zaBag.Add(sveProstorije[pr].BrojProstorije);
                     }
                 }
                 ItemSourceBrojProstorije = zaBag;
-                jeOpe = true;
+                daLiJeOperacija = true;
                 ItemSourceVisibility = Visibility.Visible;
                 List<TipOperacije> tipOperacije = new List<TipOperacije>();
                 tipOperacije.Add(TipOperacije.prvaKat);
@@ -698,336 +700,41 @@ namespace Bolnica.ViewModel
         public Action CloseAction { get; set; }
 
 
-        public IzmeniINapraviTerminLekarViewModel(Lekar neki)
+        public IzmeniINapraviTerminLekarViewModel(Lekar izabraniLekar)
         {
+            InicirajZajednickaPoljaKonstruktora(izabraniLekar);
             checkBoxOperacijaEnabled = false;
-            
             pacijentEnabled = true;
-            ItemSourceDaLiJeHitan = false;
-            ItemSourceDaLiJeOperacije = false;
-            ItemSourceDaLiJeTrajanje = false;
-            ItemSourceVremeComboOpen = false;
-            ItemSourceVisibility = Visibility.Hidden;
-            ItemSourceSpecijalizacija = new List<string>();
-
-            ItemSourcePrezimeB = new List<string>();
-
-            ItemSourceLekarB = new List<string>();
-
-            ItemSourceVremeB = new List<TimeSpan>();
-
-            ItemSourceBrojProstorije = new List<string>();
-
-            ItemSourceTipOperacije = new List<TipOperacije>();
-
-      
-            this.Preg = new Pregled();
-            Inject = new Injector();
-            specijalizacije = new List<String>();
-            ulogovaniLekar = neki;
-            lekariTrenutni = sviLekari.GetAll();
-            
-            datumB = DateTime.Now;
-            pacijentiZa = sviPacijenti.GetAll();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-            prostorijaZa = sveProstorije.GetAllProstorije();
-
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null)
-                {
-                    string s = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
-                    ItemSourceLekarB.Add(s);
-                }
-            }
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(lekariTrenutni[le].Specijalizacija.OblastMedicine))
-                {
-                    specijalizacije.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                    ItemSourceSpecijalizacija.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                }
-            }
-
-            for (int vre = 0; vre < 24; vre++)
-            {
-                for (int min = 0; min < 59;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    ItemSourceVremeB.Add(ts);
-                }
-
-            }
-
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
-            {
-                ItemSourceDaLiJeOperacije = false;
-            }
-
-            TrajanjeB = "30";
-            ItemSourceDaLiJeTrajanje = false;
-            /* WindowStartupLocation = WindowStartupLocation.CenterOwner;
-             Owner = Application.Current.MainWindow; */
-            for (int i = 0; i < pacijentiZa.Count; i++)
-            {
-                if (pacijentiZa[i].Obrisan == false)
-                {
-                    string s;
-                    s = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
-
-                    ItemSourcePrezimeB.Add(s);
-
-                }
-            }
-            for (int pr = 0; pr < prostorijaZa.Count; pr++)
-            {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
-                {
-                    ItemSourceBrojProstorije.Add(prostorijaZa[pr].BrojProstorije);
-                }
-            }
-            DodajPregledLekarCommand = new RelayCommand(Executed_DodajPregledLekarCommand, CanExecute_DodajPregledLekarCommand);
-            VremeComboOpenCommand = new RelayCommand(Executed_VremeComboOpenCommand, CanExecute_VremeComboOpenCommand);
-            SpecijalizacijaComboOpenCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenCommand, CanExecute_SpecijalizacijaComboOpenCommand);
-            SpecijalizacijaComboOpenTabCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenTabCommand, CanExecute_SpecijalizacijaComboOpenTabCommand);
-            LekarComboOpenCommand = new RelayCommand(Executed_LekarComboOpenCommand, CanExecute_LekarComboOpenCommand);
-            LekarComboOpenTabCommand = new RelayCommand(Executed_LekarComboOpenTabCommand, CanExecute_LekarComboOpenTabCommand);
-            PacijentComboOpenCommand = new RelayCommand(Executed_PacijentComboOpenCommand, CanExecute_PacijentComboOpenCommand);
-            ProstorijaComboOpenCommand = new RelayCommand(Executed_ProstorijaComboOpenCommand, CanExecute_ProstorijaComboOpenCommand);
-            OperacijaComboOpenCommand = new RelayCommand(Executed_OperacijaComboOpenCommand, CanExecute_OperacijaComboOpenCommand);
-            OperacijaCheckCommand = new RelayCommand(Executed_OperacijaCheckCommand, CanExecute_OperacijaCheckCommand);
-            DatumComboOpenCommand = new RelayCommand(Executed_DatumComboOpenTabCommand, CanExecute_DatumComboOpenCommand);
-            HitanCheckCommand = new RelayCommand(Executed_HitanCheckCommand, CanExecute_HitanCheckCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
+            PopuniIPodesiPodatkePregleda(izabraniLekar);
+            NapraviKomande();
         }
 
 
-        public IzmeniINapraviTerminLekarViewModel(Lekar neki, Pacijent pac)
+        public IzmeniINapraviTerminLekarViewModel(Lekar izabraniLekar, Pacijent pacijent)
         {
-            checkBoxOperacijaEnabled = false;
-            ItemSourceDaLiJeHitan = false;
-            ItemSourceDaLiJeOperacije = false;
-            ItemSourceDaLiJeTrajanje = false;
-            ItemSourceVremeComboOpen = false;
-            ItemSourceVisibility = Visibility.Hidden;
-            ItemSourceSpecijalizacija = new List<string>();
-
-            ItemSourcePrezimeB = new List<string>();
-
-            ItemSourceLekarB = new List<string>();
-
-            ItemSourceVremeB = new List<TimeSpan>();
-
-            ItemSourceBrojProstorije = new List<string>();
-
-            ItemSourceTipOperacije = new List<TipOperacije>();
-
-
-            this.Preg = new Pregled();
-            Inject = new Injector();
-            specijalizacije = new List<String>();
-            ulogovaniLekar = neki;
-            lekariTrenutni = sviLekari.GetAll();
-
-            datumB = DateTime.Now;
-            pacijentiZa = sviPacijenti.GetAll();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-            prostorijaZa = sveProstorije.GetAllProstorije();
-
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null)
-                {
-                    string s = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
-                    ItemSourceLekarB.Add(s);
-                }
-            }
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(lekariTrenutni[le].Specijalizacija.OblastMedicine))
-                {
-                    specijalizacije.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                    ItemSourceSpecijalizacija.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                }
-            }
-
-            for (int vre = 0; vre < 24; vre++)
-            {
-                for (int min = 0; min < 59;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    ItemSourceVremeB.Add(ts);
-                }
-
-            }
-
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
-            {
-                ItemSourceDaLiJeOperacije = false;
-            }
-
-            TrajanjeB = "30";
-            ItemSourceDaLiJeTrajanje = false;
-            /* WindowStartupLocation = WindowStartupLocation.CenterOwner;
-             Owner = Application.Current.MainWindow; */
-            for (int i = 0; i < pacijentiZa.Count; i++)
-            {
-                if (pacijentiZa[i].Obrisan == false)
-                {
-                    string s;
-                    string ss;
-                    s = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
-                    ss = pac.Prezime + ' ' + pac.Ime + ' ' + pac.Jmbg;
-                    ItemSourcePrezimeB.Add(s);
-                    if (s.Equals(ss))
-                    {
-                        prezimeB = ss;
-                        pacijentEnabled = false;
-                    }
-                    
-
-                }
-            }
-            for (int pr = 0; pr < prostorijaZa.Count; pr++)
-            {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
-                {
-                    ItemSourceBrojProstorije.Add(prostorijaZa[pr].BrojProstorije);
-                }
-            }
-            DodajPregledLekarCommand = new RelayCommand(Executed_DodajPregledLekarCommand, CanExecute_DodajPregledLekarCommand);
-            VremeComboOpenCommand = new RelayCommand(Executed_VremeComboOpenCommand, CanExecute_VremeComboOpenCommand);
-            SpecijalizacijaComboOpenCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenCommand, CanExecute_SpecijalizacijaComboOpenCommand);
-            SpecijalizacijaComboOpenTabCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenTabCommand, CanExecute_SpecijalizacijaComboOpenTabCommand);
-            LekarComboOpenCommand = new RelayCommand(Executed_LekarComboOpenCommand, CanExecute_LekarComboOpenCommand);
-            LekarComboOpenTabCommand = new RelayCommand(Executed_LekarComboOpenTabCommand, CanExecute_LekarComboOpenTabCommand);
-            PacijentComboOpenCommand = new RelayCommand(Executed_PacijentComboOpenCommand, CanExecute_PacijentComboOpenCommand);
-            ProstorijaComboOpenCommand = new RelayCommand(Executed_ProstorijaComboOpenCommand, CanExecute_ProstorijaComboOpenCommand);
-            OperacijaComboOpenCommand = new RelayCommand(Executed_OperacijaComboOpenCommand, CanExecute_OperacijaComboOpenCommand);
-            OperacijaCheckCommand = new RelayCommand(Executed_OperacijaCheckCommand, CanExecute_OperacijaCheckCommand);
-            DatumComboOpenCommand = new RelayCommand(Executed_DatumComboOpenTabCommand, CanExecute_DatumComboOpenCommand);
-            HitanCheckCommand = new RelayCommand(Executed_HitanCheckCommand, CanExecute_HitanCheckCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-        }
-
-        public IzmeniINapraviTerminLekarViewModel(PrikazPregleda p1, Lekar neki)
-        {
+            InicirajZajednickaPoljaKonstruktora(izabraniLekar);
             checkBoxOperacijaEnabled = false;
             pacijentEnabled = true;
-          
-            ItemSourceSpecijalizacija = new List<string>();
+            PopuniIPodesiPodatkePregleda(pacijent);
+            NapraviKomande();
+        }
 
-            ItemSourcePrezimeB = new List<string>();
+        public IzmeniINapraviTerminLekarViewModel(PrikazPregleda pregled, Lekar izabraniLekar)
+        {
+            InicirajPoljaPregleda(pregled, izabraniLekar);
+            PopuniIPodesiPodatkeIzmenePregleda();
+            NapraviKomande();
+        }
 
-            ItemSourceLekarB = new List<string>();
-
-            ItemSourceVremeB = new List<TimeSpan>();
-
-            ItemSourceBrojProstorije = new List<string>();
-
-            ItemSourceTipOperacije = new List<TipOperacije>();
-
-
-            this.Preg = new Pregled();
-            Inject = new Injector();
-            trenutniPregled = p1;
-            stariPregled = p1;
-            specijalizacije = new List<String>();
-            ulogovaniLekar = neki;
-            lekariTrenutni = sviLekari.GetAll();
-
-            datumB = DateTime.Now;
-            pacijentiZa = sviPacijenti.GetAll();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-            prostorijaZa = sveProstorije.GetAllProstorije();
-
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null)
-                {
-                    string s = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
-                    ItemSourceLekarB.Add(s);
-                }
-            }
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(lekariTrenutni[le].Specijalizacija.OblastMedicine))
-                {
-                    specijalizacije.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                    ItemSourceSpecijalizacija.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                }
-            }
-
-            for (int vre = 0; vre < 24; vre++)
-            {
-                for (int min = 0; min < 59;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    ItemSourceVremeB.Add(ts);
-                }
-
-            }
-
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
-            {
-                ItemSourceDaLiJeOperacije = false;
-            }
-
-            TrajanjeB = "30";
-            ItemSourceDaLiJeTrajanje = false;
-            /* WindowStartupLocation = WindowStartupLocation.CenterOwner;
-             Owner = Application.Current.MainWindow; */
-            for (int i = 0; i < pacijentiZa.Count; i++)
-            {
-                if (pacijentiZa[i].Obrisan == false)
-                {
-                    string s;
-                    s = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
-
-                    ItemSourcePrezimeB.Add(s);
-
-                }
-            }
-            for (int pr = 0; pr < prostorijaZa.Count; pr++)
-            {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
-                {
-                    ItemSourceBrojProstorije.Add(prostorijaZa[pr].BrojProstorije);
-                }
-            }
-
-
-            Specijalizacija = trenutniPregled.Lekar.Specijalizacija.OblastMedicine;
-            prezimeB = trenutniPregled.Pacijent.Prezime + ' ' + trenutniPregled.Pacijent.Ime + ' ' + trenutniPregled.Pacijent.Jmbg;
-            lekarB = trenutniPregled.Lekar.Prezime + ' ' + trenutniPregled.Lekar.Ime + ' ' + trenutniPregled.Lekar.Jmbg;
-            string[] div = trenutniPregled.Datum.ToString().Split(" ");
-            string[] d = div[0].Split(".");
-            string v = div[1];
-            DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
-            datumB = dat;
-            vremeB = TimeSpan.Parse(v).ToString(); 
-            brojProstorijeB = trenutniPregled.Prostorija.BrojProstorije.ToString();
-            TrajanjeB = trenutniPregled.Trajanje.ToString();
-            ItemSourceDaLiJeOperacije = false;
-            ItemSourceDaLiJeHitan = trenutniPregled.Hitan;
-            ItemSourceDaLiJeTrajanje = false;
-            itemSourceVisibility = Visibility.Hidden;
-
-
-
-
+        public IzmeniINapraviTerminLekarViewModel(PrikazOperacije operacija, Lekar izabraniLekar)
+        {
+            InicijalizujPoljaIzmeneOperacije(operacija,izabraniLekar);
+            PopuniIPodesiPodatkeIzmeneOperacije();
+            NapraviKomande();
+        }
+        public void NapraviKomande()
+        {
+            DodajPregledLekarCommand = new RelayCommand(Executed_DodajPregledLekarCommand, CanExecute_DodajPregledLekarCommand);
             IzmeniPregledLekarCommand = new RelayCommand(Executed_IzmeniPregledLekarCommand, CanExecute_IzmeniPregledLekarCommand);
             VremeComboOpenCommand = new RelayCommand(Executed_VremeComboOpenCommand, CanExecute_VremeComboOpenCommand);
             SpecijalizacijaComboOpenCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenCommand, CanExecute_SpecijalizacijaComboOpenCommand);
@@ -1041,103 +748,86 @@ namespace Bolnica.ViewModel
             DatumComboOpenCommand = new RelayCommand(Executed_DatumComboOpenTabCommand, CanExecute_DatumComboOpenCommand);
             HitanCheckCommand = new RelayCommand(Executed_HitanCheckCommand, CanExecute_HitanCheckCommand);
             ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
+        }
+        public void InicirajZajednickaPoljaKonstruktora(Lekar izabraniLekar)
+        {
+            ItemSourceSpecijalizacija = new List<string>();
+            ItemSourcePrezimeB = new List<string>();
+            ItemSourceLekarB = new List<string>();
+            ItemSourceVremeB = new List<TimeSpan>();
+            ItemSourceBrojProstorije = new List<string>();
+            ItemSourceTipOperacije = new List<TipOperacije>();
+            Inject = new Injector();
+            sviLekari = skladisteLekara.GetAll();
+            sviPacijenti = skladistePacijenata.GetAll();
+            pregledi = skladistePregleda.GetAllPregledi();
+            operacije = skladistePregleda.GetAllOperacije();
+            sveProstorije = skladisteProstorija.GetAllProstorije();
+            specijalizacije = new List<String>();
+            ulogovaniLekar = izabraniLekar;
+        }
+        public void InicirajPoljaPregleda(PrikazPregleda pregled, Lekar izabraniLekar)
+        {
+            InicirajZajednickaPoljaKonstruktora(izabraniLekar);
+            checkBoxOperacijaEnabled = false;
+            pacijentEnabled = true;
+            trenutniPregled = pregled;
+            stariPregled = pregled;
+
+        }
+        public void InicijalizujPoljaIzmeneOperacije(PrikazOperacije operacija, Lekar izabraniLekar)
+        {
+            InicirajZajednickaPoljaKonstruktora(izabraniLekar);
+            checkBoxOperacijaEnabled = false;
+            pacijentEnabled = true;
+            trenutnaOperacija = operacija;
+            staraOperacija = operacija;
+        }
+        public void PopuniIPodesiPodatkeIzmenePregleda()
+        {
+            PopuniComboBoxove();
+            RukujPoljimaPregleda();
+            PostaviComboBoxoveNaPotrebneVrednostiIzmenePregleda();
 
         }
 
-        public IzmeniINapraviTerminLekarViewModel(PrikazOperacije op, Lekar neki)
+        public void PopuniIPodesiPodatkePregleda(Pacijent pacijent)
         {
-            checkBoxOperacijaEnabled = false;
-            pacijentEnabled = true;
-        
-            ItemSourceSpecijalizacija = new List<string>();
-
-            ItemSourcePrezimeB = new List<string>();
-
-            ItemSourceLekarB = new List<string>();
-
-            ItemSourceVremeB = new List<TimeSpan>();
-
-            ItemSourceBrojProstorije = new List<string>();
-
-            ItemSourceTipOperacije = new List<TipOperacije>();
-
-
-            this.Preg = new Pregled();
-            Inject = new Injector();
-            trenutnaOperacija = op;
-            staraOperacija = op;
-            specijalizacije = new List<String>();
-            ulogovaniLekar = neki;
-            lekariTrenutni = sviLekari.GetAll();
-
+            PopuniComboBoxove(pacijent);
+            RukujPoljimaPregleda();
             datumB = DateTime.Now;
-            pacijentiZa = sviPacijenti.GetAll();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
-            prostorijaZa = sveProstorije.GetAllProstorije();
+        }
 
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null)
-                {
-                    string s = lekariTrenutni[le].Prezime + ' ' + lekariTrenutni[le].Ime + ' ' + lekariTrenutni[le].Jmbg;
-                    ItemSourceLekarB.Add(s);
-                }
-            }
-
-            for (int le = 0; le < lekariTrenutni.Count; le++)
-            {
-                if (lekariTrenutni[le].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(lekariTrenutni[le].Specijalizacija.OblastMedicine))
-                {
-                    specijalizacije.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                    ItemSourceSpecijalizacija.Add(lekariTrenutni[le].Specijalizacija.OblastMedicine);
-                }
-            }
-
-            for (int vre = 0; vre < 24; vre++)
-            {
-                for (int min = 0; min < 59;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    ItemSourceVremeB.Add(ts);
-                }
-
-            }
-
-            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
-            {
-                ItemSourceDaLiJeOperacije = false;
-            }
-
-            TrajanjeB = "30";
-            ItemSourceDaLiJeTrajanje = false;
-            /* WindowStartupLocation = WindowStartupLocation.CenterOwner;
-             Owner = Application.Current.MainWindow; */
-            for (int i = 0; i < pacijentiZa.Count; i++)
-            {
-                if (pacijentiZa[i].Obrisan == false)
-                {
-                    string s;
-                    s = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
-
-                    ItemSourcePrezimeB.Add(s);
-
-                }
-            }
-            for (int pr = 0; pr < prostorijaZa.Count; pr++)
-            {
-                if (prostorijaZa[pr].Obrisana == false && prostorijaZa[pr].Zauzeta == false && prostorijaZa[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
-                {
-                    ItemSourceBrojProstorije.Add(prostorijaZa[pr].BrojProstorije);
-                }
-            }
-
-            ItemSourceDaLiJeOperacije = true;
-            ItemSourceDaLiJeHitan = trenutnaOperacija.Hitan;
-            ItemSourceDaLiJeTrajanje = true;
-            itemSourceVisibility = Visibility.Visible;
+        public void PopuniIPodesiPodatkePregleda(Lekar izabraniLekar)
+        {
+            PopuniComboBoxove();
+            RukujPoljimaPregleda();
+            datumB = DateTime.Now;
+        }
+        public void PopuniIPodesiPodatkeIzmeneOperacije()
+        {
+            PopuniComboBoxove();
+            RukujPoljimaIzmeneOperacije();
+            PostaviComboBoxoveNaPotrebneVrednostiIzmeneOperacije();
+            
+        }
+        public void PostaviComboBoxoveNaPotrebneVrednostiIzmenePregleda()
+        {
+            Specijalizacija = trenutniPregled.Lekar.Specijalizacija.OblastMedicine;
+            prezimeB = trenutniPregled.Pacijent.Prezime + ' ' + trenutniPregled.Pacijent.Ime + ' ' + trenutniPregled.Pacijent.Jmbg;
+            lekarB = trenutniPregled.Lekar.Prezime + ' ' + trenutniPregled.Lekar.Ime + ' ' + trenutniPregled.Lekar.Jmbg;
+            string[] div = trenutniPregled.Datum.ToString().Split(" ");
+            string[] d = div[0].Split(".");
+            string v = div[1];
+            DateTime dat = new DateTime(Int32.Parse(d[2]), Int32.Parse(d[1]), Int32.Parse(d[0]));
+            datumB = dat;
+            vremeB = TimeSpan.Parse(v).ToString();
+            brojProstorijeB = trenutniPregled.Prostorija.BrojProstorije.ToString();
+            TrajanjeB = trenutniPregled.Trajanje.ToString();
+            ItemSourceDaLiJeHitan = trenutniPregled.Hitan;
+        }
+        public void PostaviComboBoxoveNaPotrebneVrednostiIzmeneOperacije()
+        {
             Specijalizacija = trenutnaOperacija.Lekar.Specijalizacija.OblastMedicine;
             prezimeB = trenutnaOperacija.Pacijent.Prezime + ' ' + trenutnaOperacija.Pacijent.Ime + ' ' + trenutnaOperacija.Pacijent.Jmbg;
             lekarB = trenutnaOperacija.Lekar.Prezime + ' ' + trenutnaOperacija.Lekar.Ime + ' ' + trenutnaOperacija.Lekar.Jmbg;
@@ -1149,31 +839,155 @@ namespace Bolnica.ViewModel
             vremeB = TimeSpan.Parse(v).ToString();
             brojProstorijeB = trenutnaOperacija.Prostorija.BrojProstorije.ToString();
             TrajanjeB = trenutnaOperacija.Trajanje.ToString();
+            ItemSourceDaLiJeHitan = trenutnaOperacija.Hitan;
+            tipOperacijeB = trenutnaOperacija.TipOperacije;
+        }
+        public void RukujPoljimaIzmeneOperacije()
+        {
+            RukovanjeTextBoxTrajanjeIzmeneOperacije();
+            OnemoguciOperacijuAkoJeOpsta();
+            RukovanjePoljimaZaOperaciju();
+        }
+        public void RukujPoljimaPregleda()
+        {
+            RukovanjeTextBoxTrajanjePregleda();
+            OnemoguciOperacijuAkoJeOpsta();
+            RukovanjePoljimaZaPregled();
+        }
+
+        public void RukovanjePoljimaZaPregled()
+        {
+            ItemSourceDaLiJeOperacije = false;
+            itemSourceVisibility = Visibility.Hidden;
+        }
+        public void PopuniComboBoxTipOperacije()
+        {
             List<TipOperacije> tipOperacije = new List<TipOperacije>();
             tipOperacije.Add(TipOperacije.prvaKat);
             tipOperacije.Add(TipOperacije.drugaKat);
             tipOperacije.Add(TipOperacije.trecaKat);
             ItemSourceTipOperacije = tipOperacije;
-            tipOperacijeB = trenutnaOperacija.TipOperacije;
-            
+        }
+        public void RukovanjePoljimaZaOperaciju()
+        {
+            ItemSourceDaLiJeOperacije = true;
+            itemSourceVisibility = Visibility.Visible;
+        }
+        public void PopuniComboBoxove()
+        {
+            PopuniComboBoxLekar();
+            PopuniComboBoxSpecijalizacija();
+            PopuniComboBoxVreme();
+            PopuniComboBoxPacijent();
+            PopuniComboBoxProstorija();
+            PopuniComboBoxTipOperacije();
+        }
+
+        public void PopuniComboBoxove(Pacijent pacijent)
+        {
+            PopuniComboBoxLekar();
+            PopuniComboBoxSpecijalizacija();
+            PopuniComboBoxVreme();
+            PopuniComboBoxPacijent(pacijent);
+            PopuniComboBoxProstorija();
+            PopuniComboBoxTipOperacije();
+        }
+        public void PopuniComboBoxLekar()
+        {
+            for (int le = 0; le < sviLekari.Count; le++)
+            {
+                if (sviLekari[le].Specijalizacija.OblastMedicine != null)
+                {
+                    string podaciOLekaru = sviLekari[le].Prezime + ' ' + sviLekari[le].Ime + ' ' + sviLekari[le].Jmbg;
+                    ItemSourceLekarB.Add(podaciOLekaru);
+                }
+            }
+        }
+        public void PopuniComboBoxSpecijalizacija()
+        {
+            for (int le = 0; le < sviLekari.Count; le++)
+            {
+                if (sviLekari[le].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(sviLekari[le].Specijalizacija.OblastMedicine))
+                {
+                    specijalizacije.Add(sviLekari[le].Specijalizacija.OblastMedicine);
+                    ItemSourceSpecijalizacija.Add(sviLekari[le].Specijalizacija.OblastMedicine);
+                }
+            }
+        }
+        public void PopuniComboBoxVreme()
+        {
+            for (int vre = 0; vre < 24; vre++)
+            {
+                for (int min = 0; min < 59;)
+                {
+                    TimeSpan ts = new TimeSpan(vre, min, 0);
+                    min = min + 15;
+                    ItemSourceVremeB.Add(ts);
+                }
+
+            }
+        }
+        public void OnemoguciOperacijuAkoJeOpsta()
+        {
+            if (ulogovaniLekar.Specijalizacija.OblastMedicine.Equals("Opsta"))
+            {
+                ItemSourceDaLiJeOperacije = false;
+            }
+        }
+        public void RukovanjeTextBoxTrajanjePregleda()
+        {
+            TrajanjeB = "30";
+            ItemSourceDaLiJeTrajanje = false;
+        }
+        public void RukovanjeTextBoxTrajanjeIzmeneOperacije()
+        {
+            TrajanjeB = "30";
+            ItemSourceDaLiJeTrajanje = true;
+        }
+        public void PopuniComboBoxPacijent()
+        {
+            for (int i = 0; i < sviPacijenti.Count; i++)
+            {
+                if (sviPacijenti[i].Obrisan == false)
+                {
+                    string podaciOPacijentu;
+                    podaciOPacijentu = sviPacijenti[i].Prezime + ' ' + sviPacijenti[i].Ime + ' ' + sviPacijenti[i].Jmbg;
+
+                    ItemSourcePrezimeB.Add(podaciOPacijentu);
+
+                }
+            }
+        }
+        public void PopuniComboBoxPacijent(Pacijent pacijent)
+        {
+            for (int i = 0; i < sviPacijenti.Count; i++)
+            {
+                if (sviPacijenti[i].Obrisan == false)
+                {
+                    string podaciOPacijentu;
+                    string podaciOIzabranomPacijentu;
+                    podaciOPacijentu = sviPacijenti[i].Prezime + ' ' + sviPacijenti[i].Ime + ' ' + sviPacijenti[i].Jmbg;
+                    podaciOIzabranomPacijentu = pacijent.Prezime + ' ' + pacijent.Ime + ' ' + pacijent.Jmbg;
+                    ItemSourcePrezimeB.Add(podaciOPacijentu);
+                    if (podaciOPacijentu.Equals(podaciOIzabranomPacijentu))
+                    {
+                        prezimeB = podaciOIzabranomPacijentu;
+                        pacijentEnabled = false;
+                    }
 
 
-
-
-            IzmeniPregledLekarCommand = new RelayCommand(Executed_IzmeniPregledLekarCommand, CanExecute_IzmeniPregledLekarCommand);
-            VremeComboOpenCommand = new RelayCommand(Executed_VremeComboOpenCommand, CanExecute_VremeComboOpenCommand);
-            SpecijalizacijaComboOpenCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenCommand, CanExecute_SpecijalizacijaComboOpenCommand);
-            SpecijalizacijaComboOpenTabCommand = new RelayCommand(Executed_SpecijalizacijaComboOpenTabCommand, CanExecute_SpecijalizacijaComboOpenTabCommand);
-            LekarComboOpenCommand = new RelayCommand(Executed_LekarComboOpenCommand, CanExecute_LekarComboOpenCommand);
-            LekarComboOpenTabCommand = new RelayCommand(Executed_LekarComboOpenTabCommand, CanExecute_LekarComboOpenTabCommand);
-            PacijentComboOpenCommand = new RelayCommand(Executed_PacijentComboOpenCommand, CanExecute_PacijentComboOpenCommand);
-            ProstorijaComboOpenCommand = new RelayCommand(Executed_ProstorijaComboOpenCommand, CanExecute_ProstorijaComboOpenCommand);
-            OperacijaComboOpenCommand = new RelayCommand(Executed_OperacijaComboOpenCommand, CanExecute_OperacijaComboOpenCommand);
-            OperacijaCheckCommand = new RelayCommand(Executed_OperacijaCheckCommand, CanExecute_OperacijaCheckCommand);
-            DatumComboOpenCommand = new RelayCommand(Executed_DatumComboOpenTabCommand, CanExecute_DatumComboOpenCommand);
-            HitanCheckCommand = new RelayCommand(Executed_HitanCheckCommand, CanExecute_HitanCheckCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-
+                }
+            }
+        }
+        public void PopuniComboBoxProstorija()
+        {
+            for (int pr = 0; pr < sveProstorije.Count; pr++)
+            {
+                if (sveProstorije[pr].Obrisana == false && sveProstorije[pr].Zauzeta == false && sveProstorije[pr].TipProstorije.Equals(TipProstorije.salaZaPreglede))
+                {
+                    ItemSourceBrojProstorije.Add(sveProstorije[pr].BrojProstorije);
+                }
+            }
         }
 
     }

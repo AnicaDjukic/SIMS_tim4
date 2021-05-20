@@ -7,7 +7,7 @@ using Model.Pacijenti;
 
 namespace Bolnica.Model.Pregledi
 {
-    class FileStorageSastojak
+    public class FileStorageSastojak
     {
         private string fileLocation;
 

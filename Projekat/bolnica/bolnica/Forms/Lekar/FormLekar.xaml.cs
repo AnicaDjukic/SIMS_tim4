@@ -29,13 +29,14 @@ namespace Bolnica.Forms
 
     public partial class FormLekar : Window
     {
+
         public FormLekar(LekarViewModel viewModel)
         {
             Application.Current.MainWindow = this;
             InitializeComponent();
             this.DataContext = viewModel;
-            if (viewModel.CloseAction == null)
-                viewModel.CloseAction = new Action(this.Close);
+            if (viewModel.ZatvoriAkcija == null)
+                viewModel.ZatvoriAkcija = new Action(this.Close);
             viewModel.Popuni(lekarGrid, lekarGridIstorija, dataGridLekovi);
             this.Show();
             viewModel.PodesiParametre(Zakazi, PreglediTab, IstorijaTab, LekTab, AnamnezaIstorijaDugme, Odobri);

@@ -1,4 +1,5 @@
 ﻿using Bolnica.Commands;
+using Bolnica.DTO;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
@@ -18,33 +19,31 @@ namespace Bolnica.ViewModel
     {
         public static List<Pregled> listaPregleda = new List<Pregled>();
         public static List<Operacija> listaOperacija = new List<Operacija>();
-        public static DataGrid dataList = new DataGrid();
-        public static DataGrid dataListIstorija = new DataGrid();
-        public static ObservableCollection<PrikazLek> lekoviPrikaz = new ObservableCollection<PrikazLek>();
-        public static List<Lekar> listaLekara = new List<Lekar>();
-        private Lekar lekarTrenutni = new Lekar();
-        private Lekar lekarPomocni = new Lekar();
-        private Lekar ll3 = new Lekar();
-        private Lekar ll4 = new Lekar();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
-        private FileStorageLek sviLekovi = new FileStorageLek();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
+        private List<Lekar> listaLekara = new List<Lekar>();
+        private List<Lek> lekovi = new List<Lek>();
+        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
+        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
+        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
+        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private FileStorageLek skladisteLekova = new FileStorageLek();
+        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        public static DataGrid podaciLista = new DataGrid();
+        public static DataGrid podaciListaIstorija = new DataGrid();
+        public static ObservableCollection<PrikazLek> lekoviPrikaz = new ObservableCollection<PrikazLek>();
+        private Lekar lekarTrenutni = new Lekar();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
         private PrikazOperacije prikazOperacije = new PrikazOperacije();
-        private List<Lek> lekovi = new List<Lek>();
-        public DataGrid lekarGrid;
-        public DataGrid lekarGridIstorija;
-        public DataGrid dataGridLekovi;
-        public Button Zakazi;
-        public TabItem PreglediTab;
-        public TabItem IstorijaTab;
-        public TabItem LekTab;
-        public Button AnamnezaIstorijaDugme;
-        public Button OdobriButton;
+        private DataGrid preglediTabela;
+        private DataGrid istorijaPregledaTabela;
+        private DataGrid lekoviTabela;
+        private Button zakaziDugme;
+        private TabItem preglediTab;
+        private TabItem istorijaTab;
+        private TabItem lekTab;
+        private Button anamnezaIstorijaDugme;
+        private Button odobriDugme;
 
 
         private Injector inject;
@@ -56,455 +55,428 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
-        public Action CloseAction { get; set; }
+        public Action ZatvoriAkcija { get; set; }
 
-        private RelayCommand zakaziPregledCommand;
-        public RelayCommand ZakaziPregledCommand
+        private RelayCommand zakaziPregledKomanda;
+        public RelayCommand ZakaziPregledKomanda
         {
-            get { return zakaziPregledCommand; }
+            get { return zakaziPregledKomanda; }
             set
             {
-                zakaziPregledCommand = value;
+                zakaziPregledKomanda = value;
 
             }
         }
 
-        public void Executed_ZakaziPregledCommand(object obj)
+        public void Executed_ZakaziPregledKomanda(object obj)
         {
-            inject.LekarService.ZakaziPregled(lekarTrenutni);
-            inject.LekarService.CollorLekarGrid(lekarGrid);
+            inject.LekarService.ZakaziPregled(new LekarServiceDTO(lekarTrenutni));
         }
 
-        public bool CanExecute_ZakaziPregledCommand(object obj)
+        public bool CanExecute_ZakaziPregledKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand otkaziPregledCommand;
-        public RelayCommand OtkaziPregledCommand
+        private RelayCommand otkaziPregledKomanda;
+        public RelayCommand OtkaziPregledKomanda
         {
-            get { return otkaziPregledCommand; }
+            get { return otkaziPregledKomanda; }
             set
             {
-                otkaziPregledCommand = value;
+                otkaziPregledKomanda = value;
 
             }
         }
 
-        public void Executed_OtkaziPregledCommand(object obj)
+        public void Executed_OtkaziPregledKomanda(object obj)
         {
-            inject.LekarService.OtkaziPregled(lekarGrid,prikazPregleda,listaPregleda,prikazOperacije,listaOperacija);
-            inject.LekarService.CollorLekarGrid(lekarGrid);
+            inject.LekarService.OtkaziPregled(new LekarServiceDTO(preglediTabela,listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda,prikazOperacije));
         }
 
-        public bool CanExecute_OtkaziPregledCommand(object obj)
+        public bool CanExecute_OtkaziPregledKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand izmeniPregledCommand;
-        public RelayCommand IzmeniPregledCommand
+        private RelayCommand izmeniPregledKomanda;
+        public RelayCommand IzmeniPregledKomanda
         {
-            get { return izmeniPregledCommand; }
+            get { return izmeniPregledKomanda; }
             set
             {
-                izmeniPregledCommand = value;
+                izmeniPregledKomanda = value;
 
             }
         }
 
-        public void Executed_IzmeniPregledCommand(object obj)
+        public void Executed_IzmeniPregledKomanda(object obj)
         {
-            inject.LekarService.IzmeniPregled(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija,lekarTrenutni);
-            inject.LekarService.CollorLekarGrid(lekarGrid);
+            inject.LekarService.IzmeniPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
-        public bool CanExecute_IzmeniPregledCommand(object obj)
+        public bool CanExecute_IzmeniPregledKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand informacijeOPacijentuCommand;
-        public RelayCommand InformacijeOPacijentuCommand
+        private RelayCommand informacijeOPacijentuKomanda;
+        public RelayCommand InformacijeOPacijentuKomanda
         {
-            get { return informacijeOPacijentuCommand; }
+            get { return informacijeOPacijentuKomanda; }
             set
             {
-                informacijeOPacijentuCommand = value;
+                informacijeOPacijentuKomanda = value;
 
             }
         }
 
-        public void Executed_InformacijeOPacijentuCommand(object obj)
+        public void Executed_InformacijeOPacijentuKomanda(object obj)
         {
-            inject.LekarService.InformacijeOPacijentu(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija);
+            inject.LekarService.InformacijeOPacijentu(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
-        public bool CanExecute_InformacijeOPacijentuCommand(object obj)
+        public bool CanExecute_InformacijeOPacijentuKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonEnterCommand;
-        public RelayCommand JumpOnButtonEnterCommand
+        private RelayCommand skociNaEnterKomanda;
+        public RelayCommand SkociNaEnterKomanda
         {
-            get { return jumpOnButtonEnterCommand; }
+            get { return skociNaEnterKomanda; }
             set
             {
-                jumpOnButtonEnterCommand = value;
+                skociNaEnterKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonEnterCommand(object obj)
+        public void Executed_SkociNaEnterKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonEnter(Zakazi);
+            inject.LekarService.SkociNaEnter(new LekarServiceDTO(zakaziDugme));
         }
 
-        public bool CanExecute_JumpOnButtonEnterCommand(object obj)
+        public bool CanExecute_SkociNaEnterKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonLeftCommand;
-        public RelayCommand JumpOnButtonLeftCommand
+        private RelayCommand skociNaLevoKomanda;
+        public RelayCommand SkociNaLevoKomanda
         {
-            get { return jumpOnButtonLeftCommand; }
+            get { return skociNaLevoKomanda; }
             set
             {
-                jumpOnButtonLeftCommand = value;
+                skociNaLevoKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonLeftCommand(object obj)
+        public void Executed_SkociNaLevoKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonLeft(PreglediTab);
+            inject.LekarService.SkociNaLevo(new LekarServiceDTO(preglediTab));
         }
 
-        public bool CanExecute_JumpOnButtonLeftCommand(object obj)
+        public bool CanExecute_SkociNaLevoKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonTabCommand;
-        public RelayCommand JumpOnButtonTabCommand
+        private RelayCommand skociNaTabKomanda;
+        public RelayCommand SkociNaTabKomanda
         {
-            get { return jumpOnButtonTabCommand; }
+            get { return skociNaTabKomanda; }
             set
             {
-                jumpOnButtonTabCommand = value;
+                skociNaTabKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonTabCommand(object obj)
+        public void Executed_SkociNaTabKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonTab(lekarGrid);
+            inject.LekarService.SkociNaTab(new LekarServiceDTO(preglediTabela));
         }
 
-        public bool CanExecute_JumpOnButtonTabCommand(object obj)
+        public bool CanExecute_SkociNaTabKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonIstorijaEnterCommand;
-        public RelayCommand JumpOnButtonIstorijaEnterCommand
+        private RelayCommand skociNaEnterIstorijaKomanda;
+        public RelayCommand SkociNaEnterIstorijaKomanda
         {
-            get { return jumpOnButtonIstorijaEnterCommand; }
+            get { return skociNaEnterIstorijaKomanda; }
             set
             {
-                jumpOnButtonIstorijaEnterCommand = value;
+                skociNaEnterIstorijaKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonIstorijaEnterCommand(object obj)
+        public void Executed_SkociNaEnterIstorijaKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonIstorijaEnter(AnamnezaIstorijaDugme);
+            inject.LekarService.SkociNaEnterIstorija(new LekarServiceDTO(anamnezaIstorijaDugme));
         }
 
-        public bool CanExecute_JumpOnButtonIstorijaEnterCommand(object obj)
+        public bool CanExecute_SkociNaEnterIstorijaKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonIstorijaLeftCommand;
-        public RelayCommand JumpOnButtonIstorijaLeftCommand
+        private RelayCommand skociNaLevoIstorijaKomanda;
+        public RelayCommand SkociNaLevoIstorijaKomanda
         {
-            get { return jumpOnButtonIstorijaLeftCommand; }
+            get { return skociNaLevoIstorijaKomanda; }
             set
             {
-                jumpOnButtonIstorijaLeftCommand = value;
+                skociNaLevoIstorijaKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonIstorijaLeftCommand(object obj)
+        public void Executed_SkociNaLevoIstorijaKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonIstorijaLeft(IstorijaTab);
+            inject.LekarService.SkociNaLevoIstorija(new LekarServiceDTO(istorijaTab));
         }
 
-        public bool CanExecute_JumpOnButtonIstorijaLeftCommand(object obj)
+        public bool CanExecute_SkociNaLevoIstorijaKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand jumpOnButtonIstorijaTabCommand;
-        public RelayCommand JumpOnButtonIstorijaTabCommand
+        private RelayCommand skociNaTabIstorijaKomanda;
+        public RelayCommand SkociNaTabIstorijaKomanda
         {
-            get { return jumpOnButtonIstorijaTabCommand; }
+            get { return skociNaTabIstorijaKomanda; }
             set
             {
-                jumpOnButtonIstorijaTabCommand = value;
+                skociNaTabIstorijaKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonIstorijaTabCommand(object obj)
+        public void Executed_SkociNaTabIstorijaKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonIstorijaTab(lekarGridIstorija);
+            inject.LekarService.SkociNaTabIstorija(new LekarServiceDTO(istorijaPregledaTabela));
         }
 
-        public bool CanExecute_JumpOnButtonIstorijaTabCommand(object obj)
+        public bool CanExecute_SkociNaTabIstorijaKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand collorLekarGridCommand;
-        public RelayCommand CollorLekarGridCommand
+
+        private RelayCommand anamnezaKomanda;
+        public RelayCommand AnamnezaKomanda
         {
-            get { return collorLekarGridCommand; }
+            get { return anamnezaKomanda; }
             set
             {
-                collorLekarGridCommand = value;
+                anamnezaKomanda = value;
 
             }
         }
 
-        public void Executed_CollorLekarGridCommand(object obj)
+        public void Executed_AnamnezaKomanda(object obj)
         {
-           // inject.LekarService.CollorLekarGrid(lekarGrid);
-        }
-
-        public bool CanExecute_CollorLekarGridCommand(object obj)
-        {
-            return true;
-        }
-        private RelayCommand collorLekarGridIstorijaCommand;
-        public RelayCommand CollorLekarGridIstorijaCommand
-        {
-            get { return collorLekarGridIstorijaCommand; }
-            set
-            {
-                collorLekarGridIstorijaCommand = value;
-
-            }
-        }
-
-        public void Executed_CollorLekarGridIstorijaCommand(object obj)
-        {
-          //  inject.LekarService.CollorLekarGridIstorija(lekarGridIstorija);
-        }
-
-        public bool CanExecute_CollorLekarGridIstorijaCommand(object obj)
-        {
-            return true;
-        }
-        private RelayCommand focusTabCommand;
-        public RelayCommand FocusTabCommand
-        {
-            get { return focusTabCommand; }
-            set
-            {
-                focusTabCommand = value;
-
-            }
-        }
-
-        public void Executed_FocusTabCommand(object obj)
-        {
-            inject.LekarService.focusTab(PreglediTab);
-        }
-
-        public bool CanExecute_FocusTabCommand(object obj)
-        {
-            return true;
-
-        }
-
-        private RelayCommand anamnezaCommand;
-        public RelayCommand AnamnezaCommand
-        {
-            get { return anamnezaCommand; }
-            set
-            {
-                anamnezaCommand = value;
-
-            }
-        }
-
-        public void Executed_AnamnezaCommand(object obj)
-        {
-            inject.LekarService.Anamneza(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija, lekarTrenutni);
+            inject.LekarService.Anamneza(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
             
         }
 
-        public bool CanExecute_AnamnezaCommand(object obj)
+        public bool CanExecute_AnamnezaKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand anamnezaIstorijaCommand;
-        public RelayCommand AnamnezaIstorijaCommand
+        private RelayCommand anamnezaIstorijaKomanda;
+        public RelayCommand AnamnezaIstorijaKomanda
         {
-            get { return anamnezaIstorijaCommand; }
+            get { return anamnezaIstorijaKomanda; }
             set
             {
-                anamnezaIstorijaCommand = value;
+                anamnezaIstorijaKomanda = value;
 
             }
         }
 
-        public void Executed_AnamnezaIstorijaCommand(object obj)
+        public void Executed_AnamnezaIstorijaKomanda(object obj)
         {
-            inject.LekarService.AnamnezaIstorija(lekarGrid, prikazPregleda, listaPregleda, prikazOperacije, listaOperacija, lekarTrenutni);
+            inject.LekarService.AnamnezaIstorija(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
            
         }
 
-        public bool CanExecute_AnamnezaIstorijaCommand(object obj)
+        public bool CanExecute_AnamnezaIstorijaKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand izmeniLekCommand;
-        public RelayCommand IzmeniLekCommand
+        private RelayCommand izmeniLekKomanda;
+        public RelayCommand IzmeniLekKomanda
         {
-            get { return izmeniLekCommand; }
+            get { return izmeniLekKomanda; }
             set
             {
-                izmeniLekCommand = value;
+                izmeniLekKomanda = value;
 
             }
         }
 
-        public void Executed_IzmeniLekCommand(object obj)
+        public void Executed_IzmeniLekKomanda(object obj)
         {
-            inject.LekarService.IzmeniLek(dataGridLekovi, lekovi);
+            inject.LekarService.IzmeniLek(new LekarServiceDTO(lekoviTabela, lekovi));
         }
 
-        public bool CanExecute_IzmeniLekCommand(object obj)
+        public bool CanExecute_IzmeniLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand jumpOnButtonLekEnterCommand;
-        public RelayCommand JumpOnButtonLekEnterCommand
+        private RelayCommand skociNaEnterLekKomanda;
+        public RelayCommand SkociNaEnterLekKomanda
         {
-            get { return jumpOnButtonLekEnterCommand; }
+            get { return skociNaEnterLekKomanda; }
             set
             {
-                jumpOnButtonLekEnterCommand = value;
+                skociNaEnterLekKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonLekEnterCommand(object obj)
+        public void Executed_SkociNaEnterLekKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonLekEnter(OdobriButton);
+            inject.LekarService.SkociNaEnterLek(new LekarServiceDTO(odobriDugme));
         }
 
-        public bool CanExecute_JumpOnButtonLekEnterCommand(object obj)
+        public bool CanExecute_SkociNaEnterLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand jumpOnButtonLekLeftCommand;
-        public RelayCommand JumpOnButtonLekLeftCommand
+        private RelayCommand skociNaLevoLekKomanda;
+        public RelayCommand SkociNaLevoLekKomanda
         {
-            get { return jumpOnButtonLekLeftCommand; }
+            get { return skociNaLevoLekKomanda; }
             set
             {
-                jumpOnButtonLekLeftCommand = value;
+                skociNaLevoLekKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonLekLeftCommand(object obj)
+        public void Executed_SkociNaLevoLekKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonLekLeft(LekTab);
+            inject.LekarService.SkociNaLevoLek(new LekarServiceDTO(lekTab));
         }
 
-        public bool CanExecute_JumpOnButtonLekLeftCommand(object obj)
+        public bool CanExecute_SkociNaLevoLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand jumpOnButtonLekTabCommand;
-        public RelayCommand JumpOnButtonLekTabCommand
+        private RelayCommand skociNaTabLekKomanda;
+        public RelayCommand SkociNaTabLekKomanda
         {
-            get { return jumpOnButtonLekTabCommand; }
+            get { return skociNaTabLekKomanda; }
             set
             {
-                jumpOnButtonLekTabCommand = value;
+                skociNaTabLekKomanda = value;
 
             }
         }
 
-        public void Executed_JumpOnButtonLekTabCommand(object obj)
+        public void Executed_SkociNaTabLekKomanda(object obj)
         {
-            inject.LekarService.JumpOnButtonLekTab(dataGridLekovi);
+            inject.LekarService.SkociNaTabLek(new LekarServiceDTO(lekoviTabela));
         }
 
-        public bool CanExecute_JumpOnButtonLekTabCommand(object obj)
+        public bool CanExecute_SkociNaTabLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand odobriLekCommand;
-        public RelayCommand OdobriLekCommand
+        private RelayCommand odobriLekKomanda;
+        public RelayCommand OdobriLekKomanda
         {
-            get { return odobriLekCommand; }
+            get { return odobriLekKomanda; }
             set
             {
-                odobriLekCommand = value;
+                odobriLekKomanda = value;
 
             }
         }
 
-        public void Executed_OdobriLekCommand(object obj)
+        public void Executed_OdobriLekKomanda(object obj)
         {
-            inject.LekarService.OdobriLek(dataGridLekovi, lekovi, lekoviPrikaz);
+            inject.LekarService.OdobriLek(new LekarServiceDTO(lekoviTabela,lekovi));
         }
 
-        public bool CanExecute_OdobriLekCommand(object obj)
+        public bool CanExecute_OdobriLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand vratiNaIzmenuCommand;
-        public RelayCommand VratiNaIzmenuCommand
+        private RelayCommand vratiNaIzmenuKomanda;
+        public RelayCommand VratiNaIzmenuKomanda
         {
-            get { return vratiNaIzmenuCommand; }
+            get { return vratiNaIzmenuKomanda; }
             set
             {
-                vratiNaIzmenuCommand = value;
+                vratiNaIzmenuKomanda = value;
 
             }
         }
 
-        public void Executed_VratiNaIzmenuCommand(object obj)
+        public void Executed_VratiNaIzmenuKomanda(object obj)
         {
-            inject.LekarService.VratiNaIzmenu(dataGridLekovi);
+            inject.LekarService.VratiNaIzmenu(new LekarServiceDTO(lekoviTabela));
         }
 
-        public bool CanExecute_VratiNaIzmenuCommand(object obj)
+        public bool CanExecute_VratiNaIzmenuKomanda(object obj)
         {
             return true;
         }
 
         
-
-
-
-        public LekarViewModel(Lekar ln)
+        public LekarViewModel(Lekar lekar)
         {
             Inject = new Injector();
-           
-            
-            
+            IzfiltrirajLekove();
+            InicijalizujPolja(lekar);
+            DobijPregledeLekara();
+            DobijOperacijeLekara();
+            NapraviKomande();
 
-            lekovi = sviLekovi.GetAll();
+        }
+        public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii)
+        {
+            preglediTabela = lekarGridd;
+            istorijaPregledaTabela = lekarGridIstorijaa;
+            lekoviTabela = dataGridLekovii;
+            SortirajPodatke();
+            FiltrirajPregledeZaPrikaz();
+            FiltrirajOperacijeZaPrikaz();
+            NapraviListuLekovaZaPrikaz();
+            PodesiPrikazPregledaIOperacija();
+            PrikaziLekove();
+        }
+
+        public void PodesiParametre(Button Zakazi,TabItem PreglediTab,TabItem IstorijaTab,TabItem LekTab,Button AnamenzaIstorijaDugme,Button Odobri)
+        {
+            zakaziDugme = Zakazi;
+            preglediTab = PreglediTab;
+            istorijaTab = IstorijaTab;
+            lekTab = LekTab;
+            anamnezaIstorijaDugme = AnamenzaIstorijaDugme;
+            odobriDugme = Odobri;
+           
+        }
+        public static void RefreshPodaciListu()
+        {
+            podaciLista.Items.Refresh();
+        }
+        public static void RefreshPodaciListuIstorija()
+        {
+            podaciListaIstorija.Items.Refresh();
+        }
+        public void RefreshPreglediTabelu()
+        {
+            preglediTabela.Items.Refresh();
+        }
+        public void IzfiltrirajLekove()
+        {
+            lekovi = skladisteLekova.GetAll();
 
             for (int i = 0; i < lekovi.Count; i++)
             {
@@ -514,314 +486,140 @@ namespace Bolnica.ViewModel
                     i--;
                 }
             }
-
-            lekarTrenutni = ln;
-            listaLekara = sviLekari.GetAll();
-
-
-
-            listaPregleda = sviPregledi.GetAllPregledi();
-            listaOperacija = sviPregledi.GetAllOperacije();
-            listaPacijenata = sviPacijenti.GetAll();
-            listaProstorija = sveProstorije.GetAllProstorije();
-
-
-            for (int l = 0; l < listaPregleda.Count; l++)
-            {
-                if (!listaPregleda[l].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
-                {
-                    listaPregleda.RemoveAt(l);
-                    l = l - 1;
-                }
-            }
-            for (int l = 0; l < listaOperacija.Count; l++)
-            {
-                if (!listaOperacija[l].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
-                {
-                    listaOperacija.RemoveAt(l);
-                    l = l - 1;
-                }
-            }
-           
-
-            
-           
-            ZakaziPregledCommand = new RelayCommand(Executed_ZakaziPregledCommand, CanExecute_ZakaziPregledCommand);
-            OtkaziPregledCommand = new RelayCommand(Executed_OtkaziPregledCommand, CanExecute_OtkaziPregledCommand);
-            IzmeniPregledCommand = new RelayCommand(Executed_IzmeniPregledCommand, CanExecute_IzmeniPregledCommand);
-            InformacijeOPacijentuCommand = new RelayCommand(Executed_InformacijeOPacijentuCommand, CanExecute_InformacijeOPacijentuCommand);
-            JumpOnButtonEnterCommand = new RelayCommand(Executed_JumpOnButtonEnterCommand, CanExecute_JumpOnButtonEnterCommand);
-            JumpOnButtonLeftCommand = new RelayCommand(Executed_JumpOnButtonLeftCommand, CanExecute_JumpOnButtonLeftCommand);
-            JumpOnButtonTabCommand = new RelayCommand(Executed_JumpOnButtonTabCommand, CanExecute_JumpOnButtonTabCommand );
-            JumpOnButtonIstorijaEnterCommand = new RelayCommand(Executed_JumpOnButtonIstorijaEnterCommand, CanExecute_JumpOnButtonIstorijaEnterCommand);
-            JumpOnButtonIstorijaLeftCommand = new RelayCommand(Executed_JumpOnButtonIstorijaLeftCommand, CanExecute_JumpOnButtonIstorijaLeftCommand);
-            JumpOnButtonIstorijaTabCommand = new RelayCommand(Executed_JumpOnButtonIstorijaTabCommand, CanExecute_JumpOnButtonIstorijaTabCommand);
-            CollorLekarGridCommand = new RelayCommand(Executed_CollorLekarGridCommand, CanExecute_CollorLekarGridCommand);
-            CollorLekarGridIstorijaCommand = new RelayCommand(Executed_CollorLekarGridIstorijaCommand, CanExecute_CollorLekarGridIstorijaCommand);
-            FocusTabCommand = new RelayCommand(Executed_FocusTabCommand, CanExecute_FocusTabCommand);
-            AnamnezaCommand = new RelayCommand(Executed_AnamnezaCommand, CanExecute_AnamnezaCommand);
-            AnamnezaIstorijaCommand = new RelayCommand(Executed_AnamnezaIstorijaCommand, CanExecute_AnamnezaIstorijaCommand);
-            IzmeniLekCommand = new RelayCommand(Executed_IzmeniLekCommand, CanExecute_IzmeniLekCommand);
-            JumpOnButtonLekEnterCommand = new RelayCommand(Executed_JumpOnButtonLekEnterCommand, CanExecute_JumpOnButtonLekEnterCommand);
-            JumpOnButtonLekLeftCommand = new RelayCommand(Executed_JumpOnButtonLekLeftCommand, CanExecute_JumpOnButtonLekLeftCommand);
-            JumpOnButtonLekTabCommand = new RelayCommand(Executed_JumpOnButtonLekTabCommand, CanExecute_JumpOnButtonLekTabCommand);
-            OdobriLekCommand = new RelayCommand(Executed_OdobriLekCommand, CanExecute_OdobriLekCommand);
-            VratiNaIzmenuCommand = new RelayCommand(Executed_VratiNaIzmenuCommand, CanExecute_VratiNaIzmenuCommand);
-            
-            
-
-
-
         }
-        public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii)
+        public void InicijalizujPolja(Lekar lekar)
         {
-            lekarGrid = lekarGridd;
-            lekarGridIstorija = lekarGridIstorijaa;
-            dataGridLekovi = dataGridLekovii;
-            dataListIstorija.Items.SortDescriptions.Clear();
-            dataListIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Descending));
-            dataList.Items.SortDescriptions.Clear();
-            dataList.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
+            lekarTrenutni = lekar;
+            listaLekara = skladisteLekara.GetAll();
+            listaPregleda = skladistePregleda.GetAllPregledi();
+            listaOperacija = skladistePregleda.GetAllOperacije();
+            listaPacijenata = skladistePacijenata.GetAll();
+            listaProstorija = skladisteProstorija.GetAllProstorije();
+        }
+        public void DobijPregledeLekara()
+        {
+            for (int i = 0; i < listaPregleda.Count; i++)
+            {
+                if (!listaPregleda[i].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
+                {
+                    listaPregleda.RemoveAt(i);
+                    i = i - 1;
+                }
+            }
+        }
+        public void DobijOperacijeLekara()
+        {
+            for (int i = 0; i < listaOperacija.Count; i++)
+            {
+                if (!listaOperacija[i].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
+                {
+                    listaOperacija.RemoveAt(i);
+                    i = i - 1;
+                }
+            }
+        }
+        public void NapraviKomande()
+        {
+            ZakaziPregledKomanda = new RelayCommand(Executed_ZakaziPregledKomanda, CanExecute_ZakaziPregledKomanda);
+            OtkaziPregledKomanda = new RelayCommand(Executed_OtkaziPregledKomanda, CanExecute_OtkaziPregledKomanda);
+            IzmeniPregledKomanda = new RelayCommand(Executed_IzmeniPregledKomanda, CanExecute_IzmeniPregledKomanda);
+            InformacijeOPacijentuKomanda = new RelayCommand(Executed_InformacijeOPacijentuKomanda, CanExecute_InformacijeOPacijentuKomanda);
+            SkociNaEnterKomanda = new RelayCommand(Executed_SkociNaEnterKomanda, CanExecute_SkociNaEnterKomanda);
+            SkociNaLevoKomanda = new RelayCommand(Executed_SkociNaLevoKomanda, CanExecute_SkociNaLevoKomanda);
+            SkociNaTabKomanda = new RelayCommand(Executed_SkociNaTabKomanda, CanExecute_SkociNaTabKomanda);
+            SkociNaEnterIstorijaKomanda = new RelayCommand(Executed_SkociNaEnterIstorijaKomanda, CanExecute_SkociNaEnterIstorijaKomanda);
+            SkociNaLevoIstorijaKomanda = new RelayCommand(Executed_SkociNaLevoIstorijaKomanda, CanExecute_SkociNaLevoIstorijaKomanda);
+            SkociNaTabIstorijaKomanda = new RelayCommand(Executed_SkociNaTabIstorijaKomanda, CanExecute_SkociNaTabIstorijaKomanda);
+            AnamnezaKomanda = new RelayCommand(Executed_AnamnezaKomanda, CanExecute_AnamnezaKomanda);
+            AnamnezaIstorijaKomanda = new RelayCommand(Executed_AnamnezaIstorijaKomanda, CanExecute_AnamnezaIstorijaKomanda);
+            IzmeniLekKomanda = new RelayCommand(Executed_IzmeniLekKomanda, CanExecute_IzmeniLekKomanda);
+            SkociNaEnterLekKomanda = new RelayCommand(Executed_SkociNaEnterLekKomanda, CanExecute_SkociNaEnterLekKomanda);
+            SkociNaLevoLekKomanda = new RelayCommand(Executed_SkociNaLevoLekKomanda, CanExecute_SkociNaLevoLekKomanda);
+            SkociNaTabLekKomanda = new RelayCommand(Executed_SkociNaTabLekKomanda, CanExecute_SkociNaTabLekKomanda);
+            OdobriLekKomanda = new RelayCommand(Executed_OdobriLekKomanda, CanExecute_OdobriLekKomanda);
+            VratiNaIzmenuKomanda = new RelayCommand(Executed_VratiNaIzmenuKomanda, CanExecute_VratiNaIzmenuKomanda);
+        }
+
+        public void SortirajPodatke()
+        {
+            SortirajPodaciLista();
+            SortirajPodaciListaIstorija();
+        }
+        public void SortirajPodaciListaIstorija()
+        {
+            podaciListaIstorija.Items.SortDescriptions.Clear();
+            podaciListaIstorija.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Descending));
+        }
+
+
+        public void SortirajPodaciLista()
+        {
+            podaciLista.Items.SortDescriptions.Clear();
+            podaciLista.Items.SortDescriptions.Add(new SortDescription("Datum", ListSortDirection.Ascending));
+        }
+        public void FiltrirajPregledeZaPrikaz()
+        {
             for (int i = 0; i < listaPregleda.Count; i++)
             {
                 if (listaPregleda[i].Zavrsen.Equals(false))
                 {
-                    prikazPregleda = new PrikazPregleda();
-                    prikazPregleda.Id = listaPregleda[i].Id;
-                    prikazPregleda.Trajanje = listaPregleda[i].Trajanje;
-                    prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
-                    prikazPregleda.Datum = listaPregleda[i].Datum;
-                    prikazPregleda.Anamneza = listaPregleda[i].Anamneza;
-                    prikazPregleda.Hitan = listaPregleda[i].Hitan;
-                    for (int p = 0; p < listaPacijenata.Count; p++)
-                    {
-                        if (listaPregleda[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
-                        {
-                            prikazPregleda.Pacijent = listaPacijenata[p];
-                            break;
-                        }
-
-
-                    }
-                    for (int p = 0; p < listaProstorija.Count; p++)
-                    {
-                        if (listaPregleda[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
-                        {
-                            prikazPregleda.Prostorija = listaProstorija[p];
-                            break;
-                        }
-                    }
-                    for (int p = 0; p < listaLekara.Count; p++)
-                    {
-                        if (listaPregleda[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
-                        {
-                            prikazPregleda.Lekar = listaLekara[p];
-                        }
-                    }
-                    dataList.Items.Add(prikazPregleda);
+                    prikazPregleda = new PrikazPregleda(listaPregleda[i].Id, listaPregleda[i].Datum, listaPregleda[i].Trajanje, listaPregleda[i].Zavrsen,
+                    listaPregleda[i].Hitan, listaPregleda[i].Anamneza, i, new LekarServiceDTO(listaLekara, listaProstorija, listaPacijenata, listaPregleda));
+                    podaciLista.Items.Add(prikazPregleda);
                 }
+
                 else
                 {
-                    prikazPregleda = new PrikazPregleda();
-                    prikazPregleda.Id = listaPregleda[i].Id;
-                    prikazPregleda.Trajanje = listaPregleda[i].Trajanje;
-                    prikazPregleda.Zavrsen = listaPregleda[i].Zavrsen;
-                    prikazPregleda.Datum = listaPregleda[i].Datum;
-                    prikazPregleda.Anamneza = listaPregleda[i].Anamneza;
-                    prikazPregleda.Hitan = listaPregleda[i].Hitan;
-                    for (int p = 0; p < listaPacijenata.Count; p++)
-                    {
-                        if (listaPregleda[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
-                        {
-                            prikazPregleda.Pacijent = listaPacijenata[p];
-                            break;
-                        }
-
-
-                    }
-                    for (int p = 0; p < listaProstorija.Count; p++)
-                    {
-                        if (listaPregleda[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
-                        {
-                            prikazPregleda.Prostorija = listaProstorija[p];
-                            break;
-                        }
-                    }
-                    for (int p = 0; p < listaLekara.Count; p++)
-                    {
-                        if (listaPregleda[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
-                        {
-                            prikazPregleda.Lekar = listaLekara[p];
-                            break;
-                        }
-                    }
-                    dataListIstorija.Items.Add(prikazPregleda);
+                    prikazPregleda = new PrikazPregleda(listaPregleda[i].Id, listaPregleda[i].Datum, listaPregleda[i].Trajanje, listaPregleda[i].Zavrsen,
+                    listaPregleda[i].Hitan, listaPregleda[i].Anamneza, i, new LekarServiceDTO(listaLekara, listaProstorija, listaPacijenata, listaPregleda));
+                    podaciListaIstorija.Items.Add(prikazPregleda);
                 }
             }
+        }
+
+        public void FiltrirajOperacijeZaPrikaz()
+        {
             for (int i = 0; i < listaOperacija.Count; i++)
             {
                 if (listaOperacija[i].Zavrsen.Equals(false))
                 {
-                    prikazOperacije = new PrikazOperacije();
-                    prikazOperacije.Id = listaOperacija[i].Id;
-                    prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
-                    prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
-                    prikazOperacije.Datum = listaOperacija[i].Datum;
-                    prikazOperacije.Anamneza = listaOperacija[i].Anamneza;
-                    prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
-                    prikazOperacije.Hitan = listaOperacija[i].Hitan;
-                    for (int p = 0; p < listaPacijenata.Count; p++)
-                    {
-                        if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
-                        {
-                            prikazOperacije.Pacijent = listaPacijenata[p];
-                            break;
-                        }
+                    prikazOperacije = new PrikazOperacije(listaOperacija[i].Id, listaOperacija[i].Datum, listaOperacija[i].Trajanje, listaOperacija[i].Zavrsen,
+                    listaOperacija[i].Hitan, listaOperacija[i].Anamneza, listaOperacija[i].TipOperacije, i, new LekarServiceDTO(listaLekara,listaProstorija,listaPacijenata,listaOperacija));
 
-
-                    }
-                    for (int p = 0; p < listaProstorija.Count; p++)
-                    {
-                        if (listaOperacija[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
-                        {
-                            prikazOperacije.Prostorija = listaProstorija[p];
-                            break;
-                        }
-                    }
-                    for (int p = 0; p < listaLekara.Count; p++)
-                    {
-                        if (listaOperacija[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
-                        {
-                            prikazOperacije.Lekar = listaLekara[p];
-                            break;
-                        }
-                    }
-                    dataList.Items.Add(prikazOperacije);
+                    podaciLista.Items.Add(prikazOperacije);
                 }
                 else
                 {
-                    prikazOperacije = new PrikazOperacije();
-                    prikazOperacije.Id = listaOperacija[i].Id;
-                    prikazOperacije.Trajanje = listaOperacija[i].Trajanje;
-                    prikazOperacije.Zavrsen = listaOperacija[i].Zavrsen;
-                    prikazOperacije.Datum = listaOperacija[i].Datum;
-                    prikazOperacije.Anamneza = listaOperacija[i].Anamneza;
-                    prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
-                    prikazOperacije.Hitan = listaOperacija[i].Hitan;
-                    for (int p = 0; p < listaPacijenata.Count; p++)
-                    {
-                        if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
-                        {
-                            prikazOperacije.Pacijent = listaPacijenata[p];
-                            break;
-                        }
-
-
-                    }
-                    for (int p = 0; p < listaProstorija.Count; p++)
-                    {
-                        if (listaOperacija[i].Prostorija.BrojProstorije.Equals(listaProstorija[p].BrojProstorije) && listaProstorija[p].Obrisana == false)
-                        {
-                            prikazOperacije.Prostorija = listaProstorija[p];
-                            break;
-                        }
-                    }
-                    for (int p = 0; p < listaLekara.Count; p++)
-                    {
-                        if (listaOperacija[i].Lekar.Jmbg.Equals(listaLekara[p].Jmbg))
-                        {
-                            prikazOperacije.Lekar = listaLekara[p];
-                            break;
-                        }
-                    }
-                    dataListIstorija.Items.Add(prikazOperacije);
+                    prikazOperacije = new PrikazOperacije(listaOperacija[i].Id, listaOperacija[i].Datum, listaOperacija[i].Trajanje, listaOperacija[i].Zavrsen,
+                    listaOperacija[i].Hitan, listaOperacija[i].Anamneza, listaOperacija[i].TipOperacije, i, new LekarServiceDTO(listaLekara, listaProstorija, listaPacijenata, listaOperacija));
+                    podaciListaIstorija.Items.Add(prikazOperacije);
                 }
             }
-            data();
-            dataIstorija();
+        }
+        public void PodesiPrikazPregledaIOperacija()
+        {
 
-            lekarGrid.ItemsSource = dataList.Items;
-            lekarGridIstorija.ItemsSource = dataListIstorija.Items;
+            RefreshPodaciListu();
+            RefreshPodaciListuIstorija();
+
+            preglediTabela.ItemsSource = podaciLista.Items;
+            istorijaPregledaTabela.ItemsSource = podaciListaIstorija.Items;
+        }
+
+        public void NapraviListuLekovaZaPrikaz()
+        {
             for (int i = 0; i < lekovi.Count; i++)
             {
                 if (!lekovi[i].Status.Equals(StatusLeka.odbijen))
                 {
-                    PrikazLek p = new PrikazLek();
-                    p.Id = lekovi[i].Id;
-                    p.KolicinaUMg = lekovi[i].KolicinaUMg;
-                    p.Naziv = lekovi[i].Naziv;
-                    p.Status = lekovi[i].Status;
-                    p.Proizvodjac = lekovi[i].Proizvodjac;
-                    string l = "";
-                    FileStorageSastojak storageSastojak = new FileStorageSastojak();
-                    for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
-                    {
-                        foreach (Sastojak s in storageSastojak.GetAll())
-                        {
-                            if (m == 0)
-                            {
-                                if (lekovi[i].Sastojak[m].Id == s.Id)
-                                    l = l + " " + s.Naziv;
-                            }
-                            else
-                            {
-                                if (lekovi[i].Sastojak[m].Id == s.Id)
-                                    l = l + ", " + s.Naziv;
-                            }
-                        }
-                    }
-                    string h = "";
-                    for (int m = 0; m < lekovi[i].IdZamena.Count; m++)
-                    {
-                        Lek novi = new Lek();
-                        for (int mo = 0; mo < lekovi.Count; mo++)
-                        {
-                            if (lekovi[i].IdZamena[m].Equals(lekovi[mo].Id))
-                            {
-                                novi = lekovi[mo];
-                                break;
-                            }
-                        }
-                        if (m == 0)
-                        {
-                            h = h + " " + novi.Naziv;
-                        }
-                        else
-                        {
-                            h = h + ", " + novi.Naziv;
-                        }
-                    }
-                    p.Sastojak = l;
-                    p.Zamena = h;
+                    PrikazLek p = new PrikazLek(lekovi[i].Id, lekovi[i].Naziv, lekovi[i].KolicinaUMg, lekovi[i].Status, lekovi[i].Zalihe, lekovi[i].Proizvodjac, i, new LekarServiceDTO(lekovi));
                     lekoviPrikaz.Add(p);
                 }
             }
-            dataGridLekovi.ItemsSource = lekoviPrikaz;
-           
-           
         }
-
-        public void PodesiParametre(Button Zakazi,TabItem PreglediTab,TabItem IstorijaTab,TabItem LekTab,Button AnamenzaIstorijaDugme,Button Odobri)
+        public void PrikaziLekove()
         {
-            this.Zakazi = Zakazi;
-            this.PreglediTab = PreglediTab;
-            this.IstorijaTab = IstorijaTab;
-            this.LekTab = LekTab;
-            this.AnamnezaIstorijaDugme = AnamenzaIstorijaDugme;
-            this.OdobriButton = Odobri;
-           
-        }
-        public static void data()
-        {
-            dataList.Items.Refresh();
-        }
-        public static void dataIstorija()
-        {
-            dataListIstorija.Items.Refresh();
-        }
-        public void Refresh()
-        {
-            lekarGrid.Items.Refresh();
+            lekoviTabela.ItemsSource = lekoviPrikaz;
         }
     }
 }
