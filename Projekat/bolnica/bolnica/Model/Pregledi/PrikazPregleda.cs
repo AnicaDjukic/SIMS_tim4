@@ -38,6 +38,30 @@ namespace Bolnica.Model.Pregledi
             
         }
 
+        public PrikazPregleda(int Id, Anamneza Anamneza)
+        {
+            this.Id = Id;
+
+            this.Anamneza = Anamneza;
+
+        }
+
+        public PrikazPregleda(int Id, DateTime Datum, int Trajanje, bool Zavrsen, bool Hitan, Anamneza Anamneza)
+        {
+            this.Anamneza = new Anamneza();
+            this.Lekar = new Lekar();
+            this.Prostorija = new Prostorija();
+            this.Pacijent = new Pacijent();
+            this.Id = Id;
+            this.Datum = Datum;
+            this.Trajanje = Trajanje;
+            this.Zavrsen = Zavrsen;
+            this.Hitan = Hitan;
+            this.Anamneza = Anamneza;
+            
+
+        }
+
 
         public int Id { get; set; }
         public DateTime Datum { get; set; }

@@ -39,6 +39,26 @@ namespace Model.Pregledi
             this.Prostorija = dobijProstorijuZaOperaciju(i, lekarServiceDTO);
 
         }
+        public PrikazOperacije(int Id, DateTime Datum, int Trajanje, bool Zavrsen, bool Hitan, Anamneza Anamneza)
+        {
+            this.Anamneza = new Anamneza();
+            this.Lekar = new Lekar();
+            this.Prostorija = new Prostorija();
+            this.Pacijent = new Pacijent();
+            this.Id = Id;
+            this.Datum = Datum;
+            this.Trajanje = Trajanje;
+            this.Zavrsen = Zavrsen;
+            this.Hitan = Hitan;
+            this.Anamneza = Anamneza;
+        }
+        public PrikazOperacije(int Id, Anamneza Anamneza)
+        {
+            this.Id = Id;
+
+            this.Anamneza = Anamneza;
+
+        }
 
         public Pacijent dobijPacijentaZaOperaciju(int i, LekarServiceDTO lekarServiceDTO)
         {

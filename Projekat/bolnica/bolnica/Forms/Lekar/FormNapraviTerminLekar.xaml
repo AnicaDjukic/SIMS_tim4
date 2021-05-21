@@ -169,7 +169,7 @@
                     Command="{Binding Path=LekarComboOpenTabCommand}" />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="lekarB" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="lekarPodaci" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <val:ComboBoxLekarValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -198,7 +198,7 @@
                     Command="{Binding Path=DatumComboOpenCommand}" />
             </DatePicker.InputBindings>
             <DatePicker.SelectedDate>
-                <Binding Path="datumB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="datumPregleda" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:DatePickerDatumValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -230,7 +230,7 @@
             
                 
             <ComboBox.Text>
-                <Binding Path="vremeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="vremePregleda" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:ComboBoxVremeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -254,7 +254,7 @@
         </ComboBox>
         <TextBox IsEnabled="{Binding ItemSourceDaLiJeTrajanje, Mode=TwoWay}"  Name="textTrajanje" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="70">
             <TextBox.Text>
-                <Binding Path="TrajanjeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="TrajanjePregleda" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:TextBoxTrajanjeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -284,7 +284,7 @@
                 />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="prezimeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="pacijentPodaci" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:ComboBoxPrezimeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -314,7 +314,7 @@
                 />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="brojProstorijeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="brojProstorije" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:ComboBoxProstorijaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -344,7 +344,7 @@
                 />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="tipOperacijeB" UpdateSourceTrigger="PropertyChanged" >
+                <Binding Path="tipOperacije" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <val:ComboBoxTipOperacijeValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="False"/>
                     </Binding.ValidationRules>
