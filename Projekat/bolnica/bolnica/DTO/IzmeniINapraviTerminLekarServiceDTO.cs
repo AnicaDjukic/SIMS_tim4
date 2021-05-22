@@ -58,8 +58,6 @@ namespace Bolnica.DTO
 
         public List<Operacija> operacijeLekara { get; set; }
 
-        public Prostorija p { get; set; }
-
         public bool daLiJeOperacija { get; set; } 
 
         public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazPregleda stariPregled)
@@ -284,11 +282,7 @@ namespace Bolnica.DTO
             this.zauzetiTermini = zauzetiTermini;
             this.datumPregledaDatum = datumPregleda;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(Prostorija p, DateTime datumB)
-        {
-            this.p = p;
-            this.datumPregledaDatum = datumB;
-        }
+        
         public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija)
         {
             this.datumPregledaString = datumPregleda;

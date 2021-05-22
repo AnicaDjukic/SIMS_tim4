@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using Bolnica.DTO;
+using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
 using Bolnica.ViewModel;
@@ -21,59 +22,62 @@ namespace Bolnica.Services
 
        
 
-        public void PotvrdiIzmenu(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar,PrikazOperacije staraOperacija, PrikazPregleda stariPregled) {
+        public void PotvrdiIzmenu(IzmeniINapraviTerminLekarServiceDTO terminDTO) {
             bool daLiJeOperacija = false;
             if (CheckFields())
             {
-                PrikazOperacije trenutnaOperacija = PopuniOperaciju(datumPregleda, vremePregleda, trajanjePregleda, lekarPodaci, pacijentPodaci, predmetStavkiDaLiJeOperacija, tipOperacije, predmetStavkiDaLiJeHitan, prostorijaBroj, ulogovaniLekar, staraOperacija, ref daLiJeOperacija);
-                PrikazPregleda trenutniPregled = PopuniPregled(datumPregleda, vremePregleda, trajanjePregleda, lekarPodaci, pacijentPodaci, predmetStavkiDaLiJeHitan, prostorijaBroj, stariPregled);
-                
+                PrikazOperacije trenutnaOperacija = PopuniOperaciju(terminDTO, ref daLiJeOperacija);
+                PrikazPregleda trenutniPregled = PopuniPregled(terminDTO);
+                terminDTO.trenutniPregled = trenutniPregled;
+                terminDTO.trenutnaOperacija = trenutnaOperacija;
+
+
                 if (daLiJeOperacija)
                 {
-                   AzurirajListuOperacija(ulogovaniLekar, staraOperacija, trenutnaOperacija);
-                    AzurirajTabeluISkladisteOperacija(ulogovaniLekar, staraOperacija, trenutnaOperacija); 
+                   AzurirajListuOperacija(terminDTO);
+                    AzurirajTabeluISkladisteOperacija(terminDTO); 
                 }
                 else
                 {
-                    AzurirajListuPregleda(ulogovaniLekar, stariPregled, trenutniPregled);
-                    AzurirajTabeluISkladistePregleda(ulogovaniLekar, stariPregled, trenutniPregled);
+                    AzurirajListuPregleda(terminDTO);
+                    AzurirajTabeluISkladistePregleda(terminDTO);
                 }
             }
         }
 
-        public void AzurirajTabeluISkladistePregleda(Lekar ulogovaniLekar, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
+        public void AzurirajTabeluISkladistePregleda(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
             {
-                if (LekarViewModel.podaciLista.Items[p].Equals(stariPregled))
+                if (LekarViewModel.podaciLista.Items[p].Equals(terminDTO.stariPregled))
                 {
-                    if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
+                    if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutniPregled.Lekar.Mbr))
                     {
-                        LekarViewModel.podaciLista.Items[p] = trenutniPregled;
+                        LekarViewModel.podaciLista.Items[p] = terminDTO.trenutniPregled;
                         LekarViewModel.RefreshPodaciListu();
-                        Pregled azuriraniPregled = new Pregled(trenutniPregled);
+                        Pregled azuriraniPregled = new Pregled(terminDTO.trenutniPregled);
                         skladistePregledi.Izmeni(azuriraniPregled);
                     }
                     else
                     {
                         LekarViewModel.podaciLista.Items.RemoveAt(p);
                         LekarViewModel.RefreshPodaciListu();
-                        Pregled azuriraniPregled = new Pregled(trenutniPregled);
+                        Pregled azuriraniPregled = new Pregled(terminDTO.trenutniPregled);
                         skladistePregledi.Izmeni(azuriraniPregled);
                     }
                 }
             }
         }
 
-        public void AzurirajListuPregleda(Lekar ulogovaniLekar, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
+        public void AzurirajListuPregleda(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < LekarViewModel.listaPregleda.Count; i++)
             {
-                if (LekarViewModel.listaPregleda[i].Equals(stariPregled))
+                if (LekarViewModel.listaPregleda[i].Equals(terminDTO.stariPregled))
                 {
-                    if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
+                    if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutniPregled.Lekar.Mbr))
                     {
-                        LekarViewModel.listaPregleda[i] = new Pregled(trenutniPregled);
+                        LekarViewModel.listaPregleda[i] = new Pregled(terminDTO.trenutniPregled);
                     }
                     else
                     {
@@ -83,38 +87,38 @@ namespace Bolnica.Services
             }
         }
        
-        public void AzurirajTabeluISkladisteOperacija(Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
+        public void AzurirajTabeluISkladisteOperacija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
             {
-                if (LekarViewModel.podaciLista.Items[p].Equals(staraOperacija))
+                if (LekarViewModel.podaciLista.Items[p].Equals(terminDTO.staraOperacija))
                 {
-                    if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
+                    if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutnaOperacija.Lekar.Mbr))
                     {
-                        LekarViewModel.podaciLista.Items[p] = trenutnaOperacija;
+                        LekarViewModel.podaciLista.Items[p] = terminDTO.trenutnaOperacija;
                         LekarViewModel.RefreshPodaciListu();
-                        Operacija azuriranaOperacija = new Operacija(trenutnaOperacija);
+                        Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
                         skladistePregledi.Izmeni(azuriranaOperacija);
                     }
                     else
                     {
                         LekarViewModel.podaciLista.Items.RemoveAt(p);
                         LekarViewModel.RefreshPodaciListu();
-                        Operacija azuriranaOperacija = new Operacija(trenutnaOperacija);
+                        Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
                         skladistePregledi.Izmeni(azuriranaOperacija);
                     }
                 }
             }
         }
-        public void AzurirajListuOperacija(Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
+        public void AzurirajListuOperacija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < LekarViewModel.listaOperacija.Count; i++)
             {
-                if (LekarViewModel.listaOperacija[i].Id.Equals(staraOperacija.Id))
+                if (LekarViewModel.listaOperacija[i].Id.Equals(terminDTO.staraOperacija.Id))
                 {
-                    if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
+                    if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutnaOperacija.Lekar.Mbr))
                     {
-                        LekarViewModel.listaOperacija[i] = new Operacija(trenutnaOperacija);
+                        LekarViewModel.listaOperacija[i] = new Operacija(terminDTO.trenutnaOperacija);
 
                     }
                     else
@@ -151,20 +155,24 @@ namespace Bolnica.Services
             max = max + 1;
             return max;
         }
-        public void Potvrdi(string datumPregleda, string vremePregleda, string trajanjePregleda, List<Lekar> sviLekari, string lekarPodaci, List<Pacijent> sviPacijenti, string pacijentPodaci, List<Prostorija> sveProstorije, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar)
+        public void Potvrdi(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             Anamneza praznaAnamneza = new Anamneza();
+            terminDTO.staraOperacija = new PrikazOperacije(-1, praznaAnamneza);
+            terminDTO.stariPregled = new PrikazPregleda(-1, praznaAnamneza);
             bool daLiJeOperacija = false;
             if (CheckFields())
             {
-                PrikazOperacije trenutnaOperacija = PopuniOperaciju(datumPregleda, vremePregleda, trajanjePregleda, lekarPodaci, pacijentPodaci, predmetStavkiDaLiJeOperacija, tipOperacije, predmetStavkiDaLiJeHitan, prostorijaBroj, ulogovaniLekar, new PrikazOperacije(-1, praznaAnamneza), ref daLiJeOperacija);
-                PrikazPregleda trenutniPregled = PopuniPregled(datumPregleda, vremePregleda, trajanjePregleda, lekarPodaci, pacijentPodaci, predmetStavkiDaLiJeHitan, prostorijaBroj, new PrikazPregleda(-1, praznaAnamneza));           
+                PrikazOperacije trenutnaOperacija = PopuniOperaciju(terminDTO,  ref daLiJeOperacija);
+                PrikazPregleda trenutniPregled = PopuniPregled(terminDTO);           
                 if (daLiJeOperacija)
                 {
                     trenutnaOperacija.Id = RacunajIdOperacije();
                     trenutnaOperacija.Anamneza.Id = -1;
                     Operacija azuriranaOperacija = new Operacija(trenutnaOperacija);
-                    AzurirajListuTabeluISkladisteOperacije(ulogovaniLekar, trenutnaOperacija, azuriranaOperacija);
+                    terminDTO.trenutnaOperacija = trenutnaOperacija;
+                    terminDTO.azuriranaOperacija = azuriranaOperacija;
+                    AzurirajListuTabeluISkladisteOperacije(terminDTO);
                 }
                 else
                 {     
@@ -172,32 +180,34 @@ namespace Bolnica.Services
                     trenutniPregled.Anamneza.Id = -1;
                     trenutniPregled.Hitan = false;
                     Pregled azuriraniPregled = new Pregled(trenutniPregled);
-                    AzurirajListuTabeluISkladistePregleda(ulogovaniLekar, trenutniPregled, azuriraniPregled);
+                    terminDTO.trenutniPregled = trenutniPregled;
+                    terminDTO.azuriraniPregled = azuriraniPregled;
+                    AzurirajListuTabeluISkladistePregleda(terminDTO);
                 }
             }
         }
-        public void AzurirajListuTabeluISkladistePregleda(Lekar ulogovaniLekar, PrikazPregleda trenutniPregled, Pregled azuriraniPregled)
+        public void AzurirajListuTabeluISkladistePregleda(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            if (ulogovaniLekar.Mbr.Equals(trenutniPregled.Lekar.Mbr))
+            if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutniPregled.Lekar.Mbr))
             {
-                LekarViewModel.listaPregleda.Add(azuriraniPregled);
-                LekarViewModel.podaciLista.Items.Add(trenutniPregled);
+                LekarViewModel.listaPregleda.Add(terminDTO.azuriraniPregled);
+                LekarViewModel.podaciLista.Items.Add(terminDTO.trenutniPregled);
                 LekarViewModel.RefreshPodaciListu();
             }
-            skladistePregledi.Save(azuriraniPregled);
+            skladistePregledi.Save(terminDTO.azuriraniPregled);
         }
-        public void AzurirajListuTabeluISkladisteOperacije(Lekar ulogovaniLekar,PrikazOperacije trenutnaOperacija,Operacija azuriranaOperacija)
+        public void AzurirajListuTabeluISkladisteOperacije(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            if (ulogovaniLekar.Mbr.Equals(trenutnaOperacija.Lekar.Mbr))
+            if (terminDTO.ulogovaniLekar.Mbr.Equals(terminDTO.trenutnaOperacija.Lekar.Mbr))
             {
-                LekarViewModel.listaOperacija.Add(azuriranaOperacija);
-                LekarViewModel.podaciLista.Items.Add(trenutnaOperacija);
+                LekarViewModel.listaOperacija.Add(terminDTO.azuriranaOperacija);
+                LekarViewModel.podaciLista.Items.Add(terminDTO.trenutnaOperacija);
                 LekarViewModel.RefreshPodaciListu();
             }
-            skladistePregledi.Save(azuriranaOperacija);
+            skladistePregledi.Save(terminDTO.azuriranaOperacija);
         }
 
-        public bool PostojiLekar(string specijalizacija, string lekarPodaci)
+        public bool PostojiLekar(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
             List<Lekar> lekari = new List<Lekar>();
@@ -205,7 +215,7 @@ namespace Bolnica.Services
             for (int i = 0; i < lekari.Count; i++)
             {
                 string podaciOLekaru = lekari[i].Prezime + ' ' + lekari[i].Ime + ' ' + lekari[i].Jmbg;
-                if (lekari[i].Specijalizacija.OblastMedicine.Equals(specijalizacija) && podaciOLekaru.Equals(lekarPodaci))
+                if (lekari[i].Specijalizacija.OblastMedicine.Equals(terminDTO.specijalizacija) && podaciOLekaru.Equals(terminDTO.lekarPodaci))
                 {
                     return true;
                 }
@@ -216,14 +226,14 @@ namespace Bolnica.Services
         }
 
         
-        public bool PacijentSlobodanUToVreme(List<Pacijent> sviPacijenti, string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
+        public bool PacijentSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            zauzetiTermini = RacunajZauzeteTerminePacijenta(sviPacijenti, pacijentPodaci, datumPregleda, trajanjePregleda, vremePregleda);
-            for (int i = 0; i < int.Parse(trajanjePregleda); i++)
+            zauzetiTermini = RacunajZauzeteTerminePacijenta(terminDTO);
+            for (int i = 0; i < int.Parse(terminDTO.trajanjePregleda); i++)
             {
                 TimeSpan ts = new TimeSpan(0, i, 0);
-                if (zauzetiTermini.Contains(TimeSpan.Parse(vremePregleda) + ts))
+                if (zauzetiTermini.Contains(TimeSpan.Parse(terminDTO.vremePregledaString) + ts))
                 {
                     return false;
                 }
@@ -233,15 +243,15 @@ namespace Bolnica.Services
 
         }
 
-        public bool PacijentSlobodanUToVremeIzmeni(string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public bool PacijentSlobodanUToVremeIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            zauzetiTermini = RacunajZauzeteTerminePacijenta(pacijentPodaci,datumPregleda,trajanjePregleda,vremePregleda,trenutniPregled,trenutnaOperacija);
-            for (int i = 0; i < int.Parse(trajanjePregleda); i++)
+            zauzetiTermini = RacunajZauzeteTerminePacijentaIzmeni(terminDTO);
+            for (int i = 0; i < int.Parse(terminDTO.trajanjePregleda); i++)
             {
                 TimeSpan ts = new TimeSpan(0, i, 0);
-                if (zauzetiTermini.Contains(TimeSpan.Parse(vremePregleda) + ts))
+                if (zauzetiTermini.Contains(TimeSpan.Parse(terminDTO.vremePregledaString) + ts))
                 {
                     return false;
                 }
@@ -250,26 +260,31 @@ namespace Bolnica.Services
 
 
         }
-        public List<TimeSpan> RacunajZauzeteTerminePacijenta(string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public List<TimeSpan> RacunajZauzeteTerminePacijentaIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Pacijent> pacijenti = skladistePacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
             List<Pregled> preglediPacijenta = skladistePregledi.GetAllPregledi();
             List<Operacija> operacijePacijenta = skladistePregledi.GetAllOperacije();
+            
             for (int i = 0; i < pacijenti.Count; i++)
             {
                 string podaciOPacijentu;
                 podaciOPacijentu = pacijenti[i].Prezime + ' ' + pacijenti[i].Ime + ' ' + pacijenti[i].Jmbg;
 
 
-                if (podaciOPacijentu.Equals(pacijentPodaci))
+                if (podaciOPacijentu.Equals(terminDTO.pacijentPodaci))
                 {
 
                     pacijenti = skladistePacijenti.GetAll();
-                    string jmbgPacijent = DobijJmgbPacijenta(pacijenti, pacijentPodaci);
-                    preglediPacijenta = FiltrirajPregledePacijenta(preglediPacijenta, jmbgPacijent);
-                    operacijePacijenta = FiltrirajOperacijePacijenta(operacijePacijenta, jmbgPacijent);
-                    zauzetiTermini = DobijZauzeteTerminePacijenta(zauzetiTermini, preglediPacijenta, operacijePacijenta, datumPregleda, trenutniPregled, trenutnaOperacija);
+                    terminDTO.sviPacijenti = pacijenti;
+                    string jmbgPacijent = DobijJmgbPacijenta(terminDTO);
+                    preglediPacijenta = FiltrirajPregledePacijenta(new IzmeniINapraviTerminLekarServiceDTO(preglediPacijenta, jmbgPacijent));
+                    operacijePacijenta = FiltrirajOperacijePacijenta(new IzmeniINapraviTerminLekarServiceDTO(operacijePacijenta, jmbgPacijent));
+                    terminDTO.zauzetiTermini = zauzetiTermini;
+                    terminDTO.preglediPacijenta = preglediPacijenta;
+                    terminDTO.operacijePacijenta = operacijePacijenta;
+                    zauzetiTermini = DobijZauzeteTerminePacijentaIzmeni(terminDTO);
 
 
                 }
@@ -277,7 +292,7 @@ namespace Bolnica.Services
             }
             return zauzetiTermini;
         }
-        public List<TimeSpan> RacunajZauzeteTerminePacijenta(List<Pacijent> sviPacijenti, string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
+        public List<TimeSpan> RacunajZauzeteTerminePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Pacijent> pacijenti = skladistePacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -286,68 +301,68 @@ namespace Bolnica.Services
             for (int i = 0; i < pacijenti.Count; i++)
             {
                 string podaciOPacijentu;
-                podaciOPacijentu = sviPacijenti[i].Prezime + ' ' + sviPacijenti[i].Ime + ' ' + sviPacijenti[i].Jmbg;
-                if (podaciOPacijentu.Equals(pacijentPodaci))
+                podaciOPacijentu = terminDTO.sviPacijenti[i].Prezime + ' ' + terminDTO.sviPacijenti[i].Ime + ' ' + terminDTO.sviPacijenti[i].Jmbg;
+                if (podaciOPacijentu.Equals(terminDTO.pacijentPodaci))
                 {
                     pacijenti = skladistePacijenti.GetAll();
-                    string jmbgPacijent = DobijJmgbPacijenta(pacijenti, pacijentPodaci);
-                    preglediPacijenta = FiltrirajPregledePacijenta(preglediPacijenta, jmbgPacijent);
-                    operacijePacijenta = FiltrirajOperacijePacijenta(operacijePacijenta, jmbgPacijent);
-                    zauzetiTermini = DobijZauzeteTerminePacijenta(zauzetiTermini, preglediPacijenta, operacijePacijenta, datumPregleda);
+                    string jmbgPacijent = DobijJmgbPacijenta(new IzmeniINapraviTerminLekarServiceDTO(pacijenti, terminDTO.pacijentPodaci));
+                    preglediPacijenta = FiltrirajPregledePacijenta(new IzmeniINapraviTerminLekarServiceDTO(preglediPacijenta, jmbgPacijent));
+                    operacijePacijenta = FiltrirajOperacijePacijenta(new IzmeniINapraviTerminLekarServiceDTO(operacijePacijenta, jmbgPacijent));
+                    zauzetiTermini = DobijZauzeteTerminePacijenta(new IzmeniINapraviTerminLekarServiceDTO(zauzetiTermini, preglediPacijenta, operacijePacijenta, terminDTO.datumPregledaDatum));
                 }
 
             }
             return zauzetiTermini;
         }
 
-        public string DobijJmgbPacijenta(List<Pacijent> sviPacijenti,string pacijentPodaci)
+        public string DobijJmgbPacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             string jmbgPacijent = "";
-            for (int i = 0; i < sviPacijenti.Count; i++)
+            for (int i = 0; i < terminDTO.sviPacijenti.Count; i++)
             {
                 string podaciOPacijentu;
-                podaciOPacijentu = sviPacijenti[i].Prezime + ' ' + sviPacijenti[i].Ime + ' ' + sviPacijenti[i].Jmbg;
+                podaciOPacijentu = terminDTO.sviPacijenti[i].Prezime + ' ' + terminDTO.sviPacijenti[i].Ime + ' ' + terminDTO.sviPacijenti[i].Jmbg;
 
-                if (podaciOPacijentu.Equals(pacijentPodaci))
+                if (podaciOPacijentu.Equals(terminDTO.pacijentPodaci))
                 {
-                    jmbgPacijent = sviPacijenti[i].Jmbg;
+                    jmbgPacijent = terminDTO.sviPacijenti[i].Jmbg;
                     return jmbgPacijent;
                 }
             }
             return jmbgPacijent;
         }
-        public List<Pregled> FiltrirajPregledePacijenta(List<Pregled> preglediPacijenta,string jmbgPacijent)
+        public List<Pregled> FiltrirajPregledePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < preglediPacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
             {
-                if (!preglediPacijenta[i].Pacijent.Jmbg.Equals(jmbgPacijent))
+                if (!terminDTO.preglediPacijenta[i].Pacijent.Jmbg.Equals(terminDTO.jmbgPacijent))
                 {
-                    preglediPacijenta.RemoveAt(i);
+                    terminDTO.preglediPacijenta.RemoveAt(i);
                     i = i - 1;
                 }
             }
-            return preglediPacijenta;
+            return terminDTO.preglediPacijenta;
         }
 
-        public List<Operacija> FiltrirajOperacijePacijenta(List<Operacija> operacijePacijenta,string jmbgPacijent)
+        public List<Operacija> FiltrirajOperacijePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < operacijePacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
             {
-                if (!operacijePacijenta[i].Pacijent.Jmbg.Equals(jmbgPacijent))
+                if (!terminDTO.operacijePacijenta[i].Pacijent.Jmbg.Equals(terminDTO.jmbgPacijent))
                 {
-                    operacijePacijenta.RemoveAt(i);
+                    terminDTO.operacijePacijenta.RemoveAt(i);
                     i = i - 1;
                 }
             }
-            return operacijePacijenta;
+            return terminDTO.operacijePacijenta;
         }
 
-        public bool PostojiProstorija(List<Prostorija> sveProstorije, string prostorijaBroj)
+        public bool PostojiProstorija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < sveProstorije.Count; i++)
+            for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
             {
 
-                if (sveProstorije[i].BrojProstorije.ToString().Equals(prostorijaBroj) && !sveProstorije[i].Obrisana)
+                if (terminDTO.sveProstorije[i].BrojProstorije.ToString().Equals(terminDTO.prostorijaBroj) && !terminDTO.sveProstorije[i].Obrisana)
                 {
                     return true;
                 }
@@ -356,18 +371,18 @@ namespace Bolnica.Services
             return false;
         }
 
-        public bool ProstorijaSlobodna(List<Prostorija> sveProstorije, string prostorijaBroj, DateTime datumPregleda)
+        public bool ProstorijaSlobodna(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < sveProstorije.Count; i++)
+            for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
             {
 
-                if (sveProstorije[i].BrojProstorije.ToString().Equals(prostorijaBroj) && !sveProstorije[i].Obrisana)
+                if (terminDTO.sveProstorije[i].BrojProstorije.ToString().Equals(terminDTO.prostorijaBroj) && !terminDTO.sveProstorije[i].Obrisana)
                 {
-                    if (naRenoviranju(sveProstorije[i], datumPregleda))
+                    if (naRenoviranju(terminDTO.sveProstorije[i],terminDTO.datumPregledaDatum))
                     {
                         return false;
                     }
-                    if (sveProstorije[i].Zauzeta)
+                    if (terminDTO.sveProstorije[i].Zauzeta)
                     {
                         return false;
                     }
@@ -387,95 +402,95 @@ namespace Bolnica.Services
             return true;
         }
 
-        public List<TimeSpan> DobijZauzeteTerminePacijenta(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public List<TimeSpan> DobijZauzeteTerminePacijentaIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < preglediPacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
             {
-                if (preglediPacijenta[i].Datum.Date.Equals(datumPregleda.Date) && !preglediPacijenta[i].Id.Equals(trenutniPregled.Id))
+                if (terminDTO.preglediPacijenta[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date) && !terminDTO.preglediPacijenta[i].Id.Equals(terminDTO.trenutniPregled.Id))
                 {
-                    string[] datum = preglediPacijenta[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.preglediPacijenta[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= preglediPacijenta[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.preglediPacijenta[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            for (int i = 0; i < operacijePacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
             {
-                if (operacijePacijenta[i].Datum.Date.Equals(datumPregleda.Date) && !operacijePacijenta[i].Id.Equals(trenutnaOperacija.Id))
+                if (terminDTO.operacijePacijenta[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date) && !terminDTO.operacijePacijenta[i].Id.Equals(terminDTO.trenutnaOperacija.Id))
                 {
-                    string[] datum = operacijePacijenta[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.operacijePacijenta[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= operacijePacijenta[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.operacijePacijenta[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            return zauzetiTermini;
+            return terminDTO.zauzetiTermini;
         }
 
-        public List<TimeSpan> DobijZauzeteTerminePacijenta(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda)
+        public List<TimeSpan> DobijZauzeteTerminePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < preglediPacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
             {
-                if (preglediPacijenta[i].Datum.Date.Equals(datumPregleda.Date))
+                if (terminDTO.preglediPacijenta[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date))
                 {
-                    string[] datum = preglediPacijenta[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.preglediPacijenta[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= preglediPacijenta[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.preglediPacijenta[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            for (int i = 0; i < operacijePacijenta.Count; i++)
+            for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
             {
-                if (operacijePacijenta[i].Datum.Date.Equals(datumPregleda.Date))
+                if (terminDTO.operacijePacijenta[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date))
                 {
-                    string[] datum = operacijePacijenta[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.operacijePacijenta[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= operacijePacijenta[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.operacijePacijenta[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            return zauzetiTermini;
+            return terminDTO.zauzetiTermini;
         }
 
-        public List<TimeSpan> LekarFiltriranje(List<TimeSpan> predmetStavkiVreme, string filtriraniLekar, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
+        public List<TimeSpan> LekarFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            if (filtriraniLekar != lekarPodaci)
+            if (terminDTO.filtriraniLekar != terminDTO.lekarPodaci)
             {
-                predmetStavkiVreme = InicirajVreme();
+                terminDTO.predmetStavkiVreme = InicirajVreme();
 
-                predmetStavkiVreme = FiltrirajZauzeteTermineLekara(predmetStavkiVreme, sviLekari, lekarPodaci, datumPregleda);
+                terminDTO.predmetStavkiVreme = FiltrirajZauzeteTermineLekara(terminDTO);
                
-                return predmetStavkiVreme;
+                return terminDTO.predmetStavkiVreme;
 
             }
             return null;
         }
        
-        public string DobijJmbgLekara(string lekarPodaci,List<Lekar> sviLekari)
+        public string DobijJmbgLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             string jmbgLekar="";
-            for (int i = 0; i < sviLekari.Count; i++)
+            for (int i = 0; i < terminDTO.sviLekari.Count; i++)
             {
-                string podaciOLekaru = sviLekari[i].Prezime + ' ' + sviLekari[i].Ime + ' ' + sviLekari[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci))
+                string podaciOLekaru = terminDTO.sviLekari[i].Prezime + ' ' + terminDTO.sviLekari[i].Ime + ' ' + terminDTO.sviLekari[i].Jmbg;
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci))
                 {
-                    jmbgLekar = sviLekari[i].Jmbg;
+                    jmbgLekar = terminDTO.sviLekari[i].Jmbg;
                     return jmbgLekar;
                 }
             }
@@ -497,58 +512,58 @@ namespace Bolnica.Services
             return itemSourceVremeB;
         }
 
-        public List<string> DatumFiltriranje(DateTime filtriraniDatum, DateTime datumPregleda, List<Prostorija> sveProstorije,List<string> predmetStavkiProstorije)
+        public List<string> DatumFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            if (filtriraniDatum != datumPregleda)
+            if (terminDTO.filtriraniDatum != terminDTO.datumPregledaDatum)
             {
-                filtriraniDatum = datumPregleda;
-                predmetStavkiProstorije = new List<string>();
-                for (int i = 0; i < sveProstorije.Count; i++)
+                terminDTO.filtriraniDatum = terminDTO.datumPregledaDatum;
+                terminDTO.predmetStavkiProstorije = new List<string>();
+                for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
                 {
-                    if (sveProstorije[i].Obrisana == false && sveProstorije[i].Zauzeta == false && sveProstorije[i].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(sveProstorije[i], datumPregleda))
+                    if (terminDTO.sveProstorije[i].Obrisana == false && terminDTO.sveProstorije[i].Zauzeta == false && terminDTO.sveProstorije[i].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(terminDTO.sveProstorije[i],terminDTO.datumPregledaDatum))
                     {
-                        predmetStavkiProstorije.Add(sveProstorije[i].BrojProstorije);
+                        terminDTO.predmetStavkiProstorije.Add(terminDTO.sveProstorije[i].BrojProstorije);
                     }
                 }
-                return predmetStavkiProstorije;
+                return terminDTO.predmetStavkiProstorije;
             }
             return null;
 
         }
 
-        public string LekarComboNaTab(string filtriraniLekar, string lekarPodaci, List<Lekar> sviLekari, string specijalizacija)
+        public string LekarComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
-            if (filtriraniLekar != lekarPodaci)
+            if (terminDTO.filtriraniLekar != terminDTO.lekarPodaci)
             {
-                filtriraniLekar = lekarPodaci;
-                for (int i = 0; i < sviLekari.Count; i++)
+                terminDTO.filtriraniLekar = terminDTO.lekarPodaci;
+                for (int i = 0; i < terminDTO.sviLekari.Count; i++)
                 {
-                    string podaciOLekaru = sviLekari[i].Prezime + ' ' + sviLekari[i].Ime + ' ' + sviLekari[i].Jmbg;
-                    if (podaciOLekaru.Equals(lekarPodaci))
+                    string podaciOLekaru = terminDTO.sviLekari[i].Prezime + ' ' + terminDTO.sviLekari[i].Ime + ' ' + terminDTO.sviLekari[i].Jmbg;
+                    if (podaciOLekaru.Equals(terminDTO.lekarPodaci))
                     {
-                        specijalizacija = sviLekari[i].Specijalizacija.OblastMedicine;
+                        terminDTO.specijalizacija = terminDTO.sviLekari[i].Specijalizacija.OblastMedicine;
                     }
 
                 }
-                return specijalizacija;
+                return terminDTO.specijalizacija;
 
             }
             return null;
 
         }
 
-        public List<string> SpecijalizacijaComboNaTab(List<string> specijalizacije, String specijalizacija, List<Lekar> sviLekari)
+        public List<string> SpecijalizacijaComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
-            if (specijalizacije.Contains(specijalizacija))
+            if (terminDTO.specijalizacije.Contains(terminDTO.specijalizacija))
             {
                 List<string> filtriraniLekari = new List<string>();
-                for (int i = 0; i < sviLekari.Count; i++)
+                for (int i = 0; i < terminDTO.sviLekari.Count; i++)
                 {
-                    if (sviLekari[i].Specijalizacija.OblastMedicine.Equals(specijalizacija))
+                    if (terminDTO.sviLekari[i].Specijalizacija.OblastMedicine.Equals(terminDTO.specijalizacija))
                     {
-                        string podaciOLekaru = sviLekari[i].Prezime + ' ' + sviLekari[i].Ime + ' ' + sviLekari[i].Jmbg;
+                        string podaciOLekaru = terminDTO.sviLekari[i].Prezime + ' ' + terminDTO.sviLekari[i].Ime + ' ' + terminDTO.sviLekari[i].Jmbg;
                         filtriraniLekari.Add(podaciOLekaru);
                     }
                 }
@@ -559,15 +574,15 @@ namespace Bolnica.Services
         }
 
 
-        public bool LekarSlobodanUToVreme(string lekarPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
+        public bool LekarSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            zauzetiTermini = DobijZauzeteTermineLekara(lekarPodaci, datumPregleda);
+            zauzetiTermini = DobijZauzeteTermineLekara(terminDTO);
 
-            for (int i = 0; i < int.Parse(trajanjePregleda); i++)
+            for (int i = 0; i < int.Parse(terminDTO.trajanjePregleda); i++)
             {
                 TimeSpan p = new TimeSpan(0, i, 0);
-                if (zauzetiTermini.Contains(TimeSpan.Parse(vremePregleda) + p))
+                if (zauzetiTermini.Contains(TimeSpan.Parse(terminDTO.vremePregledaString) + p))
                 {
                     return false;
                 }
@@ -576,15 +591,15 @@ namespace Bolnica.Services
             return true;
 
         }
-        public bool LekarSlobodanUToVremeIzmeni(string lekarPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public bool LekarSlobodanUToVremeIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            zauzetiTermini = DobijZauzeteTermineLekara(lekarPodaci, datumPregleda, trenutniPregled, trenutnaOperacija);
+            zauzetiTermini = DobijZauzeteTermineLekaraIzmeni(terminDTO);
 
-            for (int i = 0; i < int.Parse(trajanjePregleda); i++)
+            for (int i = 0; i < int.Parse(terminDTO.trajanjePregleda); i++)
             {
                 TimeSpan p = new TimeSpan(0, i, 0);
-                if (zauzetiTermini.Contains(TimeSpan.Parse(vremePregleda) + p))
+                if (zauzetiTermini.Contains(TimeSpan.Parse(terminDTO.vremePregledaString) + p))
                 {
                     return false;
                 }
@@ -595,26 +610,26 @@ namespace Bolnica.Services
         }
 
 
-        public List<TimeSpan> FiltrirajZauzeteTermineLekara(List<TimeSpan> vremePregleda, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
+        public List<TimeSpan> FiltrirajZauzeteTermineLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < sviLekari.Count; i++)
+            for (int i = 0; i < terminDTO.sviLekari.Count; i++)
             {
-                string podaciOLekaru = sviLekari[i].Prezime + ' ' + sviLekari[i].Ime + ' ' + sviLekari[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci) && sviLekari[i].Specijalizacija.OblastMedicine != null)
+                string podaciOLekaru = terminDTO.sviLekari[i].Prezime + ' ' + terminDTO.sviLekari[i].Ime + ' ' + terminDTO.sviLekari[i].Jmbg;
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci) && terminDTO.sviLekari[i].Specijalizacija.OblastMedicine != null)
                 {
-                    List<TimeSpan> zauzetiTermini = RacunajZauzeteTermineLekara(datumPregleda, lekarPodaci);
+                    List<TimeSpan> zauzetiTermini = RacunajZauzeteTermineLekara(terminDTO);
                     for (int p = 0; p < zauzetiTermini.Count; p++)
                     {
-                        vremePregleda.Remove(zauzetiTermini[p]);
+                        terminDTO.predmetStavkiVreme.Remove(zauzetiTermini[p]);
                     }
-                    return vremePregleda;
+                    return terminDTO.predmetStavkiVreme;
                 }
 
             }
-            return vremePregleda;
+            return terminDTO.predmetStavkiVreme;
         }
 
-        public List<TimeSpan> DobijZauzeteTermineLekara(string lekarPodaci, DateTime datumPregleda)
+        public List<TimeSpan> DobijZauzeteTermineLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Lekar> lekari = new List<Lekar>();
             lekari = skladisteLekari.GetAll();
@@ -624,16 +639,16 @@ namespace Bolnica.Services
             for (int i = 0; i < lekari.Count; i++)
             {
                 string podaciOLekaru = lekari[i].Prezime + ' ' + lekari[i].Ime + ' ' + lekari[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci) && lekari[i].Specijalizacija.OblastMedicine != null)
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci) && lekari[i].Specijalizacija.OblastMedicine != null)
                 {
-                    zauzetiTermini = RacunajZauzeteTermineLekara(datumPregleda, lekarPodaci);
+                    zauzetiTermini = RacunajZauzeteTermineLekara(terminDTO);
                 }
 
             }
             return zauzetiTermini;
         }
 
-        public List<TimeSpan> DobijZauzeteTermineLekara(string lekarPodaci, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public List<TimeSpan> DobijZauzeteTermineLekaraIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Lekar> lekari = new List<Lekar>();
             lekari = skladisteLekari.GetAll();
@@ -643,146 +658,146 @@ namespace Bolnica.Services
             for (int i = 0; i < lekari.Count; i++)
             {
                 string podaciOLekaru = lekari[i].Prezime + ' ' + lekari[i].Ime + ' ' + lekari[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci) && lekari[i].Specijalizacija.OblastMedicine != null)
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci) && lekari[i].Specijalizacija.OblastMedicine != null)
                 {
-                    zauzetiTermini = RacunajZauzeteTermineLekara(datumPregleda, lekarPodaci, trenutniPregled, trenutnaOperacija);
+                    zauzetiTermini = RacunajZauzeteTermineLekaraIzmeni(terminDTO);
                 }
 
             }
             return zauzetiTermini;
         }
-        public List<TimeSpan> RacunajZauzeteTermineLekara(DateTime datumPregleda, string lekarPodaci)
+        public List<TimeSpan> RacunajZauzeteTermineLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
             List<Pregled> preglediLekara = skladistePregledi.GetAllPregledi();
             List<Operacija> operacijeLekara = skladistePregledi.GetAllOperacije();
             List<Lekar> lekari = skladisteLekari.GetAll();
-            string jmbgLekar = DobijJmbgLekara(lekarPodaci, lekari);
+            string jmbgLekar = DobijJmbgLekara(new IzmeniINapraviTerminLekarServiceDTO(terminDTO.lekarPodaci, lekari));
 
-            preglediLekara = FiltrirajPregledeLekara(preglediLekara, jmbgLekar);
-            operacijeLekara = FiltrirajOperacijeLekara(operacijeLekara, jmbgLekar);
-            zauzetiTermini = OdrediZauzeteTermine(preglediLekara, operacijeLekara, zauzetiTermini, datumPregleda);
+            preglediLekara = FiltrirajPregledeLekara(new IzmeniINapraviTerminLekarServiceDTO(preglediLekara, jmbgLekar));
+            operacijeLekara = FiltrirajOperacijeLekara(new IzmeniINapraviTerminLekarServiceDTO(operacijeLekara, jmbgLekar));
+            zauzetiTermini = OdrediZauzeteTermineIzmeni(new IzmeniINapraviTerminLekarServiceDTO(preglediLekara, operacijeLekara, zauzetiTermini, terminDTO.datumPregledaDatum));
             return zauzetiTermini;
         }
-        public List<TimeSpan> RacunajZauzeteTermineLekara(DateTime datumPregleda, string lekarPodaci, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public List<TimeSpan> RacunajZauzeteTermineLekaraIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
             List<Pregled> preglediLekara = skladistePregledi.GetAllPregledi();
             List<Operacija> operacijeLekara = skladistePregledi.GetAllOperacije();
             List<Lekar> lekari = skladisteLekari.GetAll();
-            string jmbgLekar = DobijJmbgLekara(lekarPodaci, lekari);
+            string jmbgLekar = DobijJmbgLekara(new IzmeniINapraviTerminLekarServiceDTO(terminDTO.lekarPodaci, lekari));
 
-            preglediLekara = FiltrirajPregledeLekara(preglediLekara, jmbgLekar);
-            operacijeLekara = FiltrirajOperacijeLekara(operacijeLekara, jmbgLekar);
-            zauzetiTermini = OdrediZauzeteTermine(preglediLekara, operacijeLekara, zauzetiTermini, datumPregleda, trenutniPregled, trenutnaOperacija);
+            preglediLekara = FiltrirajPregledeLekara(new IzmeniINapraviTerminLekarServiceDTO(preglediLekara, jmbgLekar));
+            operacijeLekara = FiltrirajOperacijeLekara(new IzmeniINapraviTerminLekarServiceDTO(operacijeLekara, jmbgLekar));
+            zauzetiTermini = OdrediZauzeteTermine(new IzmeniINapraviTerminLekarServiceDTO(preglediLekara, operacijeLekara, zauzetiTermini, terminDTO.datumPregledaDatum, terminDTO.trenutniPregled, terminDTO.trenutnaOperacija));
             return zauzetiTermini;
         }
 
-        public List<TimeSpan> OdrediZauzeteTermine(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public List<TimeSpan> OdrediZauzeteTermine(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
-            for (int i = 0; i < preglediLekara.Count; i++)
+            for (int i = 0; i < terminDTO.preglediLekara.Count; i++)
             {
-                if (preglediLekara[i].Datum.Date.Equals(datumPregleda.Date) && !preglediLekara[i].Id.Equals(trenutniPregled.Id))
+                if (terminDTO.preglediLekara[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date) && !terminDTO.preglediLekara[i].Id.Equals(terminDTO.trenutniPregled.Id))
                 {
-                    string[] datum = preglediLekara[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.preglediLekara[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= preglediLekara[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.preglediLekara[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            for (int i = 0; i < operacijeLekara.Count; i++)
+            for (int i = 0; i < terminDTO.operacijeLekara.Count; i++)
             {
-                if (operacijeLekara[i].Datum.Date.Equals(datumPregleda.Date) && !operacijeLekara[i].Id.Equals(trenutnaOperacija.Id))
+                if (terminDTO.operacijeLekara[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date) && !terminDTO.operacijeLekara[i].Id.Equals(terminDTO.trenutnaOperacija.Id))
                 {
-                    string[] datum = operacijeLekara[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.operacijeLekara[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= operacijeLekara[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.operacijeLekara[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
 
 
 
             }
-            return zauzetiTermini;
+            return terminDTO.zauzetiTermini;
         }
-        public List<TimeSpan> OdrediZauzeteTermine(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda)
+        public List<TimeSpan> OdrediZauzeteTermineIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < preglediLekara.Count; i++)
+            for (int i = 0; i < terminDTO.preglediLekara.Count; i++)
             {
-                if (preglediLekara[i].Datum.Date.Equals(datumPregleda.Date))
+                if (terminDTO.preglediLekara[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date))
                 {
-                    string[] datum = preglediLekara[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.preglediLekara[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= preglediLekara[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.preglediLekara[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
             }
-            for (int i = 0; i < operacijeLekara.Count; i++)
+            for (int i = 0; i < terminDTO.operacijeLekara.Count; i++)
             {
-                if (operacijeLekara[i].Datum.Date.Equals(datumPregleda.Date))
+                if (terminDTO.operacijeLekara[i].Datum.Date.Equals(terminDTO.datumPregledaDatum.Date))
                 {
-                    string[] datum = operacijeLekara[i].Datum.ToString().Split(" ");
+                    string[] datum = terminDTO.operacijeLekara[i].Datum.ToString().Split(" ");
                     string vreme = datum[1];
                     TimeSpan pocetni = TimeSpan.Parse(vreme);
-                    for (int p = 0; p <= operacijeLekara[i].Trajanje; p++)
+                    for (int p = 0; p <= terminDTO.operacijeLekara[i].Trajanje; p++)
                     {
                         TimeSpan dodatni = new TimeSpan(0, p, 0);
-                        zauzetiTermini.Add(pocetni + dodatni);
+                        terminDTO.zauzetiTermini.Add(pocetni + dodatni);
                     }
                 }
 
 
 
             }
-            return zauzetiTermini;
+            return terminDTO.zauzetiTermini;
         }
         
 
-        public List<Operacija> FiltrirajOperacijeLekara(List<Operacija> operacijeLekara, string jmbgLekar)
+        public List<Operacija> FiltrirajOperacijeLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < operacijeLekara.Count; i++)
+            for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
             {
-                if (!operacijeLekara[i].Lekar.Jmbg.Equals(jmbgLekar))
+                if (!terminDTO.operacijePacijenta[i].Lekar.Jmbg.Equals(terminDTO.jmbgPacijent))
                 {
-                    operacijeLekara.RemoveAt(i);
+                    terminDTO.operacijePacijenta.RemoveAt(i);
                     i = i - 1;
                 }
             }
-            return operacijeLekara;
+            return terminDTO.operacijePacijenta;
         }
-        public List<Pregled> FiltrirajPregledeLekara(List<Pregled> preglediLekara, string jmbgLekar)
+        public List<Pregled> FiltrirajPregledeLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            for (int i = 0; i < preglediLekara.Count; i++)
+            for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
             {
-                if (!preglediLekara[i].Lekar.Jmbg.Equals(jmbgLekar))
+                if (!terminDTO.preglediPacijenta[i].Lekar.Jmbg.Equals(terminDTO.jmbgPacijent))
                 {
-                    preglediLekara.RemoveAt(i);
+                    terminDTO.preglediPacijenta.RemoveAt(i);
                     i = i - 1;
                 }
             }
-            return preglediLekara;
+            return terminDTO.preglediPacijenta;
         }
 
-        private bool naRenoviranju(Prostorija p, DateTime datumB)
+        private bool naRenoviranju(Prostorija p,DateTime datumPregledaDatum)
         {
             foreach (Renoviranje r in skladisteRenoviranja.GetAll())
             {
                 if (r.Prostorija.BrojProstorije == p.BrojProstorije)
                 {
-                    if (r.PocetakRenoviranja.Date <= datumB && datumB <= r.KrajRenoviranja.Date)
+                    if (r.PocetakRenoviranja.Date <= datumPregledaDatum && datumPregledaDatum <= r.KrajRenoviranja.Date)
                     {
                         return true;
                     }
@@ -791,16 +806,16 @@ namespace Bolnica.Services
             return false;
         }
 
-        public PrikazOperacije PopuniOperaciju(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija, ref bool daLiJeOperacija)
+        public PrikazOperacije PopuniOperaciju(IzmeniINapraviTerminLekarServiceDTO terminDTO, ref bool daLiJeOperacija)
         {
             List<Lekar> lekariTrenutni = skladisteLekari.GetAll();
             List<Pacijent> pacijentiZa = skladistePacijenti.GetAll();
             List<Prostorija> prostorijaZa = skladisteProstorije.GetAllProstorije();
-            PrikazOperacije trenutnaOperacija = new PrikazOperacije(staraOperacija.Id, DateTime.Parse(datumPregleda + TimeSpan.Parse(vremePregleda)), int.Parse(trajanjePregleda), false, predmetStavkiDaLiJeHitan, staraOperacija.Anamneza);
+            PrikazOperacije trenutnaOperacija = new PrikazOperacije(terminDTO.staraOperacija.Id, DateTime.Parse(terminDTO.datumPregledaString + TimeSpan.Parse(terminDTO.vremePregledaString)), int.Parse(terminDTO.trajanjePregleda), false, terminDTO.predmetStavkiDaLiJeHitan, terminDTO.staraOperacija.Anamneza);
             for (int i = 0; i < lekariTrenutni.Count; i++)
             {
                 string podaciOLekaru = lekariTrenutni[i].Prezime + ' ' + lekariTrenutni[i].Ime + ' ' + lekariTrenutni[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci))
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci))
                 {
                     trenutnaOperacija.Lekar = lekariTrenutni[i];
                 }
@@ -811,7 +826,7 @@ namespace Bolnica.Services
                 podaciOPacijentu = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
 
 
-                if (podaciOPacijentu.Equals(pacijentPodaci))
+                if (podaciOPacijentu.Equals(terminDTO.pacijentPodaci))
                 {
                     trenutnaOperacija.Pacijent = pacijentiZa[i];
                     break;
@@ -820,25 +835,25 @@ namespace Bolnica.Services
             }
             for (int i = 0; i < prostorijaZa.Count; i++)
             {
-                if (prostorijaZa[i].BrojProstorije.ToString().Equals(prostorijaBroj))
+                if (prostorijaZa[i].BrojProstorije.ToString().Equals(terminDTO.prostorijaBroj))
                 {
                     trenutnaOperacija.Prostorija = prostorijaZa[i];
                     break;
                 }
             }
-            if (predmetStavkiDaLiJeOperacija.Equals(true))
+            if (terminDTO.predmetStavkiDaLiJeOperacija.Equals(true))
             {
-                if (tipOperacije.Equals(TipOperacije.prvaKat))
+                if (terminDTO.tipOperacije.Equals(TipOperacije.prvaKat))
                 {
                     daLiJeOperacija = true;
                     trenutnaOperacija.TipOperacije = TipOperacije.prvaKat;
                 }
-                else if (tipOperacije.Equals(TipOperacije.drugaKat))
+                else if (terminDTO.tipOperacije.Equals(TipOperacije.drugaKat))
                 {
                     daLiJeOperacija = true;
                     trenutnaOperacija.TipOperacije = TipOperacije.drugaKat;
                 }
-                else if (tipOperacije.Equals(TipOperacije.trecaKat))
+                else if (terminDTO.tipOperacije.Equals(TipOperacije.trecaKat))
                 {
                     daLiJeOperacija = true;
                     trenutnaOperacija.TipOperacije = TipOperacije.trecaKat;
@@ -847,16 +862,16 @@ namespace Bolnica.Services
             }
             return trenutnaOperacija;
         }
-        public PrikazPregleda PopuniPregled(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, PrikazPregleda stariPregled)
+        public PrikazPregleda PopuniPregled(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
-            PrikazPregleda trenutniPregled = new PrikazPregleda(stariPregled.Id, DateTime.Parse(datumPregleda + TimeSpan.Parse(vremePregleda)), int.Parse(trajanjePregleda), false, predmetStavkiDaLiJeHitan, stariPregled.Anamneza);
+            PrikazPregleda trenutniPregled = new PrikazPregleda(terminDTO.stariPregled.Id, DateTime.Parse(terminDTO.datumPregledaString + TimeSpan.Parse(terminDTO.vremePregledaString)), int.Parse(terminDTO.trajanjePregleda), false, terminDTO.predmetStavkiDaLiJeHitan, terminDTO.stariPregled.Anamneza);
             List<Lekar> lekariTrenutni = skladisteLekari.GetAll();
             List<Pacijent> pacijentiZa = skladistePacijenti.GetAll();
             List<Prostorija> prostorijaZa = skladisteProstorije.GetAllProstorije();
             for (int i = 0; i < lekariTrenutni.Count; i++)
             {
                 string podaciOLekaru = lekariTrenutni[i].Prezime + ' ' + lekariTrenutni[i].Ime + ' ' + lekariTrenutni[i].Jmbg;
-                if (podaciOLekaru.Equals(lekarPodaci))
+                if (podaciOLekaru.Equals(terminDTO.lekarPodaci))
                 {
                     trenutniPregled.Lekar = lekariTrenutni[i];
                 }
@@ -869,7 +884,7 @@ namespace Bolnica.Services
                 podaciOPacijentu = pacijentiZa[i].Prezime + ' ' + pacijentiZa[i].Ime + ' ' + pacijentiZa[i].Jmbg;
 
 
-                if (podaciOPacijentu.Equals(pacijentPodaci))
+                if (podaciOPacijentu.Equals(terminDTO.pacijentPodaci))
                 {
                     trenutniPregled.Pacijent = pacijentiZa[i];
                     break;
@@ -878,7 +893,7 @@ namespace Bolnica.Services
             }
             for (int i = 0; i < prostorijaZa.Count; i++)
             {
-                if (prostorijaZa[i].BrojProstorije.ToString().Equals(prostorijaBroj))
+                if (prostorijaZa[i].BrojProstorije.ToString().Equals(terminDTO.prostorijaBroj))
                 {
                     trenutniPregled.Prostorija = prostorijaZa[i];
                     break;
