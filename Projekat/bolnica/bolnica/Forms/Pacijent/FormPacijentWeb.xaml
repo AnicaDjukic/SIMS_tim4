@@ -22,9 +22,9 @@
         <StackPanel Orientation="Horizontal" Margin="0,80,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="1400">
             <Button Content="Početna stranica" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Pocetna_Stranica"></Button>
             <Button Content="Zakazivanje pregleda" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Zakazivanje_Pregleda"></Button>
-            <Button Content="Zdravstveni karton" BorderBrush="Aqua" MinWidth="200" FontSize="18"></Button>
+            <Button Content="Zdravstveni karton" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Zdravstveni_Karton"></Button>
             <Button Content="Istorija pregleda" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Istorija_Pregleda"></Button>
-            <Button Content="Lekovi i terapije" BorderBrush="Aqua" MinWidth="200" FontSize="18"></Button>
+            <Button Content="Lekovi i terapije" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Lekovi_Terapije"></Button>
             <Button Content="Obaveštenja" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Obavestenja"></Button>
             <Button Content="Pomoć" BorderBrush="Aqua" MinWidth="200" FontSize="18"></Button>
         </StackPanel>

@@ -27,7 +27,8 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" MinWidth="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" MinWidth="150"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" MinWidth="150"></DataGridTextColumn>

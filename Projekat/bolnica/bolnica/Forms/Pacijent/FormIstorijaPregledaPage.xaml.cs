@@ -146,5 +146,20 @@ namespace Bolnica.Forms
         {
             FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaOcenaPage(trenutniPacijent);
         }
+
+        private void Button_Click_Anamneza(object sender, RoutedEventArgs e)
+        {
+            var objekat = pacijentIstorijaGrid.SelectedValue;
+
+            if (objekat != null)
+            {
+                PrikazPregleda prikazPregleda = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
+                FormPacijentWeb.Forma.Pocetna.Content = new FormAnamnezaPage(prikazPregleda);
+            }
+            else
+            {
+                MessageBox.Show("Morate odabrati pregled za koji zelite da vidite anamnezu!", "Upozorenje");
+            }
+        }
     }
 }

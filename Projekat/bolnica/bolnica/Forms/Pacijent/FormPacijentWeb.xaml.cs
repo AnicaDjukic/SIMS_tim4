@@ -108,5 +108,15 @@ namespace Bolnica.Forms
             new MainWindow().Show();
             this.Close();
         }
+
+        private void Button_Click_Lekovi_Terapije(object sender, RoutedEventArgs e)
+        {
+            Pocetna.Content = new FormLekoviTerapijePage(trenutniPacijent);
+        }
+
+        private void Button_Click_Zdravstveni_Karton(object sender, RoutedEventArgs e)
+        {
+            Pocetna.Content = new FormZdravstveniKartonPage(trenutniPacijent);
+        }
     }
 }
