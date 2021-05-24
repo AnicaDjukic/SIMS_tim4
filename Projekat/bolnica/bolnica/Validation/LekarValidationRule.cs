@@ -126,6 +126,35 @@ namespace Bolnica.Validation
 
     }
 
+    public class ComboBoxBolnickaSobaValidationRule : ValidationRule
+    {
+        private FileStorageProstorija storage { get; set; }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value as string != "" && value != null)
+            {
+                storage = new FileStorageProstorija();
+
+                List<BolnickaSoba> sveProstorije = new List<BolnickaSoba>();
+                sveProstorije = storage.GetAllBolnickeSobe();
+
+
+                for (int i = 0; i < sveProstorije.Count; i++)
+                {
+                    if (sveProstorije[i].BrojProstorije.ToString().Equals(value as string))
+                    {
+                        return new ValidationResult(true, null);
+                    }
+                }
+                return new ValidationResult(false, "Ne postoji slobodna prostorija");
+            }
+            return new ValidationResult(false, "Popunite");
+        }
+
+
+
+    }
+
     public class ComboBoxVremeValidationRule : ValidationRule
     {
         private FileStorageProstorija storage { get; set; }

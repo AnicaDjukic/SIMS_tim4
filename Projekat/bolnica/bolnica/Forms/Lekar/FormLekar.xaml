@@ -223,6 +223,7 @@
         <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
             <TabItem.InputBindings>
                 <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaIstorijaKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding Path=HospitalizujKomanda}" />
             </TabItem.InputBindings>
                     <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
@@ -339,8 +340,14 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}"/>
+                <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="10" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Ctrl+L" Grid.Row="29" Grid.Column="16" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Name="HospitalizacijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="16" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Hospitalizuj " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=HospitalizujKomanda}"/>
+                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="10" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaHospitalizacijuKomanda}"/>
+                    </Button.InputBindings>
+                </Button>
             </Grid>
         </TabItem>
         <TabItem Name="LekTab" Style="{StaticResource TreciTab}" >

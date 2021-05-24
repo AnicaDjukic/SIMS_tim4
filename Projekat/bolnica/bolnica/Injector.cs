@@ -23,6 +23,13 @@ namespace Bolnica
         private NapraviAnamnezuLekarService napraviAnamnezuLekarService = new NapraviAnamnezuLekarService();
 
         private LekarService lekarService = new LekarService();
+
+        private HospitalizujLekarService hospitalizujLekarService = new HospitalizujLekarService();
+
+        public HospitalizujLekarService HospitalizujLekarService
+        {
+            get { return hospitalizujLekarService; }
+        }
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }

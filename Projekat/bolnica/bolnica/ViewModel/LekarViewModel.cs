@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Bolnica.ViewModel
 {
@@ -90,7 +92,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_OtkaziPregledKomanda(object obj)
         {
-            inject.LekarService.OtkaziPregled(new LekarServiceDTO(preglediTabela,listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda,prikazOperacije));
+            inject.LekarService.OtkaziPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
         public bool CanExecute_OtkaziPregledKomanda(object obj)
@@ -248,12 +250,32 @@ namespace Bolnica.ViewModel
             }
         }
 
+       
+
         public void Executed_SkociNaTabIstorijaKomanda(object obj)
         {
             inject.LekarService.SkociNaTabIstorija(new LekarServiceDTO(istorijaPregledaTabela));
         }
 
         public bool CanExecute_SkociNaTabIstorijaKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand istorijaDugmeSkociNaHospitalizacijuKomanda;
+        public RelayCommand IstorijaDugmeSkociNaHospitalizacijuKomanda
+        {
+            get { return istorijaDugmeSkociNaHospitalizacijuKomanda; }
+            set { istorijaDugmeSkociNaHospitalizacijuKomanda = value; }
+        }
+
+        public void Executed_IstorijaDugmeSkociNaHospitalizacijuKomanda(object obj)
+        {
+            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Right);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+        }
+
+        public bool CanExecute_IstorijaDugmeSkociNaHospitalizacijuKomanda(object obj)
         {
             return true;
         }
@@ -298,6 +320,28 @@ namespace Bolnica.ViewModel
         }
 
         public bool CanExecute_AnamnezaIstorijaKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand hospitalizujKomanda;
+        public RelayCommand HospitalizujKomanda
+        {
+            get { return hospitalizujKomanda; }
+            set
+            {
+                hospitalizujKomanda = value;
+
+            }
+        }
+
+        public void Executed_HospitalizujKomanda(object obj)
+        {
+            inject.LekarService.HospitalizacijaPacijenta(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+
+        }
+
+        public bool CanExecute_HospitalizujKomanda(object obj)
         {
             return true;
         }
@@ -538,6 +582,8 @@ namespace Bolnica.ViewModel
             SkociNaTabLekKomanda = new RelayCommand(Executed_SkociNaTabLekKomanda, CanExecute_SkociNaTabLekKomanda);
             OdobriLekKomanda = new RelayCommand(Executed_OdobriLekKomanda, CanExecute_OdobriLekKomanda);
             VratiNaIzmenuKomanda = new RelayCommand(Executed_VratiNaIzmenuKomanda, CanExecute_VratiNaIzmenuKomanda);
+            HospitalizujKomanda = new RelayCommand(Executed_HospitalizujKomanda, CanExecute_HospitalizujKomanda);
+            IstorijaDugmeSkociNaHospitalizacijuKomanda = new RelayCommand(Executed_IstorijaDugmeSkociNaHospitalizacijuKomanda, CanExecute_IstorijaDugmeSkociNaHospitalizacijuKomanda);
         }
 
         public void SortirajPodatke()
