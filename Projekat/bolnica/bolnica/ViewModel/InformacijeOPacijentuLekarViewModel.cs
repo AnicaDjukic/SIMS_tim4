@@ -11,9 +11,9 @@ namespace Bolnica.ViewModel
 {
     public class InformacijeOPacijentuLekarViewModel : ViewModel
     {
-        public bool guest { get; set; }
+        public bool gost { get; set; }
 
-        public Visibility visibility { get; set; }
+        public Visibility vidljiv { get; set; }
         public string ime { get; set; }
         public string prezime { get; set; }
         public string pol { get; set; }
@@ -39,38 +39,60 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
-        public Action CloseAction { get; set; }
+        public Action ZatvoriAkcija { get; set; }
 
-        private RelayCommand zatvoriCommand;
-        public RelayCommand ZatvoriCommand
+        private RelayCommand zatvoriKomanda;
+        public RelayCommand ZatvoriKomanda
         {
-            get { return zatvoriCommand; }
+            get { return zatvoriKomanda; }
             set
             {
-                zatvoriCommand = value;
+                zatvoriKomanda = value;
 
             }
         }
 
-        public void Executed_ZatvoriCommand(object obj)
+        public void Executed_ZatvoriKomanda(object obj)
         {
-            CloseAction();
+            ZatvoriAkcija();
         }
 
-        public bool CanExecute_ZatvoriCommand(object obj)
+        public bool CanExecute_ZatvoriKomanda(object obj)
         {
             return true;
         }
-        public InformacijeOPacijentuLekarViewModel(Pacijent p1)
+        public InformacijeOPacijentuLekarViewModel(Pacijent izabraniPacijent)
         {
-            
-            
-            
-            guest = p1.Guest;
-            ime = p1.Ime;
-            prezime = p1.Prezime;
+            PostaviZajednickaPolja(izabraniPacijent);
+            PostaviAlergene(izabraniPacijent);
+            UpravljajZdravstvenimKartonom(izabraniPacijent);
+            ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
 
-            if (p1.Pol.Equals(Pol.muski))
+        }
+        public void UpravljajZdravstvenimKartonom(Pacijent izabraniPacijent)
+        {
+            if (izabraniPacijent.Guest)
+            {
+                vidljiv = Visibility.Hidden;
+            }
+            else
+            {
+                vidljiv = Visibility.Visible;
+                korisnickoIme = izabraniPacijent.KorisnickoIme;
+
+                zanimanje = izabraniPacijent.ZdravstveniKarton.Zanimanje;
+                bracniStatus = izabraniPacijent.ZdravstveniKarton.BracniStatus;
+                osiguranje = izabraniPacijent.ZdravstveniKarton.Osiguranje;
+
+            }
+        }
+        public void PostaviZajednickaPolja(Pacijent izabraniPacijent)
+        {
+            gost = izabraniPacijent.Guest;
+            ime = izabraniPacijent.Ime;
+            prezime = izabraniPacijent.Prezime;
+
+            if (izabraniPacijent.Pol.Equals(Pol.muski))
             {
                 pol = "Muski";
             }
@@ -78,51 +100,34 @@ namespace Bolnica.ViewModel
             {
                 pol = "Zenski";
             }
-     
-            jmbg = p1.Jmbg;
-            datumR = p1.DatumRodjenja.ToString();
-            adresaS = p1.AdresaStanovanja;
-            brojTel = p1.BrojTelefona;
-            emailAdresa = p1.Email;
-            List<Sastojak>? l = p1.Alergeni;
-            List<String> aler = new List<string>();
-            FileStorageSastojak storageSas = new FileStorageSastojak();
-            if (l != null)
+
+            jmbg = izabraniPacijent.Jmbg;
+            datumR = izabraniPacijent.DatumRodjenja.ToString();
+            adresaS = izabraniPacijent.AdresaStanovanja;
+            brojTel = izabraniPacijent.BrojTelefona;
+            emailAdresa = izabraniPacijent.Email;
+        }
+        public void PostaviAlergene(Pacijent izabraniPacijent)
+        {
+            List<Sastojak>? alergeniPacijenta = izabraniPacijent.Alergeni;
+            List<String> alergeniZaPrikaz = new List<string>();
+            FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+            if (alergeniPacijenta != null)
             {
-                for (int i = 0; i < p1.Alergeni.Count; i++)
+                for (int i = 0; i < izabraniPacijent.Alergeni.Count; i++)
                 {
-                    foreach (Sastojak s in storageSas.GetAll())
+                    foreach (Sastojak s in skladisteSastojaka.GetAll())
                     {
-                        if (p1.Alergeni[i].Id.Equals(s.Id))
+                        if (izabraniPacijent.Alergeni[i].Id.Equals(s.Id))
                         {
-                           aler.Add(s.Naziv);
+                            alergeniZaPrikaz.Add(s.Naziv);
                         }
                     }
                 }
             }
-           
-            alergeni = aler;
-            
 
-            if (p1.Guest)
-            {
-                visibility = Visibility.Hidden;
-            }
-            else
-            {
-                visibility = Visibility.Visible;
-                korisnickoIme = p1.KorisnickoIme;
-
-                zanimanje = p1.ZdravstveniKarton.Zanimanje;
-               bracniStatus = p1.ZdravstveniKarton.BracniStatus;
-                osiguranje = p1.ZdravstveniKarton.Osiguranje;
-
-            }
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
+            alergeni = alergeniZaPrikaz;
         }
-        
-
-
 
 
 

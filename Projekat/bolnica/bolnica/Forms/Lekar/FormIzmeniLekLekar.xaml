@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         Title="FormIzmeniLekLekar" Height="670" Width="630">
     <Window.InputBindings>
-        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=IzmeniLekCommand}"/>
-        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriCommand}"/>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=IzmeniLekKomanda}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
 
 
     </Window.InputBindings>
@@ -78,10 +78,10 @@
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
-                    Command="{Binding Path=ProizvodjacComboOpenCommand}" 
+                    Command="{Binding Path=ProizvodjacComboNaEnterKomanda}" 
                 />
                 <KeyBinding Key="Tab"
-                    Command="{Binding Path=ProizvodjacComboOpenTabCommand}" />
+                    Command="{Binding Path=ProizvodjacComboNaTabKomanda}" />
             </ComboBox.InputBindings>
             <ComboBox.Text>
                 <Binding Path="proizvodjac" UpdateSourceTrigger="PropertyChanged">
@@ -110,10 +110,10 @@
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
-                    Command="{Binding Path=LekComboOpenCommand}" 
+                    Command="{Binding Path=OtvoriComboLekNaEnterKomanda}" 
                 />
                 <KeyBinding Key="Tab"
-                    Command="{Binding Path=LekComboOpenTabCommand}" />
+                    Command="{Binding Path=ComboLekNaTabKomanda}" />
             </ComboBox.InputBindings>
             <ComboBox.Text>
                 <Binding Path="lek" UpdateSourceTrigger="PropertyChanged">
@@ -142,7 +142,7 @@
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
-                    Command="{Binding Path=DozaComboOpenCommand}" 
+                    Command="{Binding Path=DozaComboNaEnterKomanda}" 
                 />
 
             </ComboBox.InputBindings>
@@ -173,7 +173,7 @@
             <ListBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
-                    Command="{Binding Path=SelectSastojakCommand}" 
+                    Command="{Binding Path=SelektujSastojakNaEnterKomanda}" 
                 />
 
             </ListBox.InputBindings>
@@ -182,7 +182,7 @@
             <ListBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
-                    Command="{Binding Path=SelectZamenaCommand}" 
+                    Command="{Binding Path=SelektujZamenuNaEnterKomanda}" 
                 />
 
             </ListBox.InputBindings>
@@ -192,9 +192,9 @@
         <Label Content="Doza" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Sastojak" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Zamene" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=IzmeniLekCommand}"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=IzmeniLekKomanda}"
                          Background="#FF1E93F4" Content="Potvrdi" Grid.Column="1" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
-            <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
                          Background="#FF1E93F4" Content="Odustani" Grid.Column="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>

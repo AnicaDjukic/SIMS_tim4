@@ -333,9 +333,9 @@
         </TabItem>
         <TabItem Name="LekTab" Style="{StaticResource TreciTab}" >
             <TabItem.InputBindings>
-                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=IzmeniLekKomanda}" />
-                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OdobriLekKomanda}" />
-                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=VratiNaIzmenuKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=OdobriLekKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=VratiNaIzmenuKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniLekKomanda}" />
             </TabItem.InputBindings>
                     <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>

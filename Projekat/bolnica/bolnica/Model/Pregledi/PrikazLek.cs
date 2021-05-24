@@ -25,6 +25,16 @@ namespace Bolnica.Model.Pregledi
 
         }
 
+        public PrikazLek(int Id, string Naziv, string Proizvodjac, int KolicinaUMg, StatusLeka Status, int Zalihe)
+        {
+            this.Id = Id;
+            this.Naziv = Naziv;
+            this.Proizvodjac = Proizvodjac;
+            this.KolicinaUMg = KolicinaUMg;
+            this.Status = Status;
+            this.Zalihe = Zalihe;
+        }
+
         public PrikazLek() { }  
         public int Id { get; set; }
         public string Naziv { get; set; }

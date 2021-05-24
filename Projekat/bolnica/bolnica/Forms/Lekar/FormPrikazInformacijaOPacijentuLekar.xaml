@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FormPrikazInformacijaOPacijentuLekar" Height="670" Width="630" >
     <Window.InputBindings>
-        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=ZatvoriCommand}" />
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}" />
     </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">
@@ -59,13 +59,13 @@
         <Label Content="Broj telefona:" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label Content="Email adresa:" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         
-        <Label Visibility="{Binding visibility}" Name="korisnickoIme" Content="Korisnicko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Name="korisnickoIme" Content="Korisnicko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label  Name="alergeni" Content="Alergeni:" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding visibility}" Name="zanimanje" Content="Zanimanje:" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding visibility}" Name="bracniStatus" Content="Bracni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding visibility}" Name="osiguranje" Content="Osiguranje:" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Name="zanimanje" Content="Zanimanje:" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Name="bracniStatus" Content="Bracni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Name="osiguranje" Content="Osiguranje:" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         
-        <CheckBox IsChecked="{Binding guest}" IsEnabled="False" Name="checkGuest" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <CheckBox IsChecked="{Binding gost}" IsEnabled="False" Name="checkGuest" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label Content="{Binding ime}" Name="ime" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label Content="{Binding prezime}" Name="prezime" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label Content="{Binding pol}" Name="pol" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
@@ -75,12 +75,12 @@
         <Label Content="{Binding brojTel}" Name="brojTelefona" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <Label Content="{Binding emailAdresa}" Name="emailAdresa" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
 
-        <Label Visibility="{Binding visibility}" Content="{Binding korisnickoIme}" Name="korisnickoIme2" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Content="{Binding korisnickoIme}" Name="korisnickoIme2" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
         <ListBox ItemsSource="{Binding alergeni}" IsEnabled="False" Grid.RowSpan="2"  FontFamily="Adobe Caslon Pro Bold" FontSize="16"  MinWidth="100" Name="alergeni2" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding visibility}" Content="{Binding zanimanje}" Name="zanimanje2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding visibility}" Content="{Binding bracniStatus}" Name="bracniStatus2" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <CheckBox Visibility="{Binding visibility}" IsChecked="{Binding osiguranje}" IsEnabled="False" Name="osiguranje2" Grid.Column="2" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
+        <Label Visibility="{Binding vidljiv}" Content="{Binding zanimanje}" Name="zanimanje2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Label Visibility="{Binding vidljiv}" Content="{Binding bracniStatus}" Name="bracniStatus2" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <CheckBox Visibility="{Binding vidljiv}" IsChecked="{Binding osiguranje}" IsEnabled="False" Name="osiguranje2" Grid.Column="2" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
                          Background="#FF1E93F4" Content="Zatvori" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" HorizontalAlignment="Center"  VerticalAlignment="Center" />
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         

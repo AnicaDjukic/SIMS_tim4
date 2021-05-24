@@ -1,4 +1,5 @@
-﻿using Bolnica.Forms;
+﻿using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
 using Bolnica.ViewModel;
 using Model.Pregledi;
@@ -11,38 +12,37 @@ namespace Bolnica.Services
 {
     public class IzmeniLekLekarService
     {
-        private FileStorageSastojak sviSastojci = new FileStorageSastojak();
-        private FileStorageLek sviLekovi = new FileStorageLek();
+        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        private FileStorageLek skladisteLekova = new FileStorageLek();
 
-        public List<int> NazivLekaOpenTab(string nazivLeka,ref String stariLek,List<Lek> lekovi,List<int> ItemSourceDozaLeka)
+        public List<int> LekComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariLek)
         {
-           
-                if (nazivLeka.Length > 2)
+                if (lekDTO.lek.Length > 2)
                 {
                     List<int> dozeLeka = new List<int>();
-                    if (!stariLek.Equals(nazivLeka))
+                    if (!stariLek.Equals(lekDTO.lek))
                     {
-                        stariLek = nazivLeka;
+                        stariLek = lekDTO.lek;
                     
-                        for (int i = 0; i < lekovi.Count; i++)
+                        for (int i = 0; i < lekDTO.sviLekovi.Count; i++)
                         {
-                            if (nazivLeka.Equals(lekovi[i].Naziv) && !dozeLeka.Contains(lekovi[i].KolicinaUMg))
+                            if (lekDTO.lek.Equals(lekDTO.sviLekovi[i].Naziv) && !dozeLeka.Contains(lekDTO.sviLekovi[i].KolicinaUMg))
                             {
-                            dozeLeka.Add(lekovi[i].KolicinaUMg);
+                            dozeLeka.Add(lekDTO.sviLekovi[i].KolicinaUMg);
                             }
                         }
                     return dozeLeka;
                 }
                     
                 }
-                return ItemSourceDozaLeka;
+                return lekDTO.ItemSourceDozaLeka;
         }
 
-        public void SelectSastojakNaEnter(ListBox textSastojci)
+        public void SelektujSastojakNaEnter(IzmeniLekLekarServiceDTO lekDTO)
         {
-                for (int i = 0; i < textSastojci.Items.Count; i++)
+                for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
                 {
-                    ListBoxItem item = textSastojci.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                    ListBoxItem item = lekDTO.sastojciKutija.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
                     if (item.IsFocused.Equals(true))
                     {
                         if (item.IsSelected.Equals(true))
@@ -56,14 +56,13 @@ namespace Bolnica.Services
 
                     }
                 }
-            
         }
 
-        public void SelectZamenaNaEnter(ListBox textZamene)
+        public void SelektujZameneNaEnter(IzmeniLekLekarServiceDTO lekDTO)
         {
-                for (int i = 0; i < textZamene.Items.Count; i++)
+                for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)
                 {
-                    ListBoxItem item = textZamene.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                    ListBoxItem item = lekDTO.zameneKutija.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
                     if (item.IsFocused.Equals(true))
                     {
                         if (item.IsSelected.Equals(true))
@@ -80,110 +79,111 @@ namespace Bolnica.Services
         }
 
       
-        public List<string> ProizvodjacOpenTab(string proizvodjac,ref String stariProizvodjac,List<Lek> lekovi,List<string> ItemSourceNazivLeka)
+        public List<string> ProizvodjacComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariProizvodjac)
         {
-                if (proizvodjac.Length > 2)
+                if (lekDTO.proizvodjac.Length > 2)
                 {
                 List<string> naziviLekova = new List<string>();
-                if (!stariProizvodjac.Equals(proizvodjac))
+                if (!stariProizvodjac.Equals(lekDTO.proizvodjac))
                     {
-                        stariProizvodjac = proizvodjac;
+                        stariProizvodjac = lekDTO.proizvodjac;
                     
-                        for (int i = 0; i < lekovi.Count; i++)
+                        for (int i = 0; i < lekDTO.sviLekovi.Count; i++)
                         {
-                            if (proizvodjac.Equals(lekovi[i].Proizvodjac) && !naziviLekova.Contains(lekovi[i].Naziv))
+                            if (lekDTO.proizvodjac.Equals(lekDTO.sviLekovi[i].Proizvodjac) && !naziviLekova.Contains(lekDTO.sviLekovi[i].Naziv))
                             {
-                            naziviLekova.Add(lekovi[i].Naziv);
+                            naziviLekova.Add(lekDTO.sviLekovi[i].Naziv);
                             }
                         }
                     return naziviLekova;
                 }
                 
                 }
-            return ItemSourceNazivLeka;
+            return lekDTO.ItemSourceNazivLeka;
         }
 
-        public void Potvrdi(Lek l,string doza,string lek,string proizvodjac,ListBox textSastojci,List<Sastojak> sas,ListBox textZamene,List<Lek> lekovi)
+        public void Potvrdi(IzmeniLekLekarServiceDTO lekDTO)
         {
-            Lek lekk = new Lek();
-            lekk.Id = l.Id;
-            lekk.KolicinaUMg = int.Parse(doza);
-            lekk.Naziv = lek;
-            lekk.Proizvodjac = proizvodjac;
-            lekk.Zalihe = l.Zalihe;
-            lekk.Sastojak = new List<Sastojak>();
-            lekk.IdZamena = new List<int>();
-            lekk.Status = l.Status;
-            PrikazLek lekpri = new PrikazLek();
-            lekpri.Sastojak = "";
-            int doz = 0;
-            int dozz = 0;
-            for (int i = 0; i < textSastojci.Items.Count; i++)
-            {
-                ListBoxItem item = textSastojci.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
-                if (item.IsSelected.Equals(true))
-                {
-                    for (int h = 0; h < sas.Count; h++)
-                    {
-                        if (sas[h].Naziv.Equals(item.Content as string))
-                        {
-                            lekk.Sastojak.Add(sas[h]);
-                            if (doz == 0)
-                            {
-                                lekpri.Sastojak = lekpri.Sastojak + " " + sas[h].Naziv;
-                                doz = 1;
-                            }
-                            else
-                            {
-                                lekpri.Sastojak = lekpri.Sastojak + "," + sas[h].Naziv;
-                            }
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < textZamene.Items.Count; i++)
-            {
-                ListBoxItem item = textZamene.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
-                if (item.IsSelected.Equals(true))
-                {
-                    for (int h = 0; h < lekovi.Count; h++)
-                    {
-                        string k = lekovi[h].Proizvodjac + ", " + lekovi[h].Naziv + ", " + lekovi[h].KolicinaUMg;
-                        if (k.Equals(item.Content as string))
-                        {
-                            lekk.IdZamena.Add(lekovi[h].Id);
-                            if (dozz == 0)
-                            {
-                                lekpri.Zamena = lekpri.Zamena + " " + lekovi[h].Naziv;
-                                dozz = 1;
-                            }
-                            else
-                            {
-                                lekpri.Zamena = lekpri.Zamena + "," + lekovi[h].Naziv;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            lekpri.Id = l.Id;
-            lekpri.KolicinaUMg = int.Parse(doza);
-            lekpri.Naziv = lek;
-            lekpri.Zalihe = l.Zalihe;
-            lekpri.Proizvodjac = proizvodjac;
-            lekpri.Status = l.Status;
-
+            Lek izmenjeniLek = new Lek(lekDTO.izabraniLek.Id, lekDTO.lek, lekDTO.proizvodjac, int.Parse(lekDTO.doza), lekDTO.izabraniLek.Status, lekDTO.izabraniLek.Zalihe);
+            PrikazLek lekZaPrikaz = new PrikazLek(lekDTO.izabraniLek.Id, lekDTO.lek, lekDTO.proizvodjac, int.Parse(lekDTO.doza), lekDTO.izabraniLek.Status, lekDTO.izabraniLek.Zalihe);
+            lekZaPrikaz.Sastojak = "";
+            lekZaPrikaz = PopuniStringSastojaka(new IzmeniLekLekarServiceDTO(lekDTO.sastojciKutija, lekDTO.sviSastojci, izmenjeniLek, lekZaPrikaz));
+            lekZaPrikaz = PopuniStringZamena(new IzmeniLekLekarServiceDTO(lekDTO.zameneKutija, lekDTO.sviLekovi, izmenjeniLek, lekZaPrikaz));
+            AzurirajTabelu(new IzmeniLekLekarServiceDTO(lekZaPrikaz));
+            AzurirajSkladiste(new IzmeniLekLekarServiceDTO(izmenjeniLek));
+            
+        }
+        public void AzurirajTabelu(IzmeniLekLekarServiceDTO lekDTO)
+        {
             for (int j = 0; j < LekarViewModel.lekoviPrikaz.Count; j++)
             {
-                if (LekarViewModel.lekoviPrikaz[j].Id.Equals(lekpri.Id))
+                if (LekarViewModel.lekoviPrikaz[j].Id.Equals(lekDTO.lekZaPrikaz.Id))
                 {
-                    LekarViewModel.lekoviPrikaz[j] = lekpri;
+                    LekarViewModel.lekoviPrikaz[j] = lekDTO.lekZaPrikaz;
                 }
             }
-            sviLekovi.Delete(lekk);
-            sviLekovi.Save(lekk);
-
+        }
+        public void AzurirajSkladiste(IzmeniLekLekarServiceDTO lekDTO)
+        {
+            skladisteLekova.Delete(lekDTO.izmenjeniLek);
+            skladisteLekova.Save(lekDTO.izmenjeniLek);
+        }
+        public PrikazLek PopuniStringSastojaka(IzmeniLekLekarServiceDTO lekDTO)
+        {
+            bool dozvolaZaStringSastojak = true;
+            for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
+            {
+                ListBoxItem item = lekDTO.sastojciKutija.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                if (item.IsSelected.Equals(true))
+                {
+                    for (int h = 0; h < lekDTO.sviSastojci.Count; h++)
+                    {
+                        if (lekDTO.sviSastojci[h].Naziv.Equals(item.Content as string))
+                        {
+                            lekDTO.izmenjeniLek.Sastojak.Add(lekDTO.sviSastojci[h]);
+                            if (dozvolaZaStringSastojak)
+                            {
+                                lekDTO.lekZaPrikaz.Sastojak = lekDTO.lekZaPrikaz.Sastojak + " " + lekDTO.sviSastojci[h].Naziv;
+                                dozvolaZaStringSastojak = false;
+                            }
+                            else
+                            {
+                                lekDTO.lekZaPrikaz.Sastojak = lekDTO.lekZaPrikaz.Sastojak + "," + lekDTO.sviSastojci[h].Naziv;
+                            }
+                        }
+                    }
+                }
+            }
+            return lekDTO.lekZaPrikaz;
+        }
+        public PrikazLek PopuniStringZamena(IzmeniLekLekarServiceDTO lekDTO)
+        {
+            bool dozvolaZaStringZamena = true;
+            for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)
+            {
+                ListBoxItem item = lekDTO.zameneKutija.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                if (item.IsSelected.Equals(true))
+                {
+                    for (int h = 0; h < lekDTO.sviLekovi.Count; h++)
+                    {
+                        string k = lekDTO.sviLekovi[h].Proizvodjac + ", " + lekDTO.sviLekovi[h].Naziv + ", " + lekDTO.sviLekovi[h].KolicinaUMg;
+                        if (k.Equals(item.Content as string))
+                        {
+                            lekDTO.izmenjeniLek.IdZamena.Add(lekDTO.sviLekovi[h].Id);
+                            if (dozvolaZaStringZamena)
+                            {
+                                lekDTO.lekZaPrikaz.Zamena = lekDTO.lekZaPrikaz.Zamena + " " + lekDTO.sviLekovi[h].Naziv;
+                                dozvolaZaStringZamena = false;
+                            }
+                            else
+                            {
+                                lekDTO.lekZaPrikaz.Zamena = lekDTO.lekZaPrikaz.Zamena + "," + lekDTO.sviLekovi[h].Naziv;
+                            }
+                        }
+                    }
+                }
+            }
+            return lekDTO.lekZaPrikaz;
         }
 
 

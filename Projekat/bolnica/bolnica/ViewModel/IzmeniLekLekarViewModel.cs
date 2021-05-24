@@ -1,9 +1,9 @@
 ﻿using Bolnica.Commands;
+using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -73,235 +73,226 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private RelayCommand proizvodjacComboOpenCommand;
-        public RelayCommand ProizvodjacComboOpenCommand
+        private RelayCommand proizvodjacComboNaEnterKomanda;
+        public RelayCommand ProizvodjacComboNaEnterKomanda
         {
-            get { return proizvodjacComboOpenCommand; }
+            get { return proizvodjacComboNaEnterKomanda; }
             set
             {
-                proizvodjacComboOpenCommand = value;
+                proizvodjacComboNaEnterKomanda = value;
 
             }
         }
 
-        public void Executed_ProizvodjacComboOpenCommand(object obj)
+        public void Executed_ProizvodjacComboNaEnterKomanda(object obj)
         {
             ItemSourceProizvodjacComboOpen = true;
 
         }
 
-        public bool CanExecute_ProizvodjacComboOpenCommand(object obj)
+        public bool CanExecute_ProizvodjacComboNaEnterKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand proizvodjacComboOpenTabCommand;
-        public RelayCommand ProizvodjacComboOpenTabCommand
+        private RelayCommand proizvodjacComboNaTabKomanda;
+        public RelayCommand ProizvodjacComboNaTabKomanda
         {
-            get { return proizvodjacComboOpenTabCommand; }
+            get { return proizvodjacComboNaTabKomanda; }
             set
             {
-                proizvodjacComboOpenTabCommand = value;
+                proizvodjacComboNaTabKomanda = value;
 
             }
         }
 
-        public void Executed_ProizvodjacComboOpenTabCommand(object obj)
+        public void Executed_ProizvodjacComboNaTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.IzmeniLekLekarService.ProizvodjacOpenTab(proizvodjac,ref stariProizvodjac,lekovi,ItemSourceNazivLeka);
+            ItemSourceNazivLeka = inject.IzmeniLekLekarService.ProizvodjacComboNaTab(new IzmeniLekLekarServiceDTO(proizvodjac, sviLekovi, ItemSourceNazivLeka), ref stariProizvodjac);
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
 
         }
-        public bool CanExecute_ProizvodjacComboOpenTabCommand(object obj)
+        public bool CanExecute_ProizvodjacComboNaTabKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand dozaComboOpenCommand;
-        public RelayCommand DozaComboOpenCommand
+        private RelayCommand dozaComboNaEnterKomanda;
+        public RelayCommand DozaComboNaEnterKomanda
         {
-            get { return dozaComboOpenCommand; }
+            get { return dozaComboNaEnterKomanda; }
             set
             {
-                dozaComboOpenCommand = value;
+                dozaComboNaEnterKomanda = value;
 
             }
         }
 
-        public void Executed_DozaComboOpenCommand(object obj)
+        public void Executed_DozaComboNaEnterKomanda(object obj)
         {
             ItemSourceDozaComboOpen = true;
 
         }
 
-        public bool CanExecute_DozaComboOpenCommand(object obj)
+        public bool CanExecute_DozaComboNaEnterKomanda(object obj)
         {
             return true;
         }
-        private RelayCommand lekComboOpenCommand;
-        public RelayCommand LekComboOpenCommand
+        private RelayCommand otvoriComboLekNaEnterKomanda;
+        public RelayCommand OtvoriComboLekNaEnterKomanda
         {
-            get { return lekComboOpenCommand; }
+            get { return otvoriComboLekNaEnterKomanda; }
             set
             {
-                lekComboOpenCommand = value;
+                otvoriComboLekNaEnterKomanda = value;
 
             }
         }
-        public void Executed_LekComboOpenCommand(object obj)
+        public void Executed_OtvoriComboLekNaEnterKomanda(object obj)
         {
             ItemSourceNazivLekaComboOpen = true;
 
         }
 
-        public bool CanExecute_LekComboOpenCommand(object obj)
+        public bool CanExecute_OtvoriComboLekNaEnterKomanda(object obj)
         {
             return true;
         }
 
 
-        private RelayCommand lekComboOpenTabCommand;
-        public RelayCommand LekComboOpenTabCommand
+        private RelayCommand comboLekNaTabKomanda;
+        public RelayCommand ComboLekNaTabKomanda
         {
-            get { return lekComboOpenTabCommand; }
+            get { return comboLekNaTabKomanda; }
             set
             {
-                lekComboOpenTabCommand = value;
+                comboLekNaTabKomanda = value;
 
             }
         }
 
-        public void Executed_LekComboOpenTabCommand(object obj)
+        public void Executed_ComboLekNaTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.IzmeniLekLekarService.NazivLekaOpenTab(lek,ref stariLek, lekovi,ItemSourceDozaLeka);
+            ItemSourceDozaLeka = inject.IzmeniLekLekarService.LekComboNaTab(new IzmeniLekLekarServiceDTO(lek, sviLekovi, ItemSourceDozaLeka), ref stariLek);
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
 
         }
-        public bool CanExecute_LekComboOpenTabCommand(object obj)
+        public bool CanExecute_ComboLekNaTabKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand selectSastojakCommand;
-        public RelayCommand SelectSastojakCommand
+        private RelayCommand selektujSastojakNaEnterKomanda;
+        public RelayCommand SelektujSastojakNaEnterKomanda
         {
-            get { return selectSastojakCommand; }
+            get { return selektujSastojakNaEnterKomanda; }
             set
             {
-                selectSastojakCommand = value;
+                selektujSastojakNaEnterKomanda = value;
 
             }
         }
 
-        public void Executed_SelectSastojakCommand(object obj)
+        public void Executed_SelektujSastojakNaEnterKomanda(object obj)
         {
-            inject.IzmeniLekLekarService.SelectSastojakNaEnter(sastojciBox);
+            inject.IzmeniLekLekarService.SelektujSastojakNaEnter(new IzmeniLekLekarServiceDTO(sastojciKutija));
 
         }
 
-        public bool CanExecute_SelectSastojakCommand(object obj)
+        public bool CanExecute_SelektujSastojakNaEnterKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand selectZamenaCommand;
-        public RelayCommand SelectZamenaCommand
+        private RelayCommand selektujZamenuNaEnterKomanda;
+        public RelayCommand SelektujZamenuNaEnterKomanda
         {
-            get { return selectZamenaCommand; }
+            get { return selektujZamenuNaEnterKomanda; }
             set
             {
-                selectZamenaCommand = value;
+                selektujZamenuNaEnterKomanda = value;
 
             }
         }
 
-        public void Executed_SelectZamenaCommand(object obj)
+        public void Executed_SelektujZamenuNaEnterKomanda(object obj)
         {
-            inject.IzmeniLekLekarService.SelectZamenaNaEnter(zameneBox);
+            inject.IzmeniLekLekarService.SelektujZameneNaEnter(new IzmeniLekLekarServiceDTO(zameneKutija));
 
         }
 
-        public bool CanExecute_SelectZamenaCommand(object obj)
+        public bool CanExecute_SelektujZamenuNaEnterKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand izmeniLekCommand;
-        public RelayCommand IzmeniLekCommand
+        private RelayCommand izmeniLekKomanda;
+        public RelayCommand IzmeniLekKomanda
         {
-            get { return izmeniLekCommand; }
+            get { return izmeniLekKomanda; }
             set
             {
-                izmeniLekCommand = value;
+                izmeniLekKomanda = value;
 
             }
         }
 
-        public void Executed_IzmeniLekCommand(object obj)
+        public void Executed_IzmeniLekKomanda(object obj)
         {
-           
-                inject.IzmeniLekLekarService.Potvrdi(l,doza,lek,proizvodjac,sastojciBox,sas,zameneBox,lekovi);
-                CloseAction();
-            
+
+            inject.IzmeniLekLekarService.Potvrdi(new IzmeniLekLekarServiceDTO(izabraniLek, doza, lek, proizvodjac, sastojciKutija, sviSastojci, zameneKutija, sviLekovi));
+            ZatvoriAkcija();
+
 
         }
 
-        public bool CanExecute_IzmeniLekCommand(object obj)
+        public bool CanExecute_IzmeniLekKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand zatvoriCommand;
-        public RelayCommand ZatvoriCommand
+        private RelayCommand zatvoriKomanda;
+        public RelayCommand ZatvoriKomanda
         {
-            get { return zatvoriCommand; }
+            get { return zatvoriKomanda; }
             set
             {
-                zatvoriCommand = value;
+                zatvoriKomanda = value;
 
             }
         }
 
-        public void Executed_ZatvoriCommand(object obj)
+        public void Executed_ZatvoriKomanda(object obj)
         {
 
-            CloseAction();
+            ZatvoriAkcija();
 
 
         }
 
-        public bool CanExecute_ZatvoriCommand(object obj)
+        public bool CanExecute_ZatvoriKomanda(object obj)
         {
             return true;
         }
-
-
-        private Lek l = new Lek();
-
+        private Lek izabraniLek = new Lek();
         public string proizvodjac { get; set; }
         public string lek { get; set; }
-
         public string doza { get; set; }
-
         public String stariLek = "";
-
         public String stariProizvodjac = "";
-        
 
-        private FileStorageSastojak sviSastojci = new FileStorageSastojak();
-        private FileStorageLek sviLekovi = new FileStorageLek();
 
-        private List<Lek> lekovi = new List<Lek>();
-        private List<Sastojak> sas = new List<Sastojak>();
-        
-        public ListBox itemSastojci { get; set; }
-        public ListBox itemZamene { get; set; }
+        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        private FileStorageLek skladisteLekova = new FileStorageLek();
 
-        public Action CloseAction { get; set; }
+        private List<Lek> sviLekovi = new List<Lek>();
+        private List<Sastojak> sviSastojci = new List<Sastojak>();
+
+        public Action ZatvoriAkcija { get; set; }
 
         private Injector inject;
 
@@ -314,150 +305,174 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private ListBox sastojciBox;
-        private ListBox zameneBox;
+        private ListBox sastojciKutija;
+        private ListBox zameneKutija;
 
-        public IzmeniLekLekarViewModel(Lek p)
+        public IzmeniLekLekarViewModel(Lek izabraniLekIzTabele)
         {
-            ItemSourceProizvodjacLeka = new List<string>();
-            
-            ItemSourceDozaLeka = new List<int>();
-            ItemSourceNazivLeka = new List<string>();
-            Inject = new Injector();
-            lekovi = sviLekovi.GetAll();
-            for (int i = 0; i < lekovi.Count; i++)
+            InicijalizujPodatke(izabraniLekIzTabele);
+            FiltrirajLekove();
+            PopuniNaziveIProizvodjace();
+            PopuniDoze();
+            PostaviComboBoxove();
+            NapraviKomande();
+        }
+        public void FiltrirajLekove()
+        {
+            sviLekovi = skladisteLekova.GetAll();
+            for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (lekovi[i].Status.Equals(StatusLeka.odbijen) || lekovi[i].Obrisan)
+                if (sviLekovi[i].Status.Equals(StatusLeka.odbijen) || sviLekovi[i].Obrisan)
                 {
-                    lekovi.RemoveAt(i);
+                    sviLekovi.RemoveAt(i);
                     i--;
                 }
             }
-            l = p;
-            
+        }
+        public void InicijalizujPodatke(Lek p)
+        {
+            ItemSourceProizvodjacLeka = new List<string>();
 
-
+            ItemSourceDozaLeka = new List<int>();
+            ItemSourceNazivLeka = new List<string>();
+            Inject = new Injector();
+            izabraniLek = p;
+            sviSastojci = skladisteSastojaka.GetAll();
+        }
+        public void PostaviComboBoxove()
+        {
+            proizvodjac = izabraniLek.Proizvodjac;
+            lek = izabraniLek.Naziv;
+            doza = izabraniLek.KolicinaUMg.ToString();
+            stariLek = lek;
+            stariProizvodjac = proizvodjac;
+        }
+        public void PopuniNaziveIProizvodjace()
+        {
             List<string> ItemSourceLekovi = new List<string>();
             List<string> proizvodjaci = new List<string>();
-            for (int i = 0; i < lekovi.Count; i++)
+            for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (!ItemSourceLekovi.Contains(lekovi[i].Naziv) && lekovi[i].Proizvodjac.Equals(l.Proizvodjac))
+                if (!ItemSourceLekovi.Contains(sviLekovi[i].Naziv) && sviLekovi[i].Proizvodjac.Equals(izabraniLek.Proizvodjac))
                 {
-                    ItemSourceLekovi.Add(lekovi[i].Naziv);
+                    ItemSourceLekovi.Add(sviLekovi[i].Naziv);
                 }
-                if (!proizvodjaci.Contains(lekovi[i].Proizvodjac))
+                if (!proizvodjaci.Contains(sviLekovi[i].Proizvodjac))
                 {
-                    proizvodjaci.Add(lekovi[i].Proizvodjac);   
+                    proizvodjaci.Add(sviLekovi[i].Proizvodjac);
                 }
             }
             ItemSourceNazivLeka = ItemSourceLekovi;
             ItemSourceProizvodjacLeka = proizvodjaci;
+        }
+
+        public void PopuniDoze()
+        {
             List<int> ItemSourceDoza = new List<int>();
-            for (int i = 0; i < lekovi.Count; i++)
+            for (int i = 0; i < sviLekovi.Count; i++)
             {
-                if (lekovi[i].Naziv.Equals(l.Naziv) && !ItemSourceDoza.Contains(lekovi[i].KolicinaUMg))
+                if (sviLekovi[i].Naziv.Equals(izabraniLek.Naziv) && !ItemSourceDoza.Contains(sviLekovi[i].KolicinaUMg))
                 {
-                    ItemSourceDoza.Add(lekovi[i].KolicinaUMg);
+                    ItemSourceDoza.Add(sviLekovi[i].KolicinaUMg);
                 }
             }
             itemSourceDozaLeka = ItemSourceDoza;
-            proizvodjac = l.Proizvodjac;
-            lek = l.Naziv;
-            doza = l.KolicinaUMg.ToString();
-            stariLek = lek;
-            stariProizvodjac = proizvodjac;
+        }
+        public void NapraviKomande()
+        {
+            OtvoriComboLekNaEnterKomanda = new RelayCommand(Executed_OtvoriComboLekNaEnterKomanda, CanExecute_OtvoriComboLekNaEnterKomanda);
+            ComboLekNaTabKomanda = new RelayCommand(Executed_ComboLekNaTabKomanda, CanExecute_ComboLekNaTabKomanda);
+            ProizvodjacComboNaEnterKomanda = new RelayCommand(Executed_ProizvodjacComboNaEnterKomanda, CanExecute_ProizvodjacComboNaEnterKomanda);
+            ProizvodjacComboNaTabKomanda = new RelayCommand(Executed_ProizvodjacComboNaTabKomanda, CanExecute_ProizvodjacComboNaTabKomanda);
+            DozaComboNaEnterKomanda = new RelayCommand(Executed_DozaComboNaEnterKomanda, CanExecute_DozaComboNaEnterKomanda);
+            SelektujSastojakNaEnterKomanda = new RelayCommand(Executed_SelektujSastojakNaEnterKomanda, CanExecute_SelektujSastojakNaEnterKomanda);
+            SelektujZamenuNaEnterKomanda = new RelayCommand(Executed_SelektujZamenuNaEnterKomanda, CanExecute_SelektujZamenuNaEnterKomanda);
+            IzmeniLekKomanda = new RelayCommand(Executed_IzmeniLekKomanda, CanExecute_IzmeniLekKomanda);
+            ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+        }
 
-            sas = sviSastojci.GetAll();
+        public void PopuniSastojkeIZamene(ListBox sastojakKutija,ListBox zamenaKutija)
+        {
+            sastojciKutija = sastojakKutija;
+            zameneKutija = zamenaKutija;
+            PopuniSastojke();
+            PopuniZamene();
+            IzfiltrirajZamene();
+            
 
-
-            LekComboOpenCommand = new RelayCommand(Executed_LekComboOpenCommand, CanExecute_LekComboOpenCommand);
-            LekComboOpenTabCommand = new RelayCommand(Executed_LekComboOpenTabCommand, CanExecute_LekComboOpenTabCommand);
-            ProizvodjacComboOpenCommand = new RelayCommand(Executed_ProizvodjacComboOpenCommand, CanExecute_ProizvodjacComboOpenCommand);
-            ProizvodjacComboOpenTabCommand = new RelayCommand(Executed_ProizvodjacComboOpenTabCommand, CanExecute_ProizvodjacComboOpenTabCommand);
-            DozaComboOpenCommand = new RelayCommand(Executed_DozaComboOpenCommand, CanExecute_DozaComboOpenCommand);
-            SelectSastojakCommand = new RelayCommand(Executed_SelectSastojakCommand, CanExecute_SelectSastojakCommand);
-            SelectZamenaCommand = new RelayCommand(Executed_SelectZamenaCommand, CanExecute_SelectZamenaCommand);
-            IzmeniLekCommand = new RelayCommand(Executed_IzmeniLekCommand, CanExecute_IzmeniLekCommand);
-            ZatvoriCommand = new RelayCommand(Executed_ZatvoriCommand, CanExecute_ZatvoriCommand);
-
-
-
-
-
-
+           
 
         }
 
-        public void popuni(ListBox sastojakk,ListBox zamenaa)
+        public void PopuniSastojke()
         {
-            sastojciBox = sastojakk;
-            zameneBox = zamenaa;
-            for (int i = 0; i < sas.Count; i++)
+            for (int i = 0; i < sviSastojci.Count; i++)
             {
                 int dozvola = 0;
-                for (int m = 0; m < l.Sastojak.Count; m++)
+                for (int m = 0; m < izabraniLek.Sastojak.Count; m++)
                 {
-                    if (l.Sastojak[m].Id.Equals(sas[i].Id))
+                    if (izabraniLek.Sastojak[m].Id.Equals(sviSastojci[i].Id))
                     {
                         dozvola = 1;
                     }
                 }
-                sastojciBox.Items.Add(sas[i].Naziv);
+                sastojciKutija.Items.Add(sviSastojci[i].Naziv);
                 if (dozvola == 1)
                 {
-                    sastojciBox.SelectedItems.Add(sas[i].Naziv);
+                    sastojciKutija.SelectedItems.Add(sviSastojci[i].Naziv);
                 }
 
 
 
             }
-            for (int i = 0; i < lekovi.Count; i++)
+        }
+
+        public void PopuniZamene()
+        {
+            for (int i = 0; i < sviLekovi.Count; i++)
             {
                 int dozvola = 0;
-                for (int m = 0; m < l.IdZamena.Count; m++)
+                for (int m = 0; m < izabraniLek.IdZamena.Count; m++)
                 {
                     Lek novi = new Lek();
-                    for (int mo = 0; mo < lekovi.Count; mo++)
+                    for (int mo = 0; mo < sviLekovi.Count; mo++)
                     {
-                        if (l.IdZamena[m].Equals(lekovi[mo].Id))
+                        if (izabraniLek.IdZamena[m].Equals(sviLekovi[mo].Id))
                         {
-                            novi = lekovi[mo];
+                            novi = sviLekovi[mo];
                         }
                     }
-                    if (novi.Naziv.Equals(lekovi[i].Naziv) && novi.Proizvodjac.Equals(lekovi[i].Proizvodjac) && novi.KolicinaUMg.Equals(lekovi[i].KolicinaUMg))
+                    if (novi.Naziv.Equals(sviLekovi[i].Naziv) && novi.Proizvodjac.Equals(sviLekovi[i].Proizvodjac) && novi.KolicinaUMg.Equals(sviLekovi[i].KolicinaUMg))
                     {
                         dozvola = 1;
                     }
                 }
-                string k = lekovi[i].Proizvodjac + ", " + lekovi[i].Naziv + ", " + lekovi[i].KolicinaUMg;
-
-
-                zameneBox.Items.Add(k);
+                string k = sviLekovi[i].Proizvodjac + ", " + sviLekovi[i].Naziv + ", " + sviLekovi[i].KolicinaUMg;
+                zameneKutija.Items.Add(k);
                 if (dozvola == 1)
                 {
-                    zameneBox.SelectedItems.Add(k);
+                    zameneKutija.SelectedItems.Add(k);
                 }
-
-
-
             }
+        }
 
-            for (int m = 0; m < zameneBox.Items.Count; m++)
+        public void IzfiltrirajZamene()
+        {
+            for (int m = 0; m < zameneKutija.Items.Count; m++)
             {
-                for (int a = 0; a < lekovi.Count; a++)
+                for (int a = 0; a < sviLekovi.Count; a++)
                 {
-                    if (zameneBox.Items[m].ToString().Equals(lekovi[a].Proizvodjac + ", " + lekovi[a].Naziv + ", " + lekovi[a].KolicinaUMg))
+                    if (zameneKutija.Items[m].ToString().Equals(sviLekovi[a].Proizvodjac + ", " + sviLekovi[a].Naziv + ", " + sviLekovi[a].KolicinaUMg))
                     {
-                        if (lekovi[a].Status.Equals(StatusLeka.cekaValidaciju))
+                        if (sviLekovi[a].Status.Equals(StatusLeka.cekaValidaciju))
                         {
-                            zameneBox.Items.RemoveAt(m);
+                            zameneKutija.Items.RemoveAt(m);
                             m--;
                             break;
                         }
                     }
                 }
             }
-
         }
 
 
