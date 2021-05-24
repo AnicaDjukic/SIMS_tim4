@@ -126,7 +126,7 @@
                 />
             </CheckBox.InputBindings>
         </CheckBox>
-        <ComboBox IsDropDownOpen="{Binding ItemSourceSpecijalizacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourceSpecijalizacija, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Grid.Column="2" Grid.Row="3" Name="textSpecijalizacija" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
+        <ComboBox IsDropDownOpen="{Binding ItemSourceSpecijalizacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceSpecijalizacija, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Grid.Column="2" Grid.Row="3" Name="textSpecijalizacija" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 

@@ -39,7 +39,8 @@ namespace Bolnica.ViewModel
         public List<String> specijalizacije { get; set;}
 
         private List<String> itemSourceSpecijalizacija;
-        public List<String> ItemSourceSpecijalizacija { get { return itemSourceSpecijalizacija; }
+        public List<String> ItemSourceSpecijalizacija { 
+            get { return itemSourceSpecijalizacija; }
             set
             {
                 itemSourceSpecijalizacija = value;
@@ -655,6 +656,7 @@ namespace Bolnica.ViewModel
                 tipOperacije.Add(TipOperacije.trecaKat);
                 ItemSourceTipOperacije = tipOperacije;
                 ItemSourceDaLiJeOperacije = false;
+                PopuniComboBoxSpecijalizacija();
             }
             else
             {
@@ -678,6 +680,7 @@ namespace Bolnica.ViewModel
                 tipOperacije.Add(TipOperacije.drugaKat);
                 tipOperacije.Add(TipOperacije.trecaKat);
                 ItemSourceTipOperacije = tipOperacije;
+                PopuniComboBoxSpecijalizacijaOperacija();
             }
         }
 
@@ -798,6 +801,7 @@ namespace Bolnica.ViewModel
             PopuniComboBoxove();
             RukujPoljimaIzmeneOperacije();
             PostaviComboBoxoveNaPotrebneVrednostiIzmeneOperacije();
+            PopuniComboBoxSpecijalizacijaOperacija();
             
         }
         public void PostaviComboBoxoveNaPotrebneVrednostiIzmenePregleda()
@@ -894,14 +898,33 @@ namespace Bolnica.ViewModel
         }
         public void PopuniComboBoxSpecijalizacija()
         {
+            ItemSourceSpecijalizacija = new List<string>();
+            List<string> noveSpecijalizacije = new List<string>();
+            specijalizacije = new List<string>();
             for (int i = 0; i < sviLekari.Count; i++)
             {
                 if (sviLekari[i].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(sviLekari[i].Specijalizacija.OblastMedicine))
                 {
                     specijalizacije.Add(sviLekari[i].Specijalizacija.OblastMedicine);
-                    ItemSourceSpecijalizacija.Add(sviLekari[i].Specijalizacija.OblastMedicine);
+                    noveSpecijalizacije.Add(sviLekari[i].Specijalizacija.OblastMedicine);
                 }
             }
+            ItemSourceSpecijalizacija = noveSpecijalizacije;
+        }
+        public void PopuniComboBoxSpecijalizacijaOperacija()
+        {
+            ItemSourceSpecijalizacija = new List<string>();
+            List<string> noveSpecijalizacije = new List<string>();
+            specijalizacije = new List<string>();
+            for (int i = 0; i < sviLekari.Count; i++)
+            {
+                if (sviLekari[i].Specijalizacija.OblastMedicine != null && !specijalizacije.Contains(sviLekari[i].Specijalizacija.OblastMedicine) && !sviLekari[i].Specijalizacija.OblastMedicine.Equals("Opsta"))
+                {
+                    specijalizacije.Add(sviLekari[i].Specijalizacija.OblastMedicine);
+                    noveSpecijalizacije.Add(sviLekari[i].Specijalizacija.OblastMedicine);
+                }
+            }
+            ItemSourceSpecijalizacija = noveSpecijalizacije;
         }
         public void PopuniComboBoxVreme()
         {
