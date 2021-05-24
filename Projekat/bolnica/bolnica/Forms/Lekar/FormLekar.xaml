@@ -175,6 +175,12 @@
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Background" Value="#FF34FFF4"/>
                             <Setter Property="BorderBrush" Value="Black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
 
@@ -308,6 +314,12 @@
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Background" Value="#FF34FFF4"/>
                             <Setter Property="BorderBrush" Value="Black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
 
@@ -427,6 +439,12 @@
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="Background" Value="#FF34FFF4"/>
                             <Setter Property="BorderBrush" Value="Black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>

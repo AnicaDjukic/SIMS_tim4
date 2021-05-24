@@ -44,7 +44,6 @@ namespace Bolnica.Services
                 }
             }
         }
-
         public void AzurirajTabeluISkladistePregleda(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
@@ -68,7 +67,6 @@ namespace Bolnica.Services
                 }
             }
         }
-
         public void AzurirajListuPregleda(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < LekarViewModel.listaPregleda.Count; i++)
@@ -86,7 +84,6 @@ namespace Bolnica.Services
                 }
             }
         }
-       
         public void AzurirajTabeluISkladisteOperacija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
@@ -206,7 +203,6 @@ namespace Bolnica.Services
             }
             skladistePregledi.Save(terminDTO.azuriranaOperacija);
         }
-
         public bool PostojiLekar(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
@@ -224,8 +220,6 @@ namespace Bolnica.Services
             return false;
 
         }
-
-        
         public bool PacijentSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -242,7 +236,6 @@ namespace Bolnica.Services
 
 
         }
-
         public bool PacijentSlobodanUToVremeIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
@@ -314,7 +307,6 @@ namespace Bolnica.Services
             }
             return zauzetiTermini;
         }
-
         public string DobijJmgbPacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             string jmbgPacijent = "";
@@ -343,7 +335,6 @@ namespace Bolnica.Services
             }
             return terminDTO.preglediPacijenta;
         }
-
         public List<Operacija> FiltrirajOperacijePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
@@ -356,7 +347,6 @@ namespace Bolnica.Services
             }
             return terminDTO.operacijePacijenta;
         }
-
         public bool PostojiProstorija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
@@ -370,7 +360,6 @@ namespace Bolnica.Services
             }
             return false;
         }
-
         public bool ProstorijaSlobodna(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
@@ -396,12 +385,10 @@ namespace Bolnica.Services
             return false;
 
         }
-
         public bool CheckFields()
         {
             return true;
         }
-
         public List<TimeSpan> DobijZauzeteTerminePacijentaIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
@@ -434,7 +421,6 @@ namespace Bolnica.Services
             }
             return terminDTO.zauzetiTermini;
         }
-
         public List<TimeSpan> DobijZauzeteTerminePacijenta(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.preglediPacijenta.Count; i++)
@@ -467,7 +453,6 @@ namespace Bolnica.Services
             }
             return terminDTO.zauzetiTermini;
         }
-
         public List<TimeSpan> LekarFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             if (terminDTO.filtriraniLekar != terminDTO.lekarPodaci)
@@ -481,7 +466,6 @@ namespace Bolnica.Services
             }
             return null;
         }
-       
         public string DobijJmbgLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             string jmbgLekar="";
@@ -511,7 +495,6 @@ namespace Bolnica.Services
             }
             return itemSourceVremeB;
         }
-
         public List<string> DatumFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             if (terminDTO.filtriraniDatum != terminDTO.datumPregledaDatum)
@@ -530,7 +513,6 @@ namespace Bolnica.Services
             return null;
 
         }
-
         public string LekarComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
@@ -552,7 +534,6 @@ namespace Bolnica.Services
             return null;
 
         }
-
         public List<string> SpecijalizacijaComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
@@ -572,8 +553,6 @@ namespace Bolnica.Services
             return null;
 
         }
-
-
         public bool LekarSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -608,8 +587,6 @@ namespace Bolnica.Services
             return true;
 
         }
-
-
         public List<TimeSpan> FiltrirajZauzeteTermineLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.sviLekari.Count; i++)
@@ -628,7 +605,6 @@ namespace Bolnica.Services
             }
             return terminDTO.predmetStavkiVreme;
         }
-
         public List<TimeSpan> DobijZauzeteTermineLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Lekar> lekari = new List<Lekar>();
@@ -647,7 +623,6 @@ namespace Bolnica.Services
             }
             return zauzetiTermini;
         }
-
         public List<TimeSpan> DobijZauzeteTermineLekaraIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             List<Lekar> lekari = new List<Lekar>();
@@ -692,7 +667,6 @@ namespace Bolnica.Services
             zauzetiTermini = OdrediZauzeteTermine(new IzmeniINapraviTerminLekarServiceDTO(preglediLekara, operacijeLekara, zauzetiTermini, terminDTO.datumPregledaDatum, terminDTO.trenutniPregled, terminDTO.trenutnaOperacija));
             return zauzetiTermini;
         }
-
         public List<TimeSpan> OdrediZauzeteTermine(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
 
@@ -764,8 +738,6 @@ namespace Bolnica.Services
             }
             return terminDTO.zauzetiTermini;
         }
-        
-
         public List<Operacija> FiltrirajOperacijeLekara(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             for (int i = 0; i < terminDTO.operacijePacijenta.Count; i++)
@@ -790,7 +762,6 @@ namespace Bolnica.Services
             }
             return terminDTO.preglediPacijenta;
         }
-
         private bool naRenoviranju(Prostorija p,DateTime datumPregledaDatum)
         {
             foreach (Renoviranje r in skladisteRenoviranja.GetAll())
@@ -805,7 +776,6 @@ namespace Bolnica.Services
             }
             return false;
         }
-
         public PrikazOperacije PopuniOperaciju(IzmeniINapraviTerminLekarServiceDTO terminDTO, ref bool daLiJeOperacija)
         {
             List<Lekar> lekariTrenutni = skladisteLekari.GetAll();
