@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -18,15 +19,18 @@ namespace Bolnica.Forms
             get;
             set;
         }
+        public List<Obavestenje> Obavestenja { get; set; }
         private Pacijent pacijent = new Pacijent();
 
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
         private FileStorageAnamneza storageAnamneze = new FileStorageAnamneza();
         private FileStorageLek storageLek = new FileStorageLek();
+        private FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
 
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Anamneza> anamneze = new List<Anamneza>();
         private List<Lek> lekovi = new List<Lek>();
+        private List<Obavestenje> obavestenja = new List<Obavestenje>();
 
         public static string DanasnjiDatum
         {
@@ -42,6 +46,19 @@ namespace Bolnica.Forms
 
             pacijent = trenutniPacijent;
             ObavestenjaZaPacijente = new ObservableCollection<string>();
+            Obavestenja = new List<Obavestenje>();
+            obavestenja = storageObavestenja.GetAll();
+            foreach (Obavestenje o in obavestenja)
+            {
+                foreach (Korisnik k in o.Korisnici)
+                {
+                    if (trenutniPacijent.KorisnickoIme.Equals(k.KorisnickoIme))
+                    {
+                        Obavestenja.Add(o);
+                        break;
+                    }
+                }
+            }
             DanasnjiDatum = "Obaveštenja za dan " + DateTime.Today.ToShortDateString() + ":";
             pregledi = storagePregledi.GetAllPregledi();
             anamneze = storageAnamneze.GetAll();
@@ -66,7 +83,7 @@ namespace Bolnica.Forms
             foreach (Recept recept in recepti)
             {
                 string nazivLeka = DobijNazivLeka(recept.Lek.Id);
-                int vremeUzimanja = recept.VremeUzimanja.Hours;
+                int vremeUzimanja = recept.VremeUzimanja;
                 string datumZavrsetka = recept.Trajanje.ToShortDateString();
                 string obavestenje = "Danas treba da popijete lek '" + nazivLeka + "'. " +
                     "Ovaj lek se pije " + DobijBrojUzimanjaDnevno(vremeUzimanja) +

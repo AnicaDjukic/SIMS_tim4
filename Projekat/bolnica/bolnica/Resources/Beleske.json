@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 2,
+    "Zabeleska": "Neka moja zabeleska",
+    "Podsetnik": true,
+    "Vreme": "20:30:00",
+    "DatumPrekida": "2021-05-28T00:00:00",
+    "Prikazana": false,
+    "Anamneza": { "Id": 2 }
+  },
+  {
+    "Id": 1,
+    "Zabeleska": "Sutra na pregled da ponesem novac",
+    "Podsetnik": true,
+    "Vreme": "14:00:00",
+    "DatumPrekida": "2021-05-25T00:00:00",
+    "Prikazana": false,
+    "Anamneza": { "Id": 1 }
+  }
+]

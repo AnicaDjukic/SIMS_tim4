@@ -173,19 +173,19 @@ namespace Bolnica.Forms
                                 if (r.DatumIzdavanja.CompareTo(DateTime.Today) == 0)
                                 {
                                     string poruka;
-                                    if (r.VremeUzimanja.Hours == 0)
+                                    if (r.VremeUzimanja == 0)
                                     {
                                         poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
                                         r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
-                                        "' koji treba da pijete jednom dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
+                                        "' koji treba da pijete jednom dnevno u razmaku od po " + r.VremeUzimanja + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
                                     }
                                     else
                                     {
                                         poruka = DateTime.Today.ToShortDateString() + ": Postovani, danas Vam je izdata terapija koja traje do " +
                                         r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
-                                        "' koji treba da pijete " + 24 / r.VremeUzimanja.Hours +
-                                        " puta dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
+                                        "' koji treba da pijete " + 24 / r.VremeUzimanja +
+                                        " puta dnevno u razmaku od po " + r.VremeUzimanja + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
                                     }
 
@@ -193,17 +193,17 @@ namespace Bolnica.Forms
                                 if (r.Trajanje.CompareTo(DateTime.Now) > 0)
                                 {
                                     string poruka;
-                                    if (r.VremeUzimanja.Hours == 0)
+                                    if (r.VremeUzimanja == 0)
                                     {
                                         poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
-                                        "'. Ovaj lek se pije " + " jednom dnevno od po " + r.VremeUzimanja.Hours + " sati.";
+                                        "'. Ovaj lek se pije " + " jednom dnevno od po " + r.VremeUzimanja + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
                                     }
                                     else
                                     {
                                         poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
-                                        "'. Ovaj lek se pije " + 24 / r.VremeUzimanja.Hours + " puta dnevno u razmaku od po "
-                                        + r.VremeUzimanja.Hours + " sati. Pazljivo se pridrzavajte ovih uputa koje su vam date kako bi " +
+                                        "'. Ovaj lek se pije " + 24 / r.VremeUzimanja + " puta dnevno u razmaku od po "
+                                        + r.VremeUzimanja + " sati. Pazljivo se pridrzavajte ovih uputa koje su vam date kako bi " +
                                         "vasa terapija prosla u najboljem mogucem redu.";
                                         MessageBox.Show(poruka, "Obaveštenje");
                                     }

@@ -100,7 +100,7 @@ namespace Bolnica.Forms
                 }
             }
             noviPrikazRecepta.Kolicina = int.Parse(ComboBoxBrojKutija.Text);
-            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(ComboBoxVremeUzimanja.Text);
+            noviPrikazRecepta.VremeUzimanja = int.Parse(ComboBoxVremeUzimanja.Text);
             noviPrikazRecepta.Trajanje = DateTime.Parse(DatePickerDatumPrekida.Text);
             return noviPrikazRecepta;
         }

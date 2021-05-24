@@ -8,7 +8,7 @@ namespace Model.Pregledi
         public int Id { get; set; }
         public DateTime DatumIzdavanja { get; set; }
         public int Kolicina { get; set; }
-        public TimeSpan VremeUzimanja { get; set; }
+        public int VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
         public Recept()

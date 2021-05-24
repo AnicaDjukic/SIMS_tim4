@@ -10,7 +10,7 @@ namespace Model.Pregledi
         public int Id { get; set; }
         public DateTime DatumIzdavanja { get; set; }
         public int Kolicina { get; set; }
-        public TimeSpan VremeUzimanja { get; set; }
+        public int VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
         public PrikazRecepta()
@@ -18,7 +18,7 @@ namespace Model.Pregledi
 
         }
 
-        public PrikazRecepta(Lek lek, DateTime datumPrepisivanja, DateTime datumPrekida, int kolicina, TimeSpan vremeUzimanja)
+        public PrikazRecepta(Lek lek, DateTime datumPrepisivanja, DateTime datumPrekida, int kolicina, int vremeUzimanja)
         {
             this.lek = lek;
             this.DatumIzdavanja = datumPrepisivanja;

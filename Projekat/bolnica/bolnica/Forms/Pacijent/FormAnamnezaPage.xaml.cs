@@ -2,16 +2,8 @@
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -20,23 +12,65 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormAnamnezaPage : Page
     {
-        private FileStorageLek storageLek = new FileStorageLek();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-
-        private List<Anamneza> anamneze = new List<Anamneza>();
-        private List<Lek> lekovi = new List<Lek>();
-
         public Anamneza Anamneza { get; set; }
         public static List<PrikazRecepta> LekoviPacijenta { get; set; }
+        public Beleska Beleska { get; set; }
+        public List<TimeSpan> Vremena { get; set; }
+        public List<DateTime> Datumi { get; set; }
 
+        private FileStorageBeleska storageBeleska = new FileStorageBeleska();
+        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
+        private FileStorageLek storageLek = new FileStorageLek();
+
+        private List<Beleska> beleske = new List<Beleska>();
+        private List<Anamneza> anamneze = new List<Anamneza>();
+        private List<Lek> lekovi = new List<Lek>();
+        
         public FormAnamnezaPage(PrikazPregleda prikazPregleda)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            PostaviVremeComboBox();
+            PostaviDatumComboBox();
             Anamneza = DobijAnamnezu(prikazPregleda);
+            Beleska = DobijBelesku();
             lekovi = DobijLekove();
             PostaviSveLekovePacijentu();
+        }
+
+       
+        private void PostaviVremeComboBox()
+        {
+            Vremena = new List<TimeSpan>();
+            for (int i = 0; i < 24; i++)
+            {
+                Vremena.Add(new TimeSpan(i,0,0));
+                Vremena.Add(new TimeSpan(i, 30, 0));
+            }
+        }
+
+        private void PostaviDatumComboBox()
+        {
+            Datumi = new List<DateTime>();
+            DateTime danas = DateTime.Today;
+            for (int i = 0; i < 10; i++)
+            {
+                Datumi.Add(danas.AddDays(i+1));
+            }
+        }
+
+        private Beleska DobijBelesku()
+        {
+            beleske = storageBeleska.GetAll();
+            foreach (Beleska beleska in beleske)
+            {
+                if (Anamneza.Id.Equals(beleska.Anamneza.Id))
+                {
+                    return beleska;
+                }
+            }
+            return null;
         }
 
         private Anamneza DobijAnamnezu(PrikazPregleda prikazPregleda)
@@ -90,6 +124,78 @@ namespace Bolnica.Forms
             else
             {
                 MessageBox.Show("Morate odabrati lek za koji zelite da vidite detalje!", "Upozorenje");
+            }
+        }
+
+        private void Button_Click_Sacuvaj_Belesku(object sender, RoutedEventArgs e)
+        {
+            if (beleskaTekst.Text.Equals(""))
+            {
+                MessageBox.Show("Morate uneti belesku da bi je sacuvali!", "Upozorenje");
+            }
+            else
+            {
+                Beleska novaBeleska = DobijNovuBelesku();
+                SacuvajNovuBelesku(novaBeleska);
+            }
+        }
+
+        private Beleska DobijNovuBelesku()
+        {
+            return new Beleska
+            {
+                Id = Anamneza.Id,
+                Zabeleska = beleskaTekst.Text,
+                Podsetnik = PodsetnikUkljucen(),
+                Vreme = DobijVreme(),
+                DatumPrekida = DobijDatum(),
+                Prikazana = false,
+                Anamneza = Anamneza
+            };
+        }
+
+        private bool PodsetnikUkljucen()
+        {
+            if (comboVreme.SelectedItem is null && comboDatumPrekida.SelectedItem is null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private TimeSpan DobijVreme()
+        {
+            if (comboVreme.SelectedItem is null)
+            {
+                return TimeSpan.Zero;
+            }
+            return (TimeSpan)comboVreme.SelectedItem;
+        }
+
+        private DateTime DobijDatum()
+        {
+            if (comboDatumPrekida.SelectedItem is null)
+            {
+                return DateTime.Today.AddDays(1);
+            }
+            return (DateTime)comboDatumPrekida.SelectedItem;
+        }
+
+        private void SacuvajNovuBelesku(Beleska novaBeleska)
+        {
+            bool izmenjen = false;
+            foreach (Beleska beleska in beleske)
+            {
+                if (Anamneza.Id.Equals(beleska.Id))
+                {
+                    storageBeleska.Izmeni(beleska);
+                    izmenjen = true;
+                    break;
+                }
+            }
+            if (!izmenjen)
+            {
+                storageBeleska.Save(novaBeleska);
             }
         }
     }

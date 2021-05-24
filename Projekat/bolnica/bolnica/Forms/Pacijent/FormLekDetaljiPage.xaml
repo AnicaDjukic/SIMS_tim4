@@ -24,29 +24,29 @@
         <StackPanel Margin="400,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="450" Width="250">
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,20,0" Width="230" FontSize="16" HorizontalContentAlignment="Left">
                 <Label.Content>
-                    <Binding Path="Naziv" FallbackValue="-" TargetNullValue="-"></Binding>
+                    <Binding Path="PrikazRecepta.lek.Naziv" FallbackValue="-" TargetNullValue="-"></Binding>
                 </Label.Content>
             </Label>
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,20,0" Width="230" FontSize="16" 
                    HorizontalContentAlignment="Left" ContentStringFormat="dd.MM.yyyy">
                 <Label.Content>
-                    <Binding Path="DatumPrepisivanja" FallbackValue="-" TargetNullValue="-"></Binding>
+                    <Binding Path="PrikazRecepta.DatumIzdavanja" FallbackValue="-" TargetNullValue="-"></Binding>
                 </Label.Content>
             </Label>
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,20,0" Width="230" FontSize="16" 
                    HorizontalContentAlignment="Left" ContentStringFormat="dd.MM.yyyy">
                 <Label.Content>
-                    <Binding Path="DatumPrekida" FallbackValue="-" TargetNullValue="-"></Binding>
+                    <Binding Path="PrikazRecepta.Trajanje" FallbackValue="-" TargetNullValue="-"></Binding>
                 </Label.Content>
             </Label>
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,20,0" Width="230" FontSize="16" HorizontalContentAlignment="Left">
                 <Label.Content>
-                    <Binding Path="Doza" FallbackValue="-" TargetNullValue="-"></Binding>
+                    <Binding Path="PrikazRecepta.lek.KolicinaUMg" FallbackValue="-" TargetNullValue="-"></Binding>
                 </Label.Content>
             </Label>
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,20,0" Width="230" FontSize="16" HorizontalContentAlignment="Left">
                 <Label.Content>
-                    <Binding Path="BrojKutija" FallbackValue="-" TargetNullValue="-"></Binding>
+                    <Binding Path="PrikazRecepta.Kolicina" FallbackValue="-" TargetNullValue="-"></Binding>
                 </Label.Content>
             </Label>
         </StackPanel>

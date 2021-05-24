@@ -56,7 +56,7 @@
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
-        <ComboBox  Name="comboLekar"  HorizontalAlignment="Left" Margin="620,260,0,0" VerticalAlignment="Top" Width="200"
+        <ComboBox  Name="comboLekar" HorizontalAlignment="Left" Margin="620,260,0,0" VerticalAlignment="Top" Width="200"
                    SelectionChanged="SelectionChanged_Lekar" FontSize="20"/>
 
         <Button Name="potvrdi" Content="Potvrdi" HorizontalAlignment="Left" Margin="550,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Potvrdi"/>
