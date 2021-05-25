@@ -13,11 +13,19 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            
+
         </Style>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
+
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
+
         </Style>
         <Style TargetType="DataGridCell">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
@@ -27,53 +35,102 @@
         </Style>
     </Window.Resources>
     <TabControl TabStripPlacement="Left" >
-        
-       
+
+
         <TabControl.Resources>
             <Style TargetType="{x:Type TabItem}" x:Key="PrviTab" >
                 <Setter Property="Header">
                     <Setter.Value>
 
-                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarPregled.png"/>
-
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarPregled.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+                        </Image>
                     </Setter.Value>
+
                 </Setter>
 
                 <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image  MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarPregled.png" />
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TabItem}" x:Key="DrugiTab" >
                 <Setter Property="Header">
                     <Setter.Value>
 
-                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarIstorija.png">
-                            <Image.OpacityMask>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Black"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Image.OpacityMask>
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarIstorija.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+
                         </Image>
 
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarIstorija.png"/>
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type TabItem}" x:Key="TreciTab" >
                 <Setter Property="Header">
                     <Setter.Value>
 
-                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarLek.png">
-                            <Image.OpacityMask>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Black"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Image.OpacityMask>
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarLek.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
                         </Image>
 
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarLek.png"/>
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image  MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarLek.png" >
+                                  
+
+                                </Image>
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+
             </Style>
         </TabControl.Resources>
         <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}" >
@@ -203,15 +260,16 @@
                 </DataGrid>
 
                 <Button FontWeight="SemiBold" Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Grid.Row="27"   Content="Zakaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=ZakaziPregledKomanda}"/>
+                             FontSize="13" Command="{Binding Path=ZakaziPregledKomanda}"/>
+
                 <Button FontWeight="SemiBold" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Otkaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=OtkaziPregledKomanda}"/>
+                             FontSize="13" Command="{Binding Path=OtkaziPregledKomanda}"/>
                 <Button FontWeight="SemiBold" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=IzmeniPregledKomanda}"/>
+                             FontSize="13" Command="{Binding Path=IzmeniPregledKomanda}"/>
                 <Button FontWeight="SemiBold" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza "  BorderThickness="2" BorderBrush="#FF1E93F4"
-                            Background="#FF1E93F4" FontSize="13" Command="{Binding Path=AnamnezaKomanda}"/>
+                             FontSize="13" Command="{Binding Path=AnamnezaKomanda}"/>
                 <Button FontWeight="SemiBold"  BorderThickness="2" BorderBrush="#FF1E93F4"
-                         Background="#FF1E93F4" Grid.Column="25" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "  FontSize="13" Command="{Binding Path=InformacijeOPacijentuKomanda}"/>
+                          Grid.Column="25" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "  FontSize="13" Command="{Binding Path=InformacijeOPacijentuKomanda}"/>
 
                 <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -225,7 +283,7 @@
                 <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaIstorijaKomanda}" />
                 <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding Path=HospitalizujKomanda}" />
             </TabItem.InputBindings>
-                    <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
+            <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -342,8 +400,12 @@
                 </DataGrid>
                 <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="10" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+L" Grid.Row="29" Grid.Column="16" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Name="HospitalizacijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="16" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Hospitalizuj " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=HospitalizujKomanda}"/>
-                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="10" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza " Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}">
+                <Button Name="HospitalizacijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="16" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Hospitalizuj "  BorderBrush="#FF1E93F4" Command="{Binding Path=HospitalizujKomanda}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Tab" Command="{Binding HospitalizujDugmeSkociNaIstorijaTabKomanda}"/>
+                    </Button.InputBindings>
+                </Button>
+                <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="10" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza "  BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}">
                     <Button.InputBindings>
                         <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaHospitalizacijuKomanda}"/>
                     </Button.InputBindings>
@@ -356,7 +418,7 @@
                 <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=VratiNaIzmenuKomanda}" />
                 <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniLekKomanda}" />
             </TabItem.InputBindings>
-                    <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
+            <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -478,9 +540,17 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=IzmeniLekKomanda}" />
-                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=OdobriLekKomanda}"  />
-                <Button Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu" Background="#FF1E93F4" BorderBrush="#FF1E93F4" Command="{Binding Path=VratiNaIzmenuKomanda}" />
+                <Button Focusable="True" Name="Izmeni" FontWeight="SemiBold" FontSize="13" Grid.Column="19" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Izmeni"  BorderBrush="#FF1E93F4" Command="{Binding Path=IzmeniLekKomanda}" >
+                    <Button.InputBindings>
+                        <KeyBinding Key="Tab" Command="{Binding VratiDugmeSkociNaLekTabKomanda }"/>
+                    </Button.InputBindings>
+                </Button>
+                <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri"  BorderBrush="#FF1E93F4" Command="{Binding Path=OdobriLekKomanda}"  />
+                <Button Focusable="True" Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu"  BorderBrush="#FF1E93F4" Command="{Binding Path=VratiNaIzmenuKomanda}" >
+                    <Button.InputBindings>
+                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaHospitalizacijuKomanda}"/>
+                    </Button.InputBindings>
+                </Button>
                 <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+O" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>

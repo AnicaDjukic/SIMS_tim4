@@ -280,6 +280,40 @@ namespace Bolnica.ViewModel
             return true;
         }
 
+        private RelayCommand hospitalizujDugmeSkociNaIstorijaTabKomanda;
+        public RelayCommand HospitalizujDugmeSkociNaIstorijaTabKomanda
+        {
+            get { return hospitalizujDugmeSkociNaIstorijaTabKomanda; }
+            set { hospitalizujDugmeSkociNaIstorijaTabKomanda = value; }
+        }
+
+        public void Executed_HospitalizujDugmeSkociNaIstorijaTabKomanda(object obj)
+        {
+            istorijaTab.Focus();
+        }
+
+        public bool CanExecute_HospitalizujDugmeSkociNaIstorijaTabKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand vratiDugmeSkociNaLekTabKomanda;
+        public RelayCommand VratiDugmeSkociNaLekTabKomanda
+        {
+            get { return vratiDugmeSkociNaLekTabKomanda; }
+            set { vratiDugmeSkociNaLekTabKomanda = value; }
+        }
+
+        public void Executed_VratiDugmeSkociNaLekTabKomanda(object obj)
+        {
+            lekTab.Focus();
+        }
+
+        public bool CanExecute_VratiDugmeSkociNaLekTabKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand anamnezaKomanda;
         public RelayCommand AnamnezaKomanda
         {
@@ -584,6 +618,8 @@ namespace Bolnica.ViewModel
             VratiNaIzmenuKomanda = new RelayCommand(Executed_VratiNaIzmenuKomanda, CanExecute_VratiNaIzmenuKomanda);
             HospitalizujKomanda = new RelayCommand(Executed_HospitalizujKomanda, CanExecute_HospitalizujKomanda);
             IstorijaDugmeSkociNaHospitalizacijuKomanda = new RelayCommand(Executed_IstorijaDugmeSkociNaHospitalizacijuKomanda, CanExecute_IstorijaDugmeSkociNaHospitalizacijuKomanda);
+            HospitalizujDugmeSkociNaIstorijaTabKomanda = new RelayCommand(Executed_HospitalizujDugmeSkociNaIstorijaTabKomanda, CanExecute_HospitalizujDugmeSkociNaIstorijaTabKomanda);
+            VratiDugmeSkociNaLekTabKomanda = new RelayCommand(Executed_VratiDugmeSkociNaLekTabKomanda, CanExecute_VratiDugmeSkociNaLekTabKomanda);
         }
 
         public void SortirajPodatke()

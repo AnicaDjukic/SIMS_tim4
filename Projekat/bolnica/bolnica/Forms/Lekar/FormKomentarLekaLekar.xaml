@@ -37,6 +37,12 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
@@ -69,8 +75,8 @@
                 <Binding Path="Komentar" UpdateSourceTrigger="PropertyChanged"/>
             </TextBox.Text>
         </TextBox>
-        <Button Command="{Binding Path=PotvrdiKomanda}" Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi" Background="#FF1E93F4" BorderBrush="#FF1E93F4" MaxWidth="75"/>
-        <Button Command="{Binding Path=ZatvoriKomanda}" Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi" Background="#FF1E93F4" BorderBrush="#FF1E93F4"  MaxWidth="75"/>
+        <Button Command="{Binding Path=PotvrdiKomanda}" Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi"  BorderBrush="#FF1E93F4" MaxWidth="75"/>
+        <Button Command="{Binding Path=ZatvoriKomanda}" Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi"  BorderBrush="#FF1E93F4"  MaxWidth="75"/>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.RowSpan="2" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>

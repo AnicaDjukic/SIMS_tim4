@@ -43,6 +43,12 @@
             <Setter Property="FontStretch" Value="Medium"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="SaveButton">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -285,11 +291,11 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
-                         Background="#FF1E93F4" Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                         Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
-                         Background="#FF1E93F4" Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
+                         Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
                     <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
-                         Background="#FF1E93F4" Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+                         Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
                         <Button.InputBindings>
                             <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </Button.InputBindings>
@@ -381,11 +387,11 @@
         </ScrollViewer>
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.Row="16" Grid.RowSpan="2"  />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"
-                         Background="#FF1E93F4" Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                          Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZakaziPregledKomanda}"
-                         Background="#FF1E93F4" Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
+                          Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
-                         Background="#FF1E93F4" Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                          Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Button.InputBindings>
                 <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
             </Button.InputBindings>

@@ -59,7 +59,13 @@
             <Style TargetType="Button">
                 <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
                 <Setter Property="FontSize" Value="16"/>
-            </Style>
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
             <Style TargetType="Button" x:Key="SaveButton">
                 <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
                 <Setter Property="FontSize" Value="16"/>
@@ -381,9 +387,9 @@
 
 
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajPregledLekarCommand}"
-                         Background="#FF1E93F4" Style="{StaticResource SaveButton}" Content="Potvrdi" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
+                          Style="{StaticResource SaveButton}" Content="Potvrdi" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
-                         Background="#FF1E93F4" Content="Otkaži" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
+                          Content="Otkaži" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="15" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="15" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         
