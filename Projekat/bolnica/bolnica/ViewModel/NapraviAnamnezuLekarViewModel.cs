@@ -289,12 +289,8 @@ namespace Bolnica.ViewModel
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
             for (int r = 0; r < sveAnamneze[i].Recept.Count; r++)
             {
-                noviPrikazRecepta = new PrikazRecepta();
-                noviPrikazRecepta.DatumIzdavanja = sveAnamneze[i].Recept[r].DatumIzdavanja;
+                noviPrikazRecepta = new PrikazRecepta(sveAnamneze[i].Recept[r].DatumIzdavanja, sveAnamneze[i].Recept[r].Kolicina, sveAnamneze[i].Recept[r].VremeUzimanja, sveAnamneze[i].Recept[r].Trajanje);
                 noviPrikazRecepta.Id = sveAnamneze[i].Recept[r].Id;
-                noviPrikazRecepta.Kolicina = sveAnamneze[i].Recept[r].Kolicina;
-                noviPrikazRecepta.Trajanje = sveAnamneze[i].Recept[r].Trajanje;
-                noviPrikazRecepta.VremeUzimanja = sveAnamneze[i].Recept[r].VremeUzimanja;
                 for (int le = 0; le < sviLekovi.Count; le++)
                 {
                     if (sveAnamneze[i].Recept[r].Lek.Id.Equals(sviLekovi[le].Id))

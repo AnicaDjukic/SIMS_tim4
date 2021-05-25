@@ -40,8 +40,7 @@ namespace Bolnica.Services
         }
         public Obavestenje PopuniObavestenje(List<Korisnik> sviKorisnici, KomentarLekaLekarServiceDTO komentarDTO,List<Obavestenje> svaObavestenja)
         {
-            Obavestenje obavestenje = new Obavestenje();
-            obavestenje.Id = IzracunajId(svaObavestenja);
+            Obavestenje obavestenje = new Obavestenje(IzracunajId(svaObavestenja),DateTime.Now, "Lek " + komentarDTO.prikazLeka.Naziv + " sa dozom " + komentarDTO.prikazLeka.KolicinaUMg + " i sastojcima: " + komentarDTO.prikazLeka.Sastojak + " je odbijen. " + "Komentar: " + komentarDTO.komentar, "Lek " + komentarDTO.prikazLeka.Naziv + " je odbijen",false);
             for (int i = 0; i < sviKorisnici.Count; i++)
             {
                 if (sviKorisnici[i].TipKorisnika.Equals(TipKorisnika.upravnik))
@@ -49,10 +48,6 @@ namespace Bolnica.Services
                     obavestenje.Korisnici.Add(sviKorisnici[i]);
                 }
             }
-            obavestenje.Naslov = "Lek " + komentarDTO.prikazLeka.Naziv + " je odbijen";
-            obavestenje.Obrisan = false;
-            obavestenje.Sadrzaj = "Lek " + komentarDTO.prikazLeka.Naziv + " sa dozom " + komentarDTO.prikazLeka.KolicinaUMg + " i sastojcima: " + komentarDTO.prikazLeka.Sastojak + " je odbijen. " + "Komentar: " + komentarDTO.komentar;
-            obavestenje.Datum = DateTime.Now;
             return obavestenje;
         }
         public int IzracunajId(List<Obavestenje> svaObavestenja)

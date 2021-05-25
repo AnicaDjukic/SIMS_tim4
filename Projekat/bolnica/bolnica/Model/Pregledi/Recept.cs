@@ -15,5 +15,15 @@ namespace Model.Pregledi
         {
             Lek = new Lek();
         }
+
+        public Recept(int Id,Lek Lek, DateTime DatumIzdavanja, int Kolicina,TimeSpan VremeUzimanja, DateTime Trajanje)
+        {
+            this.Id = Id;
+            this.Lek = Lek;
+            this.DatumIzdavanja = DatumIzdavanja;
+            this.Kolicina = Kolicina;
+            this.VremeUzimanja = VremeUzimanja;
+            this.Trajanje = Trajanje;
+        }
     }
 }

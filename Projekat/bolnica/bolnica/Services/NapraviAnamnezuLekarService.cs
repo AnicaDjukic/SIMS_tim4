@@ -74,10 +74,7 @@ namespace Bolnica.Services
         }
         public Anamneza PopuniAnamnezu(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
         {
-            Anamneza novaAnamneza = new Anamneza();
-
-            novaAnamneza.Simptomi = anamnezaDTO.simptomi;
-            novaAnamneza.Dijagnoza = anamnezaDTO.dijagnoza;
+            Anamneza novaAnamneza = new Anamneza(anamnezaDTO.simptomi, anamnezaDTO.dijagnoza);
             novaAnamneza.Recept = new List<Recept>();
             for (int i = 0; i < NapraviAnamnezuLekarViewModel.Recepti.Count; i++)
             {
@@ -89,13 +86,7 @@ namespace Bolnica.Services
 
         public Recept PopuniRecept(int i)
         {
-            Recept recept = new Recept();
-            recept.DatumIzdavanja = NapraviAnamnezuLekarViewModel.Recepti[i].DatumIzdavanja;
-            recept.Id = NapraviAnamnezuLekarViewModel.Recepti[i].Id;
-            recept.Kolicina = NapraviAnamnezuLekarViewModel.Recepti[i].Kolicina;
-            recept.Lek = NapraviAnamnezuLekarViewModel.Recepti[i].lek;
-            recept.Trajanje = NapraviAnamnezuLekarViewModel.Recepti[i].Trajanje;
-            recept.VremeUzimanja = NapraviAnamnezuLekarViewModel.Recepti[i].VremeUzimanja;
+            Recept recept = new Recept(NapraviAnamnezuLekarViewModel.Recepti[i].Id, NapraviAnamnezuLekarViewModel.Recepti[i].lek, NapraviAnamnezuLekarViewModel.Recepti[i].DatumIzdavanja, NapraviAnamnezuLekarViewModel.Recepti[i].Kolicina, NapraviAnamnezuLekarViewModel.Recepti[i].VremeUzimanja, NapraviAnamnezuLekarViewModel.Recepti[i].Trajanje);
             return recept;
         }
 
@@ -162,33 +153,16 @@ namespace Bolnica.Services
         }
         public Operacija PopuniOperaciju(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
         {
-            Operacija novaOperacija = new Operacija();
-            novaOperacija.Id = anamnezaDTO.trenutnaOperacija.Id;
-            novaOperacija.Hitan = anamnezaDTO.trenutnaOperacija.Hitan;
-            novaOperacija.Lekar = anamnezaDTO.trenutnaOperacija.Lekar;
-            novaOperacija.Pacijent = anamnezaDTO.trenutnaOperacija.Pacijent;
-            novaOperacija.TipOperacije = anamnezaDTO.trenutnaOperacija.TipOperacije;
-            novaOperacija.Trajanje = anamnezaDTO.trenutnaOperacija.Trajanje;
-            novaOperacija.Zavrsen = anamnezaDTO.trenutnaOperacija.Zavrsen;
+            Operacija novaOperacija = new Operacija(anamnezaDTO.trenutnaOperacija);
             novaOperacija.Anamneza = anamnezaDTO.novaAnamneza;
-            novaOperacija.Prostorija = anamnezaDTO.trenutnaOperacija.Prostorija;
-            novaOperacija.Datum = anamnezaDTO.trenutnaOperacija.Datum;
             novaOperacija.Zavrsen = true;
             return novaOperacija;
         }
 
         public Pregled PopuniPregled(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
         {
-            Pregled noviPregled = new Pregled();
-            noviPregled.Id = anamnezaDTO.trenutniPregled.Id;
-            noviPregled.Hitan = anamnezaDTO.trenutniPregled.Hitan;
-            noviPregled.Lekar = anamnezaDTO.trenutniPregled.Lekar;
-            noviPregled.Pacijent = anamnezaDTO.trenutniPregled.Pacijent;
-            noviPregled.Trajanje = anamnezaDTO.trenutniPregled.Trajanje;
-            noviPregled.Zavrsen = anamnezaDTO.trenutniPregled.Zavrsen;
+            Pregled noviPregled = new Pregled(anamnezaDTO.trenutniPregled);
             noviPregled.Anamneza = anamnezaDTO.novaAnamneza;
-            noviPregled.Prostorija = anamnezaDTO.trenutniPregled.Prostorija;
-            noviPregled.Datum = anamnezaDTO.trenutniPregled.Datum;
             noviPregled.Zavrsen = true;
             return noviPregled;
         }
@@ -220,13 +194,7 @@ namespace Bolnica.Services
         {
             PrikazRecepta selektovaniPrikazRecepta = new PrikazRecepta();
             selektovaniPrikazRecepta = anamnezaDTO.dataGridLekovi.SelectedItem as PrikazRecepta;
-            Recept selektovaniRecept = new Recept();
-            selektovaniRecept.DatumIzdavanja = selektovaniPrikazRecepta.DatumIzdavanja;
-            selektovaniRecept.Id = selektovaniPrikazRecepta.Id;
-            selektovaniRecept.Kolicina = selektovaniPrikazRecepta.Kolicina;
-            selektovaniRecept.Lek = selektovaniPrikazRecepta.lek;
-            selektovaniRecept.Trajanje = selektovaniPrikazRecepta.Trajanje;
-            selektovaniRecept.VremeUzimanja = selektovaniPrikazRecepta.VremeUzimanja;
+            Recept selektovaniRecept = new Recept(selektovaniPrikazRecepta.Id, selektovaniPrikazRecepta.lek, selektovaniPrikazRecepta.DatumIzdavanja, selektovaniPrikazRecepta.Kolicina, selektovaniPrikazRecepta.VremeUzimanja, selektovaniPrikazRecepta.Trajanje);
             return selektovaniRecept;
         }
 

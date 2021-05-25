@@ -547,10 +547,10 @@ namespace Bolnica.Services
         }
         public Obavestenje PopuniObavestenje(PrikazLek izabraniLek)
         {
-            Obavestenje obavestenje = new Obavestenje();
+            
             List<Korisnik> sviKorisnici = skladisteKorisnika.GetAll();
             List<Obavestenje> svaObavestenja = skladisteObavestenja.GetAll();
-            obavestenje.Id = IzracunajId(svaObavestenja);
+            Obavestenje obavestenje = new Obavestenje(IzracunajId(svaObavestenja), DateTime.Now, "Lek " + izabraniLek.Naziv + " sa dozom " + izabraniLek.KolicinaUMg + " i sastojcima: " + izabraniLek.Sastojak + " je prihvacen. ", "Lek " + izabraniLek.Naziv + " je prihvacen",false);
             for (int i = 0; i < sviKorisnici.Count; i++)
             {
                 if (sviKorisnici[i].TipKorisnika.Equals(TipKorisnika.upravnik))
@@ -558,10 +558,6 @@ namespace Bolnica.Services
                     obavestenje.Korisnici.Add(sviKorisnici[i]);
                 }
             }
-            obavestenje.Naslov = "Lek " + izabraniLek.Naziv + " je prihvacen";
-            obavestenje.Obrisan = false;
-            obavestenje.Sadrzaj = "Lek " + izabraniLek.Naziv + " sa dozom " + izabraniLek.KolicinaUMg + " i sastojcima: " + izabraniLek.Sastojak + " je prihvacen. ";
-            obavestenje.Datum = DateTime.Now;
             return obavestenje;
         }
         public void AzurirajTabeluLekova(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
