@@ -60,8 +60,7 @@ namespace Bolnica.Services
 
         public PrikazRecepta NapraviRecept(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
-            PrikazRecepta noviPrikazRecepta = new PrikazRecepta();
-            noviPrikazRecepta.DatumIzdavanja = DateTime.Parse(receptDTO.datumIzdavanja);
+            PrikazRecepta noviPrikazRecepta = new PrikazRecepta(DateTime.Parse(receptDTO.datumIzdavanja), int.Parse(receptDTO.brojKutijaLeka), TimeSpan.Parse(receptDTO.vremeUzimanjaLeka), DateTime.Parse(receptDTO.datumPrekida));
             for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
             {
                 if (receptDTO.sviLekovi[i].Naziv.Equals(receptDTO.nazivLeka) && receptDTO.sviLekovi[i].KolicinaUMg.Equals(int.Parse(receptDTO.dozaLeka)))
@@ -70,9 +69,6 @@ namespace Bolnica.Services
                     break;
                 }
             }
-            noviPrikazRecepta.Kolicina = int.Parse(receptDTO.brojKutijaLeka);
-            noviPrikazRecepta.VremeUzimanja = TimeSpan.Parse(receptDTO.vremeUzimanjaLeka);
-            noviPrikazRecepta.Trajanje = DateTime.Parse(receptDTO.datumPrekida);
             return noviPrikazRecepta;
         }
 
