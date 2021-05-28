@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
+
+        private ServiceZaliha serviceZaliha = new ServiceZaliha();
         public ViewFormOprema(string sifraOpreme)
         {
             InitializeComponent();
@@ -45,26 +48,25 @@ namespace Bolnica.Forms.Upravnik
                 }
             }
 
-            FileStorageZaliha storageZaliha = new FileStorageZaliha();
             if (buduceZalihe.Count > 0)
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
+                foreach (Zaliha z in serviceZaliha.DobaviZalihe())
                 {
                     if (z.Oprema.Sifra == sifraOpreme)
-                        storageZaliha.Delete(z);
+                        serviceZaliha.ObrisiZalihu(z);
                 }
                 foreach (BuducaZaliha bz in buduceZalihe)
                 {
                     Zaliha z = new Zaliha { Kolicina = bz.Kolicina };
                     z.Prostorija = bz.Prostorija;
                     z.Oprema = bz.Oprema;
-                    storageZaliha.Save(z);
+                    serviceZaliha.SacuvajZalihu(z);
                     Zalihe.Add(z);
                 }
             }
             else
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
+                foreach (Zaliha z in serviceZaliha.DobaviZalihe())
                 {
                     if (sifraOpreme == z.Oprema.Sifra)
                         Zalihe.Add(z);

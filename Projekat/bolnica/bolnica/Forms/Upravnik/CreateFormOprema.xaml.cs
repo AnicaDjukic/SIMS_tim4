@@ -1,5 +1,6 @@
 ﻿using bolnica.Forms;
 using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -192,8 +193,8 @@ namespace Bolnica.Forms.Upravnik
             {
                 if (!FormUpravnik.clickedDodaj)
                 {
-                    FileStorageZaliha storageZalihe = new FileStorageZaliha();
-                    List<Zaliha> zalihe = storageZalihe.GetAll();
+                    ServiceZaliha serviceZaliha = new ServiceZaliha();
+                    List<Zaliha> zalihe = serviceZaliha.DobaviZalihe();
 
                     if (zalihe != null)
                     {

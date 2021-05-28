@@ -1,6 +1,8 @@
 ﻿using bolnica.Forms;
+using Bolnica.Controller.Pregledi;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Services.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -32,13 +34,7 @@ namespace Bolnica.Forms.Upravnik
         private string proizvodjac;
         private int zalihe;
         private Lek lek;
-        private FileStorageLek storage = new FileStorageLek();
-        public static ObservableCollection<Sastojak> Sastojci
-        {
-            get;
-            set;
-        }
-
+        
         public int Id
         {
             get
@@ -118,6 +114,14 @@ namespace Bolnica.Forms.Upravnik
                 }
             }
         }
+        public static ObservableCollection<Sastojak> Sastojci
+        {
+            get;
+            set;
+        }
+        private FileStorageLek storage = new FileStorageLek();
+        private ControllerLek controllerLek = new ControllerLek();
+        private ServiceLek serviceLek = new ServiceLek();
         public CreateFormLekovi(Lek lekZaIzmenu)
         {
             InitializeComponent();
@@ -133,31 +137,14 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Validacija(object sender, RoutedEventArgs e)
         {
-            lek.Id = Id;
-            List<Lek> sviLekovi = storage.GetAll();
-            bool postoji = false;
-            foreach (Lek l in sviLekovi)
-            {
-                if (l.Id == lek.Id)
-                {
-                    postoji = true;
-                    break;
-                }
-            }
-            if (!postoji || !FormUpravnik.clickedDodaj)
+            if (!controllerLek.LekPostoji(Id) || !FormUpravnik.clickedDodaj)
             {
                 if (!FormUpravnik.clickedDodaj)
                 {
-                    storage.Delete(lek);
-                    foreach(Lek l in FormUpravnik.Lekovi)
-                    {
-                        if(lek.Id == l.Id)
-                        {
-                            FormUpravnik.Lekovi.Remove(l);
-                            break;
-                        }
-                    }
+                    serviceLek.ObrisiLek(lek);
+                    UkloniIzPrikaza(lek);
                 }
+                lek.Id = Id;
                 lek.Naziv = Naziv;
                 lek.KolicinaUMg = KolicinaUMg;
                 lek.Proizvodjac = Proizvodjac;
@@ -170,29 +157,48 @@ namespace Bolnica.Forms.Upravnik
                 {
                     lek.Zalihe = zalihe;
                 }
-                storage.Save(lek);
+
+                serviceLek.SacuvajLek(lek);
                 FormUpravnik.Lekovi.Add(lek);
-                FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
-                List<Obavestenje> obavestenja = storageObavestenja.GetAll();
-                int maxId = 0;
-                foreach (Obavestenje o in obavestenja)
-                {
-                    if (maxId < o.Id)
-                        maxId = o.Id;
-                }
-                if (lek.Status != StatusLeka.odobren)
-                {
-                    Obavestenje obavestenje = new Obavestenje { Id = maxId + 1, Naslov = "Lek za validaciju", Datum = DateTime.Now.Date, Sadrzaj = "Za lek \"" + lek.Naziv + "\" je potrebno izvršiti validaciju" };
-                    Korisnik lekar = new Korisnik();
-                    lekar.KorisnickoIme = "mico";
-                    obavestenje.Korisnici.Add(lekar);
-                    storageObavestenja.Save(obavestenje);
-                }
+
+                PosaljiObavestenje();
                 Close();
             }
             else
             {
                 MessageBox.Show("Lek koji ima id: " + lek.Id + " već postoji!");
+            }
+        }
+
+        private void PosaljiObavestenje()
+        {
+            FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
+            List<Obavestenje> obavestenja = storageObavestenja.GetAll();
+            int maxId = 0;
+            foreach (Obavestenje o in obavestenja)
+            {
+                if (maxId < o.Id)
+                    maxId = o.Id;
+            }
+            if (lek.Status != StatusLeka.odobren)
+            {
+                Obavestenje obavestenje = new Obavestenje { Id = maxId + 1, Naslov = "Lek za validaciju", Datum = DateTime.Now.Date, Sadrzaj = "Za lek \"" + lek.Naziv + "\" je potrebno izvršiti validaciju" };
+                Korisnik lekar = new Korisnik();
+                lekar.KorisnickoIme = "mico";
+                obavestenje.Korisnici.Add(lekar);
+                storageObavestenja.Save(obavestenje);
+            }
+        }
+
+        private void UkloniIzPrikaza(Lek lek)
+        {
+            foreach (Lek l in FormUpravnik.Lekovi)
+            {
+                if (lek.Id == l.Id)
+                {
+                    FormUpravnik.Lekovi.Remove(l);
+                    break;
+                }
             }
         }
 

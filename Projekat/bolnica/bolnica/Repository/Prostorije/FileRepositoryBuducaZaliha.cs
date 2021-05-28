@@ -1,4 +1,4 @@
-﻿using Bolnica.Repository.Prostorije;
+﻿using Bolnica.Model.Prostorije;
 using Model.Prostorije;
 using Newtonsoft.Json;
 using System;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Bolnica.Model.Prostorije
+namespace Bolnica.Repository.Prostorije
 {
-    public class FileStorageBuducaZaliha
+    public class FileRepositoryBuducaZaliha : RepositoryBuducaZaliha
     {
         private string fileLocation;
 
-        public FileStorageBuducaZaliha()
+        public FileRepositoryBuducaZaliha()
         {
             FileRepositoryZaliha.serializeOprema = false;
             FileRepositoryZaliha.serializeProstorija = false;
@@ -29,7 +29,7 @@ namespace Bolnica.Model.Prostorije
             return buduceZalihe;
         }
 
-        public void Save(BuducaZaliha novaBuducaZaliha)
+        public void Save(BuducaZaliha newEntity)
         {
             FileRepositoryZaliha.serializeOprema = false;
             FileRepositoryZaliha.serializeProstorija = false;
@@ -39,11 +39,11 @@ namespace Bolnica.Model.Prostorije
             {
                 buduceZalihe = new List<BuducaZaliha>();
             }
-            buduceZalihe.Add(novaBuducaZaliha);
+            buduceZalihe.Add(newEntity);
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(buduceZalihe));
         }
 
-        public void Delete(BuducaZaliha buducaZalihaZaBrisanje)
+        public void Delete(BuducaZaliha entity)
         {
             FileRepositoryZaliha.serializeOprema = false;
             FileRepositoryZaliha.serializeProstorija = false;
@@ -53,7 +53,7 @@ namespace Bolnica.Model.Prostorije
             {
                 for (int i = 0; i < buduceZalihe.Count; i++)
                 {
-                    if (buduceZalihe[i].Prostorija.BrojProstorije == buducaZalihaZaBrisanje.Prostorija.BrojProstorije && buduceZalihe[i].Oprema.Sifra == buducaZalihaZaBrisanje.Oprema.Sifra)
+                    if (buduceZalihe[i].Prostorija.BrojProstorije == entity.Prostorija.BrojProstorije && buduceZalihe[i].Oprema.Sifra == entity.Oprema.Sifra)
                     {
                         buduceZalihe.Remove(buduceZalihe[i]);
                         break;
@@ -61,6 +61,15 @@ namespace Bolnica.Model.Prostorije
                 }
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(buduceZalihe));
             }
+        }
+
+        public BuducaZaliha GetById(object id)
+        {
+            throw new NotImplementedException();
+        }
+        public void Update(BuducaZaliha entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

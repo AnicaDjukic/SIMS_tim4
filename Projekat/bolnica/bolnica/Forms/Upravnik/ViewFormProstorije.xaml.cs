@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,15 @@ namespace Bolnica.Forms
         {
             get;
             set;
-        }
+        } 
+
+        private ServiceZaliha serviceZaliha = new ServiceZaliha();
         public ViewFormProstorije(string brojProstorije)
         {
             InitializeComponent();
             this.DataContext = this;
             OpremaSobe = new ObservableCollection<Zaliha>();
             FileStorageBuducaZaliha storageBuducaZaliha = new FileStorageBuducaZaliha();
-            FileStorageZaliha storageZaliha = new FileStorageZaliha();
             List<Zaliha> noveZalihe = new List<Zaliha>();
             if (storageBuducaZaliha.GetAll() != null)
             {
@@ -40,15 +42,15 @@ namespace Bolnica.Forms
                     }
                 }
 
-                if (storageZaliha.GetAll() != null)
+                if (serviceZaliha.DobaviZalihe() != null)
                 {
-                    foreach (Zaliha z in storageZaliha.GetAll())
+                    foreach (Zaliha z in serviceZaliha.DobaviZalihe())
                     {
                         foreach (Zaliha nz in noveZalihe)
                         {
                             if (z.Oprema.Sifra == nz.Oprema.Sifra)
                             {
-                                storageZaliha.Delete(z);
+                                serviceZaliha.ObrisiZalihu(z);
                             }
                         }
                     }
@@ -56,14 +58,14 @@ namespace Bolnica.Forms
 
                 foreach(Zaliha z in noveZalihe)
                 {
-                    storageZaliha.Save(z);
+                    serviceZaliha.SacuvajZalihu(z);
                 }
             }
 
             FileStorageOprema storageOprema = new FileStorageOprema();
             if (storageOprema.GetAll() != null)
             {
-                foreach (Zaliha zaliha in storageZaliha.GetAll())
+                foreach (Zaliha zaliha in serviceZaliha.DobaviZalihe())
                 {
                     if (zaliha.Prostorija.BrojProstorije == brojProstorije)
                     {

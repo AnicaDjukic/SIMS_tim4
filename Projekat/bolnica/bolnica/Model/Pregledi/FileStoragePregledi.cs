@@ -1,4 +1,5 @@
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Prostorije;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Model.Pregledi
         public FileStoragePregledi()
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationPregledi = System.IO.Path.Combine(FileLocation, @"Resources\", "Pregledi.json");
@@ -27,7 +28,7 @@ namespace Model.Pregledi
         public List<Pregled> GetAllPregledi()
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocationPregledi);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
@@ -41,7 +42,7 @@ namespace Model.Pregledi
         public List<Operacija> GetAllOperacije()
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocationOperacije);
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
@@ -55,7 +56,7 @@ namespace Model.Pregledi
         public void Save(Pregled noviPregled)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
@@ -66,7 +67,7 @@ namespace Model.Pregledi
         public void Save(Operacija novaOperacija)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
@@ -77,7 +78,7 @@ namespace Model.Pregledi
         public void Izmeni(Pregled noviPregled)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
@@ -97,7 +98,7 @@ namespace Model.Pregledi
         public void Izmeni(Operacija novaOperacija)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
@@ -114,7 +115,7 @@ namespace Model.Pregledi
         public void Delete(Pregled noviPregled)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Pregled> noviPregledi = new List<Pregled>();
             noviPregledi = GetAllPregledi();
@@ -134,7 +135,7 @@ namespace Model.Pregledi
         public void Delete(Operacija novaOperacija)
         {
             serializeKorisnik = false;
-            FileStorageZaliha.serializeProstorija = false;
+            FileRepositoryZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
             noveOperacije = GetAllOperacije();
