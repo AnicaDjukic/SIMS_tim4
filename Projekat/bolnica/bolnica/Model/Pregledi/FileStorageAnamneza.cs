@@ -18,6 +18,7 @@ namespace Bolnica.Model.Pregledi
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
+            FileStorageBeleska.serializeBeleska = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationAnamneza = System.IO.Path.Combine(FileLocation, @"Resources\", "Anamneze.json");
         }
@@ -26,6 +27,7 @@ namespace Bolnica.Model.Pregledi
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
+            FileStorageBeleska.serializeBeleska = false;
             var json = File.ReadAllText(FileLocationAnamneza);
             var anameze = JsonConvert.DeserializeObject<List<Anamneza>>(json);
             if (anameze?.Count == null)
@@ -39,6 +41,7 @@ namespace Bolnica.Model.Pregledi
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
+            FileStorageBeleska.serializeBeleska = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
             noveAnamneze.Add(novaAnamneza);
@@ -49,6 +52,7 @@ namespace Bolnica.Model.Pregledi
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
+            FileStorageBeleska.serializeBeleska = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
 
@@ -68,6 +72,7 @@ namespace Bolnica.Model.Pregledi
         {
             serializeAnamneza = true;
             FileStorageLek.serializeLek = false;
+            FileStorageBeleska.serializeBeleska = false;
             List<Anamneza> noveAnamneze = new List<Anamneza>();
             noveAnamneze = GetAll();
             for (int i = 0; i < noveAnamneze.Count; i++)

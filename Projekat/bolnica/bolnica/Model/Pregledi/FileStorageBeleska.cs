@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Bolnica.Model.Pregledi
+namespace Model.Pregledi
 {
     public class FileStorageBeleska
     {
@@ -14,16 +14,14 @@ namespace Bolnica.Model.Pregledi
         public static bool serializeBeleska;
         public FileStorageBeleska()
         {
-            serializeBeleska = false;
-            FileStorageAnamneza.serializeAnamneza = false;
+            serializeBeleska = true;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationBeleske = System.IO.Path.Combine(FileLocation, @"Resources\", "Beleske.json");
         }
 
         public List<Beleska> GetAll()
         {
-            serializeBeleska = false;
-            FileStorageAnamneza.serializeAnamneza = false;
+            serializeBeleska = true;
             var json = File.ReadAllText(FileLocationBeleske);
             var beleske = JsonConvert.DeserializeObject<List<Beleska>>(json);
             if (beleske == null)
@@ -35,8 +33,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Save(Beleska novaBeleska)
         {
-            serializeBeleska = false;
-            FileStorageAnamneza.serializeAnamneza = false;
+            serializeBeleska = true;
             List<Beleska> noveBeleske = GetAll();
             noveBeleske.Add(novaBeleska);
             File.WriteAllText(FileLocationBeleske, JsonConvert.SerializeObject(noveBeleske));
@@ -44,12 +41,11 @@ namespace Bolnica.Model.Pregledi
 
         public void Izmeni(Beleska novaBeleska)
         {
-            serializeBeleska = false;
-            FileStorageAnamneza.serializeAnamneza = false;
+            serializeBeleska = true;
             List<Beleska> noveBeleske = GetAll();
             foreach (Beleska beleska in noveBeleske)
             {
-                if (beleska.Id.Equals(novaBeleska.Id))
+                if (novaBeleska.Id.Equals(beleska.Id))
                 {
                     noveBeleske.Remove(beleska);
                     noveBeleske.Add(novaBeleska);
@@ -62,8 +58,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Delete(Beleska novaBeleska)
         {
-            serializeBeleska = false;
-            FileStorageAnamneza.serializeAnamneza = false;
+            serializeBeleska = true;
             List<Beleska> noveBeleske = GetAll();
             foreach (Beleska beleska in noveBeleske)
             {

@@ -23,11 +23,13 @@ namespace Bolnica.Forms
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
         private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
         private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
         private FileStorageBeleska storageBeleska = new FileStorageBeleska();
 
         private List<AntiTrol> antiTrol = new List<AntiTrol>();
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Operacija> operacije = new List<Operacija>();
+        private List<Anamneza> anamneze = new List<Anamneza>();
         private List<Beleska> beleske = new List<Beleska>();
 
         public static string ImeIPre
@@ -163,12 +165,19 @@ namespace Bolnica.Forms
 
         private void ProveriNotifikacije(Pregled pregled)
         {
+            anamneze = storageAnamneza.GetAll();
             beleske = storageBeleska.GetAll();
-            foreach (Beleska beleska in beleske)
+            foreach (Anamneza anamneza in anamneze)
             {
-                if (pregled.Anamneza.Id.Equals(beleska.Anamneza.Id))
+                if (pregled.Anamneza.Id.Equals(anamneza.Id))
                 {
-                    SlanjeNotifikacijeiZaJednuBelesku(beleska);
+                    foreach (Beleska beleska in beleske)
+                    {
+                        if (anamneza.Beleska.Id.Equals(beleska.Id))
+                        {
+                            SlanjeNotifikacijeiZaJednuBelesku(beleska);
+                        }
+                    }
                 }
             }
         }
@@ -193,7 +202,7 @@ namespace Bolnica.Forms
         {
             if (beleska.Podsetnik && DateTime.Now.CompareTo(beleska.DatumPrekida) <= 0)
             {
-                if (DateTime.Now.CompareTo(vremeObavestenja.AddHours(23).AddMinutes(59)) <= 0)
+                if (DateTime.Now.CompareTo(vremeObavestenja.AddMinutes(30)) <= 0)
                 {
                     return !beleska.Prikazana && DateTime.Now.CompareTo(vremeObavestenja) >= 0;
                 }

@@ -1,20 +1,34 @@
 [
   {
-    "Id": 2,
+    "Id": 3,
     "Zabeleska": "Neka moja zabeleska",
     "Podsetnik": true,
-    "Vreme": "20:30:00",
-    "DatumPrekida": "2021-05-28T00:00:00",
-    "Prikazana": false,
-    "Anamneza": { "Id": 2 }
+    "Vreme": "18:00:00",
+    "DatumPrekida": "2021-05-29T00:00:00",
+    "Prikazana": false
+  },
+  {
+    "Id": 2,
+    "Zabeleska": "Ovo je neko obavestenje. Upravo sam dopisao tekst.",
+    "Podsetnik": true,
+    "Vreme": "06:30:00",
+    "DatumPrekida": "2021-06-03T00:00:00",
+    "Prikazana": false
   },
   {
     "Id": 1,
-    "Zabeleska": "Sutra na pregled da ponesem novac",
+    "Zabeleska": "Sutra na pregled da ponesem novac.",
     "Podsetnik": true,
-    "Vreme": "14:00:00",
-    "DatumPrekida": "2021-05-25T00:00:00",
-    "Prikazana": false,
-    "Anamneza": { "Id": 1 }
+    "Vreme": "19:30:00",
+    "DatumPrekida": "2021-05-30T00:00:00",
+    "Prikazana": true
+  },
+  {
+    "Id": 4,
+    "Zabeleska": "Moram da svratim do apoteke sutra posle pregleda.",
+    "Podsetnik": true,
+    "Vreme": "13:00:00",
+    "DatumPrekida": "2021-05-30T00:00:00+02:00",
+    "Prikazana": false
   }
 ]

@@ -25,12 +25,15 @@ namespace Bolnica.Forms
         private List<Beleska> beleske = new List<Beleska>();
         private List<Anamneza> anamneze = new List<Anamneza>();
         private List<Lek> lekovi = new List<Lek>();
+
+        private PrikazPregleda prikaz = new PrikazPregleda();
         
         public FormAnamnezaPage(PrikazPregleda prikazPregleda)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            prikaz = prikazPregleda;
             PostaviVremeComboBox();
             PostaviDatumComboBox();
             Anamneza = DobijAnamnezu(prikazPregleda);
@@ -65,7 +68,7 @@ namespace Bolnica.Forms
             beleske = storageBeleska.GetAll();
             foreach (Beleska beleska in beleske)
             {
-                if (Anamneza.Id.Equals(beleska.Anamneza.Id))
+                if (Anamneza.Beleska.Id.Equals(beleska.Id))
                 {
                     return beleska;
                 }
@@ -144,14 +147,18 @@ namespace Bolnica.Forms
         {
             return new Beleska
             {
-                Id = Anamneza.Id,
+                Id = DobijId(),
                 Zabeleska = beleskaTekst.Text,
                 Podsetnik = PodsetnikUkljucen(),
                 Vreme = DobijVreme(),
                 DatumPrekida = DobijDatum(),
-                Prikazana = false,
-                Anamneza = Anamneza
+                Prikazana = false
             };
+        }
+
+        private int DobijId()
+        {
+            return DobijAnamnezu(prikaz).Beleska.Id;
         }
 
         private bool PodsetnikUkljucen()
@@ -186,17 +193,38 @@ namespace Bolnica.Forms
             bool izmenjen = false;
             foreach (Beleska beleska in beleske)
             {
-                if (Anamneza.Id.Equals(beleska.Id))
+                if (novaBeleska.Id.Equals(beleska.Id))
                 {
-                    storageBeleska.Izmeni(beleska);
+                    storageBeleska.Izmeni(novaBeleska);
                     izmenjen = true;
+                    MessageBox.Show("Beleska uspesno izmenjena.");
                     break;
                 }
             }
             if (!izmenjen)
             {
+                novaBeleska.Id = IzracunajIdBeleske();
                 storageBeleska.Save(novaBeleska);
+                Anamneza novaAnamneza = DobijAnamnezu(prikaz);
+                novaAnamneza.Beleska.Id = novaBeleska.Id;
+                storageAnamneza.Izmeni(novaAnamneza);
+                MessageBox.Show("Beleska uspesno napravljena.");
             }
         }
+
+        private int IzracunajIdBeleske()
+        {
+            beleske = storageBeleska.GetAll();
+            int max = 0;
+            foreach (Beleska beleska in beleske)
+            {
+                if (beleska.Id > max)
+                {
+                    max = beleska.Id;
+                }
+            }
+            return max + 1;
+        }
+
     }
 }

@@ -1,12 +1,11 @@
-﻿using Bolnica.Model.Korisnici;
-using Model.Pregledi;
+﻿using Model.Pregledi;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Bolnica.Model
+namespace Model.Korisnici
 {
-    class FileStorageOcene
+    public class FileStorageOcene
     {
         public string FileLocation { get; set; }
 

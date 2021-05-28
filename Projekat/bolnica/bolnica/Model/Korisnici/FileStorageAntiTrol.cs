@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Bolnica.Model.Korisnici
+namespace Model.Korisnici
 {
-    class FileStorageAntiTrol
+    public class FileStorageAntiTrol
     {
         public string FileLocation { get; set; }
 

@@ -31,7 +31,7 @@ namespace Model.Pregledi
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocationPregledi);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
-            if(pregledi == null)
+            if(pregledi is null)
             {
                 pregledi = new  List<Pregled>();
             }
