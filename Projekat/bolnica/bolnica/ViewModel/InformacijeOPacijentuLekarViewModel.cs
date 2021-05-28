@@ -11,6 +11,7 @@ namespace Bolnica.ViewModel
 {
     public class InformacijeOPacijentuLekarViewModel : ViewModel
     {
+        #region POLJA
         public bool gost { get; set; }
 
         public Visibility vidljiv { get; set; }
@@ -39,6 +40,8 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
+        #endregion
+        #region KOMANDE
         public Action ZatvoriAkcija { get; set; }
 
         private RelayCommand zatvoriKomanda;
@@ -61,6 +64,7 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+        #endregion
         public InformacijeOPacijentuLekarViewModel(Pacijent izabraniPacijent)
         {
             PostaviZajednickaPolja(izabraniPacijent);

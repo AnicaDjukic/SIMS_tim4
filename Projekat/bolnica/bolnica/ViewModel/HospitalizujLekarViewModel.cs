@@ -1,4 +1,5 @@
 ﻿using Bolnica.Commands;
+using Bolnica.Controller;
 using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
@@ -12,6 +13,7 @@ namespace Bolnica.ViewModel
 {
     public class HospitalizujLekarViewModel : ViewModel
     {
+        #region POLJA
         public DateTime datumPocetka { get; set; }
         public DateTime datumZavrsetka { get; set; }
         public string brojBolnickeSobe { get; set; }
@@ -44,6 +46,9 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
+        #endregion
+
+        #region KOMANDE
         public Action ZatvoriAkcija { get; set; }
 
         private RelayCommand zatvoriKomanda;
@@ -80,8 +85,11 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.HospitalizujLekarService.Potvrdi(new HospitalizacijaDTO(datumPocetka,datumZavrsetka,brojBolnickeSobe,izabraniPacijent));
-            ZatvoriAkcija(); 
+            if(inject.HospitalizujLekarController.Potvrdi(new HospitalizacijaDTO(datumPocetka, datumZavrsetka, brojBolnickeSobe, izabraniPacijent)))
+            {
+                ZatvoriAkcija();
+            }
+           
         }
 
         public bool CanExecute_PotvrdiKomanda(object obj)
@@ -109,6 +117,8 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+        #endregion
         public HospitalizujLekarViewModel(Pacijent izabraniPacijent)
         {
             InicijalizujPodatke(izabraniPacijent);

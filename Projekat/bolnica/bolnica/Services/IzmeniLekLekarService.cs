@@ -78,7 +78,7 @@ namespace Bolnica.Services
                 }
         }
 
-      
+
         public List<string> ProizvodjacComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariProizvodjac)
         {
                 if (lekDTO.proizvodjac.Length > 2)
@@ -113,7 +113,7 @@ namespace Bolnica.Services
             AzurirajSkladiste(new IzmeniLekLekarServiceDTO(izmenjeniLek));
             
         }
-        public void AzurirajTabelu(IzmeniLekLekarServiceDTO lekDTO)
+        private void AzurirajTabelu(IzmeniLekLekarServiceDTO lekDTO)
         {
             for (int j = 0; j < LekarViewModel.lekoviPrikaz.Count; j++)
             {
@@ -123,12 +123,12 @@ namespace Bolnica.Services
                 }
             }
         }
-        public void AzurirajSkladiste(IzmeniLekLekarServiceDTO lekDTO)
+        private void AzurirajSkladiste(IzmeniLekLekarServiceDTO lekDTO)
         {
             skladisteLekova.Delete(lekDTO.izmenjeniLek);
             skladisteLekova.Save(lekDTO.izmenjeniLek);
         }
-        public PrikazLek PopuniStringSastojaka(IzmeniLekLekarServiceDTO lekDTO)
+        private PrikazLek PopuniStringSastojaka(IzmeniLekLekarServiceDTO lekDTO)
         {
             bool dozvolaZaStringSastojak = true;
             for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
@@ -156,7 +156,7 @@ namespace Bolnica.Services
             }
             return lekDTO.lekZaPrikaz;
         }
-        public PrikazLek PopuniStringZamena(IzmeniLekLekarServiceDTO lekDTO)
+        private PrikazLek PopuniStringZamena(IzmeniLekLekarServiceDTO lekDTO)
         {
             bool dozvolaZaStringZamena = true;
             for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)

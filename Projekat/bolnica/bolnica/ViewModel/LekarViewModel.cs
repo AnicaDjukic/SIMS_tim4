@@ -19,6 +19,7 @@ namespace Bolnica.ViewModel
 {
     public class LekarViewModel : ViewModel
     {
+        #region POLJA
         public static List<Pregled> listaPregleda = new List<Pregled>();
         public static List<Operacija> listaOperacija = new List<Operacija>();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
@@ -59,6 +60,8 @@ namespace Bolnica.ViewModel
         }
         public Action ZatvoriAkcija { get; set; }
 
+        #endregion
+        #region KOMANDE
         private RelayCommand zakaziPregledKomanda;
         public RelayCommand ZakaziPregledKomanda
         {
@@ -72,7 +75,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_ZakaziPregledKomanda(object obj)
         {
-            inject.LekarService.ZakaziPregled(new LekarServiceDTO(lekarTrenutni));
+            inject.LekarController.ZakaziPregled(new LekarServiceDTO(lekarTrenutni));
         }
 
         public bool CanExecute_ZakaziPregledKomanda(object obj)
@@ -92,7 +95,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_OtkaziPregledKomanda(object obj)
         {
-            inject.LekarService.OtkaziPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.OtkaziPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
         public bool CanExecute_OtkaziPregledKomanda(object obj)
@@ -112,7 +115,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_IzmeniPregledKomanda(object obj)
         {
-            inject.LekarService.IzmeniPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.IzmeniPregled(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
         public bool CanExecute_IzmeniPregledKomanda(object obj)
@@ -132,7 +135,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_InformacijeOPacijentuKomanda(object obj)
         {
-            inject.LekarService.InformacijeOPacijentu(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.InformacijeOPacijentu(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
         }
 
         public bool CanExecute_InformacijeOPacijentuKomanda(object obj)
@@ -152,7 +155,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaEnterKomanda(object obj)
         {
-            inject.LekarService.SkociNaEnter(new LekarServiceDTO(zakaziDugme));
+            inject.LekarController.SkociNaEnter(new LekarServiceDTO(zakaziDugme));
         }
 
         public bool CanExecute_SkociNaEnterKomanda(object obj)
@@ -172,7 +175,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaLevoKomanda(object obj)
         {
-            inject.LekarService.SkociNaLevo(new LekarServiceDTO(preglediTab));
+            inject.LekarController.SkociNaLevo(new LekarServiceDTO(preglediTab));
         }
 
         public bool CanExecute_SkociNaLevoKomanda(object obj)
@@ -192,7 +195,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaTabKomanda(object obj)
         {
-            inject.LekarService.SkociNaTab(new LekarServiceDTO(preglediTabela));
+            inject.LekarController.SkociNaTab(new LekarServiceDTO(preglediTabela));
         }
 
         public bool CanExecute_SkociNaTabKomanda(object obj)
@@ -212,7 +215,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaEnterIstorijaKomanda(object obj)
         {
-            inject.LekarService.SkociNaEnterIstorija(new LekarServiceDTO(anamnezaIstorijaDugme));
+            inject.LekarController.SkociNaEnterIstorija(new LekarServiceDTO(anamnezaIstorijaDugme));
         }
 
         public bool CanExecute_SkociNaEnterIstorijaKomanda(object obj)
@@ -232,7 +235,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaLevoIstorijaKomanda(object obj)
         {
-            inject.LekarService.SkociNaLevoIstorija(new LekarServiceDTO(istorijaTab));
+            inject.LekarController.SkociNaLevoIstorija(new LekarServiceDTO(istorijaTab));
         }
 
         public bool CanExecute_SkociNaLevoIstorijaKomanda(object obj)
@@ -254,7 +257,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaTabIstorijaKomanda(object obj)
         {
-            inject.LekarService.SkociNaTabIstorija(new LekarServiceDTO(istorijaPregledaTabela));
+            inject.LekarController.SkociNaTabIstorija(new LekarServiceDTO(istorijaPregledaTabela));
         }
 
         public bool CanExecute_SkociNaTabIstorijaKomanda(object obj)
@@ -327,7 +330,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_AnamnezaKomanda(object obj)
         {
-            inject.LekarService.Anamneza(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.Anamneza(new LekarServiceDTO(preglediTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
             
         }
 
@@ -349,7 +352,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_AnamnezaIstorijaKomanda(object obj)
         {
-            inject.LekarService.AnamnezaIstorija(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.AnamnezaIstorija(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
            
         }
 
@@ -371,7 +374,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_HospitalizujKomanda(object obj)
         {
-            inject.LekarService.HospitalizacijaPacijenta(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+            inject.LekarController.HospitalizacijaPacijenta(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
 
         }
 
@@ -393,7 +396,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_IzmeniLekKomanda(object obj)
         {
-            inject.LekarService.IzmeniLek(new LekarServiceDTO(lekoviTabela, lekovi));
+            inject.LekarController.IzmeniLek(new LekarServiceDTO(lekoviTabela, lekovi));
         }
 
         public bool CanExecute_IzmeniLekKomanda(object obj)
@@ -414,7 +417,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaEnterLekKomanda(object obj)
         {
-            inject.LekarService.SkociNaEnterLek(new LekarServiceDTO(odobriDugme));
+            inject.LekarController.SkociNaEnterLek(new LekarServiceDTO(odobriDugme));
         }
 
         public bool CanExecute_SkociNaEnterLekKomanda(object obj)
@@ -435,7 +438,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaLevoLekKomanda(object obj)
         {
-            inject.LekarService.SkociNaLevoLek(new LekarServiceDTO(lekTab));
+            inject.LekarController.SkociNaLevoLek(new LekarServiceDTO(lekTab));
         }
 
         public bool CanExecute_SkociNaLevoLekKomanda(object obj)
@@ -456,7 +459,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SkociNaTabLekKomanda(object obj)
         {
-            inject.LekarService.SkociNaTabLek(new LekarServiceDTO(lekoviTabela));
+            inject.LekarController.SkociNaTabLek(new LekarServiceDTO(lekoviTabela));
         }
 
         public bool CanExecute_SkociNaTabLekKomanda(object obj)
@@ -477,7 +480,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_OdobriLekKomanda(object obj)
         {
-            inject.LekarService.OdobriLek(new LekarServiceDTO(lekoviTabela,lekovi));
+            inject.LekarController.OdobriLek(new LekarServiceDTO(lekoviTabela,lekovi));
         }
 
         public bool CanExecute_OdobriLekKomanda(object obj)
@@ -498,15 +501,15 @@ namespace Bolnica.ViewModel
 
         public void Executed_VratiNaIzmenuKomanda(object obj)
         {
-            inject.LekarService.VratiNaIzmenu(new LekarServiceDTO(lekoviTabela));
+            inject.LekarController.VratiNaIzmenu(new LekarServiceDTO(lekoviTabela));
         }
 
         public bool CanExecute_VratiNaIzmenuKomanda(object obj)
         {
             return true;
         }
+        #endregion
 
-        
         public LekarViewModel(Lekar lekar)
         {
             Inject = new Injector();

@@ -14,6 +14,7 @@ namespace Bolnica.ViewModel
 {
    public class NapraviIVidiReceptLekarViewModel : ViewModel
     {
+        #region POLJA
         private List<string> itemSourceNazivLeka;
         public List<string> ItemSourceNazivLeka
         {
@@ -144,6 +145,8 @@ namespace Bolnica.ViewModel
 
         public Action ZatvoriAkcija { get; set; }
 
+        #endregion
+        #region KOMANDE
         private RelayCommand proizvodjacComboOtvoriKomanda;
         public RelayCommand ProizvodjacComboOtvoriKomanda
         {
@@ -179,7 +182,7 @@ namespace Bolnica.ViewModel
         public void Executed_ProizvodjacComboTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.ReceptService.OtvoriIFiltirajNaTabProizvodjac(new NapraviIVidiReceptLekarServiceDTO(proizvodjacLeka, sviLekovi));
+            ItemSourceNazivLeka = inject.ReceptController.OtvoriIFiltirajNaTabProizvodjac(new NapraviIVidiReceptLekarServiceDTO(proizvodjacLeka, sviLekovi));
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -226,7 +229,7 @@ namespace Bolnica.ViewModel
         public void Executed_LekComboTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.ReceptService.OtvoriIFiltirajNaTabLek(new NapraviIVidiReceptLekarServiceDTO(nazivLeka, sviLekovi,proizvodjacLeka));
+            ItemSourceDozaLeka = inject.ReceptController.OtvoriIFiltirajNaTabLek(new NapraviIVidiReceptLekarServiceDTO(nazivLeka, sviLekovi,proizvodjacLeka));
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -319,9 +322,9 @@ namespace Bolnica.ViewModel
 
         public void Executed_DodajReceptKomanda(object obj)
         {
-            if (!inject.ReceptService.PacijentAlergicanNaLek(new NapraviIVidiReceptLekarServiceDTO(trenutniPacijent,proizvodjacLeka,nazivLeka,dozaLeka,sviLekovi)))
+            if (!inject.ReceptController.PacijentAlergicanNaLek(new NapraviIVidiReceptLekarServiceDTO(trenutniPacijent,proizvodjacLeka,nazivLeka,dozaLeka,sviLekovi)))
             {
-                inject.ReceptService.Potvrdi(new NapraviIVidiReceptLekarServiceDTO(nazivLeka,dozaLeka,sviLekovi,datumIzdavanjaRecepta.ToString(),brojKutijaLeka,vremeUzimanjaLeka,datumPrekidaRecepta.ToString()));
+                inject.ReceptController.Potvrdi(new NapraviIVidiReceptLekarServiceDTO(nazivLeka,dozaLeka,sviLekovi,datumIzdavanjaRecepta.ToString(),brojKutijaLeka,vremeUzimanjaLeka,datumPrekidaRecepta.ToString()));
                 ZatvoriAkcija();
             }
 
@@ -355,6 +358,7 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+        #endregion
         public NapraviIVidiReceptLekarViewModel(Pacijent trenutniPacijent)
         {
             InicijalizujPolja();

@@ -26,6 +26,7 @@ namespace Bolnica.Services
         private FileStorageLek skladisteLekova = new FileStorageLek();
         private FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
         private FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
+        private FileStorageObavestenja oba = new FileStorageObavestenja();
         public void ZakaziPregled(LekarServiceDTO lekarServiceDTO)
         {
             IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarServiceDTO.lekarTrenutni);
@@ -52,7 +53,7 @@ namespace Bolnica.Services
 
         }
 
-        public void OtkaziPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
+        private void OtkaziPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazPregleda = objekat as PrikazPregleda;
@@ -67,7 +68,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void OtkaziPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        private void OtkaziPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazOperacije = objekat as PrikazOperacije;
@@ -103,7 +104,7 @@ namespace Bolnica.Services
         }
 
 
-        public void IzmeniPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
+        private void IzmeniPregledAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
             var objekat = lekarServiceDTO.tabela.SelectedValue;
@@ -120,7 +121,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void IzmeniPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        private void IzmeniPregledAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
         {
             PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
             var objekat = lekarServiceDTO.tabela.SelectedValue;
@@ -184,7 +185,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void HospitalizacijaPacijentaAkoJePregled(LekarServiceDTO lekarServiceDTO)
+        private void HospitalizacijaPacijentaAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
@@ -203,7 +204,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void HospitalizacijaPacijentaAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        private void HospitalizacijaPacijentaAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
@@ -220,7 +221,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        public void InformacijeOPacijentuAkoJePregled(LekarServiceDTO lekarServiceDTO)
+        private void InformacijeOPacijentuAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
@@ -239,7 +240,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void InformacijeOPacijentuAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
+        private void InformacijeOPacijentuAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
@@ -331,7 +332,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void AnamnezaZaPregled(LekarServiceDTO lekarServiceDTO)
+        private void AnamnezaZaPregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
@@ -356,7 +357,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void AnamnezaZaOperaciju(LekarServiceDTO lekarServiceDTO)
+        private void AnamnezaZaOperaciju(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
@@ -398,7 +399,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void AnamnezaIstorijaZaPregled(LekarServiceDTO lekarServiceDTO)
+        private void AnamnezaIstorijaZaPregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
@@ -415,7 +416,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void AnamnezaIstorijaZaOperaciju(LekarServiceDTO lekarServiceDTO)
+        private void AnamnezaIstorijaZaOperaciju(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
             PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
@@ -440,7 +441,7 @@ namespace Bolnica.Services
             NapraviFormuZaIzmenuLeka(lekarServiceDTO,izabraniLek);
             
         }
-        public void IzfiltrirajLekove(LekarServiceDTO lekarServiceDTO)
+        private void IzfiltrirajLekove(LekarServiceDTO lekarServiceDTO)
         {
             for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
             {
@@ -451,7 +452,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        public void NapraviFormuZaIzmenuLeka(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
+        private void NapraviFormuZaIzmenuLeka(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
         {
             for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
             {
@@ -493,7 +494,7 @@ namespace Bolnica.Services
             }
 
         }
-   
+
         public void OdobriLek(LekarServiceDTO lekarServiceDTO)
         {
             PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
@@ -511,7 +512,7 @@ namespace Bolnica.Services
             }
         }
 
-        public void AzurirajLek(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
+        private void AzurirajLek(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
         {
             for (int i = 0; i < lekarServiceDTO.lekovi.Count; i++)
             {
@@ -525,14 +526,12 @@ namespace Bolnica.Services
                 }
             }
         }
-        public void PosaljiObavestenje(PrikazLek izabraniLek)
+        private void PosaljiObavestenje(PrikazLek izabraniLek)
         {
-
-            FileStorageObavestenja oba = new FileStorageObavestenja();
             oba.Save(PopuniObavestenje(izabraniLek));
         }
 
-        public int IzracunajId(List<Obavestenje> sva)
+        private int IzracunajId(List<Obavestenje> sva)
         {
             int max = 0;
             for (int i = 0; i < sva.Count; i++)
@@ -545,7 +544,7 @@ namespace Bolnica.Services
             max = max + 1;
             return max;
         }
-        public Obavestenje PopuniObavestenje(PrikazLek izabraniLek)
+        private Obavestenje PopuniObavestenje(PrikazLek izabraniLek)
         {
             
             List<Korisnik> sviKorisnici = skladisteKorisnika.GetAll();
@@ -560,7 +559,7 @@ namespace Bolnica.Services
             }
             return obavestenje;
         }
-        public void AzurirajTabeluLekova(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
+        private void AzurirajTabeluLekova(LekarServiceDTO lekarServiceDTO,PrikazLek izabraniLek)
         {
             for (int i = 0; i < LekarViewModel.lekoviPrikaz.Count; i++)
             {

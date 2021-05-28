@@ -12,6 +12,7 @@ namespace Bolnica.ViewModel
 {
     public class IzmeniLekLekarViewModel : ViewModel
     {
+        #region POLJA
         private bool itemSourceDozaComboOpen;
         public bool ItemSourceDozaComboOpen
         {
@@ -72,7 +73,37 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
+        private Lek izabraniLek = new Lek();
+        public string proizvodjac { get; set; }
+        public string lek { get; set; }
+        public string doza { get; set; }
+        public String stariLek = "";
+        public String stariProizvodjac = "";
 
+
+        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        private FileStorageLek skladisteLekova = new FileStorageLek();
+
+        private List<Lek> sviLekovi = new List<Lek>();
+        private List<Sastojak> sviSastojci = new List<Sastojak>();
+
+        public Action ZatvoriAkcija { get; set; }
+
+        private Injector inject;
+
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
+
+        private ListBox sastojciKutija;
+        private ListBox zameneKutija;
+        #endregion
+        #region KOMANDE
         private RelayCommand proizvodjacComboNaEnterKomanda;
         public RelayCommand ProizvodjacComboNaEnterKomanda
         {
@@ -108,7 +139,7 @@ namespace Bolnica.ViewModel
         public void Executed_ProizvodjacComboNaTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.IzmeniLekLekarService.ProizvodjacComboNaTab(new IzmeniLekLekarServiceDTO(proizvodjac, sviLekovi, ItemSourceNazivLeka), ref stariProizvodjac);
+            ItemSourceNazivLeka = inject.IzmeniLekLekarController.ProizvodjacComboNaTab(new IzmeniLekLekarServiceDTO(proizvodjac, sviLekovi, ItemSourceNazivLeka), ref stariProizvodjac);
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -175,7 +206,7 @@ namespace Bolnica.ViewModel
         public void Executed_ComboLekNaTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.IzmeniLekLekarService.LekComboNaTab(new IzmeniLekLekarServiceDTO(lek, sviLekovi, ItemSourceDozaLeka), ref stariLek);
+            ItemSourceDozaLeka = inject.IzmeniLekLekarController.LekComboNaTab(new IzmeniLekLekarServiceDTO(lek, sviLekovi, ItemSourceDozaLeka), ref stariLek);
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -199,7 +230,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SelektujSastojakNaEnterKomanda(object obj)
         {
-            inject.IzmeniLekLekarService.SelektujSastojakNaEnter(new IzmeniLekLekarServiceDTO(sastojciKutija));
+            inject.IzmeniLekLekarController.SelektujSastojakNaEnter(new IzmeniLekLekarServiceDTO(sastojciKutija));
 
         }
 
@@ -221,7 +252,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_SelektujZamenuNaEnterKomanda(object obj)
         {
-            inject.IzmeniLekLekarService.SelektujZameneNaEnter(new IzmeniLekLekarServiceDTO(zameneKutija));
+            inject.IzmeniLekLekarController.SelektujZameneNaEnter(new IzmeniLekLekarServiceDTO(zameneKutija));
 
         }
 
@@ -244,7 +275,7 @@ namespace Bolnica.ViewModel
         public void Executed_IzmeniLekKomanda(object obj)
         {
 
-            inject.IzmeniLekLekarService.Potvrdi(new IzmeniLekLekarServiceDTO(izabraniLek, doza, lek, proizvodjac, sastojciKutija, sviSastojci, zameneKutija, sviLekovi));
+            inject.IzmeniLekLekarController.Potvrdi(new IzmeniLekLekarServiceDTO(izabraniLek, doza, lek, proizvodjac, sastojciKutija, sviSastojci, zameneKutija, sviLekovi));
             ZatvoriAkcija();
 
 
@@ -278,35 +309,9 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
-        private Lek izabraniLek = new Lek();
-        public string proizvodjac { get; set; }
-        public string lek { get; set; }
-        public string doza { get; set; }
-        public String stariLek = "";
-        public String stariProizvodjac = "";
 
-
-        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-
-        private List<Lek> sviLekovi = new List<Lek>();
-        private List<Sastojak> sviSastojci = new List<Sastojak>();
-
-        public Action ZatvoriAkcija { get; set; }
-
-        private Injector inject;
-
-        public Injector Inject
-        {
-            get { return inject; }
-            set
-            {
-                inject = value;
-            }
-        }
-
-        private ListBox sastojciKutija;
-        private ListBox zameneKutija;
+        #endregion
+       
 
         public IzmeniLekLekarViewModel(Lek izabraniLekIzTabele)
         {

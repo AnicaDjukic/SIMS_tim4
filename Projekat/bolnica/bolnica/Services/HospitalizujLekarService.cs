@@ -5,6 +5,7 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace Bolnica.Services
 {
@@ -16,15 +17,24 @@ namespace Bolnica.Services
         List<BolnickaSoba> sveBolnickeSobe;
 
 
-        public void Potvrdi(HospitalizacijaDTO hospitalizacijaDTO)
+        public bool Potvrdi(HospitalizacijaDTO hospitalizacijaDTO)
         {
             InicijalizujPodatke();
             BolnickaSoba izabranaBolnickaSoba = DobijBolnickuSobu(hospitalizacijaDTO);
             Hospitalizacija hospitalizacija = new Hospitalizacija(hospitalizacijaDTO.datumPocetka, hospitalizacijaDTO.datumZavrsetka, IzracunajId(), hospitalizacijaDTO.izabraniPacijent, izabranaBolnickaSoba);
-            SacuvajIliIzmeni(hospitalizacijaDTO, hospitalizacija);
+            if (hospitalizacijaDTO.datumPocetka > hospitalizacijaDTO.datumZavrsetka)
+            {
+                MessageBox.Show("Datum pocetka je veci od datuma zavrsetka");
+                return false;
+            }
+            else
+            {
+                SacuvajIliIzmeni(hospitalizacijaDTO, hospitalizacija);
+                return true;
+            }
         }
-        
-        public void InicijalizujPodatke()
+
+        private void InicijalizujPodatke()
         {
             sveHospitalizacije = new List<Hospitalizacija>();
             sveBolnickeSobe = new List<BolnickaSoba>();
@@ -32,7 +42,7 @@ namespace Bolnica.Services
             sveBolnickeSobe = skladisteProstorija.GetAllBolnickeSobe();
         }
 
-        public void SacuvajIliIzmeni(HospitalizacijaDTO hospitalizacijaDTO, Hospitalizacija hospitalizacija)
+        private void SacuvajIliIzmeni(HospitalizacijaDTO hospitalizacijaDTO, Hospitalizacija hospitalizacija)
         {
             for (int i = 0; i < sveHospitalizacije.Count; i++)
             {
@@ -46,7 +56,7 @@ namespace Bolnica.Services
             }
             skladisteHospitalizacija.Save(hospitalizacija);
         }
-        public BolnickaSoba DobijBolnickuSobu(HospitalizacijaDTO hospitalizacijaDTO)
+        private BolnickaSoba DobijBolnickuSobu(HospitalizacijaDTO hospitalizacijaDTO)
         {
             for (int i = 0; i < sveBolnickeSobe.Count; i++)
             {
@@ -57,7 +67,7 @@ namespace Bolnica.Services
             }
             return null;
         }
-        public int IzracunajId()
+        private int IzracunajId()
         {
             int max = 0;
             for (int i = 0; i < sveHospitalizacije.Count; i++)

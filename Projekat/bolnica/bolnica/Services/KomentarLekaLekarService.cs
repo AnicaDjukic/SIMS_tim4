@@ -25,7 +25,7 @@ namespace Bolnica.Services
             AzurirajLek(komentarDTO);
             
         }
-        public void AzurirajLek(KomentarLekaLekarServiceDTO komentarDTO)
+        private void AzurirajLek(KomentarLekaLekarServiceDTO komentarDTO)
         {
             LekarViewModel.lekoviPrikaz.Remove(komentarDTO.prikazLeka);
             for (int i = 0; i < komentarDTO.listaLekova.Count; i++)
@@ -38,7 +38,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        public Obavestenje PopuniObavestenje(List<Korisnik> sviKorisnici, KomentarLekaLekarServiceDTO komentarDTO,List<Obavestenje> svaObavestenja)
+        private Obavestenje PopuniObavestenje(List<Korisnik> sviKorisnici, KomentarLekaLekarServiceDTO komentarDTO,List<Obavestenje> svaObavestenja)
         {
             Obavestenje obavestenje = new Obavestenje(IzracunajId(svaObavestenja),DateTime.Now, "Lek " + komentarDTO.prikazLeka.Naziv + " sa dozom " + komentarDTO.prikazLeka.KolicinaUMg + " i sastojcima: " + komentarDTO.prikazLeka.Sastojak + " je odbijen. " + "Komentar: " + komentarDTO.komentar, "Lek " + komentarDTO.prikazLeka.Naziv + " je odbijen",false);
             for (int i = 0; i < sviKorisnici.Count; i++)
@@ -50,7 +50,7 @@ namespace Bolnica.Services
             }
             return obavestenje;
         }
-        public int IzracunajId(List<Obavestenje> svaObavestenja)
+        private int IzracunajId(List<Obavestenje> svaObavestenja)
         {
             int max = 0;
             for (int i = 0; i < svaObavestenja.Count; i++)

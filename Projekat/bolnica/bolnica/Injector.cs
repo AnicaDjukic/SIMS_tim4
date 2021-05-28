@@ -1,4 +1,5 @@
-﻿using Bolnica.Services;
+﻿using Bolnica.Controller;
+using Bolnica.Services;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -26,43 +27,57 @@ namespace Bolnica
 
         private HospitalizujLekarService hospitalizujLekarService = new HospitalizujLekarService();
 
-        public HospitalizujLekarService HospitalizujLekarService
-        {
-            get { return hospitalizujLekarService; }
-        }
+        private IzmeniINapraviTerminLekarController pregledController = new IzmeniINapraviTerminLekarController();
+
+        private NapraviIVidiReceptLekarController receptController = new NapraviIVidiReceptLekarController();
+
+        private KomentarLekaLekarController komentarLekaController = new KomentarLekaLekarController();
+
+        private IzmeniLekLekarController izmeniLekLekarController = new IzmeniLekLekarController();
+
+        private NapraviAnamnezuLekarController napraviAnamnezuLekarController = new NapraviAnamnezuLekarController();
+
+        private LekarController lekarController = new LekarController();
+
+        private HospitalizujLekarController hospitalizujLekarController = new HospitalizujLekarController();
+
         public FileStoragePregledi StoragePregledi
         {
             get { return storagePregledi; }
         }
 
-        public IzmeniINapraviTerminLekarService PregledService
+        public HospitalizujLekarController HospitalizujLekarController
         {
-            get { return pregledService; }
+            get { return hospitalizujLekarController; }
+        }
+        public IzmeniINapraviTerminLekarController PregledController
+        {
+            get { return pregledController; }
         }
 
-        public NapraviIVidiReceptLekarService ReceptService
+        public NapraviIVidiReceptLekarController ReceptController
         {
-            get { return receptService; }
+            get { return receptController; }
         }
 
-        public KomentarLekaLekarService KomentarLekaService
+        public KomentarLekaLekarController KomentarLekaController
         {
-            get { return komentarLekaService; }
+            get { return komentarLekaController; }
         }
 
-        public IzmeniLekLekarService IzmeniLekLekarService
+        public IzmeniLekLekarController IzmeniLekLekarController
         {
-            get { return izmeniLekLekarService; }
+            get { return izmeniLekLekarController; }
         }
 
-        public NapraviAnamnezuLekarService NapraviAnamnezuLekarService
+        public NapraviAnamnezuLekarController NapraviAnamnezuLekarController
         {
-            get { return napraviAnamnezuLekarService; }
+            get { return napraviAnamnezuLekarController; }
         }
 
-        public LekarService LekarService
+        public LekarController LekarController
         {
-            get { return lekarService; }
+            get { return lekarController; }
         }
     }
 }

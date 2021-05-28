@@ -10,7 +10,7 @@ namespace Bolnica.ViewModel
 {
     public class KomentarLekaLekarViewModel : ViewModel
     {
-
+        #region POLJA
         private string komentar;
 
         public string Komentar
@@ -38,6 +38,8 @@ namespace Bolnica.ViewModel
                 inject = value;
             }
         }
+        #endregion
+        #region KOMANDE
         public Action ZatvoriAkcija { get; set; }
 
         private RelayCommand potvrdiKomanda;
@@ -53,7 +55,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.KomentarLekaService.Potvrdi(new KomentarLekaLekarServiceDTO(Komentar,prikazLeka,listaLekova));
+            inject.KomentarLekaController.Potvrdi(new KomentarLekaLekarServiceDTO(Komentar,prikazLeka,listaLekova));
             ZatvoriAkcija();
         }
 
@@ -81,7 +83,7 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
-
+        #endregion
         public KomentarLekaLekarViewModel(PrikazLek izabraniLek)
         {
             InicirajPolja(izabraniLek);

@@ -13,7 +13,7 @@ namespace Bolnica.Services
 {
     public class NapraviIVidiReceptLekarService
     {
-   
+
 
         public void Potvrdi(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
@@ -22,7 +22,7 @@ namespace Bolnica.Services
             
         }
 
-        public Lek DobijIzabraniLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private Lek DobijIzabraniLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             Lek izabraniLek = new Lek();
             for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
@@ -58,7 +58,7 @@ namespace Bolnica.Services
 
         }
 
-        public PrikazRecepta NapraviRecept(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private PrikazRecepta NapraviRecept(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta(DateTime.Parse(receptDTO.datumIzdavanja), int.Parse(receptDTO.brojKutijaLeka), TimeSpan.Parse(receptDTO.vremeUzimanjaLeka), DateTime.Parse(receptDTO.datumPrekida));
             for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
@@ -92,7 +92,7 @@ namespace Bolnica.Services
             
         }
 
-      
+
 
         public List<string> OtvoriIFiltirajNaTabProizvodjac(NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
@@ -115,7 +115,7 @@ namespace Bolnica.Services
            
         }
 
-        public int LekVecDodat(int i, NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private int LekVecDodat(int i, NapraviIVidiReceptLekarServiceDTO receptDTO)
         {
             int lekVecDodat = 0;
             for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)

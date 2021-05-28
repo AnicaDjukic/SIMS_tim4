@@ -14,6 +14,7 @@ namespace Bolnica.ViewModel
 {
     public class NapraviAnamnezuLekarViewModel : ViewModel
     {
+        #region POLJA
         public string simptomi { get; set; }
         public string dijagnoza { get; set; }
 
@@ -66,7 +67,8 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        #endregion
+        #region KOMANDE
         private RelayCommand obrisiReceptKomanda;
         public RelayCommand ObrisiReceptKomanda
         {
@@ -80,7 +82,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_ObrisiReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ObrisiRecept(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi));
+            inject.NapraviAnamnezuLekarController.ObrisiRecept(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi));
         }
 
         public bool CanExecute_ObrisiReceptKomanda(object obj)
@@ -101,7 +103,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_ZakaziPregledKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ZakaziPregled(new NapraviAnamnezuLekarServiceDTO(ulogovaniLekar, trenutniPacijent));
+            inject.NapraviAnamnezuLekarController.ZakaziPregled(new NapraviAnamnezuLekarServiceDTO(ulogovaniLekar, trenutniPacijent));
 
         }
 
@@ -123,7 +125,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_VidiReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.VidiDetaljeOReceptu(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi, trenutniPacijent));
+            inject.NapraviAnamnezuLekarController.VidiDetaljeOReceptu(new NapraviAnamnezuLekarServiceDTO(dataGridLekovi, trenutniPacijent));
         }
 
         public bool CanExecute_VidiReceptKomanda(object obj)
@@ -165,7 +167,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_DodajReceptKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.DodajLek(new NapraviAnamnezuLekarServiceDTO(trenutniPacijent));
+            inject.NapraviAnamnezuLekarController.DodajLek(new NapraviAnamnezuLekarServiceDTO(trenutniPacijent));
         }
 
         public bool CanExecute_DodajReceptKomanda(object obj)
@@ -186,7 +188,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.Potvrdi(new NapraviAnamnezuLekarServiceDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
+            inject.NapraviAnamnezuLekarController.Potvrdi(new NapraviAnamnezuLekarServiceDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
             ZatvoriAction();
         }
 
@@ -208,7 +210,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PredjiNaScrollBarKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.PredjiNaScrollBar(new NapraviAnamnezuLekarServiceDTO(izbrisiButton));
+            inject.NapraviAnamnezuLekarController.PredjiNaScrollBar(new NapraviAnamnezuLekarServiceDTO(izbrisiButton));
         }
 
         public bool CanExecute_PredjiNaScrollBarKomanda(object obj)
@@ -229,14 +231,14 @@ namespace Bolnica.ViewModel
 
         public void Executed_ZaustaviStreliceKomanda(object obj)
         {
-            inject.NapraviAnamnezuLekarService.ZaustaviStrelice(new NapraviAnamnezuLekarServiceDTO(ScrollBar));
+            inject.NapraviAnamnezuLekarController.ZaustaviStrelice(new NapraviAnamnezuLekarServiceDTO(ScrollBar));
         }
 
         public bool CanExecute_ZaustaviStreliceKomanda(object obj)
         {
             return true;
         }
-
+#endregion
         public NapraviAnamnezuLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
             DaLiJePregled = true;
