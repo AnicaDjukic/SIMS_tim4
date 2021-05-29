@@ -8,5 +8,6 @@ namespace Bolnica.Repository.Prostorije
 {
     public interface RepositoryOprema : Repository<Oprema, string>
     {
+        void DeleteById(string sifra);
     }
 }

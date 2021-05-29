@@ -226,6 +226,7 @@ namespace bolnica.Forms
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
         {
+            clickedDodaj = false;
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 clickedDodaj = false;
@@ -288,7 +289,6 @@ namespace bolnica.Forms
                         s.Sifra = o.Sifra;
                         s.Naziv = o.Naziv;
                         s.Kolicina = o.Kolicina;
-                        s.Oprema = o;
                         if (o.TipOpreme == TipOpreme.staticka)
                             s.ComboTipOpreme.SelectedIndex = 0;
                         else

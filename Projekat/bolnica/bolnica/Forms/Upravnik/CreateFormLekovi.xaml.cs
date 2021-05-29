@@ -119,8 +119,7 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
-        private FileStorageLek storage = new FileStorageLek();
-        private ControllerLek controllerLek = new ControllerLek();
+
         private ServiceLek serviceLek = new ServiceLek();
         public CreateFormLekovi(Lek lekZaIzmenu)
         {
@@ -137,7 +136,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Validacija(object sender, RoutedEventArgs e)
         {
-            if (!controllerLek.LekPostoji(Id) || !FormUpravnik.clickedDodaj)
+            if (!serviceLek.LekPostoji(Id) || !FormUpravnik.clickedDodaj)
             {
                 if (!FormUpravnik.clickedDodaj)
                 {
