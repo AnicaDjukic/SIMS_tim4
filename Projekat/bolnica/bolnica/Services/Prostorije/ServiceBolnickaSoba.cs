@@ -49,5 +49,30 @@ namespace Bolnica.Services.Prostorije
 
             return slobodneBolnickeSobe;
         }
+
+        public bool BolnickaSobaPostoji(string brojProstorije)
+        {
+            bool postoji = false;
+            foreach (Prostorija p in repository.GetAll())
+            {
+                if (p.BrojProstorije == brojProstorije && !p.Obrisana)
+                {
+                    postoji = true;
+                    break;
+                }
+            }
+
+            return postoji;
+        }
+
+        internal void ObrisiBolnickuSobu(string brojProstorije)
+        {
+            repository.DeleteById(brojProstorije);
+        }
+
+        internal void SacuvajBolnickuSobu(BolnickaSoba bolnickaSoba)
+        {
+            repository.Save(bolnickaSoba);
+        }
     }
 }

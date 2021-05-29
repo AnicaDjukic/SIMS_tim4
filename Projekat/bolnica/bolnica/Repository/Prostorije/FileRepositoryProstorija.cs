@@ -9,19 +9,17 @@ namespace Bolnica.Repository.Prostorije
 {
     public class FileRepositoryProstorija : RepositoryProstorija
     {
-        private string fileLocationProstorije;
-        private string fileLocationBolnickeSobe;
+        private string fileLocation;
 
         public FileRepositoryProstorija()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            fileLocationProstorije = System.IO.Path.Combine(path, @"Resources\", "Prostorije.json");
-            fileLocationBolnickeSobe = System.IO.Path.Combine(path, @"Resources\", "BolnickeSobe.json");
+            fileLocation = System.IO.Path.Combine(path, @"Resources\", "Prostorije.json");
         }
         public List<Prostorija> GetAll()
         {
             FileRepositoryZaliha.serializeProstorija = true;
-            string json = File.ReadAllText(fileLocationProstorije);
+            string json = File.ReadAllText(fileLocation);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             return prostorije;
         }
@@ -29,20 +27,20 @@ namespace Bolnica.Repository.Prostorije
         public void Save(Prostorija newEntity)
         {
             FileRepositoryZaliha.serializeProstorija = true;
-            string json = File.ReadAllText(fileLocationProstorije);
+            string json = File.ReadAllText(fileLocation);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije == null)
             {
                 prostorije = new List<Prostorija>();
             }
             prostorije.Add(newEntity);
-            File.WriteAllText(fileLocationProstorije, JsonConvert.SerializeObject(prostorije));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(prostorije));
         }
 
         public void Delete(Prostorija entity)
         {
             FileRepositoryZaliha.serializeProstorija = true;
-            string json = File.ReadAllText(fileLocationProstorije);
+            string json = File.ReadAllText(fileLocation);
             List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
             if (prostorije != null)
             {
@@ -54,7 +52,7 @@ namespace Bolnica.Repository.Prostorije
                         break;
                     }
                 }
-                File.WriteAllText(fileLocationProstorije, JsonConvert.SerializeObject(prostorije));
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(prostorije));
             }
         }
 
@@ -66,6 +64,25 @@ namespace Bolnica.Repository.Prostorije
         public void Update(Prostorija entity)
         {
             throw new NotImplementedException();
+        }
+
+        public void DeleteById(string brojProstorije)
+        {
+            FileRepositoryZaliha.serializeProstorija = true;
+            string json = File.ReadAllText(fileLocation);
+            List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
+            if (prostorije != null)
+            {
+                for (int i = 0; i < prostorije.Count; i++)
+                {
+                    if (prostorije[i].BrojProstorije == brojProstorije)
+                    {
+                        prostorije.Remove(prostorije[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(prostorije));
+            }
         }
     }
 }

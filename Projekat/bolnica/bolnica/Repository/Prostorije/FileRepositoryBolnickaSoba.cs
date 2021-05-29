@@ -65,5 +65,24 @@ namespace Bolnica.Repository.Prostorije
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteById(string brojProstorije)
+        {
+            FileRepositoryZaliha.serializeProstorija = true;
+            string json = File.ReadAllText(fileLocation);
+            List<BolnickaSoba> prostorije = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
+            if (prostorije != null)
+            {
+                for (int i = 0; i < prostorije.Count; i++)
+                {
+                    if (prostorije[i].BrojProstorije == brojProstorije)
+                    {
+                        prostorije.Remove(prostorije[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(prostorije));
+            }
+        }
     }
 }

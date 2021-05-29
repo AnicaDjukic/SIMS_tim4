@@ -10,10 +10,12 @@ namespace Bolnica.Services.Prostorije
     public class ServiceProstorija
     {
         private RepositoryProstorija repository;
+        private ServiceBolnickaSoba serviceBolnickaSoba;
 
         public ServiceProstorija()
         {
             repository = new FileRepositoryProstorija();
+            serviceBolnickaSoba = new ServiceBolnickaSoba();
         }
 
         public List<Prostorija> DobaviSveProstorije()
@@ -53,6 +55,33 @@ namespace Bolnica.Services.Prostorije
         public Prostorija NapraviProstoriju(string brojProstorije)
         {
             return new Prostorija { BrojProstorije = brojProstorije };
+        }
+
+        public bool ProstorijaPostoji(string brojProstorije)
+        {
+            bool postoji = false;
+            foreach (Prostorija p in repository.GetAll())
+            {
+                if (p.BrojProstorije == brojProstorije && !p.Obrisana)
+                {
+                    postoji = true;
+                    break;
+                }
+            }
+            if (!postoji)
+                postoji = serviceBolnickaSoba.BolnickaSobaPostoji(brojProstorije);
+
+            return postoji;
+        }
+
+        internal void ObrisiProstoriju(string brojProstorije)
+        {
+            repository.DeleteById(brojProstorije);
+        }
+
+        internal void SacuvajProstoriju(Prostorija prostorija)
+        {
+            repository.Save(prostorija);
         }
     }
 }

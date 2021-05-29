@@ -8,5 +8,6 @@ namespace Bolnica.Repository.Prostorije
 {
     public interface RepositoryProstorija : Repository<Prostorija, string>
     {
+        public void DeleteById(string brojProstorije);
     }
 }
