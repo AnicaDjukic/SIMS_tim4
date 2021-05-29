@@ -8,5 +8,6 @@ namespace Bolnica.Repository.Prostorije
 {
     public interface RepositoryBuducaZaliha : Repository<BuducaZaliha, Object>
     {
+        public void Save(List<BuducaZaliha> buduceZalihe);
     }
 }

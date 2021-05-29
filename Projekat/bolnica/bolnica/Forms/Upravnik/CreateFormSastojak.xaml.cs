@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Services.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class CreateFormSastojak : Window
     {
+        private ServiceSastojak serviceSastojak = new ServiceSastojak();
         public CreateFormSastojak()
         {
             InitializeComponent();
@@ -27,23 +29,9 @@ namespace Bolnica.Forms.Upravnik
         {
             if(txtNaziv.Text != "")
             {
-                FileStorageSastojak storage = new FileStorageSastojak();
-                List<Sastojak> sastojci = storage.GetAll();
-                int maxId = 0;
-                bool postoji = false;
-                foreach (Sastojak s in sastojci)
+                if(!serviceSastojak.SastojakPostoji(txtNaziv.Text))
                 {
-                    if (s.Id > maxId)
-                        maxId = s.Id;
-
-                    if (s.Naziv == txtNaziv.Text)
-                        postoji = true;
-                }
-                if(!postoji)
-                {
-                    Sastojak noviSastojak = new Sastojak { Id = maxId + 1, Naziv = txtNaziv.Text };
-                    storage.Save(noviSastojak);
-                    FormSastojci.Sastojci.Add(noviSastojak);
+                    DodajNoviSastojak();
                     Close();
                 } else
                 {
@@ -54,6 +42,13 @@ namespace Bolnica.Forms.Upravnik
             {
                 MessageBox.Show("Morate uneti naziv sastojka da biste ga dodali.");
             }
+        }
+
+        private void DodajNoviSastojak()
+        {
+            Sastojak noviSastojak = new Sastojak { Id = serviceSastojak.MaxId() + 1, Naziv = txtNaziv.Text };
+            serviceSastojak.SacuvajSastojak(noviSastojak);
+            FormSastojci.Sastojci.Add(noviSastojak);
         }
 
         private void Button_Click_Odustani(object sender, RoutedEventArgs e)

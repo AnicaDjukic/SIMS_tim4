@@ -71,5 +71,22 @@ namespace Bolnica.Repository.Prostorije
         {
             throw new NotImplementedException();
         }
+
+        public void Save(List<BuducaZaliha> newEntities)
+        {
+            FileRepositoryZaliha.serializeOprema = false;
+            FileRepositoryZaliha.serializeProstorija = false;
+            string json = File.ReadAllText(fileLocation);
+            List<BuducaZaliha> buduceZalihe = JsonConvert.DeserializeObject<List<BuducaZaliha>>(json);
+            if (buduceZalihe == null)
+            {
+                buduceZalihe = new List<BuducaZaliha>();
+            }
+            foreach(BuducaZaliha newEntity in newEntities)
+            {
+                buduceZalihe.Add(newEntity);
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(buduceZalihe));
+        }
     }
 }

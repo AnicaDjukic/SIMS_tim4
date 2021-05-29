@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class FormDatumPremestanja : Window
     {
+        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
         public FormDatumPremestanja()
         {
             InitializeComponent();
@@ -26,30 +28,30 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            FileStorageBuducaZaliha storage = new FileStorageBuducaZaliha();
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
-            
             string sifraOpreme = "";
             foreach (Zaliha z in FormSkladiste.Zalihe)
             {
-                BuducaZaliha bz = new BuducaZaliha { Kolicina = z.Kolicina, Datum = datePickerDatum.SelectedDate.Value };
-                bz.Prostorija = z.Prostorija;
-                bz.Oprema = z.Oprema;
+                BuducaZaliha bz = NapraviBuducuZalihu(z);
                 sifraOpreme = z.Oprema.Sifra;
                 buduceZalihe.Add(bz);
             }
-            if (storage.GetAll() != null)
-            {
-                foreach (BuducaZaliha bz in storage.GetAll())
-                {
-                    if (bz.Oprema.Sifra == sifraOpreme && bz.Datum == datePickerDatum.SelectedDate.Value)
-                        storage.Delete(bz);
-                }
-            }
-            foreach (BuducaZaliha bz in buduceZalihe)
-                storage.Save(bz);
+
+            ObrisiBuduceZaliheIzabranogDatuma(sifraOpreme, datePickerDatum.SelectedDate.Value);
+
+            serviceBuducaZaliha.SacuvajBuduceZalihe(buduceZalihe);
 
             Close();
+        }
+
+        private void ObrisiBuduceZaliheIzabranogDatuma(string sifraOpreme, DateTime datum)
+        {
+            serviceBuducaZaliha.ObrisiBuduceZalihe(sifraOpreme, datum);
+        }
+
+        private BuducaZaliha NapraviBuducuZalihu(Zaliha z)
+        {
+            return new BuducaZaliha { Kolicina = z.Kolicina, Prostorija = z.Prostorija, Oprema = z.Oprema, Datum = datePickerDatum.SelectedDate.Value };
         }
 
         private void Button_Click_Odustani(object sender, RoutedEventArgs e)

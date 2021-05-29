@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Korisnici;
+using Bolnica.Services.Korisnici;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;
@@ -19,39 +20,27 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class FormObavestenja : Window
     {
+        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
         public FormObavestenja()
         {
             InitializeComponent();
             DataContext = this;
-            FileStorageObavestenja storage = new FileStorageObavestenja();
-            List<Obavestenje> obavestenja = storage.GetAll();
-            List<Obavestenje> obavestenjaZaPrikaz = new List<Obavestenje>();
-            foreach(Obavestenje o in obavestenja)
-            {
-                foreach (Korisnik k in o.Korisnici)
-                {
-                    if (k.KorisnickoIme == "upravnik")
-                    {
-                        o.Sadrzaj = o.Sadrzaj.Split(",")[0] + "...";
-                        obavestenjaZaPrikaz.Add(o);
-                        break;
-                    }
-                }
-            }
-            Obavestenje temp = new Obavestenje();
-            for (int j = 0; j <= obavestenjaZaPrikaz.Count - 2; j++)
-            {
-                for (int i = 0; i <= obavestenjaZaPrikaz.Count - 2; i++)
-                {
-                    if (obavestenjaZaPrikaz[i].Datum < obavestenjaZaPrikaz[i + 1].Datum)
-                    {
-                        temp = obavestenjaZaPrikaz[i + 1];
-                        obavestenjaZaPrikaz[i + 1] = obavestenjaZaPrikaz[i];
-                        obavestenjaZaPrikaz[i] = temp;
-                    }
-                }
-            }
+            
+            List<Obavestenje> obavestenjaZaPrikaz = NadjiObavestenjaZaPrikaz();
+            
+            SortirajObavestenjaPoDatumu(obavestenjaZaPrikaz);
+
             lvDataBinding.ItemsSource = obavestenjaZaPrikaz;
+        }
+
+        private void SortirajObavestenjaPoDatumu(List<Obavestenje> obavestenjaZaPrikaz)
+        {
+            serviceObavestenje.SortirajObavestenja(obavestenjaZaPrikaz);
+        }
+
+        private List<Obavestenje> NadjiObavestenjaZaPrikaz()
+        {
+            return serviceObavestenje.NadjiObavestenjaKorisnika("upravnik");
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

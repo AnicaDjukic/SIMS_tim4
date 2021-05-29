@@ -32,5 +32,19 @@ namespace Bolnica.Services.Prostorije
 
             return buduceZalihe;
         }
+
+        public void ObrisiBuduceZalihe(string sifraOpreme, DateTime datum)
+        {
+            foreach (BuducaZaliha bz in repository.GetAll())
+            {
+                if (bz.Oprema.Sifra == sifraOpreme && bz.Datum == datum)
+                    repository.Delete(bz);
+            }
+        }
+
+        public void SacuvajBuduceZalihe(List<BuducaZaliha> buduceZalihe)
+        {
+            repository.Save(buduceZalihe);
+        }
     }
 }
