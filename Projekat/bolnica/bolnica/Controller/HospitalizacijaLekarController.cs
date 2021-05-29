@@ -10,12 +10,12 @@ using System.Windows;
 
 namespace Bolnica.Controller
 {
-    public class HospitalizujLekarController
+    public class HospitalizacijaLekarController
     {
-        private HospitalizujLekarService service = new HospitalizujLekarService();
+        private HospitalizacijaLekarService service = new HospitalizacijaLekarService();
 
 
-        public bool Potvrdi(HospitalizacijaDTO hospitalizacijaDTO)
+        public bool Potvrdi(HospitalizacijaLekarDTO hospitalizacijaDTO)
         {
             return service.Potvrdi(hospitalizacijaDTO);
         }

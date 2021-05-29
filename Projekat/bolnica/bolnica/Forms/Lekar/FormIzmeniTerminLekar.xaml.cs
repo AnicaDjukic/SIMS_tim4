@@ -24,7 +24,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIzmeniTerminLekar : Window
     {
-        public FormIzmeniTerminLekar(IzmeniINapraviTerminLekarViewModel viewModel)
+        public FormIzmeniTerminLekar(TerminLekarViewModel viewModel)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

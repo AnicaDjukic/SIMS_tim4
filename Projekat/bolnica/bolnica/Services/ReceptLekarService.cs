@@ -11,18 +11,23 @@ using System.Windows;
 
 namespace Bolnica.Services
 {
-    public class NapraviIVidiReceptLekarService
+    public class ReceptLekarService
     {
 
+        private FileStorageLek skladisteLekova = new FileStorageLek();
 
-        public void Potvrdi(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<Lek> DobijLekove()
+        {
+            return skladisteLekova.GetAll();
+        }
+        public void Potvrdi(ReceptLekarDTO receptDTO)
         {
            
-            NapraviAnamnezuLekarViewModel.Recepti.Add(NapraviRecept(receptDTO));
+            AnamnezaLekarViewModel.Recepti.Add(NapraviRecept(receptDTO));
             
         }
 
-        private Lek DobijIzabraniLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private Lek DobijIzabraniLek(ReceptLekarDTO receptDTO)
         {
             Lek izabraniLek = new Lek();
             for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
@@ -35,7 +40,7 @@ namespace Bolnica.Services
             return izabraniLek;
         }
 
-        public bool PacijentAlergicanNaLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public bool PacijentAlergicanNaLek(ReceptLekarDTO receptDTO)
         {
             Lek izabraniLek = DobijIzabraniLek(receptDTO);
             List<Sastojak>? alergeniPacijenta = receptDTO.trenutniPacijent?.Alergeni;
@@ -58,7 +63,7 @@ namespace Bolnica.Services
 
         }
 
-        private PrikazRecepta NapraviRecept(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private PrikazRecepta NapraviRecept(ReceptLekarDTO receptDTO)
         {
             PrikazRecepta noviPrikazRecepta = new PrikazRecepta(DateTime.Parse(receptDTO.datumIzdavanja), int.Parse(receptDTO.brojKutijaLeka), TimeSpan.Parse(receptDTO.vremeUzimanjaLeka), DateTime.Parse(receptDTO.datumPrekida));
             for (int i = 0; i < receptDTO.sviLekovi.Count; i++)
@@ -72,7 +77,7 @@ namespace Bolnica.Services
             return noviPrikazRecepta;
         }
 
-        public List<int> OtvoriIFiltirajNaTabLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<int> OtvoriIFiltirajNaTabLek(ReceptLekarDTO receptDTO)
         {
            
                 if (receptDTO.nazivLeka?.Length > 2 && receptDTO.proizvodjac?.Length > 2)
@@ -94,7 +99,7 @@ namespace Bolnica.Services
 
 
 
-        public List<string> OtvoriIFiltirajNaTabProizvodjac(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<string> OtvoriIFiltirajNaTabProizvodjac(ReceptLekarDTO receptDTO)
         {
             
                 
@@ -115,12 +120,12 @@ namespace Bolnica.Services
            
         }
 
-        private int LekVecDodat(int i, NapraviIVidiReceptLekarServiceDTO receptDTO)
+        private int LekVecDodat(int i, ReceptLekarDTO receptDTO)
         {
             int lekVecDodat = 0;
-            for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)
+            for (int p = 0; p < AnamnezaLekarViewModel.Recepti.Count; p++)
             {
-                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(receptDTO.sviLekovi[i].Id))
+                if (AnamnezaLekarViewModel.Recepti[p].lek.Id.Equals(receptDTO.sviLekovi[i].Id))
                 {
                     lekVecDodat = 1;
                 }

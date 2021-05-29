@@ -20,7 +20,7 @@ namespace Bolnica.Controller
         {
             return service.DobijLek();
         }
-        public void Potvrdi(KomentarLekaLekarServiceDTO komentarDTO)
+        public void Potvrdi(KomentarLekaLekarDTO komentarDTO)
         {
             service.Potvrdi(komentarDTO);
         }

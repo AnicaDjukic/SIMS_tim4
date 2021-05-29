@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Bolnica.ViewModel
 {
-    public class HospitalizujLekarViewModel : ViewModel
+    public class HospitalizacijaLekarViewModel : ViewModel
     {
         #region POLJA
         public DateTime datumPocetka { get; set; }
@@ -80,7 +80,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            if(inject.HospitalizujLekarController.Potvrdi(new HospitalizacijaDTO(datumPocetka, datumZavrsetka, brojBolnickeSobe, izabraniPacijent)))
+            if(inject.HospitalizacijaLekarController.Potvrdi(new HospitalizacijaLekarDTO(datumPocetka, datumZavrsetka, brojBolnickeSobe, izabraniPacijent)))
             {
                 ZatvoriAkcija();
             }
@@ -114,7 +114,7 @@ namespace Bolnica.ViewModel
         }
 
         #endregion
-        public HospitalizujLekarViewModel(Pacijent izabraniPacijent)
+        public HospitalizacijaLekarViewModel(Pacijent izabraniPacijent)
         {
             InicijalizujPodatke(izabraniPacijent);
             PripremiBolnickeSobe();
@@ -132,8 +132,8 @@ namespace Bolnica.ViewModel
             brojBolnickeSobe = "";
             slobodneBolniceSobe = new List<string>();
             ItemSourceBrojBolnickeSobe = new List<string>();
-            sveBolnickeSobe = inject.HospitalizujLekarController.DobijBolnickeSobe();
-            sveHospitalizacije = inject.HospitalizujLekarController.DobijSveHospitalizacije();
+            sveBolnickeSobe = inject.HospitalizacijaLekarController.DobijBolnickeSobe();
+            sveHospitalizacije = inject.HospitalizacijaLekarController.DobijSveHospitalizacije();
         }
         #region POMOCNE FUNKCIJE
         public void PripremiBolnickeSobe()

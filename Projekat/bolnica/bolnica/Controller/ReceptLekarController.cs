@@ -12,23 +12,27 @@ using System.Windows;
 
 namespace Bolnica.Controller
 {
-    public class NapraviIVidiReceptLekarController
+    public class ReceptLekarController
     {
-        private NapraviIVidiReceptLekarService service = new NapraviIVidiReceptLekarService();
+        private ReceptLekarService service = new ReceptLekarService();
 
-        public void Potvrdi(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<Lek> DobijLekove()
+        {
+            return service.DobijLekove();
+        }
+        public void Potvrdi(ReceptLekarDTO receptDTO)
         {
             service.Potvrdi(receptDTO);
         }
-        public bool PacijentAlergicanNaLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public bool PacijentAlergicanNaLek(ReceptLekarDTO receptDTO)
         {
             return service.PacijentAlergicanNaLek(receptDTO);
         }
-        public List<int> OtvoriIFiltirajNaTabLek(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<int> OtvoriIFiltirajNaTabLek(ReceptLekarDTO receptDTO)
         {
             return service.OtvoriIFiltirajNaTabLek(receptDTO);
         }
-        public List<string> OtvoriIFiltirajNaTabProizvodjac(NapraviIVidiReceptLekarServiceDTO receptDTO)
+        public List<string> OtvoriIFiltirajNaTabProizvodjac(ReceptLekarDTO receptDTO)
         {
             return service.OtvoriIFiltirajNaTabProizvodjac(receptDTO);
         }

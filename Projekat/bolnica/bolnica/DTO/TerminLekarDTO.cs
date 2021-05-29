@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bolnica.DTO
 {
-    public class IzmeniINapraviTerminLekarServiceDTO
+    public class TerminLekarDTO
     {
         public string datumPregledaString { get; set; }
         public DateTime datumPregledaDatum { get; set; }
@@ -60,7 +60,7 @@ namespace Bolnica.DTO
 
         public bool daLiJeOperacija { get; set; } 
 
-        public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazPregleda stariPregled)
+        public TerminLekarDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazPregleda stariPregled)
         {
             this.datumPregledaString = datumPregleda;
             this.vremePregledaString = vremePregleda;
@@ -77,7 +77,7 @@ namespace Bolnica.DTO
 
             
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, List<Lekar> sviLekari, string lekarPodaci,List<Pacijent> sviPacijenti, string pacijentPodaci, List<Prostorija> sveProstorije, bool predmetStavkiDaLiJeOperacija,TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar)
+        public TerminLekarDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, List<Lekar> sviLekari, string lekarPodaci,List<Pacijent> sviPacijenti, string pacijentPodaci, List<Prostorija> sveProstorije, bool predmetStavkiDaLiJeOperacija,TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar)
         {
             this.datumPregledaString = datumPregleda;
             this.vremePregledaString = vremePregleda;
@@ -95,39 +95,39 @@ namespace Bolnica.DTO
 
 
         }
-        public IzmeniINapraviTerminLekarServiceDTO(Lekar ulogovaniLekar, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
+        public TerminLekarDTO(Lekar ulogovaniLekar, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.stariPregled = stariPregled;
             this.trenutniPregled = trenutniPregled;
         }
 
-        public IzmeniINapraviTerminLekarServiceDTO(Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(Lekar ulogovaniLekar, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.staraOperacija = staraOperacija;
             this.trenutnaOperacija = trenutnaOperacija;
         }
 
-        public IzmeniINapraviTerminLekarServiceDTO(Lekar ulogovaniLekar, PrikazPregleda trenutniPregled, Pregled azuriraniPregled)
+        public TerminLekarDTO(Lekar ulogovaniLekar, PrikazPregleda trenutniPregled, Pregled azuriraniPregled)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.trenutniPregled = trenutniPregled;
             this.azuriraniPregled = azuriraniPregled;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(Lekar ulogovaniLekar, PrikazOperacije trenutnaOperacija, Operacija azuriranaOperacija)
+        public TerminLekarDTO(Lekar ulogovaniLekar, PrikazOperacije trenutnaOperacija, Operacija azuriranaOperacija)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.trenutnaOperacija = trenutnaOperacija;
             this.azuriranaOperacija = azuriranaOperacija;
 
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string specijalizacija, string lekarPodaci)
+        public TerminLekarDTO(string specijalizacija, string lekarPodaci)
         {
             this.specijalizacija = specijalizacija;
             this.lekarPodaci = lekarPodaci;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<Pacijent> sviPacijenti, string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
+        public TerminLekarDTO(List<Pacijent> sviPacijenti, string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
         {
             this.sviPacijenti = sviPacijenti;
             this.pacijentPodaci = pacijentPodaci;
@@ -136,7 +136,7 @@ namespace Bolnica.DTO
             this.vremePregledaString = vremePregleda;
         }
 
-        public IzmeniINapraviTerminLekarServiceDTO(string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(string pacijentPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
             this.pacijentPodaci = pacijentPodaci;
             this.datumPregledaDatum = datumPregleda;
@@ -145,7 +145,7 @@ namespace Bolnica.DTO
             this.trenutniPregled = trenutniPregled;
             this.trenutnaOperacija = trenutnaOperacija;
         }
-       public IzmeniINapraviTerminLekarServiceDTO(List<Pacijent> sviPacijenti, string pacijentPodaci)
+       public TerminLekarDTO(List<Pacijent> sviPacijenti, string pacijentPodaci)
         {
             this.sviPacijenti = sviPacijenti;
             this.pacijentPodaci = pacijentPodaci;
@@ -153,28 +153,28 @@ namespace Bolnica.DTO
 
 
 
-        public IzmeniINapraviTerminLekarServiceDTO(List<Pregled> preglediPacijenta, string jmbgPacijent)
+        public TerminLekarDTO(List<Pregled> preglediPacijenta, string jmbgPacijent)
         {
             this.preglediPacijenta = preglediPacijenta;
             this.jmbgPacijent = jmbgPacijent;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<Operacija> operacijePacijenta, string jmbgPacijent)
+        public TerminLekarDTO(List<Operacija> operacijePacijenta, string jmbgPacijent)
         {
             this.operacijePacijenta = operacijePacijenta;
             this.jmbgPacijent = jmbgPacijent;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<Prostorija> sveProstorije, string prostorijaBroj)
+        public TerminLekarDTO(List<Prostorija> sveProstorije, string prostorijaBroj)
         {
             this.sveProstorije = sveProstorije;
             this.prostorijaBroj = prostorijaBroj;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<Prostorija> sveProstorije, string prostorijaBroj, DateTime datumPregleda)
+        public TerminLekarDTO(List<Prostorija> sveProstorije, string prostorijaBroj, DateTime datumPregleda)
         {
             this.sveProstorije = sveProstorije;
             this.prostorijaBroj = prostorijaBroj;
             this.datumPregledaDatum = datumPregleda;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
             this.zauzetiTermini = zauzetiTermini;
             this.preglediPacijenta = preglediPacijenta;
@@ -183,14 +183,14 @@ namespace Bolnica.DTO
             this.trenutniPregled = trenutniPregled;
             this.trenutnaOperacija = trenutnaOperacija;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda)
+        public TerminLekarDTO(List<TimeSpan> zauzetiTermini, List<Pregled> preglediPacijenta, List<Operacija> operacijePacijenta, DateTime datumPregleda)
         {
             this.zauzetiTermini = zauzetiTermini;
             this.preglediPacijenta = preglediPacijenta;
             this.operacijePacijenta = operacijePacijenta;
             this.datumPregledaDatum = datumPregleda;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<TimeSpan> predmetStavkiVreme, string filtriraniLekar, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
+        public TerminLekarDTO(List<TimeSpan> predmetStavkiVreme, string filtriraniLekar, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
         {
             this.predmetStavkiVreme = predmetStavkiVreme;
             this.filtriraniLekar = filtriraniLekar;
@@ -198,12 +198,12 @@ namespace Bolnica.DTO
             this.lekarPodaci = lekarPodaci;
             this.datumPregledaDatum = datumPregleda;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string lekarPodaci, List<Lekar> sviLekari)
+        public TerminLekarDTO(string lekarPodaci, List<Lekar> sviLekari)
         {
             this.lekarPodaci = lekarPodaci;
             this.sviLekari = sviLekari;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(DateTime filtriraniDatum, DateTime datumPregleda, List<Prostorija> sveProstorije, List<string> predmetStavkiProstorije)
+        public TerminLekarDTO(DateTime filtriraniDatum, DateTime datumPregleda, List<Prostorija> sveProstorije, List<string> predmetStavkiProstorije)
         {
             this.filtriraniDatum = filtriraniDatum;
             this.datumPregledaDatum = datumPregleda;
@@ -211,26 +211,26 @@ namespace Bolnica.DTO
             this.predmetStavkiProstorije = predmetStavkiProstorije;
         }
 
-        public IzmeniINapraviTerminLekarServiceDTO(string filtriraniLekar, string lekarPodaci, List<Lekar> sviLekari, string specijalizacija)
+        public TerminLekarDTO(string filtriraniLekar, string lekarPodaci, List<Lekar> sviLekari, string specijalizacija)
         {
             this.filtriraniLekar = filtriraniLekar;
             this.sviLekari = sviLekari;
             this.specijalizacija = specijalizacija;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<string> specijalizacije, String specijalizacija, List<Lekar> sviLekari)
+        public TerminLekarDTO(List<string> specijalizacije, String specijalizacija, List<Lekar> sviLekari)
         {
             this.specijalizacije = specijalizacije;
             this.specijalizacija = specijalizacija;
             this.sviLekari = sviLekari;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string lekarPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
+        public TerminLekarDTO(string lekarPodaci, DateTime datumPregleda, string trajanjePregleda, string vremePregleda)
         {
             this.lekarPodaci = lekarPodaci;
             this.datumPregledaDatum = datumPregleda;
             this.trajanjePregleda = trajanjePregleda;
             this.vremePregledaString = vremePregleda;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<TimeSpan> vremePregleda, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
+        public TerminLekarDTO(List<TimeSpan> vremePregleda, List<Lekar> sviLekari, string lekarPodaci, DateTime datumPregleda)
         {
             this.vremePregleda = vremePregleda;
             this.sviLekari = sviLekari;
@@ -238,25 +238,25 @@ namespace Bolnica.DTO
             this.datumPregledaDatum = datumPregleda;
 
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string lekarPodaci, DateTime datumPregleda)
+        public TerminLekarDTO(string lekarPodaci, DateTime datumPregleda)
         {
             this.lekarPodaci = lekarPodaci;
             this.datumPregledaDatum = datumPregleda;
 
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string lekarPodaci, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(string lekarPodaci, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
             this.lekarPodaci = lekarPodaci;
             this.datumPregledaDatum = datumPregleda;
             this.trenutniPregled = trenutniPregled;
             this.trenutnaOperacija = trenutnaOperacija;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(DateTime datumPregleda, string lekarPodaci)
+        public TerminLekarDTO(DateTime datumPregleda, string lekarPodaci)
         {
             this.datumPregledaDatum = datumPregleda;
             this.lekarPodaci = lekarPodaci;
         }
-        public IzmeniINapraviTerminLekarServiceDTO(DateTime datumPregleda, string lekarPodaci, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(DateTime datumPregleda, string lekarPodaci, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
             this.datumPregledaDatum = datumPregleda;
             this.lekarPodaci = lekarPodaci;
@@ -265,7 +265,7 @@ namespace Bolnica.DTO
         
         }
 
-        public IzmeniINapraviTerminLekarServiceDTO(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
+        public TerminLekarDTO(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
             this.preglediLekara = preglediLekara;
             this.operacijeLekara = operacijeLekara;
@@ -275,7 +275,7 @@ namespace Bolnica.DTO
             this.trenutnaOperacija = trenutnaOperacija;
 
         }
-        public IzmeniINapraviTerminLekarServiceDTO(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda)
+        public TerminLekarDTO(List<Pregled> preglediLekara, List<Operacija> operacijeLekara, List<TimeSpan> zauzetiTermini, DateTime datumPregleda)
         {
             this.preglediLekara = preglediLekara;
             this.operacijeLekara = operacijeLekara;
@@ -283,7 +283,7 @@ namespace Bolnica.DTO
             this.datumPregledaDatum = datumPregleda;
         }
         
-        public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija)
+        public TerminLekarDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeOperacija, TipOperacije tipOperacije, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, Lekar ulogovaniLekar, PrikazOperacije staraOperacija)
         {
             this.datumPregledaString = datumPregleda;
             this.vremePregledaString = vremePregleda;
@@ -298,7 +298,7 @@ namespace Bolnica.DTO
             this.staraOperacija = staraOperacija;
             
         }
-        public IzmeniINapraviTerminLekarServiceDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, PrikazPregleda stariPregled)
+        public TerminLekarDTO(string datumPregleda, string vremePregleda, string trajanjePregleda, string lekarPodaci, string pacijentPodaci, bool predmetStavkiDaLiJeHitan, string prostorijaBroj, PrikazPregleda stariPregled)
         {
             this.datumPregledaString = datumPregleda;
             this.vremePregledaString = vremePregleda;

@@ -54,7 +54,7 @@ namespace Bolnica.Services
         }
         public void ZakaziPregled(LekarServiceDTO lekarServiceDTO)
         {
-            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarServiceDTO.lekarTrenutni);
+            TerminLekarViewModel vm = new TerminLekarViewModel(lekarServiceDTO.lekarTrenutni);
             FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
 
@@ -139,7 +139,7 @@ namespace Bolnica.Services
                 if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
                 {
                     izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                    IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                    TerminLekarViewModel vm = new TerminLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
                     FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
                     break;
                 }
@@ -159,7 +159,7 @@ namespace Bolnica.Services
                     {
 
                         izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                        IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                        TerminLekarViewModel vm = new TerminLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
                         FormIzmeniTerminLekar ff = new FormIzmeniTerminLekar(vm);
                         break;
                     }
@@ -221,7 +221,7 @@ namespace Bolnica.Services
                 {
 
                     izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                    HospitalizujLekarViewModel vm = new HospitalizujLekarViewModel(izabraniPrikazPregleda.Pacijent);
+                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazPregleda.Pacijent);
                     FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
 
                     break;
@@ -239,7 +239,7 @@ namespace Bolnica.Services
                 if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                 {
                     izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                    HospitalizujLekarViewModel vm = new HospitalizujLekarViewModel(izabraniPrikazOperacije.Pacijent);
+                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazOperacije.Pacijent);
                     FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
 
                     break;
@@ -369,7 +369,7 @@ namespace Bolnica.Services
                     if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
                     {
                         izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                        NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                        AnamnezaLekarViewModel vm = new AnamnezaLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
                         FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
                         break;
                     }
@@ -394,7 +394,7 @@ namespace Bolnica.Services
                     if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                     {
                         izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                        NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                        AnamnezaLekarViewModel vm = new AnamnezaLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
                         FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
                         break;
                     }
@@ -434,7 +434,7 @@ namespace Bolnica.Services
                 if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
                 {
                     izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                    NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
+                    AnamnezaLekarViewModel vm = new AnamnezaLekarViewModel(izabraniPrikazPregleda, lekarServiceDTO.lekarTrenutni);
                     FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
                     break;
                 }
@@ -451,7 +451,7 @@ namespace Bolnica.Services
                 if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                 {
                     izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                    NapraviAnamnezuLekarViewModel vm = new NapraviAnamnezuLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
+                    AnamnezaLekarViewModel vm = new AnamnezaLekarViewModel(izabraniPrikazOperacije, lekarServiceDTO.lekarTrenutni);
                     FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
                     break;
                 }
@@ -483,7 +483,7 @@ namespace Bolnica.Services
             {
                 if (lekarServiceDTO.lekovi[i].Id.Equals(izabraniLek.Id))
                 {
-                    IzmeniLekLekarViewModel vm = new IzmeniLekLekarViewModel(lekarServiceDTO.lekovi[i]);
+                    LekLekarViewModel vm = new LekLekarViewModel(lekarServiceDTO.lekovi[i]);
                     FormIzmeniLekLekar form = new FormIzmeniLekLekar(vm);
                     form.Show();
                     break;

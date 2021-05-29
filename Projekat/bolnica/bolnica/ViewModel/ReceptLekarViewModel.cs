@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Bolnica.ViewModel
 {
-   public class NapraviIVidiReceptLekarViewModel : ViewModel
+   public class ReceptLekarViewModel : ViewModel
     {
         #region POLJA
         private List<string> itemSourceNazivLeka;
@@ -130,8 +130,6 @@ namespace Bolnica.ViewModel
 
         private List<Lek> sviLekovi;
 
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-
         private Injector inject;
 
         public Injector Inject
@@ -182,7 +180,7 @@ namespace Bolnica.ViewModel
         public void Executed_ProizvodjacComboTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.ReceptController.OtvoriIFiltirajNaTabProizvodjac(new NapraviIVidiReceptLekarServiceDTO(proizvodjacLeka, sviLekovi));
+            ItemSourceNazivLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabProizvodjac(new ReceptLekarDTO(proizvodjacLeka, sviLekovi));
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -229,7 +227,7 @@ namespace Bolnica.ViewModel
         public void Executed_LekComboTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.ReceptController.OtvoriIFiltirajNaTabLek(new NapraviIVidiReceptLekarServiceDTO(nazivLeka, sviLekovi,proizvodjacLeka));
+            ItemSourceDozaLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabLek(new ReceptLekarDTO(nazivLeka, sviLekovi,proizvodjacLeka));
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -322,9 +320,9 @@ namespace Bolnica.ViewModel
 
         public void Executed_DodajReceptKomanda(object obj)
         {
-            if (!inject.ReceptController.PacijentAlergicanNaLek(new NapraviIVidiReceptLekarServiceDTO(trenutniPacijent,proizvodjacLeka,nazivLeka,dozaLeka,sviLekovi)))
+            if (!inject.ReceptLekarController.PacijentAlergicanNaLek(new ReceptLekarDTO(trenutniPacijent,proizvodjacLeka,nazivLeka,dozaLeka,sviLekovi)))
             {
-                inject.ReceptController.Potvrdi(new NapraviIVidiReceptLekarServiceDTO(nazivLeka,dozaLeka,sviLekovi,datumIzdavanjaRecepta.ToString(),brojKutijaLeka,vremeUzimanjaLeka,datumPrekidaRecepta.ToString()));
+                inject.ReceptLekarController.Potvrdi(new ReceptLekarDTO(nazivLeka,dozaLeka,sviLekovi,datumIzdavanjaRecepta.ToString(),brojKutijaLeka,vremeUzimanjaLeka,datumPrekidaRecepta.ToString()));
                 ZatvoriAkcija();
             }
 
@@ -359,7 +357,7 @@ namespace Bolnica.ViewModel
             return true;
         }
         #endregion
-        public NapraviIVidiReceptLekarViewModel(Pacijent trenutniPacijent)
+        public ReceptLekarViewModel(Pacijent trenutniPacijent)
         {
             InicijalizujPolja();
             FiltrirajLekove();
@@ -369,7 +367,7 @@ namespace Bolnica.ViewModel
             
         }
 
-        public NapraviIVidiReceptLekarViewModel(Pacijent trenutniPacijent, Recept postojeci)
+        public ReceptLekarViewModel(Pacijent trenutniPacijent, Recept postojeci)
         {
 
             InicijalizujPolja();
@@ -380,7 +378,7 @@ namespace Bolnica.ViewModel
             NapraviKomande();
             
         }
-
+        #region POMOCNE FUNKCIJE
         public void InicijalizujPolja()
         {
             ItemSourceProizvodjacLeka = new List<string>();
@@ -423,7 +421,7 @@ namespace Bolnica.ViewModel
         }
         public void FiltrirajLekove()
         {
-            sviLekovi = skladisteLekova.GetAll();
+            sviLekovi = inject.ReceptLekarController.DobijLekove();
             for (int i = 0; i < sviLekovi.Count; i++)
             {
                 if (sviLekovi[i].Status.Equals(StatusLeka.odbijen) || sviLekovi[i].Obrisan)
@@ -521,9 +519,9 @@ namespace Bolnica.ViewModel
         public bool LekVecDodat(int i)
         {
             bool lekVecDodat = false;
-            for (int p = 0; p < NapraviAnamnezuLekarViewModel.Recepti.Count; p++)
+            for (int p = 0; p < AnamnezaLekarViewModel.Recepti.Count; p++)
             {
-                if (NapraviAnamnezuLekarViewModel.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
+                if (AnamnezaLekarViewModel.Recepti[p].lek.Id.Equals(sviLekovi[i].Id))
                 {
                     lekVecDodat = true;
                 }
@@ -532,7 +530,7 @@ namespace Bolnica.ViewModel
         }
 
 
-
+        #endregion
 
     }
 }

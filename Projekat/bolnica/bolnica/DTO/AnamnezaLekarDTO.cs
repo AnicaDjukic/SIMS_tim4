@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Bolnica.DTO
 {
-    public class NapraviAnamnezuLekarServiceDTO
+    public class AnamnezaLekarDTO
     {
         public Pacijent trenutniPacijent { get; set; }
         public bool DaLiPostojiAnamneza { get; set; }
@@ -28,11 +28,11 @@ namespace Bolnica.DTO
 
         public Lekar ulogovaniLekar { get; set; }
 
-        public NapraviAnamnezuLekarServiceDTO(Pacijent trenutniPacijent)
+        public AnamnezaLekarDTO(Pacijent trenutniPacijent)
         {
             this.trenutniPacijent = trenutniPacijent;
         }
-        public NapraviAnamnezuLekarServiceDTO(bool DaLiPostojiAnamneza, bool DaLiJePregled, int idAnamneze, string simptomi, string dijagnoza, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija, List<Anamneza> sveAnamneze)
+        public AnamnezaLekarDTO(bool DaLiPostojiAnamneza, bool DaLiJePregled, int idAnamneze, string simptomi, string dijagnoza, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija, List<Anamneza> sveAnamneze)
         {
             this.DaLiPostojiAnamneza = DaLiPostojiAnamneza;
             this.DaLiJePregled = DaLiJePregled;
@@ -47,57 +47,57 @@ namespace Bolnica.DTO
 
         }
 
-        public NapraviAnamnezuLekarServiceDTO(List<Anamneza> sveAnamneze)
+        public AnamnezaLekarDTO(List<Anamneza> sveAnamneze)
         {
             this.sveAnamneze = sveAnamneze;
         }
 
-        public NapraviAnamnezuLekarServiceDTO(string simptomi, string dijagnoza)
+        public AnamnezaLekarDTO(string simptomi, string dijagnoza)
         {
             this.simptomi = simptomi;
             this.dijagnoza = dijagnoza;
         }
-        public NapraviAnamnezuLekarServiceDTO(Anamneza novaAnamneza, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
+        public AnamnezaLekarDTO(Anamneza novaAnamneza, PrikazPregleda stariPregled, PrikazPregleda trenutniPregled)
         {
             this.novaAnamneza = novaAnamneza;
             this.stariPregled = stariPregled;
             this.trenutniPregled = trenutniPregled;
         }
-        public NapraviAnamnezuLekarServiceDTO(Anamneza novaAnamneza, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
+        public AnamnezaLekarDTO(Anamneza novaAnamneza, PrikazOperacije staraOperacija, PrikazOperacije trenutnaOperacija)
         {
             this.novaAnamneza = novaAnamneza;
             this.staraOperacija = staraOperacija;
             this.trenutnaOperacija = trenutnaOperacija;
         }
-        public NapraviAnamnezuLekarServiceDTO(Anamneza novaAnamneza, PrikazOperacije trenutnaOperacija)
+        public AnamnezaLekarDTO(Anamneza novaAnamneza, PrikazOperacije trenutnaOperacija)
         {
             this.novaAnamneza = novaAnamneza;
             this.trenutnaOperacija = trenutnaOperacija;
         }
-        public NapraviAnamnezuLekarServiceDTO(Anamneza novaAnamneza, PrikazPregleda trenutniPregled)
+        public AnamnezaLekarDTO(Anamneza novaAnamneza, PrikazPregleda trenutniPregled)
         {
             this.novaAnamneza = novaAnamneza;
             this.trenutniPregled = trenutniPregled;
         }
-        public NapraviAnamnezuLekarServiceDTO(DataGrid dataGridLekovi)
+        public AnamnezaLekarDTO(DataGrid dataGridLekovi)
         {
             this.dataGridLekovi = dataGridLekovi;
         }
-        public NapraviAnamnezuLekarServiceDTO(Lekar ulogovaniLekar, Pacijent trenutniPacijent)
+        public AnamnezaLekarDTO(Lekar ulogovaniLekar, Pacijent trenutniPacijent)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.trenutniPacijent = trenutniPacijent;
         }
-        public NapraviAnamnezuLekarServiceDTO(DataGrid dataGridLekovi, Pacijent trenutniPacijent)
+        public AnamnezaLekarDTO(DataGrid dataGridLekovi, Pacijent trenutniPacijent)
         {
             this.dataGridLekovi = dataGridLekovi;
             this.trenutniPacijent = trenutniPacijent;
         }
-        public NapraviAnamnezuLekarServiceDTO(Button IzbrisiButton)
+        public AnamnezaLekarDTO(Button IzbrisiButton)
         {
             this.IzbrisiButton = IzbrisiButton;
         }
-        public NapraviAnamnezuLekarServiceDTO(ScrollViewer ScroolBar)
+        public AnamnezaLekarDTO(ScrollViewer ScroolBar)
         {
             this.ScroolBar = ScroolBar;
         }

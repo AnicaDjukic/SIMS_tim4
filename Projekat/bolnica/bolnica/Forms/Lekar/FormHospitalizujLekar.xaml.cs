@@ -18,7 +18,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormHospitalizujLekar : Window
     {
-        public FormHospitalizujLekar(HospitalizujLekarViewModel viewModel)
+        public FormHospitalizujLekar(HospitalizacijaLekarViewModel viewModel)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

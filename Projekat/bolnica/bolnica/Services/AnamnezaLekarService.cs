@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace Bolnica.Services
 {
-    public class NapraviAnamnezuLekarService
+    public class AnamnezaLekarService
     {
         private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
         private FileStorageLek skladisteLekova = new FileStorageLek();
@@ -21,15 +21,35 @@ namespace Bolnica.Services
         private FileStorageLekar skladisteLekara = new FileStorageLekar();
 
 
-        public void DodajLek(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public List<Pregled> DobijPreglede()
         {
-            NapraviIVidiReceptLekarViewModel vm = new NapraviIVidiReceptLekarViewModel(anamnezaDTO.trenutniPacijent);
+            return skladistePregleda.GetAllPregledi();
+        }
+        public List<Operacija> DobijOperacije()
+        {
+            return skladistePregleda.GetAllOperacije();
+        }
+        public List<Lek> DobijLekove()
+        {
+            return skladisteLekova.GetAll();
+        }
+        public List<Anamneza> DobijAnamneze()
+        {
+            return skladisteAnamneza.GetAll();
+        }
+        public List<Lekar> DobijLekare()
+        {
+            return skladisteLekara.GetAll();
+        }
+        public void DodajLek(AnamnezaLekarDTO anamnezaDTO)
+        {
+            ReceptLekarViewModel vm = new ReceptLekarViewModel(anamnezaDTO.trenutniPacijent);
             FormNapraviReceptLekar form = new FormNapraviReceptLekar(vm);
 
         }
 
 
-        public void Potvrdi(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void Potvrdi(AnamnezaLekarDTO anamnezaDTO)
         {
             Anamneza novaAnamneza = PopuniAnamnezu(anamnezaDTO);
             if (!anamnezaDTO.DaLiPostojiAnamneza)
@@ -60,7 +80,7 @@ namespace Bolnica.Services
             }
         }
 
-        private int IzracunajSlobodniIdAnamneze(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private int IzracunajSlobodniIdAnamneze(AnamnezaLekarDTO anamnezaDTO)
         {
             int max = 0;
             for (int id = 0; id < anamnezaDTO.sveAnamneze.Count; id++)
@@ -72,11 +92,11 @@ namespace Bolnica.Services
             }
             return max + 1;
         }
-        private Anamneza PopuniAnamnezu(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private Anamneza PopuniAnamnezu(AnamnezaLekarDTO anamnezaDTO)
         {
             Anamneza novaAnamneza = new Anamneza(anamnezaDTO.simptomi, anamnezaDTO.dijagnoza);
             novaAnamneza.Recept = new List<Recept>();
-            for (int i = 0; i < NapraviAnamnezuLekarViewModel.Recepti.Count; i++)
+            for (int i = 0; i < AnamnezaLekarViewModel.Recepti.Count; i++)
             {
                 novaAnamneza.Recept.Add(PopuniRecept(i));
             }
@@ -86,11 +106,11 @@ namespace Bolnica.Services
 
         private Recept PopuniRecept(int i)
         {
-            Recept recept = new Recept(NapraviAnamnezuLekarViewModel.Recepti[i].Id, NapraviAnamnezuLekarViewModel.Recepti[i].lek, NapraviAnamnezuLekarViewModel.Recepti[i].DatumIzdavanja, NapraviAnamnezuLekarViewModel.Recepti[i].Kolicina, NapraviAnamnezuLekarViewModel.Recepti[i].VremeUzimanja, NapraviAnamnezuLekarViewModel.Recepti[i].Trajanje);
+            Recept recept = new Recept(AnamnezaLekarViewModel.Recepti[i].Id, AnamnezaLekarViewModel.Recepti[i].lek, AnamnezaLekarViewModel.Recepti[i].DatumIzdavanja, AnamnezaLekarViewModel.Recepti[i].Kolicina, AnamnezaLekarViewModel.Recepti[i].VremeUzimanja, AnamnezaLekarViewModel.Recepti[i].Trajanje);
             return recept;
         }
 
-        private void AzurirajIstorijuPregleda(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private void AzurirajIstorijuPregleda(AnamnezaLekarDTO anamnezaDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciListaIstorija.Items.Count; p++)
             {
@@ -105,7 +125,7 @@ namespace Bolnica.Services
             }
         }
 
-        private void AzurirajOperaciju(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private void AzurirajOperaciju(AnamnezaLekarDTO anamnezaDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
             {
@@ -121,7 +141,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        private void AzurirajPregled(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private void AzurirajPregled(AnamnezaLekarDTO anamnezaDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciLista.Items.Count; p++)
             {
@@ -137,7 +157,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        private void AzurirajIstorijuOperacija(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private void AzurirajIstorijuOperacija(AnamnezaLekarDTO anamnezaDTO)
         {
             for (int p = 0; p < LekarViewModel.podaciListaIstorija.Items.Count; p++)
             {
@@ -151,7 +171,7 @@ namespace Bolnica.Services
                 }
             }
         }
-        private Operacija PopuniOperaciju(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private Operacija PopuniOperaciju(AnamnezaLekarDTO anamnezaDTO)
         {
             Operacija novaOperacija = new Operacija(anamnezaDTO.trenutnaOperacija);
             novaOperacija.Anamneza = anamnezaDTO.novaAnamneza;
@@ -159,38 +179,38 @@ namespace Bolnica.Services
             return novaOperacija;
         }
 
-        private Pregled PopuniPregled(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private Pregled PopuniPregled(AnamnezaLekarDTO anamnezaDTO)
         {
             Pregled noviPregled = new Pregled(anamnezaDTO.trenutniPregled);
             noviPregled.Anamneza = anamnezaDTO.novaAnamneza;
             noviPregled.Zavrsen = true;
             return noviPregled;
         }
-        public void ObrisiRecept(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void ObrisiRecept(AnamnezaLekarDTO anamnezaDTO)
         {
             if (anamnezaDTO.dataGridLekovi.SelectedCells.Count > 0)
             {
                 int index = anamnezaDTO.dataGridLekovi.SelectedIndex;
-                NapraviAnamnezuLekarViewModel.Recepti.RemoveAt(index);
+                AnamnezaLekarViewModel.Recepti.RemoveAt(index);
             }
         }
-        public void ZakaziPregled(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void ZakaziPregled(AnamnezaLekarDTO anamnezaDTO)
         {
-            IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(anamnezaDTO.ulogovaniLekar,anamnezaDTO.trenutniPacijent);
+            TerminLekarViewModel vm = new TerminLekarViewModel(anamnezaDTO.ulogovaniLekar,anamnezaDTO.trenutniPacijent);
             FormNapraviTerminLekar ff = new FormNapraviTerminLekar(vm);
         }
 
 
-        public void VidiDetaljeOReceptu(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void VidiDetaljeOReceptu(AnamnezaLekarDTO anamnezaDTO)
         {
             if (anamnezaDTO.dataGridLekovi.SelectedCells.Count > 0)
             {
-                NapraviIVidiReceptLekarViewModel vm = new NapraviIVidiReceptLekarViewModel(anamnezaDTO.trenutniPacijent, PretvoriPrikazReceptaURecept(anamnezaDTO));
+                ReceptLekarViewModel vm = new ReceptLekarViewModel(anamnezaDTO.trenutniPacijent, PretvoriPrikazReceptaURecept(anamnezaDTO));
                 FormVidiReceptLekar form = new FormVidiReceptLekar(vm);
             }
         }
 
-        private Recept PretvoriPrikazReceptaURecept(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        private Recept PretvoriPrikazReceptaURecept(AnamnezaLekarDTO anamnezaDTO)
         {
             PrikazRecepta selektovaniPrikazRecepta = new PrikazRecepta();
             selektovaniPrikazRecepta = anamnezaDTO.dataGridLekovi.SelectedItem as PrikazRecepta;
@@ -199,7 +219,7 @@ namespace Bolnica.Services
         }
 
 
-        public void PredjiNaScrollBar(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void PredjiNaScrollBar(AnamnezaLekarDTO anamnezaDTO)
         {
 
             anamnezaDTO.IzbrisiButton.MoveFocus(new TraversalRequest(FocusNavigationDirection.Right));
@@ -207,7 +227,7 @@ namespace Bolnica.Services
             
         }
 
-        public void ZaustaviStrelice(NapraviAnamnezuLekarServiceDTO anamnezaDTO)
+        public void ZaustaviStrelice(AnamnezaLekarDTO anamnezaDTO)
         {
 
 

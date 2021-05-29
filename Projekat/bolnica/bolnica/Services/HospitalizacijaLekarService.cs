@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Bolnica.Services
 {
-    public class HospitalizujLekarService
+    public class HospitalizacijaLekarService
     {
         FileStorageHospitalizacija skladisteHospitalizacija = new FileStorageHospitalizacija();
         FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
@@ -17,7 +17,7 @@ namespace Bolnica.Services
         List<BolnickaSoba> sveBolnickeSobe;
 
 
-        public bool Potvrdi(HospitalizacijaDTO hospitalizacijaDTO)
+        public bool Potvrdi(HospitalizacijaLekarDTO hospitalizacijaDTO)
         {
             InicijalizujPodatke();
             BolnickaSoba izabranaBolnickaSoba = DobijBolnickuSobu(hospitalizacijaDTO);
@@ -42,7 +42,7 @@ namespace Bolnica.Services
             sveBolnickeSobe = skladisteProstorija.GetAllBolnickeSobe();
         }
 
-        private void SacuvajIliIzmeni(HospitalizacijaDTO hospitalizacijaDTO, Hospitalizacija hospitalizacija)
+        private void SacuvajIliIzmeni(HospitalizacijaLekarDTO hospitalizacijaDTO, Hospitalizacija hospitalizacija)
         {
             for (int i = 0; i < sveHospitalizacije.Count; i++)
             {
@@ -56,7 +56,7 @@ namespace Bolnica.Services
             }
             skladisteHospitalizacija.Save(hospitalizacija);
         }
-        private BolnickaSoba DobijBolnickuSobu(HospitalizacijaDTO hospitalizacijaDTO)
+        private BolnickaSoba DobijBolnickuSobu(HospitalizacijaLekarDTO hospitalizacijaDTO)
         {
             for (int i = 0; i < sveBolnickeSobe.Count; i++)
             {

@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Bolnica.Services
 {
-    public class IzmeniLekLekarService
+    public class LekLekarService
     {
         private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
         private FileStorageLek skladisteLekova = new FileStorageLek();
@@ -23,7 +23,7 @@ namespace Bolnica.Services
         {
             return skladisteSastojaka.GetAll();
         }
-        public List<int> LekComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariLek)
+        public List<int> LekComboNaTab(LekLekarDTO lekDTO,ref String stariLek)
         {
                 if (lekDTO.lek.Length > 2)
                 {
@@ -46,7 +46,7 @@ namespace Bolnica.Services
                 return lekDTO.ItemSourceDozaLeka;
         }
 
-        public void SelektujSastojakNaEnter(IzmeniLekLekarServiceDTO lekDTO)
+        public void SelektujSastojakNaEnter(LekLekarDTO lekDTO)
         {
                 for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
                 {
@@ -66,7 +66,7 @@ namespace Bolnica.Services
                 }
         }
 
-        public void SelektujZameneNaEnter(IzmeniLekLekarServiceDTO lekDTO)
+        public void SelektujZameneNaEnter(LekLekarDTO lekDTO)
         {
                 for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)
                 {
@@ -87,7 +87,7 @@ namespace Bolnica.Services
         }
 
 
-        public List<string> ProizvodjacComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariProizvodjac)
+        public List<string> ProizvodjacComboNaTab(LekLekarDTO lekDTO,ref String stariProizvodjac)
         {
                 if (lekDTO.proizvodjac.Length > 2)
                 {
@@ -110,18 +110,18 @@ namespace Bolnica.Services
             return lekDTO.ItemSourceNazivLeka;
         }
 
-        public void Potvrdi(IzmeniLekLekarServiceDTO lekDTO)
+        public void Potvrdi(LekLekarDTO lekDTO)
         {
             Lek izmenjeniLek = new Lek(lekDTO.izabraniLek.Id, lekDTO.lek, lekDTO.proizvodjac, int.Parse(lekDTO.doza), lekDTO.izabraniLek.Status, lekDTO.izabraniLek.Zalihe);
             PrikazLek lekZaPrikaz = new PrikazLek(lekDTO.izabraniLek.Id, lekDTO.lek, lekDTO.proizvodjac, int.Parse(lekDTO.doza), lekDTO.izabraniLek.Status, lekDTO.izabraniLek.Zalihe);
             lekZaPrikaz.Sastojak = "";
-            lekZaPrikaz = PopuniStringSastojaka(new IzmeniLekLekarServiceDTO(lekDTO.sastojciKutija, lekDTO.sviSastojci, izmenjeniLek, lekZaPrikaz));
-            lekZaPrikaz = PopuniStringZamena(new IzmeniLekLekarServiceDTO(lekDTO.zameneKutija, lekDTO.sviLekovi, izmenjeniLek, lekZaPrikaz));
-            AzurirajTabelu(new IzmeniLekLekarServiceDTO(lekZaPrikaz));
-            AzurirajSkladiste(new IzmeniLekLekarServiceDTO(izmenjeniLek));
+            lekZaPrikaz = PopuniStringSastojaka(new LekLekarDTO(lekDTO.sastojciKutija, lekDTO.sviSastojci, izmenjeniLek, lekZaPrikaz));
+            lekZaPrikaz = PopuniStringZamena(new LekLekarDTO(lekDTO.zameneKutija, lekDTO.sviLekovi, izmenjeniLek, lekZaPrikaz));
+            AzurirajTabelu(new LekLekarDTO(lekZaPrikaz));
+            AzurirajSkladiste(new LekLekarDTO(izmenjeniLek));
             
         }
-        private void AzurirajTabelu(IzmeniLekLekarServiceDTO lekDTO)
+        private void AzurirajTabelu(LekLekarDTO lekDTO)
         {
             for (int j = 0; j < LekarViewModel.lekoviPrikaz.Count; j++)
             {
@@ -131,12 +131,12 @@ namespace Bolnica.Services
                 }
             }
         }
-        private void AzurirajSkladiste(IzmeniLekLekarServiceDTO lekDTO)
+        private void AzurirajSkladiste(LekLekarDTO lekDTO)
         {
             skladisteLekova.Delete(lekDTO.izmenjeniLek);
             skladisteLekova.Save(lekDTO.izmenjeniLek);
         }
-        private PrikazLek PopuniStringSastojaka(IzmeniLekLekarServiceDTO lekDTO)
+        private PrikazLek PopuniStringSastojaka(LekLekarDTO lekDTO)
         {
             bool dozvolaZaStringSastojak = true;
             for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
@@ -164,7 +164,7 @@ namespace Bolnica.Services
             }
             return lekDTO.lekZaPrikaz;
         }
-        private PrikazLek PopuniStringZamena(IzmeniLekLekarServiceDTO lekDTO)
+        private PrikazLek PopuniStringZamena(LekLekarDTO lekDTO)
         {
             bool dozvolaZaStringZamena = true;
             for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)

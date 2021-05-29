@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Bolnica.DTO
 {
-    public class KomentarLekaLekarServiceDTO
+    public class KomentarLekaLekarDTO
     {
         public string komentar { get; set; }
         public PrikazLek prikazLeka { get; set; }
         public List<Lek> listaLekova { get; set; }
 
-        public KomentarLekaLekarServiceDTO(string komentar, PrikazLek prikazLeka, List<Lek> listaLekova)
+        public KomentarLekaLekarDTO(string komentar, PrikazLek prikazLeka, List<Lek> listaLekova)
         {
             this.komentar = komentar;
             this.prikazLeka = prikazLeka;

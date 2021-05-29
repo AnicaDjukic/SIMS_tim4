@@ -11,33 +11,33 @@ namespace Bolnica
 {
     public class Injector
     {
-        private IzmeniINapraviTerminLekarService pregledService = new IzmeniINapraviTerminLekarService();
+        private TerminLekarService pregledService = new TerminLekarService();
 
-        private NapraviIVidiReceptLekarService receptService = new NapraviIVidiReceptLekarService();
+        private ReceptLekarService receptService = new ReceptLekarService();
 
         private KomentarLekaLekarService komentarLekaService = new KomentarLekaLekarService();
 
-        private IzmeniLekLekarService izmeniLekLekarService = new IzmeniLekLekarService();
+        private LekLekarService izmeniLekLekarService = new LekLekarService();
 
-        private NapraviAnamnezuLekarService napraviAnamnezuLekarService = new NapraviAnamnezuLekarService();
+        private AnamnezaLekarService napraviAnamnezuLekarService = new AnamnezaLekarService();
 
         private LekarService lekarService = new LekarService();
 
-        private HospitalizujLekarService hospitalizujLekarService = new HospitalizujLekarService();
+        private HospitalizacijaLekarService hospitalizujLekarService = new HospitalizacijaLekarService();
 
-        private IzmeniINapraviTerminLekarController pregledController = new IzmeniINapraviTerminLekarController();
+        private TerminLekarController terminLekarController = new TerminLekarController();
 
-        private NapraviIVidiReceptLekarController receptController = new NapraviIVidiReceptLekarController();
+        private ReceptLekarController receptLekarController = new ReceptLekarController();
 
-        private KomentarLekaLekarController komentarLekaController = new KomentarLekaLekarController();
+        private KomentarLekaLekarController komentarLekaLekarController = new KomentarLekaLekarController();
 
-        private IzmeniLekLekarController izmeniLekLekarController = new IzmeniLekLekarController();
+        private LekLekarController lekLekarController = new LekLekarController();
 
-        private NapraviAnamnezuLekarController napraviAnamnezuLekarController = new NapraviAnamnezuLekarController();
+        private AnamnezaLekarController anamnezaLekarController = new AnamnezaLekarController();
 
         private LekarController lekarController = new LekarController();
 
-        private HospitalizujLekarController hospitalizujLekarController = new HospitalizujLekarController();
+        private HospitalizacijaLekarController hospitalizacijaLekarController = new HospitalizacijaLekarController();
 
         private InformacijeOPacijentuLekarController informacijeOPacijentuLekarController = new InformacijeOPacijentuLekarController();
 
@@ -45,33 +45,33 @@ namespace Bolnica
         {
             get { return informacijeOPacijentuLekarController; }
         }
-        public HospitalizujLekarController HospitalizujLekarController
+        public HospitalizacijaLekarController HospitalizacijaLekarController
         {
-            get { return hospitalizujLekarController; }
+            get { return hospitalizacijaLekarController; }
         }
-        public IzmeniINapraviTerminLekarController PregledController
+        public TerminLekarController TerminLekarController
         {
-            get { return pregledController; }
-        }
-
-        public NapraviIVidiReceptLekarController ReceptController
-        {
-            get { return receptController; }
+            get { return terminLekarController; }
         }
 
-        public KomentarLekaLekarController KomentarLekaController
+        public ReceptLekarController ReceptLekarController
         {
-            get { return komentarLekaController; }
+            get { return receptLekarController; }
         }
 
-        public IzmeniLekLekarController IzmeniLekLekarController
+        public KomentarLekaLekarController KomentarLekaLekarController
         {
-            get { return izmeniLekLekarController; }
+            get { return komentarLekaLekarController; }
         }
 
-        public NapraviAnamnezuLekarController NapraviAnamnezuLekarController
+        public LekLekarController LekLekarController
         {
-            get { return napraviAnamnezuLekarController; }
+            get { return lekLekarController; }
+        }
+
+        public AnamnezaLekarController AnamnezaLekarController
+        {
+            get { return anamnezaLekarController; }
         }
 
         public LekarController LekarController

@@ -13,10 +13,10 @@ using System.Collections.Generic;
 
 namespace Bolnica.Controller
 {
-    public class IzmeniINapraviTerminLekarController
+    public class TerminLekarController
     {
 
-        private IzmeniINapraviTerminLekarService service = new IzmeniINapraviTerminLekarService();
+        private TerminLekarService service = new TerminLekarService();
 
         public List<Lekar> DobijLekare()
         {
@@ -38,55 +38,55 @@ namespace Bolnica.Controller
         {
             return service.DobijProstorije();
         }
-        public void PotvrdiIzmenu(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public void PotvrdiIzmenu(TerminLekarDTO terminDTO)
         {
             service.PotvrdiIzmenu(terminDTO);
         }
-        public void Potvrdi(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public void Potvrdi(TerminLekarDTO terminDTO)
         {
             service.Potvrdi(terminDTO);
         }
-        public bool PostojiLekar(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool PostojiLekar(TerminLekarDTO terminDTO)
         {
             return service.PostojiLekar(terminDTO);
         }
-        public bool PacijentSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool PacijentSlobodanUToVreme(TerminLekarDTO terminDTO)
         {
             return service.PacijentSlobodanUToVreme(terminDTO);
         }
-        public bool PacijentSlobodanUToVremeIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool PacijentSlobodanUToVremeIzmeni(TerminLekarDTO terminDTO)
         {
             return service.PacijentSlobodanUToVremeIzmeni(terminDTO);
         }
-        public bool PostojiProstorija(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool PostojiProstorija(TerminLekarDTO terminDTO)
         {
             return service.PostojiProstorija(terminDTO);
         }
-        public bool ProstorijaSlobodna(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool ProstorijaSlobodna(TerminLekarDTO terminDTO)
         {
             return service.ProstorijaSlobodna(terminDTO);
         }
-        public List<TimeSpan> LekarFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public List<TimeSpan> LekarFiltriranje(TerminLekarDTO terminDTO)
         {
             return service.LekarFiltriranje(terminDTO);
         }
-        public List<string> DatumFiltriranje(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public List<string> DatumFiltriranje(TerminLekarDTO terminDTO)
         {
             return service.DatumFiltriranje(terminDTO);
         }
-        public string LekarComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public string LekarComboNaTab(TerminLekarDTO terminDTO)
         {
             return service.LekarComboNaTab(terminDTO);
         }
-        public List<string> SpecijalizacijaComboNaTab(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public List<string> SpecijalizacijaComboNaTab(TerminLekarDTO terminDTO)
         {
             return service.SpecijalizacijaComboNaTab(terminDTO);
         }
-        public bool LekarSlobodanUToVreme(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool LekarSlobodanUToVreme(TerminLekarDTO terminDTO)
         {
             return service.LekarSlobodanUToVreme(terminDTO);
         }
-        public bool LekarSlobodanUToVremeIzmeni(IzmeniINapraviTerminLekarServiceDTO terminDTO)
+        public bool LekarSlobodanUToVremeIzmeni(TerminLekarDTO terminDTO)
         {
             return service.LekarSlobodanUToVremeIzmeni(terminDTO);
         }

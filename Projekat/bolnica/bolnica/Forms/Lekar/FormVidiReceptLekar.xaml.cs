@@ -20,7 +20,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormVidiReceptLekar : Window
     {
-        public FormVidiReceptLekar(NapraviIVidiReceptLekarViewModel viewModel)
+        public FormVidiReceptLekar(ReceptLekarViewModel viewModel)
         {
 
             InitializeComponent();

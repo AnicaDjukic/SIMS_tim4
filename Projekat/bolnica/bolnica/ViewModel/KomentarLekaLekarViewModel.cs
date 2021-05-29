@@ -53,7 +53,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.KomentarLekaController.Potvrdi(new KomentarLekaLekarServiceDTO(Komentar,prikazLeka,listaLekova));
+            inject.KomentarLekaLekarController.Potvrdi(new KomentarLekaLekarDTO(Komentar,prikazLeka,listaLekova));
             ZatvoriAkcija();
         }
 
@@ -92,7 +92,7 @@ namespace Bolnica.ViewModel
         {
             Komentar = "";
             Inject = new Injector();
-            listaLekova = inject.KomentarLekaController.DobijLek();
+            listaLekova = inject.KomentarLekaLekarController.DobijLek();
             for (int i = 0; i < listaLekova.Count; i++)
             {
                 if (listaLekova[i].Status.Equals(StatusLeka.odbijen) || listaLekova[i].Obrisan)

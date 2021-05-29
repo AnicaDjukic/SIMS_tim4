@@ -22,7 +22,7 @@ namespace Bolnica.Forms
     public partial class FormNapraviReceptLekar : Window
     {
         
-       public FormNapraviReceptLekar(NapraviIVidiReceptLekarViewModel viewModel)
+       public FormNapraviReceptLekar(ReceptLekarViewModel viewModel)
         {
 
             InitializeComponent();
