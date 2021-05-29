@@ -24,10 +24,12 @@ namespace Bolnica.Sekretar
     public partial class FormPomeriPregled : Window
     {
         private List<Lekar> lekari = new List<Lekar>();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private List<Godisnji> godisnji = new List<Godisnji>();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryGodisnji sviGodisnji = new FileRepositoryGodisnji();
         private List<Pacijent> pacijenti = new List<Pacijent>();
         private List<Prostorija> prostorije = new List<Prostorija>();
         private PrikazPregleda trenutniPregled = new PrikazPregleda();
@@ -40,6 +42,7 @@ namespace Bolnica.Sekretar
 
             this.DataContext = this;
 
+            godisnji = sviGodisnji.GetAll();
             lekari = sviLekari.GetAll();
             pacijenti = sviPacijenti.GetAll();
             prostorije = sveProstorije.GetAllProstorije();
@@ -52,9 +55,8 @@ namespace Bolnica.Sekretar
                     comboProstorija.Items.Add(p.BrojProstorije);
 
             foreach (Lekar l in lekari)
-            {
-                comboLekar.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
-            }
+                if(l.PostavljenaSmena)
+                    comboLekar.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
 
             for (int vre = 0; vre < 24; vre++)
             {
@@ -94,9 +96,9 @@ namespace Bolnica.Sekretar
             int godina = datum.Year;
             int mesec = datum.Month;
             int dan = datum.Day;
-            string sati = comboVreme.Text.Split(":")[0];
-            string minuti = comboVreme.Text.Split(":")[1];
-            trenutniPregled.Datum = new DateTime(godina, mesec, dan, Int32.Parse(sati), Int32.Parse(minuti), 0);
+            int sati = Int32.Parse(comboVreme.Text.Split(":")[0]);
+            int minuti = Int32.Parse(comboVreme.Text.Split(":")[1]);
+            trenutniPregled.Datum = new DateTime(godina, mesec, dan, sati, minuti, 0);
             trenutniPregled.Trajanje = int.Parse(txtTrajanje.Text);
 
             string imeLekara;
@@ -164,6 +166,37 @@ namespace Bolnica.Sekretar
                 MessageBox.Show("Nepostojeća prostorija", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 comboProstorija.Focusable = true;
                 Keyboard.Focus(comboProstorija);
+                return;
+            }
+
+            for (int i = 0; i < godisnji.Count; i++)
+                if (godisnji[i].Lekar.Jmbg == trenutniPregled.Lekar.Jmbg && (godisnji[i].PocetakGodisnjeg <= dpDatum.SelectedDate.Value && godisnji[i].KrajGodisnjeg >= dpDatum.SelectedDate.Value))
+                {
+                    MessageBox.Show("Lekar je na godišnjem tog datuma", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboLekar.Focusable = true;
+                    Keyboard.Focus(comboLekar);
+                    return;
+                }
+
+            if (trenutniPregled.Lekar.Smena == Smena.Prva && (sati < 7 || sati >= 15))
+            {
+                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                comboLekar.Focusable = true;
+                Keyboard.Focus(comboLekar);
+                return;
+            }
+            else if (trenutniPregled.Lekar.Smena == Smena.Druga && (sati < 15 || sati >= 23))
+            {
+                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                comboLekar.Focusable = true;
+                Keyboard.Focus(comboLekar);
+                return;
+            }
+            else if (trenutniPregled.Lekar.Smena == Smena.Treca && !(sati >= 23 || sati < 7))
+            {
+                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                comboLekar.Focusable = true;
+                Keyboard.Focus(comboLekar);
                 return;
             }
 
@@ -391,6 +424,11 @@ namespace Bolnica.Sekretar
             }
 
             return zauzet;
+        }
+
+        private void Zatvori(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

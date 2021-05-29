@@ -30,11 +30,11 @@ namespace Bolnica.Forms.Sekretar
         public static List<Operacija> listaOperacija = new List<Operacija>();
         public static ObservableCollection<PrikazPregleda> Pregledi { get; set; }
         public static List<Lekar> listaLekara = new List<Lekar>();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePregledi sveOperacije = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryPregled sveOperacije = new FileRepositoryPregled();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();

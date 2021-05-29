@@ -61,7 +61,7 @@ namespace Bolnica.Forms.Upravnik
                     }
                 }
             }
-            FileStorageSastojak storageSastojak = new FileStorageSastojak();
+            FileRepositorySastojak storageSastojak = new FileRepositorySastojak();
             foreach(Sastojak s in lek.Sastojak)
             {
                 foreach(Sastojak sas in storageSastojak.GetAll())

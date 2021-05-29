@@ -7,17 +7,36 @@
         xmlns:dislocal="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         mc:Ignorable="d"
-        Title="FormSkladiste" Height="250" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="LightCyan">
+        Title="FormSkladiste" Height="250" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="dislocal:TipProstorije"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="MediumPurple"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
+                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
+                        <GradientStop Color="#9783E8" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property ="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.Resources>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DarkCyan"/>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9783E8"/>
         </Grid.Resources>
         
         <Grid.ColumnDefinitions>
@@ -50,7 +69,7 @@
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <Button Height="30" Click="Button_Click_Prebaci">
+            <Button Height="30" Click="Button_Click_Prebaci"  Margin="0,10,0,0">
                 <Image Source="../Images/right-arrow.png" Width="25" Height="25" HorizontalAlignment="Left"/>
             </Button>
             <Button Height="30" Click="Button_Click_Vrati" Margin="0,10,0,0">

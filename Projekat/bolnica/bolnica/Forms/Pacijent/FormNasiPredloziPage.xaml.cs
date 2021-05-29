@@ -16,7 +16,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormNasiPredloziPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
         public static ObservableCollection<PrikazPregleda> PredlozeniTermini
         {
@@ -30,18 +29,17 @@ namespace Bolnica.Forms
         private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Prostorija> slobodneProstorije = new List<Prostorija>();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
 
-        public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar, FormPacijentWeb formPacijentWeb)
+        public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
         {
             InitializeComponent();
 
             this.DataContext = this;
 
-            form = formPacijentWeb;
             trenutniPacijent = pacijent;
             PredlozeniTermini = new ObservableCollection<PrikazPregleda>();
 
@@ -552,7 +550,7 @@ namespace Bolnica.Forms
                         };
                         storageAntiTrol.Save(antiTrol);
 
-                        form.Pocetna.Content = new FormPacijentPage(pregled.Pacijent, form);
+                        FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pregled.Pacijent);
 
                         break;
                     }
@@ -566,7 +564,7 @@ namespace Bolnica.Forms
 
         private void Odustani(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormPacijentPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(trenutniPacijent);
         }
     }
 }

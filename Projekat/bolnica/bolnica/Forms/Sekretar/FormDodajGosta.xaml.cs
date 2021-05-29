@@ -4,6 +4,7 @@ using Model.Korisnici;
 using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,17 +22,150 @@ namespace Bolnica.Forms.Sekretar
     /// <summary>
     /// Interaction logic for FormDodajGosta.xaml
     /// </summary>
-    public partial class FormDodajGosta : Window
+    public partial class FormDodajGosta : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string ime;
+        private string prezime;
+        private string jmbg;
+        private string adresaStanovanja;
+        private string telefon;
+        private string email;
+        private DateTime datumRodjenja;
+
+        public string Ime
+        {
+            get
+            {
+                return ime;
+            }
+            set
+            {
+                if (value != ime)
+                {
+                    ime = value;
+                    OnPropertyChanged("Ime");
+                }
+            }
+        }
+
+        public string Prezime
+        {
+            get
+            {
+                return prezime;
+            }
+            set
+            {
+                if (value != prezime)
+                {
+                    prezime = value;
+                    OnPropertyChanged("Prezime");
+                }
+            }
+        }
+
+        public string Jmbg
+        {
+            get
+            {
+                return jmbg;
+            }
+            set
+            {
+                if (value != jmbg)
+                {
+                    jmbg = value;
+                    OnPropertyChanged("Jmbg");
+                }
+            }
+        }
+
+        public string AdresaStanovanja
+        {
+            get
+            {
+                return adresaStanovanja;
+            }
+            set
+            {
+                if (value != adresaStanovanja)
+                {
+                    adresaStanovanja = value;
+                    OnPropertyChanged("AdresaStanovanja");
+                }
+            }
+        }
+
+        public string Telefon
+        {
+            get
+            {
+                return telefon;
+            }
+            set
+            {
+                if (value != telefon)
+                {
+                    telefon = value;
+                    OnPropertyChanged("Telefon");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                if (value != email)
+                {
+                    email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public DateTime DatumRodjenja
+        {
+            get
+            {
+                return datumRodjenja;
+            }
+            set
+            {
+                if (value != datumRodjenja)
+                {
+                    datumRodjenja = value;
+                    OnPropertyChanged("DatumRodjenja");
+                }
+            }
+        }
+
         public static Pacijent pacijent;
         private ComboBox comboPacijent;
         public FormDodajGosta(ComboBox comboPacijent)
         {
             InitializeComponent();
+            this.DataContext = this;
             this.comboPacijent = comboPacijent;
             pacijent = new Pacijent();
             FormAlergeniDodaj.DodatiAlergeni = null;
             FormAlergeniDodaj.SviAlergeni = null;
+
+            DatumRodjenja = DateTime.Now;
         }
 
         private void Zatvori(object sender, RoutedEventArgs e)
@@ -98,7 +232,7 @@ namespace Bolnica.Forms.Sekretar
 
         private void addPatient(Pacijent pac)
         {
-            FileStoragePacijenti storage = new FileStoragePacijenti();
+            FileRepositoryPacijent storage = new FileRepositoryPacijent();
             List<Pacijent> pacijenti = storage.GetAll();
             Regex rgxBrojTelefona = new Regex(@"^\([0-9]{3}\)\s[0-9]{3}-[0-9]{3,4}$");
             bool isEmail = Regex.IsMatch(pac.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
@@ -179,7 +313,6 @@ namespace Bolnica.Forms.Sekretar
         private void DodajAlergene(object sender, RoutedEventArgs e)
         {
             var s = new FormAlergeniDodaj(txtJMBG);
-            s.ti1.IsSelected = true;
             s.btnUkloni.IsEnabled = false;
             s.ShowDialog();
         }

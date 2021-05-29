@@ -13,9 +13,12 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormPacijentWeb : Window
     {
+        public static FormPacijentWeb Forma;
+        public static Pacijent Pacijent;
+
         private Pacijent trenutniPacijent = new Pacijent();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
         private List<AntiTrol> antiTrol = new List<AntiTrol>();
         public static string ImeIPre
         {
@@ -28,14 +31,16 @@ namespace Bolnica.Forms
             InitializeComponent();
 
             this.DataContext = this;
-            Pocetna.Content = new FormPacijentPage(pacijent, this);
+            Forma = this;
+            Pacijent = pacijent;
+            Pocetna.Content = new FormPacijentPage(pacijent);
             trenutniPacijent = pacijent;
             ImeIPre = pacijent.Ime + " " + pacijent.Prezime;
         }
 
         private void Button_Click_Pocetna_Stranica(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormPacijentPage(trenutniPacijent, this);
+            Pocetna.Content = new FormPacijentPage(trenutniPacijent);
         }
 
         private void Button_Click_Zakazivanje_Pregleda(object sender, RoutedEventArgs e)
@@ -54,24 +59,24 @@ namespace Bolnica.Forms
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
                 }
-                Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent, this);
+                Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent);
             }
             
         }
 
         public void DanasnjaObavestenja()
         {
-            new FormPacijentPage(trenutniPacijent, this).PrikaziObavestenja();
+            new FormPacijentPage(trenutniPacijent).PrikaziObavestenja();
         }
 
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent, this);
+            Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent);
         }
 
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormObavestenjaPacijentPage();
+            Pocetna.Content = new FormObavestenjaPacijentPage(trenutniPacijent);
         }
 
         public int DobijBrojAktivnosti()

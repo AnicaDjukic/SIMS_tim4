@@ -11,14 +11,14 @@ namespace Bolnica.Model.Korisnici
 
         public FileStorageAntiTrol()
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocation = System.IO.Path.Combine(path, @"Resources\", "AntiTrol.json");
         }
 
         public List<AntiTrol> GetAll()
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             var antiTrol = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             return antiTrol;
@@ -26,7 +26,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Save(AntiTrol antiTrol)
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<AntiTrol> antiTrolList = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             if (antiTrolList == null)
@@ -39,7 +39,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Delete(AntiTrol antiTrol)
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             var json = File.ReadAllText(FileLocation);
             List<AntiTrol> antiTrolList = JsonConvert.DeserializeObject<List<AntiTrol>>(json);
             if (antiTrolList != null)

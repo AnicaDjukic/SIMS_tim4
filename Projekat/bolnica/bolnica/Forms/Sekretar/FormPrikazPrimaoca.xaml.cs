@@ -22,14 +22,14 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormPrikazPrimaoca : Window
     {
         public static ObservableCollection<Primalac> Primaoci { get; set; }
-        private FileStoragePacijenti storagePacijenti;
+        private FileRepositoryPacijent storagePacijenti;
         private List<Pacijent> pacijenti;
         public FormPrikazPrimaoca(int id)
         {
             InitializeComponent();
             dataGridPrimaoci.DataContext = this;
             Primaoci = new ObservableCollection<Primalac>();
-            storagePacijenti = new FileStoragePacijenti();
+            storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
             Primalac p1 = new Primalac("Upravnik");
             Primalac p2 = new Primalac("Svi lekari");

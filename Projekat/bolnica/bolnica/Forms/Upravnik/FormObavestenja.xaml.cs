@@ -23,7 +23,7 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             DataContext = this;
-            FileStorageObavestenja storage = new FileStorageObavestenja();
+            FileRepositoryObavestenje storage = new FileRepositoryObavestenje();
             List<Obavestenje> obavestenja = storage.GetAll();
             List<Obavestenje> obavestenjaZaPrikaz = new List<Obavestenje>();
             foreach(Obavestenje o in obavestenja)

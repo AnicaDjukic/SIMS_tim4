@@ -18,22 +18,19 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormZakaziPacijentPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent pacijent = new Pacijent();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
 
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Lekar> lekari = new List<Lekar>();
 
-        public FormZakaziPacijentPage(Pacijent trenutniPacijent, FormPacijentWeb formPacijentWeb)
+        public FormZakaziPacijentPage(Pacijent trenutniPacijent)
         {
             InitializeComponent();
-
-            form = formPacijentWeb;
 
             datumPicker.IsEnabled = false;
             comboSat.IsEnabled = false;
@@ -159,14 +156,14 @@ namespace Bolnica.Forms
                     };
                     storageAntiTrol.Save(antiTrol);
 
-                    form.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent, form);
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent);
                 }
             }
         }
 
         private void Otkazi(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormPacijentPage(pacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijent);
         }
 
         private void NasiPredlozi(object sender, RoutedEventArgs e)
@@ -207,7 +204,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            form.Pocetna.Content = new FormNasiPredloziPage(pacijent, datum, sat, minut, lekar, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormNasiPredloziPage(pacijent, datum, sat, minut, lekar);
         }
 
         private bool NaRenoviranju(Prostorija p)

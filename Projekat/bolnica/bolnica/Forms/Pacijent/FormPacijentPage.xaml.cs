@@ -18,7 +18,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormPacijentPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
         public static ObservableCollection<PrikazPregleda> PrikazNezavrsenihPregleda
         {
@@ -26,9 +25,9 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageProstorija storageProstorija = new FileStorageProstorija();
         private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
@@ -42,13 +41,12 @@ namespace Bolnica.Forms
         private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Anamneza> anamneze = new List<Anamneza>();
 
-        public FormPacijentPage(Pacijent pacijent, FormPacijentWeb formPacijentWeb)
+        public FormPacijentPage(Pacijent pacijent)
         {
             InitializeComponent();
 
             this.DataContext = this;
 
-            form = formPacijentWeb;
             trenutniPacijent = pacijent;
             PrikazNezavrsenihPregleda = new ObservableCollection<PrikazPregleda>();
             FormObavestenjaPacijentPage.ObavestenjaZaPacijente = new ObservableCollection<string>();
@@ -181,7 +179,6 @@ namespace Bolnica.Forms
                                         r.Trajanje.ToShortDateString() + ". " + "Prepisan Vam je lek '" + GetNazivLeka(r.Lek.Id) +
                                         "' koji treba da pijete jednom dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
-                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
                                     }
                                     else
                                     {
@@ -190,7 +187,6 @@ namespace Bolnica.Forms
                                         "' koji treba da pijete " + 24 / r.VremeUzimanja.Hours +
                                         " puta dnevno u razmaku od po " + r.VremeUzimanja.Hours + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
-                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
                                     }
 
                                 }
@@ -202,15 +198,14 @@ namespace Bolnica.Forms
                                         poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
                                         "'. Ovaj lek se pije " + " jednom dnevno od po " + r.VremeUzimanja.Hours + " sati.";
                                         MessageBox.Show(poruka, "Obaveštenje");
-                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
                                     }
                                     else
                                     {
                                         poruka = DateTime.Today.ToShortDateString() + ": Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
                                         "'. Ovaj lek se pije " + 24 / r.VremeUzimanja.Hours + " puta dnevno u razmaku od po "
-                                        + r.VremeUzimanja.Hours + " sati.";
+                                        + r.VremeUzimanja.Hours + " sati. Pazljivo se pridrzavajte ovih uputa koje su vam date kako bi " +
+                                        "vasa terapija prosla u najboljem mogucem redu.";
                                         MessageBox.Show(poruka, "Obaveštenje");
-                                        FormObavestenjaPacijentPage.ObavestenjaZaPacijente.Add(poruka);
                                     }
                                 }
                             }
@@ -222,12 +217,12 @@ namespace Bolnica.Forms
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            int brojac = form.DobijBrojAktivnosti();
+            int brojac = FormPacijentWeb.Forma.DobijBrojAktivnosti();
             
             if (brojac > 5)
             {
-                form.BlokirajPacijenta();
-                form.Close();
+                FormPacijentWeb.Forma.BlokirajPacijenta();
+                FormPacijentWeb.Forma.Close();
             }
             else
             {
@@ -236,7 +231,7 @@ namespace Bolnica.Forms
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
                 }
-                form.Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent, form);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent);
             }
         }
 
@@ -343,12 +338,12 @@ namespace Bolnica.Forms
                     }
                     else
                     {
-                        int brojac = form.DobijBrojAktivnosti();
+                        int brojac = FormPacijentWeb.Forma.DobijBrojAktivnosti();
 
                         if (brojac > 5)
                         {
-                            form.BlokirajPacijenta();
-                            form.Close();
+                            FormPacijentWeb.Forma.BlokirajPacijenta();
+                            FormPacijentWeb.Forma.Close();
                         }
                         else
                         {
@@ -357,7 +352,7 @@ namespace Bolnica.Forms
                                 MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                                     "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
                             }
-                            form.Pocetna.Content = new FormIzmeniPacijentPage(prikaz, form);
+                            FormPacijentWeb.Forma.Pocetna.Content = new FormIzmeniPacijentPage(prikaz);
                         }
                     }
                 }
@@ -370,12 +365,12 @@ namespace Bolnica.Forms
 
         private void IstorijaPregleda(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent);
         }
 
         private void ObavestenjaPacijent(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormObavestenjaPacijentPage();
+            FormPacijentWeb.Forma.Pocetna.Content = new FormObavestenjaPacijentPage(trenutniPacijent);
         }
 
         private string GetNazivLeka(int id)

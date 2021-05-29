@@ -16,12 +16,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxLekarValidationRule : ValidationRule
     {
-        private FileStorageLekar storage { get; set; }
+        private FileRepositoryLekar storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLekar();
+                storage = new FileRepositoryLekar();
 
                 List<Lekar> sviLekari = new List<Lekar>();
                 sviLekari = storage.GetAll();
@@ -43,12 +43,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxSpecijalizacijaValidationRule : ValidationRule
     {
-        private FileStorageLekar storage { get; set; }
+        private FileRepositoryLekar storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLekar();
+                storage = new FileRepositoryLekar();
 
                 List<Lekar> sviLekari = new List<Lekar>();
                 sviLekari = storage.GetAll();
@@ -70,12 +70,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxPrezimeValidationRule : ValidationRule
     {
-        private FileStoragePacijenti storage {  get; set; }
+        private FileRepositoryPacijent storage {  get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStoragePacijenti();
+                storage = new FileRepositoryPacijent();
 
                 List<Pacijent> sviPacijenti = new List<Pacijent>();
                 sviPacijenti = storage.GetAll();

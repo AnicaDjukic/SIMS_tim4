@@ -11,7 +11,9 @@ namespace Bolnica
 {
     public class Injector
     {
+
         private TerminLekarService pregledService = new TerminLekarService();
+
 
         private ReceptLekarService receptService = new ReceptLekarService();
 
@@ -42,6 +44,7 @@ namespace Bolnica
         private InformacijeOPacijentuLekarController informacijeOPacijentuLekarController = new InformacijeOPacijentuLekarController();
 
         public InformacijeOPacijentuLekarController InformacijeOPacijentuLekarController
+
         {
             get { return informacijeOPacijentuLekarController; }
         }

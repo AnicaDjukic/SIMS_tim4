@@ -12,13 +12,13 @@ namespace Bolnica.Validation
     public class DateValidationRenoviranje : ValidationRule
     {
         private FileStorageRenoviranje storageRenoviranje;
-        private FileStoragePregledi StoragePregledi;
+        private FileRepositoryPregled StoragePregledi;
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if(value as string != "" && value != null)
             {
                 storageRenoviranje = new FileStorageRenoviranje();
-                StoragePregledi = new FileStoragePregledi();
+                StoragePregledi = new FileRepositoryPregled();
 
                 List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
                 List<Pregled> pregledi = StoragePregledi.GetAllPregledi();

@@ -29,15 +29,17 @@ namespace Bolnica.Sekretar
         public const int POMAK_IZMEDJU_TERMINA = 15;
         public const int TRAJANJE_PREGLEDA = 30;
         public const int PRAZNA_ANAMNEZA = -1;
-        private FileStoragePacijenti skladistePacijenata;
-        private FileStorageLekar skladisteLekara;
+        private FileRepositoryPacijent skladistePacijenata;
+        private FileRepositoryLekar skladisteLekara;
         private FileStorageProstorija skladisteProstorija;
-        private FileStoragePregledi skladisteTermina;
+        private FileRepositoryPregled skladisteTermina;
+        private FileRepositoryGodisnji skladisteGodisnjih;
         private List<Pacijent> sviPacijenti;
         private List<Lekar> sviLekari;
         private List<Prostorija> sveProstorije;
         private List<Pregled> sviPregledi;
         private List<Operacija> sveOperacije;
+        private List<Godisnji> sviGodisnji;
         private Pregled zakazivaniPregled;
 
         public FormZakaziPregled()
@@ -49,15 +51,17 @@ namespace Bolnica.Sekretar
 
         private void inicijalizujPoljaKlase()
         {
-            skladisteTermina = new FileStoragePregledi();
-            skladistePacijenata = new FileStoragePacijenti();
-            skladisteLekara = new FileStorageLekar();
+            skladisteTermina = new FileRepositoryPregled();
+            skladistePacijenata = new FileRepositoryPacijent();
+            skladisteLekara = new FileRepositoryLekar();
             skladisteProstorija = new FileStorageProstorija();
+            skladisteGodisnjih = new FileRepositoryGodisnji();
             sviPacijenti = skladistePacijenata.GetAll();
             sviLekari = skladisteLekara.GetAll();
             sveProstorije = skladisteProstorija.GetAllProstorije();
             sviPregledi = skladisteTermina.GetAllPregledi();
             sveOperacije = skladisteTermina.GetAllOperacije();
+            sviGodisnji = skladisteGodisnjih.GetAll();
             zakazivaniPregled = new Pregled();
         }
 
@@ -81,7 +85,8 @@ namespace Bolnica.Sekretar
         private void inicijalizujComboBoxLekara()
         {
             foreach (Lekar l in sviLekari)
-                comboBoxLekara.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
+                if (l.PostavljenaSmena)
+                    comboBoxLekara.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
         }
 
         private void inicijalizujComboBoxPacijenata()
@@ -115,7 +120,7 @@ namespace Bolnica.Sekretar
 
         private void ZakaziPregled(object sender, RoutedEventArgs e)
         {
-            if (!PostavljenaSvaPoljaZakazanogPregleda() || TerminZauzet())
+            if (!PostavljenaSvaPoljaZakazanogPregleda() || TerminZauzet() || LekarNaGodisnjem() || LekarNijeUSmeni())
                 return;
 
             SnimiZakazaniPregled();
@@ -211,6 +216,65 @@ namespace Bolnica.Sekretar
             return true;
         }
 
+        private bool LekarNaGodisnjem() 
+        {
+            string[] lekarPodaci = comboBoxLekara.Text.Split(" ");
+            string imeLekara = lekarPodaci[0];
+            string prezimeLekara = lekarPodaci[1];
+            string jmbgLekara = lekarPodaci[2];
+
+            for (int i = 0; i < sviLekari.Count; i++)
+                if (sviLekari[i].Ime.Equals(imeLekara) && sviLekari[i].Prezime.Equals(prezimeLekara) && sviLekari[i].Jmbg.Equals(jmbgLekara))
+                {
+                    for (int j = 0; j < sviGodisnji.Count; j++) 
+                        if (sviGodisnji[j].Lekar.Jmbg == sviLekari[i].Jmbg && (sviGodisnji[j].PocetakGodisnjeg <= datePickerDatumPregleda.SelectedDate.Value && sviGodisnji[j].KrajGodisnjeg >= datePickerDatumPregleda.SelectedDate.Value)) 
+                        {
+                            LekarNaGodisnjemGreska();
+                            return true;
+                        }
+                }
+
+            return false;
+        }
+
+        private bool LekarNijeUSmeni()
+        {
+            string[] lekarPodaci = comboBoxLekara.Text.Split(" ");
+            string imeLekara = lekarPodaci[0];
+            string prezimeLekara = lekarPodaci[1];
+            string jmbgLekara = lekarPodaci[2];
+
+            int sati = Int32.Parse(comboBoxVremenaPregleda.Text.Split(":")[0]);
+
+            for (int i = 0; i < sviLekari.Count; i++)
+                if (sviLekari[i].Ime.Equals(imeLekara) && sviLekari[i].Prezime.Equals(prezimeLekara) && sviLekari[i].Jmbg.Equals(jmbgLekara))
+                {
+                    if (sviLekari[i].Smena == Smena.Prva && (sati < 7 || sati >= 15))
+                    {
+                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                        comboBoxLekara.Focusable = true;
+                        Keyboard.Focus(comboBoxLekara);
+                        return true;
+                    }
+                    else if (sviLekari[i].Smena == Smena.Druga && (sati < 15 || sati >= 23))
+                    {
+                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                        comboBoxLekara.Focusable = true;
+                        Keyboard.Focus(comboBoxLekara);
+                        return true;
+                    }
+                    else if (sviLekari[i].Smena == Smena.Treca && !(sati >= 23 || sati < 7)) 
+                    {
+                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                        comboBoxLekara.Focusable = true;
+                        Keyboard.Focus(comboBoxLekara);
+                        return true;
+                    }
+                }
+
+            return false;
+        }
+
         private bool PostavljenoPoljeProstorijaZakazivanogPregleda()
         {
             if (!PostaviPoljeProstorijaZakazivanogPregleda())
@@ -278,6 +342,20 @@ namespace Bolnica.Sekretar
         private void LekarNepostojeciGreska() 
         {
             MessageBox.Show("Nepostojeći lekar", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxLekara.Focusable = true;
+            Keyboard.Focus(comboBoxLekara);
+        }
+
+        private void LekarNaGodisnjemGreska()
+        {
+            MessageBox.Show("Lekar je na godišnjem tog datuma", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            comboBoxLekara.Focusable = true;
+            Keyboard.Focus(comboBoxLekara);
+        }
+
+        private void LekarNijeUSmeniGreska()
+        {
+            MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
             comboBoxLekara.Focusable = true;
             Keyboard.Focus(comboBoxLekara);
         }
@@ -410,6 +488,11 @@ namespace Bolnica.Sekretar
             };
             FormPregledi.listaPregleda.Add(zakazivaniPregled);
             FormPregledi.Pregledi.Add(trenutniPregled);
+        }
+
+        private void Zatvori(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

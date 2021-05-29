@@ -15,7 +15,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIstorijaPregledaPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
         public static ObservableCollection<PrikazPregleda> PrikazZavrsenihPregleda
         {
@@ -23,18 +22,17 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
 
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
 
-        public FormIstorijaPregledaPage(Pacijent pacijent, FormPacijentWeb formPacijentWeb)
+        public FormIstorijaPregledaPage(Pacijent pacijent)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             trenutniPacijent = pacijent;
 
             this.DataContext = this;
@@ -45,7 +43,7 @@ namespace Bolnica.Forms
 
             prostorije = storageProstorije.GetAllProstorije();
 
-            List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+            List<Pregled> pregledi = storagePregledi.GetAll();
             foreach (Pregled p in pregledi)
             {
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
@@ -83,7 +81,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            List<Operacija> operacije = storagePregledi.GetAllOperacije();
+            List<Operacija> operacije = storagePregledi.GetAll();
             foreach (Operacija o in operacije)
             {
                 if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))
@@ -130,8 +128,8 @@ namespace Bolnica.Forms
 
             if (objekat != null)
             {
-                PrikazPregleda p = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
-                form.Pocetna.Content = new FormOceniLekaraPage(p, form);
+                PrikazPregleda prikazPregleda = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
+                FormPacijentWeb.Forma.Pocetna.Content = new FormOceniLekaraPage(prikazPregleda);
             }
             else
             {
@@ -141,12 +139,12 @@ namespace Bolnica.Forms
 
         private void Button_Click_Oceni_Bolnicu(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormOceniBolnicuPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormOceniBolnicuPage(trenutniPacijent);
         }
 
         private void Button_Click_Istorija_Ocena_I_Komentara(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaOcenaPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaOcenaPage(trenutniPacijent);
         }
     }
 }

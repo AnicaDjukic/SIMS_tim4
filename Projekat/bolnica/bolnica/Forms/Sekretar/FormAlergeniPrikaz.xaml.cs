@@ -20,13 +20,13 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormAlergeniPrikaz : Window
     {
         public static ObservableCollection<Sastojak> Alergeni { get; set; }
-        private FileStorageSastojak storage;
+        private FileRepositorySastojak storage;
         public FormAlergeniPrikaz(Label lblJMBG)
         {
             InitializeComponent();
             dataGridAlergeni.DataContext = this;
             Alergeni = new ObservableCollection<Sastojak>();
-            storage = new FileStorageSastojak();
+            storage = new FileRepositorySastojak();
             List<Sastojak> alergeni = storage.GetAll();
 
             for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
@@ -35,7 +35,13 @@ namespace Bolnica.Forms.Sekretar
                 {
                     if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
                         foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }
@@ -46,7 +52,13 @@ namespace Bolnica.Forms.Sekretar
                 {
                     if (FormSekretar.GostiPacijenti[i].Alergeni != null)
                         foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }

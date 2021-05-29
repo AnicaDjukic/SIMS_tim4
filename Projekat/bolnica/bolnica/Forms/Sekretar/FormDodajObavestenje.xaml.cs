@@ -22,9 +22,9 @@ namespace Bolnica.Sekretar
     public partial class FormDodajObavestenje : Window
     {
         private int id;
-        private FileStoragePacijenti storagePacijenti;
-        private FileStorageLekar storageLekari;
-        private FileStorageKorisnici storageKorisnici;
+        private FileRepositoryPacijent storagePacijenti;
+        private FileRepositoryLekar storageLekari;
+        private FileRepositoryKorisnik storageKorisnici;
         private List<Pacijent> pacijenti;
         private List<Korisnik> korisnici;
         private List<Korisnik> korisniciIzStorage;
@@ -35,13 +35,13 @@ namespace Bolnica.Sekretar
             this.id = id;
             dpDatum.SelectedDate = DateTime.Now;
             dpDatum.IsEnabled = false;
-            storagePacijenti = new FileStoragePacijenti();
+            storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
-            storageKorisnici = new FileStorageKorisnici();
+            storageKorisnici = new FileRepositoryKorisnik();
             korisniciIzStorage = storageKorisnici.GetAll();
             this.korisnici = korisnici;
             listaLekara = new List<Lekar>();
-            storageLekari = new FileStorageLekar();
+            storageLekari = new FileRepositoryLekar();
             listaLekara = storageLekari.GetAll();
 
             FormDodajPrimaoce.DodatiPrimaoci = null;
@@ -73,7 +73,7 @@ namespace Bolnica.Sekretar
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FileStorageObavestenja storage = new FileStorageObavestenja();
+            FileRepositoryObavestenje storage = new FileRepositoryObavestenje();
             List<Obavestenje> obavestenja = storage.GetAll();
 
             String naslov = txtNaslov.Text;
@@ -338,13 +338,15 @@ namespace Bolnica.Sekretar
             var s = new FormDodajPrimaoce(btnDodajPacijente, id);
             if (FormObavestenja.clickedDodaj)
             {
-                s.ti1.IsSelected = true;
                 s.btnUkloni.IsEnabled = false;
             }
             else
             {
-                s.ti2.IsSelected = true;
-                s.btnDodaj.IsEnabled = false;
+                if (FormDodajPrimaoce.SviPrimaoci.Count != 0)
+                    s.btnDodaj.IsEnabled = true;
+                else
+                    s.btnDodaj.IsEnabled = false;
+
                 if (FormDodajPrimaoce.DodatiPrimaoci.Count != 0)
                     s.btnUkloni.IsEnabled = true;
                 else
@@ -358,13 +360,15 @@ namespace Bolnica.Sekretar
             var s = new FormDodajPrimaocePacijente(id);
             if (FormObavestenja.clickedDodaj)
             {
-                s.ti1.IsSelected = true;
                 s.btnUkloni.IsEnabled = false;
             }
             else
             {
-                s.ti2.IsSelected = true;
-                s.btnDodaj.IsEnabled = false;
+                if (FormDodajPrimaocePacijente.SviPrimaoci.Count != 0)
+                    s.btnDodaj.IsEnabled = true;
+                else
+                    s.btnDodaj.IsEnabled = false;
+
                 if (FormDodajPrimaocePacijente.DodatiPrimaoci.Count != 0)
                     s.btnUkloni.IsEnabled = true;
                 else
