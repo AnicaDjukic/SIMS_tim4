@@ -21,13 +21,13 @@ namespace Bolnica.Sekretar
     public partial class FormPrikazObavestenja : Window
     {
         private int id;
-        private FileStoragePacijenti storagePacijenti;
+        private FileRepositoryPacijent storagePacijenti;
         private List<Pacijent> pacijenti;
         public FormPrikazObavestenja(int id)
         {
             InitializeComponent();
             this.id = id;
-            storagePacijenti = new FileStoragePacijenti();
+            storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
 
             for (int i = 0; i < FormObavestenja.Obavestenja.Count; i++)

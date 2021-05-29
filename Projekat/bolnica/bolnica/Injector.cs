@@ -10,7 +10,7 @@ namespace Bolnica
 {
     public class Injector
     {
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
 
         private IzmeniINapraviTerminLekarService pregledService = new IzmeniINapraviTerminLekarService();
 
@@ -23,7 +23,7 @@ namespace Bolnica
         private NapraviAnamnezuLekarService napraviAnamnezuLekarService = new NapraviAnamnezuLekarService();
 
         private LekarService lekarService = new LekarService();
-        public FileStoragePregledi StoragePregledi
+        public FileRepositoryPregled StoragePregledi
         {
             get { return storagePregledi; }
         }

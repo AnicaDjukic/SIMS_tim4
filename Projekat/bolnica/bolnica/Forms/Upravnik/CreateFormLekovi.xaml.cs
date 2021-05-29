@@ -172,7 +172,7 @@ namespace Bolnica.Forms.Upravnik
                 }
                 storage.Save(lek);
                 FormUpravnik.Lekovi.Add(lek);
-                FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
+                FileRepositoryObavestenje storageObavestenja = new FileRepositoryObavestenje();
                 List<Obavestenje> obavestenja = storageObavestenja.GetAll();
                 int maxId = 0;
                 foreach (Obavestenje o in obavestenja)

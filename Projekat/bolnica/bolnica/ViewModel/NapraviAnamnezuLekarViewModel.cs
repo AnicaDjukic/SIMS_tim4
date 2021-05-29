@@ -19,7 +19,7 @@ namespace Bolnica.ViewModel
         public List<PrikazRecepta> recepti { get; set; }
         private int DaLiPostojiAnamneza = 0;
         private List<Lek> sviLekovi = new List<Lek>();
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
+        private FileRepositoryPregled skladistePregleda = new FileRepositoryPregled();
         private FileStorageLek skladisteLekova = new FileStorageLek();
         private List<Pregled> sviPregledi = new List<Pregled>();
         private List<Operacija> sveOperacije = new List<Operacija>();
@@ -32,7 +32,7 @@ namespace Bolnica.ViewModel
         private PrikazOperacije staraOperacija = new PrikazOperacije();
         private List<Anamneza> sveAnamneze = new List<Anamneza>();
         private FileStorageAnamneza skladisteAnamneza = new FileStorageAnamneza();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private FileRepositoryLekar skladisteLekara = new FileRepositoryLekar();
         private int idAnamneze;
         private int DaLiJePregled = 0;
         public DataGrid dataGridLekovi;

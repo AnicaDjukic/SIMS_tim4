@@ -20,7 +20,7 @@ namespace Bolnica.Forms
         }
         private Pacijent pacijent = new Pacijent();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
         private FileStorageAnamneza storageAnamneze = new FileStorageAnamneza();
         private FileStorageLek storageLek = new FileStorageLek();
 

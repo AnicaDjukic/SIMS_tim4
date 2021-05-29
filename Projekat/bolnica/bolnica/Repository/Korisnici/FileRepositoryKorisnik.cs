@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Repository.Korisnici;
+using Model.Korisnici;
 using Model.Pregledi;
 using Newtonsoft.Json;
 using System;
@@ -8,11 +9,11 @@ using System.Text;
 
 namespace Bolnica.Model.Korisnici
 {
-    class FileStorageKorisnici
+    class FileRepositoryKorisnik : IRepositoryKorisnik
     {
         public string fileLocation { get; set; }
 
-        public FileStorageKorisnici()
+        public FileRepositoryKorisnik()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources\", "Korisnici.json");
@@ -20,7 +21,7 @@ namespace Bolnica.Model.Korisnici
 
         public List<Korisnik> GetAll()
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             var korisnici = JsonConvert.DeserializeObject<List<Korisnik>>(json);
             return korisnici;
@@ -28,7 +29,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Save(Korisnik noviKorisnik)
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Korisnik> korisnici = JsonConvert.DeserializeObject<List<Korisnik>>(json);
             if (korisnici == null)
@@ -41,7 +42,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Delete(Korisnik korisnik)
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Korisnik> korisnici = JsonConvert.DeserializeObject<List<Korisnik>>(json);
             if (korisnici != null)
@@ -56,6 +57,36 @@ namespace Bolnica.Model.Korisnici
                 }
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(korisnici));
             }
+        }
+
+        public void Update(Korisnik entity)
+        {
+            FileRepositoryPregled.serializeKorisnik = true;
+            List<Korisnik> korisnici = new List<Korisnik>();
+            korisnici = GetAll();
+
+            for (int i = 0; i < korisnici.Count; i++)
+            {
+                if (korisnici[i].KorisnickoIme.Equals(entity.KorisnickoIme))
+                {
+                    korisnici[i] = entity;
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(korisnici));
+        }
+
+        public Korisnik GetById(string id)
+        {
+            FileRepositoryPregled.serializeKorisnik = true;
+            var json = File.ReadAllText(fileLocation);
+            var korisnici = JsonConvert.DeserializeObject<List<Korisnik>>(json);
+
+            Korisnik korisnik = new Korisnik();
+            foreach (Korisnik k in korisnici)
+                if (k.KorisnickoIme == id)
+                    korisnik = k;
+            return korisnik;
         }
     }
 }

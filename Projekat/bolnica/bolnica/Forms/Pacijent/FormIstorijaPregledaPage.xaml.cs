@@ -22,8 +22,8 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
 
         private List<Lekar> lekari = new List<Lekar>();
@@ -43,7 +43,7 @@ namespace Bolnica.Forms
 
             prostorije = storageProstorije.GetAllProstorije();
 
-            List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+            List<Pregled> pregledi = storagePregledi.GetAll();
             foreach (Pregled p in pregledi)
             {
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
@@ -81,7 +81,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            List<Operacija> operacije = storagePregledi.GetAllOperacije();
+            List<Operacija> operacije = storagePregledi.GetAll();
             foreach (Operacija o in operacije)
             {
                 if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))

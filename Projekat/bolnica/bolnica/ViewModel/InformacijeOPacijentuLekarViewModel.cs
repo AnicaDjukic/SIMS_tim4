@@ -86,7 +86,7 @@ namespace Bolnica.ViewModel
             emailAdresa = p1.Email;
             List<Sastojak>? l = p1.Alergeni;
             List<String> aler = new List<string>();
-            FileStorageSastojak storageSas = new FileStorageSastojak();
+            FileRepositorySastojak storageSas = new FileRepositorySastojak();
             if (l != null)
             {
                 for (int i = 0; i < p1.Alergeni.Count; i++)

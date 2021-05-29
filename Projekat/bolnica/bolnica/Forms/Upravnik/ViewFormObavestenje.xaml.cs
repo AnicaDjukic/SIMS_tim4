@@ -23,7 +23,7 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             this.Owner = App.Current.MainWindow;
-            FileStorageObavestenja storage = new FileStorageObavestenja();
+            FileRepositoryObavestenje storage = new FileRepositoryObavestenje();
             
             foreach(Obavestenje o in storage.GetAll())
             {

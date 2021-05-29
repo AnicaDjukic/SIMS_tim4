@@ -313,7 +313,7 @@ namespace bolnica.Forms
                         s.KolicinaUMg = l.KolicinaUMg;
                         s.Proizvodjac = l.Proizvodjac;
                         s.Zalihe = l.Zalihe;
-                        FileStorageSastojak storageSastojak = new FileStorageSastojak();
+                        FileRepositorySastojak storageSastojak = new FileRepositorySastojak();
                         foreach (Sastojak sastojak in l.Sastojak)
                         {
                             foreach(Sastojak sas in storageSastojak.GetAll())
@@ -613,7 +613,7 @@ namespace bolnica.Forms
                 {
                     formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
                 }
-                FileStoragePregledi storagePregledi = new FileStoragePregledi();
+                FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
                 List<Pregled> pregledi = storagePregledi.GetAllPregledi();
                 foreach(Pregled p in pregledi)
                 {

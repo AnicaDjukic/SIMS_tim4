@@ -16,10 +16,10 @@ namespace Bolnica.Services
 {
     public class IzmeniINapraviTerminLekarService
     {
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
 
         private bool naRenoviranju(Prostorija p, DateTime datumB)
         {
@@ -408,7 +408,7 @@ namespace Bolnica.Services
         public bool PostojiLekar(string specijalizacija, string lekarB)
         {
 
-            FileStorageLekar ProveraL = new FileStorageLekar();
+            FileRepositoryLekar ProveraL = new FileRepositoryLekar();
             List<Lekar> lekari = new List<Lekar>();
             lekari = ProveraL.GetAll();
             for (int i = 0; i < lekari.Count; i++)
@@ -426,7 +426,7 @@ namespace Bolnica.Services
 
         public bool LekarSlobodanUToVreme(string lekarB, DateTime datumB, string trajanjeB, string vremeB)
         {
-            FileStorageLekar ProveraL = new FileStorageLekar();
+            FileRepositoryLekar ProveraL = new FileRepositoryLekar();
             List<Lekar> lekari = new List<Lekar>();
             lekari = ProveraL.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -517,7 +517,7 @@ namespace Bolnica.Services
 
         public bool PacijentSlobodanUToVreme(List<Pacijent> pacijentiZa, string prezimeB, DateTime datumB, string trajanjeB, string vremeB)
         {
-            FileStoragePacijenti ProveraP = new FileStoragePacijenti();
+            FileRepositoryPacijent ProveraP = new FileRepositoryPacijent();
             List<Pacijent> pacijenti = sviPacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
             List<Pregled> preglediPacijenta1 = sviPregledi.GetAllPregledi();
@@ -616,7 +616,7 @@ namespace Bolnica.Services
 
         public bool LekarSlobodanUToVremeIzmeni(string lekarB, DateTime datumB, string trajanjeB, string vremeB, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
-            FileStorageLekar ProveraL = new FileStorageLekar();
+            FileRepositoryLekar ProveraL = new FileRepositoryLekar();
             List<Lekar> lekari = new List<Lekar>();
             lekari = ProveraL.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
@@ -707,7 +707,7 @@ namespace Bolnica.Services
 
         public bool PacijentSlobodanUToVremeIzmeni(List<Pacijent> pacijentiZa, string prezimeB, DateTime datumB, string trajanjeB, string vremeB, PrikazPregleda trenutniPregled, PrikazOperacije trenutnaOperacija)
         {
-            FileStoragePacijenti ProveraP = new FileStoragePacijenti();
+            FileRepositoryPacijent ProveraP = new FileRepositoryPacijent();
             List<Pacijent> pacijenti = sviPacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
             List<Pregled> preglediPacijenta1 = sviPregledi.GetAllPregledi();

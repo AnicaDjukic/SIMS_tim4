@@ -18,10 +18,10 @@ namespace Bolnica.Services
 {
     public class LekarService
     {
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private FileStorageLek sviLekovi = new FileStorageLek();
         public void ZakaziPregled(Lekar lekarTrenutni)
         {
@@ -566,8 +566,8 @@ namespace Bolnica.Services
                     }
                 }
                 Obavestenje obavestenje = new Obavestenje();
-                FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
-                FileStorageKorisnici sviKorisnici = new FileStorageKorisnici();
+                FileRepositoryObavestenje svaObavestenja = new FileRepositoryObavestenje();
+                FileRepositoryKorisnik sviKorisnici = new FileRepositoryKorisnik();
                 List<Korisnik> svi = sviKorisnici.GetAll();
                 List<Obavestenje> sva = svaObavestenja.GetAll();
                 int max = 0;
@@ -592,7 +592,7 @@ namespace Bolnica.Services
                 obavestenje.Obrisan = false;
                 obavestenje.Sadrzaj = "Lek " + p.Naziv + " sa dozom " + p.KolicinaUMg + " i sastojcima: " + p.Sastojak + " je prihvacen. ";
                 obavestenje.Datum = DateTime.Now;
-                FileStorageObavestenja oba = new FileStorageObavestenja();
+                FileRepositoryObavestenje oba = new FileRepositoryObavestenje();
                 oba.Save(obavestenje);
 
 

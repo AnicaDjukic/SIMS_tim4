@@ -1,8 +1,10 @@
 ﻿using Bolnica.Forms;
+using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +27,7 @@ namespace Bolnica.Sekretar
             get;
             set;
         }
-        private FileStorageObavestenja storage;
+        private FileRepositoryObavestenje storage;
         public static bool clickedDodaj;
 
         public FormObavestenja()
@@ -33,7 +35,7 @@ namespace Bolnica.Sekretar
             InitializeComponent();
             dataGridObavestenja.DataContext = this;
             Obavestenja = new ObservableCollection<Obavestenje>();
-            storage = new FileStorageObavestenja();
+            storage = new FileRepositoryObavestenje();
 
             List<Obavestenje> obavestenja = storage.GetAll();
             foreach (Obavestenje o in obavestenja)
@@ -170,6 +172,26 @@ namespace Bolnica.Sekretar
                     }
                 }
             }
+        }
+
+        private void SearchBoxObavestenjaKeyUp(object sender, KeyEventArgs e)
+        {
+            var filtered = Obavestenja.Where(obavestenje => obavestenje.Naslov.StartsWith(searchBoxObavestenja.Text, StringComparison.InvariantCultureIgnoreCase));
+            dataGridObavestenja.ItemsSource = filtered;
+        }
+
+        private void Button_Click_Lekari(object sender, RoutedEventArgs e)
+        {
+            var s = new FormLekari();
+            s.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Statistika(object sender, RoutedEventArgs e)
+        {
+            var s = new FormStatistika();
+            s.Show();
+            this.Close();
         }
     }
 }

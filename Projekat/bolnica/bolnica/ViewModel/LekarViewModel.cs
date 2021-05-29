@@ -26,10 +26,10 @@ namespace Bolnica.ViewModel
         private Lekar lekarPomocni = new Lekar();
         private Lekar ll3 = new Lekar();
         private Lekar ll4 = new Lekar();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private FileStorageLek sviLekovi = new FileStorageLek();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
@@ -520,7 +520,7 @@ namespace Bolnica.ViewModel
 
 
 
-            listaPregleda = sviPregledi.GetAllPregledi();
+            listaPregleda = sviPregledi.GetAll();
             listaOperacija = sviPregledi.GetAllOperacije();
             listaPacijenata = sviPacijenti.GetAll();
             listaProstorija = sveProstorije.GetAllProstorije();
@@ -753,7 +753,7 @@ namespace Bolnica.ViewModel
                     p.Status = lekovi[i].Status;
                     p.Proizvodjac = lekovi[i].Proizvodjac;
                     string l = "";
-                    FileStorageSastojak storageSastojak = new FileStorageSastojak();
+                    FileRepositorySastojak storageSastojak = new FileRepositorySastojak();
                     for (int m = 0; m < lekovi[i].Sastojak.Count; m++)
                     {
                         foreach (Sastojak s in storageSastojak.GetAll())

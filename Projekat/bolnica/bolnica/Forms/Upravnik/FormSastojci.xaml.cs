@@ -26,7 +26,7 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
         private Lek noviLek;
-        FileStorageSastojak storage = new FileStorageSastojak();
+        FileRepositorySastojak storage = new FileRepositorySastojak();
         public FormSastojci(Lek lek)
         {
             InitializeComponent();

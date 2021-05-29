@@ -5,21 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Sekretar"
         mc:Ignorable="d"
-        Title="Bolnica" Height="400" Width="400"
+        Title="Bolnica" Height="400" Width="450"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#A9A9A9"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#A9A9A9"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RoutedUICommand x:Key="myNewCommand"/>
+        <RoutedUICommand x:Key="myNewCommand1"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource myNewCommand}" Executed="ZakaziPregled"/>
+        <CommandBinding Command="{StaticResource myNewCommand1}" Executed="Zatvori"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand}}" Modifiers="Ctrl" Key="A" />
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand1}}" Modifiers="Ctrl" Key="E" />
+    </Window.InputBindings>
     <Grid>
-        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="67,61,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="80,91,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prostorija:" HorizontalAlignment="Left" Margin="58,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.598,0.567"/>
-        <Label Content="Datum:" HorizontalAlignment="Left" Margin="72,151,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="74,181,0,0" VerticalAlignment="Top"/>
-        <Label Content="Trajanje:" HorizontalAlignment="Left" Margin="68,209,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBoxPacijenata" IsTextSearchEnabled="True" IsEditable="True" Margin="126,65,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboBoxLekara" IsTextSearchEnabled="True" IsEditable="True" Margin="126,95,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="comboBoxProstorija" IsTextSearchEnabled="True" IsEditable="True" Margin="126,125,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
-        <DatePicker x:Name="datePickerDatumPregleda" HorizontalAlignment="Left" Margin="126,155,0,0" VerticalAlignment="Top" Width="204"/>
-        <ComboBox x:Name="comboBoxVremenaPregleda" SelectedIndex="0" HorizontalAlignment="Left" Margin="126,185,0,0" VerticalAlignment="Top" Width="204"/>
-        <TextBox x:Name="textBoxTrajanjePregleda" Margin="126,215,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
-        <Button Content="Zakaži" Width="80" Height="20" Margin="150,295,150,45" Click="ZakaziPregled"/>
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="92,61,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="105,91,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prostorija:" HorizontalAlignment="Left" Margin="83,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.598,0.567"/>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="97,151,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="99,181,0,0" VerticalAlignment="Top"/>
+        <Label Content="Trajanje u minutama:" HorizontalAlignment="Left" Margin="25,209,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBoxPacijenata" IsTextSearchEnabled="True" IsEditable="True" Margin="151,65,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="comboBoxLekara" IsTextSearchEnabled="True" IsEditable="True" Margin="151,95,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="comboBoxProstorija" IsTextSearchEnabled="True" IsEditable="True" Margin="151,125,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <DatePicker x:Name="datePickerDatumPregleda" HorizontalAlignment="Left" Margin="151,155,0,0" VerticalAlignment="Top" Width="204"/>
+        <ComboBox x:Name="comboBoxVremenaPregleda" SelectedIndex="0" HorizontalAlignment="Left" Margin="151,185,0,0" VerticalAlignment="Top" Width="204"/>
+        <TextBox x:Name="textBoxTrajanjePregleda" Margin="151,215,0,0" VerticalAlignment="Top" Width="204" HorizontalAlignment="Left"/>
+        <Button ToolTip="Ctrl + A" Content="Zakaži" Width="80" Height="20" Margin="0,295,150,45" Click="ZakaziPregled"/>
+        <Button ToolTip="Ctrl + E" Content="Zatvori" Width="80" Height="20" Margin="150,295,0,45" Click="Zatvori"/>
     </Grid>
 </Window>

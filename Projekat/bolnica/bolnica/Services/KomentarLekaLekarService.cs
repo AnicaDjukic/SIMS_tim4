@@ -18,8 +18,8 @@ namespace Bolnica.Services
             
 
             Obavestenje obavestenje = new Obavestenje();
-            FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
-            FileStorageKorisnici sviKorisnici = new FileStorageKorisnici();
+            FileRepositoryObavestenje svaObavestenja = new FileRepositoryObavestenje();
+            FileRepositoryKorisnik sviKorisnici = new FileRepositoryKorisnik();
             List<Korisnik> svi = sviKorisnici.GetAll();
             List<Obavestenje> sva = svaObavestenja.GetAll();
             int max = 0;
@@ -44,7 +44,7 @@ namespace Bolnica.Services
             obavestenje.Obrisan = false;
             obavestenje.Sadrzaj = "Lek " + prik.Naziv + " sa dozom " + prik.KolicinaUMg + " i sastojcima: " + prik.Sastojak + " je odbijen. " + "Komentar: " + komentar;
             obavestenje.Datum = DateTime.Now;
-            FileStorageObavestenja oba = new FileStorageObavestenja();
+            FileRepositoryObavestenje oba = new FileRepositoryObavestenje();
             oba.Save(obavestenje);
 
             LekarViewModel.lekoviPrikaz.Remove(prik);

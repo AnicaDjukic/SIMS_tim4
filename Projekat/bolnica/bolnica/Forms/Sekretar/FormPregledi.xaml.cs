@@ -31,11 +31,11 @@ namespace Bolnica.Sekretar
         public static List<Operacija> listaOperacija = new List<Operacija>();
         public static ObservableCollection<PrikazPregleda> Pregledi { get; set; }
         public static List<Lekar> listaLekara = new List<Lekar>();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
-        private FileStoragePregledi sveOperacije = new FileStoragePregledi();
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryPregled sveOperacije = new FileRepositoryPregled();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
@@ -105,7 +105,7 @@ namespace Bolnica.Sekretar
                     prikazOperacije.Anamneza.Id = listaOperacija[i].Anamneza.Id;
                     prikazOperacije.Hitan = listaOperacija[i].Hitan;
                     prikazOperacije.TipOperacije = listaOperacija[i].TipOperacije;
-                    for (int p = 0; p < listaOperacija.Count; p++)
+                    for (int p = 0; p < listaPacijenata.Count; p++)
                     {
                         if (listaOperacija[i].Pacijent.Jmbg.Equals(listaPacijenata[p].Jmbg) && listaPacijenata[p].Obrisan == false)
                         {
@@ -263,6 +263,11 @@ namespace Bolnica.Sekretar
                     var filtered = Pregledi.Where(termin => termin.Pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && termin.Pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
                     dataGridPregledi.ItemsSource = filtered;
                 }
+                else if (searchBoxText.Length > 2)
+                {
+                    dataGridPregledi.ItemsSource = null;
+                    dataGridPregledi.Items.Refresh();
+                }
             }
             else if (comboSearch.SelectedIndex == 1)
             {
@@ -277,6 +282,11 @@ namespace Bolnica.Sekretar
                 {
                     var filtered = Pregledi.Where(termin => termin.Lekar.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && termin.Lekar.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
                     dataGridPregledi.ItemsSource = filtered;
+                }
+                else if (searchBoxText.Length > 2)
+                {
+                    dataGridPregledi.ItemsSource = null;
+                    dataGridPregledi.Items.Refresh();
                 }
             }
             else 
@@ -309,6 +319,20 @@ namespace Bolnica.Sekretar
                     }
                 }
             }
+        }
+
+        private void Button_Click_Lekari(object sender, RoutedEventArgs e)
+        {
+            var s = new FormLekari();
+            s.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Statistika(object sender, RoutedEventArgs e)
+        {
+            var s = new FormStatistika();
+            s.Show();
+            this.Close();
         }
     }
 }

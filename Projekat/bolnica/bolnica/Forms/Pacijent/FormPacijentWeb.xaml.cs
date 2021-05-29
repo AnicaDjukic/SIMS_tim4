@@ -18,7 +18,7 @@ namespace Bolnica.Forms
 
         private Pacijent trenutniPacijent = new Pacijent();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
         private List<AntiTrol> antiTrol = new List<AntiTrol>();
         public static string ImeIPre
         {

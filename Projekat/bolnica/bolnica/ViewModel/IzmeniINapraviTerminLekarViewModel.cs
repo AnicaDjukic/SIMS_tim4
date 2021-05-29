@@ -19,12 +19,12 @@ namespace Bolnica.ViewModel
         private List<Lekar> lekariTrenutni = new List<Lekar>();
         private Lekar ulogovaniLekar = new Lekar();
         private bool jeOpe = false;
-        private FileStoragePacijenti sviPacijenti = new FileStoragePacijenti();
+        private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
-        private FileStoragePregledi sviPregledi = new FileStoragePregledi();
+        private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
         private List<Pacijent> pacijentiZa = new List<Pacijent>();
         private List<Prostorija> prostorijaZa = new List<Prostorija>();
-        private FileStorageLekar sviLekari = new FileStorageLekar();
+        private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private string zaFilLek = "";
         private DateTime zaFilLekDat = new DateTime();
         private PrikazPregleda trenutniPregled = new PrikazPregleda();

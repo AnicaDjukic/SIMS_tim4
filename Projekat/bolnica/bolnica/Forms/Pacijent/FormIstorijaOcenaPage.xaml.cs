@@ -19,7 +19,7 @@ namespace Bolnica.Forms
         }
 
         private FileStorageOcene storageOcene = new FileStorageOcene();
-        private FileStorageLekar storageLekar = new FileStorageLekar();
+        private FileRepositoryLekar storageLekar = new FileRepositoryLekar();
         
         private List<Ocena> ocene = new List<Ocena>();
         private List<Lekar> lekari = new List<Lekar>();

@@ -292,7 +292,7 @@ namespace Bolnica.ViewModel
         public String stariProizvodjac = "";
         
 
-        private FileStorageSastojak sviSastojci = new FileStorageSastojak();
+        private FileRepositorySastojak sviSastojci = new FileRepositorySastojak();
         private FileStorageLek sviLekovi = new FileStorageLek();
 
         private List<Lek> lekovi = new List<Lek>();

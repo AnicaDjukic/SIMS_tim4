@@ -27,7 +27,7 @@ namespace Bolnica.Forms.Upravnik
         {
             if(txtNaziv.Text != "")
             {
-                FileStorageSastojak storage = new FileStorageSastojak();
+                FileRepositorySastojak storage = new FileRepositorySastojak();
                 List<Sastojak> sastojci = storage.GetAll();
                 int maxId = 0;
                 bool postoji = false;

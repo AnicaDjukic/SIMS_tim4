@@ -4,14 +4,15 @@ using System.Text;
 using Newtonsoft.Json;
 using System.IO;
 using Model.Pacijenti;
+using Bolnica.Repository.Korisnici;
 
 namespace Bolnica.Model.Pregledi
 {
-    class FileStorageSastojak
+    class FileRepositorySastojak : IRepositorySastojak
     {
         private string fileLocation;
 
-        public FileStorageSastojak()
+        public FileRepositorySastojak()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources", "Sastojci.json");
@@ -19,7 +20,7 @@ namespace Bolnica.Model.Pregledi
 
         public List<Sastojak> GetAll()
         {
-            FileStoragePacijenti.serializeAlergeni = true;
+            FileRepositoryPacijent.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             var alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             return alergeni;
@@ -27,7 +28,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Save(Sastojak noviSastojak)
         {
-            FileStoragePacijenti.serializeAlergeni = true;
+            FileRepositoryPacijent.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             if (alergeni == null)
@@ -40,7 +41,7 @@ namespace Bolnica.Model.Pregledi
 
         public void Delete(Sastojak sastojak)
         {
-            FileStoragePacijenti.serializeAlergeni = true;
+            FileRepositoryPacijent.serializeAlergeni = true;
             var json = File.ReadAllText(fileLocation);
             List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             if (alergeni != null)
@@ -55,6 +56,36 @@ namespace Bolnica.Model.Pregledi
                 }
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
             }
+        }
+
+        public void Update(Sastojak entity)
+        {
+            FileRepositoryPacijent.serializeAlergeni = true;
+            List<Sastojak> alergeni = new List<Sastojak>();
+            alergeni = GetAll();
+
+            for (int i = 0; i < alergeni.Count; i++)
+            {
+                if (alergeni[i].Id.Equals(entity.Id))
+                {
+                    alergeni[i] = entity;
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
+        }
+
+        public Sastojak GetById(int id)
+        {
+            FileRepositoryPacijent.serializeAlergeni = true;
+            var json = File.ReadAllText(fileLocation);
+            var alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
+
+            Sastojak alergen = new Sastojak();
+            foreach (Sastojak a in alergeni)
+                if (a.Id == id)
+                    alergen = a;
+            return alergen;
         }
     }
 }

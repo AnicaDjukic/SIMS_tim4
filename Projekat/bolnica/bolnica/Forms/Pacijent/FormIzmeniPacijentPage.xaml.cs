@@ -18,8 +18,8 @@ namespace Bolnica.Forms
     {
         private PrikazPregleda prikazPregleda;
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
         private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
@@ -92,7 +92,7 @@ namespace Bolnica.Forms
                     Pregled pregled = SetPregled(prikaz);
                     FormPacijentPage.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
                     FormPacijentPage.PrikazNezavrsenihPregleda.Add(prikaz);
-                    storagePregledi.Izmeni(pregled);
+                    storagePregledi.Update(pregled);
 
                     AntiTrol antiTrol = new AntiTrol
                     {

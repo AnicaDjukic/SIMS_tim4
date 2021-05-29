@@ -29,9 +29,9 @@ namespace Bolnica.Forms
         private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Prostorija> slobodneProstorije = new List<Prostorija>();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
         private FileStorageProstorija storageProstorije = new FileStorageProstorija();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
 
         public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)

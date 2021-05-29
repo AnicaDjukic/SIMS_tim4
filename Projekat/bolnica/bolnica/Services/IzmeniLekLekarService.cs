@@ -11,7 +11,7 @@ namespace Bolnica.Services
 {
     public class IzmeniLekLekarService
     {
-        private FileStorageSastojak sviSastojci = new FileStorageSastojak();
+        private FileRepositorySastojak sviSastojci = new FileRepositorySastojak();
         private FileStorageLek sviLekovi = new FileStorageLek();
 
         public List<int> NazivLekaOpenTab(string nazivLeka,ref String stariLek,List<Lek> lekovi,List<int> ItemSourceDozaLeka)

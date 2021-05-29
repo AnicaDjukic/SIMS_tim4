@@ -23,7 +23,7 @@ namespace Bolnica.Forms.Sekretar
     {
         public static ObservableCollection<Pacijent> DodatiPrimaoci { get; set; }
         public static ObservableCollection<Pacijent> SviPrimaoci { get; set; }
-        private FileStoragePacijenti storage;
+        private FileRepositoryPacijent storage;
         public FormDodajPrimaocePacijente(int id)
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace Bolnica.Forms.Sekretar
             dataGridPrimaociDodati.DataContext = this;
             DodatiPrimaoci = new ObservableCollection<Pacijent>();
             SviPrimaoci = new ObservableCollection<Pacijent>();
-            storage = new FileStoragePacijenti();
+            storage = new FileRepositoryPacijent();
             List<Pacijent> dodati = new List<Pacijent>();
             List<Pacijent> pacijenti = storage.GetAll();
             List<Pacijent> redovniPacijenti = new List<Pacijent>();
@@ -70,26 +70,6 @@ namespace Bolnica.Forms.Sekretar
                         SviPrimaoci.RemoveAt(i);
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ti1.IsSelected)
-            {
-                btnUkloni.IsEnabled = false;
-                if (SviPrimaoci.Count != 0)
-                    btnDodaj.IsEnabled = true;
-                else
-                    btnDodaj.IsEnabled = false;
-            }
-            else if (ti2.IsSelected)
-            {
-                btnDodaj.IsEnabled = false;
-                if (DodatiPrimaoci.Count != 0)
-                    btnUkloni.IsEnabled = true;
-                else
-                    btnUkloni.IsEnabled = false;
-            }
-        }
-
         private void Button_Clicked_Dodaj(object sender, RoutedEventArgs e)
         {
             List<Pacijent> primaoci = new List<Pacijent>();
@@ -112,6 +92,10 @@ namespace Bolnica.Forms.Sekretar
                     SviPrimaoci.Remove(p);
                     DodatiPrimaoci.Add(p);
                 }
+
+                btnUkloni.IsEnabled = true;
+                if (SviPrimaoci.Count == 0)
+                    btnDodaj.IsEnabled = false;
             }
         }
 
@@ -137,7 +121,16 @@ namespace Bolnica.Forms.Sekretar
                     DodatiPrimaoci.Remove(p);
                     SviPrimaoci.Add(p);
                 }
+
+                btnDodaj.IsEnabled = true;
+                if (DodatiPrimaoci.Count == 0)
+                    btnUkloni.IsEnabled = false;
             }
+        }
+
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

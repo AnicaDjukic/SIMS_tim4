@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Repository.Korisnici;
+using Model.Korisnici;
 using Model.Pregledi;
 using Newtonsoft.Json;
 using System;
@@ -8,12 +9,12 @@ using System.Text;
 
 namespace Bolnica.Model.Korisnici
 {
-    class FileStorageLekar
+    class FileRepositoryLekar : IRepositoryLekar
     {
 
         public string fileLocation { get; set; }
 
-        public FileStorageLekar()
+        public FileRepositoryLekar()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources\", "Lekari.json");
@@ -21,7 +22,7 @@ namespace Bolnica.Model.Korisnici
 
         public List<Lekar> GetAll()
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             var lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             return lekari;
@@ -29,7 +30,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Save(Lekar noviLekar)
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Lekar> lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             if (lekari == null)
@@ -42,7 +43,7 @@ namespace Bolnica.Model.Korisnici
 
         public void Delete(Lekar lekar)
         {
-            FileStoragePregledi.serializeKorisnik = true;
+            FileRepositoryPregled.serializeKorisnik = true;
             var json = File.ReadAllText(fileLocation);
             List<Lekar> lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             if (lekari != null)
@@ -57,6 +58,36 @@ namespace Bolnica.Model.Korisnici
                 }
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekari));
             }
+        }
+
+        public void Update(Lekar entity)
+        {
+            FileRepositoryPregled.serializeKorisnik = true;
+            List<Lekar> lekari = new List<Lekar>();
+            lekari = GetAll();
+
+            for (int i = 0; i < lekari.Count; i++)
+            {
+                if (lekari[i].KorisnickoIme.Equals(entity.KorisnickoIme))
+                {
+                    lekari[i] = entity;
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekari));
+        }
+
+        public Lekar GetById(string id)
+        {
+            FileRepositoryPregled.serializeKorisnik = true;
+            var json = File.ReadAllText(fileLocation);
+            var lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
+
+            Lekar lekar = new Lekar();
+            foreach (Lekar l in lekari)
+                if (l.KorisnickoIme == id)
+                    lekar = l;
+            return lekar;
         }
     }
 }

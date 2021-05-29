@@ -25,7 +25,7 @@ namespace Bolnica.Sekretar
     {
         public static ObservableCollection<Sastojak> SviAlergeni { get; set; }
         public static ObservableCollection<Sastojak> DodatiAlergeni { get; set; }
-        private FileStorageSastojak storage;
+        private FileRepositorySastojak storage;
 
         public FormAlergeniDodaj(TextBox txtJMBG)
         {
@@ -34,7 +34,7 @@ namespace Bolnica.Sekretar
             dataGridAlergeniSvi.DataContext = this;
             SviAlergeni = new ObservableCollection<Sastojak>();
             DodatiAlergeni = new ObservableCollection<Sastojak>();
-            storage = new FileStorageSastojak();
+            storage = new FileRepositorySastojak();
             
             List<Sastojak> alergeni = storage.GetAll();
             List<Sastojak> dodati = new List<Sastojak>();
@@ -136,6 +136,11 @@ namespace Bolnica.Sekretar
                 if (DodatiAlergeni.Count == 0)
                     btnUkloni.IsEnabled = false;
             }
+        }
+
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void Zatvori(object sender, RoutedEventArgs e)

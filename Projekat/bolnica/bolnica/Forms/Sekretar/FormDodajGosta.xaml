@@ -4,9 +4,80 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Sekretar"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="Bolnica" Height="500" Width="400"
+        Title="Bolnica" Height="500" Width="630"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#A9A9A9"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#A9A9A9"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RoutedUICommand x:Key="myNewCommand"/>
+        <RoutedUICommand x:Key="myNewCommand1"/>
+        <RoutedUICommand x:Key="myNewCommand2"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource myNewCommand}" Executed="DodajAlergene"/>
+        <CommandBinding Command="{StaticResource myNewCommand1}" Executed="Kreiraj"/>
+        <CommandBinding Command="{StaticResource myNewCommand2}" Executed="Zatvori"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand}}" Modifiers="Ctrl" Key="D" />
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand1}}" Modifiers="Ctrl" Key="A" />
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand2}}" Modifiers="Ctrl" Key="E" />
+    </Window.InputBindings>
     <Grid>
         <Label Content="Ime:" HorizontalAlignment="Left" Margin="106,65,0,0" VerticalAlignment="Top"/>
         <Label Content="Prezime:" HorizontalAlignment="Left" Margin="83,95,0,0" VerticalAlignment="Top"/>
@@ -16,7 +87,31 @@
         <Label Content="Broj telefona:" HorizontalAlignment="Left" Margin="59,245,0,0" VerticalAlignment="Top"/>
         <Label Content="Email adresa:" HorizontalAlignment="Left" Margin="60,275,0,0" VerticalAlignment="Top"/>
         <Label Content="Alergeni:" x:Name="lblAlergeni" HorizontalAlignment="Left" Margin="82,303,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtIme" Margin="150,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="210"/>
+        <TextBox x:Name="txtIme" Margin="150,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="210">
+            <TextBox.Text>
+                <Binding Path="Ime" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:NameValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="Marko" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,69,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -29,7 +124,31 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TextBox x:Name="txtPrezime" Margin="150,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtPrezime" Margin="150,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" HorizontalAlignment="Left">
+            <TextBox.Text>
+                <Binding Path="Prezime" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:SurnameValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="Marković" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,99,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -47,7 +166,32 @@
             <RadioButton x:Name="rb1"  IsChecked="True" Margin="41,-20,0,0" Content="Muški"/>
             <RadioButton x:Name="rb2"  Margin="100,-20,0,0" Content="Ženski"/>
         </StackPanel>
-        <TextBox x:Name="txtJMBG" Margin="150,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" HorizontalAlignment="Left"/>
+        <TextBox x:Name="txtJMBG" Margin="150,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" HorizontalAlignment="Left">
+            <TextBox.Text>
+                <Binding Path="Jmbg" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:JmbgLengthValidationRule ValidationStep="RawProposedValue"/>
+                        <val:JmbgZauzetValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="0304990120000" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,159,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -60,8 +204,57 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <DatePicker Name="dpDatumRodjenja" HorizontalAlignment="Left" Margin="150,189,0,0" VerticalAlignment="Top" Width="210"/>
-        <TextBox x:Name="txtAdresaStanovanja" HorizontalAlignment="Left" Margin="150,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <DatePicker Name="dpDatumRodjenja" HorizontalAlignment="Left" Margin="150,189,0,0" VerticalAlignment="Top" Width="210">
+            <DatePicker.SelectedDate>
+                <Binding Path="DatumRodjenja" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:DateTimeEmptyValidationRule ValidationStep="RawProposedValue"/>
+                        <val:DateTimeValidValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </DatePicker>
+        <TextBox x:Name="txtAdresaStanovanja" HorizontalAlignment="Left" Margin="150,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210">
+            <TextBox.Text>
+                <Binding Path="AdresaStanovanja" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:LivingAddressValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="Ulica Brankova, Beograd" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,219,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -74,7 +267,31 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TextBox x:Name="txtBrojTelefona" HorizontalAlignment="Left" Margin="150,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <TextBox x:Name="txtBrojTelefona" HorizontalAlignment="Left" Margin="150,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210">
+            <TextBox.Text>
+                <Binding Path="Telefon" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:PhoneNumberValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="(063) 256-2365" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,249,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -87,7 +304,31 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="150,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="150,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210">
+            <TextBox.Text>
+                <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:EmailValidationRule ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="gray"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <TextBlock IsHitTestVisible="False" Text="marko@gmail.com" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,279,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
@@ -100,8 +341,8 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Button x:Name="btnAlergeni" Content="Dodaj" Height="20" Width="80" Margin="150,309,154,0" VerticalAlignment="Top" Click="DodajAlergene"/>
-        <Button Content="Kreiraj" Height="20" Width="80" Margin="0,330,120,0" Click="Kreiraj"/>
-        <Button Content="Zatvori" Height="20" Width="80" Margin="120,330,0,0" Click="Zatvori"/>
+        <Button ToolTip="Ctrl + D" x:Name="btnAlergeni" Content="Dodaj" Height="20" Width="80" Margin="0,309,234,0" VerticalAlignment="Top" Click="DodajAlergene"/>
+        <Button ToolTip="Ctrl + A" Content="Kreiraj" Height="20" Width="80" Margin="0,330,120,0" Click="Kreiraj"/>
+        <Button ToolTip="Ctrl + E" Content="Zatvori" Height="20" Width="80" Margin="120,330,0,0" Click="Zatvori"/>
     </Grid>
 </Window>

@@ -14,10 +14,10 @@ namespace Bolnica.Services
 {
     public class NapraviAnamnezuLekarService
     {
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
+        private FileRepositoryPregled skladistePregleda = new FileRepositoryPregled();
         private FileStorageLek skladisteLekova = new FileStorageLek();
         private FileStorageAnamneza skladisteAnamneza = new FileStorageAnamneza();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private FileRepositoryLekar skladisteLekara = new FileRepositoryLekar();
 
 
         public void DodajLek(Pacijent trenutniPacijent)

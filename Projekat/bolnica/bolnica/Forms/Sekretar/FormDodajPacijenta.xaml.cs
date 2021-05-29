@@ -17,23 +17,228 @@ using System.Text.RegularExpressions;
 using Bolnica.Sekretar;
 using System.Linq;
 using Bolnica.Model.Pregledi;
+using Bolnica.Model.Pacijenti;
 
 namespace Bolnica.Forms
 {
     /// <summary>
     /// Interaction logic for FormDodajPacijenta.xaml
     /// </summary>
-    public partial class FormDodajPacijenta : Window
+    public partial class FormDodajPacijenta : Window, INotifyPropertyChanged
     {
-        private FileStorageKorisnici storageKorisnici;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string ime;
+        private string prezime;
+        private string jmbg;
+        private string adresaStanovanja;
+        private string telefon;
+        private string email;
+        private string korisnickoIme;
+        private string lozinka;
+        private string zanimanje;
+        private string brojKartona;
+        private DateTime datumRodjenja;
+
+        public string Ime
+        {
+            get
+            {
+                return ime;
+            }
+            set
+            {
+                if (value != ime)
+                {
+                    ime = value;
+                    OnPropertyChanged("Ime");
+                }
+            }
+        }
+
+        public string Prezime
+        {
+            get
+            {
+                return prezime;
+            }
+            set
+            {
+                if (value != prezime)
+                {
+                    prezime = value;
+                    OnPropertyChanged("Prezime");
+                }
+            }
+        }
+
+        public string Jmbg
+        {
+            get
+            {
+                return jmbg;
+            }
+            set
+            {
+                if (value != jmbg)
+                {
+                    jmbg = value;
+                    OnPropertyChanged("Jmbg");
+                }
+            }
+        }
+
+        public string AdresaStanovanja
+        {
+            get
+            {
+                return adresaStanovanja;
+            }
+            set
+            {
+                if (value != adresaStanovanja)
+                {
+                    adresaStanovanja = value;
+                    OnPropertyChanged("AdresaStanovanja");
+                }
+            }
+        }
+
+        public string Telefon
+        {
+            get
+            {
+                return telefon;
+            }
+            set
+            {
+                if (value != telefon)
+                {
+                    telefon = value;
+                    OnPropertyChanged("Telefon");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                if (value != email)
+                {
+                    email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public string KorisnickoIme
+        {
+            get
+            {
+                return korisnickoIme;
+            }
+            set
+            {
+                if (value != korisnickoIme)
+                {
+                    korisnickoIme = value;
+                    OnPropertyChanged("KorisnickoIme");
+                }
+            }
+        }
+
+        public string Lozinka
+        {
+            get
+            {
+                return lozinka;
+            }
+            set
+            {
+                if (value != lozinka)
+                {
+                    lozinka = value;
+                    OnPropertyChanged("Lozinka");
+                }
+            }
+        }
+
+        public string Zanimanje
+        {
+            get
+            {
+                return zanimanje;
+            }
+            set
+            {
+                if (value != zanimanje)
+                {
+                    zanimanje = value;
+                    OnPropertyChanged("Zanimanje");
+                }
+            }
+        }
+
+        public string BrojKartona
+        {
+            get
+            {
+                return brojKartona;
+            }
+            set
+            {
+                if (value != brojKartona)
+                {
+                    brojKartona = value;
+                    OnPropertyChanged("BrojKartona");
+                }
+            }
+        }
+
+        public DateTime DatumRodjenja
+        {
+            get
+            {
+                return datumRodjenja;
+            }
+            set
+            {
+                if (value != datumRodjenja)
+                {
+                    datumRodjenja = value;
+                    OnPropertyChanged("DatumRodjenja");
+                }
+            }
+        }
+
+        private FileRepositoryKorisnik storageKorisnici;
+        private FileRepositoryZdravstveniKarton storageZdravstveniKartoni;
         private List<Sastojak> alergeni;
         public FormDodajPacijenta(List<Sastojak> alergeni)
         {
             InitializeComponent();
-            storageKorisnici = new FileStorageKorisnici();
+            this.DataContext = this;
+            storageKorisnici = new FileRepositoryKorisnik();
+            storageZdravstveniKartoni = new FileRepositoryZdravstveniKarton();
             this.alergeni = alergeni;
             FormAlergeniDodaj.DodatiAlergeni = null;
             FormAlergeniDodaj.SviAlergeni = null;
+
+            if (FormSekretar.clickedDodaj)
+                DatumRodjenja = DateTime.Now;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,17 +264,13 @@ namespace Bolnica.Forms
             }
             catch (InvalidOperationException)
             {
-                MessageBox.Show("Nije unet datum rođenja", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                dpDatumRodjenja.Focusable = true;
-                Keyboard.Focus(dpDatumRodjenja);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (datumRodjenja.Year > 2021 || datumRodjenja.Year < 1900)
+            if (DateTime.Compare(datumRodjenja, DateTime.Now) > 0 || datumRodjenja.Year < 1900)
             {
-                MessageBox.Show("Neispravna godina rođenja", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                dpDatumRodjenja.Focusable = true;
-                Keyboard.Focus(dpDatumRodjenja);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -83,16 +284,12 @@ namespace Bolnica.Forms
             }
             catch (FormatException)
             {
-                MessageBox.Show("Nije unet broj kartona", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtIDKarton.Focusable = true;
-                Keyboard.Focus(txtIDKarton);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             catch (OverflowException)
             {
-                MessageBox.Show("Unet je preveliki broj za broj kartona", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtIDKarton.Focusable = true;
-                Keyboard.Focus(txtIDKarton);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             bool osiguranje = (bool)checkOsiguranje.IsChecked;
@@ -142,7 +339,7 @@ namespace Bolnica.Forms
 
         private void addPatient(Pacijent pacijent)
         {
-            FileStoragePacijenti storage = new FileStoragePacijenti();
+            FileRepositoryPacijent storage = new FileRepositoryPacijent();
             List<Pacijent> pacijenti = storage.GetAll();
             Regex rgxBrojTelefona = new Regex(@"^\([0-9]{3}\)\s[0-9]{3}-[0-9]{3,4}$");
             bool isEmail = Regex.IsMatch(pacijent.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
@@ -151,17 +348,13 @@ namespace Bolnica.Forms
 
             if (pacijent.Ime == "")
             {
-                MessageBox.Show("Nije uneto ime", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtIme.Focusable = true;
-                Keyboard.Focus(txtIme);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (pacijent.Prezime == "")
             {
-                MessageBox.Show("Nije uneto prezime", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtPrezime.Focusable = true;
-                Keyboard.Focus(txtPrezime);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -169,9 +362,7 @@ namespace Bolnica.Forms
             {
                 if (!rgxJmbg.IsMatch(pacijent.Jmbg))
                 {
-                    MessageBox.Show("JMBG mora da se sastoji od 13 cifara", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                    txtJMBG.Focusable = true;
-                    Keyboard.Focus(txtJMBG);
+                    MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -182,9 +373,7 @@ namespace Bolnica.Forms
                 {
                     if (String.Equals(p.Jmbg, pacijent.Jmbg))
                     {
-                        MessageBox.Show("Pacijent sa unetim JMBG-om već postoji", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        txtJMBG.Focusable = true;
-                        Keyboard.Focus(txtJMBG);
+                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -195,37 +384,29 @@ namespace Bolnica.Forms
                 MessageBox.Show("JMBG i datum rođenja se ne poklapaju", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-                
 
-            if(pacijent.AdresaStanovanja == "")
+
+            if (pacijent.AdresaStanovanja == "")
             {
-                MessageBox.Show("Nije uneta adresa stanovanja", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtAdresaStanovanja.Focusable = true;
-                Keyboard.Focus(txtAdresaStanovanja);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-                
+
             if (!rgxBrojTelefona.IsMatch(pacijent.BrojTelefona) || pacijent.BrojTelefona == "")
             {
-                MessageBox.Show("Nepostojeći broj telefona ili nije u dobrom formatu", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtBrojTelefona.Focusable = true;
-                Keyboard.Focus(txtBrojTelefona);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!isEmail || pacijent.Email == "")
             {
-                MessageBox.Show("Nepostojeći email", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtEmail.Focusable = true;
-                Keyboard.Focus(txtEmail);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (pacijent.KorisnickoIme == "")
             {
-                MessageBox.Show("Nije uneto korisničko ime", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtKorisnickoIme.Focusable = true;
-                Keyboard.Focus(txtKorisnickoIme);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -235,9 +416,7 @@ namespace Bolnica.Forms
                 {
                     if (String.Equals(pacijent.KorisnickoIme, p.KorisnickoIme))
                     {
-                        MessageBox.Show("Korisničko ime već postoji", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        txtKorisnickoIme.Focusable = true;
-                        Keyboard.Focus(txtKorisnickoIme);
+                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -245,20 +424,15 @@ namespace Bolnica.Forms
 
             if (pacijent.Lozinka == "")
             {
-                MessageBox.Show("Nije uneta lozinka", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtLozinka.Focusable = true;
-                Keyboard.Focus(txtLozinka);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
 
             if (FormSekretar.clickedDodaj)
             {
                 if (!rgxIDKartona.IsMatch(pacijent.ZdravstveniKarton.BrojKartona.ToString()))
                 {
-                    MessageBox.Show("Broj kartona mora da bude pozitivan celi broj", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                    txtIDKarton.Focusable = true;
-                    Keyboard.Focus(txtIDKarton);
+                    MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -269,9 +443,7 @@ namespace Bolnica.Forms
                 {
                     if (!p.Guest && p.ZdravstveniKarton.BrojKartona == pacijent.ZdravstveniKarton.BrojKartona)
                     {
-                        MessageBox.Show("Pacijent sa unetim brojem zdravstvenog kartona već postoji", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        txtIDKarton.Focusable = true;
-                        Keyboard.Focus(txtIDKarton);
+                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
@@ -279,15 +451,14 @@ namespace Bolnica.Forms
 
             if (pacijent.ZdravstveniKarton.Zanimanje == "")
             {
-                MessageBox.Show("Nije uneto zanimanje", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                txtZanimanje.Focusable = true;
-                Keyboard.Focus(txtZanimanje);
+                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (FormSekretar.clickedDodaj)
             {
                 storage.Save(pacijent);
+                storageZdravstveniKartoni.Save(pacijent.ZdravstveniKarton);
                 FormSekretar.RedovniPacijenti.Add(pacijent);
                 
                 Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
@@ -303,6 +474,7 @@ namespace Bolnica.Forms
                     if (String.Equals(p.Jmbg, pacijent.Jmbg))
                     {
                         storage.Delete(p);
+                        storageZdravstveniKartoni.Delete(p.ZdravstveniKarton);
                         storageKorisnici.Delete(p);
 
                         for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
@@ -315,6 +487,7 @@ namespace Bolnica.Forms
                         }
 
                         storage.Save(pacijent);
+                        storageZdravstveniKartoni.Save(pacijent.ZdravstveniKarton);
                         FormSekretar.RedovniPacijenti.Add(pacijent);
 
                         Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };

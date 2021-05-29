@@ -22,13 +22,13 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormPrikazPrimaocaPacijenata : Window
     {
         public static ObservableCollection<Pacijent> Primaoci { get; set; }
-        private FileStoragePacijenti storage;
+        private FileRepositoryPacijent storage;
         public FormPrikazPrimaocaPacijenata(int id)
         {
             InitializeComponent();
             dataGridPrimaoci.DataContext = this;
             Primaoci = new ObservableCollection<Pacijent>();
-            storage = new FileStoragePacijenti();
+            storage = new FileRepositoryPacijent();
             List<Pacijent> pacijenti = storage.GetAll();
             List<Pacijent> redovniPacijenti = new List<Pacijent>();
 

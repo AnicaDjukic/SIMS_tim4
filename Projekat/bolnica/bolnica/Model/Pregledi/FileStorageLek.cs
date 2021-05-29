@@ -24,7 +24,7 @@ namespace Bolnica.Model.Pregledi
         public List<Lek> GetAll()
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             var lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi?.Count == null)
@@ -37,7 +37,7 @@ namespace Bolnica.Model.Pregledi
         public void Save(Lek noviLek)
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi == null)
@@ -51,7 +51,7 @@ namespace Bolnica.Model.Pregledi
         public void Delete(Lek lekZaBrisanje)
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi != null)

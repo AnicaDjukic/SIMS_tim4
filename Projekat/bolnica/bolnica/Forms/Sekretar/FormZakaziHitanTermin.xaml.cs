@@ -25,13 +25,13 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormZakaziHitanTermin : Window
     {
         public static bool guest;
-        private FileStorageLekar storageLekari;
+        private FileRepositoryLekar storageLekari;
         private List<Lekar> lekari;
-        private FileStoragePacijenti storagePacijenti;
+        private FileRepositoryPacijent storagePacijenti;
         private List<Pacijent> pacijenti;
         private FileStorageProstorija storageProstorije;
         private List<Prostorija> prostorije;
-        private FileStoragePregledi sviPregledi;
+        private FileRepositoryPregled sviPregledi;
         private DataGrid dataGrid;
         public FormZakaziHitanTermin(DataGrid dg)
         {
@@ -40,13 +40,13 @@ namespace Bolnica.Forms.Sekretar
             lblTipOperacije.Visibility = Visibility.Hidden;
             txtTrajanje.Text = "30";
             txtTrajanje.IsEnabled = false;
-            storageLekari = new FileStorageLekar();
+            storageLekari = new FileRepositoryLekar();
             lekari = storageLekari.GetAll();
-            storagePacijenti = new FileStoragePacijenti();
+            storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
             storageProstorije = new FileStorageProstorija();
             prostorije = storageProstorije.GetAllProstorije();
-            sviPregledi = new FileStoragePregledi();
+            sviPregledi = new FileRepositoryPregled();
             dataGrid = dg;
 
             foreach (Pacijent p in pacijenti)

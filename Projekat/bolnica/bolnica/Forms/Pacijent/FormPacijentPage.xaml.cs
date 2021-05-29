@@ -25,9 +25,9 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileStorageProstorija storageProstorija = new FileStorageProstorija();
         private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
         private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
