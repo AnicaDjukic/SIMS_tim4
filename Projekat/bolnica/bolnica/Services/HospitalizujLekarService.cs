@@ -80,5 +80,14 @@ namespace Bolnica.Services
             max = max + 1;
             return max;
         }
+        public List<BolnickaSoba> DobijBolnickeSobe()
+        {
+            return skladisteProstorija.GetAllBolnickeSobe();
+        }
+        public List<Hospitalizacija> DobijSveHospitalizacije()
+        {
+            return skladisteHospitalizacija.GetAll();
+        }
+
     }
 }

@@ -19,5 +19,13 @@ namespace Bolnica.Controller
         {
             return service.Potvrdi(hospitalizacijaDTO);
         }
+        public List<BolnickaSoba> DobijBolnickeSobe()
+        {
+            return service.DobijBolnickeSobe();
+        }
+        public List<Hospitalizacija> DobijSveHospitalizacije()
+        {
+            return service.DobijSveHospitalizacije();
+        }
     }
 }

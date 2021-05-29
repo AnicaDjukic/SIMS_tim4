@@ -21,6 +21,31 @@ namespace Bolnica.Controller
     public class LekarController
     {
         private LekarService service = new LekarService();
+
+        public List<Pregled> DobijPreglede()
+        {
+            return service.DobijPreglede();
+        }
+        public List<Pacijent> DobijPacijente()
+        {
+            return service.DobijPacijente();
+        }
+        public List<Prostorija> DobijProstorije()
+        {
+            return service.DobijProstorije();
+        }
+        public List<Lekar> DobijLekare()
+        {
+            return service.DobijLekare();
+        }
+        public List<Operacija> DobijOperacije()
+        {
+            return service.DobijOperacije();
+        }
+        public List<Lek> DobijLekove()
+        {
+            return service.DobijLekove();
+        }
         public void ZakaziPregled(LekarServiceDTO lekarServiceDTO)
         {
             service.ZakaziPregled(lekarServiceDTO);

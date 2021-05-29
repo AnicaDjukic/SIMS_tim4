@@ -32,11 +32,6 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
             }
-
-        private FileStorageHospitalizacija skladisteHospitalizacija = new FileStorageHospitalizacija();
-
-        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
-
         private Injector inject;
         public Injector Inject
         {
@@ -137,9 +132,10 @@ namespace Bolnica.ViewModel
             brojBolnickeSobe = "";
             slobodneBolniceSobe = new List<string>();
             ItemSourceBrojBolnickeSobe = new List<string>();
-            sveBolnickeSobe = skladisteProstorija.GetAllBolnickeSobe();
-            sveHospitalizacije = skladisteHospitalizacija.GetAll();
+            sveBolnickeSobe = inject.HospitalizujLekarController.DobijBolnickeSobe();
+            sveHospitalizacije = inject.HospitalizujLekarController.DobijSveHospitalizacije();
         }
+        #region POMOCNE FUNKCIJE
         public void PripremiBolnickeSobe()
         {
             for (int i = 0; i < sveBolnickeSobe.Count; i++)
@@ -184,6 +180,7 @@ namespace Bolnica.ViewModel
             OtvoriComboNaEnterKomanda = new RelayCommand(Executed_OtvoriComboNaEnterKomanda, CanExecute_OtvoriComboNaEnterKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
         }
+        #endregion
     }
 
 }

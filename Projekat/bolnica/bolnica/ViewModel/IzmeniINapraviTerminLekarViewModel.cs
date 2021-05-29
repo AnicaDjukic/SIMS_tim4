@@ -21,10 +21,6 @@ namespace Bolnica.ViewModel
         private List<Lekar> sviLekari = new List<Lekar>();
         private Lekar ulogovaniLekar = new Lekar();
         private bool daLiJeOperacija = false;
-        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
-        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
         private List<Pacijent> sviPacijenti = new List<Pacijent>();
         private List<Prostorija> sveProstorije = new List<Prostorija>();
         private string nazivIzfiltriranogLeka = "";
@@ -726,6 +722,7 @@ namespace Bolnica.ViewModel
             PopuniIPodesiPodatkeIzmeneOperacije();
             NapraviKomande();
         }
+        #region POMOCNE FUNKCIJE
         public void NapraviKomande()
         {
             DodajPregledLekarCommand = new RelayCommand(Executed_DodajPregledLekarCommand, CanExecute_DodajPregledLekarCommand);
@@ -752,11 +749,11 @@ namespace Bolnica.ViewModel
             ItemSourceBrojProstorije = new List<string>();
             ItemSourceTipOperacije = new List<TipOperacije>();
             Inject = new Injector();
-            sviLekari = skladisteLekara.GetAll();
-            sviPacijenti = skladistePacijenata.GetAll();
-            pregledi = skladistePregleda.GetAllPregledi();
-            operacije = skladistePregleda.GetAllOperacije();
-            sveProstorije = skladisteProstorija.GetAllProstorije();
+            sviLekari = inject.PregledController.DobijLekare();
+            sviPacijenti = inject.PregledController.DobijPacijente();
+            pregledi = inject.PregledController.DobijPreglede();
+            operacije = inject.PregledController.DobijOperacije();
+            sveProstorije = inject.PregledController.DobijProstorije();
             specijalizacije = new List<String>();
             ulogovaniLekar = izabraniLekar;
             checkBoxOperacijaEnabled = true;
@@ -1003,6 +1000,7 @@ namespace Bolnica.ViewModel
                 }
             }
         }
+        #endregion
 
     }
 }

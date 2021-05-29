@@ -16,6 +16,11 @@ namespace Bolnica.Services
         private FileStorageLek skladisteLekova = new FileStorageLek();
         FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
         FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
+
+        public List<Lek> DobijLek()
+        {
+            return skladisteLekova.GetAll();
+        }
         public void Potvrdi(KomentarLekaLekarServiceDTO komentarDTO)
         {
             

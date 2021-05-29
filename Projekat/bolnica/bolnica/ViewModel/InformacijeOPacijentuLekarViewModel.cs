@@ -73,6 +73,7 @@ namespace Bolnica.ViewModel
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
 
         }
+        #region POMOCNE FUNKCIJE
         public void UpravljajZdravstvenimKartonom(Pacijent izabraniPacijent)
         {
             if (izabraniPacijent.Guest)
@@ -115,12 +116,12 @@ namespace Bolnica.ViewModel
         {
             List<Sastojak>? alergeniPacijenta = izabraniPacijent.Alergeni;
             List<String> alergeniZaPrikaz = new List<string>();
-            FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+
             if (alergeniPacijenta != null)
             {
                 for (int i = 0; i < izabraniPacijent.Alergeni.Count; i++)
                 {
-                    foreach (Sastojak s in skladisteSastojaka.GetAll())
+                    foreach (Sastojak s in inject.InformacijeOPacijentuLekarController.DobijSastojke())
                     {
                         if (izabraniPacijent.Alergeni[i].Id.Equals(s.Id))
                         {
@@ -132,6 +133,7 @@ namespace Bolnica.ViewModel
 
             alergeni = alergeniZaPrikaz;
         }
+        #endregion
 
 
 

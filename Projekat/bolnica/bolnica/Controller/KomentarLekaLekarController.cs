@@ -15,7 +15,11 @@ namespace Bolnica.Controller
     public class KomentarLekaLekarController
     {
         private KomentarLekaLekarService service = new KomentarLekaLekarService();
-       
+
+        public List<Lek> DobijLek()
+        {
+            return service.DobijLek();
+        }
         public void Potvrdi(KomentarLekaLekarServiceDTO komentarDTO)
         {
             service.Potvrdi(komentarDTO);

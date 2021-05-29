@@ -80,10 +80,6 @@ namespace Bolnica.ViewModel
         public String stariLek = "";
         public String stariProizvodjac = "";
 
-
-        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-
         private List<Lek> sviLekovi = new List<Lek>();
         private List<Sastojak> sviSastojci = new List<Sastojak>();
 
@@ -322,9 +318,10 @@ namespace Bolnica.ViewModel
             PostaviComboBoxove();
             NapraviKomande();
         }
+        #region POMOCNE FUNKCIJE
         public void FiltrirajLekove()
         {
-            sviLekovi = skladisteLekova.GetAll();
+            sviLekovi = inject.IzmeniLekLekarController.DobijLekove();
             for (int i = 0; i < sviLekovi.Count; i++)
             {
                 if (sviLekovi[i].Status.Equals(StatusLeka.odbijen) || sviLekovi[i].Obrisan)
@@ -342,7 +339,7 @@ namespace Bolnica.ViewModel
             ItemSourceNazivLeka = new List<string>();
             Inject = new Injector();
             izabraniLek = p;
-            sviSastojci = skladisteSastojaka.GetAll();
+            sviSastojci = inject.IzmeniLekLekarController.DobijSastojke();
         }
         public void PostaviComboBoxove()
         {
@@ -480,8 +477,8 @@ namespace Bolnica.ViewModel
             }
         }
 
+        #endregion
 
 
-       
     }
 }

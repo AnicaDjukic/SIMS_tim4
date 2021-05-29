@@ -27,6 +27,31 @@ namespace Bolnica.Services
         private FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
         private FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
         private FileStorageObavestenja oba = new FileStorageObavestenja();
+
+        public List<Pregled> DobijPreglede()
+        {
+            return skladistePregleda.GetAllPregledi();
+        }
+        public List<Pacijent> DobijPacijente()
+        {
+            return skladistePacijenata.GetAll();
+        }
+        public List<Prostorija> DobijProstorije()
+        {
+            return skladisteProstorija.GetAllProstorije();
+        }
+        public List<Lekar> DobijLekare()
+        {
+            return skladisteLekara.GetAll();
+        }
+        public List<Operacija> DobijOperacije()
+        {
+            return skladistePregleda.GetAllOperacije();
+        }
+        public List<Lek> DobijLekove()
+        {
+            return skladisteLekova.GetAll();
+        }
         public void ZakaziPregled(LekarServiceDTO lekarServiceDTO)
         {
             IzmeniINapraviTerminLekarViewModel vm = new IzmeniINapraviTerminLekarViewModel(lekarServiceDTO.lekarTrenutni);

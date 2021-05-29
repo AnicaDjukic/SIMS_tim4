@@ -20,7 +20,26 @@ namespace Bolnica.Services
         private FileStorageLekar skladisteLekari = new FileStorageLekar();
         private FileStorageRenoviranje skladisteRenoviranja = new FileStorageRenoviranje();
 
-
+        public List<Lekar> DobijLekare()
+        {
+            return skladisteLekari.GetAll();
+        }
+        public List<Pacijent> DobijPacijente()
+        {
+            return skladistePacijenti.GetAll();
+        }
+        public List<Pregled> DobijPreglede()
+        {
+            return skladistePregledi.GetAllPregledi();
+        }
+        public List<Operacija> DobijOperacije()
+        {
+            return skladistePregledi.GetAllOperacije();
+        }
+        public List<Prostorija> DobijProstorije()
+        {
+            return skladisteProstorije.GetAllProstorije();
+        }
 
         public void PotvrdiIzmenu(IzmeniINapraviTerminLekarServiceDTO terminDTO) {
             bool daLiJeOperacija = false;

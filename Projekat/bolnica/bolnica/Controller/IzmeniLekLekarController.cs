@@ -35,5 +35,14 @@ namespace Bolnica.Controller
             service.Potvrdi(lekDTO);
         }
 
+        public List<Lek> DobijLekove()
+        {
+            return service.DobijLekove();
+        }
+        public List<Sastojak> DobijSastojke()
+        {
+            return service.DobijSastojke();
+        }
+
     }
 }

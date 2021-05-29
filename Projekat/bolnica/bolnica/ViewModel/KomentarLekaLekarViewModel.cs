@@ -27,8 +27,6 @@ namespace Bolnica.ViewModel
 
         private List<Lek> listaLekova = new List<Lek>();
 
-        private FileStorageLek sviLekovi = new FileStorageLek();
-
         private Injector inject;
         public Injector Inject
         {
@@ -89,11 +87,12 @@ namespace Bolnica.ViewModel
             InicirajPolja(izabraniLek);
             NapraviKomande();
         }
+        #region POMOCNE FUNKCIJE
         public void InicirajPolja(PrikazLek izabraniLek)
         {
             Komentar = "";
             Inject = new Injector();
-            listaLekova = sviLekovi.GetAll();
+            listaLekova = inject.KomentarLekaController.DobijLek();
             for (int i = 0; i < listaLekova.Count; i++)
             {
                 if (listaLekova[i].Status.Equals(StatusLeka.odbijen) || listaLekova[i].Obrisan)
@@ -109,5 +108,6 @@ namespace Bolnica.ViewModel
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
         }
+        #endregion
     }
 }

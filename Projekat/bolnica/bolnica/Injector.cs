@@ -11,8 +11,6 @@ namespace Bolnica
 {
     public class Injector
     {
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-
         private IzmeniINapraviTerminLekarService pregledService = new IzmeniINapraviTerminLekarService();
 
         private NapraviIVidiReceptLekarService receptService = new NapraviIVidiReceptLekarService();
@@ -41,11 +39,12 @@ namespace Bolnica
 
         private HospitalizujLekarController hospitalizujLekarController = new HospitalizujLekarController();
 
-        public FileStoragePregledi StoragePregledi
-        {
-            get { return storagePregledi; }
-        }
+        private InformacijeOPacijentuLekarController informacijeOPacijentuLekarController = new InformacijeOPacijentuLekarController();
 
+        public InformacijeOPacijentuLekarController InformacijeOPacijentuLekarController
+        {
+            get { return informacijeOPacijentuLekarController; }
+        }
         public HospitalizujLekarController HospitalizujLekarController
         {
             get { return hospitalizujLekarController; }

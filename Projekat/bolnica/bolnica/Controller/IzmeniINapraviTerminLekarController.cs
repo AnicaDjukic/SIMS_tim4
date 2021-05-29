@@ -17,6 +17,27 @@ namespace Bolnica.Controller
     {
 
         private IzmeniINapraviTerminLekarService service = new IzmeniINapraviTerminLekarService();
+
+        public List<Lekar> DobijLekare()
+        {
+            return service.DobijLekare();
+        }
+        public List<Pacijent> DobijPacijente()
+        {
+            return service.DobijPacijente();
+        }
+        public List<Pregled> DobijPreglede()
+        {
+            return service.DobijPreglede();
+        }
+        public List<Operacija> DobijOperacije()
+        {
+            return service.DobijOperacije();
+        }
+        public List<Prostorija> DobijProstorije()
+        {
+            return service.DobijProstorije();
+        }
         public void PotvrdiIzmenu(IzmeniINapraviTerminLekarServiceDTO terminDTO)
         {
             service.PotvrdiIzmenu(terminDTO);

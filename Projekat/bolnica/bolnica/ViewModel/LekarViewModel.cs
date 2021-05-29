@@ -26,12 +26,6 @@ namespace Bolnica.ViewModel
         private List<Prostorija> listaProstorija = new List<Prostorija>();
         private List<Lekar> listaLekara = new List<Lekar>();
         private List<Lek> lekovi = new List<Lek>();
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
-        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
-        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
         public static DataGrid podaciLista = new DataGrid();
         public static DataGrid podaciListaIstorija = new DataGrid();
         public static ObservableCollection<PrikazLek> lekoviPrikaz = new ObservableCollection<PrikazLek>();
@@ -520,6 +514,7 @@ namespace Bolnica.ViewModel
             NapraviKomande();
 
         }
+        #region POMOCNE FUNKCIJE
         public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii)
         {
             preglediTabela = lekarGridd;
@@ -557,7 +552,7 @@ namespace Bolnica.ViewModel
         }
         public void IzfiltrirajLekove()
         {
-            lekovi = skladisteLekova.GetAll();
+            lekovi = inject.LekarController.DobijLekove();
 
             for (int i = 0; i < lekovi.Count; i++)
             {
@@ -571,11 +566,11 @@ namespace Bolnica.ViewModel
         public void InicijalizujPolja(Lekar lekar)
         {
             lekarTrenutni = lekar;
-            listaLekara = skladisteLekara.GetAll();
-            listaPregleda = skladistePregleda.GetAllPregledi();
-            listaOperacija = skladistePregleda.GetAllOperacije();
-            listaPacijenata = skladistePacijenata.GetAll();
-            listaProstorija = skladisteProstorija.GetAllProstorije();
+            listaLekara = inject.LekarController.DobijLekare();
+            listaPregleda = inject.LekarController.DobijPreglede();
+            listaOperacija = inject.LekarController.DobijOperacije();
+            listaPacijenata = inject.LekarController.DobijPacijente();
+            listaProstorija = inject.LekarController.DobijProstorije();
         }
         public void DobijPregledeLekara()
         {
@@ -706,5 +701,6 @@ namespace Bolnica.ViewModel
         {
             lekoviTabela.ItemsSource = lekoviPrikaz;
         }
+        #endregion
     }
 }

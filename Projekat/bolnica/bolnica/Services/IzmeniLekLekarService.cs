@@ -15,6 +15,14 @@ namespace Bolnica.Services
         private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
         private FileStorageLek skladisteLekova = new FileStorageLek();
 
+        public List<Lek> DobijLekove()
+        {
+            return skladisteLekova.GetAll();
+        }
+        public List<Sastojak> DobijSastojke()
+        {
+            return skladisteSastojaka.GetAll();
+        }
         public List<int> LekComboNaTab(IzmeniLekLekarServiceDTO lekDTO,ref String stariLek)
         {
                 if (lekDTO.lek.Length > 2)
