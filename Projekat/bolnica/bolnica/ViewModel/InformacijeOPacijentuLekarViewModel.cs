@@ -93,6 +93,7 @@ namespace Bolnica.ViewModel
         }
         public void PostaviZajednickaPolja(Pacijent izabraniPacijent)
         {
+            Inject = new Injector();
             gost = izabraniPacijent.Guest;
             ime = izabraniPacijent.Ime;
             prezime = izabraniPacijent.Prezime;

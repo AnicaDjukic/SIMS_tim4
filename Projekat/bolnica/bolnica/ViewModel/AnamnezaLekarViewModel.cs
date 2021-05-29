@@ -237,8 +237,8 @@ namespace Bolnica.ViewModel
 #endregion
         public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
-            DaLiJePregled = true;
             Inject = new Injector();
+            DaLiJePregled = true;
             FiltirajLekove();
             InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
             PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
@@ -247,13 +247,13 @@ namespace Bolnica.ViewModel
 
         public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
         {
-            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
             Inject = new Injector();
+            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
             FiltirajLekove();
             PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
             NapraviKomande();
         }
-
+        #region POMOCNE FUNKCIJE
         public void NapraviKomande()
         {
             ZakaziPregledKomanda = new RelayCommand(Executed_ZakaziPregledKomanda, CanExecute_ZakaziPregledKomanda);
@@ -400,5 +400,6 @@ namespace Bolnica.ViewModel
 
         }
 
+        #endregion
     }
 }

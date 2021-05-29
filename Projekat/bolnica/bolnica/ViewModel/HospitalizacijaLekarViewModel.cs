@@ -122,6 +122,9 @@ namespace Bolnica.ViewModel
             PodesiPodatke();
             NapraviKomande();   
         }
+
+        #region POMOCNE FUNKCIJE
+
         public void InicijalizujPodatke(Pacijent izabraniPacijent)
         {
             Inject = new Injector();
@@ -135,7 +138,6 @@ namespace Bolnica.ViewModel
             sveBolnickeSobe = inject.HospitalizacijaLekarController.DobijBolnickeSobe();
             sveHospitalizacije = inject.HospitalizacijaLekarController.DobijSveHospitalizacije();
         }
-        #region POMOCNE FUNKCIJE
         public void PripremiBolnickeSobe()
         {
             for (int i = 0; i < sveBolnickeSobe.Count; i++)
