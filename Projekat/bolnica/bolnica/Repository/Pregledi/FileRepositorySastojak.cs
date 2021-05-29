@@ -40,7 +40,21 @@ namespace Bolnica.Repository.Pregledi
         }
         public void Delete(Sastojak entity)
         {
-            throw new NotImplementedException();
+            FileStoragePacijenti.serializeAlergeni = true;
+            var json = File.ReadAllText(fileLocation);
+            List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
+            if (alergeni != null)
+            {
+                for (int i = 0; i < alergeni.Count; i++)
+                {
+                    if (alergeni[i].Id == entity.Id)
+                    {
+                        alergeni.Remove(alergeni[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
+            }
         }
 
         public Sastojak GetById(int id)

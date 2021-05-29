@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bolnica.Services.Prostorije
+namespace Bolnica.Services.Pregledi
 {
     public class ServiceSastojak
     {
@@ -39,6 +39,16 @@ namespace Bolnica.Services.Prostorije
         public void SacuvajSastojak(Sastojak noviSastojak)
         {
             repository.Save(noviSastojak);
+        }
+
+        internal List<Sastojak> DobaviSveSastojke()
+        {
+            return repository.GetAll();
+        }
+
+        internal void ObrisiSastojak(Sastojak sastojak)
+        {
+            repository.Delete(sastojak);
         }
     }
 }

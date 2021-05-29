@@ -75,7 +75,6 @@ namespace Bolnica.Forms.Upravnik
 
         private List<Zaliha> PronadjiZaliheOpreme()
         {
-            List<Zaliha> zaliheOpreme = new List<Zaliha>();
             List<BuducaZaliha> buduceZalihe = PronadjiBuduceZalihe();
             if (buduceZalihe.Count > 0)
             {
@@ -83,7 +82,7 @@ namespace Bolnica.Forms.Upravnik
                 SacuvajNoveZalihe(buduceZalihe);
             }
 
-            zaliheOpreme = UcitajZalihe();
+            List<Zaliha> zaliheOpreme = UcitajZalihe();
 
             return zaliheOpreme;
         }
@@ -111,7 +110,6 @@ namespace Bolnica.Forms.Upravnik
         private void InicijalizujPrikazZalihe(List<Zaliha> zaliheOpreme)
         {
             Zalihe = new ObservableCollection<Zaliha>();
-
             if (zaliheOpreme.Count > 0)
             {
                 PrikaziZalihe(zaliheOpreme);

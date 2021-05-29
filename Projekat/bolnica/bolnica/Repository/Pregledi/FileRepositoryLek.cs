@@ -69,7 +69,23 @@ namespace Bolnica.Repository.Pregledi
         }
         public Lek GetById(int id)
         {
-            throw new NotImplementedException();
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
+            Lek rezultat = new Lek();
+            var json = File.ReadAllText(fileLocation);
+            List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
+            if (lekovi != null)
+            {
+                for (int i = 0; i < lekovi.Count; i++)
+                {
+                    if (lekovi[i].Id == id)
+                    {
+                        rezultat = lekovi[i];
+                        break;
+                    }
+                }
+            }
+            return rezultat;
         }
 
         public void Update(Lek entity)

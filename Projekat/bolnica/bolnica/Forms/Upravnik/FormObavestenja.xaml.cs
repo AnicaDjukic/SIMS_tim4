@@ -46,6 +46,7 @@ namespace Bolnica.Forms.Upravnik
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ViewFormObavestenje viewForm = new ViewFormObavestenje(((Obavestenje)lvDataBinding.SelectedItem).Id);
+            viewForm.Owner = this;
             viewForm.Show();
         }
         private void Button_Click(object sender, RoutedEventArgs e)

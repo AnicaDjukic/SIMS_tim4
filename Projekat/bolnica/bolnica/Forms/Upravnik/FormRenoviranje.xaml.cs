@@ -1,20 +1,11 @@
 ﻿using Bolnica.Model.Prostorije;
-using Bolnica.Validation;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -32,15 +23,14 @@ namespace Bolnica.Forms.Upravnik
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public ObservableCollection<Renoviranje> Renoviranja 
+        public ObservableCollection<Renoviranje> Renoviranja
         {
             get;
             set;
         }
 
-        private FileStorageRenoviranje storage;
         private DateTime? datumPocetka;
-        private DateTime? datumKraja; 
+        private DateTime? datumKraja;
 
         public DateTime? DatumPocetka
         {
@@ -75,23 +65,23 @@ namespace Bolnica.Forms.Upravnik
         }
 
         public static Renoviranje novoRenoviranje = new Renoviranje();
-
+        private ServiceRenoviranje serviceRenoviranje = new ServiceRenoviranje();
         public FormRenoviranje(string brojProstorije)
         {
             InitializeComponent();
             DataContext = this;
-            Renoviranja = new ObservableCollection<Renoviranje>();
-            storage = new FileStorageRenoviranje();
-            List<Renoviranje> renoviranja = storage.GetAll();
-            foreach (Renoviranje r in renoviranja)
-            {
-                if (r.Prostorija.BrojProstorije == brojProstorije)
-                {
-                    Renoviranja.Add(r);
-                }
-            }
+            PrikaziRenoviranja(brojProstorije);
             novoRenoviranje.Prostorija = new Prostorija();
             novoRenoviranje.Prostorija.BrojProstorije = brojProstorije;
+        }
+
+        private void PrikaziRenoviranja(string brojProstorije)
+        {
+            Renoviranja = new ObservableCollection<Renoviranje>();
+            foreach (Renoviranje r in serviceRenoviranje.DobaviRenoviranjaProstorije(brojProstorije))
+            {
+                Renoviranja.Add(r);
+            }
         }
 
         private void Button_Click_Zatvori(object sender, RoutedEventArgs e)
@@ -101,14 +91,15 @@ namespace Bolnica.Forms.Upravnik
 
         private void DatePicker_SelectedDateChanged_Pocetak(object sender, SelectionChangedEventArgs e)
         {
-            if (datumPocetka != null && datePickerPocetak.SelectedDate != null) {
+            if (datumPocetka != null && datePickerPocetak.SelectedDate != null)
+            {
                 novoRenoviranje.PocetakRenoviranja = (DateTime)datumPocetka;
                 datePickerKraj.DisplayDateStart = datumPocetka;
                 if (datumKraja != null)
                     btnZakazi.IsEnabled = true;
                 else
                     btnZakazi.IsEnabled = false;
-            } 
+            }
             else
             {
                 btnZakazi.IsEnabled = false;
@@ -117,7 +108,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void datePickerKraj_SelectedDateChanged_Kraj(object sender, SelectionChangedEventArgs e)
         {
-            if(datumKraja != null && datePickerKraj.SelectedDate != null)
+            if (datumKraja != null && datePickerKraj.SelectedDate != null)
             {
                 novoRenoviranje.KrajRenoviranja = (DateTime)datumKraja;
                 if (datumPocetka != null)
@@ -133,31 +124,54 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Zakazi(object sender, RoutedEventArgs e)
         {
-           if(datumPocetka > datumKraja)
+            if (DatumiRenoviranjaValidni())
+            {
+                novoRenoviranje.Opis = txtOpis.Text;
+                serviceRenoviranje.SacuvajRenoviranje(novoRenoviranje);
+                Close();
+            }
+        }
+
+        private bool DatumiRenoviranjaValidni()
+        {
+            bool validni = true;
+            if (datumPocetka > datumKraja)
             {
                 MessageBox.Show("Datum kraja renoviranja mora biti posle datuma početka renoviranja!");
-                Close();
-                return;
-            } 
-            if(Calendar.BlackoutDates.Contains(datePickerPocetak.SelectedDate.Value) || Calendar.BlackoutDates.Contains(datePickerKraj.SelectedDate.Value))
+                validni = false;
+            }
+            if (DatumNijeSlobodan(datumPocetka) || DatumNijeSlobodan(datumKraja))
             {
                 btnZakazi.IsEnabled = false;
-                return;
+                validni = false;
             }
 
-            for (DateTime? date = datumPocetka; date < DatumKraja; date = date.Value.AddDays(1.0))
+            if(PostojeZauzetiDatumiIzmedju(datumPocetka, datumKraja))
             {
-                if(Calendar.BlackoutDates.Contains((DateTime)date))
+                MessageBox.Show("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!");
+                validni = false;
+            }
+           
+            return validni;
+        }
+
+        private bool PostojeZauzetiDatumiIzmedju(DateTime? datumPocetka, DateTime? datumKraja)
+        {
+            bool postoje = false;
+            for (DateTime? date = datumPocetka; date < datumKraja; date = date.Value.AddDays(1.0))
+            {
+                if (Calendar.BlackoutDates.Contains((DateTime)date))
                 {
-                    MessageBox.Show("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!");
-                    Close();
-                    return;
+                    postoje = true;
+                    break;
                 }
             }
+            return postoje;
+        }
 
-            novoRenoviranje.Opis = txtOpis.Text;
-            storage.Save(novoRenoviranje);
-            Close();
+        private bool DatumNijeSlobodan(DateTime? datum)
+        {
+            return Calendar.BlackoutDates.Contains((DateTime)datum);
         }
     }
 }
