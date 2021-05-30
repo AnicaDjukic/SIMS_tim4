@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,7 +32,7 @@ namespace Bolnica.Forms
 
         private void AzurirajSveZalihe()
         {
-            FileStorageBuducaZaliha storageBuducaZaliha = new FileStorageBuducaZaliha();
+            FileRepositoryBuducaZaliha storageBuducaZaliha = new FileRepositoryBuducaZaliha();
             List<Zaliha> noveZalihe = new List<Zaliha>();
             noveZalihe = NapraviNoveZaliheOdBuducih();
             ZameniStareZaliheNovim(noveZalihe);

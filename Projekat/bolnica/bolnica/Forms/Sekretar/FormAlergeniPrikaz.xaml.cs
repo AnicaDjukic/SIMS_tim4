@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

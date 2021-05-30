@@ -21,27 +21,10 @@ namespace Bolnica.Repository.Pregledi
             fileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Lekovi.json");
         }
 
-        public void Delete(Lek entity)
-        {
-            serializeLek = true;
-            FileRepositoryPacijent.serializeAlergeni = false;
-            List<Lek> lekovi = GetAll();
-            for (int i = 0; i < lekovi.Count; i++)
-            {
-                if (entity.Id.Equals(lekovi[i].Id))
-                {
-                    lekovi.Remove(lekovi[i]);
-                    break;
-                }
-            }
-            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekovi));
-            
-        }
-
         public List<Lek> GetAll()
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             var lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi?.Count == null)
@@ -54,7 +37,7 @@ namespace Bolnica.Repository.Pregledi
         public void Save(Lek noviLek)
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi == null)
@@ -62,7 +45,7 @@ namespace Bolnica.Repository.Pregledi
                 lekovi = new List<Lek>();
             }
             lekovi.Add(noviLek);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(lekovi));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekovi));
         }
 
         public void Update(Lek noviLek)
@@ -84,7 +67,7 @@ namespace Bolnica.Repository.Pregledi
         public void Delete(Lek lekZaBrisanje)
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi != null)
@@ -103,7 +86,7 @@ namespace Bolnica.Repository.Pregledi
         public Lek GetById(int id)
         {
             serializeLek = true;
-            FileStoragePacijenti.serializeAlergeni = false;
+            FileRepositoryPacijent.serializeAlergeni = false;
             Lek rezultat = new Lek();
             var json = File.ReadAllText(fileLocation);
             List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);

@@ -2,6 +2,7 @@
 using Bolnica.Controller.Pregledi;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Services.Korisnici;
 using Bolnica.Services.Pregledi;
 using Model.Korisnici;
@@ -173,7 +174,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PosaljiObavestenje()
         {
-            FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
+            FileRepositoryObavestenje storageObavestenja = new FileRepositoryObavestenje();
             List<Obavestenje> obavestenja = storageObavestenja.GetAll();
             
             if (lek.Status != StatusLeka.odobren)

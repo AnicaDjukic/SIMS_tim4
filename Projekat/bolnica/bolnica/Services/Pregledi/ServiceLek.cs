@@ -9,7 +9,7 @@ namespace Bolnica.Services.Pregledi
 {
     class ServiceLek
     {
-        private RepositoryLek repository;
+        private IRepositoryLek repository;
         private ServiceSastojak serviceSastojak;
         public ServiceLek()
         {

@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Bolnica.Services.Pregledi;
 using Model.Pregledi;
 using System.Collections;
@@ -20,7 +21,7 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
         private Lek noviLek;
-        FileStorageSastojak storage = new FileStorageSastojak();
+        FileRepositorySastojak storage = new FileRepositorySastojak();
         private ServiceSastojak serviceSastojak = new ServiceSastojak();
         public FormSastojci(Lek lek)
         {

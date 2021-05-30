@@ -1,0 +1,67 @@
+﻿<Window x:Class="Bolnica.Forms.Upravnik.CreateFormOprema"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        mc:Ignorable="d"
+        Title="Dodavanje opreme" Height="340" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="MediumPurple"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
+                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
+                        <GradientStop Color="#9783E8" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property ="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Šifra:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Naziv:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Tip opreme:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Skladište:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Text ="{Binding Path=Sifra, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text ="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+        <ComboBox x:Name="ComboTipOpreme" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="120" Margin="10,0,0,0">
+            <ComboBoxItem Content="Statička"/>
+            <ComboBoxItem Content="Dinamička"/>
+        </ComboBox>
+        <TextBox x:Name="txtKolicina" Grid.Row="4" Grid.Column="1" Text ="{Binding Path=Kolicina, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Skladišti" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="120" Margin="10,0,0,0" Click="Button_Click_Skladisti"/>
+        <Label Grid.Row="6" Grid.Column="1"  Content="(Primarno skladište: magacin)" VerticalAlignment="Top" Margin="0,-10,0,0"/>
+
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button  Content="Potvrdi" Height="25" Width="60" Click="Button_Click_Potvrdi"/>
+            <Button Content="Odustani" Height="25" Width="60" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>

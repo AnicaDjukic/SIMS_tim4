@@ -1,6 +1,7 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

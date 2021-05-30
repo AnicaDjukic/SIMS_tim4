@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;

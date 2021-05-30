@@ -1,6 +1,7 @@
 ﻿using Bolnica.DTO;
 
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Pacijenti;
 

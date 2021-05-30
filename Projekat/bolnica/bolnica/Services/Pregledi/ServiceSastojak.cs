@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Bolnica.Services.Pregledi
 {
     public class ServiceSastojak
     {
-        private RepositorySastojak repository;
+        private IRepositorySastojak repository;
 
         public ServiceSastojak()
         {

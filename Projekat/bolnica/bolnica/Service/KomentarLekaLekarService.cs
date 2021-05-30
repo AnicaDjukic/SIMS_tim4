@@ -2,6 +2,7 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;

@@ -9,7 +9,7 @@ namespace Bolnica.Services.Korisnici
 {
     public class ServiceObavestenje
     {
-        private RepositoryObavestenje repository;
+        private IRepositoryObavestenje repository;
 
         public ServiceObavestenje()
         {

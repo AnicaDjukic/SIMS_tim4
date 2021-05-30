@@ -91,7 +91,7 @@ namespace Bolnica.Repository.Prostorije
             {
                 for (int i = 0; i < oprema.Count; i++)
                 {
-                    if (oprema[i].Sifra == opremaZaBrisanje.Sifra)
+                    if (oprema[i].Sifra == entity.Sifra)
                     {
                         oprema.Remove(oprema[i]);
                         break;

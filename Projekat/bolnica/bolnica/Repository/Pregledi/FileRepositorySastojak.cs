@@ -1,4 +1,5 @@
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Model.Pacijenti;
 using Newtonsoft.Json;
 using System;

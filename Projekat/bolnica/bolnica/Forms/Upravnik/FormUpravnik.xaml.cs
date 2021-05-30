@@ -2,6 +2,8 @@
 using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -26,10 +28,11 @@ namespace bolnica.Forms
             set;
         }
 
-        private FileStorageProstorija storageProstorije;
-        private FileStorageOprema storageOprema;
-        private FileStorageLek storageLekovi;
-        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
+        private FileRepositoryProstorija storageProstorije;
+        private FileRepositoryBolnickaSoba storageBolnickeSobe;
+        private FileRepositoryOprema storageOprema;
+        private FileRepositoryLek storageLekovi;
+        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
 
         public static bool clickedDodaj;
 
@@ -100,15 +103,15 @@ namespace bolnica.Forms
             clickedDodaj = false;
             this.DataContext = this;
             Prostorije = new ObservableCollection<Prostorija>();
-            storageProstorije = new FileStorageProstorija();
+            storageProstorije = new FileRepositoryProstorija();
 
-            List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
+            List<Prostorija> prostorije = storageProstorije.GetAll();
             foreach (Prostorija p in prostorije)
             {
                 if (p.Obrisana == false)
                     Prostorije.Add(p);
             }
-            List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
+            List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
                 if (b.Obrisana == false)
@@ -116,7 +119,7 @@ namespace bolnica.Forms
             }
 
             Oprema = new ObservableCollection<Oprema>();
-            storageOprema = new FileStorageOprema();
+            storageOprema = new FileRepositoryOprema();
 
             List<Oprema> oprema = storageOprema.GetAll();
             if (oprema != null)
@@ -128,7 +131,7 @@ namespace bolnica.Forms
             }
 
             Lekovi = new ObservableCollection<Lek>();
-            storageLekovi = new FileStorageLek();
+            storageLekovi = new FileRepositoryLek();
 
             List<Lek> lekovi = storageLekovi.GetAll();
             if (lekovi != null)
@@ -168,8 +171,8 @@ namespace bolnica.Forms
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 string brojProstorije = row.BrojProstorije;
-                List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
-                List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
+                List<Prostorija> prostorije = storageProstorije.GetAll();
+                List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
                 var s = new ViewFormProstorije(brojProstorije);
                 bool found = false;
                 foreach (Prostorija p in prostorije)
@@ -273,8 +276,8 @@ namespace bolnica.Forms
             {
                 clickedDodaj = false;
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
-                List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
-                List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
+                List<Prostorija> prostorije = storageProstorije.GetAll();
+                List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
                 var s = new CreateFormProstorije();
                 bool found = false;
                 foreach (Prostorija p in prostorije)
@@ -355,7 +358,7 @@ namespace bolnica.Forms
                         s.KolicinaUMg = l.KolicinaUMg;
                         s.Proizvodjac = l.Proizvodjac;
                         s.Zalihe = l.Zalihe;
-                        FileStorageSastojak storageSastojak = new FileStorageSastojak();
+                        FileRepositorySastojak storageSastojak = new FileRepositorySastojak();
                         foreach (Sastojak sastojak in l.Sastojak)
                         {
                             foreach(Sastojak sas in storageSastojak.GetAll())
@@ -405,8 +408,8 @@ namespace bolnica.Forms
                 }
                 else
                 {
-                    List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
-                    List<BolnickaSoba> bolnickeSobe = storageProstorije.GetAllBolnickeSobe();
+                    List<Prostorija> prostorije = storageProstorije.GetAll();
+                    List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
 
                     var s = new CreateFormProstorije();
                     bool found = false;
@@ -606,7 +609,7 @@ namespace bolnica.Forms
         {
             if (comboTipOpreme.Visibility == Visibility.Visible)
             {
-                storageOprema = new FileStorageOprema();
+                storageOprema = new FileRepositoryOprema();
                 List<Oprema> svaOprema = storageOprema.GetAll();
                 List<Oprema> oprema = new List<Oprema>();
 
@@ -655,8 +658,9 @@ namespace bolnica.Forms
                 {
                     formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
                 }
-                FileStoragePregledi storagePregledi = new FileStoragePregledi();
-                List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+                FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+                FileRepositoryOperacija storageOperacija = new FileRepositoryOperacija();
+                List<Pregled> pregledi = storagePregledi.GetAll();
                 foreach(Pregled p in pregledi)
                 {
                     if(p.Prostorija.BrojProstorije == row.BrojProstorije)
@@ -666,7 +670,7 @@ namespace bolnica.Forms
                 }
                 if(row.TipProstorije == TipProstorije.operacionaSala)
                 {
-                    List<Operacija> operacije = storagePregledi.GetAllOperacije();
+                    List<Operacija> operacije = storageOperacija.GetAll();
                     foreach(Operacija o in operacije)
                     {
                         if(o.Prostorija.BrojProstorije == row.BrojProstorije)

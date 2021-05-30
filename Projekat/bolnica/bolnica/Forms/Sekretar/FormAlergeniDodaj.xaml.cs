@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;

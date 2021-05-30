@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Korisnici;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
