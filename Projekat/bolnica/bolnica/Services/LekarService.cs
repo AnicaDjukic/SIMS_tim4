@@ -2,6 +2,8 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -19,18 +21,19 @@ namespace Bolnica.Services
 {   
     public class LekarService
     {
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
-        private FileStoragePacijenti skladistePacijenata = new FileStoragePacijenti();
-        private FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-        private FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
-        private FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
-        private FileStorageObavestenja oba = new FileStorageObavestenja();
+        private FileRepositoryPregled skladistePregleda = new FileRepositoryPregled();
+        private FileRepositoryOperacija skladisteOperacija = new FileRepositoryOperacija();
+        private FileRepositoryPacijent skladistePacijenata = new FileRepositoryPacijent();
+        private FileRepositoryProstorija skladisteProstorija = new FileRepositoryProstorija();
+        private FileRepositoryLekar skladisteLekara = new FileRepositoryLekar();
+        private FileRepositoryLek skladisteLekova = new FileRepositoryLek();
+        private FileRepositoryObavestenje skladisteObavestenja = new FileRepositoryObavestenje();
+        private FileRepositoryKorisnik skladisteKorisnika = new FileRepositoryKorisnik();
+        private FileRepositoryObavestenje oba = new FileRepositoryObavestenje();
 
         public List<Pregled> DobijPreglede()
         {
-            return skladistePregleda.GetAllPregledi();
+            return skladistePregleda.GetAll();
         }
         public List<Pacijent> DobijPacijente()
         {
@@ -38,7 +41,7 @@ namespace Bolnica.Services
         }
         public List<Prostorija> DobijProstorije()
         {
-            return skladisteProstorija.GetAllProstorije();
+            return skladisteProstorija.GetAll();
         }
         public List<Lekar> DobijLekare()
         {
@@ -46,7 +49,7 @@ namespace Bolnica.Services
         }
         public List<Operacija> DobijOperacije()
         {
-            return skladistePregleda.GetAllOperacije();
+            return skladisteOperacija.GetAll();
         }
         public List<Lek> DobijLekove()
         {

@@ -22,8 +22,13 @@ namespace Bolnica.Model.Pregledi
             this.Pacijent = Pacijent;
             this.Prostorija = Prostorija;
         }
-        
 
-        
+        public Hospitalizacija()
+        {
+      
+        }
+
+
+
     }
 }

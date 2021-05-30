@@ -2,6 +2,8 @@
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -14,11 +16,12 @@ namespace Bolnica.Services
 {
     public class TerminLekarService
     {
-        private FileStoragePacijenti skladistePacijenti = new FileStoragePacijenti();
-        private FileStorageProstorija skladisteProstorije = new FileStorageProstorija();
-        private FileStoragePregledi skladistePregledi = new FileStoragePregledi();
-        private FileStorageLekar skladisteLekari = new FileStorageLekar();
-        private FileStorageRenoviranje skladisteRenoviranja = new FileStorageRenoviranje();
+        private FileRepositoryPacijent skladistePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryProstorija skladisteProstorije = new FileRepositoryProstorija();
+        private FileRepositoryPregled skladistePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija skladisteOperacija = new FileRepositoryOperacija();
+        private FileRepositoryLekar skladisteLekari = new FileRepositoryLekar();
+        private FileRepositoryRenoviranje skladisteRenoviranja = new FileRepositoryRenoviranje();
 
         public List<Lekar> DobijLekare()
         {
@@ -30,15 +33,15 @@ namespace Bolnica.Services
         }
         public List<Pregled> DobijPreglede()
         {
-            return skladistePregledi.GetAllPregledi();
+            return skladistePregledi.GetAll();
         }
         public List<Operacija> DobijOperacije()
         {
-            return skladistePregledi.GetAllOperacije();
+            return skladisteOperacija.GetAll();
         }
         public List<Prostorija> DobijProstorije()
         {
-            return skladisteProstorije.GetAllProstorije();
+            return skladisteProstorije.GetAll();
         }
 
         public void PotvrdiIzmenu(TerminLekarDTO terminDTO) {
@@ -74,14 +77,14 @@ namespace Bolnica.Services
                         LekarViewModel.podaciLista.Items[p] = terminDTO.trenutniPregled;
                         LekarViewModel.RefreshPodaciListu();
                         Pregled azuriraniPregled = new Pregled(terminDTO.trenutniPregled);
-                        skladistePregledi.Izmeni(azuriraniPregled);
+                        skladistePregledi.Update(azuriraniPregled);
                     }
                     else
                     {
                         LekarViewModel.podaciLista.Items.RemoveAt(p);
                         LekarViewModel.RefreshPodaciListu();
                         Pregled azuriraniPregled = new Pregled(terminDTO.trenutniPregled);
-                        skladistePregledi.Izmeni(azuriraniPregled);
+                        skladistePregledi.Update(azuriraniPregled);
                     }
                 }
             }
@@ -114,14 +117,14 @@ namespace Bolnica.Services
                         LekarViewModel.podaciLista.Items[p] = terminDTO.trenutnaOperacija;
                         LekarViewModel.RefreshPodaciListu();
                         Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
-                        skladistePregledi.Izmeni(azuriranaOperacija);
+                        skladistePregledi.Update(azuriranaOperacija);
                     }
                     else
                     {
                         LekarViewModel.podaciLista.Items.RemoveAt(p);
                         LekarViewModel.RefreshPodaciListu();
                         Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
-                        skladistePregledi.Izmeni(azuriranaOperacija);
+                        skladistePregledi.Update(azuriranaOperacija);
                     }
                 }
             }
@@ -148,7 +151,7 @@ namespace Bolnica.Services
         private int RacunajIdOperacije()
         {
             List<Operacija> operacijeZaRacunanjeId = new List<Operacija>();
-            operacijeZaRacunanjeId = skladistePregledi.GetAllOperacije();
+            operacijeZaRacunanjeId = skladisteOperacija.GetAll();
             int max = 0;
             for (int i = 0; i < operacijeZaRacunanjeId.Count; i++)
             {
@@ -161,7 +164,7 @@ namespace Bolnica.Services
         private int RacunajIdPregleda()
         {
             List<Pregled> preglediZaRacunanjeId = new List<Pregled>();
-            preglediZaRacunanjeId = skladistePregledi.GetAllPregledi();
+            preglediZaRacunanjeId = skladistePregledi.GetAll();
             int max = 0;
             for (int i = 0; i < preglediZaRacunanjeId.Count; i++)
             {
@@ -276,8 +279,8 @@ namespace Bolnica.Services
         {
             List<Pacijent> pacijenti = skladistePacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediPacijenta = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijePacijenta = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediPacijenta = skladistePregledi.GetAll();
+            List<Operacija> operacijePacijenta = skladisteOperacija.GetAll();
             
             for (int i = 0; i < pacijenti.Count; i++)
             {
@@ -308,8 +311,8 @@ namespace Bolnica.Services
         {
             List<Pacijent> pacijenti = skladistePacijenti.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediPacijenta = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijePacijenta = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediPacijenta = skladistePregledi.GetAll();
+            List<Operacija> operacijePacijenta = skladisteOperacija.GetAll();
             for (int i = 0; i < pacijenti.Count; i++)
             {
                 string podaciOPacijentu;
@@ -629,8 +632,8 @@ namespace Bolnica.Services
             List<Lekar> lekari = new List<Lekar>();
             lekari = skladisteLekari.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediLekara1 = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijeLekara1 = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediLekara1 = skladistePregledi.GetAll();
+            List<Operacija> operacijeLekara1 = skladisteOperacija.GetAll();
             for (int i = 0; i < lekari.Count; i++)
             {
                 string podaciOLekaru = lekari[i].Prezime + ' ' + lekari[i].Ime + ' ' + lekari[i].Jmbg;
@@ -647,8 +650,8 @@ namespace Bolnica.Services
             List<Lekar> lekari = new List<Lekar>();
             lekari = skladisteLekari.GetAll();
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediLekara1 = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijeLekara1 = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediLekara1 = skladistePregledi.GetAll();
+            List<Operacija> operacijeLekara1 = skladisteOperacija.GetAll();
             for (int i = 0; i < lekari.Count; i++)
             {
                 string podaciOLekaru = lekari[i].Prezime + ' ' + lekari[i].Ime + ' ' + lekari[i].Jmbg;
@@ -663,8 +666,8 @@ namespace Bolnica.Services
         private List<TimeSpan> RacunajZauzeteTermineLekara(TerminLekarDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediLekara = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijeLekara = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediLekara = skladistePregledi.GetAll();
+            List<Operacija> operacijeLekara = skladisteOperacija.GetAll();
             List<Lekar> lekari = skladisteLekari.GetAll();
             string jmbgLekar = DobijJmbgLekara(new TerminLekarDTO(terminDTO.lekarPodaci, lekari));
 
@@ -676,8 +679,8 @@ namespace Bolnica.Services
         private List<TimeSpan> RacunajZauzeteTermineLekaraIzmeni(TerminLekarDTO terminDTO)
         {
             List<TimeSpan> zauzetiTermini = new List<TimeSpan>();
-            List<Pregled> preglediLekara = skladistePregledi.GetAllPregledi();
-            List<Operacija> operacijeLekara = skladistePregledi.GetAllOperacije();
+            List<Pregled> preglediLekara = skladistePregledi.GetAll();
+            List<Operacija> operacijeLekara = skladisteOperacija.GetAll();
             List<Lekar> lekari = skladisteLekari.GetAll();
             string jmbgLekar = DobijJmbgLekara(new TerminLekarDTO(terminDTO.lekarPodaci, lekari));
 
@@ -799,7 +802,7 @@ namespace Bolnica.Services
         {
             List<Lekar> lekariTrenutni = skladisteLekari.GetAll();
             List<Pacijent> pacijentiZa = skladistePacijenti.GetAll();
-            List<Prostorija> prostorijaZa = skladisteProstorije.GetAllProstorije();
+            List<Prostorija> prostorijaZa = skladisteProstorije.GetAll();
             PrikazOperacije trenutnaOperacija = new PrikazOperacije(terminDTO.staraOperacija.Id, DateTime.Parse(terminDTO.datumPregledaString + TimeSpan.Parse(terminDTO.vremePregledaString)), int.Parse(terminDTO.trajanjePregleda), false, terminDTO.predmetStavkiDaLiJeHitan, terminDTO.staraOperacija.Anamneza);
             for (int i = 0; i < lekariTrenutni.Count; i++)
             {
@@ -856,7 +859,7 @@ namespace Bolnica.Services
             PrikazPregleda trenutniPregled = new PrikazPregleda(terminDTO.stariPregled.Id, DateTime.Parse(terminDTO.datumPregledaString + TimeSpan.Parse(terminDTO.vremePregledaString)), int.Parse(terminDTO.trajanjePregleda), false, terminDTO.predmetStavkiDaLiJeHitan, terminDTO.stariPregled.Anamneza);
             List<Lekar> lekariTrenutni = skladisteLekari.GetAll();
             List<Pacijent> pacijentiZa = skladistePacijenti.GetAll();
-            List<Prostorija> prostorijaZa = skladisteProstorije.GetAllProstorije();
+            List<Prostorija> prostorijaZa = skladisteProstorije.GetAll();
             for (int i = 0; i < lekariTrenutni.Count; i++)
             {
                 string podaciOLekaru = lekariTrenutni[i].Prezime + ' ' + lekariTrenutni[i].Ime + ' ' + lekariTrenutni[i].Jmbg;

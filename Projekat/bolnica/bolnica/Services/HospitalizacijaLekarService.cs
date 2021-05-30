@@ -1,6 +1,7 @@
 ﻿using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,9 @@ namespace Bolnica.Services
 {
     public class HospitalizacijaLekarService
     {
-        FileStorageHospitalizacija skladisteHospitalizacija = new FileStorageHospitalizacija();
-        FileStorageProstorija skladisteProstorija = new FileStorageProstorija();
+        FileRepositoryHospitalizacija skladisteHospitalizacija = new FileRepositoryHospitalizacija();
+        FileRepositoryProstorija skladisteProstorija = new FileRepositoryProstorija();
+        FileRepositoryBolnickaSoba skladisteBolnickihSoba = new FileRepositoryBolnickaSoba();
         List<Hospitalizacija> sveHospitalizacije;
         List<BolnickaSoba> sveBolnickeSobe;
 
@@ -39,7 +41,7 @@ namespace Bolnica.Services
             sveHospitalizacije = new List<Hospitalizacija>();
             sveBolnickeSobe = new List<BolnickaSoba>();
             sveHospitalizacije = skladisteHospitalizacija.GetAll();
-            sveBolnickeSobe = skladisteProstorija.GetAllBolnickeSobe();
+            sveBolnickeSobe = skladisteBolnickihSoba.GetAll();
         }
 
         private void SacuvajIliIzmeni(HospitalizacijaLekarDTO hospitalizacijaDTO, Hospitalizacija hospitalizacija)
@@ -82,7 +84,7 @@ namespace Bolnica.Services
         }
         public List<BolnickaSoba> DobijBolnickeSobe()
         {
-            return skladisteProstorija.GetAllBolnickeSobe();
+            return skladisteBolnickihSoba.GetAll();
         }
         public List<Hospitalizacija> DobijSveHospitalizacije()
         {

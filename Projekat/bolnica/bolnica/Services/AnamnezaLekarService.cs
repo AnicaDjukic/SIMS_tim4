@@ -2,6 +2,7 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -15,19 +16,20 @@ namespace Bolnica.Services
 {
     public class AnamnezaLekarService
     {
-        private FileStoragePregledi skladistePregleda = new FileStoragePregledi();
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-        private FileStorageAnamneza skladisteAnamneza = new FileStorageAnamneza();
-        private FileStorageLekar skladisteLekara = new FileStorageLekar();
+        private FileRepositoryPregled skladistePregleda = new FileRepositoryPregled();
+        private FileRepositoryOperacija skladisteOperacija = new FileRepositoryOperacija();
+        private FileRepositoryLek skladisteLekova = new FileRepositoryLek();
+        private FileRepositoryAnamneza skladisteAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryLekar skladisteLekara = new FileRepositoryLekar();
 
 
         public List<Pregled> DobijPreglede()
         {
-            return skladistePregleda.GetAllPregledi();
+            return skladistePregleda.GetAll();
         }
         public List<Operacija> DobijOperacije()
         {
-            return skladistePregleda.GetAllOperacije();
+            return skladisteOperacija.GetAll();
         }
         public List<Lek> DobijLekove()
         {
@@ -68,7 +70,7 @@ namespace Bolnica.Services
             else
             {
                 novaAnamneza.Id = anamnezaDTO.idAnamneze;
-                skladisteAnamneza.Izmeni(novaAnamneza);
+                skladisteAnamneza.Update(novaAnamneza);
                 if (anamnezaDTO.DaLiJePregled)
                 {
                     AzurirajIstorijuPregleda(anamnezaDTO);
@@ -120,7 +122,7 @@ namespace Bolnica.Services
                     anamnezaDTO.stariPregled.Zavrsen = true;
                     LekarViewModel.podaciListaIstorija.Items[p] = anamnezaDTO.stariPregled;
                     LekarViewModel.RefreshPodaciListuIstorija();
-                    skladistePregleda.Izmeni(PopuniPregled(anamnezaDTO));
+                    skladistePregleda.Update(PopuniPregled(anamnezaDTO));
                 }
             }
         }
@@ -137,7 +139,7 @@ namespace Bolnica.Services
                     LekarViewModel.podaciLista.Items.RemoveAt(p);
                     LekarViewModel.RefreshPodaciListuIstorija();
                     LekarViewModel.RefreshPodaciListu();
-                    skladistePregleda.Izmeni(PopuniOperaciju(anamnezaDTO));
+                    skladistePregleda.Update(PopuniOperaciju(anamnezaDTO));
                 }
             }
         }
@@ -153,7 +155,7 @@ namespace Bolnica.Services
                     LekarViewModel.podaciLista.Items.RemoveAt(p);
                     LekarViewModel.RefreshPodaciListuIstorija();
                     LekarViewModel.RefreshPodaciListu();
-                    skladistePregleda.Izmeni(PopuniPregled(anamnezaDTO));
+                    skladistePregleda.Update(PopuniPregled(anamnezaDTO));
                 }
             }
         }
@@ -167,7 +169,7 @@ namespace Bolnica.Services
                     anamnezaDTO.trenutnaOperacija.Zavrsen = true;
                     LekarViewModel.podaciListaIstorija.Items[p] = anamnezaDTO.trenutnaOperacija;
                     LekarViewModel.RefreshPodaciListuIstorija();
-                    skladistePregleda.Izmeni(PopuniOperaciju(anamnezaDTO));
+                    skladistePregleda.Update(PopuniOperaciju(anamnezaDTO));
                 }
             }
         }

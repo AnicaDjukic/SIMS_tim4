@@ -1,4 +1,4 @@
-using bolnica.Forms;
+
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.ViewModel;
@@ -15,8 +15,8 @@ namespace bolnica
     /// </summary>
     public partial class MainWindow : Window
     {
-        private FileStorageKorisnici storage = new FileStorageKorisnici();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private FileRepositoryKorisnik storage = new FileRepositoryKorisnik();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
 
         public MainWindow()
         {
@@ -34,7 +34,7 @@ namespace bolnica
             {
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+                   /* if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
                         var s = new FormUpravnik();
@@ -45,10 +45,10 @@ namespace bolnica
                         var s = new FormSekretar();
                         s.Show();
 
-                    }
-                    else if (korisnik.TipKorisnika == TipKorisnika.lekar)
+                    }*/
+                    if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
-                        FileStorageLekar storageLekar = new FileStorageLekar();
+                        FileRepositoryLekar storageLekar = new FileRepositoryLekar();
                         List<Lekar> lekari = storageLekar.GetAll();
                         Lekar l = new Lekar();
                         foreach(Lekar ln in lekari)
@@ -64,7 +64,7 @@ namespace bolnica
 
                         
 
-                    }
+                    }/*
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
                         List<Pacijent> pacijenti = storagePacijenti.GetAll();
@@ -87,7 +87,7 @@ namespace bolnica
                             s.Show();
                             s.DanasnjaObavestenja();
                         }
-                    }
+                    }*/
 
                     found = true;
                     break;

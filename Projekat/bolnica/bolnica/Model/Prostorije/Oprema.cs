@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Bolnica.Repository.Prostorije;
 using Model.Prostorije;
 using Newtonsoft.Json;
 
@@ -13,19 +14,19 @@ namespace Bolnica.Model.Prostorije
         public bool ShouldSerializeNaziv()
         {
             
-            return FileStorageZaliha.serializeOprema;
+            return FileRepositoryZaliha.serializeOprema;
         }
         public TipOpreme TipOpreme { get; set; }
         public bool ShouldSerializeTipOpreme()
         {
 
-            return FileStorageZaliha.serializeOprema;
+            return FileRepositoryZaliha.serializeOprema;
         }
         public int Kolicina { get; set; }
         public bool ShouldSerializeKolicina()
         {
 
-            return FileStorageZaliha.serializeOprema;
+            return FileRepositoryZaliha.serializeOprema;
         }
 
     }

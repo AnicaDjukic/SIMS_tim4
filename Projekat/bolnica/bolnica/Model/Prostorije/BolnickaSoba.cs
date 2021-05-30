@@ -1,3 +1,5 @@
+using Bolnica.Repository.Prostorije;
+
 namespace Model.Prostorije
 {
     public class BolnickaSoba : Prostorija
@@ -7,13 +9,13 @@ namespace Model.Prostorije
         public bool ShouldSerializeUkBrojKreveta()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
         public int BrojSlobodnihKreveta { get; set; }
         public bool ShouldSerializeBrojSlobodnihKreveta()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
 
         public BolnickaSoba(): base() { }

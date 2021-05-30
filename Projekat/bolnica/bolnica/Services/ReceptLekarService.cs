@@ -1,6 +1,7 @@
 ﻿using Bolnica.DTO;
 using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -14,7 +15,7 @@ namespace Bolnica.Services
     public class ReceptLekarService
     {
 
-        private FileStorageLek skladisteLekova = new FileStorageLek();
+        private FileRepositoryLek skladisteLekova = new FileRepositoryLek();
 
         public List<Lek> DobijLekove()
         {

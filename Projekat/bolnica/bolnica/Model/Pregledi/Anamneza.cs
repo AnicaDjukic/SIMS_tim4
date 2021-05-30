@@ -1,4 +1,5 @@
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using System.Collections.Generic;
 
 namespace Model.Pregledi
@@ -14,7 +15,7 @@ namespace Model.Pregledi
         public bool ShouldSerializeSimptomi()
         {
 
-            return FileStorageAnamneza.serializeAnamneza;
+            return FileRepositoryAnamneza.serializeAnamneza;
         }
 
         public string Dijagnoza { get; set; }
@@ -22,7 +23,7 @@ namespace Model.Pregledi
         public bool ShouldSerializeDijagnoza()
         {
 
-            return FileStorageAnamneza.serializeAnamneza;
+            return FileRepositoryAnamneza.serializeAnamneza;
         }
         public List<Recept> Recept
         {
@@ -32,7 +33,7 @@ namespace Model.Pregledi
         public bool ShouldSerializeRecept()
         {
 
-            return FileStorageAnamneza.serializeAnamneza;
+            return FileRepositoryAnamneza.serializeAnamneza;
         }
 
         public Anamneza(string Simptomi, string Dijagnoza)

@@ -2,6 +2,7 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -13,9 +14,9 @@ namespace Bolnica.Services
 {
     public class KomentarLekaLekarService
     {
-        private FileStorageLek skladisteLekova = new FileStorageLek();
-        FileStorageObavestenja skladisteObavestenja = new FileStorageObavestenja();
-        FileStorageKorisnici skladisteKorisnika = new FileStorageKorisnici();
+        private FileRepositoryLek skladisteLekova = new FileRepositoryLek();
+        FileRepositoryObavestenje skladisteObavestenja = new FileRepositoryObavestenje();
+        FileRepositoryKorisnik skladisteKorisnika = new FileRepositoryKorisnik();
 
         public List<Lek> DobijLek()
         {

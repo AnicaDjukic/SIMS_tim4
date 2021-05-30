@@ -11,13 +11,13 @@ namespace Model.Korisnici
         public bool ShouldSerializeLozinka()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
         public TipKorisnika TipKorisnika { get; set; }
         public bool ShouldSerializeTipKorisnika()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
     }
 }

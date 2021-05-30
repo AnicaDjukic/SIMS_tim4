@@ -3,7 +3,7 @@ using System;
 
 namespace Bolnica.Model.Korisnici
 {
-    class Ocena
+    public class Ocena
     {
         public int IdOcene { get; set; }
         public DateTime Datum { get; set; }

@@ -7,7 +7,7 @@ namespace Bolnica.Services
 {
     public class InformacijeOPacijentuLekarService
     {
-        FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        FileRepositorySastojak skladisteSastojaka = new FileRepositorySastojak();
         public List<Sastojak> DobijSastojke()
         {
             return skladisteSastojaka.GetAll();

@@ -11,7 +11,7 @@ namespace Bolnica.Model.Pregledi
 {
     public class PrikazLek
     {
-        private FileStorageSastojak skladisteSastojaka = new FileStorageSastojak();
+        private FileRepositorySastojak skladisteSastojaka = new FileRepositorySastojak();
         public PrikazLek(int Id, string Naziv, int KolicinaUMg, StatusLeka Status, int Zalihe, string Proizvodjac, int i,LekarServiceDTO lekarServceDTO)
         {
             this.Id = Id;

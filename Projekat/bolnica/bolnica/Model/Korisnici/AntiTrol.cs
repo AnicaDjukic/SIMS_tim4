@@ -3,8 +3,9 @@ using System;
 
 namespace Bolnica.Model.Korisnici
 {
-    class AntiTrol
+    public class AntiTrol
     {
+        public int Id { get; set; }
         public Pacijent Pacijent { get; set; }
         public DateTime Datum { get; set; }
     }

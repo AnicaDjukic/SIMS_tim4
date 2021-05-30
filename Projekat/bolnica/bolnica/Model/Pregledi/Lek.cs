@@ -1,4 +1,5 @@
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -11,39 +12,39 @@ namespace Model.Pregledi
         public bool ShouldSerializeNaziv()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
         public string Proizvodjac { get; set; }
         public bool ShouldSerializeProizvodjac()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
         public int KolicinaUMg { get; set; }
         public bool ShouldSerializeKolicinaUMg()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
         public StatusLeka Status { get; set; }
         public bool ShouldSerializeStatus()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
         public int Zalihe { get; set; }
 
         public bool ShouldSerializeZalihe()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
 
         public bool Obrisan { get; set; }
         public bool ShouldSerializeObrisan()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
 
         public List<int> IdZamena { get; set; }
@@ -51,7 +52,7 @@ namespace Model.Pregledi
         public bool ShouldSerializeIdZamena()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
 
         [JsonIgnore]
@@ -62,7 +63,7 @@ namespace Model.Pregledi
         public bool ShouldSerializeSastojak()
         {
 
-            return FileStorageLek.serializeLek;
+            return FileRepositoryLek.serializeLek;
         }
 
         public Lek()

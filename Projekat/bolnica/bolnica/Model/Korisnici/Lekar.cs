@@ -9,7 +9,7 @@ namespace Model.Korisnici
         public bool ShouldSerializeSpecijalizacija()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
     }
