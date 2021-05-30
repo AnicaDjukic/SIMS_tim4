@@ -28,10 +28,10 @@ namespace bolnica.Forms
             set;
         }
 
-        private FileRepositoryProstorija storageProstorije;
-        private FileRepositoryBolnickaSoba storageBolnickeSobe;
-        private FileRepositoryOprema storageOprema;
-        private FileRepositoryLek storageLekovi;
+        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryBolnickaSoba storageBolnickeSobe = new FileRepositoryBolnickaSoba();
+        private FileRepositoryOprema storageOprema = new FileRepositoryOprema();
+        private FileRepositoryLek storageLekovi = new FileRepositoryLek();
         private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
 
         public static bool clickedDodaj;

@@ -1,4 +1,5 @@
 
+using bolnica.Forms;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.ViewModel;
@@ -34,13 +35,13 @@ namespace bolnica
             {
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                    /*if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
                         var s = new FormUpravnik();
                         s.Show();
-                    }*/
-                    if (korisnik.TipKorisnika == TipKorisnika.sekretar)
+                    }
+                    else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
                         var s = new FormSekretar();
                         s.Show();
