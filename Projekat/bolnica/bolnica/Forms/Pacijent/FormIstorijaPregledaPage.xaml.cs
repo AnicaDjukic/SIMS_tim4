@@ -28,9 +28,11 @@ namespace Bolnica.Forms
         private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
         private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
         private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
+        private List<Ocena> ocene = new List<Ocena>();
 
         public FormIstorijaPregledaPage(Pacijent pacijent)
         {
@@ -132,12 +134,32 @@ namespace Bolnica.Forms
             if (objekat != null)
             {
                 PrikazPregleda prikazPregleda = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
-                FormPacijentWeb.Forma.Pocetna.Content = new FormOceniLekaraPage(prikazPregleda);
+                if (PregledVecOcenjen(prikazPregleda))
+                {
+                    MessageBox.Show("Za izabrani pregled ste vec ocenili lekara!", "Upozorenje");
+                }
+                else
+                {
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormOceniLekaraPage(prikazPregleda);
+                }
             }
             else
             {
                 MessageBox.Show("Morate odabrati pregled kod odredjenog lekara koga zelite da ocenite!", "Upozorenje");
             }
+        }
+
+        private bool PregledVecOcenjen(PrikazPregleda prikazPregleda)
+        {
+            ocene = storageOcene.GetAll();
+            foreach (Ocena ocena in ocene)
+            {
+                if (prikazPregleda.Id.Equals(ocena.Pregled.Id))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void Button_Click_Oceni_Bolnicu(object sender, RoutedEventArgs e)

@@ -1,1 +1,10 @@
-[{"Id":0,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-05-05T00:00:00"},{"Id":0,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-05-30T18:11:57"},{"Id":0,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-05-30T19:13:14"},{"Id":0,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-05-30T19:16:13"}]
+[
+  {
+    "Id": 1,
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    },
+    "Datum": "2021-05-05T00:00:00"
+  }
+]

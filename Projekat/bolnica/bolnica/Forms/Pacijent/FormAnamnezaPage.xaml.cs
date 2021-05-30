@@ -192,6 +192,7 @@ namespace Bolnica.Forms
         private void SacuvajNovuBelesku(Beleska novaBeleska)
         {
             bool izmenjen = false;
+            beleske = storageBeleska.GetAll();
             foreach (Beleska beleska in beleske)
             {
                 if (novaBeleska.Id.Equals(beleska.Id))

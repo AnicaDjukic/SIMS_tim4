@@ -13,8 +13,10 @@ namespace Model.Pregledi
         private string fileLocation;
 
         public static bool serializeKorisnik;
+        public static bool serializePregled;
         public FileRepositoryPregled()
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
@@ -24,6 +26,7 @@ namespace Model.Pregledi
 
         public List<Pregled> GetAll()
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
@@ -38,6 +41,7 @@ namespace Model.Pregledi
 
         public void Save(Pregled noviPregled)
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
@@ -49,6 +53,7 @@ namespace Model.Pregledi
 
         public void Update(Pregled noviPregled)
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
@@ -69,6 +74,7 @@ namespace Model.Pregledi
 
         public void Delete(Pregled noviPregled)
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
@@ -88,6 +94,7 @@ namespace Model.Pregledi
 
         public Pregled GetById(int id)
         {
+            serializePregled = true;
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;

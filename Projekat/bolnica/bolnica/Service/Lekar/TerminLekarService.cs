@@ -894,5 +894,23 @@ namespace Bolnica.Services
             return trenutniPregled;
         }
 
+        public bool ProveriSaNovimSkladistima(List<Pregled> stariPregledi, List<Operacija> stareOperacije)
+        {
+            for (int i = 0; i < stariPregledi.Count; i++)
+            {
+                if (!stariPregledi[i].Datum.Equals(skladistePregledi.GetAll()[i].Datum))
+                {
+                    return false;
+                }
+            }
+            for (int i = 0; i < stareOperacije.Count; i++)
+            {
+                if (!stareOperacije[i].Datum.Equals(skladisteOperacija.GetAll()[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

@@ -3,6 +3,7 @@ using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace Bolnica.Forms
     {
         private Pacijent pacijent = new Pacijent();
         private PrikazPregleda prikaz = new PrikazPregleda();
+        private Pregled pregled = new Pregled();
 
         private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
@@ -26,6 +28,11 @@ namespace Bolnica.Forms
 
             pacijent = prikazPregleda.Pacijent;
             prikaz = prikazPregleda;
+            pregled.Id = prikaz.Id;
+            pregled.Lekar = prikaz.Lekar;
+            pregled.Pacijent = prikaz.Pacijent;
+            pregled.Prostorija = prikaz.Prostorija;
+            pregled.Anamneza = prikaz.Anamneza;
 
             lekarIme.Text = prikazPregleda.Lekar.Ime + " " + prikazPregleda.Lekar.Prezime;
         }
@@ -74,13 +81,14 @@ namespace Bolnica.Forms
                 {
                     brojOcene = 5;
                 }
-
+              
                 Ocena ocena = new Ocena
                 {
                     IdOcene = max + 1,
                     BrojOcene = brojOcene,
                     Datum = DateTime.Now,
                     Sadrzaj = sadrzaj.Text,
+                    Pregled = pregled,
                     Pacijent = pacijent,
                     Lekar = prikaz.Lekar
                 };
