@@ -38,7 +38,15 @@ namespace Bolnica.Repository.Korisnici
 
         public void Save(Obavestenje newEntity)
         {
-            throw new NotImplementedException();
+            FileStoragePregledi.serializeKorisnik = false;
+            var json = File.ReadAllText(fileLocation);
+            List<Obavestenje> obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
+            if (obavestenja == null)
+            {
+                obavestenja = new List<Obavestenje>();
+            }
+            obavestenja.Add(newEntity);
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(obavestenja));
         }
 
         public void Update(Obavestenje entity)

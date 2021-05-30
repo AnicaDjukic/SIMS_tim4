@@ -2,6 +2,7 @@
 using Bolnica.Controller.Pregledi;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Services.Korisnici;
 using Bolnica.Services.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -121,6 +122,7 @@ namespace Bolnica.Forms.Upravnik
         }
 
         private ServiceLek serviceLek = new ServiceLek();
+        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
         public CreateFormLekovi(Lek lekZaIzmenu)
         {
             InitializeComponent();
@@ -173,20 +175,33 @@ namespace Bolnica.Forms.Upravnik
         {
             FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
             List<Obavestenje> obavestenja = storageObavestenja.GetAll();
+            
+            if (lek.Status != StatusLeka.odobren)
+            {
+                Obavestenje obavestenje = NapraviObavestenjeZaLek(lek);
+                serviceObavestenje.SacuvajObavestenje(obavestenje);
+            }
+        }
+
+        private Obavestenje NapraviObavestenjeZaLek(Lek lek)
+        {
+            int maxId = NadjiMaxId();
+            Obavestenje obavestenje = new Obavestenje { Id = maxId + 1, Naslov = "Lek za validaciju", Datum = DateTime.Now.Date, Sadrzaj = "Za lek \"" + lek.Naziv + "\" je potrebno izvršiti validaciju" };
+            Korisnik lekar = new Korisnik();
+            lekar.KorisnickoIme = "mico";
+            obavestenje.Korisnici.Add(lekar);
+            return obavestenje;
+        }
+
+        private int NadjiMaxId()
+        {
             int maxId = 0;
-            foreach (Obavestenje o in obavestenja)
+            foreach (Obavestenje o in serviceObavestenje.DobaviSvaObavestenja())
             {
                 if (maxId < o.Id)
                     maxId = o.Id;
             }
-            if (lek.Status != StatusLeka.odobren)
-            {
-                Obavestenje obavestenje = new Obavestenje { Id = maxId + 1, Naslov = "Lek za validaciju", Datum = DateTime.Now.Date, Sadrzaj = "Za lek \"" + lek.Naziv + "\" je potrebno izvršiti validaciju" };
-                Korisnik lekar = new Korisnik();
-                lekar.KorisnickoIme = "mico";
-                obavestenje.Korisnici.Add(lekar);
-                storageObavestenja.Save(obavestenje);
-            }
+            return maxId;
         }
 
         private void UkloniIzPrikaza(Lek lek)

@@ -65,5 +65,15 @@ namespace Bolnica.Services.Korisnici
             }
             return obavestenjaZaPrikaz;
         }
+
+        internal List<Obavestenje> DobaviSvaObavestenja()
+        {
+            return repository.GetAll();
+        }
+
+        internal void SacuvajObavestenje(Obavestenje obavestenje)
+        {
+            repository.Save(obavestenje);
+        }
     }
 }
