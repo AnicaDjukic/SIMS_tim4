@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -29,6 +30,7 @@ namespace Bolnica.Sekretar
         private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryGodisnji sviGodisnji = new FileRepositoryGodisnji();
         private List<Pacijent> pacijenti = new List<Pacijent>();
         private List<Prostorija> prostorije = new List<Prostorija>();
@@ -256,7 +258,7 @@ namespace Bolnica.Sekretar
                     p.Prostorija = trenutniPregled.Prostorija;
                     p.Datum = trenutniPregled.Datum;
                     p.Hitan = trenutniPregled.Hitan;
-                    sviPregledi.Izmeni(p);
+                    sviPregledi.Update(p);
                     FormPregledi.Pregledi.Add(trenutniPregled);
                 }
 
@@ -271,8 +273,8 @@ namespace Bolnica.Sekretar
             List<Pregled> preglediProstorije = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijeProstorije = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
@@ -325,8 +327,8 @@ namespace Bolnica.Sekretar
             List<Pregled> preglediLekara = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijeLekara = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Lekar.Jmbg.Equals(lekar.Jmbg))
@@ -379,8 +381,8 @@ namespace Bolnica.Sekretar
             List<Pregled> preglediPacijenta = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijePacijenta = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))

@@ -2,6 +2,7 @@
 using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -32,7 +33,7 @@ namespace Bolnica.Sekretar
         public static ObservableCollection<PrikazPregleda> Pregledi { get; set; }
         public static List<Lekar> listaLekara = new List<Lekar>();
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
-        private FileRepositoryPregled sveOperacije = new FileRepositoryPregled();
+        private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileStorageProstorija sveProstorije = new FileStorageProstorija();
         private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
@@ -49,8 +50,8 @@ namespace Bolnica.Sekretar
             Pregledi = new ObservableCollection<PrikazPregleda>();
 
             selektovanComboSearchItemIndex = 0;
-            listaPregleda = sviPregledi.GetAllPregledi();
-            listaOperacija = sveOperacije.GetAllOperacije();
+            listaPregleda = sviPregledi.GetAll();
+            listaOperacija = sveOperacije.GetAll();
             listaPacijenata = sviPacijenti.GetAll();
             listaProstorija = sveProstorije.GetAllProstorije();
             listaLekara = sviLekari.GetAll();

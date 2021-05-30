@@ -35,7 +35,6 @@ namespace bolnica
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
                     if (korisnik.TipKorisnika == TipKorisnika.upravnik)
-
                     {
                         var s = new FormUpravnik();
                         s.Show();

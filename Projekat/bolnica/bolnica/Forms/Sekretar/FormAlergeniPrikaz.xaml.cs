@@ -31,10 +31,10 @@ namespace Bolnica.Forms.Sekretar
 
             for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
             { 
-                if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Jmbg))
+                if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                    if (FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni)
                         {
                             foreach (Sastojak sas in alergeni)
                                 if (sas.Id == s.Id)
@@ -48,10 +48,10 @@ namespace Bolnica.Forms.Sekretar
 
             for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
             {
-                if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Jmbg))
+                if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
+                    if (FormSekretar.GostiPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Pacijent.Alergeni)
                         {
                             foreach (Sastojak sas in alergeni)
                                 if (sas.Id == s.Id)

@@ -14,7 +14,7 @@ namespace Bolnica.Model.Prostorije
         public string FileLocationHospitalizacija { get; set; }
         public FileStorageHospitalizacija()
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocationHospitalizacija = System.IO.Path.Combine(FileLocation, @"Resources\", "Hospitalizacija.json");
@@ -23,7 +23,7 @@ namespace Bolnica.Model.Prostorije
 
         public List<Hospitalizacija> GetAll()
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             var json = File.ReadAllText(FileLocationHospitalizacija);
             var pregledi = JsonConvert.DeserializeObject<List<Hospitalizacija>>(json);
@@ -37,7 +37,7 @@ namespace Bolnica.Model.Prostorije
 
         public void Save(Hospitalizacija novaHospitalizacija)
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             List<Hospitalizacija> noveHospitalizacije = new List<Hospitalizacija>();
             noveHospitalizacije = GetAll();
@@ -47,7 +47,7 @@ namespace Bolnica.Model.Prostorije
 
         public void Delete(Hospitalizacija novaHospitalizacija)
         {
-            FileStoragePregledi.serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             List<Hospitalizacija> noveHospitalizacije = new List<Hospitalizacija>();
             noveHospitalizacije = GetAll();

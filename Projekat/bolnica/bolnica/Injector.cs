@@ -11,7 +11,7 @@ namespace Bolnica
 {
     public class Injector
     {
-
+        
         private TerminLekarService pregledService = new TerminLekarService();
 
 

@@ -10,7 +10,6 @@ namespace Bolnica.Model.Pregledi
 {
 
     public class FileRepositorySastojak : IRepositorySastojak
-        feature_sekretar7:Projekat/bolnica/bolnica/Repository/Pregledi/FileRepositorySastojak.cs
     {
         private string fileLocation;
 

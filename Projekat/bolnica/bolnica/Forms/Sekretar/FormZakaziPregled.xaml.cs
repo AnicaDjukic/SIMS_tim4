@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -32,7 +33,8 @@ namespace Bolnica.Sekretar
         private FileRepositoryPacijent skladistePacijenata;
         private FileRepositoryLekar skladisteLekara;
         private FileStorageProstorija skladisteProstorija;
-        private FileRepositoryPregled skladisteTermina;
+        private FileRepositoryPregled skladistePregleda;
+        private FileRepositoryOperacija skladisteOperacija;
         private FileRepositoryGodisnji skladisteGodisnjih;
         private List<Pacijent> sviPacijenti;
         private List<Lekar> sviLekari;
@@ -51,7 +53,8 @@ namespace Bolnica.Sekretar
 
         private void inicijalizujPoljaKlase()
         {
-            skladisteTermina = new FileRepositoryPregled();
+            skladistePregleda = new FileRepositoryPregled();
+            skladisteOperacija = new FileRepositoryOperacija();
             skladistePacijenata = new FileRepositoryPacijent();
             skladisteLekara = new FileRepositoryLekar();
             skladisteProstorija = new FileStorageProstorija();
@@ -59,8 +62,8 @@ namespace Bolnica.Sekretar
             sviPacijenti = skladistePacijenata.GetAll();
             sviLekari = skladisteLekara.GetAll();
             sveProstorije = skladisteProstorija.GetAllProstorije();
-            sviPregledi = skladisteTermina.GetAllPregledi();
-            sveOperacije = skladisteTermina.GetAllOperacije();
+            sviPregledi = skladistePregleda.GetAll();
+            sveOperacije = skladisteOperacija.GetAll();
             sviGodisnji = skladisteGodisnjih.GetAll();
             zakazivaniPregled = new Pregled();
         }
@@ -469,7 +472,7 @@ namespace Bolnica.Sekretar
 
         private void SnimiZakazaniPregled() 
         {
-            skladisteTermina.Save(zakazivaniPregled);
+            skladistePregleda.Save(zakazivaniPregled);
         }
 
         private void DodajZakazaniPregledNaPrikaz() 

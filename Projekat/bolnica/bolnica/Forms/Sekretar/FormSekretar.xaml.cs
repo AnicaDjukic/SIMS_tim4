@@ -1,7 +1,10 @@
-﻿using Bolnica.Forms.Sekretar;
+﻿using Bolnica.Controller;
+using Bolnica.DTO;
+using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pacijenti;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -27,24 +30,11 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormSekretar : Window
     {
-        public static ObservableCollection<Pacijent> RedovniPacijenti
-        {
-            get;
-            set;
-        }
-        public static ObservableCollection<Pacijent> GostiPacijenti
-        {
-            get;
-            set;
-        }
-        public static ObservableCollection<Pacijent> ObrisaniPacijenti
-        {
-            get;
-            set;
-        }
-        private FileRepositoryPacijent storage;
-        private FileRepositoryZdravstveniKarton storageZdravstveniKarton;
+        public static ObservableCollection<PacijentDTO> RedovniPacijenti { get; set; }
+        public static ObservableCollection<PacijentDTO> GostiPacijenti { get; set; }
+        public static ObservableCollection<PacijentDTO> ObrisaniPacijenti { get; set; }
         public static bool clickedDodaj;
+        private PacijentiController controller;
 
         public FormSekretar()
         {
@@ -53,25 +43,21 @@ namespace Bolnica.Forms
             dataGridGostiPacijenti.DataContext = this;
             dataGridObrisaniPacijenti.DataContext = this;
 
-            searchBoxGosti.Visibility = Visibility.Hidden;
-            searchBoxObrisani.Visibility = Visibility.Hidden;
-            btnOdblokiraj.Visibility = Visibility.Hidden;
-            RedovniPacijenti = new ObservableCollection<Pacijent>();
-            GostiPacijenti = new ObservableCollection<Pacijent>();
-            ObrisaniPacijenti = new ObservableCollection<Pacijent>();
+            RedovniPacijenti = new ObservableCollection<PacijentDTO>();
+            GostiPacijenti = new ObservableCollection<PacijentDTO>();
+            ObrisaniPacijenti = new ObservableCollection<PacijentDTO>();
+            controller = new PacijentiController();
             clickedDodaj = false;
-            storage = new FileRepositoryPacijent();
-            storageZdravstveniKarton = new FileRepositoryZdravstveniKarton();
-
-            List<Pacijent> pacijenti = storage.GetAll();
+            
+            List<Pacijent> pacijenti = controller.DobaviPacijente();
             foreach (Pacijent p in pacijenti)
             {
                 if (p.Obrisan == false && !p.Guest)
-                    RedovniPacijenti.Add(p);
+                    RedovniPacijenti.Add(new PacijentDTO(p));
                 else if (p.Obrisan == false && p.Guest)
-                    GostiPacijenti.Add(p);
+                    GostiPacijenti.Add(new PacijentDTO(p));
                 else if (p.Obrisan)
-                    ObrisaniPacijenti.Add(p);
+                    ObrisaniPacijenti.Add(new PacijentDTO(p));
             }
         }
 
@@ -88,18 +74,19 @@ namespace Bolnica.Forms
         {
             if (ti1.IsSelected) 
             { 
-                Pacijent pacijent = (Pacijent)dataGridRedovniPacijenti.SelectedItem;
+                PacijentDTO pacijent = (PacijentDTO)dataGridRedovniPacijenti.SelectedItem;
                 if (pacijent != null)
                 {
-                    List<Pacijent> pacijenti = storage.GetAll();
-                    List<ZdravstveniKarton> zdravstveniKartoni = storageZdravstveniKarton.GetAll();
-                    FormDodajPacijenta s = new FormDodajPacijenta(pacijent.Alergeni);
-
+                    FormDodajPacijenta s = new FormDodajPacijenta(pacijent.Pacijent.Alergeni);
                     s.btnAlergeni.Content = "Izmeni";
                     s.btnKreiraj.Content = "Izmeni";
+
+                    List<Pacijent> pacijenti = controller.DobaviPacijente();
+                    List<ZdravstveniKarton> zdravstveniKartoni = controller.DobaviZdravstveneKartone();
+          
                     foreach (Pacijent p in pacijenti)
                     {
-                        if (p.Jmbg == pacijent.Jmbg)
+                        if (p.Jmbg == pacijent.Pacijent.Jmbg)
                         {
                             s.Ime = p.Ime;
                             s.Prezime = p.Prezime;
@@ -153,7 +140,7 @@ namespace Bolnica.Forms
         {
             if (ti1.IsSelected)
             {
-                Pacijent pacijent = (Pacijent)dataGridRedovniPacijenti.SelectedItem;
+                PacijentDTO pacijent = (PacijentDTO)dataGridRedovniPacijenti.SelectedItem;
                 if (pacijent != null)
                 {
                     MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite blokirati ovog pacijenta?",
@@ -161,30 +148,7 @@ namespace Bolnica.Forms
                                               MessageBoxButton.YesNo,
                                               MessageBoxImage.Exclamation);
                     if (result == MessageBoxResult.Yes)
-                    {
-                        Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                        FileRepositoryKorisnik storageKorisnici = new FileRepositoryKorisnik();
-                        storageKorisnici.Delete(korisnik);
-                        FileRepositoryPregled termini = new FileRepositoryPregled();
-                        List<Pregled> pregledi = termini.GetAllPregledi();
-                        List<Operacija> operacije = termini.GetAllOperacije();
-                        foreach (Pregled p in pregledi)
-                            if (p.Pacijent.Jmbg == pacijent.Jmbg)
-                                termini.Delete(p);
-                        foreach (Operacija o in operacije)
-                            if (o.Pacijent.Jmbg == pacijent.Jmbg)
-                                termini.Delete(o);
-                        if(FormPregledi.Pregledi != null)
-                            for (int i = FormPregledi.Pregledi.Count - 1; i >= 0; i--)
-                                if (FormPregledi.Pregledi[i].Pacijent.Jmbg == pacijent.Jmbg)
-                                    FormPregledi.Pregledi.RemoveAt(i);
-                        RedovniPacijenti.Remove(pacijent);
-                        ObrisaniPacijenti.Add(pacijent);
-                        List<Pacijent> pacijenti = storage.GetAll();
-                        storage.Delete(pacijent);
-                        pacijent.Obrisan = true;
-                        storage.Save(pacijent);
-                    }
+                        controller.ObrisiRedovnogPacijenta(pacijent);
                 }
                 else
                 {
@@ -196,7 +160,7 @@ namespace Bolnica.Forms
             }
             else
             {
-                Pacijent pacijent = (Pacijent)dataGridGostiPacijenti.SelectedItem;
+                PacijentDTO pacijent = (PacijentDTO)dataGridGostiPacijenti.SelectedItem;
                 if (pacijent != null)
                 {
                     MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite blokirati ovog pacijenta?",
@@ -204,14 +168,7 @@ namespace Bolnica.Forms
                                               MessageBoxButton.YesNo,
                                               MessageBoxImage.Exclamation);
                     if (result == MessageBoxResult.Yes)
-                    {
-                        GostiPacijenti.Remove(pacijent);
-                        ObrisaniPacijenti.Add(pacijent);
-                        List<Pacijent> pacijenti = storage.GetAll();
-                        storage.Delete(pacijent);
-                        pacijent.Obrisan = true;
-                        storage.Save(pacijent);
-                    }
+                        controller.ObrisiGostPacijenta(pacijent);
                 }
                 else
                 {
@@ -225,22 +182,22 @@ namespace Bolnica.Forms
 
         private void Button_Click_Prikazi(object sender, RoutedEventArgs e)
         {
-            Pacijent pacijent = new Pacijent();
+            PacijentDTO pacijent = new PacijentDTO();
             if (ti1.IsSelected)
-                pacijent = (Pacijent)dataGridRedovniPacijenti.SelectedItem;
+                pacijent = (PacijentDTO)dataGridRedovniPacijenti.SelectedItem;
             else if (ti2.IsSelected)
-                pacijent = (Pacijent)dataGridGostiPacijenti.SelectedItem;
+                pacijent = (PacijentDTO)dataGridGostiPacijenti.SelectedItem;
             else if (ti3.IsSelected)
-                pacijent = (Pacijent)dataGridObrisaniPacijenti.SelectedItem;
+                pacijent = (PacijentDTO)dataGridObrisaniPacijenti.SelectedItem;
             if (pacijent != null)
             {
-                List<Pacijent> pacijenti = storage.GetAll();
-                List<ZdravstveniKarton> zdravstveniKartoni = storageZdravstveniKarton.GetAll();
+                List<Pacijent> pacijenti = controller.DobaviPacijente();
+                List<ZdravstveniKarton> zdravstveniKartoni = controller.DobaviZdravstveneKartone();
                 foreach (Pacijent p in pacijenti)
                 {
-                    if (p.Jmbg == pacijent.Jmbg)
+                    if (p.Jmbg == pacijent.Pacijent.Jmbg)
                     {
-                        if (!pacijent.Guest)
+                        if (!pacijent.Pacijent.Guest)
                         {
                             var s = new FormPrikazPacijenta();
                             s.lblIme.Content = p.Ime;
@@ -396,12 +353,12 @@ namespace Bolnica.Forms
 
             if (searchBoxText.Length == 1)
             {
-                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxRedovni.Text, StringComparison.InvariantCultureIgnoreCase));
+                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxRedovni.Text, StringComparison.InvariantCultureIgnoreCase));
                 dataGridRedovniPacijenti.ItemsSource = filtered;
             }
             else if (searchBoxText.Length == 2)
             {
-                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                var filtered = RedovniPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
                 dataGridRedovniPacijenti.ItemsSource = filtered;
             }
             else if (searchBoxText.Length > 2)
@@ -417,12 +374,12 @@ namespace Bolnica.Forms
 
             if (searchBoxText.Length == 1)
             {
-                var filtered = GostiPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxGosti.Text, StringComparison.InvariantCultureIgnoreCase));
+                var filtered = GostiPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxGosti.Text, StringComparison.InvariantCultureIgnoreCase));
                 dataGridGostiPacijenti.ItemsSource = filtered;
             }
             else if (searchBoxText.Length == 2)
             {
-                var filtered = GostiPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                var filtered = GostiPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
                 dataGridGostiPacijenti.ItemsSource = filtered;
             }
             else if(searchBoxText.Length > 2) 
@@ -438,12 +395,12 @@ namespace Bolnica.Forms
 
             if (searchBoxText.Length == 1)
             {
-                var filtered = ObrisaniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxObrisani.Text, StringComparison.InvariantCultureIgnoreCase));
+                var filtered = ObrisaniPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxObrisani.Text, StringComparison.InvariantCultureIgnoreCase));
                 dataGridObrisaniPacijenti.ItemsSource = filtered;
             }
             else if (searchBoxText.Length == 2)
             {
-                var filtered = ObrisaniPacijenti.Where(pacijent => pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
+                var filtered = ObrisaniPacijenti.Where(pacijent => pacijent.Pacijent.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && pacijent.Pacijent.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
                 dataGridObrisaniPacijenti.ItemsSource = filtered;
             }
             else if (searchBoxText.Length > 2)
@@ -455,7 +412,7 @@ namespace Bolnica.Forms
 
         private void Button_Click_Odblokiraj(object sender, RoutedEventArgs e)
         {
-            Pacijent pacijent = (Pacijent)dataGridObrisaniPacijenti.SelectedItem;
+            PacijentDTO pacijent = (PacijentDTO)dataGridObrisaniPacijenti.SelectedItem;
             if (pacijent != null)
             {
                 MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite odblokirati ovog pacijenta?",
@@ -463,24 +420,7 @@ namespace Bolnica.Forms
                                           MessageBoxButton.YesNo,
                                           MessageBoxImage.Exclamation);
                 if (result == MessageBoxResult.Yes)
-                {
-                    if (!pacijent.Guest) 
-                    {
-                        Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                        FileRepositoryKorisnik storageKorisnici = new FileRepositoryKorisnik();
-                        storageKorisnici.Save(korisnik);
-                    }
-                    
-                    ObrisaniPacijenti.Remove(pacijent);
-                    if(!pacijent.Guest)
-                        RedovniPacijenti.Add(pacijent);
-                    else
-                        GostiPacijenti.Add(pacijent);
-                    List<Pacijent> pacijenti = storage.GetAll();
-                    storage.Delete(pacijent);
-                    pacijent.Obrisan = false;
-                    storage.Save(pacijent);
-                }
+                    controller.OdblokirajPacijenta(pacijent);
             }
             else
             {

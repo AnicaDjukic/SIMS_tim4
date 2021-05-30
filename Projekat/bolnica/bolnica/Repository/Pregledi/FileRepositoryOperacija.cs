@@ -13,11 +13,9 @@ namespace Bolnica.Repository.Pregledi
     {
         private string fileLocation;
 
-        public static bool serializeKorisnik;
-
         public FileRepositoryOperacija()
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -26,7 +24,7 @@ namespace Bolnica.Repository.Pregledi
 
         public List<Operacija> GetAll()
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(fileLocation);
@@ -40,7 +38,7 @@ namespace Bolnica.Repository.Pregledi
 
         public void Save(Operacija novaOperacija)
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
@@ -51,7 +49,7 @@ namespace Bolnica.Repository.Pregledi
 
         public void Update(Operacija novaOperacija)
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
@@ -69,7 +67,7 @@ namespace Bolnica.Repository.Pregledi
 
         public void Delete(Operacija novaOperacija)
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             List<Operacija> noveOperacije = new List<Operacija>();
@@ -87,7 +85,7 @@ namespace Bolnica.Repository.Pregledi
 
         public Operacija GetById(int id)
         {
-            serializeKorisnik = false;
+            FileRepositoryPregled.serializeKorisnik = false;
             FileStorageZaliha.serializeProstorija = false;
             FileStorageAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(fileLocation);

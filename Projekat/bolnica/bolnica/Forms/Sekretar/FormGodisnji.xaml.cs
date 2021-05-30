@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -21,7 +22,8 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormGodisnji : Window
     {
         private string jmbg;
-        private FileRepositoryPregled termini;
+        private FileRepositoryPregled storagePregledi;
+        private FileRepositoryOperacija storageOperacije;
         private FileRepositoryLekar storageLekari;
         private FileRepositoryGodisnji storageGodisnji;
         private List<Pregled> pregledi;
@@ -32,11 +34,12 @@ namespace Bolnica.Forms.Sekretar
         {
             InitializeComponent();
             this.jmbg = jmbg;
-            termini = new FileRepositoryPregled();
+            storagePregledi = new FileRepositoryPregled();
+            storageOperacije = new FileRepositoryOperacija();
             storageLekari = new FileRepositoryLekar();
             storageGodisnji = new FileRepositoryGodisnji();
-            pregledi = termini.GetAllPregledi();
-            operacije = termini.GetAllOperacije();
+            pregledi = storagePregledi.GetAll();
+            operacije = storageOperacije.GetAll();
             sviLekari = storageLekari.GetAll();
             sviGodisnji = storageGodisnji.GetAll();
 

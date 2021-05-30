@@ -1,3 +1,4 @@
+using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -45,6 +46,5 @@ namespace Model.Korisnici
 
             return FileRepositoryPregled.serializeKorisnik;
         }
-
     }
 }
