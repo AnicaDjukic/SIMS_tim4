@@ -507,8 +507,7 @@ namespace Bolnica.ViewModel
             {
                
                     vremeUzimanjaLekova.Add(vre);
-                vre++;
-                vre++;
+
 
             }
             ItemSourceVremeUzimanjaLeka = vremeUzimanjaLekova;

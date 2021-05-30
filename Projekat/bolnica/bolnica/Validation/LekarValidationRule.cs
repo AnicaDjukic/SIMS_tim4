@@ -406,8 +406,6 @@ namespace Bolnica.Validation
                         {
                             return new ValidationResult(true, null);
                         }
-                    vre++;
-                    vre++;
 
                 }
                 return new ValidationResult(false, "Nije moguce u to vrijeme");
