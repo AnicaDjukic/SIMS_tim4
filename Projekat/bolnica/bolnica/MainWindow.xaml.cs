@@ -1,6 +1,7 @@
 using bolnica.Forms;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace bolnica
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
-                        FileStorageLekar storageLekar = new FileStorageLekar();
+                        /*FileStorageLekar storageLekar = new FileStorageLekar();
                         List<Lekar> lekari = storageLekar.GetAll();
                         Lekar l = new Lekar();
                         foreach(Lekar ln in lekari)
@@ -59,7 +60,20 @@ namespace bolnica
                             }
                         }
                         var s = new FormLekar(l);
-                        s.Show();
+                        s.Show();*/
+                        FileRepositoryLekar storageLekar = new FileRepositoryLekar();
+                        List<Lekar> lekari = storageLekar.GetAll();
+                        Lekar l = new Lekar();
+                        foreach (Lekar ln in lekari)
+                        {
+                            if (ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
+                            {
+                                l = ln;
+                                break;
+                            }
+                        }
+                        LekarViewModel vm = new LekarViewModel(l);
+                        FormLekar form = new FormLekar(vm);
 
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)

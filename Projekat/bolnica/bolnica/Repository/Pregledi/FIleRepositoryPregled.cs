@@ -1,42 +1,25 @@
-﻿using Bolnica.Repository.Prostorije;
-using Model.Pregledi;
+using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
+using Model.Prostorije;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace Bolnica.Repository.Pregledi
+namespace Model.Pregledi
 {
     public class FileRepositoryPregled : IRepositoryPregled
     {
-        public string FileLocation { get; set; }
-        public static bool serializeKorisnik;
+        private string fileLocation;
 
+        public static bool serializeKorisnik;
         public FileRepositoryPregled()
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            FileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Pregledi.json");
-        }
-
-        public void Delete(Pregled entity)
-        {
-            serializeKorisnik = false;
-            FileRepositoryZaliha.serializeProstorija = false;
-            FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Pregled> pregledi = GetAll();
-            for (int i = 0; i < pregledi.Count; i++)
-            {
-                if (entity.Id.Equals(pregledi[i].Id))
-                {
-                    pregledi.RemoveAt(i);
-                    break;
-                }
-            }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pregledi));
+            string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            fileLocation = System.IO.Path.Combine(FileLocation, @"Resources\", "Pregledi.json");
         }
 
         public List<Pregled> GetAll()
@@ -44,45 +27,79 @@ namespace Bolnica.Repository.Pregledi
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            var json = File.ReadAllText(FileLocation);
+            var json = File.ReadAllText(fileLocation);
             var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
-            if (pregledi == null)
+            if(pregledi == null)
             {
-                pregledi = new List<Pregled>();
+                pregledi = new  List<Pregled>();
             }
             return pregledi;
         }
 
-        public Pregled GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Pregled newEntity)
+        public void Save(Pregled noviPregled)
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Pregled> pregledi = GetAll();
-            pregledi.Add(newEntity);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pregledi));
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAll();
+            noviPregledi.Add(noviPregled);
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noviPregledi));
         }
 
-        public void Update(Pregled entity)
+        public void Update(Pregled noviPregled)
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Pregled> pregledi = GetAll();
-            for (int i = 0; i < pregledi.Count; i++)
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAll();
+
+            for (int i = 0; i < noviPregledi.Count; i++)
             {
-                if (entity.Id.Equals(pregledi[i].Id))
+                if (noviPregledi[i].Id.Equals(noviPregled.Id))
                 {
-                    pregledi[i] = entity;
+                    noviPregledi[i] = noviPregled;
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pregledi));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noviPregledi));
+
+        }
+
+        public void Delete(Pregled noviPregled)
+        {
+            serializeKorisnik = false;
+            FileRepositoryZaliha.serializeProstorija = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
+            List<Pregled> noviPregledi = new List<Pregled>();
+            noviPregledi = GetAll();
+
+            for (int i = 0; i < noviPregledi.Count; i++)
+            {
+                if (noviPregledi[i].Id.Equals(noviPregled.Id))
+                {
+                    noviPregledi.RemoveAt(i);
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noviPregledi));
+        }
+
+        public Pregled GetById(int id)
+        {
+            serializeKorisnik = false;
+            FileRepositoryZaliha.serializeProstorija = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
+            var json = File.ReadAllText(fileLocation);
+            var pregledi = JsonConvert.DeserializeObject<List<Pregled>>(json);
+
+            Pregled pregled = new Pregled();
+            foreach (Pregled p in pregledi)
+                if (p.Id == id)
+                    pregled = p;
+            return pregled;
         }
     }
+
 }

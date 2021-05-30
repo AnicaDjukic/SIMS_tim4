@@ -10,7 +10,7 @@
 
     <Grid>
         <DataGrid Name="oceneGrid" ItemsSource="{Binding PrikazOcenaIKomentara}" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                  Height="480" Width="1000" Margin="0,20,0,0" AutoGenerateColumns="False" SelectionUnit="FullRow"
+                  Height="480" Width="1000" Margin="0,20,0,0" AutoGenerateColumns="False" SelectionUnit="FullRow" MinRowHeight="50"
                   SelectionMode="Single" IsReadOnly="True" Background="LightBlue" RowHeight="30" FontSize="16">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -22,10 +22,16 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding Datum}"  Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy. HH:mm'}"  Width="150"></DataGridTextColumn>
                 <DataGridTextColumn Header="Primalac" Binding="{Binding ImeIPrezime, FallbackValue='Bolnica'}" Width="200"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ocena" Binding="{Binding BrojOcene}" Width="50"></DataGridTextColumn>
-                <DataGridTextColumn Header="Komentar" Binding="{Binding Sadrzaj, FallbackValue='-'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Komentar" Binding="{Binding Sadrzaj, FallbackValue='-'}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

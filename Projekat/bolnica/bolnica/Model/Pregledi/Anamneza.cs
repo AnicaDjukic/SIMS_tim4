@@ -37,6 +37,12 @@ namespace Model.Pregledi
             return FileStorageAnamneza.serializeAnamneza;
         }
 
+        public Anamneza(string Simptomi, string Dijagnoza)
+        {
+            this.Recept = new List<Recept>();
+            this.Simptomi = Simptomi;
+            this.Dijagnoza = Dijagnoza;
+        }
     }
 }
 

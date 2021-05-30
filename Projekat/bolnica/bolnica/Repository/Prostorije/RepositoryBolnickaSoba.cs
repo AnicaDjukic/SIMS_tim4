@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Bolnica.Repository.Prostorije
 {
-    public interface IRepositoryBolnickaSoba : IRepository<BolnickaSoba, int>
+    public interface RepositoryBolnickaSoba : IRepository<BolnickaSoba, string>
     {
+        public void DeleteById(string brojProstorije);
     }
 }

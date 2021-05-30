@@ -11,7 +11,8 @@
     <Grid>
         <DataGrid Name="pacijentGrid" ItemsSource="{Binding PrikazNezavrsenihPregleda}" HorizontalAlignment="Left" VerticalAlignment="Top" 
                   Margin="100,20,0,40" Height="530" Width="1000" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="40"
-                  FontSize="16" SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue">
+                  FontSize="16" SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue"
+                  SelectedItem="{Binding SelektovaniRed, Mode=TwoWay}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -37,11 +38,16 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Vertical" Margin="1080,20,0,0" Width="200" Height="490" VerticalAlignment="Top" Background="LightBlue">
-            <Button Content="Zakazivanje pregleda" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="45" Width="150" Click="ZakaziPregled"/>
-            <Button Content="Otkaži pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150" Click="OtkaziPregled"/>
-            <Button Content="Izmeni pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150" Click="IzmeniPregled"/>
-            <Button Content="Istorija pregleda" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150" Click="IstorijaPregleda"/>
-            <Button Content="Obaveštenja o lekovima" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Height="45" Width="150" Click="ObavestenjaPacijent"/>
+            <Button Content="Zakazivanje pregleda" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=ZakaziPregledKomanda}"/>
+            <Button Content="Otkaži pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=OtkaziPregledKomanda}"/>
+            <Button Content="Izmeni pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=IzmeniPregledKomanda}"/>
+            <Button Content="Istorija pregleda" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=IstorijaPregledaKomanda}"/>
+            <Button Content="Obaveštenja o lekovima" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=ObavestenjaPacijentKomanda}"/>
         </StackPanel>
     </Grid>
 </Page>

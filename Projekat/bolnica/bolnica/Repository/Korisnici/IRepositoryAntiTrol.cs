@@ -1,4 +1,5 @@
-﻿using Model.Korisnici;
+﻿using Bolnica.Model.Korisnici;
+using Model.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Text;

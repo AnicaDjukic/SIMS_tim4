@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Bolnica.Repository.Prostorije
 {
-    public interface IRepositoryOprema : IRepository<Oprema, int>
+    public interface RepositoryOprema : IRepository<Oprema, string>
     {
+        void DeleteById(string sifra);
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Bolnica.Repository.Prostorije
 {
-    public interface IRepositoryBuducaZaliha : IRepository<BuducaZaliha, int>
+    public interface RepositoryRenoviranje : IRepository<Renoviranje, string>
     {
     }
 }

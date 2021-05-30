@@ -1,77 +1,92 @@
-﻿using Bolnica.Model.Korisnici;
-using Bolnica.Repository.Pregledi;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
+using Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 
-namespace Bolnica.Repository.Korisnici
+namespace Bolnica.Model.Korisnici
 {
     public class FileRepositoryObavestenje : IRepositoryObavestenje
     {
-        public string FileLocation { get; set; }
+        private string fileLocation;
 
         public FileRepositoryObavestenje()
         {
             FileRepositoryPregled.serializeKorisnik = false;
-            string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            FileLocation = System.IO.Path.Combine(putanja, @"Resources", "Obavestenja.json");
-        }
-
-        public void Delete(Obavestenje entity)
-        {
-            FileRepositoryPregled.serializeKorisnik = false;
-            List<Obavestenje> obavestenja = GetAll();
-            for (int i = 0; i < obavestenja.Count; i++)
-            {
-                if (entity.Id.Equals(obavestenja[i].Id))
-                {
-                    obavestenja.Remove(obavestenja[i]);
-                    break;
-                }
-            }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(obavestenja));
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            fileLocation = System.IO.Path.Combine(path, @"Resources", "Obavestenja.json");
         }
 
         public List<Obavestenje> GetAll()
         {
             FileRepositoryPregled.serializeKorisnik = false;
-            var json = File.ReadAllText(FileLocation);
+            var json = File.ReadAllText(fileLocation);
             var obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
-            if (obavestenja is null)
-            {
-                obavestenja = new List<Obavestenje>();
-            }
             return obavestenja;
         }
 
-        public Obavestenje GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Obavestenje newEntity)
+        public void Save(Obavestenje novoObavestenje)
         {
             FileRepositoryPregled.serializeKorisnik = false;
-            List<Obavestenje> obavestenja = GetAll();
-            obavestenja.Add(newEntity);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(obavestenja));
+            var json = File.ReadAllText(fileLocation);
+            List<Obavestenje> obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
+            if (obavestenja == null)
+            {
+                obavestenja = new List<Obavestenje>();
+            }
+            obavestenja.Add(novoObavestenje);
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(obavestenja));
+        }
+
+        public void Delete(Obavestenje obavestenje)
+        {
+            FileRepositoryPregled.serializeKorisnik = false;
+            var json = File.ReadAllText(fileLocation);
+            List<Obavestenje> obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
+            if (obavestenja != null)
+            {
+                for (int i = 0; i < obavestenja.Count; i++)
+                {
+                    if (obavestenja[i].Id == obavestenje.Id)
+                    {
+                        obavestenja.Remove(obavestenja[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(obavestenja));
+            }
         }
 
         public void Update(Obavestenje entity)
         {
             FileRepositoryPregled.serializeKorisnik = false;
-            List<Obavestenje> obavestenja = GetAll();
+            List<Obavestenje> obavestenja = new List<Obavestenje>();
+            obavestenja = GetAll();
+
             for (int i = 0; i < obavestenja.Count; i++)
             {
-                if (entity.Id.Equals(obavestenja[i].Id))
+                if (obavestenja[i].Id.Equals(entity.Id))
                 {
                     obavestenja[i] = entity;
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(obavestenja));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(obavestenja));
+        }
+
+        public Obavestenje GetById(int id)
+        {
+            FileRepositoryPregled.serializeKorisnik = false;
+            var json = File.ReadAllText(fileLocation);
+            var obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
+
+            Obavestenje obavestenje = new Obavestenje();
+            foreach (Obavestenje o in obavestenja)
+                if (o.Id == id)
+                    obavestenje = o;
+            return obavestenje;
         }
     }
 }

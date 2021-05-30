@@ -1,4 +1,5 @@
-﻿using Bolnica.Repository.Korisnici;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Korisnici;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;

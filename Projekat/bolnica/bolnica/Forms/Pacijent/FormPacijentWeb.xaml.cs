@@ -1,6 +1,7 @@
 ﻿using bolnica;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -45,14 +46,16 @@ namespace Bolnica.Forms
             this.DataContext = this;
             Forma = this;
             Pacijent = pacijent;
-            Pocetna.Content = new FormPacijentPage(pacijent);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(pacijent);
+            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*pacijent*/);
             trenutniPacijent = pacijent;
             ImeIPre = pacijent.Ime + " " + pacijent.Prezime;
         }
 
         private void Button_Click_Pocetna_Stranica(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormPacijentPage(trenutniPacijent);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
+            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/);
         }
 
         private void Button_Click_Zakazivanje_Pregleda(object sender, RoutedEventArgs e)
@@ -78,7 +81,9 @@ namespace Bolnica.Forms
 
         public void DanasnjaObavestenja()
         {
-            new FormPacijentPage(trenutniPacijent).PrikaziObavestenja();
+            //PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
+            //new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/).PrikaziObavestenja();
+            new PacijentPageViewModel(trenutniPacijent).PrikaziObavestenja();
         }
 
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)

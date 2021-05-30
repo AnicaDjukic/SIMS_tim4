@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -539,7 +540,7 @@ namespace Bolnica.Forms
                             Pacijent = p.Pacijent
                         };
 
-                        FormPacijentPage.PrikazNezavrsenihPregleda.Add(p);
+                        PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(p);
                         storagePregledi.Save(pregled);
 
                         
@@ -550,7 +551,8 @@ namespace Bolnica.Forms
                         };
                         storageAntiTrol.Save(antiTrol);
 
-                        FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pregled.Pacijent);
+                        PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(pregled.Pacijent);
+                        FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*pregled.Pacijent*/);
 
                         break;
                     }
@@ -564,7 +566,8 @@ namespace Bolnica.Forms
 
         private void Odustani(object sender, RoutedEventArgs e)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(trenutniPacijent);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/);
         }
     }
 }

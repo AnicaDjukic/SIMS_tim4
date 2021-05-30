@@ -6,6 +6,9 @@ using System.Text;
 using System.Windows.Controls;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -16,12 +19,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxLekarValidationRule : ValidationRule
     {
-        private FileStorageLekar storage { get; set; }
+        private FileRepositoryLekar storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLekar();
+                storage = new FileRepositoryLekar();
 
                 List<Lekar> sviLekari = new List<Lekar>();
                 sviLekari = storage.GetAll();
@@ -43,12 +46,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxSpecijalizacijaValidationRule : ValidationRule
     {
-        private FileStorageLekar storage { get; set; }
+        private FileRepositoryLekar storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLekar();
+                storage = new FileRepositoryLekar();
 
                 List<Lekar> sviLekari = new List<Lekar>();
                 sviLekari = storage.GetAll();
@@ -70,12 +73,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxPrezimeValidationRule : ValidationRule
     {
-        private FileStoragePacijenti storage {  get; set; }
+        private FileRepositoryPacijent storage {  get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStoragePacijenti();
+                storage = new FileRepositoryPacijent();
 
                 List<Pacijent> sviPacijenti = new List<Pacijent>();
                 sviPacijenti = storage.GetAll();
@@ -99,15 +102,15 @@ namespace Bolnica.Validation
 
     public class ComboBoxProstorijaValidationRule : ValidationRule
     {
-        private FileStorageProstorija storage { get; set; }
+        private FileRepositoryProstorija storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageProstorija();
+                storage = new FileRepositoryProstorija();
 
                 List<Prostorija> sveProstorije = new List<Prostorija>();
-                sveProstorije = storage.GetAllProstorije();
+                sveProstorije = storage.GetAll();
 
 
                 for (int i = 0; i < sveProstorije.Count; i++)
@@ -126,9 +129,38 @@ namespace Bolnica.Validation
 
     }
 
+    public class ComboBoxBolnickaSobaValidationRule : ValidationRule
+    {
+        private FileRepositoryBolnickaSoba storage { get; set; }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value as string != "" && value != null)
+            {
+                storage = new FileRepositoryBolnickaSoba();
+
+                List<BolnickaSoba> sveProstorije = new List<BolnickaSoba>();
+                sveProstorije = storage.GetAll();
+
+
+                for (int i = 0; i < sveProstorije.Count; i++)
+                {
+                    if (sveProstorije[i].BrojProstorije.ToString().Equals(value as string))
+                    {
+                        return new ValidationResult(true, null);
+                    }
+                }
+                return new ValidationResult(false, "Ne postoji slobodna prostorija");
+            }
+            return new ValidationResult(false, "Popunite");
+        }
+
+
+
+    }
+
     public class ComboBoxVremeValidationRule : ValidationRule
     {
-        private FileStorageProstorija storage { get; set; }
+        private FileRepositoryProstorija storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
@@ -220,12 +252,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxLekValidationRule : ValidationRule
     {
-        private FileStorageLek storage { get; set; }
+        private FileRepositoryLek storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLek();
+                storage = new FileRepositoryLek();
 
                 List<Lek> sviLekovi = new List<Lek>();
                 sviLekovi = storage.GetAll();
@@ -247,12 +279,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxDozaValidationRule : ValidationRule
     {
-        private FileStorageLek storage { get; set; }
+        private FileRepositoryLek storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLek();
+                storage = new FileRepositoryLek();
 
                 List<Lek> sviLekovi = new List<Lek>();
                 sviLekovi = storage.GetAll();
@@ -274,12 +306,12 @@ namespace Bolnica.Validation
 
     public class ComboBoxProizvodjacValidationRule : ValidationRule
     {
-        private FileStorageLek storage { get; set; }
+        private FileRepositoryLek storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)
             {
-                storage = new FileStorageLek();
+                storage = new FileRepositoryLek();
 
                 List<Lek> sviLekovi = new List<Lek>();
                 sviLekovi = storage.GetAll();
@@ -362,7 +394,7 @@ namespace Bolnica.Validation
 
     public class ComboBoxVremeUzimanjaValidationRule : ValidationRule
     {
-        private FileStorageProstorija storage { get; set; }
+        private FileRepositoryProstorija storage { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value as string != "" && value != null)

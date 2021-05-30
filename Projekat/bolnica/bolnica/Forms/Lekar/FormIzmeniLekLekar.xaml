@@ -6,7 +6,13 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormIzmeniLekLekar" Height="670" Width="630" KeyDown="isAkcelerator">
+        Title="FormIzmeniLekLekar" Height="670" Width="630">
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=IzmeniLekKomanda}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
+
+
+    </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -27,6 +33,12 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="SaveButton">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -68,7 +80,15 @@
 
         </Grid.RowDefinitions>
 
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textProizvodjac" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="IsPro" >
+        <ComboBox IsDropDownOpen="{Binding ItemSourceProizvodjacComboOpen,Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceProizvodjacLeka}" IsTextSearchEnabled="True" IsEditable="True" Name="textProizvodjac" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
+            <ComboBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=ProizvodjacComboNaEnterKomanda}" 
+                />
+                <KeyBinding Key="Tab"
+                    Command="{Binding Path=ProizvodjacComboNaTabKomanda}" />
+            </ComboBox.InputBindings>
             <ComboBox.Text>
                 <Binding Path="proizvodjac" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
@@ -92,7 +112,15 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textLek" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isTab">
+        <ComboBox IsDropDownOpen="{Binding ItemSourceNazivLekaComboOpen,Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceNazivLeka}" IsTextSearchEnabled="True" IsEditable="True" Name="textLek" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
+            <ComboBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=OtvoriComboLekNaEnterKomanda}" 
+                />
+                <KeyBinding Key="Tab"
+                    Command="{Binding Path=ComboLekNaTabKomanda}" />
+            </ComboBox.InputBindings>
             <ComboBox.Text>
                 <Binding Path="lek" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -116,7 +144,14 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsTextSearchEnabled="True" IsEditable="True" Name="textDoza" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="isEnterDoza">
+        <ComboBox IsDropDownOpen="{Binding ItemSourceDozaComboOpen,Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceDozaLeka}" IsTextSearchEnabled="True" IsEditable="True" Name="textDoza" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70">
+            <ComboBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=DozaComboNaEnterKomanda}" 
+                />
+
+            </ComboBox.InputBindings>
             <ComboBox.Text>
                 <Binding Path="doza" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
@@ -140,21 +175,33 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ListBox SelectionMode="Multiple" IsTextSearchEnabled="True" Name="textSastojci" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="Select" >
-            
+        <ListBox   SelectionMode="Multiple" IsTextSearchEnabled="True" Name="textSastojci" Grid.Column="2" Grid.Row="5" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" >
+            <ListBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=SelektujSastojakNaEnterKomanda}" 
+                />
+
+            </ListBox.InputBindings>
         </ListBox>
-        <ListBox SelectionMode="Multiple" IsTextSearchEnabled="True" Name="textZamene" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" KeyDown="SelectZamena" >
-        
+        <ListBox   SelectionMode="Multiple" IsTextSearchEnabled="True" Name="textZamene" Grid.Column="2" Grid.Row="8" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" >
+            <ListBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=SelektujZamenuNaEnterKomanda}" 
+                />
+
+            </ListBox.InputBindings>
         </ListBox>
         <Label Content="Proizvodjac" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Lek" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Doza" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Sastojak" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Zamene" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}"
-                         Background="#FF1E93F4" Content="Potvrdi" Grid.Column="1" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Potvrdi" />
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4"
-                         Background="#FF1E93F4" Content="Odustani" Grid.Column="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" Click="Odustani" />
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=IzmeniLekKomanda}"
+                         Content="Potvrdi" Grid.Column="1" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
+                         Content="Odustani" Grid.Column="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55" />
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>

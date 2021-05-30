@@ -1,3 +1,4 @@
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Prostorije;
 using System;
@@ -22,5 +23,18 @@ namespace Model.Pregledi
         public Lekar Lekar { get; set; }
         public Prostorija Prostorija { get; set; }
         public Pacijent Pacijent { get; set; }
+
+        public Pregled(PrikazPregleda p)
+        {
+            this.Id = p.Id;
+            this.Datum = p.Datum;
+            this.Trajanje = p.Trajanje;
+            this.Zavrsen = p.Zavrsen;
+            this.Hitan = p.Hitan;
+            this.Anamneza = p.Anamneza;
+            this.Lekar = p.Lekar;
+            this.Prostorija = p.Prostorija;
+            this.Pacijent = p.Pacijent;
+        }
     }
 }

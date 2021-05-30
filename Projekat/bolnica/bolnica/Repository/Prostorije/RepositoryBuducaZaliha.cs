@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Bolnica.Repository.Prostorije
 {
-    public interface IRepositoryZaliha : IRepository<Zaliha, int>
+    public interface RepositoryBuducaZaliha : IRepository<BuducaZaliha, Object>
     {
+        public void Save(List<BuducaZaliha> buduceZalihe);
     }
 }

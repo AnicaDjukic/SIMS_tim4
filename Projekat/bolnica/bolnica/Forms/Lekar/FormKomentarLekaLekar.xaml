@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#FF34FFF4" KeyDown="isAkcelerator">
+        Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#FF34FFF4">
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
@@ -33,6 +37,12 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
@@ -60,9 +70,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Komentar:" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Center"/>
-        <TextBox  Name="textbox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="8" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="80" MinWidth="300" Background="White" TextWrapping="Wrap"/>
-        <Button Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi" Background="#FF1E93F4" BorderBrush="#FF1E93F4" MaxWidth="75" Click="Potvrdi"  />
-        <Button Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi" Background="#FF1E93F4" BorderBrush="#FF1E93F4"  MaxWidth="75" Click="Otkazi"/>
+        <TextBox  Name="textbox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="8" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="80" MinWidth="300" Background="White" TextWrapping="Wrap">
+            <TextBox.Text >
+                <Binding Path="Komentar" UpdateSourceTrigger="PropertyChanged"/>
+            </TextBox.Text>
+        </TextBox>
+        <Button Command="{Binding Path=PotvrdiKomanda}" Name="Potvrdidug" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Potvrdi"  BorderBrush="#FF1E93F4" MaxWidth="75"/>
+        <Button Command="{Binding Path=ZatvoriKomanda}" Name="Otkazidug" FontWeight="SemiBold" FontSize="13" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="11" Grid.RowSpan="1"  Content="Otkazi"  BorderBrush="#FF1E93F4"  MaxWidth="75"/>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.RowSpan="2" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>

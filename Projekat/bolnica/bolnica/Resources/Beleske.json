@@ -3,8 +3,8 @@
     "Id": 3,
     "Zabeleska": "Neka moja zabeleska",
     "Podsetnik": true,
-    "Vreme": "18:00:00",
-    "DatumPrekida": "2021-05-29T00:00:00",
+    "Vreme": "19:00:00",
+    "DatumPrekida": "2021-05-31T00:00:00",
     "Prikazana": false
   },
   {
@@ -19,9 +19,9 @@
     "Id": 1,
     "Zabeleska": "Sutra na pregled da ponesem novac.",
     "Podsetnik": true,
-    "Vreme": "19:30:00",
+    "Vreme": "18:00:00",
     "DatumPrekida": "2021-05-30T00:00:00",
-    "Prikazana": true
+    "Prikazana": false
   },
   {
     "Id": 4,

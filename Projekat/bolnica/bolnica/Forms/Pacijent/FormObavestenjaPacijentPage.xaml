@@ -9,8 +9,8 @@
       Title="FormObavestenjaPacijentPage">
 
     <Grid>
-        <DataGrid Name="obavestenjaGrid" ItemsSource="{Binding ObavestenjaZaPacijente}" HorizontalAlignment="Center" VerticalAlignment="Top"
-                  Width="800" Height="200" Margin="0,20,0,40" AutoGenerateColumns="False" SelectionUnit="FullRow"
+        <DataGrid Name="obavestenjaGrid" ItemsSource="{Binding ObavestenjaZaPacijente}" HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Width="600" Height="450" Margin="80,20,0,0" AutoGenerateColumns="False" SelectionUnit="FullRow"
                   SelectionMode="Single" IsReadOnly="True" Background="LightBlue" RowHeight="60" FontSize="16">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -34,12 +34,13 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ListView Name="listObavestenja" Height="250" Width="800" Margin="0,250,0,0" ItemsSource="{Binding Obavestenja}">
+        <ListView Name="listObavestenja" Height="450" Width="600" Margin="0,20,80,0" ItemsSource="{Binding Obavestenja}"
+                  HorizontalAlignment="Right" VerticalAlignment="Top">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="400"/>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -47,7 +48,7 @@
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-
+                        
                         <StackPanel Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Center">
                             <TextBlock Text="{Binding Naslov}" TextWrapping="NoWrap" FontWeight="Bold" FontSize="20"/>
                             <TextBlock Text="{Binding Sadrzaj}" TextWrapping="Wrap" Width ="380" FontSize="15"/>
@@ -62,6 +63,14 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Margin" Value="2,0,0,0"/>
+                    <Setter Property="Padding" Value="0,2"/>
+                    <Setter Property="BorderBrush" Value="Aqua"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,2"/>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </Page>

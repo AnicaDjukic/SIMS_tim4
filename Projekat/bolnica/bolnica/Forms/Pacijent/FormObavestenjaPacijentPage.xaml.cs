@@ -59,7 +59,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            DanasnjiDatum = "Obaveštenja za dan " + DateTime.Today.ToShortDateString() + ":";
+            DanasnjiDatum = "Obaveštenja o lekovima za dan " + DateTime.Today.ToShortDateString() + ":";
             pregledi = storagePregledi.GetAllPregledi();
             anamneze = storageAnamneze.GetAll();
 
@@ -85,11 +85,14 @@ namespace Bolnica.Forms
                 string nazivLeka = DobijNazivLeka(recept.Lek.Id);
                 int vremeUzimanja = recept.VremeUzimanja;
                 string datumZavrsetka = recept.Trajanje.ToShortDateString();
-                string obavestenje = "Danas treba da popijete lek '" + nazivLeka + "'. " +
+                if (recept.Trajanje.CompareTo(DateTime.Today) >= 0)
+                {
+                    string obavestenje = "Danas treba da popijete lek '" + nazivLeka + "'. " +
                     "Ovaj lek se pije " + DobijBrojUzimanjaDnevno(vremeUzimanja) +
                     " dnevno u razmaku od po " + DobijVremeUzimanja(vremeUzimanja) +
                     "Ovaj lek Vam je prepisan do " + datumZavrsetka + ".";
-                ObavestenjaZaPacijente.Add(obavestenje);
+                    ObavestenjaZaPacijente.Add(obavestenje);
+                }
             }
         }
 

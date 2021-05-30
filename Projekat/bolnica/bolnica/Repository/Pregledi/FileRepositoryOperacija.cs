@@ -1,5 +1,7 @@
-﻿using Bolnica.Repository.Prostorije;
+﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Pregledi;
+using Model.Prostorije;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,8 @@ namespace Bolnica.Repository.Pregledi
 {
     public class FileRepositoryOperacija : IRepositoryOperacija
     {
-        public string FileLocation { get; set; }
+        private string fileLocation;
+
         public static bool serializeKorisnik;
 
         public FileRepositoryOperacija()
@@ -18,25 +21,8 @@ namespace Bolnica.Repository.Pregledi
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            FileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Operacije.json");
-        }
-
-        public void Delete(Operacija entity)
-        {
-            serializeKorisnik = false;
-            FileRepositoryZaliha.serializeProstorija = false;
-            FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Operacija> operacije = GetAll();
-            for (int i = 0; i < operacije.Count; i++)
-            {
-                if (entity.Id.Equals(operacije[i].Id))
-                {
-                    operacije.RemoveAt(i);
-                    break;
-                }
-            }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(operacije));
+            string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            fileLocation = System.IO.Path.Combine(FileLocation, @"Resources\", "Operacije.json");
         }
 
         public List<Operacija> GetAll()
@@ -44,45 +30,75 @@ namespace Bolnica.Repository.Pregledi
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            var json = File.ReadAllText(FileLocation);
+            var json = File.ReadAllText(fileLocation);
             var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
-            if (operacije is null)
+            if (operacije == null)
             {
                 operacije = new List<Operacija>();
             }
             return operacije;
         }
 
-        public Operacija GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Operacija newEntity)
+        public void Save(Operacija novaOperacija)
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Operacija> operacije = GetAll();
-            operacije.Add(newEntity);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(operacije));
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAll();
+            noveOperacije.Add(novaOperacija);
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noveOperacije));
         }
 
-        public void Update(Operacija entity)
+        public void Update(Operacija novaOperacija)
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-            List<Operacija> operacije = GetAll();
-            for (int i = 0; i < operacije.Count; i++)
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAll();
+            for (int i = 0; i < noveOperacije.Count; i++)
             {
-                if (entity.Id.Equals(operacije[i].Id))
+                if (noveOperacije[i].Id.Equals(novaOperacija.Id))
                 {
-                    operacije[i] = entity;
+                    noveOperacije[i] = novaOperacija;
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(operacije));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noveOperacije));
+        }
+
+        public void Delete(Operacija novaOperacija)
+        {
+            serializeKorisnik = false;
+            FileRepositoryZaliha.serializeProstorija = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
+            List<Operacija> noveOperacije = new List<Operacija>();
+            noveOperacije = GetAll();
+            for (int i = 0; i < noveOperacije.Count; i++)
+            {
+                if (noveOperacije[i].Id.Equals(novaOperacija.Id))
+                {
+                    noveOperacije.RemoveAt(i);
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(noveOperacije));
+        }
+
+        public Operacija GetById(int id)
+        {
+            serializeKorisnik = false;
+            FileRepositoryZaliha.serializeProstorija = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
+            var json = File.ReadAllText(fileLocation);
+            var operacije = JsonConvert.DeserializeObject<List<Operacija>>(json);
+
+            Operacija operacija = new Operacija();
+            foreach (Operacija o in operacije)
+                if (o.Id == id)
+                    operacija = o;
+            return operacija;
         }
     }
 }

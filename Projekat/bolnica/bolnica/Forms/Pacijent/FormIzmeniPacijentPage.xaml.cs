@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -90,8 +91,8 @@ namespace Bolnica.Forms
                 else
                 {
                     Pregled pregled = SetPregled(prikaz);
-                    FormPacijentPage.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
-                    FormPacijentPage.PrikazNezavrsenihPregleda.Add(prikaz);
+                    PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
+                    PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
                     storagePregledi.Izmeni(pregled);
 
                     AntiTrol antiTrol = new AntiTrol
@@ -100,15 +101,16 @@ namespace Bolnica.Forms
                         Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
                     };
                     storageAntiTrol.Save(antiTrol);
-
-                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(prikaz.Pacijent);
+                    PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikaz.Pacijent*/);
                 }
             }
         }
 
         private void OtkaziIzmenu(object sender, RoutedEventArgs e)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(prikazPregleda.Pacijent);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikazPregleda.Pacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikazPregleda.Pacijent*/);
         }
 
         private void NasiPredlozi(object sender, RoutedEventArgs e)

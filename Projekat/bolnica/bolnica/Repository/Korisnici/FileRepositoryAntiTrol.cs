@@ -1,5 +1,7 @@
-﻿using Bolnica.Repository.Pregledi;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
+using Model.Pregledi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

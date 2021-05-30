@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -21,111 +22,20 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormKomentarLekaLekar : Window
     {
-        public String komentar { get; set; }
+        
 
-        private PrikazLek prik = new PrikazLek();
-
-        private List<Lek> leko = new List<Lek>();
-
-        private FileStorageLek sviLekovi = new FileStorageLek();
-        public FormKomentarLekaLekar(PrikazLek p)
+        public FormKomentarLekaLekar(KomentarLekaLekarViewModel viewModel)
         {
-            leko = sviLekovi.GetAll();
-            for (int i = 0; i < leko.Count; i++)
-            {
-                if (leko[i].Status.Equals(StatusLeka.odbijen) || leko[i].Obrisan)
-                {
-                    leko.RemoveAt(i);
-                    i--;
-                }
-            }
-            prik = p;
             InitializeComponent();
-            this.DataContext = this;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Owner = Application.Current.MainWindow;
+            this.DataContext = viewModel;
+            if (viewModel.ZatvoriAkcija == null)
+                viewModel.ZatvoriAkcija = new Action(this.Close);
+            this.Show();
         }
-
-        public void Potvrdi() {
-            komentar = textbox.Text;
-
-            Obavestenje obavestenje = new Obavestenje();
-            FileStorageObavestenja svaObavestenja = new FileStorageObavestenja();
-            FileStorageKorisnici sviKorisnici = new FileStorageKorisnici();
-            List<Korisnik> svi = sviKorisnici.GetAll();
-            List<Obavestenje> sva = svaObavestenja.GetAll();
-            int max = 0;
-            for (int i = 0; i < sva.Count; i++)
-            {
-                if (max < sva[i].Id)
-                {
-                    max = sva[i].Id;
-                }
-            }
-            max = max + 1;
-            obavestenje.Id = max;
-
-            for (int i = 0; i < svi.Count; i++)
-            {
-                if (svi[i].TipKorisnika.Equals(TipKorisnika.upravnik))
-                {
-                    obavestenje.Korisnici.Add(svi[i]);
-                }
-            }
-            obavestenje.Naslov = "Lek " + prik.Naziv + " je odbijen";
-            obavestenje.Obrisan = false;
-            obavestenje.Sadrzaj = "Lek " + prik.Naziv + " sa dozom " + prik.KolicinaUMg + " i sastojcima: " + prik.Sastojak + " je odbijen. " + "Komentar: " + komentar;
-            obavestenje.Datum = DateTime.Now;
-            FileStorageObavestenja oba = new FileStorageObavestenja();
-            oba.Save(obavestenje);
-
-            FormLekar.lekoviPrikaz.Remove(prik);
-            for (int i = 0; i < leko.Count; i++)
-            {
-                if (leko[i].Id.Equals(prik.Id))
-                {
-                    leko[i].Status = StatusLeka.odbijen;
-                    sviLekovi.Delete(leko[i]);
-                    sviLekovi.Save(leko[i]);
-                }
-            }
-
-            this.Close();
-        }
-        private void Potvrdi(object sender, RoutedEventArgs e)
-        {
-            Potvrdi();
-        }
-
-        private void Otkazi(object sender, RoutedEventArgs e)
-        {
-
-            Otkazi();
-            
         
-        }
 
-        public void Otkazi()
-        {
-            this.Close();
-        }
-
-        private void isAkcelerator(object sender, KeyEventArgs e)
-        {
-            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
-            {
-                switch (e.Key)
-                {
-                    case Key.Q:
-                        Potvrdi();
-                        break;
-                    case Key.W:
-                        Otkazi();
-                        break;
-
-
-                }
-            }
-        }
+       
     }
 }

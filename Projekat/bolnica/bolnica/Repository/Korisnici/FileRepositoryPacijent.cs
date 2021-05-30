@@ -1,86 +1,102 @@
-﻿using Bolnica.Repository.Pregledi;
-using Model.Korisnici;
 using Newtonsoft.Json;
+using Model.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 
-namespace Bolnica.Repository.Korisnici
+namespace Model.Pacijenti
 {
-    public class FileRepositoryPacijent : IRepositoryPacijent
-    {
-        public string FileLocation { get; set; }
+   public class FileRepositoryPacijent : IRepositoryPacijent
+   {
+        private string fileLocation;
+
         public static bool serializeAlergeni;
-        public static bool serializeKarton;
-
-        public FileRepositoryPacijent()
-        {
-            string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            FileLocation = System.IO.Path.Combine(putanja, @"Resources", "Pacijenti.json");
-        }
-
-        public void Delete(Pacijent entity)
-        {
-            serializeAlergeni = false;
-            serializeKarton = false;
-            FileRepositoryPregled.serializeKorisnik = true;
-            List<Pacijent> pacijenti = GetAll();
-            for (int i = 0; i < pacijenti.Count; i++)
-            {
-                if (entity.Jmbg.Equals(pacijenti[i].Jmbg))
-                {
-                    pacijenti.Remove(pacijenti[i]);
-                    break;
-                }
-            }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pacijenti));
+        public static bool serializeZdravstveniKarton;
+        public FileRepositoryPacijent() {
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            fileLocation = System.IO.Path.Combine(path, @"Resources", "Pacijenti.json");
         }
 
         public List<Pacijent> GetAll()
         {
             serializeAlergeni = false;
-            serializeKarton = false;
+            serializeZdravstveniKarton = false;
             FileRepositoryPregled.serializeKorisnik = true;
-            var json = File.ReadAllText(FileLocation);
+            var json = File.ReadAllText(fileLocation);
             var pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
-            if (pacijenti is null)
+            return pacijenti;
+        }
+      
+        public void Save(Pacijent noviPacijent)
+        {
+            serializeAlergeni = false;
+            serializeZdravstveniKarton = false;
+            FileRepositoryPregled.serializeKorisnik = true;
+            var json = File.ReadAllText(fileLocation);
+            List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
+            if (pacijenti == null)
             {
                 pacijenti = new List<Pacijent>();
             }
-            return pacijenti;
+            pacijenti.Add(noviPacijent);
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
+        }
+
+        public void Update(Pacijent pacijent)
+        {
+            serializeAlergeni = false;
+            serializeZdravstveniKarton = false;
+            FileRepositoryPregled.serializeKorisnik = true;
+            List<Pacijent> pacijenti = new List<Pacijent>();
+            pacijenti = GetAll();
+
+            for (int i = 0; i < pacijenti.Count; i++)
+            {
+                if (pacijenti[i].Jmbg.Equals(pacijent.Jmbg))
+                {
+                    pacijenti[i] = pacijent;
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
+        }
+
+        public void Delete(Pacijent pacijent)
+        {
+            serializeAlergeni = false;
+            serializeZdravstveniKarton = false;
+            FileRepositoryPregled.serializeKorisnik = true;
+            var json = File.ReadAllText(fileLocation);
+            List<Pacijent> pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
+            if (pacijenti != null)
+            {
+                for (int i = 0; i < pacijenti.Count; i++)
+                {
+                    if (pacijenti[i].Jmbg == pacijent.Jmbg)
+                    {
+                        pacijenti.Remove(pacijenti[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(pacijenti));
+            }
         }
 
         public Pacijent GetById(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Pacijent newEntity)
-        {
             serializeAlergeni = false;
-            serializeKarton = false;
+            serializeZdravstveniKarton = false;
             FileRepositoryPregled.serializeKorisnik = true;
-            List<Pacijent> pacijenti = GetAll();
-            pacijenti.Add(newEntity);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pacijenti));
-        }
+            var json = File.ReadAllText(fileLocation);
+            var pacijenti = JsonConvert.DeserializeObject<List<Pacijent>>(json);
 
-        public void Update(Pacijent entity)
-        {
-            serializeAlergeni = false;
-            serializeKarton = false;
-            FileRepositoryPregled.serializeKorisnik = true;
-            List<Pacijent> pacijenti = GetAll();
-            for (int i = 0; i < pacijenti.Count; i++)
-            {
-                if (entity.Jmbg.Equals(pacijenti[i].Jmbg))
-                {
-                    pacijenti[i] = entity;
-                    break;
-                }
-            }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(pacijenti));
+            Pacijent pacijent = new Pacijent();
+            foreach (Pacijent p in pacijenti)
+                if (p.Jmbg == id)
+                    pacijent = p;
+            return pacijent;
         }
     }
 }
