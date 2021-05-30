@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
+using System;
 using System.Collections.Generic;
 
 namespace Bolnica.Services.Prostorije
@@ -88,6 +89,26 @@ namespace Bolnica.Services.Prostorije
             }
 
             return noveZalihe;
+        }
+
+        public void ObrisiZaliheProstorije(string brojProstorije)
+        {
+            foreach(Zaliha z in repository.GetAll())
+            {
+                if(z.Prostorija.BrojProstorije == brojProstorije)
+                {
+                    foreach(Zaliha zo in DobaviZaliheOpreme(z.Oprema.Sifra))
+                    {
+                        if(zo.Prostorija.BrojProstorije == "magacin")
+                        {
+                            repository.Delete(zo);
+                            zo.Kolicina += z.Kolicina;
+                            repository.Save(zo);
+                        }
+                    }
+                    repository.Delete(z);
+                }
+            }
         }
     }
 }

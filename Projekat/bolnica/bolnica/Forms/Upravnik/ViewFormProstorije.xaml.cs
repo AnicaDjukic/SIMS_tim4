@@ -39,7 +39,6 @@ namespace Bolnica.Forms
 
         private List<Zaliha> NapraviNoveZaliheOdBuducih()
         {
-
             List<BuducaZaliha> buduceZalihe = serviceBuducaZaliha.DobaviBuduceZaliheIsteklogDatuma();
             List<Zaliha> noveZalihe = serviceZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe);
             serviceBuducaZaliha.ObrisiBuduceZalihe(buduceZalihe);

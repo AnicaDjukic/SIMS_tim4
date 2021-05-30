@@ -89,7 +89,7 @@ namespace Bolnica.Forms.Upravnik
 
         private List<BuducaZaliha> PronadjiBuduceZalihe()
         {
-            return serviceBuducaZaliha.DobaviBuduceZalihe(opremaZaSkladistenje.Sifra);
+            return serviceBuducaZaliha.DobaviBuduceZaliheOpreme(opremaZaSkladistenje.Sifra);
         }
 
         private void ObrisiStareZalihe()

@@ -26,7 +26,22 @@ namespace Bolnica.Repository.Prostorije
         }
         public void Delete(Renoviranje entity)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeProstorija = false;
+            string json = File.ReadAllText(fileLocation);
+            List<Renoviranje> renoviranja = JsonConvert.DeserializeObject<List<Renoviranje>>(json);
+            if (renoviranja != null)
+            {
+                for (int i = 0; i < renoviranja.Count; i++)
+                {
+                    if (renoviranja[i].Prostorija.BrojProstorije == entity.Prostorija.BrojProstorije && renoviranja[i].PocetakRenoviranja == entity.PocetakRenoviranja
+                        && renoviranja[i].KrajRenoviranja == entity.KrajRenoviranja)
+                    {
+                        renoviranja.Remove(renoviranja[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(renoviranja));
+            }
         }
 
         public Renoviranje GetById(string id)

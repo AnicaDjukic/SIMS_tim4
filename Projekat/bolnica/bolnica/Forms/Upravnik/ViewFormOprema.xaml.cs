@@ -35,7 +35,7 @@ namespace Bolnica.Forms.Upravnik
             InitializeComponent();
             this.DataContext = this;
             
-            List<BuducaZaliha> buduceZalihe = serviceBuduceZalihe.DobaviBuduceZalihe(sifraOpreme);
+            List<BuducaZaliha> buduceZalihe = serviceBuduceZalihe.DobaviBuduceZaliheOpreme(sifraOpreme);
 
             List<Zaliha> zalihe;
             if (buduceZalihe.Count > 0)

@@ -52,6 +52,23 @@ namespace Bolnica.Services.Prostorije
             return slobodneProstorije;
         }
 
+        public List<Prostorija> DobaviProstorijeNaIstomSpratu(string brojProstorije)
+        {
+            List<Prostorija> prostorijeNaSpratu = new List<Prostorija>();
+            Prostorija prostorija = repository.GetById(brojProstorije);
+            foreach(Prostorija p in repository.GetAll())
+            {
+                if (p.Sprat == prostorija.Sprat)
+                    prostorijeNaSpratu.Add(p);
+            }
+            return prostorijeNaSpratu;
+        }
+
+        internal double DobaviKvadraturu(string brojProstorije)
+        {
+            return repository.GetById(brojProstorije).Kvadratura;
+        }
+
         public Prostorija NapraviProstoriju(string brojProstorije)
         {
             return new Prostorija { BrojProstorije = brojProstorije };
@@ -74,13 +91,24 @@ namespace Bolnica.Services.Prostorije
             return postoji;
         }
 
-        internal void ObrisiProstoriju(string brojProstorije)
+        public Prostorija DobaviProstoriju(string brojProstorije)
+        {
+            return repository.GetById(brojProstorije);
+        }
+
+        public void ObrisiProstoriju(string brojProstorije)
         {
             repository.DeleteById(brojProstorije);
         }
 
-        internal void SacuvajProstoriju(Prostorija prostorija)
+        public void SacuvajProstoriju(Prostorija prostorija)
         {
+            repository.Save(prostorija);
+        }
+
+        public void IzmeniProstoriju(Prostorija prostorija)
+        {
+            repository.DeleteById(prostorija.BrojProstorije);
             repository.Save(prostorija);
         }
     }

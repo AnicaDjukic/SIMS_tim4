@@ -173,5 +173,17 @@ namespace Bolnica.Forms.Upravnik
         {
             return Calendar.BlackoutDates.Contains((DateTime)datum);
         }
+
+        private void btnSpoji_Click(object sender, RoutedEventArgs e)
+        {
+            FormSpajanjeProstorija formSpajanje = new FormSpajanjeProstorija(novoRenoviranje);
+            formSpajanje.Show();
+        }
+
+        private void btnPodeli_Click(object sender, RoutedEventArgs e)
+        {
+            FormPodelaProstorije formPodela = new FormPodelaProstorije(novoRenoviranje);
+            formPodela.Show();
+        }
     }
 }

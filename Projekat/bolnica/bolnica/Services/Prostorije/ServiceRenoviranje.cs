@@ -28,5 +28,16 @@ namespace Bolnica.Services.Prostorije
         {
             repository.Save(novoRenoviranje);
         }
+
+        internal List<Renoviranje> DobaviSvaRenoviranja()
+        {
+            return repository.GetAll();
+        }
+
+        internal void Izmeni(Renoviranje r)
+        {
+            repository.Delete(r);
+            repository.Save(r);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Bolnica.Services.Prostorije
         {
             repository = new FileRepositoryBuducaZaliha();
         }
-        public List<BuducaZaliha> DobaviBuduceZalihe(string sifraOpreme)
+        public List<BuducaZaliha> DobaviBuduceZaliheOpreme(string sifraOpreme)
         {
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
             if (repository.GetAll() != null)
@@ -77,6 +77,26 @@ namespace Bolnica.Services.Prostorije
         public void ObrisiBuducuZalihu(BuducaZaliha bz)
         {
             repository.Delete(bz);
+        }
+
+        public void ObrisiBuduceZaliheProstorije(string brojProstorije)
+        {
+            foreach (BuducaZaliha bz in repository.GetAll())
+            {
+                if (bz.Prostorija.BrojProstorije == brojProstorije)
+                {
+                    foreach (BuducaZaliha bzo in DobaviBuduceZaliheOpreme(bz.Oprema.Sifra))
+                    {
+                        if (bzo.Prostorija.BrojProstorije == "magacin")
+                        {
+                            repository.Delete(bzo);
+                            bzo.Kolicina += bz.Kolicina;
+                            repository.Save(bzo);
+                        }
+                    }
+                    repository.Delete(bz);
+                }
+            }
         }
     }
 }

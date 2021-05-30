@@ -2,6 +2,7 @@
 using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
@@ -44,6 +45,10 @@ namespace bolnica.Forms
             set;
         }
 
+        private ServiceRenoviranje serviceRenoviranje = new ServiceRenoviranje();
+        private ServiceProstorija serviceProstorija = new ServiceProstorija();
+        private ServiceZaliha serviceZaliha = new ServiceZaliha();
+        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
         public FormUpravnik()
         {
             InitializeComponent();
@@ -54,6 +59,43 @@ namespace bolnica.Forms
                 Datum.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             }, Dispatcher);
+
+            foreach(Renoviranje r in serviceRenoviranje.DobaviSvaRenoviranja())
+            {
+                if(r.KrajRenoviranja <= DateTime.Now.Date)
+                {
+                    if(r.BrojNovihProstorija > 0 || r.ProstorijeZaSpajanje.Count > 0)
+                    {
+                        double novaKvadratura = serviceProstorija.DobaviKvadraturu(r.Prostorija.BrojProstorije);
+                        if(r.BrojNovihProstorija > 0)
+                        {
+                            novaKvadratura = novaKvadratura / r.BrojNovihProstorija;
+                            for(int i = 0; i < r.BrojNovihProstorija - 1; i++)
+                            {
+                                Prostorija p = new Prostorija { BrojProstorije = r.Prostorija.BrojProstorije + "nova" + (i + 1).ToString() };
+                                p.Kvadratura = novaKvadratura;
+                                serviceProstorija.SacuvajProstoriju(p);
+                            }
+                            r.BrojNovihProstorija = 0;
+                        } 
+                        else
+                        {
+                            foreach(Prostorija p in r.ProstorijeZaSpajanje)
+                            {
+                                Prostorija prostorija = serviceProstorija.DobaviProstoriju(p.BrojProstorije);
+                                novaKvadratura += prostorija.Kvadratura;
+                                serviceZaliha.ObrisiZaliheProstorije(prostorija.BrojProstorije);
+                                serviceBuducaZaliha.ObrisiBuduceZaliheProstorije(prostorija.BrojProstorije);
+                                serviceProstorija.ObrisiProstoriju(prostorija.BrojProstorije);
+                            }
+                        }
+                        Prostorija renoviranaProstorija = serviceProstorija.DobaviProstoriju(r.Prostorija.BrojProstorije);
+                        renoviranaProstorija.Kvadratura = novaKvadratura;
+                        serviceProstorija.IzmeniProstoriju(renoviranaProstorija);
+                        serviceRenoviranje.Izmeni(r);
+                    }
+                }
+            }
 
             clickedDodaj = false;
             this.DataContext = this;
