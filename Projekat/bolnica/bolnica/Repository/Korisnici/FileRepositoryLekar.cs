@@ -11,7 +11,6 @@ namespace Bolnica.Model.Korisnici
 {
 
     public class FileRepositoryLekar : IRepositoryLekar
-        
     {
 
         public string fileLocation { get; set; }

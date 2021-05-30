@@ -1,5 +1,5 @@
 using Bolnica.DTO;
-using Bolnica.ViewModel;
+//using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;

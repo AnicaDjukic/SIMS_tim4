@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Prostorije;
+
 using Model.Pregledi;
 using Model.Prostorije;
 using Newtonsoft.Json;
@@ -13,14 +14,13 @@ namespace Bolnica.Repository.Pregledi
     public class FileRepositoryOperacija : IRepositoryOperacija
     {
         private string fileLocation;
-
         public static bool serializeKorisnik;
-
         public FileRepositoryOperacija()
         {
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
+
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(FileLocation, @"Resources\", "Operacije.json");
         }

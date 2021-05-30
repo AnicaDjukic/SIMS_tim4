@@ -1,0 +1,14 @@
+[
+    {
+        "BrojKartona": 1,
+        "Zanimanje": "student",
+        "BracniStatus": 0,
+        "Osiguranje": true
+    },
+    {
+        "BrojKartona": 352,
+        "Zanimanje": "trgovac",
+        "BracniStatus": 0,
+        "Osiguranje": false
+    }
+]
