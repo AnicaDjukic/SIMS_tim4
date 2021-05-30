@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using System.IO;
+using Bolnica.Model.Pregledi;
 using Model.Pacijenti;
-using Bolnica.Repository.Korisnici;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
-namespace Bolnica.Model.Pregledi
+namespace Bolnica.Repository.Pregledi
 {
-
     public class FileRepositorySastojak : IRepositorySastojak
-       
     {
         private string fileLocation;
 
@@ -23,6 +21,7 @@ namespace Bolnica.Model.Pregledi
         public List<Sastojak> GetAll()
         {
             FileRepositoryPacijent.serializeAlergeni = true;
+
             var json = File.ReadAllText(fileLocation);
             var alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             return alergeni;
@@ -31,6 +30,7 @@ namespace Bolnica.Model.Pregledi
         public void Save(Sastojak noviSastojak)
         {
             FileRepositoryPacijent.serializeAlergeni = true;
+
             var json = File.ReadAllText(fileLocation);
             List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
             if (alergeni == null)
@@ -40,6 +40,7 @@ namespace Bolnica.Model.Pregledi
             alergeni.Add(noviSastojak);
             File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
         }
+
 
         public void Delete(Sastojak sastojak)
         {
@@ -59,7 +60,6 @@ namespace Bolnica.Model.Pregledi
                 File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
             }
         }
-
         public void Update(Sastojak entity)
         {
             FileRepositoryPacijent.serializeAlergeni = true;
