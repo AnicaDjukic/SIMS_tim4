@@ -2,6 +2,7 @@
 using Bolnica.Model.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -75,11 +76,14 @@ namespace Bolnica.Forms
                     BrojOcene = brojOcene,
                     Datum = DateTime.Now,
                     Sadrzaj = sadrzaj.Text,
+                    Pregled = new Pregled(),
                     Pacijent = pacijent,
                     Lekar = new Lekar()
                 };
                 ocena.Lekar.Jmbg = null;
                 ocena.Lekar.KorisnickoIme = null;
+                ocena.Pregled.Id = -1;
+                ocena.Pregled.Pacijent = pacijent;
 
                 storageOcene.Save(ocena);
 

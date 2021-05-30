@@ -30,14 +30,28 @@ namespace Model.Pregledi
         
         public int Id { get; set; }
         public DateTime Datum { get; set; }
+        public bool ShouldSerializeDatum()
+        {
+            return FileRepositoryPregled.serializePregled;
+        }
         public int Trajanje { get; set; }
+        public bool ShouldSerializeTrajanje()
+        {
+            return FileRepositoryPregled.serializePregled;
+        }
         public bool Zavrsen { get; set; }
+        public bool ShouldSerializeZavrsen()
+        {
+            return FileRepositoryPregled.serializePregled;
+        }
         public bool Hitan { get; set; }
+        public bool ShouldSerializeHitan()
+        {
+            return FileRepositoryPregled.serializePregled;
+        }
         public Anamneza Anamneza { get; set; }
         public Lekar Lekar { get; set; }
         public Prostorija Prostorija { get; set; }
         public Pacijent Pacijent { get; set; }
-
-       
     }
 }

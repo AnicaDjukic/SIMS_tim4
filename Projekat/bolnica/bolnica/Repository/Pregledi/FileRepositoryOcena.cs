@@ -15,14 +15,18 @@ namespace Bolnica.Repository.Pregledi
 
         public FileRepositoryOcena()
         {
+            FileRepositoryPregled.serializePregled = false;
             FileRepositoryPregled.serializeKorisnik = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
             string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Ocene.json");
         }
 
         public void Delete(Ocena entity)
         {
+            FileRepositoryPregled.serializePregled = false;
             FileRepositoryPregled.serializeKorisnik = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
             List<Ocena> ocene = GetAll();
             foreach (Ocena o in ocene)
             {
@@ -37,7 +41,9 @@ namespace Bolnica.Repository.Pregledi
 
         public List<Ocena> GetAll()
         {
+            FileRepositoryPregled.serializePregled = false;
             FileRepositoryPregled.serializeKorisnik = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
             var json = File.ReadAllText(FileLocation);
             var ocene = JsonConvert.DeserializeObject<List<Ocena>>(json);
             if (ocene is null)
@@ -54,7 +60,9 @@ namespace Bolnica.Repository.Pregledi
 
         public void Save(Ocena newEntity)
         {
+            FileRepositoryPregled.serializePregled = false;
             FileRepositoryPregled.serializeKorisnik = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
             List<Ocena> ocene = GetAll();
             ocene.Add(newEntity);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(ocene));
@@ -62,7 +70,9 @@ namespace Bolnica.Repository.Pregledi
 
         public void Update(Ocena entity)
         {
+            FileRepositoryPregled.serializePregled = false;
             FileRepositoryPregled.serializeKorisnik = false;
+            FileRepositoryAnamneza.serializeAnamneza = false;
             List<Ocena> ocene = GetAll();
             foreach (Ocena ocena in ocene)
             {

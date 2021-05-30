@@ -99,6 +99,7 @@ namespace Bolnica.Forms
 
                     AntiTrol antiTrol = new AntiTrol
                     {
+                        Id = DobijIdAntiTrol(),
                         Pacijent = prikaz.Pacijent,
                         Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
                     };
@@ -107,6 +108,20 @@ namespace Bolnica.Forms
                     FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikaz.Pacijent*/);
                 }
             }
+        }
+
+        private int DobijIdAntiTrol()
+        {
+            List<AntiTrol> antiTrolList = storageAntiTrol.GetAll();
+            int max = 0;
+            foreach (AntiTrol antiTrol in antiTrolList)
+            {
+                if (antiTrol.Id > max)
+                {
+                    max = antiTrol.Id;
+                }
+            }
+            return max + 1;
         }
 
         private void OtkaziIzmenu(object sender, RoutedEventArgs e)

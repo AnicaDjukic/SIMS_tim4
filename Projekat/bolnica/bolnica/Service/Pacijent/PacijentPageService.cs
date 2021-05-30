@@ -8,6 +8,7 @@ using Model.Pacijenti;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Bolnica.Service
@@ -133,16 +134,32 @@ namespace Bolnica.Service
         {
             AntiTrol antiTrol = new AntiTrol
             {
+                Id = DobijIdAntiTrol(),
                 Pacijent = prikazOperacije.Pacijent,
                 Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
             };
             storageAntiTrol.Save(antiTrol);
         }
 
+        private int DobijIdAntiTrol()
+        {
+            List<AntiTrol> antiTrolList = storageAntiTrol.GetAll();
+            int max = 0;
+            foreach (AntiTrol antiTrol in antiTrolList)
+            {
+                if (antiTrol.Id > max)
+                {
+                    max = antiTrol.Id;
+                }
+            }
+            return max + 1;
+        }
+
         private void SacuvajAntiTrol(PrikazPregleda prikazPregleda)
         {
             AntiTrol antiTrol = new AntiTrol
             {
+                Id = DobijIdAntiTrol(),
                 Pacijent = prikazPregleda.Pacijent,
                 Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
             };

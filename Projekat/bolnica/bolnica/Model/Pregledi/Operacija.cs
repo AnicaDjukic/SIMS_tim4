@@ -7,7 +7,10 @@ namespace Model.Pregledi
    {
 
         public TipOperacije TipOperacije { get; set; }
-
+        public bool ShouldSerializeTipOperacije()
+        {
+            return FileRepositoryPregled.serializePregled;
+        }
 
         public Operacija()
         {

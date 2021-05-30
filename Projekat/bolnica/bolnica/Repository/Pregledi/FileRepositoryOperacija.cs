@@ -20,7 +20,6 @@ namespace Bolnica.Repository.Pregledi
             serializeKorisnik = false;
             FileRepositoryZaliha.serializeProstorija = false;
             FileRepositoryAnamneza.serializeAnamneza = false;
-
             string FileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(FileLocation, @"Resources\", "Operacije.json");
         }
