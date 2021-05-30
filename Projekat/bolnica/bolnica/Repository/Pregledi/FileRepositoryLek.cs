@@ -1,5 +1,6 @@
-﻿using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Korisnici;
 using Model.Pacijenti;
+
 using Model.Pregledi;
 using Newtonsoft.Json;
 using System;
@@ -11,14 +12,13 @@ namespace Bolnica.Repository.Pregledi
 {
     public class FileRepositoryLek : IRepositoryLek
     {
-        public string FileLocation { get; set; }
+        private string fileLocation;
         public static bool serializeLek;
-
         public FileRepositoryLek()
         {
             serializeLek = true;
             string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            FileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Lekovi.json");
+            fileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Lekovi.json");
         }
 
         public void Delete(Lek entity)
@@ -34,54 +34,91 @@ namespace Bolnica.Repository.Pregledi
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(lekovi));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekovi));
+            
         }
 
         public List<Lek> GetAll()
         {
             serializeLek = true;
-            FileRepositoryPacijent.serializeAlergeni = false;
-            var json = File.ReadAllText(FileLocation);
+            FileStoragePacijenti.serializeAlergeni = false;
+            var json = File.ReadAllText(fileLocation);
             var lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
-            if (lekovi is null)
+            if (lekovi?.Count == null)
             {
                 lekovi = new List<Lek>();
             }
             return lekovi;
         }
 
-        public Lek GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(Lek newEntity)
+        public void Save(Lek noviLek)
         {
             serializeLek = true;
-            FileRepositoryPacijent.serializeAlergeni = false;
-            List<Lek> lekovi = GetAll();
+            FileStoragePacijenti.serializeAlergeni = false;
+            var json = File.ReadAllText(fileLocation);
+            List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
             if (lekovi == null)
             {
                 lekovi = new List<Lek>();
             }
-            lekovi.Add(newEntity);
+            lekovi.Add(noviLek);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(lekovi));
         }
 
-        public void Update(Lek entity)
+        public void Update(Lek noviLek)
         {
             serializeLek = true;
             FileRepositoryPacijent.serializeAlergeni = false;
             List<Lek> lekovi = GetAll();
             for (int i = 0; i < lekovi.Count; i++)
             {
-                if (entity.Id.Equals(lekovi[i].Id))
+                if (noviLek.Id.Equals(lekovi[i].Id))
                 {
-                    lekovi[i] = entity;
+                    lekovi[i] = noviLek;
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(lekovi));
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekovi));
+        }
+
+        public void Delete(Lek lekZaBrisanje)
+        {
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
+            var json = File.ReadAllText(fileLocation);
+            List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
+            if (lekovi != null)
+            {
+                for (int i = 0; i < lekovi.Count; i++)
+                {
+                    if (lekovi[i].Id == lekZaBrisanje.Id)
+                    {
+                        lekovi.Remove(lekovi[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(lekovi));
+            }
+        }
+        public Lek GetById(int id)
+        {
+            serializeLek = true;
+            FileStoragePacijenti.serializeAlergeni = false;
+            Lek rezultat = new Lek();
+            var json = File.ReadAllText(fileLocation);
+            List<Lek> lekovi = JsonConvert.DeserializeObject<List<Lek>>(json);
+            if (lekovi != null)
+            {
+                for (int i = 0; i < lekovi.Count; i++)
+                {
+                    if (lekovi[i].Id == id)
+                    {
+                        rezultat = lekovi[i];
+                        break;
+                    }
+                }
+            }
+            return rezultat;
         }
     }
 }

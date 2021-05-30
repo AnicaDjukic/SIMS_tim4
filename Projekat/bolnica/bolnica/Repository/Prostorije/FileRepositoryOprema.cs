@@ -1,4 +1,6 @@
-﻿using Bolnica.Model.Prostorije;
+using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Prostorije;
+using Model.Prostorije;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -49,7 +51,22 @@ namespace Bolnica.Repository.Prostorije
 
         public Oprema GetById(string id)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeOprema = true;
+            string json = File.ReadAllText(fileLocation);
+            Oprema rezultat = new Oprema();
+            List<Oprema> oprema = JsonConvert.DeserializeObject<List<Oprema>>(json);
+            if (oprema != null)
+            {
+                for (int i = 0; i < oprema.Count; i++)
+                {
+                    if (oprema[i].Sifra == id)
+                    {
+                        rezultat = oprema[i];
+                        break;
+                    }
+                }
+            }
+            return rezultat;
         }
 
         public void Save(Oprema newEntity)
@@ -67,7 +84,21 @@ namespace Bolnica.Repository.Prostorije
 
         public void Update(Oprema entity)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeOprema = true;
+            string json = File.ReadAllText(fileLocation);
+            List<Oprema> oprema = JsonConvert.DeserializeObject<List<Oprema>>(json);
+            if (oprema != null)
+            {
+                for (int i = 0; i < oprema.Count; i++)
+                {
+                    if (oprema[i].Sifra == opremaZaBrisanje.Sifra)
+                    {
+                        oprema.Remove(oprema[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(oprema));
+            }
         }
     }
 }

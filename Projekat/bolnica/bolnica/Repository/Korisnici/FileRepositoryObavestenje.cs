@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Newtonsoft.Json;
-using Model.Pregledi;
-using Bolnica.Repository.Korisnici;
 
-namespace Bolnica.Model.Korisnici
+using Bolnica.Model.Korisnici;
+using Model.Pregledi;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
+namespace Bolnica.Repository.Korisnici
 {
-    public class FileRepositoryObavestenje : IRepositoryObavestenje
+    class FileRepositoryObavestenje : IRepositoryObavestenje
+
     {
         private string fileLocation;
 
         public FileRepositoryObavestenje()
         {
             FileRepositoryPregled.serializeKorisnik = false;
+
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             fileLocation = System.IO.Path.Combine(path, @"Resources", "Obavestenja.json");
         }
@@ -22,6 +25,7 @@ namespace Bolnica.Model.Korisnici
         public List<Obavestenje> GetAll()
         {
             FileRepositoryPregled.serializeKorisnik = false;
+
             var json = File.ReadAllText(fileLocation);
             var obavestenja = JsonConvert.DeserializeObject<List<Obavestenje>>(json);
             return obavestenja;
@@ -87,6 +91,7 @@ namespace Bolnica.Model.Korisnici
                 if (o.Id == id)
                     obavestenje = o;
             return obavestenje;
+
         }
     }
 }

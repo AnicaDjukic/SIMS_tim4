@@ -12,5 +12,13 @@ namespace Bolnica.Model.Prostorije
         public DateTime KrajRenoviranja { get; set; }
         public string Opis { get; set; }
         public Prostorija Prostorija { get; set; }
+        public int BrojNovihProstorija { get; set; }
+        public List<Prostorija> ProstorijeZaSpajanje { get; set; }
+
+        public Renoviranje()
+        {
+            BrojNovihProstorija = 0;
+            ProstorijeZaSpajanje = new List<Prostorija>();
+        }
     }
 }

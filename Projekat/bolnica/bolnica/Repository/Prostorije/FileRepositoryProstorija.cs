@@ -58,7 +58,22 @@ namespace Bolnica.Repository.Prostorije
 
         public Prostorija GetById(string id)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeProstorija = true;
+            string json = File.ReadAllText(fileLocation);
+            Prostorija prostorija = new Prostorija();
+            List<Prostorija> prostorije = JsonConvert.DeserializeObject<List<Prostorija>>(json);
+            if (prostorije != null)
+            {
+                for (int i = 0; i < prostorije.Count; i++)
+                {
+                    if (prostorije[i].BrojProstorije == id)
+                    {
+                        prostorija = prostorije[i];
+                        break;
+                    }
+                }
+            }
+            return prostorija;
         }
 
         public void Update(Prostorija entity)
