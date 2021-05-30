@@ -310,8 +310,8 @@
         <Label Content="Vreme uzimanja" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Label Content="Datum prekida" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-       
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriCommand}"
+
+        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
                           Content="Potvrdi" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="11"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55"/>
         
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>

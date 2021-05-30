@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Bolnica.ViewModel
 {
@@ -33,8 +35,6 @@ namespace Bolnica.ViewModel
         private List<Anamneza> sveAnamneze = new List<Anamneza>();
         private int idAnamneze;
         private bool DaLiJePregled = false;
-        public DataGrid dataGridLekovi;
-        public Button izbrisiButton;
         public ScrollViewer ScrollBar;
 
         public static ObservableCollection<PrikazRecepta> Recepti
@@ -63,6 +63,39 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private bool fokusirajZatvoriDugme;
+        public bool FokusirajZatvoriDugme
+        {
+            get { return fokusirajZatvoriDugme; }
+            set
+            {
+                fokusirajZatvoriDugme = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private PrikazRecepta selektovaniItem;
+        public PrikazRecepta SelektovaniItem
+        {
+            get { return selektovaniItem; }
+            set
+            {
+                selektovaniItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int selektovaniIndeks;
+        public int SelektovaniIndeks
+        {
+            get { return selektovaniIndeks; }
+            set
+            {
+                selektovaniIndeks = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         #region KOMANDE
         private RelayCommand obrisiReceptKomanda;
@@ -78,7 +111,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_ObrisiReceptKomanda(object obj)
         {
-            inject.AnamnezaLekarController.ObrisiRecept(new AnamnezaLekarDTO(dataGridLekovi));
+            inject.AnamnezaLekarController.ObrisiRecept(new AnamnezaLekarDTO(SelektovaniIndeks));
         }
 
         public bool CanExecute_ObrisiReceptKomanda(object obj)
@@ -121,7 +154,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_VidiReceptKomanda(object obj)
         {
-            inject.AnamnezaLekarController.VidiDetaljeOReceptu(new AnamnezaLekarDTO(dataGridLekovi, trenutniPacijent));
+            inject.AnamnezaLekarController.VidiDetaljeOReceptu(new AnamnezaLekarDTO(SelektovaniIndeks, trenutniPacijent, SelektovaniItem));
         }
 
         public bool CanExecute_VidiReceptKomanda(object obj)
@@ -206,7 +239,10 @@ namespace Bolnica.ViewModel
 
         public void Executed_PredjiNaScrollBarKomanda(object obj)
         {
-            inject.AnamnezaLekarController.PredjiNaScrollBar(new AnamnezaLekarDTO(izbrisiButton));
+            FokusirajZatvoriDugme = true;
+            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Last);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+            FokusirajZatvoriDugme = false;
         }
 
         public bool CanExecute_PredjiNaScrollBarKomanda(object obj)
@@ -243,6 +279,7 @@ namespace Bolnica.ViewModel
             InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
             PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
             NapraviKomande();
+           
         }
 
         public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
@@ -252,6 +289,7 @@ namespace Bolnica.ViewModel
             FiltirajLekove();
             PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
             NapraviKomande();
+     
         }
         #region POMOCNE FUNKCIJE
         public void NapraviKomande()

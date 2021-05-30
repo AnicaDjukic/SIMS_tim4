@@ -22,9 +22,12 @@ namespace Bolnica.DTO
         public PrikazOperacije trenutnaOperacija { get; set; }
         public List<Anamneza> sveAnamneze { get; set; }
         public Anamneza novaAnamneza { get; set; }
-        public DataGrid dataGridLekovi { get; set; }
+        
+        public int selektovaniIndeks { get; set; }
+
+        public PrikazRecepta selektovaniItem { get; set; }
+
         public ScrollViewer ScroolBar { get; set; }
-        public Button IzbrisiButton { get; set; }
 
         public Lekar ulogovaniLekar { get; set; }
 
@@ -79,24 +82,22 @@ namespace Bolnica.DTO
             this.novaAnamneza = novaAnamneza;
             this.trenutniPregled = trenutniPregled;
         }
-        public AnamnezaLekarDTO(DataGrid dataGridLekovi)
+        public AnamnezaLekarDTO(int selektovaniIndeks)
         {
-            this.dataGridLekovi = dataGridLekovi;
+            this.selektovaniIndeks = selektovaniIndeks;
         }
         public AnamnezaLekarDTO(Lekar ulogovaniLekar, Pacijent trenutniPacijent)
         {
             this.ulogovaniLekar = ulogovaniLekar;
             this.trenutniPacijent = trenutniPacijent;
         }
-        public AnamnezaLekarDTO(DataGrid dataGridLekovi, Pacijent trenutniPacijent)
+        public AnamnezaLekarDTO(int selektovaniIndeks, Pacijent trenutniPacijent, PrikazRecepta selektovaniItem )
         {
-            this.dataGridLekovi = dataGridLekovi;
+            this.selektovaniIndeks = selektovaniIndeks;
             this.trenutniPacijent = trenutniPacijent;
+            this.selektovaniItem = selektovaniItem;
         }
-        public AnamnezaLekarDTO(Button IzbrisiButton)
-        {
-            this.IzbrisiButton = IzbrisiButton;
-        }
+      
         public AnamnezaLekarDTO(ScrollViewer ScroolBar)
         {
             this.ScroolBar = ScroolBar;

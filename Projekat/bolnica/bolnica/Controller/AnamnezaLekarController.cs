@@ -58,10 +58,6 @@ namespace Bolnica.Controller
         {
             service.VidiDetaljeOReceptu(anamnezaDTO);
         }
-        public void PredjiNaScrollBar(AnamnezaLekarDTO anamnezaDTO)
-        {
-            service.PredjiNaScrollBar(anamnezaDTO);
-        }
         public void ZaustaviStrelice(AnamnezaLekarDTO anamnezaDTO)
         {
             service.ZaustaviStrelice(anamnezaDTO);

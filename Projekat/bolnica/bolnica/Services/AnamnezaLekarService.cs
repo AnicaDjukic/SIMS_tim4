@@ -192,9 +192,9 @@ namespace Bolnica.Services
         }
         public void ObrisiRecept(AnamnezaLekarDTO anamnezaDTO)
         {
-            if (anamnezaDTO.dataGridLekovi.SelectedCells.Count > 0)
+            if (anamnezaDTO.selektovaniIndeks > -1)
             {
-                int index = anamnezaDTO.dataGridLekovi.SelectedIndex;
+                int index = anamnezaDTO.selektovaniIndeks;
                 AnamnezaLekarViewModel.Recepti.RemoveAt(index);
             }
         }
@@ -207,7 +207,7 @@ namespace Bolnica.Services
 
         public void VidiDetaljeOReceptu(AnamnezaLekarDTO anamnezaDTO)
         {
-            if (anamnezaDTO.dataGridLekovi.SelectedCells.Count > 0)
+            if (anamnezaDTO.selektovaniIndeks > -1)
             {
                 ReceptLekarViewModel vm = new ReceptLekarViewModel(anamnezaDTO.trenutniPacijent, PretvoriPrikazReceptaURecept(anamnezaDTO));
                 FormVidiReceptLekar form = new FormVidiReceptLekar(vm);
@@ -217,19 +217,13 @@ namespace Bolnica.Services
         private Recept PretvoriPrikazReceptaURecept(AnamnezaLekarDTO anamnezaDTO)
         {
             PrikazRecepta selektovaniPrikazRecepta = new PrikazRecepta();
-            selektovaniPrikazRecepta = anamnezaDTO.dataGridLekovi.SelectedItem as PrikazRecepta;
+            selektovaniPrikazRecepta = anamnezaDTO.selektovaniItem;
             Recept selektovaniRecept = new Recept(selektovaniPrikazRecepta.Id, selektovaniPrikazRecepta.lek, selektovaniPrikazRecepta.DatumIzdavanja, selektovaniPrikazRecepta.Kolicina, selektovaniPrikazRecepta.VremeUzimanja, selektovaniPrikazRecepta.Trajanje);
             return selektovaniRecept;
         }
 
 
-        public void PredjiNaScrollBar(AnamnezaLekarDTO anamnezaDTO)
-        {
-
-            anamnezaDTO.IzbrisiButton.MoveFocus(new TraversalRequest(FocusNavigationDirection.Right));
-
-            
-        }
+        
 
         public void ZaustaviStrelice(AnamnezaLekarDTO anamnezaDTO)
         {
@@ -239,6 +233,6 @@ namespace Bolnica.Services
             
         }
 
-        
+            
     }
 }

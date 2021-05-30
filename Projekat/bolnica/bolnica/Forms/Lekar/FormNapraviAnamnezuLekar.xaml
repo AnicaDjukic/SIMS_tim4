@@ -5,6 +5,7 @@
          xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
         Title="FormNapraviAnamnezuLekar" Height="670" Width="630">
     <Window.InputBindings>
@@ -272,7 +273,7 @@
 
                     <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
                     <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
-                    <DataGrid Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
                         </DataGrid.InputBindings>
@@ -303,7 +304,7 @@
                          Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
                          Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
-                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
+                    <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
                          Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
                         <Button.InputBindings>
                             <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>

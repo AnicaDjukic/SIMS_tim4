@@ -26,8 +26,6 @@ namespace Bolnica.Forms
             if (viewModel.ZatvoriAction == null)
                 viewModel.ZatvoriAction = new Action(this.Close);
             viewModel.ScrollBar = ScroolBar;
-            viewModel.izbrisiButton = IzbrisiButton;
-            viewModel.dataGridLekovi = dataGridLekovi;
             this.Show();
         }
     }
