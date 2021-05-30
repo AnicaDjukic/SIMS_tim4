@@ -54,5 +54,10 @@ namespace Bolnica.Services.Prostorije
         {
             return ukKolicina - rezervisanaKolicina >= 0;
         }
+
+        internal Oprema DobaviOpremu(string sifra)
+        {
+            return repository.GetById(sifra);
+        }
     }
 }

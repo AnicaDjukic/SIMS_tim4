@@ -46,7 +46,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void ObrisiBuduceZaliheIzabranogDatuma(string sifraOpreme, DateTime datum)
         {
-            serviceBuducaZaliha.ObrisiBuduceZalihe(sifraOpreme, datum);
+            serviceBuducaZaliha.ObrisiBuduceZaliheOpreme(sifraOpreme, datum);
         }
 
         private BuducaZaliha NapraviBuducuZalihu(Zaliha z)

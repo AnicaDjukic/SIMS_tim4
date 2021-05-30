@@ -1,5 +1,6 @@
 ﻿using bolnica;
 using Bolnica.Model.Korisnici;
+using Bolnica.Services.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,20 +20,19 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class ViewFormObavestenje : Window
     {
+        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
         public ViewFormObavestenje(int id)
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
-            FileStorageObavestenja storage = new FileStorageObavestenja();
-            
-            foreach(Obavestenje o in storage.GetAll())
-            {
-                if(o.Id == id)
-                {
-                    txtNaslov.Text = o.Naslov;
-                    txtSadrzaj.Text = o.Sadrzaj;
-                }
-            }
+            Owner = App.Current.MainWindow;
+            PrikaziObavestenje(id);
+        }
+
+        private void PrikaziObavestenje(int id)
+        {
+            Obavestenje obavestenje = serviceObavestenje.DobaviObavestenje(id);
+            txtNaslov.Text = obavestenje.Naslov;
+            txtSadrzaj.Text = obavestenje.Sadrzaj;
         }
 
         private void Button_Click_Zatvori(object sender, RoutedEventArgs e)

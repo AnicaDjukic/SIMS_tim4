@@ -32,6 +32,21 @@ namespace Bolnica.Services.Korisnici
             }
         }
 
+        public Obavestenje DobaviObavestenje(int id)
+        {
+            Obavestenje obavestenje = new Obavestenje();
+            foreach (Obavestenje o in repository.GetAll())
+            {
+                if (o.Id == id)
+                {
+                    obavestenje = o;
+                    break;
+                }
+            }
+
+            return obavestenje;
+        }
+
         public List<Obavestenje> NadjiObavestenjaKorisnika(string korisnickoIme)
         {
             

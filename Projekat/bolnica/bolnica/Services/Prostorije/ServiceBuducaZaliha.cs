@@ -15,14 +15,14 @@ namespace Bolnica.Services.Prostorije
         {
             repository = new FileRepositoryBuducaZaliha();
         }
-        public List<BuducaZaliha> DobaviBuduceZalihe(Oprema opremaZaSkladistenje)
+        public List<BuducaZaliha> DobaviBuduceZalihe(string sifraOpreme)
         {
             List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
             if (repository.GetAll() != null)
             {
                 foreach (BuducaZaliha bz in repository.GetAll())
                 {
-                    if (bz.Oprema.Sifra == opremaZaSkladistenje.Sifra && bz.Datum <= DateTime.Now.Date)
+                    if (bz.Oprema.Sifra == sifraOpreme && bz.Datum <= DateTime.Now.Date)
                     {
                         buduceZalihe.Add(bz);
                         repository.Delete(bz);
@@ -33,7 +33,7 @@ namespace Bolnica.Services.Prostorije
             return buduceZalihe;
         }
 
-        public void ObrisiBuduceZalihe(string sifraOpreme, DateTime datum)
+        public void ObrisiBuduceZaliheOpreme(string sifraOpreme, DateTime datum)
         {
             foreach (BuducaZaliha bz in repository.GetAll())
             {
@@ -45,6 +45,38 @@ namespace Bolnica.Services.Prostorije
         public void SacuvajBuduceZalihe(List<BuducaZaliha> buduceZalihe)
         {
             repository.Save(buduceZalihe);
+        }
+
+        public List<BuducaZaliha> DobaviBuduceZaliheIsteklogDatuma()
+        {
+            List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
+            foreach (BuducaZaliha bz in repository.GetAll())
+            {
+                if (bz.Datum <= DateTime.Now.Date)
+                {
+                    buduceZalihe.Add(bz);
+                }
+            }
+
+            return buduceZalihe;
+        }
+
+        internal void ObrisiBuduceZalihe(List<BuducaZaliha> buduceZalihe)
+        {
+            foreach(BuducaZaliha bz in buduceZalihe)
+            {
+                repository.Delete(bz);
+            }
+        }
+
+        public List<BuducaZaliha> DobaviSveBuduceZalihe()
+        {
+            return repository.GetAll();
+        }
+
+        public void ObrisiBuducuZalihu(BuducaZaliha bz)
+        {
+            repository.Delete(bz);
         }
     }
 }

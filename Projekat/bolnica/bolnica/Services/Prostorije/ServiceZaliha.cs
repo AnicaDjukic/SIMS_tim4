@@ -1,27 +1,22 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
-using Model.Prostorije;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Bolnica.Services.Prostorije
 {
     public class ServiceZaliha
     {
         private RepositoryZaliha repository;
-
         public ServiceZaliha()
         {
             repository = new FileRepositoryZaliha();
         }
 
-        public void ObrisiZalihe(Oprema opremaZaSkladistenje)
+        public void ObrisiZalihe(string sifraOpreme)
         {
             foreach (Zaliha z in repository.GetAll())
             {
-                if (z.Oprema.Sifra == opremaZaSkladistenje.Sifra)
+                if (z.Oprema.Sifra == sifraOpreme)
                     repository.Delete(z);
             }
         }
@@ -37,16 +32,22 @@ namespace Bolnica.Services.Prostorije
             }
         }
 
-        public List<Zaliha> DobaviZaliheOpreme(Oprema opremaZaSkladistenje)
+        public List<Zaliha> DobaviZaliheOpreme(string sifraOpreme)
         {
             List<Zaliha> zaliheOpreme = new List<Zaliha>();
             foreach (Zaliha z in repository.GetAll())
             {
-                if (opremaZaSkladistenje.Sifra == z.Oprema.Sifra)
+                if (sifraOpreme == z.Oprema.Sifra)
                     zaliheOpreme.Add(z);
             }
 
             return zaliheOpreme;
+        }
+
+        internal void SacuvajZalihe(List<Zaliha> zalihe)
+        {
+            foreach (Zaliha z in zalihe)
+                repository.Save(z);
         }
 
         public void SacuvajZalihu(Zaliha zaliha)
@@ -73,6 +74,20 @@ namespace Bolnica.Services.Prostorije
             }
 
             return false;
+        }
+
+        internal List<Zaliha> NapraviZaliheOdBuducihZaliha(List<BuducaZaliha> buduceZalihe)
+        {
+            List<Zaliha> noveZalihe = new List<Zaliha>();
+            foreach (BuducaZaliha bz in buduceZalihe)
+            {
+                Zaliha z = new Zaliha { Kolicina = bz.Kolicina };
+                z.Prostorija = bz.Prostorija;
+                z.Oprema = bz.Oprema;
+                noveZalihe.Add(z);
+            }
+
+            return noveZalihe;
         }
     }
 }
