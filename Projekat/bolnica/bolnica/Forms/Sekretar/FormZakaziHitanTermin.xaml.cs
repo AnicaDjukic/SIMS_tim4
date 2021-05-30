@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -30,7 +31,7 @@ namespace Bolnica.Forms.Sekretar
         private List<Lekar> lekari;
         private FileRepositoryPacijent storagePacijenti;
         private List<Pacijent> pacijenti;
-        private FileStorageProstorija storageProstorije;
+        private FileRepositoryProstorija storageProstorije;
         private List<Prostorija> prostorije;
         private FileRepositoryPregled sviPregledi;
         private FileRepositoryOperacija sveOperacije;
@@ -46,8 +47,8 @@ namespace Bolnica.Forms.Sekretar
             lekari = storageLekari.GetAll();
             storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
-            storageProstorije = new FileStorageProstorija();
-            prostorije = storageProstorije.GetAllProstorije();
+            storageProstorije = new FileRepositoryProstorija();
+            prostorije = storageProstorije.GetAll();
             sviPregledi = new FileRepositoryPregled();
             sveOperacije = new FileRepositoryOperacija();
             dataGrid = dg;

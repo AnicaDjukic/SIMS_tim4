@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -32,7 +33,7 @@ namespace Bolnica.Sekretar
         public const int PRAZNA_ANAMNEZA = -1;
         private FileRepositoryPacijent skladistePacijenata;
         private FileRepositoryLekar skladisteLekara;
-        private FileStorageProstorija skladisteProstorija;
+        private FileRepositoryProstorija skladisteProstorija;
         private FileRepositoryPregled skladistePregleda;
         private FileRepositoryOperacija skladisteOperacija;
         private FileRepositoryGodisnji skladisteGodisnjih;
@@ -57,11 +58,11 @@ namespace Bolnica.Sekretar
             skladisteOperacija = new FileRepositoryOperacija();
             skladistePacijenata = new FileRepositoryPacijent();
             skladisteLekara = new FileRepositoryLekar();
-            skladisteProstorija = new FileStorageProstorija();
+            skladisteProstorija = new FileRepositoryProstorija();
             skladisteGodisnjih = new FileRepositoryGodisnji();
             sviPacijenti = skladistePacijenata.GetAll();
             sviLekari = skladisteLekara.GetAll();
-            sveProstorije = skladisteProstorija.GetAllProstorije();
+            sveProstorije = skladisteProstorija.GetAll();
             sviPregledi = skladistePregleda.GetAll();
             sveOperacije = skladisteOperacija.GetAll();
             sviGodisnji = skladisteGodisnjih.GetAll();

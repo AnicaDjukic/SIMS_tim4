@@ -3,6 +3,7 @@ using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -35,7 +36,7 @@ namespace Bolnica.Sekretar
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
         private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileRepositoryProstorija sveProstorije = new FileRepositoryProstorija();
         private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
@@ -53,7 +54,7 @@ namespace Bolnica.Sekretar
             listaPregleda = sviPregledi.GetAll();
             listaOperacija = sveOperacije.GetAll();
             listaPacijenata = sviPacijenti.GetAll();
-            listaProstorija = sveProstorije.GetAllProstorije();
+            listaProstorija = sveProstorije.GetAll();
             listaLekara = sviLekari.GetAll();
 
             for (int i = 0; i < listaPregleda.Count; i++)

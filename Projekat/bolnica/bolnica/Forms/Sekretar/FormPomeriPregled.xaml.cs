@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -28,7 +29,7 @@ namespace Bolnica.Sekretar
         private List<Godisnji> godisnji = new List<Godisnji>();
         private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
         private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileRepositoryProstorija sveProstorije = new FileRepositoryProstorija();
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
         private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryGodisnji sviGodisnji = new FileRepositoryGodisnji();
@@ -47,7 +48,7 @@ namespace Bolnica.Sekretar
             godisnji = sviGodisnji.GetAll();
             lekari = sviLekari.GetAll();
             pacijenti = sviPacijenti.GetAll();
-            prostorije = sveProstorije.GetAllProstorije();
+            prostorije = sveProstorije.GetAll();
 
             txtTrajanje.Text = trenutniPregled.Trajanje.ToString();
             txtTrajanje.IsEnabled = false;

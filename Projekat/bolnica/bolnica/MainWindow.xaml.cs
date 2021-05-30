@@ -39,14 +39,14 @@ namespace bolnica
                     {
                         var s = new FormUpravnik();
                         s.Show();
-                    }
-                    else if (korisnik.TipKorisnika == TipKorisnika.sekretar)
+                    }*/
+                    if (korisnik.TipKorisnika == TipKorisnika.sekretar)
                     {
                         var s = new FormSekretar();
                         s.Show();
 
-                    }*/
-                    if (korisnik.TipKorisnika == TipKorisnika.lekar)
+                    }
+                    else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
                         FileRepositoryLekar storageLekar = new FileRepositoryLekar();
                         List<Lekar> lekari = storageLekar.GetAll();

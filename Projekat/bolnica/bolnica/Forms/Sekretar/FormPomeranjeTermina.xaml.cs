@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -34,7 +35,7 @@ namespace Bolnica.Forms.Sekretar
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
         private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryPacijent sviPacijenti = new FileRepositoryPacijent();
-        private FileStorageProstorija sveProstorije = new FileStorageProstorija();
+        private FileRepositoryProstorija sveProstorije = new FileRepositoryProstorija();
         private FileRepositoryLekar sviLekari = new FileRepositoryLekar();
         private List<Pacijent> listaPacijenata = new List<Pacijent>();
         private List<Prostorija> listaProstorija = new List<Prostorija>();
@@ -70,7 +71,7 @@ namespace Bolnica.Forms.Sekretar
             listaPregleda = sviPregledi.GetAll();
             listaOperacija = sveOperacije.GetAll();
             listaPacijenata = sviPacijenti.GetAll();
-            listaProstorija = sveProstorije.GetAllProstorije();
+            listaProstorija = sveProstorije.GetAll();
             listaLekara = sviLekari.GetAll();
             List<TimeSpan> ts = new List<TimeSpan>();
             List<double> razlikaDatuma = new List<double>();
