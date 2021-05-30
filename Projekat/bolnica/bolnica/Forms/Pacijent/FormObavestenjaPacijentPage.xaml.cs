@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -22,10 +23,10 @@ namespace Bolnica.Forms
         public List<Obavestenje> Obavestenja { get; set; }
         private Pacijent pacijent = new Pacijent();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageAnamneza storageAnamneze = new FileStorageAnamneza();
-        private FileStorageLek storageLek = new FileStorageLek();
-        private FileStorageObavestenja storageObavestenja = new FileStorageObavestenja();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryAnamneza storageAnamneze = new FileRepositoryAnamneza();
+        private FileRepositoryLek storageLek = new FileRepositoryLek();
+        private FileRepositoryObavestenje storageObavestenja = new FileRepositoryObavestenje();
 
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Anamneza> anamneze = new List<Anamneza>();
@@ -60,7 +61,7 @@ namespace Bolnica.Forms
                 }
             }
             DanasnjiDatum = "Obaveštenja o lekovima za dan " + DateTime.Today.ToShortDateString() + ":";
-            pregledi = storagePregledi.GetAllPregledi();
+            pregledi = storagePregledi.GetAll();
             anamneze = storageAnamneze.GetAll();
 
             foreach (Pregled pregled in pregledi)

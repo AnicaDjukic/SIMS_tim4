@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bolnica.Repository.Pregledi;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,32 +17,32 @@ namespace Model.Pregledi
         public string Zabeleska { get; set; }
         public bool ShouldSerializeZabeleska()
         {
-            return FileStorageBeleska.serializeBeleska;
+            return FileRepositoryBeleska.serializeBeleska;
         }
 
         public bool Podsetnik { get; set; }
         public bool ShouldSerializePodsetnik()
         {
-            return FileStorageBeleska.serializeBeleska;
+            return FileRepositoryBeleska.serializeBeleska;
         }
 
         public TimeSpan Vreme { get; set; }
         public bool ShouldSerializeVreme()
         {
-            return FileStorageBeleska.serializeBeleska;
+            return FileRepositoryBeleska.serializeBeleska;
 
         }
 
         public DateTime DatumPrekida { get; set; }
         public bool ShouldSerializeDatumPrekida()
         {
-            return FileStorageBeleska.serializeBeleska;
+            return FileRepositoryBeleska.serializeBeleska;
         }
 
         public bool Prikazana { get; set; }
         public bool ShouldSerializePrikazana()
         {
-            return FileStorageBeleska.serializeBeleska;
+            return FileRepositoryBeleska.serializeBeleska;
         }
     }
 }

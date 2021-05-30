@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -23,9 +24,10 @@ namespace Bolnica.Forms
     {
         public static List<PrikazRecepta> LekoviPacijenta { get; set; }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-        private FileStorageLek storageLek = new FileStorageLek();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
+        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryLek storageLek = new FileRepositoryLek();
 
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Operacija> operacije = new List<Operacija>();
@@ -44,8 +46,8 @@ namespace Bolnica.Forms
         private void PopuniListe()
         {
             LekoviPacijenta = new List<PrikazRecepta>();
-            pregledi = storagePregledi.GetAllPregledi();
-            operacije = storagePregledi.GetAllOperacije();
+            pregledi = storagePregledi.GetAll();
+            operacije = storageOperacije.GetAll();
             anamneze = storageAnamneza.GetAll();
             lekovi = storageLek.GetAll();
         }

@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace Bolnica.Forms
         public List<TimeSpan> Vremena { get; set; }
         public List<DateTime> Datumi { get; set; }
 
-        private FileStorageBeleska storageBeleska = new FileStorageBeleska();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-        private FileStorageLek storageLek = new FileStorageLek();
+        private FileRepositoryBeleska storageBeleska = new FileRepositoryBeleska();
+        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryLek storageLek = new FileRepositoryLek();
 
         private List<Beleska> beleske = new List<Beleska>();
         private List<Anamneza> anamneze = new List<Anamneza>();
@@ -195,7 +196,7 @@ namespace Bolnica.Forms
             {
                 if (novaBeleska.Id.Equals(beleska.Id))
                 {
-                    storageBeleska.Izmeni(novaBeleska);
+                    storageBeleska.Update(novaBeleska);
                     izmenjen = true;
                     MessageBox.Show("Beleska uspesno izmenjena.");
                     break;
@@ -207,7 +208,7 @@ namespace Bolnica.Forms
                 storageBeleska.Save(novaBeleska);
                 Anamneza novaAnamneza = DobijAnamnezu(prikaz);
                 novaAnamneza.Beleska.Id = novaBeleska.Id;
-                storageAnamneza.Izmeni(novaAnamneza);
+                storageAnamneza.Update(novaAnamneza);
                 MessageBox.Show("Beleska uspesno napravljena.");
             }
         }

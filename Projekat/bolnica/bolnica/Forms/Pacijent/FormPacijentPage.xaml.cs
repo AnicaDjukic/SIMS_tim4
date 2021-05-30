@@ -15,12 +15,12 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageProstorija storageProstorija = new FileStorageProstorija();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryProstorija storageProstorija = new FileRepositoryProstorija();
+        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<PrikazPregleda> preglediPrikaz = new List<PrikazPregleda>();
         private List<PrikazOperacije> operacijePrikaz = new List<PrikazOperacije>();
@@ -476,7 +476,7 @@ namespace Bolnica.Forms
 
         private string GetNazivLeka(int id)
         {
-            FileStorageLek storageLekovi = new FileStorageLek();
+            FileRepositoryLek storageLekovi = new FileRepositoryLek();
             List<Lek> lekovi = storageLekovi.GetAll();
             foreach (Lek l in lekovi)
             {

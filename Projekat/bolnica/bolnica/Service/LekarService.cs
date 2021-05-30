@@ -2,7 +2,6 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
-using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
@@ -105,7 +104,7 @@ namespace Bolnica.Services
             {
                 if (izabraniPrikazOperacije.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                 {
-                    skladistePregleda.Delete(lekarServiceDTO.listaOperacija[i]);
+                    skladisteOperacija.Delete(lekarServiceDTO.listaOperacija[i]);
                     lekarServiceDTO.listaOperacija.RemoveAt(i);
                     break;
                 }

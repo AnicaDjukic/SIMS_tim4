@@ -1,6 +1,7 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -13,8 +14,8 @@ namespace Bolnica.Service
 {
     public class PacijentPageService
     {
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         public void ZakaziPregled(Pacijent trenutniPacijent)
         {

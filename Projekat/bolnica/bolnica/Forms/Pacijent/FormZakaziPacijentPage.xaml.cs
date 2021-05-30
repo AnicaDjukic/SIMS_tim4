@@ -1,6 +1,8 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -20,10 +22,10 @@ namespace Bolnica.Forms
     {
         private Pacijent pacijent = new Pacijent();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<Pregled> pregledi = new List<Pregled>();
         private List<Lekar> lekari = new List<Lekar>();
@@ -101,8 +103,8 @@ namespace Bolnica.Forms
                     Pacijent = pacijent
                 };
 
-                FileStorageProstorija storageProstorije = new FileStorageProstorija();
-                List<Prostorija> prostorije = storageProstorije.GetAllProstorije();
+                FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+                List<Prostorija> prostorije = storageProstorije.GetAll();
 
                 bool slobodna = false;
                 foreach (Prostorija p in prostorije)
@@ -122,7 +124,7 @@ namespace Bolnica.Forms
                 }
                 else
                 {
-                    pregledi = storagePregledi.GetAllPregledi();
+                    pregledi = storagePregledi.GetAll();
                     int max = 0;
                     foreach (Pregled p in pregledi)
                     {

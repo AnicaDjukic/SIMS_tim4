@@ -2,7 +2,6 @@
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
@@ -118,14 +117,14 @@ namespace Bolnica.Services
                         LekarViewModel.podaciLista.Items[p] = terminDTO.trenutnaOperacija;
                         LekarViewModel.RefreshPodaciListu();
                         Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
-                        skladistePregledi.Update(azuriranaOperacija);
+                        skladisteOperacija.Update(azuriranaOperacija);
                     }
                     else
                     {
                         LekarViewModel.podaciLista.Items.RemoveAt(p);
                         LekarViewModel.RefreshPodaciListu();
                         Operacija azuriranaOperacija = new Operacija(terminDTO.trenutnaOperacija);
-                        skladistePregledi.Update(azuriranaOperacija);
+                        skladisteOperacija.Update(azuriranaOperacija);
                     }
                 }
             }
@@ -224,7 +223,7 @@ namespace Bolnica.Services
                 LekarViewModel.podaciLista.Items.Add(terminDTO.trenutnaOperacija);
                 LekarViewModel.RefreshPodaciListu();
             }
-            skladistePregledi.Save(terminDTO.azuriranaOperacija);
+            skladisteOperacija.Save(terminDTO.azuriranaOperacija);
         }
         public bool PostojiLekar(TerminLekarDTO terminDTO)
         {

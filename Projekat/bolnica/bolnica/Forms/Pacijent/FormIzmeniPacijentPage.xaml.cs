@@ -1,6 +1,8 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -19,11 +21,11 @@ namespace Bolnica.Forms
     {
         private PrikazPregleda prikazPregleda;
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageProstorija storageProstorije = new FileStorageProstorija();
-        private FileStorageRenoviranje storageRenoviranje = new FileStorageRenoviranje();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
@@ -93,7 +95,7 @@ namespace Bolnica.Forms
                     Pregled pregled = SetPregled(prikaz);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
-                    storagePregledi.Izmeni(pregled);
+                    storagePregledi.Update(pregled);
 
                     AntiTrol antiTrol = new AntiTrol
                     {
@@ -215,7 +217,7 @@ namespace Bolnica.Forms
 
         private Prostorija DobijProstoriju()
         {
-            prostorije = storageProstorije.GetAllProstorije();
+            prostorije = storageProstorije.GetAll();
             foreach (Prostorija prostorija in prostorije)
             {
                 if (prostorija.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !prostorija.Obrisana && !NaRenoviranju(prostorija))

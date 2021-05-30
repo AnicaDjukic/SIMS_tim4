@@ -1,5 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -30,10 +32,10 @@ namespace Bolnica.Forms
         private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Prostorija> slobodneProstorije = new List<Prostorija>();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageProstorija storageProstorije = new FileStorageProstorija();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
         {
@@ -44,13 +46,13 @@ namespace Bolnica.Forms
             trenutniPacijent = pacijent;
             PredlozeniTermini = new ObservableCollection<PrikazPregleda>();
 
-            pregledi = storagePregledi.GetAllPregledi();
+            pregledi = storagePregledi.GetAll();
             foreach (Pregled p in pregledi)
             {
                 zauzetiTermini.Add(p.Datum);
             }
 
-            prostorije = storageProstorije.GetAllProstorije();
+            prostorije = storageProstorije.GetAll();
             foreach (Prostorija p in prostorije)
             {
                 if (p.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !p.Obrisana)

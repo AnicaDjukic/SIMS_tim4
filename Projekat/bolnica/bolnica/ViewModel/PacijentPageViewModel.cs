@@ -2,6 +2,9 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -43,12 +46,13 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageProstorija storageProstorija = new FileStorageProstorija();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryProstorija storageProstorija = new FileRepositoryProstorija();
+        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<PrikazPregleda> preglediPrikaz = new List<PrikazPregleda>();
         private List<PrikazOperacije> operacijePrikaz = new List<PrikazOperacije>();
@@ -219,11 +223,11 @@ namespace Bolnica.ViewModel
 
         private void UcitajPodatke()
         {
-            pregledi = storagePregledi.GetAllPregledi();
-            operacije = storagePregledi.GetAllOperacije();
+            pregledi = storagePregledi.GetAll();
+            operacije = storageOperacije.GetAll();
             pacijenti = storagePacijenti.GetAll();
             lekari = storageLekari.GetAll();
-            prostorije = storageProstorija.GetAllProstorije();
+            prostorije = storageProstorija.GetAll();
             anamneze = storageAnamneza.GetAll();
         }
 
@@ -424,7 +428,7 @@ namespace Bolnica.ViewModel
 
         private string GetNazivLeka(int id)
         {
-            FileStorageLek storageLekovi = new FileStorageLek();
+            FileRepositoryLek storageLekovi = new FileRepositoryLek();
             List<Lek> lekovi = storageLekovi.GetAll();
             foreach (Lek l in lekovi)
             {

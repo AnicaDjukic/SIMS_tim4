@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model;
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,8 +19,8 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStorageOcene storageOcene = new FileStorageOcene();
-        private FileStorageLekar storageLekar = new FileStorageLekar();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
+        private FileRepositoryLekar storageLekar = new FileRepositoryLekar();
         
         private List<Ocena> ocene = new List<Ocena>();
         private List<Lekar> lekari = new List<Lekar>();

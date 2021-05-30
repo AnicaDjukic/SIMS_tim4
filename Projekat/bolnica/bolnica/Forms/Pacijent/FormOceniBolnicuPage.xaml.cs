@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model;
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Bolnica.Forms
     public partial class FormOceniBolnicuPage : Page
     {
         private Pacijent pacijent = new Pacijent();
-        private FileStorageOcene storageOcene = new FileStorageOcene();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
         public FormOceniBolnicuPage(Pacijent trenutniPacijent)
         {

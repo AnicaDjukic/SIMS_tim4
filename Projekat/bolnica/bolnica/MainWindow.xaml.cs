@@ -34,7 +34,7 @@ namespace bolnica
             {
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+                    /*if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
                         var s = new FormUpravnik();
@@ -45,7 +45,7 @@ namespace bolnica
                         var s = new FormSekretar();
                         s.Show();
 
-                    }
+                    }*/
                     if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
                         FileRepositoryLekar storageLekar = new FileRepositoryLekar();
@@ -90,7 +90,7 @@ namespace bolnica
                             s.Show();
                             s.DanasnjaObavestenja();
                         }
-                    }*/
+                    }
 
                     found = true;
                     break;

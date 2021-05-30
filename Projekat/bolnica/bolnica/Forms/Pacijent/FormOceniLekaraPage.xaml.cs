@@ -1,6 +1,7 @@
 ﻿using Bolnica.Model;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Bolnica.Forms
         private Pacijent pacijent = new Pacijent();
         private PrikazPregleda prikaz = new PrikazPregleda();
 
-        private FileStorageOcene storageOcene = new FileStorageOcene();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
         public FormOceniLekaraPage(PrikazPregleda prikazPregleda)
         {

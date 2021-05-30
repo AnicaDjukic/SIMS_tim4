@@ -1,6 +1,8 @@
 ﻿using bolnica;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -21,11 +23,12 @@ namespace Bolnica.Forms
         public static Pacijent Pacijent;
 
         private Pacijent trenutniPacijent = new Pacijent();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageAnamneza storageAnamneza = new FileStorageAnamneza();
-        private FileStorageBeleska storageBeleska = new FileStorageBeleska();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
+        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryBeleska storageBeleska = new FileRepositoryBeleska();
 
         private List<AntiTrol> antiTrol = new List<AntiTrol>();
         private List<Pregled> pregledi = new List<Pregled>();
@@ -99,7 +102,7 @@ namespace Bolnica.Forms
         public int DobijBrojAktivnosti()
         {
             int brojac = 0;
-            storageAntiTrol = new FileStorageAntiTrol();
+            storageAntiTrol = new FileRepositoryAntiTrol();
             antiTrol = storageAntiTrol.GetAll();
             foreach (AntiTrol a in antiTrol)
             {
@@ -149,8 +152,8 @@ namespace Bolnica.Forms
 
         private void NadjiSvePreglede()
         {
-            pregledi = storagePregledi.GetAllPregledi();
-            operacije = storagePregledi.GetAllOperacije();
+            pregledi = storagePregledi.GetAll();
+            operacije = storageOperacije.GetAll();
             foreach (Operacija o in operacije)
             {
                 pregledi.Add(o);
@@ -200,7 +203,7 @@ namespace Bolnica.Forms
         {
             MessageBox.Show(vremeObavestenja.ToString() + " - Obavestenje na osnovu vase beleske:\r" + beleska.Zabeleska, "Obavestenje!");
             beleska.Prikazana = true;
-            storageBeleska.Izmeni(beleska);
+            storageBeleska.Update(beleska);
         }
 
         private bool ProveraVremenaObavestenja(Beleska beleska, DateTime vremeObavestenja)
@@ -225,7 +228,7 @@ namespace Bolnica.Forms
             if (beleska.Prikazana)
             {
                 beleska.Prikazana = false;
-                storageBeleska.Izmeni(beleska);
+                storageBeleska.Update(beleska);
             }
         }
 

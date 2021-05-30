@@ -43,6 +43,7 @@ namespace Model.Pregledi
             this.Recept = new List<Recept>();
             this.Simptomi = Simptomi;
             this.Dijagnoza = Dijagnoza;
+        }
 
         public Beleska Beleska { get; set; }
         public bool ShouldSerializeBeleska()
@@ -50,12 +51,7 @@ namespace Model.Pregledi
             return FileRepositoryAnamneza.serializeAnamneza;
         }
 
-        public Anamneza(string Simptomi, string Dijagnoza)
-        {
-            this.Recept = new List<Recept>();
-            this.Simptomi = Simptomi;
-            this.Dijagnoza = Dijagnoza;
-        }
+
     }
 }
 
