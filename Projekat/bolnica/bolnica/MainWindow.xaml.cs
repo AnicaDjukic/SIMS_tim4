@@ -34,7 +34,7 @@ namespace bolnica
             {
                 if (korisnickoIme == korisnik.KorisnickoIme && lozinka == korisnik.Lozinka)
                 {
-                   /* if (korisnik.TipKorisnika == TipKorisnika.upravnik)
+                    if (korisnik.TipKorisnika == TipKorisnika.upravnik)
 
                     {
                         var s = new FormUpravnik();
@@ -45,26 +45,24 @@ namespace bolnica
                         var s = new FormSekretar();
                         s.Show();
 
-                    }*/
+                    }
                     if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
                         FileRepositoryLekar storageLekar = new FileRepositoryLekar();
                         List<Lekar> lekari = storageLekar.GetAll();
                         Lekar l = new Lekar();
-                        foreach(Lekar ln in lekari)
+                        foreach (Lekar ln in lekari)
                         {
-                            if(ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
+                            if (ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
                             {
                                 l = ln;
                                 break;
                             }
                         }
+
                         LekarViewModel vm = new LekarViewModel(l);
                         FormLekar form = new FormLekar(vm);
-
-                        
-
-                    }/*
+                    }
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
                         List<Pacijent> pacijenti = storagePacijenti.GetAll();
@@ -83,7 +81,12 @@ namespace bolnica
                         }
                         else
                         {
-                            var s = new FormPacijentWeb(pacijent);
+                            var s = new FormPacijentWeb(pacijent)
+                            {
+                                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                                ResizeMode = ResizeMode.CanMinimize,
+                                Title = "Zdravo bolnica Novi Sad"
+                            };
                             s.Show();
                             s.DanasnjaObavestenja();
                         }

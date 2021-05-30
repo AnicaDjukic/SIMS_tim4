@@ -9,30 +9,44 @@ namespace Model.Pregledi
         public Anamneza()
         {
             this.Recept = new List<Recept>();
+            this.Beleska = new Beleska();
         }
+
         public int Id { get; set; }
+
         public string Simptomi { get; set; }
         public bool ShouldSerializeSimptomi()
         {
 
+
             return FileRepositoryAnamneza.serializeAnamneza;
+
         }
 
         public string Dijagnoza { get; set; }
-
         public bool ShouldSerializeDijagnoza()
         {
 
+
             return FileRepositoryAnamneza.serializeAnamneza;
-        }
-        public List<Recept> Recept
-        {
-            get; set;
+
         }
 
+        public List<Recept> Recept { get; set; }
         public bool ShouldSerializeRecept()
         {
+            return FileRepositoryAnamneza.serializeAnamneza;
+        }
 
+        public Anamneza(string Simptomi, string Dijagnoza)
+        {
+            this.Recept = new List<Recept>();
+            this.Simptomi = Simptomi;
+            this.Dijagnoza = Dijagnoza;
+
+        public Beleska Beleska { get; set; }
+        public bool ShouldSerializeBeleska()
+        {
             return FileRepositoryAnamneza.serializeAnamneza;
         }
 
@@ -42,7 +56,6 @@ namespace Model.Pregledi
             this.Simptomi = Simptomi;
             this.Dijagnoza = Dijagnoza;
         }
-
     }
 }
 

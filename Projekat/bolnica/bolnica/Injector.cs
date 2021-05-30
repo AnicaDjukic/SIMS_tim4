@@ -6,11 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bolnica.Service;
+
 
 namespace Bolnica
 {
     public class Injector
     {
+
+        #region PACIJENT
+        private PacijentPageService pacijentPageService = new PacijentPageService();
+        public PacijentPageService PacijentPageService
+        {
+            get { return pacijentPageService;  }
+        }
+        private PacijentPageController pacijentPageController = new PacijentPageController();
+        public PacijentPageController PacijentPageController
+        {
+            get { return pacijentPageController; }
+        }
+        #endregion
+
+        #region LEKAR
+
         private TerminLekarService pregledService = new TerminLekarService();
 
         private ReceptLekarService receptService = new ReceptLekarService();
@@ -78,5 +96,8 @@ namespace Bolnica
         {
             get { return lekarController; }
         }
+
+        #endregion
+
     }
 }

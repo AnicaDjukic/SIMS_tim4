@@ -73,7 +73,9 @@ namespace Model.Pregledi
             IdZamena = new List<int>();
             Obrisan = false;
         }
+
         public Lek(int Id,string Naziv, string Proizvodjac, int KolicinaUMg, StatusLeka Status, int Zalihe)
+
         {
             Sastojak = new List<Sastojak>();
             Zamena = new List<Lek>();
@@ -85,7 +87,6 @@ namespace Model.Pregledi
             this.KolicinaUMg = KolicinaUMg;
             this.Status = Status;
             this.Zalihe = Zalihe;
-
         }
     }
 }

@@ -13,7 +13,18 @@ namespace Model.Pregledi
         public int VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
-        public PrikazRecepta() { }
+
+        public PrikazRecepta() {}
+
+        public PrikazRecepta(Lek lek, DateTime datumPrepisivanja, DateTime datumPrekida, int kolicina, int vremeUzimanja)
+        {
+            this.lek = lek;
+            this.DatumIzdavanja = datumPrepisivanja;
+            this.Trajanje = datumPrekida;
+            this.Kolicina = kolicina;
+            this.VremeUzimanja = vremeUzimanja;
+        }
+
         public PrikazRecepta(int Id, DateTime DatumIzdavanja, int Kolicina, int VremeUzimanja, DateTime Trajanje)
         {
             this.Id = Id;

@@ -1,0 +1,34 @@
+[
+  {
+    "Id": 3,
+    "Zabeleska": "Neka moja zabeleska",
+    "Podsetnik": true,
+    "Vreme": "19:00:00",
+    "DatumPrekida": "2021-05-31T00:00:00",
+    "Prikazana": false
+  },
+  {
+    "Id": 2,
+    "Zabeleska": "Ovo je neko obavestenje. Upravo sam dopisao tekst.",
+    "Podsetnik": true,
+    "Vreme": "06:30:00",
+    "DatumPrekida": "2021-06-03T00:00:00",
+    "Prikazana": false
+  },
+  {
+    "Id": 1,
+    "Zabeleska": "Sutra na pregled da ponesem novac.",
+    "Podsetnik": true,
+    "Vreme": "18:00:00",
+    "DatumPrekida": "2021-05-30T00:00:00",
+    "Prikazana": false
+  },
+  {
+    "Id": 4,
+    "Zabeleska": "Moram da svratim do apoteke sutra posle pregleda.",
+    "Podsetnik": true,
+    "Vreme": "13:00:00",
+    "DatumPrekida": "2021-05-30T00:00:00+02:00",
+    "Prikazana": false
+  }
+]

@@ -1,7 +1,6 @@
-﻿using Model.Korisnici;
-using System;
+﻿using System;
 
-namespace Bolnica.Model.Korisnici
+namespace Model.Korisnici
 {
     public class PrikazOcena
     {

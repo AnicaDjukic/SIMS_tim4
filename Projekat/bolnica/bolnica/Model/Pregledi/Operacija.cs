@@ -5,6 +5,10 @@ namespace Model.Pregledi
 {
    public class Operacija : Pregled
    {
+
+        public TipOperacije TipOperacije { get; set; }
+
+
         public Operacija()
         {
             this.Anamneza = new Anamneza();
@@ -25,8 +29,7 @@ namespace Model.Pregledi
             this.Pacijent = p.Pacijent;
             this.TipOperacije = p.TipOperacije;
         }
-       
-        public TipOperacije TipOperacije { get; set; }
-   
-   }
+
+    }
+
 }

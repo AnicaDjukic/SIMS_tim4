@@ -17,7 +17,7 @@ namespace Bolnica.Repository.Pregledi
         {
             serializeAnamneza = true;
             FileRepositoryLek.serializeLek = false;
-           // FileRepositoryBeleska.serializeBeleska = false;
+            FileRepositoryBeleska.serializeBeleska = false;
             string putanja = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
             FileLocation = System.IO.Path.Combine(putanja, @"Resources\", "Anamneze.json");
         }
@@ -26,7 +26,7 @@ namespace Bolnica.Repository.Pregledi
         {
             serializeAnamneza = true;
             FileRepositoryLek.serializeLek = false;
-           // FileRepositoryBeleska.serializeBeleska = false;
+            FileRepositoryBeleska.serializeBeleska = false;
             List<Anamneza> anamneze = GetAll();
             for (int i = 0; i < anamneze.Count; i++)
             {
@@ -43,7 +43,7 @@ namespace Bolnica.Repository.Pregledi
         {
             serializeAnamneza = true;
             FileRepositoryLek.serializeLek = false;
-           // FileRepositoryBeleska.serializeBeleska = false;
+            FileRepositoryBeleska.serializeBeleska = false;
             var json = File.ReadAllText(FileLocation);
             var anameze = JsonConvert.DeserializeObject<List<Anamneza>>(json);
             if (anameze is null)
@@ -62,7 +62,7 @@ namespace Bolnica.Repository.Pregledi
         {
             serializeAnamneza = true;
             FileRepositoryLek.serializeLek = false;
-           // FileRepositoryBeleska.serializeBeleska = false;
+            FileRepositoryBeleska.serializeBeleska = false;
             List<Anamneza> anamneze = GetAll();
             anamneze.Add(newEntity);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(anamneze));
@@ -72,7 +72,7 @@ namespace Bolnica.Repository.Pregledi
         {
             serializeAnamneza = true;
             FileRepositoryLek.serializeLek = false;
-          //  FileRepositoryBeleska.serializeBeleska = false;
+            FileRepositoryBeleska.serializeBeleska = false;
             List<Anamneza> anamneze = GetAll();
             for (int i = 0; i < anamneze.Count; i++)
             {

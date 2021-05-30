@@ -1,0 +1,48 @@
+﻿<Page x:Class="Bolnica.Forms.FormIstorijaPregledaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Bolnica.Forms"
+      mc:Ignorable="d" 
+      d:DesignHeight="580" d:DesignWidth="1400"
+      Title="FormIstorijaPregledaPage">
+
+    <Grid>
+        <DataGrid Name="pacijentIstorijaGrid" ItemsSource="{Binding PrikazZavrsenihPregleda}" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  Margin="40,20,0,40" Height="530" Width="1200" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="40" FontSize="16"
+                  SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF00DFFF"></Setter>
+                    <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                    <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    <Setter Property="BorderBrush" Value="black"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Style.Setters>
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style.Setters>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Anamneza" Height="35" Width="120" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Anamneza"></Button>
+        <Button Content="Oceni lekara" Height="35" Width="120" Margin="0,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Oceni_Lekara"></Button>
+        <Button Content="Oceni bolnicu" Height="35" Width="120" Margin="0,230,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Button_Click_Oceni_Bolnicu"/>
+        <Button Height="35" Width="120" Margin="0,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Istorija_Ocena_I_Komentara">
+            <TextBlock Text="Istorija ocena i komentara" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+ 
+    </Grid>
+</Page>
