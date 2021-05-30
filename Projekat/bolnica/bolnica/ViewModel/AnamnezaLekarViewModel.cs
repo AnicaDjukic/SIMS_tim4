@@ -74,7 +74,7 @@ namespace Bolnica.ViewModel
                 obrisiReceptKomanda = value;
 
             }
-        }
+        }   
 
         public void Executed_ObrisiReceptKomanda(object obj)
         {

@@ -57,6 +57,7 @@ namespace Bolnica.Services
             if (!anamnezaDTO.DaLiPostojiAnamneza)
             {
                 novaAnamneza.Id = IzracunajSlobodniIdAnamneze(anamnezaDTO);
+                anamnezaDTO.novaAnamneza = novaAnamneza;
                 skladisteAnamneza.Save(novaAnamneza);
                 if (anamnezaDTO.DaLiJePregled)
                 {
@@ -70,6 +71,7 @@ namespace Bolnica.Services
             else
             {
                 novaAnamneza.Id = anamnezaDTO.idAnamneze;
+                anamnezaDTO.novaAnamneza = novaAnamneza;
                 skladisteAnamneza.Update(novaAnamneza);
                 if (anamnezaDTO.DaLiJePregled)
                 {
@@ -139,7 +141,7 @@ namespace Bolnica.Services
                     LekarViewModel.podaciLista.Items.RemoveAt(p);
                     LekarViewModel.RefreshPodaciListuIstorija();
                     LekarViewModel.RefreshPodaciListu();
-                    skladistePregleda.Update(PopuniOperaciju(anamnezaDTO));
+                    skladisteOperacija.Update(PopuniOperaciju(anamnezaDTO));
                 }
             }
         }
@@ -169,7 +171,7 @@ namespace Bolnica.Services
                     anamnezaDTO.trenutnaOperacija.Zavrsen = true;
                     LekarViewModel.podaciListaIstorija.Items[p] = anamnezaDTO.trenutnaOperacija;
                     LekarViewModel.RefreshPodaciListuIstorija();
-                    skladistePregleda.Update(PopuniOperaciju(anamnezaDTO));
+                    skladisteOperacija.Update(PopuniOperaciju(anamnezaDTO));
                 }
             }
         }

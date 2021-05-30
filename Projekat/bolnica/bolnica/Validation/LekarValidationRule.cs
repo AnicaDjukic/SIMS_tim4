@@ -398,18 +398,16 @@ namespace Bolnica.Validation
         {
             if (value as string != "" && value != null)
             {
-
-                for (int vre = 0; vre < 24; vre++)
+                
+                for (int vre = 1; vre < 48; vre++)
                 {
-                    for (int min = 0; min < 59;)
-                    {
-                        TimeSpan ts = new TimeSpan(vre, min, 0);
-                        min = min + 15;
-                        if (ts.ToString().Equals(value))
+                    
+                    if (vre.ToString().Equals(value))
                         {
                             return new ValidationResult(true, null);
                         }
-                    }
+                    vre++;
+                    vre++;
 
                 }
                 return new ValidationResult(false, "Nije moguce u to vrijeme");

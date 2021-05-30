@@ -45,8 +45,8 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
-        private List<TimeSpan> itemSourceVremeUzimanjaLeka;
-        public List<TimeSpan> ItemSourceVremeUzimanjaLeka
+        private List<int> itemSourceVremeUzimanjaLeka;
+        public List<int> ItemSourceVremeUzimanjaLeka
         {
             get { return itemSourceVremeUzimanjaLeka; }
             set
@@ -382,7 +382,7 @@ namespace Bolnica.ViewModel
         public void InicijalizujPolja()
         {
             ItemSourceProizvodjacLeka = new List<string>();
-            ItemSourceVremeUzimanjaLeka = new List<TimeSpan>();
+            ItemSourceVremeUzimanjaLeka = new List<int>();
             ItemSourceBrojKutijaLeka = new List<int>();
             ItemSourceDozaLeka = new List<int>();
             ItemSourceNazivLeka = new List<string>();
@@ -502,15 +502,13 @@ namespace Bolnica.ViewModel
 
         public void PopuniComboBoxVremeUzimanja()
         {
-            List<TimeSpan> vremeUzimanjaLekova = new List<TimeSpan>();
-            for (int vre = 0; vre < 24; vre++)
+            List<int> vremeUzimanjaLekova = new List<int>();
+            for (int vre = 1; vre <= 48; vre++)
             {
-                for (int min = 0; min < 59;)
-                {
-                    TimeSpan ts = new TimeSpan(vre, min, 0);
-                    min = min + 15;
-                    vremeUzimanjaLekova.Add(ts);
-                }
+               
+                    vremeUzimanjaLekova.Add(vre);
+                vre++;
+                vre++;
 
             }
             ItemSourceVremeUzimanjaLeka = vremeUzimanjaLekova;

@@ -10,11 +10,11 @@ namespace Model.Pregledi
         public int Id { get; set; }
         public DateTime DatumIzdavanja { get; set; }
         public int Kolicina { get; set; }
-        public TimeSpan VremeUzimanja { get; set; }
+        public int VremeUzimanja { get; set; }
         public DateTime Trajanje { get; set; }
 
         public PrikazRecepta() { }
-        public PrikazRecepta(int Id, DateTime DatumIzdavanja, int Kolicina, TimeSpan VremeUzimanja, DateTime Trajanje)
+        public PrikazRecepta(int Id, DateTime DatumIzdavanja, int Kolicina, int VremeUzimanja, DateTime Trajanje)
         {
             this.Id = Id;
             this.DatumIzdavanja = DatumIzdavanja;
@@ -22,7 +22,7 @@ namespace Model.Pregledi
             this.VremeUzimanja = VremeUzimanja;
             this.Trajanje = Trajanje;
         }
-        public PrikazRecepta(DateTime DatumIzdavanja, int Kolicina, TimeSpan VremeUzimanja, DateTime Trajanje)
+        public PrikazRecepta(DateTime DatumIzdavanja, int Kolicina, int VremeUzimanja, DateTime Trajanje)
         {
             this.DatumIzdavanja = DatumIzdavanja;
             this.Kolicina = Kolicina;

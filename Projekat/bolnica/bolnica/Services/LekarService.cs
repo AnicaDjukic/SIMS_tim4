@@ -104,7 +104,7 @@ namespace Bolnica.Services
             {
                 if (izabraniPrikazOperacije.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
                 {
-                    skladistePregleda.Delete(lekarServiceDTO.listaOperacija[i]);
+                    skladisteOperacija.Delete(lekarServiceDTO.listaOperacija[i]);
                     lekarServiceDTO.listaOperacija.RemoveAt(i);
                     break;
                 }
