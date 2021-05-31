@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
-        Title="FormNapraviAnamnezuLekar" Height="670" Width="730">
+        Title="Napravi anamnezu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.InputBindings>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}" />
         <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptKomanda}" />
@@ -26,7 +26,12 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="80"/>
         </Style>
-
+        <Style TargetType="DataGridCell">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
+        </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
@@ -185,7 +190,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
@@ -209,7 +214,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
@@ -277,8 +282,15 @@
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
                                 <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"/>
                             <Setter Property="Background" Value="#1176ae"/>
-                            </Style>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Naziv" Binding="{Binding lek.Naziv}"  MinWidth="75"  Width="*"></DataGridTextColumn>

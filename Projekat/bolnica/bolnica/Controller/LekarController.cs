@@ -62,10 +62,6 @@ namespace Bolnica.Controller
         {
             service.InformacijeOPacijentu(lekarServiceDTO);
         }
-        public void HospitalizacijaPacijenta(LekarServiceDTO lekarServiceDTO)
-        {
-            service.HospitalizacijaPacijenta(lekarServiceDTO);
-        }
         public void SkociNaEnter(LekarServiceDTO lekarServiceDTO)
         {
             service.SkociNaEnter(lekarServiceDTO);

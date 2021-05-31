@@ -7,7 +7,7 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormVidiReceptLekar" Height="670" Width="730" >
+        Title="Vidi recept" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
     </Window.InputBindings>
@@ -118,7 +118,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -150,7 +150,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -182,7 +182,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -213,7 +213,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -244,7 +244,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -275,7 +275,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -299,7 +299,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>

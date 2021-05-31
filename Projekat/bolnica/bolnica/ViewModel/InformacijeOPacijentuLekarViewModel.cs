@@ -4,16 +4,44 @@ using Model.Korisnici;
 using Model.Pacijenti;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Bolnica.ViewModel
 {
     public class InformacijeOPacijentuLekarViewModel : ViewModel
     {
         #region POLJA
-        public bool gost { get; set; }
 
+        public static ObservableCollection<Hospitalizacija> Hospitalizacije
+        {
+            get;
+            set;
+        }
+        private bool skociNaHospitalizuj;
+        public bool SkociNaHospitalizuj
+        {
+            get { return skociNaHospitalizuj; }
+            set
+            {
+                skociNaHospitalizuj = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool skociNaTab;
+        public bool SkociNaTab
+        {
+            get { return skociNaTab; }
+            set
+            {
+                skociNaTab = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool gost { get; set; }
+        private Pacijent pacijentIzabrani;
         public Visibility vidljiv { get; set; }
         public string ime { get; set; }
         public string prezime { get; set; }
@@ -42,6 +70,52 @@ namespace Bolnica.ViewModel
         }
         #endregion
         #region KOMANDE
+
+        private RelayCommand skociNaLevoKomanda;
+        public RelayCommand SkociNaLevoKomanda
+        {
+            get { return skociNaLevoKomanda; }
+            set
+            {
+                skociNaLevoKomanda = value;
+
+            }
+        }
+
+        public void Executed_SkociNaLevoKomanda(object obj)
+        {
+           SkociNaTab = true;
+        }
+
+        public bool CanExecute_SkociNaLevoKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand skociNaEnterKomanda;
+        public RelayCommand SkociNaEnterKomanda
+        {
+            get { return skociNaEnterKomanda; }
+            set
+            {
+                skociNaEnterKomanda = value;
+
+            }
+        }
+
+        public void Executed_SkociNaEnterKomanda(object obj)
+        {
+            SkociNaHospitalizuj = true;
+        }
+
+        public bool CanExecute_SkociNaEnterKomanda(object obj)
+        {
+            return true;
+        }
+
+       
+
+
         public Action ZatvoriAkcija { get; set; }
 
         private RelayCommand zatvoriKomanda;
@@ -64,13 +138,61 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+        private RelayCommand hospitalizujKomanda;
+        public RelayCommand HospitalizujKomanda
+        {
+            get { return hospitalizujKomanda; }
+            set
+            {
+                hospitalizujKomanda = value;
+
+            }
+        }
+
+        public void Executed_HospitalizujKomanda(object obj)
+        {
+            inject.InformacijeOPacijentuLekarController.HospitalizacijaPacijenta(pacijentIzabrani,1);
+
+        }
+
+        public bool CanExecute_HospitalizujKomanda(object obj)
+        {
+            return true;
+        }
+        private RelayCommand izmeniKomanda;
+        public RelayCommand IzmeniKomanda
+        {
+            get { return izmeniKomanda; }
+            set
+            {
+                izmeniKomanda = value;
+
+            }
+        }
+
+        public void Executed_IzmeniKomanda(object obj)
+        {
+            inject.InformacijeOPacijentuLekarController.HospitalizacijaPacijenta(pacijentIzabrani,2);
+
+        }
+
+        public bool CanExecute_IzmeniKomanda(object obj)
+        {
+            return true;
+        }
         #endregion
         public InformacijeOPacijentuLekarViewModel(Pacijent izabraniPacijent)
         {
+            pacijentIzabrani = izabraniPacijent;
             PostaviZajednickaPolja(izabraniPacijent);
             PostaviAlergene(izabraniPacijent);
             UpravljajZdravstvenimKartonom(izabraniPacijent);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            HospitalizujKomanda = new RelayCommand(Executed_HospitalizujKomanda, CanExecute_HospitalizujKomanda);
+            SkociNaEnterKomanda = new RelayCommand(Executed_SkociNaEnterKomanda, CanExecute_SkociNaEnterKomanda);
+            SkociNaLevoKomanda = new RelayCommand(Executed_SkociNaLevoKomanda, CanExecute_SkociNaLevoKomanda);
+            IzmeniKomanda = new RelayCommand(Executed_IzmeniKomanda, CanExecute_IzmeniKomanda);
 
         }
         #region POMOCNE FUNKCIJE
@@ -93,11 +215,14 @@ namespace Bolnica.ViewModel
         }
         public void PostaviZajednickaPolja(Pacijent izabraniPacijent)
         {
+            SkociNaHospitalizuj = false;
+            SkociNaTab = false;
+            Hospitalizacije = new ObservableCollection<Hospitalizacija>();
             Inject = new Injector();
             gost = izabraniPacijent.Guest;
             ime = izabraniPacijent.Ime;
             prezime = izabraniPacijent.Prezime;
-
+            PostaviHospitalizacije();
             if (izabraniPacijent.Pol.Equals(Pol.muski))
             {
                 pol = "Muski";
@@ -133,6 +258,19 @@ namespace Bolnica.ViewModel
             }
 
             alergeni = alergeniZaPrikaz;
+        }
+
+        public void PostaviHospitalizacije()
+        {
+            List<Hospitalizacija> sveHospitalizacije = inject.InformacijeOPacijentuLekarController.DobijHospitalizacije();
+            for (int i = 0; i < sveHospitalizacije.Count; i++)
+            {
+                if (sveHospitalizacije[i].Pacijent.Jmbg.Equals(pacijentIzabrani.Jmbg))
+                {
+                    Hospitalizacije.Add(sveHospitalizacije[i]);
+                }
+            }
+          
         }
         #endregion
 

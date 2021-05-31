@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormKomentarLekaLekar" Height="250" Width="450" Background="#1176ae">
+        Title="Komentar na lek" Height="250" Width="450" Background="#1176ae" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>

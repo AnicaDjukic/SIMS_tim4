@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="Bolnica" Background="#1176ae" >
+        Title="Bolnica" Background="#1176ae" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -281,7 +281,7 @@
         <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
             <TabItem.InputBindings>
                 <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaIstorijaKomanda}" />
-                <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding Path=HospitalizujKomanda}" />
+                <KeyBinding Modifiers="Ctrl" Key="I" Command="{Binding Path=InformacijeOPacijentuIstorijaKomanda}" />
             </TabItem.InputBindings>
             <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
@@ -353,7 +353,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
+                <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGridIstorija" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False"  SelectionUnit="FullRow"  >
                     <DataGrid.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterIstorijaKomanda}"/>
                         <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoIstorijaKomanda}"/>
@@ -399,15 +399,15 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="10" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Label Content="Ctrl+L" Grid.Row="29" Grid.Column="16" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Name="HospitalizacijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="16" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Hospitalizuj "  BorderBrush="#FF1E93F4" Command="{Binding Path=HospitalizujKomanda}">
+                <Label Content="Ctrl+I" Grid.Row="29" Grid.Column="16" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Name="InformacijeDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="16" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Informacije "  BorderBrush="#FF1E93F4" Command="{Binding Path=InformacijeOPacijentuIstorijaKomanda}">
                     <Button.InputBindings>
-                        <KeyBinding Key="Tab" Command="{Binding HospitalizujDugmeSkociNaIstorijaTabKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding InformacijeDugmeSkociNaIstorijaTabKomanda}"/>
                     </Button.InputBindings>
                 </Button>
                 <Button Name="AnamnezaIstorijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="10" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Anamneza "  BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaIstorijaKomanda}">
                     <Button.InputBindings>
-                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaHospitalizacijuKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaInformacijeKomanda}"/>
                     </Button.InputBindings>
                 </Button>
             </Grid>
@@ -548,7 +548,7 @@
                 <Button Name="Odobri" FontWeight="SemiBold" FontSize="13" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Odobri"  BorderBrush="#FF1E93F4" Command="{Binding Path=OdobriLekKomanda}"  />
                 <Button Focusable="True" Name="Vrati" FontWeight="SemiBold" FontSize="13" Grid.Column="13" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Vrati na izmenu"  BorderBrush="#FF1E93F4" Command="{Binding Path=VratiNaIzmenuKomanda}" >
                     <Button.InputBindings>
-                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaHospitalizacijuKomanda}"/>
+                        <KeyBinding Key="Tab" Command="{Binding IstorijaDugmeSkociNaInformacijeKomanda}"/>
                     </Button.InputBindings>
                 </Button>
                 <Label Content="Ctrl+P" Grid.Row="29" Grid.Column="7" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>

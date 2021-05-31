@@ -2,6 +2,7 @@
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
+using Bolnica.ViewModel;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace Bolnica.Services
         {
             InicijalizujPodatke();
             BolnickaSoba izabranaBolnickaSoba = DobijBolnickuSobu(hospitalizacijaDTO);
-            Hospitalizacija hospitalizacija = new Hospitalizacija(hospitalizacijaDTO.datumPocetka, hospitalizacijaDTO.datumZavrsetka, IzracunajId(), hospitalizacijaDTO.izabraniPacijent, izabranaBolnickaSoba);
-            if (hospitalizacijaDTO.datumPocetka > hospitalizacijaDTO.datumZavrsetka)
+            Hospitalizacija hospitalizacija = new Hospitalizacija(hospitalizacijaDTO.datumPocetka, hospitalizacijaDTO.datumZavrsetka, IzracunajId(), hospitalizacijaDTO.izabraniPacijent, izabranaBolnickaSoba, hospitalizacijaDTO.razlog);
+            if (hospitalizacijaDTO.datumPocetka.Date >= hospitalizacijaDTO.datumZavrsetka.Date)
             {
                 MessageBox.Show("Datum pocetka je veci od datuma zavrsetka");
                 return false;
@@ -53,10 +54,18 @@ namespace Bolnica.Services
                     hospitalizacija.Id = sveHospitalizacije[i].Id;
                     skladisteHospitalizacija.Delete(hospitalizacija);
                     skladisteHospitalizacija.Save(hospitalizacija);
+                    for(int m = 0; i < InformacijeOPacijentuLekarViewModel.Hospitalizacije.Count; m++)
+                    {
+                        if (InformacijeOPacijentuLekarViewModel.Hospitalizacije[m].Id.Equals(hospitalizacija.Id)){
+                            InformacijeOPacijentuLekarViewModel.Hospitalizacije[m] = hospitalizacija;
+                            break;
+                        }
+                    }
                     return;
                 }
             }
             skladisteHospitalizacija.Save(hospitalizacija);
+            InformacijeOPacijentuLekarViewModel.Hospitalizacije.Add(hospitalizacija);
         }
         private BolnickaSoba DobijBolnickuSobu(HospitalizacijaLekarDTO hospitalizacijaDTO)
         {

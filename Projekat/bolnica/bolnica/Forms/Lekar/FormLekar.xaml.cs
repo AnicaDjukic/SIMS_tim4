@@ -32,7 +32,6 @@ namespace Bolnica.Forms
 
         public FormLekar(LekarViewModel viewModel)
         {
-            Application.Current.MainWindow = this;
             InitializeComponent();
             this.DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)

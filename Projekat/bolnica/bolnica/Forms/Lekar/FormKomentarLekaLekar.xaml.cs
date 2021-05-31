@@ -27,8 +27,6 @@ namespace Bolnica.Forms
         public FormKomentarLekaLekar(KomentarLekaLekarViewModel viewModel)
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
             this.DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)
                 viewModel.ZatvoriAkcija = new Action(this.Close);

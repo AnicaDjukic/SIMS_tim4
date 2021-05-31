@@ -27,6 +27,8 @@
     <None Remove="Forms\Images\shopping-cart.png" />
     <None Remove="Forms\Images\view.png" />
     <None Remove="Resources\hospital.png" />
+    <None Remove="Resources\Hospitalizacija.png" />
+    <None Remove="Resources\InformacijePacijent.png" />
     <None Remove="Resources\LekarIstorija.png" />
     <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
@@ -69,6 +71,8 @@
     <Resource Include="Resources\hospital.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Hospitalizacija.png" />
+    <Resource Include="Resources\InformacijePacijent.png" />
     <Resource Include="Resources\LekarIstorija.png" />
     <Resource Include="Resources\LekarLek.png" />
     <Resource Include="Resources\LekarPregled.png" />

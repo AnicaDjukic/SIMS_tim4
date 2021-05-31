@@ -136,6 +136,28 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+        private RelayCommand informacijeOPacijentuIstorijaKomanda;
+        public RelayCommand InformacijeOPacijentuIstorijaKomanda
+        {
+            get { return informacijeOPacijentuIstorijaKomanda; }
+            set
+            {
+                informacijeOPacijentuIstorijaKomanda = value;
+
+            }
+        }
+
+        public void Executed_InformacijeOPacijentuIstorijaKomanda(object obj)
+        {
+            inject.LekarController.InformacijeOPacijentu(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
+        }
+
+        public bool CanExecute_InformacijeOPacijentuIstorijaKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand skociNaEnterKomanda;
         public RelayCommand SkociNaEnterKomanda
         {
@@ -259,37 +281,37 @@ namespace Bolnica.ViewModel
             return true;
         }
 
-        private RelayCommand istorijaDugmeSkociNaHospitalizacijuKomanda;
-        public RelayCommand IstorijaDugmeSkociNaHospitalizacijuKomanda
+        private RelayCommand istorijaDugmeSkociNaInformacijeKomanda;
+        public RelayCommand IstorijaDugmeSkociNaInformacijeKomanda
         {
-            get { return istorijaDugmeSkociNaHospitalizacijuKomanda; }
-            set { istorijaDugmeSkociNaHospitalizacijuKomanda = value; }
+            get { return istorijaDugmeSkociNaInformacijeKomanda; }
+            set { istorijaDugmeSkociNaInformacijeKomanda = value; }
         }
 
-        public void Executed_IstorijaDugmeSkociNaHospitalizacijuKomanda(object obj)
+        public void Executed_IstorijaDugmeSkociNaInformacijeKomanda(object obj)
         {
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Right);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
         }
 
-        public bool CanExecute_IstorijaDugmeSkociNaHospitalizacijuKomanda(object obj)
+        public bool CanExecute_IstorijaDugmeSkociNaInformacijeKomanda(object obj)
         {
             return true;
         }
 
-        private RelayCommand hospitalizujDugmeSkociNaIstorijaTabKomanda;
-        public RelayCommand HospitalizujDugmeSkociNaIstorijaTabKomanda
+        private RelayCommand informacijeDugmeSkociNaIstorijaTabKomanda;
+        public RelayCommand InformacijeDugmeSkociNaIstorijaTabKomanda
         {
-            get { return hospitalizujDugmeSkociNaIstorijaTabKomanda; }
-            set { hospitalizujDugmeSkociNaIstorijaTabKomanda = value; }
+            get { return informacijeDugmeSkociNaIstorijaTabKomanda; }
+            set { informacijeDugmeSkociNaIstorijaTabKomanda = value; }
         }
 
-        public void Executed_HospitalizujDugmeSkociNaIstorijaTabKomanda(object obj)
+        public void Executed_InformacijeDugmeSkociNaIstorijaTabKomanda(object obj)
         {
             istorijaTab.Focus();
         }
 
-        public bool CanExecute_HospitalizujDugmeSkociNaIstorijaTabKomanda(object obj)
+        public bool CanExecute_InformacijeDugmeSkociNaIstorijaTabKomanda(object obj)
         {
             return true;
         }
@@ -355,27 +377,7 @@ namespace Bolnica.ViewModel
             return true;
         }
 
-        private RelayCommand hospitalizujKomanda;
-        public RelayCommand HospitalizujKomanda
-        {
-            get { return hospitalizujKomanda; }
-            set
-            {
-                hospitalizujKomanda = value;
-
-            }
-        }
-
-        public void Executed_HospitalizujKomanda(object obj)
-        {
-            inject.LekarController.HospitalizacijaPacijenta(new LekarServiceDTO(istorijaPregledaTabela, listaOperacija, listaPregleda, lekarTrenutni, prikazPregleda, prikazOperacije));
-
-        }
-
-        public bool CanExecute_HospitalizujKomanda(object obj)
-        {
-            return true;
-        }
+        
 
         private RelayCommand izmeniLekKomanda;
         public RelayCommand IzmeniLekKomanda
@@ -600,6 +602,7 @@ namespace Bolnica.ViewModel
             OtkaziPregledKomanda = new RelayCommand(Executed_OtkaziPregledKomanda, CanExecute_OtkaziPregledKomanda);
             IzmeniPregledKomanda = new RelayCommand(Executed_IzmeniPregledKomanda, CanExecute_IzmeniPregledKomanda);
             InformacijeOPacijentuKomanda = new RelayCommand(Executed_InformacijeOPacijentuKomanda, CanExecute_InformacijeOPacijentuKomanda);
+            InformacijeOPacijentuIstorijaKomanda = new RelayCommand(Executed_InformacijeOPacijentuIstorijaKomanda, CanExecute_InformacijeOPacijentuIstorijaKomanda);
             SkociNaEnterKomanda = new RelayCommand(Executed_SkociNaEnterKomanda, CanExecute_SkociNaEnterKomanda);
             SkociNaLevoKomanda = new RelayCommand(Executed_SkociNaLevoKomanda, CanExecute_SkociNaLevoKomanda);
             SkociNaTabKomanda = new RelayCommand(Executed_SkociNaTabKomanda, CanExecute_SkociNaTabKomanda);
@@ -614,9 +617,8 @@ namespace Bolnica.ViewModel
             SkociNaTabLekKomanda = new RelayCommand(Executed_SkociNaTabLekKomanda, CanExecute_SkociNaTabLekKomanda);
             OdobriLekKomanda = new RelayCommand(Executed_OdobriLekKomanda, CanExecute_OdobriLekKomanda);
             VratiNaIzmenuKomanda = new RelayCommand(Executed_VratiNaIzmenuKomanda, CanExecute_VratiNaIzmenuKomanda);
-            HospitalizujKomanda = new RelayCommand(Executed_HospitalizujKomanda, CanExecute_HospitalizujKomanda);
-            IstorijaDugmeSkociNaHospitalizacijuKomanda = new RelayCommand(Executed_IstorijaDugmeSkociNaHospitalizacijuKomanda, CanExecute_IstorijaDugmeSkociNaHospitalizacijuKomanda);
-            HospitalizujDugmeSkociNaIstorijaTabKomanda = new RelayCommand(Executed_HospitalizujDugmeSkociNaIstorijaTabKomanda, CanExecute_HospitalizujDugmeSkociNaIstorijaTabKomanda);
+            IstorijaDugmeSkociNaInformacijeKomanda = new RelayCommand(Executed_IstorijaDugmeSkociNaInformacijeKomanda, CanExecute_IstorijaDugmeSkociNaInformacijeKomanda);
+            InformacijeDugmeSkociNaIstorijaTabKomanda = new RelayCommand(Executed_InformacijeDugmeSkociNaIstorijaTabKomanda, CanExecute_InformacijeDugmeSkociNaIstorijaTabKomanda);
             VratiDugmeSkociNaLekTabKomanda = new RelayCommand(Executed_VratiDugmeSkociNaLekTabKomanda, CanExecute_VratiDugmeSkociNaLekTabKomanda);
         }
 

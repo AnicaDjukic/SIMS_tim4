@@ -196,60 +196,9 @@ namespace Bolnica.Services
 
             }
         }
-        public void HospitalizacijaPacijenta(LekarServiceDTO lekarServiceDTO)
-        {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
-            {
-                var objekat = lekarServiceDTO.tabela.SelectedValue;
+        
 
-                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
-                {
-                    HospitalizacijaPacijentaAkoJePregled(lekarServiceDTO);
-                }
-                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
-                {
-                    HospitalizacijaPacijentaAkoJeOperacija(lekarServiceDTO);
-                }
-
-            }
-        }
-
-        private void HospitalizacijaPacijentaAkoJePregled(LekarServiceDTO lekarServiceDTO)
-        {
-            var objekat = lekarServiceDTO.tabela.SelectedValue;
-            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
-            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
-            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
-            {
-                if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
-                {
-
-                    izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazPregleda.Pacijent);
-                    FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
-
-                    break;
-                }
-            }
-        }
-
-        private void HospitalizacijaPacijentaAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
-        {
-            var objekat = lekarServiceDTO.tabela.SelectedValue;
-            PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
-            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
-            for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
-            {
-                if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
-                {
-                    izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazOperacije.Pacijent);
-                    FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
-
-                    break;
-                }
-            }
-        }
+        
         private void InformacijeOPacijentuAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
