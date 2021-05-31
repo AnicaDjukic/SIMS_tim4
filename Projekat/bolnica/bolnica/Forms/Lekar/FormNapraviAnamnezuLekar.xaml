@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
-        Title="FormNapraviAnamnezuLekar" Height="670" Width="630">
+        Title="FormNapraviAnamnezuLekar" Height="670" Width="730">
     <Window.InputBindings>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}" />
         <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptKomanda}" />
@@ -21,7 +21,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#FF34FFF4"/>
+            <Setter Property="Background" Value="#1176ae"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="80"/>
@@ -44,7 +44,7 @@
             <Setter Property="FontStretch" Value="Medium"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#FF20BC15"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -57,7 +57,7 @@
             <Setter Property="FontStretch" Value="Medium"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#FF20BC15"></Setter>
 
        
             <Setter Property="IsEnabled" Value="False"/>
@@ -76,7 +76,7 @@
         </Style>
 
     </Window.Resources>
-    <Grid Background="#FF34FFF4">
+    <Grid Background="#1176ae">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -121,12 +121,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Name="ScroolBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="20" Grid.RowSpan="16" VerticalScrollBarVisibility="Visible">
-            <ScrollViewer.InputBindings>
-                <KeyBinding Key="Up" Command="{Binding Path=ZaustaviStreliceKomanda}"/>
-            </ScrollViewer.InputBindings>
-            <StackPanel Orientation="Vertical">
-                <Grid Background="#FF34FFF4" MinHeight="250">
+       
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="16" Grid.Column="0" Grid.ColumnSpan="20">
+            <Grid Background="#1176ae" MinHeight="275">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -169,11 +166,8 @@
                     <Label Content="Simptomi:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"></Label>
                     <Label Content="Dijagnoza:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"></Label>
 
-                    <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-                        </TextBox.InputBindings>
-                        <TextBox.Text>
+                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
+                    <TextBox.Text>
                             <Binding Path="simptomi" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:TextBoxSimptomiValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
@@ -196,11 +190,8 @@
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </TextBox>
-                    <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-                        </TextBox.InputBindings>
-                        <TextBox.Text>
+                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
+                    <TextBox.Text>
                             <Binding Path="dijagnoza" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:TextBoxDijagnozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
@@ -228,7 +219,7 @@
 
                     <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="7" />
                 </Grid>
-                <Grid Background="#FF34FFF4" MinHeight="250">
+            <Grid Background="#1176ae" MinHeight="300">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -273,13 +264,10 @@
 
                     <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
                     <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
-                    <DataGrid SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-                        </DataGrid.InputBindings>
-                        <DataGrid.Resources>
+                <DataGrid SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="#FF1E93F4"></Setter>
+                            <Setter Property="Background" Value="#FF20BC15"></Setter>
                                 <Setter Property="FontSize" Value="15"></Setter>
                                 <Setter Property="FontWeight" Value="SemiBold"></Setter>
                                 <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -289,7 +277,7 @@
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
                                 <Setter Property="FontSize" Value="12"></Setter>
-                                <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="Background" Value="#1176ae"/>
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
@@ -301,114 +289,32 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
-                         Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                         Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
                     <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
-                         Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
-                    <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
-                         Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
-                        <Button.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-                        </Button.InputBindings>
-                    </Button>
+                         Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
+                <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
+                         Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" >
+                </Button>
                     <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                     <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                     <Label FontSize="12" Content="Ctrl+O" Grid.Row="7" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
 
                 </Grid>
-                <Grid Background="#FF34FFF4" MinHeight="250">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-
-
-                    </Grid.RowDefinitions>
-
-
-
-
-
-
-                    <Label Content="Popis potrosene robe" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Grid.ColumnSpan="10"  FontSize="30" />
-                    <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
-
-                    <DataGrid Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18">
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-                        </DataGrid.InputBindings>
-                        <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="#FF1E93F4"></Setter>
-                                <Setter Property="FontSize" Value="15"></Setter>
-                                <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                                <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
-                                <Setter Property="BorderBrush" Value="black"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                            <Style TargetType="{x:Type DataGridCell}">
-                                <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                                <Setter Property="FontSize" Value="12"></Setter>
-                                <Setter Property="Background" Value="#FF34FFF4"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Header="Naziv" Binding="{Binding Datum, StringFormat='HH:mm'}"  MinWidth="75"  Width="*"></DataGridCheckBoxColumn>
-                            <DataGridCheckBoxColumn Header="Kolicina" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridCheckBoxColumn>
-
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-
-
-
-                </Grid>
+                
 
             </StackPanel>
-        </ScrollViewer>
+
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.Row="16" Grid.RowSpan="2"  />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"
-                          Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                          Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100" />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZakaziPregledKomanda}"
-                          Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" />
+                          Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
-                          Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button.InputBindings>
-                <KeyBinding Key="Right" Command="{Binding Path=PredjiNaScrollBarKomanda}"/>
-            </Button.InputBindings>
+                          Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100">
         </Button>
-        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-        <Label FontSize="12" Content="Ctrl+P" Grid.Row="17" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-        <Label FontSize="12" Content="Ctrl+W" Grid.Row="17" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label FontSize="12" Content="Ctrl+P" Grid.Row="17" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+        <Label FontSize="12" Content="Ctrl+W" Grid.Row="17" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

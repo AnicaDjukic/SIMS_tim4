@@ -225,13 +225,7 @@ namespace Bolnica.Services
 
         
 
-        public void ZaustaviStrelice(AnamnezaLekarDTO anamnezaDTO)
-        {
 
-
-            anamnezaDTO.ScroolBar.ScrollToVerticalOffset(20);
-            
-        }
 
             
     }

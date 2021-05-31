@@ -35,7 +35,6 @@ namespace Bolnica.ViewModel
         private List<Anamneza> sveAnamneze = new List<Anamneza>();
         private int idAnamneze;
         private bool DaLiJePregled = false;
-        public ScrollViewer ScrollBar;
 
         public static ObservableCollection<PrikazRecepta> Recepti
         {
@@ -64,16 +63,6 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private bool fokusirajZatvoriDugme;
-        public bool FokusirajZatvoriDugme
-        {
-            get { return fokusirajZatvoriDugme; }
-            set
-            {
-                fokusirajZatvoriDugme = value;
-                OnPropertyChanged();
-            }
-        }
 
         private PrikazRecepta selektovaniItem;
         public PrikazRecepta SelektovaniItem
@@ -226,50 +215,7 @@ namespace Bolnica.ViewModel
             return true;
         }
 
-        private RelayCommand predjiNaScrollBarKomanda;
-        public RelayCommand PredjiNaScrollBarKomanda
-        {
-            get { return predjiNaScrollBarKomanda; }
-            set
-            {
-                predjiNaScrollBarKomanda = value;
-
-            }
-        }
-
-        public void Executed_PredjiNaScrollBarKomanda(object obj)
-        {
-            FokusirajZatvoriDugme = true;
-            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Last);
-            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
-            FokusirajZatvoriDugme = false;
-        }
-
-        public bool CanExecute_PredjiNaScrollBarKomanda(object obj)
-        {
-            return true;
-        }
-
-        private RelayCommand zaustaviStreliceKomanda;
-        public RelayCommand ZaustaviStreliceKomanda
-        {
-            get { return zaustaviStreliceKomanda; }
-            set
-            {
-                zaustaviStreliceKomanda = value;
-
-            }
-        }
-
-        public void Executed_ZaustaviStreliceKomanda(object obj)
-        {
-            inject.AnamnezaLekarController.ZaustaviStrelice(new AnamnezaLekarDTO(ScrollBar));
-        }
-
-        public bool CanExecute_ZaustaviStreliceKomanda(object obj)
-        {
-            return true;
-        }
+     
 #endregion
         public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
@@ -300,8 +246,6 @@ namespace Bolnica.ViewModel
             DodajReceptKomanda = new RelayCommand(Executed_DodajReceptKomanda, CanExecute_DodajReceptKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
-            PredjiNaScrollBarKomanda = new RelayCommand(Executed_PredjiNaScrollBarKomanda, CanExecute_PredjiNaScrollBarKomanda);
-            ZaustaviStreliceKomanda = new RelayCommand(Executed_ZaustaviStreliceKomanda, CanExecute_ZaustaviStreliceKomanda);
         }
        
         

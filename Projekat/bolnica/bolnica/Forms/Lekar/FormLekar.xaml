@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="Bolnica" Background="#FF34FFF4" >
+        Title="Bolnica" Background="#1176ae" >
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -19,7 +19,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
 
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#FF20BC15"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -220,7 +220,7 @@
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+                            <Setter Property="Background" Value="#FF20BC15"></Setter>
                             <Setter Property="FontSize" Value="15"></Setter>
                             <Setter Property="FontWeight" Value="SemiBold"></Setter>
                             <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -230,7 +230,7 @@
                         <Style TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
-                            <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="Background" Value="#1176ae"/>
                             <Setter Property="BorderBrush" Value="Black"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
@@ -260,7 +260,7 @@
                 </DataGrid>
 
                 <Button FontWeight="SemiBold" Name="Zakazi"  Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Grid.Row="27"   Content="Zakaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
-                             FontSize="13" Command="{Binding Path=ZakaziPregledKomanda}"/>
+                             FontSize="13" Command="{Binding Path=ZakaziPregledKomanda}" />
 
                 <Button FontWeight="SemiBold" Grid.Column="7" Grid.ColumnSpan="5" Grid.Row="27" Grid.RowSpan="2"  Content="Otkaži pregled" BorderThickness="2" BorderBrush="#FF1E93F4"
                              FontSize="13" Command="{Binding Path=OtkaziPregledKomanda}"/>
@@ -361,7 +361,7 @@
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+                            <Setter Property="Background" Value="#FF20BC15"></Setter>
                             <Setter Property="FontSize" Value="15"></Setter>
                             <Setter Property="FontWeight" Value="SemiBold"></Setter>
                             <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -371,7 +371,7 @@
                         <Style TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
-                            <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="Background" Value="#1176ae"/>
                             <Setter Property="BorderBrush" Value="Black"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
@@ -496,7 +496,7 @@
                     </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+                            <Setter Property="Background" Value="#FF20BC15"></Setter>
                             <Setter Property="FontSize" Value="15"></Setter>
                             <Setter Property="FontWeight" Value="SemiBold"></Setter>
                             <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -506,7 +506,7 @@
                         <Style TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
-                            <Setter Property="Background" Value="#FF34FFF4"/>
+                            <Setter Property="Background" Value="#1176ae"/>
                             <Setter Property="BorderBrush" Value="Black"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
