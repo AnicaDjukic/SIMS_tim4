@@ -1,10 +1,12 @@
-﻿using Bolnica.Forms;
+﻿using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
+using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
@@ -139,7 +141,11 @@ namespace bolnica.Forms
                 foreach (Lek l in lekovi)
                 {
                     if (!l.Obrisan)
+                    {
+                        //LekDTO lek = new LekDTO(l);
                         Lekovi.Add(l);
+                    }
+                        
                 }
             }
         }
@@ -159,9 +165,9 @@ namespace bolnica.Forms
             }
             else if (Tabovi.SelectedIndex == 2)
             {
-                Lek noviLek = new Lek();
-                var l = new CreateFormLekovi(noviLek);
-                l.Show();
+                LekDTO noviLek = new LekDTO();
+                ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(noviLek);
+                CreateFormLekovi l = new CreateFormLekovi(vm);
             }
         }
 
@@ -274,7 +280,6 @@ namespace bolnica.Forms
             clickedDodaj = false;
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
-                clickedDodaj = false;
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 List<Prostorija> prostorije = storageProstorije.GetAll();
                 List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
@@ -323,7 +328,6 @@ namespace bolnica.Forms
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
-                clickedDodaj = false;
                 Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
                 List<Oprema> Svaoprema = storageOprema.GetAll();
                 var s = new CreateFormOprema();
@@ -345,50 +349,21 @@ namespace bolnica.Forms
             }
             else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
-                clickedDodaj = false;
                 Lek row = (Lek)dataGridLekovi.SelectedItems[0];
+                LekDTO lekZaIzmenu = new LekDTO(row); 
                 List<Lek> sviLekovi = storageLekovi.GetAll();
                 foreach (Lek l in sviLekovi)
                 {
                     if (l.Id == row.Id)
                     {
-                        var s = new CreateFormLekovi(l);
-                        s.Id = l.Id;
-                        s.Naziv = l.Naziv;
-                        s.KolicinaUMg = l.KolicinaUMg;
-                        s.Proizvodjac = l.Proizvodjac;
-                        s.Zalihe = l.Zalihe;
-                        FileRepositorySastojak storageSastojak = new FileRepositorySastojak();
-                        foreach (Sastojak sastojak in l.Sastojak)
-                        {
-                            foreach(Sastojak sas in storageSastojak.GetAll())
-                            {
-                                if(sastojak.Id == sas.Id)
-                                    CreateFormLekovi.Sastojci.Add(sas);
-                            }
-                            
-                        }
-                        if (l.Status == StatusLeka.odobren)
-                        {
-                            s.txtId.IsEnabled = false;
-                            s.txtNaziv.IsEnabled = false;
-                            s.txtKolicinaUMg.IsEnabled = false;
-                            s.txtProizvodjac.IsEnabled = false;
-                            s.btnValidacija.Content = "Potvrdi";
-                            s.btnDodaj.IsEnabled = false;
-                            s.btnUkloni.IsEnabled = false;
-                            s.Show();
-                        }
-                        else if (l.Status == StatusLeka.odbijen)
-                        {
-                            s.lblZalihe.Visibility = Visibility.Hidden;
-                            s.txtZalihe.Visibility = Visibility.Hidden;
-                            s.txtZalihe.IsEnabled = false;
-                            s.Show();
-                        }
-                        else
+                        if (l.Status == StatusLeka.cekaValidaciju)
                         {
                             MessageBox.Show("Nije moguće izmeniti lek koji čeka validaciju!");
+
+                        } else
+                        {
+                            ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(lekZaIzmenu);
+                            CreateFormLekovi s = new CreateFormLekovi(vm);
                         }
 
                         break;

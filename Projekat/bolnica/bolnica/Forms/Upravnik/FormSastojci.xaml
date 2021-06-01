@@ -49,7 +49,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Width="60" Height="25" Click="Button_Click_Potvrdi"/>
+            <Button Content="Potvrdi" Width="60" Height="25" Click="Button_Click_Potvrdi" />
             <Button Content="Odustani" Width="60" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
 
         </StackPanel>

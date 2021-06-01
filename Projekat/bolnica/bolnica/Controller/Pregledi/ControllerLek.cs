@@ -4,40 +4,48 @@ using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
 using Model.Pregledi;
 using System;
+using System.Collections.Generic;
 
 namespace Bolnica.Controller.Pregledi
 {
-    class ControllerLek
+    public class ControllerLek
     {
         ServiceLek serviceLek = new ServiceLek();
-        public Lek RegistrujLek(LekDTO lekDto)
-        {
-            Lek lek = new Lek();
-            if (!FormUpravnik.clickedDodaj)
-            {
-                serviceLek.ObrisiLek(lek);
-                
-            }
-            lek.Id = lekDto.Id;
-            lek.Naziv = lekDto.Naziv;
-            lek.KolicinaUMg = lekDto.KolicinaUMg;
-            lek.Proizvodjac = lekDto.Proizvodjac;
-            if (FormUpravnik.clickedDodaj || lekDto.Status == StatusLeka.odbijen)
-            {
-                lek.Status = StatusLeka.cekaValidaciju;
-                lek.Zalihe = 0;
-            }
-            else
-            {
-                lek.Zalihe = lekDto.Zalihe;
-            }
-            serviceLek.SacuvajLek(lek);
-            return lek;
-        }
 
         public bool LekPostoji(int id)
         {
             return serviceLek.LekPostoji(id);
+        }
+
+        public bool LekIspravan(int id)
+        {
+            return (!LekPostoji(id) || !FormUpravnik.clickedDodaj);
+        }
+
+        public void ObrisiLek(int id)
+        {
+            serviceLek.ObrisiLek(id);
+        }
+
+        public Lek NapraviLek(LekDTO lekDto, List<SastojakDTO> sastojci)
+        {
+            Lek lek = new Lek(lekDto.Id, lekDto.Naziv, lekDto.Proizvodjac, lekDto.KolicinaUMg, lekDto.Status, lekDto.Zalihe);
+            foreach(SastojakDTO s in sastojci)
+            {
+                Sastojak sastojak = new Sastojak { Id = s.Id, Naziv = s.Naziv };
+                lek.Sastojak.Add(sastojak);
+            }
+            return lek;
+        }
+
+        public void SacuvajLek(Lek lek)
+        {
+            serviceLek.SacuvajLek(lek);
+        }
+
+        internal Lek DobaviLek(int id)
+        {
+            return serviceLek.DobaviLek(id);
         }
     }
 }

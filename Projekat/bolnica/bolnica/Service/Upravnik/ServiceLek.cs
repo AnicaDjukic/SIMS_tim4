@@ -21,7 +21,7 @@ namespace Bolnica.Services.Pregledi
             return repository.GetAll();
         }
 
-        internal bool LekPostoji(int id)
+        public bool LekPostoji(int id)
         {
             bool postoji = false;
             foreach (Lek l in repository.GetAll())
@@ -35,22 +35,22 @@ namespace Bolnica.Services.Pregledi
             return postoji;
         }
 
-        internal void ObrisiLek(Lek lek)
+        public void ObrisiLek(int lekId)
         {
-            repository.Delete(lek);
+            repository.DeleteById(lekId);
         }
 
-        internal void SacuvajLek(Lek lek)
+        public void SacuvajLek(Lek lek)
         {
             repository.Save(lek);
         }
 
-        internal Lek DobaviLek(int idLeka)
+        public Lek DobaviLek(int idLeka)
         {
             return repository.GetById(idLeka);
         }
 
-        internal List<Sastojak> DobaviSastojkeLeka(Lek lek)
+        public List<Sastojak> DobaviSastojkeLeka(Lek lek)
         {
             List<Sastojak> sastojci = new List<Sastojak>();
             foreach(Sastojak sastojakLeka in lek.Sastojak)
@@ -65,7 +65,7 @@ namespace Bolnica.Services.Pregledi
             return sastojci;
         }
 
-        internal List<Lek> DobaviSveZameneLeka(Lek lek)
+        public List<Lek> DobaviSveZameneLeka(Lek lek)
         {
             List<Lek> zameneLeka = new List<Lek>();
             foreach (Lek l in repository.GetAll())

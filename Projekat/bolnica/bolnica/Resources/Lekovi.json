@@ -1,4 +1,5 @@
 [
+  
   {
     "Id": 2435,
     "Naziv": "Panadol",
@@ -8,7 +9,12 @@
     "Zalihe": 3000,
     "Obrisan": false,
     "IdZamena": [],
-    "Sastojak": []
+    "Sastojak": [
+      { "Id": 1 },
+      { "Id": 2 },
+      { "Id": 3 },
+      { "Id": 4 }
+    ]
   },
   {
     "Id": 3256,
@@ -50,7 +56,10 @@
     "Zalihe": 3000,
     "Obrisan": false,
     "IdZamena": [],
-    "Sastojak": []
+    "Sastojak": [
+      { "Id": 2 },
+      { "Id": 3 }
+    ]
   },
   {
     "Id": 2341,
@@ -85,6 +94,20 @@
     ]
   },
   {
+    "Id": 3452,
+    "Naziv": "Amoksicilin",
+    "Proizvodjac": "Sinofarm",
+    "KolicinaUMg": 500,
+    "Status": 1,
+    "Zalihe": 0,
+    "Obrisan": false,
+    "IdZamena": [],
+    "Sastojak": [
+      { "Id": 3 },
+      { "Id": 4 }
+    ]
+  },
+  {
     "Id": 5678,
     "Naziv": "Andol",
     "Proizvodjac": "Sinofarm",
@@ -99,16 +122,5 @@
       { "Id": 5 },
       { "Id": 6 }
     ]
-  },
-  {
-    "Id": 3452,
-    "Naziv": "Amoksicilin",
-    "Proizvodjac": "Sinofarm",
-    "KolicinaUMg": 500,
-    "Status": 1,
-    "Zalihe": 0,
-    "Obrisan": false,
-    "IdZamena": [],
-    "Sastojak": []
   }
 ]

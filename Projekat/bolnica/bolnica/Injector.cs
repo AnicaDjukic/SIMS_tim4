@@ -1,13 +1,8 @@
 ﻿using Bolnica.Controller;
 using Bolnica.Services;
-using Model.Pregledi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bolnica.Service;
-
+using Bolnica.Controller.Pregledi;
+using Bolnica.Controller.Korisnici;
 
 namespace Bolnica
 {
@@ -95,6 +90,29 @@ namespace Bolnica
         public LekarController LekarController
         {
             get { return lekarController; }
+        }
+        #endregion
+
+        #region UPRAVNIK
+
+        private ControllerLek controllerLek = new ControllerLek();
+
+        private ControllerSastojak controllerSastojak = new ControllerSastojak();
+
+        private ControllerObavestenje controllerObavestenje = new ControllerObavestenje();
+        public ControllerLek ControllerLek
+        {
+            get { return controllerLek; }
+        }
+
+        public ControllerSastojak ControllerSastojak
+        {
+            get { return controllerSastojak; }
+        }
+
+        public ControllerObavestenje ControllerObavestenje
+        {
+            get { return controllerObavestenje; }
         }
 
         #endregion

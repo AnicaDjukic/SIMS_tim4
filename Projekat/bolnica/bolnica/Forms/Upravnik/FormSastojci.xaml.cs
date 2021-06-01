@@ -49,7 +49,7 @@ namespace Bolnica.Forms.Upravnik
                 foreach(Sastojak s in selected)
                 {
                     noviLek.Sastojak.Add(s);
-                    CreateFormLekovi.Sastojci.Add(s);
+                    //CreateFormLekovi.Sastojci.Add(s);
                 }
                 Close();
             }
