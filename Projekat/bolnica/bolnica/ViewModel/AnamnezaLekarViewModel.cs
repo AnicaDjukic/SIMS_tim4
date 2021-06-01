@@ -17,8 +17,16 @@ namespace Bolnica.ViewModel
     public class AnamnezaLekarViewModel : ViewModel
     {
         #region POLJA
-        public string simptomi { get; set; }
-        public string dijagnoza { get; set; }
+
+        private string simptomi;
+
+        private string dijagnoza;
+        public string Simptomi { get { return simptomi; }
+            set { simptomi = value; OnPropertyChanged(); } }
+        public string Dijagnoza {
+            get { return dijagnoza; }
+            set { dijagnoza = value; OnPropertyChanged(); }
+        }
 
         public List<PrikazRecepta> recepti { get; set; }
         private bool DaLiPostojiAnamneza = false;
@@ -206,7 +214,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.AnamnezaLekarController.Potvrdi(new AnamnezaLekarDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
+            inject.AnamnezaLekarController.Potvrdi(new AnamnezaLekarDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, Simptomi, Dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
             ZatvoriAction();
         }
 
@@ -252,15 +260,15 @@ namespace Bolnica.ViewModel
         private void PopuniAnamnezu(PrikazPregleda izabraniPregled, int i)
         {
             idAnamneze = izabraniPregled.Anamneza.Id;
-            simptomi = sveAnamneze[i].Simptomi;
-            dijagnoza = sveAnamneze[i].Dijagnoza;
+            Simptomi = sveAnamneze[i].Simptomi;
+            Dijagnoza = sveAnamneze[i].Dijagnoza;
             popuniRecepte(i);
         }
         private void PopuniAnamnezu(PrikazOperacije izabranaOperacija, int i)
         {
             idAnamneze = izabranaOperacija.Anamneza.Id;
-            simptomi = sveAnamneze[i].Simptomi;
-            dijagnoza = sveAnamneze[i].Dijagnoza;
+            Simptomi = sveAnamneze[i].Simptomi;
+            Dijagnoza = sveAnamneze[i].Dijagnoza;
             popuniRecepte(i);
         }
 
@@ -305,8 +313,8 @@ namespace Bolnica.ViewModel
             trenutniPacijent = izabraniPregled.Pacijent;
             sveAnamneze = inject.AnamnezaLekarController.DobijAnamneze();
             Recepti = new ObservableCollection<PrikazRecepta>();
-            simptomi = "";
-            dijagnoza = "";
+            Simptomi = "";
+            Dijagnoza = "";
             trenutniPregled = izabraniPregled;
             sviLekari = inject.AnamnezaLekarController.DobijLekare();
             stariPregled = izabraniPregled;
@@ -319,8 +327,8 @@ namespace Bolnica.ViewModel
             trenutnaOperacija = izabranaOperacija;
             staraOperacija = izabranaOperacija;
             sveAnamneze = inject.AnamnezaLekarController.DobijAnamneze();
-            simptomi = "";
-            dijagnoza = "";
+            Simptomi = "";
+            Dijagnoza = "";
             sviLekovi = inject.AnamnezaLekarController.DobijLekove();
             sviLekari = inject.AnamnezaLekarController.DobijLekare();
             this.ulogovaniLekar = ulogovaniLekar;

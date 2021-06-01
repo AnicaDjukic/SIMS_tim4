@@ -26,6 +26,7 @@
     <None Remove="Forms\Images\serbia.png" />
     <None Remove="Forms\Images\shopping-cart.png" />
     <None Remove="Forms\Images\view.png" />
+    <None Remove="Resources\demo.png" />
     <None Remove="Resources\hospital.png" />
     <None Remove="Resources\Hospitalizacija.png" />
     <None Remove="Resources\InformacijePacijent.png" />
@@ -68,6 +69,7 @@
     <Resource Include="Forms\Images\serbia.png" />
     <Resource Include="Forms\Images\shopping-cart.png" />
     <Resource Include="Forms\Images\view.png" />
+    <Resource Include="Resources\demo.png" />
     <Resource Include="Resources\hospital.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

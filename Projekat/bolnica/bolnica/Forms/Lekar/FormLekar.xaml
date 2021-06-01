@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:local="clr-namespace:Bolnica"
         mc:Ignorable="d"
         Title="Bolnica" Background="#1176ae" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -34,7 +34,9 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
         </Style>
     </Window.Resources>
-    <TabControl TabStripPlacement="Left" >
+    <Grid>
+       
+        <TabControl TabStripPlacement="Left" >
 
 
         <TabControl.Resources>
@@ -121,7 +123,7 @@
                             <Setter.Value>
 
                                 <Image  MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarLek.png" >
-                                  
+
 
                                 </Image>
 
@@ -130,9 +132,12 @@
                         </Setter>
                     </Trigger>
                 </Style.Triggers>
+                
 
             </Style>
+            
         </TabControl.Resources>
+       
         <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}" >
             <TabItem.InputBindings>
                 <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=ZakaziPregledKomanda}" />
@@ -141,8 +146,9 @@
                 <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding Path=AnamnezaKomanda}" />
                 <KeyBinding Modifiers="Ctrl" Key="I" Command="{Binding Path=InformacijeOPacijentuKomanda}" />
             </TabItem.InputBindings>
-
+           
             <Grid Height="Auto" MinHeight="300" MinWidth="500" >
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -212,6 +218,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
+                
                 <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
                     <DataGrid.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterKomanda}"/>
@@ -276,6 +283,7 @@
                 <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="13" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+N" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Label Content="Ctrl+I" Grid.Row="29" Grid.Column="25" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                
             </Grid>
         </TabItem>
         <TabItem Name="IstorijaTab" Style="{StaticResource DrugiTab}" >
@@ -417,7 +425,8 @@
                 <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=OdobriLekKomanda}" />
                 <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=VratiNaIzmenuKomanda}" />
                 <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniLekKomanda}" />
-            </TabItem.InputBindings>
+                    <KeyBinding Key="Down" Command="{Binding Path=DemoFokusKomanda}"/>
+                </TabItem.InputBindings>
             <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -556,7 +565,40 @@
                 <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </TabItem>
+        
+        
     </TabControl>
+        <Button local:FocusExtension.IsFocused="{Binding Path=DemoFokus,Mode=TwoWay}" Margin="2,320,819,200"  Width="60" Height="60" Command="{Binding Path=DemoKomanda}" >
+            <Button.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Content" Value=""></Setter>
+                <Setter Property="Opacity" Value="0.8"></Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="Opacity" Value="1">
+                            
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            </Button.Resources>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse >
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Resources/demo.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label Content="Demo" Margin="2,400,819,200"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Ctrl+D" Margin="2,430,819,200"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+    
 </Window>
 
 

@@ -523,11 +523,24 @@ namespace Bolnica.Services
             {
                 terminDTO.filtriraniDatum = terminDTO.datumPregledaDatum;
                 terminDTO.predmetStavkiProstorije = new List<string>();
-                for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
+                if (!terminDTO.predmetStavkiDaLiJeOperacija)
                 {
-                    if (terminDTO.sveProstorije[i].Obrisana == false && terminDTO.sveProstorije[i].Zauzeta == false && terminDTO.sveProstorije[i].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(terminDTO.sveProstorije[i],terminDTO.datumPregledaDatum))
+                    for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
                     {
-                        terminDTO.predmetStavkiProstorije.Add(terminDTO.sveProstorije[i].BrojProstorije);
+                        if (terminDTO.sveProstorije[i].Obrisana == false && terminDTO.sveProstorije[i].Zauzeta == false && terminDTO.sveProstorije[i].TipProstorije.Equals(TipProstorije.salaZaPreglede) && !naRenoviranju(terminDTO.sveProstorije[i], terminDTO.datumPregledaDatum))
+                        {
+                            terminDTO.predmetStavkiProstorije.Add(terminDTO.sveProstorije[i].BrojProstorije);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < terminDTO.sveProstorije.Count; i++)
+                    {
+                        if (terminDTO.sveProstorije[i].Obrisana == false && terminDTO.sveProstorije[i].Zauzeta == false && terminDTO.sveProstorije[i].TipProstorije.Equals(TipProstorije.operacionaSala) && !naRenoviranju(terminDTO.sveProstorije[i], terminDTO.datumPregledaDatum))
+                        {
+                            terminDTO.predmetStavkiProstorije.Add(terminDTO.sveProstorije[i].BrojProstorije);
+                        }
                     }
                 }
                 return terminDTO.predmetStavkiProstorije;

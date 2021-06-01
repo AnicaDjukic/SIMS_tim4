@@ -173,7 +173,7 @@
 
                 <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
                     <TextBox.Text>
-                            <Binding Path="simptomi" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Simptomi" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:TextBoxSimptomiValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                                 </Binding.ValidationRules>
@@ -197,7 +197,7 @@
                     </TextBox>
                 <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
                     <TextBox.Text>
-                            <Binding Path="dijagnoza" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Dijagnoza" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <val:TextBoxDijagnozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                                 </Binding.ValidationRules>

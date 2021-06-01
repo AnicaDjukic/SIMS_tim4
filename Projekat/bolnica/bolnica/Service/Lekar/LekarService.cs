@@ -14,8 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Bolnica.Services
@@ -212,10 +214,30 @@ namespace Bolnica.Services
                     izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
                     InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(izabraniPrikazPregleda.Pacijent);
                     FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
-
+                  
                     break;
                 }
             }
+        }
+
+        public void DemoKomanda()
+        {
+            Thread t = new Thread(new ThreadStart(ThreadMethod));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+        }
+
+        private void ThreadMethod()
+        {
+
+            TerminLekarViewModel vm = new TerminLekarViewModel(skladisteLekara.GetAll()[0]);
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(vm);
+            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+            Thread.Sleep(500);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+            Thread.Sleep(500);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
         }
 
         private void InformacijeOPacijentuAkoJeOperacija(LekarServiceDTO lekarServiceDTO)

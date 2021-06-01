@@ -1,5 +1,6 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Model.Korisnici;
@@ -10,10 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Bolnica.ViewModel
 {
@@ -41,6 +45,8 @@ namespace Bolnica.ViewModel
         private TabItem lekTab;
         private Button anamnezaIstorijaDugme;
         private Button odobriDugme;
+        private DispatcherTimer _activeTimer;
+
 
 
         private Injector inject;
@@ -50,6 +56,17 @@ namespace Bolnica.ViewModel
             set
             {
                 inject = value;
+            }
+        }
+
+        private bool demoFokus;
+        public bool DemoFokus
+        {
+            get { return demoFokus; }
+            set
+            {
+                demoFokus = value;
+                OnPropertyChanged();
             }
         }
         public Action ZatvoriAkcija { get; set; }
@@ -178,6 +195,51 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+
+        private RelayCommand demoFokusKomanda;
+        public RelayCommand DemoFokusKomanda
+        {
+            get { return demoFokusKomanda; }
+            set
+            {
+                demoFokusKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoFokusKomanda(object obj)
+        {
+            DemoFokus = true;
+            DemoFokus = false;
+        }
+
+        public bool CanExecute_DemoFokusKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand demoKomanda;
+        public RelayCommand DemoKomanda
+        {
+            get { return demoKomanda; }
+            set
+            {
+                demoKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoKomanda(object obj)
+        {
+            DemoKomandaIzView();
+        }
+
+        public bool CanExecute_DemoKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand skociNaLevoKomanda;
         public RelayCommand SkociNaLevoKomanda
         {
@@ -508,6 +570,7 @@ namespace Bolnica.ViewModel
 
         public LekarViewModel(Lekar lekar)
         {
+            DemoFokus = false;
             Inject = new Injector();
             IzfiltrirajLekove();
             InicijalizujPolja(lekar);
@@ -620,6 +683,8 @@ namespace Bolnica.ViewModel
             IstorijaDugmeSkociNaInformacijeKomanda = new RelayCommand(Executed_IstorijaDugmeSkociNaInformacijeKomanda, CanExecute_IstorijaDugmeSkociNaInformacijeKomanda);
             InformacijeDugmeSkociNaIstorijaTabKomanda = new RelayCommand(Executed_InformacijeDugmeSkociNaIstorijaTabKomanda, CanExecute_InformacijeDugmeSkociNaIstorijaTabKomanda);
             VratiDugmeSkociNaLekTabKomanda = new RelayCommand(Executed_VratiDugmeSkociNaLekTabKomanda, CanExecute_VratiDugmeSkociNaLekTabKomanda);
+            DemoFokusKomanda = new RelayCommand(Executed_DemoFokusKomanda, CanExecute_DemoFokusKomanda);
+            DemoKomanda = new RelayCommand(Executed_DemoKomanda, CanExecute_DemoKomanda);
         }
 
         public void SortirajPodatke()
@@ -703,6 +768,361 @@ namespace Bolnica.ViewModel
         {
             lekoviTabela.ItemsSource = lekoviPrikaz;
         }
+
+  
+
+
+
+
+        public void DemoKomandaIzView()
+        {
+            
+            
+            TerminLekarViewModel vm = new TerminLekarViewModel(inject.LekarController.DobijLekare()[0]);
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(vm);
+           
+            
+
+           
+
+         
+            int i = 0;
+            int predjiDalje1 = 0;
+            _activeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5)
+            };
+            _activeTimer.Tick += delegate (object sender, EventArgs e) {
+                if (predjiDalje1 == 0)
+                {
+                    ZaTermin(ref i, ref vm, ref predjiDalje1);
+                }
+                else if(predjiDalje1 == 1)
+                {
+                    _activeTimer.Stop();
+                    DemoKomandaIzView3();
+                }
+            };
+            _activeTimer.Start();
+          
+          
+
+        }
+        public void ZaTermin(ref int i, ref TerminLekarViewModel vm, ref int predjiDalje1)
+        {
+            string specijali = "Opsta";
+            string leka = "Pap Vatroslav 0303965123456";
+            string pac = "Savić Stefan 2512002149573";
+            string pro = "103";
+            string vreme = "00:30:00";
+            if (i < 5)
+                {
+                    if (i == 0)
+                    {
+                        vm.ItemSourceSpecijalizacijaComboOpen = true;
+                    }
+                    vm.Specijalizacija += specijali[i];
+                    i++;
+                }
+                else if (i >= 5 && i < 32)
+                {
+                    if (i == 5)
+                    {
+                        vm.ItemSourceLekarComboOpen = true;
+                    }
+                    vm.LekarPodaci += leka[i - 5];
+                    i++;
+                }
+                else if (i >= 32 && i < 58)
+                {
+                    if (i == 32)
+                    {
+                        vm.ItemSourcePacijentComboOpen = true;
+                    }
+                    vm.PacijentPodaci += pac[i - 32];
+                    i++;
+                }
+                else if (i >= 58 && i < 61)
+                {
+                    if (i == 58)
+                    {
+                        vm.ItemSourceProstorijaComboOpen = true;
+                    }
+                    vm.BrojProstorije += pro[i - 58];
+                    i++;
+                }
+                else if (i >= 61 && i < 69)
+                {
+                    if (i == 61)
+                    {
+                        vm.ItemSourceVremeComboOpen = true;
+                    }
+                    vm.VremePregleda += vreme[i - 61];
+
+                    if (i == 68)
+                    {
+                        vm.ItemSourceVremeComboOpen = false;
+                    }
+                    i++;
+                }
+                else if (i >=69 && i<75)
+                {
+                i++;
+                 }
+            else if (i >= 75)
+            {
+                vm.CloseAction();
+                predjiDalje1 = 1;
+            }
+            
+
+        }
+
+
+        public void DemoKomandaIzView2()
+        {
+
+
+            LekLekarViewModel vm = new LekLekarViewModel(inject.LekarController.DobijLekove()[0]);
+            FormIzmeniLekLekar form = new FormIzmeniLekLekar(vm);
+            int i = 0;
+            int predjiDalje1 = 0;
+            vm.Proizvodjac = "";
+            vm.Lek = "";
+            vm.Doza = "";
+            _activeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5)
+            };
+            _activeTimer.Tick += delegate (object sender, EventArgs e) {
+                if (predjiDalje1 == 0)
+                {
+                    ZaLek(ref i, ref vm, ref predjiDalje1);
+                }
+                else if (predjiDalje1 == 1)
+                {
+                    _activeTimer.Stop();
+                }
+            };
+            _activeTimer.Start();
+        }
+
+        public void ZaLek(ref int i, ref LekLekarViewModel vm, ref int predjiDalje1)
+        {
+            string proi = "Sinofarm";
+            string leka = "Kardiopirin ";
+            string doza = "200";
+            if (i < 8)
+            {
+                if (i == 0)
+                {
+                    vm.ItemSourceProizvodjacComboOpen = true;
+                }
+                vm.Proizvodjac += proi[i];
+                i++;
+            }
+            else if (i >= 8 && i < 20)
+            {
+                if (i == 8)
+                {
+                    vm.ItemSourceNazivLekaComboOpen = true;
+                }
+                vm.Lek += leka[i - 8];
+                i++;
+            }
+            else if (i >= 20 && i < 23)
+            {
+                if (i == 20)
+                {
+                    vm.ItemSourceDozaComboOpen = true;
+                }
+                vm.Doza += doza[i - 20];
+                i++;
+            }
+            
+            else if (i >= 23 && i < 30)
+            {
+                i++;
+            }
+            else if (i >= 30)
+            {
+                vm.ZatvoriAkcija();
+                predjiDalje1 = 1;
+            }
+
+
+        }
+
+        public void DemoKomandaIzView3()
+        {
+            List<Pregled> pregledi = inject.LekarController.DobijPreglede();
+            PrikazPregleda p = new PrikazPregleda();
+            for (int i = 0; i < pregledi.Count; i++)
+            {
+                if(!pregledi[i].Zavrsen && pregledi[i].Datum < DateTime.Now)
+                {
+                    p = new PrikazPregleda(pregledi[i].Id, pregledi[i].Datum, pregledi[i].Trajanje, pregledi[i].Zavrsen, pregledi[i].Hitan, pregledi[i].Anamneza);
+                    break;
+                }
+            }
+            
+            AnamnezaLekarViewModel vm = new AnamnezaLekarViewModel(p, inject.LekarController.DobijLekare()[0]);
+            FormNapraviAnamnezuLekar form = new FormNapraviAnamnezuLekar(vm);
+            int L = 0;
+            int predjiDalje1 = 0;
+            _activeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5)
+            };
+            _activeTimer.Tick += delegate (object sender, EventArgs e) {
+                if (predjiDalje1 == 0)
+                {
+                    ZaAnamnezu(ref L, ref vm, ref predjiDalje1);
+                }
+                else if (predjiDalje1 == 1)
+                {
+                    _activeTimer.Stop();
+                    DemoKomandaIzView4(vm);
+                }
+            };
+            _activeTimer.Start();
+        }
+
+        public void ZaAnamnezu(ref int i, ref AnamnezaLekarViewModel vm, ref int predjiDalje1)
+        {
+            string sim = "Kasalj, temparatura, bol u stomaku";
+            string dijagnoza = "Potrebno je odraditi jos testova";
+            if (i < 34)
+            {
+                vm.Simptomi += sim[i];
+                i++;
+            }
+            else if (i >= 34 && i < 66)
+            {
+
+                vm.Dijagnoza += dijagnoza[i - 34];
+                i++;
+            }
+            else if (i >= 66 && i < 70)
+            {
+                i++;
+            }
+            else if (i >= 70)
+            {
+
+                predjiDalje1 = 1;
+            }
+
+
+        }
+
+        public void DemoKomandaIzView4(AnamnezaLekarViewModel view)
+        {
+            List<Pregled> pregledi = inject.LekarController.DobijPreglede();
+            PrikazPregleda p = new PrikazPregleda();
+            for (int i = 0; i < pregledi.Count; i++)
+            {
+                if (!pregledi[i].Zavrsen && pregledi[i].Datum < DateTime.Now)
+                {
+                    p = new PrikazPregleda(pregledi[i].Id, pregledi[i].Datum, pregledi[i].Trajanje, pregledi[i].Zavrsen, pregledi[i].Hitan, pregledi[i].Anamneza);
+                    break;
+                }
+            }
+            
+            ReceptLekarViewModel vm = new ReceptLekarViewModel(p.Pacijent);
+            FormNapraviReceptLekar form = new FormNapraviReceptLekar(vm);
+            int L = 0;
+            int predjiDalje1 = 0;
+            _activeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5)
+            };
+            _activeTimer.Tick += delegate (object sender, EventArgs e) {
+                if (predjiDalje1 == 0)
+                {
+                    ZaRecept(ref L, ref vm, ref predjiDalje1);
+                }
+                else if (predjiDalje1 == 1)
+                {
+                    _activeTimer.Stop();
+                    view.ZatvoriAction();
+                    DemoKomandaIzView2();
+                }
+            };
+            _activeTimer.Start();
+        }
+
+        public void ZaRecept(ref int i, ref ReceptLekarViewModel vm, ref int predjiDalje1)
+        {
+            string proizvodjac = "Galenika";
+            string naziv = "Panadol";
+            string doza = "200";
+            string brojKutija = "1";
+            string vremeUzimanja = "1";
+            DateTime datumPrekida = DateTime.Parse("13.6.2021");
+
+            if (i < 8)
+            {
+                if (i == 0)
+                {
+                    vm.ItemSourceProizvodjacComboOpen = true;
+                }
+                vm.ProizvodjacLeka += proizvodjac[i];
+                i++;
+            }
+            else if (i >= 8 && i < 15)
+            {
+                if (i ==8)
+                {
+                    vm.ItemSourceNazivLekaComboOpen = true;
+                }
+                vm.NazivLeka += naziv[i - 8];
+                i++;
+            }
+            else if (i >= 15 && i < 18)
+            {
+                if (i == 15)
+                {
+                    vm.ItemSourceDozaComboOpen = true;
+                }
+                vm.DozaLeka += doza[i - 15];
+                i++;
+            }
+            else if (i >= 18 && i < 19)
+            {
+                if (i == 18)
+                {
+                    vm.ItemSourceBrojKutijaComboOpen = true;
+                }
+                vm.BrojKutijaLeka += brojKutija[i - 18];
+                i++;
+            }
+            else if (i >= 19 && i < 20)
+            {
+                if (i == 19)
+                {
+                    vm.ItemSourceVremeUzimanjaComboOpen = true;
+                }
+                vm.VremeUzimanjaLeka += vremeUzimanja[i - 19];
+                i++;
+            }
+            else if (i>=20 && i < 21)
+            {
+                vm.ItemSourceVremeUzimanjaComboOpen = false;
+                vm.DatumPrekidaRecepta = datumPrekida;
+                i++;
+            }
+            else if (i >= 21 && i < 26)
+            {
+                i++;
+            }
+            else if (i >= 26)
+            {
+                vm.ZatvoriAkcija();
+                predjiDalje1 = 1;
+            }
+        }
+
         #endregion
     }
 }

@@ -9,6 +9,7 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -235,19 +236,73 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string pacijentPodaci { get; set; }
+        private string pacijentPodaci;
+        public string PacijentPodaci
+        {
+            get { return pacijentPodaci; }
+            set
+            {
+                pacijentPodaci = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string lekarPodaci { get; set; }
+        private string lekarPodaci;
+        public string LekarPodaci
+        {
+            get { return lekarPodaci; }
+            set
+            {
+                lekarPodaci = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public DateTime datumPregleda { get; set; }
+        private DateTime datumPregleda;
+        public DateTime DatumPregleda
+        {
+            get { return datumPregleda; }
+            set
+            {
+                datumPregleda = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string vremePregleda { get; set; }
+        private string vremePregleda;
+        public string VremePregleda
+        {
+            get { return vremePregleda; }
+            set
+            {
+                vremePregleda = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string brojProstorije { get; set; }
+        private string brojProstorije;
+        public string BrojProstorije
+        {
+            get { return brojProstorije; }
+            set
+            {
+                brojProstorije = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public TipOperacije tipOperacije { get; set; }
+        private TipOperacije tipOperacije;
+        public TipOperacije TipOperacije
+        {
+            get { return tipOperacije; }
+            set
+            {
+                tipOperacije = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string trajanjePregleda;
+        private string trajanjePregleda;
 
         public string TrajanjePregleda
         {
@@ -284,32 +339,32 @@ namespace Bolnica.ViewModel
 
         public void Executed_DodajPregledLekarCommand(object obj)
         {
-            if (!inject.TerminLekarController.PostojiLekar(new TerminLekarDTO(Specijalizacija, lekarPodaci)))
+            if (!inject.TerminLekarController.PostojiLekar(new TerminLekarDTO(Specijalizacija, LekarPodaci)))
             {
                 MessageBox.Show("Ne postoji lekar");
                 return;
             }
-            if (!inject.TerminLekarController.LekarSlobodanUToVreme(new TerminLekarDTO(lekarPodaci, datumPregleda, TrajanjePregleda, vremePregleda)))
+            if (!inject.TerminLekarController.LekarSlobodanUToVreme(new TerminLekarDTO(LekarPodaci, DatumPregleda, TrajanjePregleda, VremePregleda)))
             {
                 MessageBox.Show("Lekar nije slobodan u to vreme");
                 return;
             }
-            if (!inject.TerminLekarController.PacijentSlobodanUToVreme(new TerminLekarDTO(sviPacijenti, pacijentPodaci, datumPregleda, TrajanjePregleda, vremePregleda)))
+            if (!inject.TerminLekarController.PacijentSlobodanUToVreme(new TerminLekarDTO(sviPacijenti, PacijentPodaci, DatumPregleda, TrajanjePregleda, VremePregleda)))
             {
                 MessageBox.Show("Pacijent nije slobodan u to vreme");
                 return;
             }
-            if (!inject.TerminLekarController.PostojiProstorija(new TerminLekarDTO(sveProstorije, brojProstorije)))
+            if (!inject.TerminLekarController.PostojiProstorija(new TerminLekarDTO(sveProstorije, BrojProstorije)))
             {
                 MessageBox.Show("Prostorija ne postoji");
                 return;
             }
-            if (!inject.TerminLekarController.ProstorijaSlobodna(new TerminLekarDTO(sveProstorije, brojProstorije, datumPregleda)))
+            if (!inject.TerminLekarController.ProstorijaSlobodna(new TerminLekarDTO(sveProstorije, BrojProstorije, DatumPregleda)))
             {
                 MessageBox.Show("Prostorija nije slobodna");
                 return;
             }
-            inject.TerminLekarController.Potvrdi(new TerminLekarDTO(datumPregleda.ToShortDateString(), vremePregleda, TrajanjePregleda, sviLekari, lekarPodaci, sviPacijenti, pacijentPodaci, sveProstorije, ItemSourceDaLiJeOperacije, tipOperacije, ItemSourceDaLiJeHitan, brojProstorije, ulogovaniLekar));
+            inject.TerminLekarController.Potvrdi(new TerminLekarDTO(DatumPregleda.ToShortDateString(), VremePregleda, TrajanjePregleda, sviLekari, LekarPodaci, sviPacijenti, PacijentPodaci, sveProstorije, ItemSourceDaLiJeOperacije, TipOperacije, ItemSourceDaLiJeHitan, BrojProstorije, ulogovaniLekar));
             CloseAction();
             
         }
@@ -332,32 +387,32 @@ namespace Bolnica.ViewModel
 
         public void Executed_IzmeniPregledLekarCommand(object obj)
         {
-            if (!inject.TerminLekarController.PostojiLekar(new TerminLekarDTO(Specijalizacija, lekarPodaci)))
+            if (!inject.TerminLekarController.PostojiLekar(new TerminLekarDTO(Specijalizacija, LekarPodaci)))
             {
                 MessageBox.Show("Ne postoji lekar");
                 return;
             }
-            if (!inject.TerminLekarController.LekarSlobodanUToVremeIzmeni(new TerminLekarDTO(lekarPodaci, datumPregleda, TrajanjePregleda, vremePregleda,trenutniPregled,trenutnaOperacija)))
+            if (!inject.TerminLekarController.LekarSlobodanUToVremeIzmeni(new TerminLekarDTO(LekarPodaci, DatumPregleda, TrajanjePregleda, VremePregleda,trenutniPregled,trenutnaOperacija)))
             {
                 MessageBox.Show("Lekar nije slobodan u to vreme");
                 return;
             }
-            if (!inject.TerminLekarController.PacijentSlobodanUToVremeIzmeni(new TerminLekarDTO(pacijentPodaci, datumPregleda, TrajanjePregleda, vremePregleda,trenutniPregled,trenutnaOperacija)))
+            if (!inject.TerminLekarController.PacijentSlobodanUToVremeIzmeni(new TerminLekarDTO(PacijentPodaci, DatumPregleda, TrajanjePregleda, VremePregleda,trenutniPregled,trenutnaOperacija)))
             {
                 MessageBox.Show("Pacijent nije slobodan u to vreme");
                 return;
             }
-            if (!inject.TerminLekarController.PostojiProstorija(new TerminLekarDTO(sveProstorije, brojProstorije)))
+            if (!inject.TerminLekarController.PostojiProstorija(new TerminLekarDTO(sveProstorije, BrojProstorije)))
             {
                 MessageBox.Show("Prostorija ne postoji");
                 return;
             }
-            if (!inject.TerminLekarController.ProstorijaSlobodna(new TerminLekarDTO(sveProstorije, brojProstorije, datumPregleda)))
+            if (!inject.TerminLekarController.ProstorijaSlobodna(new TerminLekarDTO(sveProstorije, BrojProstorije, DatumPregleda)))
             {
                 MessageBox.Show("Prostorija nije slobodna");
                 return;
             }
-            inject.TerminLekarController.PotvrdiIzmenu(new TerminLekarDTO(datumPregleda.ToShortDateString(), vremePregleda, TrajanjePregleda, lekarPodaci, pacijentPodaci, ItemSourceDaLiJeOperacije, tipOperacije, ItemSourceDaLiJeHitan, brojProstorije, ulogovaniLekar, staraOperacija, stariPregled));
+            inject.TerminLekarController.PotvrdiIzmenu(new TerminLekarDTO(DatumPregleda.ToShortDateString(), VremePregleda, TrajanjePregleda, LekarPodaci, PacijentPodaci, ItemSourceDaLiJeOperacije, TipOperacije, ItemSourceDaLiJeHitan, BrojProstorije, ulogovaniLekar, staraOperacija, stariPregled));
             CloseAction();
 
         }
@@ -449,8 +504,8 @@ namespace Bolnica.ViewModel
         public void Executed_LekarComboOpenTabCommand(object obj)
         {
             
-            Specijalizacija = inject.TerminLekarController.LekarComboNaTab(new TerminLekarDTO(nazivIzfiltriranogLeka, lekarPodaci, sviLekari, Specijalizacija));
-            ItemSourceVremeB = inject.TerminLekarController.LekarFiltriranje(new TerminLekarDTO(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, lekarPodaci, datumPregleda));
+            Specijalizacija = inject.TerminLekarController.LekarComboNaTab(new TerminLekarDTO(nazivIzfiltriranogLeka, LekarPodaci, sviLekari, Specijalizacija));
+            ItemSourceVremeB = inject.TerminLekarController.LekarFiltriranje(new TerminLekarDTO(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, LekarPodaci, DatumPregleda));
             ItemSourceLekarComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -559,8 +614,8 @@ namespace Bolnica.ViewModel
 
         public void Executed_DatumComboOpenTabCommand(object obj)
         {
-            ItemSourceBrojProstorije = inject.TerminLekarController.DatumFiltriranje(new TerminLekarDTO(datumZaFiltriranjeLeka, datumPregleda, sveProstorije, ItemSourceBrojProstorije));
-            ItemSourceVremeB = inject.TerminLekarController.LekarFiltriranje(new TerminLekarDTO(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, lekarPodaci, datumPregleda));
+            ItemSourceBrojProstorije = inject.TerminLekarController.DatumFiltriranje(new TerminLekarDTO(datumZaFiltriranjeLeka, DatumPregleda, sveProstorije, ItemSourceBrojProstorije, daLiJeOperacija));
+            ItemSourceVremeB = inject.TerminLekarController.LekarFiltriranje(new TerminLekarDTO(ItemSourceVremeB, nazivIzfiltriranogLeka, sviLekari, LekarPodaci, DatumPregleda));
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
         }
@@ -700,6 +755,7 @@ namespace Bolnica.ViewModel
         }
 
 
+
         public TerminLekarViewModel(Lekar izabraniLekar, Pacijent pacijent)
         {
             InicirajZajednickaPoljaKonstruktora(izabraniLekar);
@@ -786,14 +842,14 @@ namespace Bolnica.ViewModel
         {
             PopuniComboBoxove(pacijent);
             RukujPoljimaPregleda();
-            datumPregleda = DateTime.Now;
+            DatumPregleda = DateTime.Now;
         }
 
         public void PopuniIPodesiPodatkePregleda(Lekar izabraniLekar)
         {
             PopuniComboBoxove();
             RukujPoljimaPregleda();
-            datumPregleda = DateTime.Now;
+            DatumPregleda = DateTime.Now;
         }
         public void PopuniIPodesiPodatkeIzmeneOperacije()
         {
@@ -806,33 +862,33 @@ namespace Bolnica.ViewModel
         public void PostaviComboBoxoveNaPotrebneVrednostiIzmenePregleda()
         {
             Specijalizacija = trenutniPregled.Lekar.Specijalizacija.OblastMedicine;
-            pacijentPodaci = trenutniPregled.Pacijent.Prezime + ' ' + trenutniPregled.Pacijent.Ime + ' ' + trenutniPregled.Pacijent.Jmbg;
-            lekarPodaci = trenutniPregled.Lekar.Prezime + ' ' + trenutniPregled.Lekar.Ime + ' ' + trenutniPregled.Lekar.Jmbg;
+            PacijentPodaci = trenutniPregled.Pacijent.Prezime + ' ' + trenutniPregled.Pacijent.Ime + ' ' + trenutniPregled.Pacijent.Jmbg;
+            LekarPodaci = trenutniPregled.Lekar.Prezime + ' ' + trenutniPregled.Lekar.Ime + ' ' + trenutniPregled.Lekar.Jmbg;
             string[] datum = trenutniPregled.Datum.ToString().Split(" ");
             string[] dioDatuma = datum[0].Split(".");
             string vreme = datum[1];
             DateTime izabraniDatum = new DateTime(Int32.Parse(dioDatuma[2]), Int32.Parse(dioDatuma[1]), Int32.Parse(dioDatuma[0]));
-            datumPregleda = izabraniDatum;
-            vremePregleda = TimeSpan.Parse(vreme).ToString();
-            brojProstorije = trenutniPregled.Prostorija.BrojProstorije.ToString();
+            DatumPregleda = izabraniDatum;
+            VremePregleda = TimeSpan.Parse(vreme).ToString();
+            BrojProstorije = trenutniPregled.Prostorija.BrojProstorije.ToString();
             TrajanjePregleda = trenutniPregled.Trajanje.ToString();
             ItemSourceDaLiJeHitan = trenutniPregled.Hitan;
         }
         public void PostaviComboBoxoveNaPotrebneVrednostiIzmeneOperacije()
         {
             Specijalizacija = trenutnaOperacija.Lekar.Specijalizacija.OblastMedicine;
-            pacijentPodaci = trenutnaOperacija.Pacijent.Prezime + ' ' + trenutnaOperacija.Pacijent.Ime + ' ' + trenutnaOperacija.Pacijent.Jmbg;
-            lekarPodaci = trenutnaOperacija.Lekar.Prezime + ' ' + trenutnaOperacija.Lekar.Ime + ' ' + trenutnaOperacija.Lekar.Jmbg;
+            PacijentPodaci = trenutnaOperacija.Pacijent.Prezime + ' ' + trenutnaOperacija.Pacijent.Ime + ' ' + trenutnaOperacija.Pacijent.Jmbg;
+            LekarPodaci = trenutnaOperacija.Lekar.Prezime + ' ' + trenutnaOperacija.Lekar.Ime + ' ' + trenutnaOperacija.Lekar.Jmbg;
             string[] datum = trenutnaOperacija.Datum.ToString().Split(" ");
             string[] dioDatuma = datum[0].Split(".");
             string vreme = datum[1];
             DateTime izabraniDatum = new DateTime(Int32.Parse(dioDatuma[2]), Int32.Parse(dioDatuma[1]), Int32.Parse(dioDatuma[0]));
-            datumPregleda = izabraniDatum;
-            vremePregleda = TimeSpan.Parse(vreme).ToString();
-            brojProstorije = trenutnaOperacija.Prostorija.BrojProstorije.ToString();
+            DatumPregleda = izabraniDatum;
+            VremePregleda = TimeSpan.Parse(vreme).ToString();
+            BrojProstorije = trenutnaOperacija.Prostorija.BrojProstorije.ToString();
             TrajanjePregleda = trenutnaOperacija.Trajanje.ToString();
             ItemSourceDaLiJeHitan = trenutnaOperacija.Hitan;
-            tipOperacije = trenutnaOperacija.TipOperacije;
+            TipOperacije = trenutnaOperacija.TipOperacije;
         }
         public void RukujPoljimaIzmeneOperacije()
         {
@@ -982,7 +1038,7 @@ namespace Bolnica.ViewModel
                     ItemSourcePrezimeB.Add(podaciOPacijentu);
                     if (podaciOPacijentu.Equals(podaciOIzabranomPacijentu))
                     {
-                        pacijentPodaci = podaciOIzabranomPacijentu;
+                        PacijentPodaci = podaciOIzabranomPacijentu;
                         pacijentEnabled = false;
                     }
 
@@ -1000,6 +1056,7 @@ namespace Bolnica.ViewModel
                 }
             }
         }
+       
         #endregion
 
     }

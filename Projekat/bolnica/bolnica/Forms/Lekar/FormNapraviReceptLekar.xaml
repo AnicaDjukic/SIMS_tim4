@@ -104,7 +104,7 @@
 
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
             <DatePicker.SelectedDate>
-                <Binding Path="datumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="DatumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                          <val:DatePickerDatumIzdavanjaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
@@ -136,7 +136,7 @@
                     Command="{Binding Path=ProizvodjacComboTabKomanda}" />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="proizvodjacLeka" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="ProizvodjacLeka" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:ComboBoxProizvodjacValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>
@@ -168,7 +168,7 @@
                     Command="{Binding Path=LekComboTabKomanda}" />
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="nazivLeka" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="NazivLeka" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:ComboBoxLekValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>
@@ -199,7 +199,7 @@
                
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="dozaLeka" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="DozaLeka" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:ComboBoxDozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>
@@ -230,7 +230,7 @@
 
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="brojKutijaLeka" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="BrojKutijaLeka" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:ComboBoxBrojKutijaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>
@@ -261,7 +261,7 @@
 
             </ComboBox.InputBindings>
             <ComboBox.Text>
-                <Binding Path="vremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="VremeUzimanjaLeka" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:ComboBoxVremeUzimanjaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>
@@ -285,7 +285,7 @@
         </ComboBox>
         <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
             <DatePicker.SelectedDate>
-                <Binding Path="datumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="DatumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>
                 <val:DatePickerDatumPrekidaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
             </Binding.ValidationRules>

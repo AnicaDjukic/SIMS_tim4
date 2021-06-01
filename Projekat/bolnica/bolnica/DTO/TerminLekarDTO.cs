@@ -309,5 +309,15 @@ namespace Bolnica.DTO
             this.prostorijaBroj = prostorijaBroj;
             this.stariPregled = stariPregled;
         }
+
+        public TerminLekarDTO(DateTime filtriraniDatum, DateTime datumPregleda, List<Prostorija> sveProstorije, List<string> predmetStavkiProstorije, bool predmetStavkiDaLiJeOperacija)
+        {
+
+            this.filtriraniDatum = filtriraniDatum;
+            this.datumPregledaDatum = datumPregleda;
+            this.sveProstorije = sveProstorije;
+            this.predmetStavkiProstorije = predmetStavkiProstorije;
+            this.predmetStavkiDaLiJeOperacija = predmetStavkiDaLiJeOperacija;
+        }
     }
 }
