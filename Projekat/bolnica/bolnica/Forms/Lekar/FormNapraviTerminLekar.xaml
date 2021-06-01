@@ -9,6 +9,7 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
         Title="Napravi termin" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+  
     <Window.InputBindings>
         <KeyBinding
                     Key="Q" 
@@ -20,6 +21,7 @@
                     Modifiers="Ctrl"
                     Command="{Binding Path=ZatvoriCommand}"
                 />
+        <KeyBinding Key="J" Modifiers="Ctrl" Command="{Binding Path=DemoOtkaziKomanda}"></KeyBinding>
     </Window.InputBindings>
     <Window.Resources>
 

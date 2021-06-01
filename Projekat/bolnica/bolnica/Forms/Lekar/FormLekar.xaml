@@ -7,6 +7,9 @@
         xmlns:local="clr-namespace:Bolnica"
         mc:Ignorable="d"
         Title="Bolnica" Background="#1176ae" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.InputBindings>
+        <KeyBinding Key="J" Modifiers="Ctrl" Command="{Binding Path=DemoOtkaziKomanda}"></KeyBinding>
+    </Window.InputBindings>
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -568,7 +571,8 @@
         
         
     </TabControl>
-        <Button local:FocusExtension.IsFocused="{Binding Path=DemoFokus,Mode=TwoWay}" Margin="2,320,819,200"  Width="60" Height="60" Command="{Binding Path=DemoKomanda}" >
+        <StackPanel Margin="2,457,819,63" Orientation="Vertical" >
+        <Button local:FocusExtension.IsFocused="{Binding Path=DemoFokus,Mode=TwoWay}"   Width="60" Height="60" Command="{Binding Path=DemoKomanda}" >
             <Button.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Content" Value=""></Setter>
@@ -595,9 +599,11 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label Content="Demo" Margin="2,400,819,200"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Ctrl+D" Margin="2,430,819,200"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Demo"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Ctrl+D" Height="20"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
     </Grid>
+        
     
 </Window>
 

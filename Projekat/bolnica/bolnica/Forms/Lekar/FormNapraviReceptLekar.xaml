@@ -8,10 +8,11 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
         Title="Napravi recept" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
-
+        <KeyBinding Key="J" Modifiers="Ctrl" Command="{Binding Path=DemoOtkaziKomanda}"></KeyBinding>
 
     </Window.InputBindings>
     <Window.Resources>

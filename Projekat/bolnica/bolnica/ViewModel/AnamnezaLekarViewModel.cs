@@ -95,6 +95,28 @@ namespace Bolnica.ViewModel
         }
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
+        
         private RelayCommand obrisiReceptKomanda;
         public RelayCommand ObrisiReceptKomanda
         {
@@ -254,6 +276,7 @@ namespace Bolnica.ViewModel
             DodajReceptKomanda = new RelayCommand(Executed_DodajReceptKomanda, CanExecute_DodajReceptKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
        
         

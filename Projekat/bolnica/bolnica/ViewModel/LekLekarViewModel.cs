@@ -111,6 +111,28 @@ namespace Bolnica.ViewModel
         private ListBox zameneKutija;
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
+        
         private RelayCommand proizvodjacComboNaEnterKomanda;
         public RelayCommand ProizvodjacComboNaEnterKomanda
         {
@@ -402,6 +424,7 @@ namespace Bolnica.ViewModel
             SelektujZamenuNaEnterKomanda = new RelayCommand(Executed_SelektujZamenuNaEnterKomanda, CanExecute_SelektujZamenuNaEnterKomanda);
             IzmeniLekKomanda = new RelayCommand(Executed_IzmeniLekKomanda, CanExecute_IzmeniLekKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
 
         public void PopuniSastojkeIZamene(ListBox sastojakKutija,ListBox zamenaKutija)

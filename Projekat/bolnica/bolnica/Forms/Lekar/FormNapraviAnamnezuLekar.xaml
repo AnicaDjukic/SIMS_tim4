@@ -8,6 +8,7 @@
         xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
         Title="Napravi anamnezu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    
     <Window.InputBindings>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}" />
         <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptKomanda}" />
@@ -15,6 +16,7 @@
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}" />
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding Path=ZakaziPregledKomanda}" />
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}" />
+        <KeyBinding Key="J" Modifiers="Ctrl" Command="{Binding Path=DemoOtkaziKomanda}"></KeyBinding>
     </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Label">

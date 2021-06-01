@@ -46,6 +46,7 @@ namespace Bolnica.ViewModel
         private Button anamnezaIstorijaDugme;
         private Button odobriDugme;
         private DispatcherTimer _activeTimer;
+        public static bool prekidaj = false;
 
 
 
@@ -73,6 +74,27 @@ namespace Bolnica.ViewModel
 
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand zakaziPregledKomanda;
         public RelayCommand ZakaziPregledKomanda
         {
@@ -685,6 +707,7 @@ namespace Bolnica.ViewModel
             VratiDugmeSkociNaLekTabKomanda = new RelayCommand(Executed_VratiDugmeSkociNaLekTabKomanda, CanExecute_VratiDugmeSkociNaLekTabKomanda);
             DemoFokusKomanda = new RelayCommand(Executed_DemoFokusKomanda, CanExecute_DemoFokusKomanda);
             DemoKomanda = new RelayCommand(Executed_DemoKomanda, CanExecute_DemoKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
 
         public void SortirajPodatke()
@@ -780,8 +803,8 @@ namespace Bolnica.ViewModel
             
             TerminLekarViewModel vm = new TerminLekarViewModel(inject.LekarController.DobijLekare()[0]);
             FormNapraviTerminLekar form = new FormNapraviTerminLekar(vm);
-           
-            
+
+            prekidaj = false;
 
            
 
@@ -793,14 +816,22 @@ namespace Bolnica.ViewModel
                 Interval = TimeSpan.FromSeconds(0.5)
             };
             _activeTimer.Tick += delegate (object sender, EventArgs e) {
-                if (predjiDalje1 == 0)
+                if (!prekidaj)
                 {
-                    ZaTermin(ref i, ref vm, ref predjiDalje1);
+                    if (predjiDalje1 == 0)
+                    {
+                        ZaTermin(ref i, ref vm, ref predjiDalje1);
+                    }
+                    else if (predjiDalje1 == 1)
+                    {
+                        _activeTimer.Stop();
+                        DemoKomandaIzView3();
+                    }
                 }
-                else if(predjiDalje1 == 1)
+                else
                 {
                     _activeTimer.Stop();
-                    DemoKomandaIzView3();
+                    vm.CloseAction();
                 }
             };
             _activeTimer.Start();
@@ -895,13 +926,21 @@ namespace Bolnica.ViewModel
                 Interval = TimeSpan.FromSeconds(0.5)
             };
             _activeTimer.Tick += delegate (object sender, EventArgs e) {
-                if (predjiDalje1 == 0)
+                if (!prekidaj)
                 {
-                    ZaLek(ref i, ref vm, ref predjiDalje1);
+                    if (predjiDalje1 == 0)
+                    {
+                        ZaLek(ref i, ref vm, ref predjiDalje1);
+                    }
+                    else if (predjiDalje1 == 1)
+                    {
+                        _activeTimer.Stop();
+                    }
                 }
-                else if (predjiDalje1 == 1)
+                else
                 {
                     _activeTimer.Stop();
+                    vm.ZatvoriAkcija();
                 }
             };
             _activeTimer.Start();
@@ -941,7 +980,10 @@ namespace Bolnica.ViewModel
             }
             
             else if (i >= 23 && i < 30)
-            {
+            {   if (i == 23)
+                {
+                    vm.ItemSourceDozaComboOpen = false;
+                }
                 i++;
             }
             else if (i >= 30)
@@ -975,14 +1017,22 @@ namespace Bolnica.ViewModel
                 Interval = TimeSpan.FromSeconds(0.5)
             };
             _activeTimer.Tick += delegate (object sender, EventArgs e) {
-                if (predjiDalje1 == 0)
+                if (!prekidaj)
                 {
-                    ZaAnamnezu(ref L, ref vm, ref predjiDalje1);
+                    if (predjiDalje1 == 0)
+                    {
+                        ZaAnamnezu(ref L, ref vm, ref predjiDalje1);
+                    }
+                    else if (predjiDalje1 == 1)
+                    {
+                        _activeTimer.Stop();
+                        DemoKomandaIzView4(vm);
+                    }
                 }
-                else if (predjiDalje1 == 1)
+                else
                 {
                     _activeTimer.Stop();
-                    DemoKomandaIzView4(vm);
+                    vm.ZatvoriAction();
                 }
             };
             _activeTimer.Start();
@@ -1038,15 +1088,24 @@ namespace Bolnica.ViewModel
                 Interval = TimeSpan.FromSeconds(0.5)
             };
             _activeTimer.Tick += delegate (object sender, EventArgs e) {
-                if (predjiDalje1 == 0)
+                if (!prekidaj)
                 {
-                    ZaRecept(ref L, ref vm, ref predjiDalje1);
+                    if (predjiDalje1 == 0)
+                    {
+                        ZaRecept(ref L, ref vm, ref predjiDalje1);
+                    }
+                    else if (predjiDalje1 == 1)
+                    {
+                        _activeTimer.Stop();
+                        view.ZatvoriAction();
+                        DemoKomandaIzView2();
+                    }
                 }
-                else if (predjiDalje1 == 1)
+                else
                 {
                     _activeTimer.Stop();
+                    vm.ZatvoriAkcija();
                     view.ZatvoriAction();
-                    DemoKomandaIzView2();
                 }
             };
             _activeTimer.Start();

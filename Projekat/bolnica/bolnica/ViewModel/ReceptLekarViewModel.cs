@@ -206,6 +206,27 @@ namespace Bolnica.ViewModel
 
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand proizvodjacComboOtvoriKomanda;
         public RelayCommand ProizvodjacComboOtvoriKomanda
         {
@@ -479,6 +500,7 @@ namespace Bolnica.ViewModel
             VremeUzimanjaComboOtvoriKomanda = new RelayCommand(Executed_VremeUzimanjaComboOtvoriKomanda, CanExecute_VremeUzimanjaComboOtvoriKomanda);
             BrojKutijaComboOtvoriKomanda = new RelayCommand(Executed_BrojKutijaComboOtvoriKomanda, CanExecute_BrojKutijaComboOtvoriKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
         public void FiltrirajLekove()
         {
