@@ -8,8 +8,9 @@
         xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
         Title="Napravi anamnezu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    
+
     <Window.InputBindings>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Path=IzvestajKomanda}"/>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DodajReceptKomanda}" />
         <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Path=VidiReceptKomanda}" />
         <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding Path=ObrisiReceptKomanda}" />
@@ -41,8 +42,8 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="MinHeight" Value="40"/>
-            <Setter Property="MinWidth" Value="420"/>
-            
+            <Setter Property="MinWidth" Value="510"/>
+
         </Style>
 
         <Style TargetType="Button">
@@ -66,7 +67,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Background" Value="#FF20BC15"></Setter>
 
-       
+
             <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
@@ -128,162 +129,168 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-       
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="16" Grid.Column="0" Grid.ColumnSpan="20">
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="16" Grid.Column="0" Grid.ColumnSpan="20">
             <Grid Background="#1176ae" MinHeight="275">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
 
 
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
 
 
-                    </Grid.RowDefinitions>
+                </Grid.RowDefinitions>
 
 
-                    <Label Content="Anamneza" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Grid.ColumnSpan="6" Grid.Row="0" FontSize="30" />
+                <Label Content="Anamneza" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Grid.ColumnSpan="6" Grid.Row="0" FontSize="30" />
 
-                    <Label Content="Simptomi:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"></Label>
-                    <Label Content="Dijagnoza:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"></Label>
+                <Label Content="Simptomi:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"></Label>
+                <Label Content="Dijagnoza:" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"></Label>
+                <Button Background="White" Height="30" FontSize="13" BorderThickness="2" BorderBrush="Black" Command="{Binding Path=IzvestajKomanda}"
+                         Grid.Row="0" Grid.Column="16" Grid.ColumnSpan="4" HorizontalAlignment="Center" Margin="0,5,-35,0" VerticalAlignment="Top" MinHeight="30" MaxWidth="100">
+                    <Image Source="/Resources/printLekar.png" Stretch="Fill"></Image>
 
-                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
+                </Button>
+               
+                <Label FontSize="12" Margin="0,0,37,-9" Height="20" Content="Ctrl+Y" Grid.Row="0" Grid.Column="18" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" VerticalAlignment="Bottom"/>
+                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textSimptomi" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="16" Grid.Row="1" TextWrapping="Wrap" Height="70">
                     <TextBox.Text>
-                            <Binding Path="Simptomi" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <val:TextBoxSimptomiValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                        <Validation.ErrorTemplate>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <Binding Path="Simptomi" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:TextBoxSimptomiValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
                                 <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Validation.ErrorTemplate>
-                    </TextBox>
-                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <TextBox IsEnabled="{Binding Path=DatumProsao}" Name="textDijagnoza" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="16" Grid.Row="4" TextWrapping="Wrap" Height="70" >
                     <TextBox.Text>
-                            <Binding Path="Dijagnoza" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <val:TextBoxDijagnozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                        <Validation.ErrorTemplate>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <Binding Path="Dijagnoza" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:TextBoxDijagnozaValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
                                 <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Validation.ErrorTemplate>
-                    </TextBox>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
 
 
 
-                    <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="7" />
-                </Grid>
+                <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="7" />
+            </Grid>
             <Grid Background="#1176ae" MinHeight="300">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
 
 
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
 
 
-                    </Grid.RowDefinitions>
-
-
-
+                </Grid.RowDefinitions>
 
 
 
-                    <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
-                    <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
-                <DataGrid SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+
+
+
+                <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
+                <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
+                <DataGrid MinRowHeight="30" SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
                     <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF20BC15"></Setter>
-                                <Setter Property="FontSize" Value="15"></Setter>
-                                <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                                <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
-                                <Setter Property="BorderBrush" Value="black"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                            <Style TargetType="{x:Type DataGridCell}">
-                                <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                                <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                            <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                            <Setter Property="BorderBrush" Value="black"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="BorderBrush" Value="Black"/>
                             <Setter Property="Background" Value="#1176ae"/>
                             <Style.Triggers>
@@ -293,30 +300,30 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Naziv" Binding="{Binding lek.Naziv}"  MinWidth="75"  Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Datum prepisivanja" Binding="{Binding DatumIzdavanja, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Datum prekida" Binding="{Binding Trajanje, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Vreme" Binding="{Binding VremeUzimanja}" MinWidth="75" Width="*"></DataGridTextColumn>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naziv" Binding="{Binding lek.Naziv}"  MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum prepisivanja" Binding="{Binding DatumIzdavanja, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum prekida" Binding="{Binding Trajanje, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Vreme" Binding="{Binding VremeUzimanja}" MinWidth="75" Width="*"></DataGridTextColumn>
 
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
                          Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
-                    <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
+                <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
                          Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
                 <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
                          Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" >
                 </Button>
-                    <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-                    <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-                    <Label FontSize="12" Content="Ctrl+O" Grid.Row="7" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <Label FontSize="12" Content="Ctrl+O" Grid.Row="7" Grid.Column="14"  Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
 
-                </Grid>
-                
+            </Grid>
 
-            </StackPanel>
+
+        </StackPanel>
 
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.Row="16" Grid.RowSpan="2"  />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"

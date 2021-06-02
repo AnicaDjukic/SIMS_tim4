@@ -1,12 +1,17 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -137,6 +142,110 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+        private RelayCommand izvestajKomanda;
+        public RelayCommand IzvestajKomanda
+        {
+            get { return izvestajKomanda; }
+            set
+            {
+                izvestajKomanda = value;
+
+            }
+        }
+
+        public void Executed_IzvestajKomanda(object obj)
+        {
+            /* IzvestajLekarViewModel vm = new IzvestajLekarViewModel(Simptomi, Dijagnoza);
+             FormIzvestajLekar form = new FormIzvestajLekar(vm); */
+            PdfPTable pdfTable = new PdfPTable(4) {  WidthPercentage = 100 }; 
+            float[] widths = new float[] { 150f, 150f, 150f, 150f};
+            pdfTable.SetWidths(widths);
+            pdfTable.DefaultCell.Padding = 3;
+            pdfTable.WidthPercentage = 80;
+            pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfTable.DefaultCell.BorderWidth = 1;
+ 
+            PdfPCell cell = new PdfPCell(new Phrase("Naziv", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Datum prepisivanja", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Datum prekida", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Vreme", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            Paragraph anamnezaText = new Paragraph("Anamneza", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,  30));
+            Paragraph separator = new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------------------------------", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22));
+            Paragraph text = new Paragraph("Simptomi:   " + Simptomi, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph lekoviText = new Paragraph("Lekovi/terapije", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,  30));
+            Paragraph text1 = new Paragraph("Dijagnoza:   " + Dijagnoza, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph p = new Paragraph("\n", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph potpis = new Paragraph("Potpis doktora:_____________________________  ", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            
+
+
+            anamnezaText.Alignment = Element.ALIGN_CENTER;
+            separator.Alignment = Element.ALIGN_CENTER;
+            //text.Alignment = Element.ALIGN_CENTER;
+            lekoviText.Alignment = Element.ALIGN_CENTER;
+            //text1.Alignment = Element.ALIGN_CENTER;
+            foreach (PrikazRecepta row in Recepti)
+            {
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.lek.Naziv, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.DatumIzdavanja.ToShortDateString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.Trajanje.ToShortDateString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.VremeUzimanja.ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+            }
+
+            //Exporting to PDF
+            string folderPath = "C:\\Users\\Minja\\Desktop\\Ejada\\";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+           
+            using (FileStream stream = new FileStream(folderPath + "DataGridViewExport.pdf", FileMode.Create))
+            {
+                Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 10f, 0f);
+                PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                pdfDoc.Add(anamnezaText);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(text);
+                pdfDoc.Add(text1);
+                pdfDoc.Add(p);
+                pdfDoc.Add(separator);
+                pdfDoc.Add(p);
+                pdfDoc.Add(lekoviText);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+
+                pdfDoc.Add(pdfTable);
+
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                
+                pdfDoc.Add(potpis);
+
+                pdfDoc.Close();
+                stream.Close();
+            }
+            
+
+        }
+
+        public bool CanExecute_IzvestajKomanda(object obj)
+        {
+            return true;
+        }
+
 
         private RelayCommand zakaziPregledKomanda;
         public RelayCommand ZakaziPregledKomanda
@@ -277,6 +386,7 @@ namespace Bolnica.ViewModel
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
             DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
+            IzvestajKomanda = new RelayCommand(Executed_IzvestajKomanda, CanExecute_IzvestajKomanda);
         }
        
         
