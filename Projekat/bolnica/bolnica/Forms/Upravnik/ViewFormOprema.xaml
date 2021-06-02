@@ -5,25 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
         mc:Ignorable="d"
-        Title="Prikaz opreme" Height="360" Width="300" WindowStartupLocation="CenterScreen" Background="#BFF7F7">
+        Title="Prikaz opreme" Height="360" Width="300" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -31,33 +16,8 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9783E8"/>
         </Grid.Resources>
         <StackPanel>
-            <TabControl Height="280" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
-                                        <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#D0C8F9"/>
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="INFORMACIJE">
+            <TabControl Height="280" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource TabControlStyle}" BorderBrush="MediumPurple">
+                <TabItem Header="INFORMACIJE" Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
@@ -83,9 +43,9 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="SKLADIŠTA">
+                <TabItem Header="SKLADIŠTA" Style="{DynamicResource TabItemStyle}">
                     <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="300">
+                  AutoGenerateColumns="False" Height="300" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
                             <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
@@ -93,7 +53,7 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Width="50" Click="Button_Click"/>
+            <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

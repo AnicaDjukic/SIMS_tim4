@@ -5,32 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
         mc:Ignorable="d"
-        Title="Dodavanje novog sastojka" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Dodavanje novog sastojka" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Height" Value="20"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -45,8 +27,8 @@
             <TextBox Height="20" Width="120" Margin="10,0,0,0" FontSize="14" Text="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="20" Command="{Binding Path=PotvrdiKomanda}"/>
-            <Button Content="Odustani" Height="20" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}"/>
+            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

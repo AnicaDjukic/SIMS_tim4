@@ -5,29 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
         mc:Ignorable="d"
-        Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Height" Value="20"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -43,18 +25,19 @@
 
         <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
             <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" />
-            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}"/>
-            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}"/>
+            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
         <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding SastojciZaPrikaz}" SelectedItem="{Binding IzabraniSastojak, UpdateSourceTrigger=PropertyChanged}"
-                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True"  FontSize="13">
+                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True"  FontSize="13"
+                  RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}"/>
-            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}"/>
+            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
 
         </StackPanel>
 

@@ -86,6 +86,7 @@ namespace Bolnica.Forms.Upravnik
             {
                 if (!FormUpravnik.clickedDodaj)
                 {
+                    Title = "Izmena opreme";
                     serviceOprema.ObrisiOpremu(sifra);
                     UkloniIzPrikaza(sifra);
                 }

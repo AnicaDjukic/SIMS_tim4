@@ -662,5 +662,22 @@ namespace bolnica.Forms
             }
             
         }
+
+        private void Theme_Click(object sender, RoutedEventArgs e)
+        {
+            var app = (App)Application.Current;
+
+            MenuItem mi = (MenuItem)sender;
+            if (mi.Header.Equals("Tamna tema"))
+            {
+                app.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
+                mi.Header = "Svetla tema";
+            }
+            else
+            {
+                app.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
+                mi.Header = "Tamna tema";
+            }
+        }
     }
 }

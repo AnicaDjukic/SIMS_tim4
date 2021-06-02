@@ -5,35 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="Dodavanje prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Dodavanje prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -64,7 +53,7 @@
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtUkBrojKreveta" Text="{Binding Path=UkBrojKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
         <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtBrojSlobodnihKreveta" Text="{Binding Path=BrojSlobodnihKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" />
 
-        <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Potvrdi" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10" Height="30" Width="50" Click="Button_Click"/>
+        <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Potvrdi" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10" Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
 
     </Grid>
 </Window>

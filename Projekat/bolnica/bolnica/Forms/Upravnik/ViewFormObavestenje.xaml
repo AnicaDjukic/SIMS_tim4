@@ -5,27 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
         mc:Ignorable="d"
-        Title="Obaveštenje" Height="220" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
-        </Style>
-    </Window.Resources>
+        Title="Obaveštenje" Height="220" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -33,7 +13,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="txtNaslov" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Grid.Row="0" Margin="30,10,10,10"/>
-        <TextBlock x:Name="txtSadrzaj" TextWrapping="Wrap" FontSize="14" Grid.Row="1" Margin="30,0,10,0"/>
-        <Button Grid.Row="2" Content="Zatvori" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="50" Click="Button_Click_Zatvori"/>
+        <TextBlock x:Name="txtSadrzaj" TextWrapping="Wrap" FontSize="14" Grid.Row="1" Margin="30,0,10,0" />
+        <Button Grid.Row="2" Content="Zatvori" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Click="Button_Click_Zatvori" Style="{DynamicResource ButtonStyle}"/>
     </Grid>
 </Window>
