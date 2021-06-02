@@ -1,6 +1,7 @@
 ﻿using bolnica.Forms;
 using Bolnica.Commands;
 using Bolnica.DTO;
+using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
 using Model.Pregledi;
@@ -30,6 +31,8 @@ namespace Bolnica.ViewModel.Upravnik
                 }
             }
         }
+
+        public SastojakDTO SastojakZaUklanjanje { get; set; }
 
         public Action ZatvoriAkcija { get; set; }
 
@@ -129,7 +132,6 @@ namespace Bolnica.ViewModel.Upravnik
         {
             Inject = new Injector();
             lekZaPrikaz = lekZaIzmenu;
-            
             InicijalizujPoljaZaUnos();
             InicijalizujSastojke();
         }
@@ -141,19 +143,24 @@ namespace Bolnica.ViewModel.Upravnik
             if (LekZaPrikaz.Status != StatusLeka.odobren)
                 dozvoljenUnosZaliha = false;
             else
-                dozvoljenUnosSvegaOsimZaliha = false;
+            {
+                if(!FormUpravnik.clickedDodaj)
+                    dozvoljenUnosSvegaOsimZaliha = false;
+            }    
         }
 
         private void InicijalizujSastojke()
         {
             Sastojci = new ObservableCollection<SastojakDTO>();
-            foreach (Sastojak s in Inject.ControllerSastojak.DobaviSastojkeLeka(lekZaPrikaz.Id))
-                Sastojci.Add(new SastojakDTO(s));
+            foreach (SastojakDTO s in Inject.ControllerSastojak.DobaviSastojkeLeka(lekZaPrikaz.Id))
+                Sastojci.Add(s);
         }
 
         private void PostaviKomande()
         {
             ValidacijaLekaKomanda = new RelayCommand(Executed_ValidacijaLekaKomanda, CanExecute_ValidacijaLekaKomanda);
+            DodajKomanda = new RelayCommand(Executed_DodajKomanda, CanExecute_DodajKomanda);
+            UkloniKomanda = new RelayCommand(Executed_UkloniKomanda, CanExecute_UkloniKomanda);
             OdustaniKomanda = new RelayCommand(Executed_OdustaniKomanda, CanExecute_OdustaniKomanda);
         }
         #endregion
@@ -263,6 +270,51 @@ namespace Bolnica.ViewModel.Upravnik
         public bool CanExecute_OdustaniKomanda(object obj)
         {
             return true;
+        }
+        #endregion
+
+        #region DodajKomanda
+        public RelayCommand dodajKomanda;
+        public RelayCommand DodajKomanda
+        {
+            get { return dodajKomanda; }
+            set
+            {
+                dodajKomanda = value;
+            }
+        }
+
+        public void Executed_DodajKomanda(object obj)
+        {
+            ViewModelFormSastojci vmSastojci = new ViewModelFormSastojci(Sastojci);
+            FormSastojci formSastojci = new FormSastojci(vmSastojci);
+        }
+
+        public bool CanExecute_DodajKomanda(object obj)
+        {
+            return true;
+        }
+        #endregion
+
+        #region UkloniKomanda
+        public RelayCommand ukloniKomanda;
+        public RelayCommand UkloniKomanda
+        {
+            get { return ukloniKomanda; }
+            set
+            {
+                ukloniKomanda = value;
+            }
+        }
+
+        public void Executed_UkloniKomanda(object obj)
+        {
+            Sastojci.Remove(SastojakZaUklanjanje);
+        }
+
+        public bool CanExecute_UkloniKomanda(object obj)
+        {
+            return SastojakZaUklanjanje != null;
         }
         #endregion
 

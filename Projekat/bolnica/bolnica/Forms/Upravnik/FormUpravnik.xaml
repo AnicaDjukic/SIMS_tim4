@@ -133,11 +133,11 @@
         </Menu>
 
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,3,0">
-            <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipOpreme" Margin ="0,0,20,0" 
+            <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipOpreme" Margin ="0,0,15,0" 
                       VerticalAlignment="Center" Width="100" Visibility="Hidden" SelectionChanged="comboTipOpreme_SelectionChanged">
-                <ComboBoxItem Content="Nema filtera" IsSelected="True"/>
-                <ComboBoxItem Content="Statička"/>
-                <ComboBoxItem Content="Dinamička"/>
+                <ComboBoxItem Content="Nema filtera" IsSelected="True" FontSize="13"/>
+                <ComboBoxItem Content="Statička" FontSize="13"/>
+                <ComboBoxItem Content="Dinamička" FontSize="13"/>
             </ComboBox>
             <StackPanel Orientation="Horizontal" Height="20">
                 <TextBox x:Name="txtSearch" Width="150" IsEnabled="True"/>
@@ -178,10 +178,10 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="PROSTORIJE" FontStyle="Normal">
+            <TabItem Header="PROSTORIJE" FontSize="13">
                 <StackPanel>
                     <DataGrid x:Name="dataGridProstorije" ItemsSource="{Binding Prostorije}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="250" HeadersVisibility="Column">
+                  AutoGenerateColumns="False" Height="250" HeadersVisibility="Column" FontSize="13">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="BrojProstorije" Header="BROJ PROSTORIJE" Binding="{Binding BrojProstorije}" Width="*"/>
                             <DataGridTextColumn Header="SPRAT" Binding="{Binding Sprat}" Width="*"/>
@@ -194,14 +194,14 @@
                     <Button Margin="10" Height="30" Width="150" Click="Button_Click_Renoviranje">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/recycle.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRANJE"/>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" Text="RENOVIRANJE" FontSize="12"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="OPREMA">
+            <TabItem Header="OPREMA" FontSize="13">
                 <DataGrid x:Name="dataGridOprema" ItemsSource="{Binding Oprema}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top" HeadersVisibility="Column">
+                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top" HeadersVisibility="Column" FontSize="13">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Sifra}" Width="*"/>
                         <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
@@ -210,14 +210,14 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="LEKOVI">
+            <TabItem Header="LEKOVI" FontSize="13">
                 <DataGrid x:Name="dataGridLekovi" ItemsSource="{Binding Lekovi}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top" HeadersVisibility="Column">
+                  AutoGenerateColumns="False" Height="250" VerticalAlignment="Top" HeadersVisibility="Column" FontSize="13">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="id" Header="ID" Binding="{Binding Id}" Width="*"/>
                         <DataGridTextColumn Header="NAZIV" Binding="{Binding Naziv}" Width="*"/>
                         <DataGridTextColumn Header="PROIZVOĐAČ" Binding="{Binding Proizvodjac}" Width="*"/>
-                        <DataGridTextColumn Header="KOLIČINA U MG" Binding="{Binding KolicinaUMg}" Width="*"/>
+                        <DataGridTextColumn Header="KOL U MG" Binding="{Binding KolicinaUMg}" Width="*"/>
                         <DataGridComboBoxColumn Header="STATUS" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal2:StatusLeka}}}" SelectedValueBinding="{Binding Status}" Width="*"/>
                         <DataGridTextColumn Header="ZALIHE" Binding="{Binding Zalihe}" Width="*"/>
                     </DataGrid.Columns>
@@ -225,29 +225,29 @@
             </TabItem>
         </TabControl>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,40,10,0">
-            <Button Margin="10,0,10,10" Click="Button_Click_Obavestenja">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,45,10,0">
+            <Button Margin="10,0,5,10" Click="Button_Click_Obavestenja">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/notification-bell.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="OBAVEŠTENJA"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="OBAVEŠTENJA" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
+            <Button Margin="10,10,5,10">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/diamond.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="CENOVNIK"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="CENOVNIK" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
+            <Button Margin="10,10,5,10">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/document.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="ZAHTEVI"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="ZAHTEVI" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10">
+            <Button Margin="10,10,5,10">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Images/shopping-cart.png" Width="25" Height="25" HorizontalAlignment="Left"/>
-                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="PONUDE I OGLASI"/>
+                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Text="PONUDE I OGLASI" FontSize="12"/>
                 </StackPanel>
             </Button>
         </StackPanel>

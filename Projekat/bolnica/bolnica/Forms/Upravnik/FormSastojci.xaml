@@ -7,10 +7,14 @@
         mc:Ignorable="d"
         Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
     <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Foreground" Value="MediumPurple"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" >
@@ -38,19 +42,19 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler"/>
-            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Click="Button_Click_Dodaj_Novi"/>
-            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Click="Button_Click_Obrisi"/>
+            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" />
+            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}"/>
+            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}"/>
         </StackPanel>
-        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding Sastojci}" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True">
+        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding SastojciZaPrikaz}" SelectedItem="{Binding IzabraniSastojak, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True"  FontSize="13">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Width="60" Height="25" Click="Button_Click_Potvrdi" />
-            <Button Content="Odustani" Width="60" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
+            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}"/>
+            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}"/>
 
         </StackPanel>
 

@@ -7,10 +7,17 @@
         mc:Ignorable="d"
         Title="Dodavanje novog sastojka" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
     <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Foreground" Value="MediumPurple"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" >
@@ -30,16 +37,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Unesite naziv novog sastojka:" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="15"/>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Label Content="Naziv sastojka:"/>
-            <TextBox x:Name="txtNaziv" Height="20" Width="120" Margin="10,0,0,0"/>
+            <Label Content="Naziv sastojka:" />
+            <TextBox Height="20" Width="120" Margin="10,0,0,0" FontSize="14" Text="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="20" Width="60" Click="Button_Click_Potvrdi"/>
-            <Button Content="Odustani" Height="20" Width="60" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
+            <Button Content="Potvrdi" Height="20" Command="{Binding Path=PotvrdiKomanda}"/>
+            <Button Content="Odustani" Height="20" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -95,5 +95,24 @@ namespace Bolnica.Repository.Pregledi
             }
             return sastojak;
         }
+
+        public void DeleteById(int id)
+        {
+            FileRepositoryPacijent.serializeAlergeni = true;
+            var json = File.ReadAllText(fileLocation);
+            List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
+            if (alergeni != null)
+            {
+                for (int i = 0; i < alergeni.Count; i++)
+                {
+                    if (alergeni[i].Id == id)
+                    {
+                        alergeni.Remove(alergeni[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
+            }
+        }
     }
 }

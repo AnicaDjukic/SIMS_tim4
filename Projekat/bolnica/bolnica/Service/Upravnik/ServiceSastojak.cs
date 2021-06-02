@@ -49,9 +49,9 @@ namespace Bolnica.Services.Pregledi
             return repository.GetAll();
         }
 
-        internal void ObrisiSastojak(Sastojak sastojak)
+        internal void ObrisiSastojak(int id)
         {
-            repository.Delete(sastojak);
+            repository.DeleteById(id);
         }
 
         internal Sastojak DobaviSastojak(int id)

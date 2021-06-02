@@ -1,12 +1,11 @@
 ﻿using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Services.Pregledi;
+using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -23,15 +22,18 @@ namespace Bolnica.Forms.Upravnik
         private Lek noviLek;
         FileRepositorySastojak storage = new FileRepositorySastojak();
         private ServiceSastojak serviceSastojak = new ServiceSastojak();
-        public FormSastojci(Lek lek)
+        public FormSastojci(ViewModelFormSastojci viewModel)
         {
             InitializeComponent();
-            DataContext = this;
-            noviLek = lek;
-            PrikaziSveSastojke();
+            DataContext = viewModel;
+            if (viewModel.ZatvoriAkcija == null)
+                viewModel.ZatvoriAkcija = new Action(this.Close);
+            Show();
+            /*noviLek = lek;
+            PrikaziSveSastojke();*/
         }
 
-        private void PrikaziSveSastojke()
+        /*private void PrikaziSveSastojke()
         {
             Sastojci = new ObservableCollection<Sastojak>();
             foreach (Sastojak s in serviceSastojak.DobaviSveSastojke())
@@ -128,6 +130,6 @@ namespace Bolnica.Forms.Upravnik
                     Sastojci.Add(s);
                 }
             }
-        }
+        }*/
     }
 }

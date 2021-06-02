@@ -7,10 +7,17 @@
         mc:Ignorable="d"
         Title="Dodavanje leka" Height="425" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
     <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Foreground" Value="MediumPurple"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" >
@@ -57,7 +64,7 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="INFORMACIJE">
+                <TabItem Header="INFORMACIJE" FontSize="13">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="160"/>
@@ -85,18 +92,18 @@
                                  Grid.Row="4" Grid.Column="1" Text ="{Binding Path=LekZaPrikaz.Zalihe, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="SASTOJCI">
+                <TabItem Header="SASTOJCI" FontSize="13">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-                            <Button x:Name="btnDodaj" Content="DODAJ" Height="20" Width="50" Margin="0,0,0,0" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button x:Name="btnUkloni" Content="UKLONI" Height="20" Width="50" Margin="20,0,0,0" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,15,0,0">
+                            <Button x:Name="btnDodaj" Content="DODAJ" Margin="10,0,0,0" Command="{Binding Path=DodajKomanda}" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button x:Name="btnUkloni" Content="UKLONI" Margin="20,0,0,0" Command="{Binding Path=UkloniKomanda}" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
-                        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="10" ItemsSource="{Binding Sastojci}"
-                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="10" ItemsSource="{Binding Sastojci}" SelectedItem="{Binding SastojakZaUklanjanje}"
+                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" FontSize="13">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
                             </DataGrid.Columns>
@@ -105,8 +112,8 @@
                 </TabItem>
             </TabControl>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" Height="25" >
-                <Button x:Name="btnValidacija" Content="Validacija" HorizontalAlignment="Center" Margin="0,0,0,0" Width="70" Command="{Binding Path=ValidacijaLekaKomanda}" />
-                <Button Content="Odustani" HorizontalAlignment="Center" Margin="40,0,0,0" Width="70" Command="{Binding Path=OdustaniKomanda}"/>
+                <Button x:Name="btnValidacija" Content="Validacija" HorizontalAlignment="Center" Margin="0,0,0,0" Command="{Binding Path=ValidacijaLekaKomanda}" />
+                <Button Content="Odustani" HorizontalAlignment="Center" Margin="50,0,0,0" Command="{Binding Path=OdustaniKomanda}"/>
             </StackPanel>
         </StackPanel>
 

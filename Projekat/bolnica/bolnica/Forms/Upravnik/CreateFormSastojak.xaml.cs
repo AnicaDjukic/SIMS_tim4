@@ -1,5 +1,7 @@
 ﻿using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
+using Bolnica.ViewModel.Upravnik;
+using System;
 using System.Windows;
 
 namespace Bolnica.Forms.Upravnik
@@ -10,12 +12,16 @@ namespace Bolnica.Forms.Upravnik
     public partial class CreateFormSastojak : Window
     {
         private ServiceSastojak serviceSastojak = new ServiceSastojak();
-        public CreateFormSastojak()
+        public CreateFormSastojak(ViewModelCreateFormSastojak viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
+            if (viewModel.ZatvoriAkcija == null)
+                viewModel.ZatvoriAkcija = new Action(this.Close);
+            Show();
         }
 
-        private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
+        /*private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
             if(txtNaziv.Text != "")
             {
@@ -44,6 +50,6 @@ namespace Bolnica.Forms.Upravnik
         private void Button_Click_Odustani(object sender, RoutedEventArgs e)
         {
             Close();
-        }
+        }*/
     }
 }
