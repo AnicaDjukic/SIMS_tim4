@@ -43,12 +43,13 @@ namespace Bolnica.Forms
             dataGridGostiPacijenti.DataContext = this;
             dataGridObrisaniPacijenti.DataContext = this;
 
+            btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             RedovniPacijenti = new ObservableCollection<PacijentDTO>();
             GostiPacijenti = new ObservableCollection<PacijentDTO>();
             ObrisaniPacijenti = new ObservableCollection<PacijentDTO>();
             controller = new PacijentiController();
             clickedDodaj = false;
-            
+
             List<Pacijent> pacijenti = controller.DobaviPacijente();
             foreach (Pacijent p in pacijenti)
             {
@@ -280,7 +281,9 @@ namespace Bolnica.Forms
 
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
+            //btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 112, 112, 112));
             var s = new FormObavestenja();
+            s.btnObavestenja.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -288,6 +291,7 @@ namespace Bolnica.Forms
         private void Button_Click_Pregledi(object sender, RoutedEventArgs e)
         {
             var s = new FormPregledi();
+            s.btnPregledi.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -434,6 +438,7 @@ namespace Bolnica.Forms
         private void Button_Click_Lekari(object sender, RoutedEventArgs e)
         {
             var s = new FormLekari();
+            s.btnLekari.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -441,6 +446,7 @@ namespace Bolnica.Forms
         private void Button_Click_Statistika(object sender, RoutedEventArgs e)
         {
             var s = new FormStatistika();
+            s.btnStats.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }

@@ -54,6 +54,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Pacijenti(object sender, RoutedEventArgs e)
         {
             var s = new FormSekretar();
+            s.btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -61,6 +62,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Pregledi(object sender, RoutedEventArgs e)
         {
             var s = new FormPregledi();
+            s.btnPregledi.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -68,6 +70,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
             var s = new FormObavestenja();
+            s.btnObavestenja.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -189,6 +192,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Statistika(object sender, RoutedEventArgs e)
         {
             var s = new FormStatistika();
+            s.btnStats.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }

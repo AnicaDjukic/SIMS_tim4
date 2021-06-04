@@ -1,53 +1,5 @@
 [
     {
-        "PostavljenaSmena": false,
-        "Smena": 0,
-        "Specijalizacija": {
-            "Id": 3,
-            "Naziv": "kardioloski majstor",
-            "OblastMedicine": "kardiologija"
-        },
-        "Mbr": 123123,
-        "Plata": 15000.0,
-        "BrojSlobodnihDana": 20,
-        "GodineStaza": 30,
-        "Zaposlen": true,
-        "Jmbg": "0303965123456",
-        "Ime": "Vatroslav",
-        "Prezime": "Pap",
-        "DatumRodjenja": "1965-03-03T00:00:00",
-        "BrojTelefona": "0642354578",
-        "AdresaStanovanja": "Tolstojeva 1",
-        "Email": "pap@gmail.com",
-        "KorisnickoIme": "vatro",
-        "Lozinka": "vatro",
-        "TipKorisnika": 2
-    },
-    {
-        "PostavljenaSmena": false,
-        "Smena": 0,
-        "Specijalizacija": {
-            "Id": 3,
-            "Naziv": "kardioloski majstor",
-            "OblastMedicine": "kardiologija"
-        },
-        "Mbr": 654321,
-        "Plata": 8000.0,
-        "BrojSlobodnihDana": 17,
-        "GodineStaza": 6,
-        "Zaposlen": true,
-        "Jmbg": "090988131533",
-        "Ime": "Radmilo",
-        "Prezime": "Bodiroga",
-        "DatumRodjenja": "1988-09-09T00:00:00",
-        "BrojTelefona": "0613579624",
-        "AdresaStanovanja": "Balzakova 21",
-        "Email": "bodi@gmail.com",
-        "KorisnickoIme": "bodi",
-        "Lozinka": "bodi",
-        "TipKorisnika": 2
-    },
-    {
         "PostavljenaSmena": true,
         "Smena": 1,
         "Specijalizacija": {
@@ -93,6 +45,54 @@
         "Email": "dada@dada.com",
         "KorisnickoIme": "mico",
         "Lozinka": "mico",
+        "TipKorisnika": 2
+    },
+    {
+        "PostavljenaSmena": true,
+        "Smena": 2,
+        "Specijalizacija": {
+            "Id": 3,
+            "Naziv": "kardioloski majstor",
+            "OblastMedicine": "Kardiologija"
+        },
+        "Mbr": 123123,
+        "Plata": 15000.0,
+        "BrojSlobodnihDana": 20,
+        "GodineStaza": 30,
+        "Zaposlen": true,
+        "Jmbg": "0303965123456",
+        "Ime": "Vatroslav",
+        "Prezime": "Pap",
+        "DatumRodjenja": "1965-03-03T00:00:00",
+        "BrojTelefona": "0642354578",
+        "AdresaStanovanja": "Tolstojeva 1",
+        "Email": "pap@gmail.com",
+        "KorisnickoIme": "vatro",
+        "Lozinka": "vatro",
+        "TipKorisnika": 2
+    },
+    {
+        "PostavljenaSmena": true,
+        "Smena": 0,
+        "Specijalizacija": {
+            "Id": 3,
+            "Naziv": "kardioloski majstor",
+            "OblastMedicine": "Kardiologija"
+        },
+        "Mbr": 654321,
+        "Plata": 8000.0,
+        "BrojSlobodnihDana": 17,
+        "GodineStaza": 6,
+        "Zaposlen": true,
+        "Jmbg": "090988131533",
+        "Ime": "Radmilo",
+        "Prezime": "Bodiroga",
+        "DatumRodjenja": "1988-09-09T00:00:00",
+        "BrojTelefona": "0613579624",
+        "AdresaStanovanja": "Balzakova 21",
+        "Email": "bodi@gmail.com",
+        "KorisnickoIme": "bodi",
+        "Lozinka": "bodi",
         "TipKorisnika": 2
     }
 ]
