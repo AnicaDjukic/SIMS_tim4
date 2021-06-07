@@ -38,6 +38,16 @@ namespace Bolnica.Controller.Pregledi
             return lek;
         }
 
+        public List<LekDTO> DobaviSveLekove()
+        {
+            List<LekDTO> lekovi = new List<LekDTO>();
+            foreach(Lek l in  serviceLek.DobaviSveLekove())
+            {
+                lekovi.Add(new LekDTO(l));
+            }
+            return lekovi;
+        }
+
         public void SacuvajLek(Lek lek)
         {
             serviceLek.SacuvajLek(lek);

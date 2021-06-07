@@ -70,7 +70,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Name="OdjaviSeMenuItem" Header="{lex:Loc}" FontSize="14" Style="{DynamicResource MenuItemStyle}">
+            <MenuItem Name="OdjaviSeMenuItem" Header="{lex:Loc}" FontSize="14" Style="{DynamicResource MenuItemStyle}" Click="OdjaviSeMenuItem_Click">
                 <MenuItem.Icon>
                     <Image Source="../Images/log-out.png" Stretch="Fill"/>
                 </MenuItem.Icon>
@@ -150,7 +150,7 @@
                             <DataGridTextColumn Header="{lex:Loc ZaliheDataGrid}" Binding="{Binding Zalihe}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Margin="10" Height="30" Width="150" Style="{DynamicResource ButtonStyle}">
+                    <Button Margin="10" Height="30" Width="150" Style="{DynamicResource ButtonStyle}" Click="Button_Click_Izvestaj">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/print.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                             <TextBlock Name="IzvestajTxtBlock"  Text="{lex:Loc}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12"/>

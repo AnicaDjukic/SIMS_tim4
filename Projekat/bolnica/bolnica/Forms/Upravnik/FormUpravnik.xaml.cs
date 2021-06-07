@@ -703,5 +703,17 @@ namespace bolnica.Forms
             };
             LocalizedStrings.Instance.SetCulture("en-US");
         }
+
+        private void OdjaviSeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
+        }
+
+        private void Button_Click_Izvestaj(object sender, RoutedEventArgs e)
+        {
+            Report r = new Report();
+            r.Show();
+        }
     }
 }

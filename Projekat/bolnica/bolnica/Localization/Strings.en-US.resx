@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BolnicaZdravoTxtBlock" xml:space="preserve">
+    <value>"Zdravo" Corporation Hospital, Novi Sad</value>
+  </data>
   <data name="BolnickaSobaCombo" xml:space="preserve">
     <value>Hospital room</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Da li ste sigurni da želite da obrišete sastojak" xml:space="preserve">
     <value>Are you sure you want to delete the ingredient</value>
   </data>
+  <data name="DatumIVremeTxtBlock" xml:space="preserve">
+    <value>Date and Time:</value>
+  </data>
   <data name="DatumLabel" xml:space="preserve">
     <value>Date:</value>
   </data>
@@ -249,6 +255,9 @@
   <data name="IzvestajTxtBlock" xml:space="preserve">
     <value>REPORT</value>
   </data>
+  <data name="Izveštaj o količini lekova - trenutno stanje" xml:space="preserve">
+    <value>Medicine Quantity Report - Current Status</value>
+  </data>
   <data name="KolicinaDataGrid" xml:space="preserve">
     <value>QUANTITY</value>
   </data>
@@ -284,6 +293,9 @@
   </data>
   <data name="LekoviTabItem" xml:space="preserve">
     <value>MEDICINES</value>
+  </data>
+  <data name="NaslovTxtBlock" xml:space="preserve">
+    <value>Medicine Quantity Report</value>
   </data>
   <data name="NazivDataGrid" xml:space="preserve">
     <value>NAME</value>
@@ -363,8 +375,14 @@
   <data name="PodelaProstorijaTxtBlock" xml:space="preserve">
     <value>Enter the number of the rooms that will be created:</value>
   </data>
+  <data name="PodnaslovTxtBlock" xml:space="preserve">
+    <value>- current status -</value>
+  </data>
   <data name="PonudeIOglasiTxtBlock" xml:space="preserve">
     <value>OFFERS &amp; ADV</value>
+  </data>
+  <data name="PotpisTxtBlock" xml:space="preserve">
+    <value>Manager's signature:</value>
   </data>
   <data name="PregledRenoviranjaTabItem" xml:space="preserve">
     <value>RENOVATION OVERVIEW</value>
@@ -452,6 +470,9 @@
   </data>
   <data name="SrpskiMenuItem" xml:space="preserve">
     <value>Serbian</value>
+  </data>
+  <data name="StampajTxtBlock" xml:space="preserve">
+    <value>PRINT</value>
   </data>
   <data name="StatickaCombo" xml:space="preserve">
     <value>Static</value>

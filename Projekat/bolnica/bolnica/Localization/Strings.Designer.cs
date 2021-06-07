@@ -61,6 +61,15 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bolnica &quot;Zdravo&quot; korporacije, Novi Sad.
+        /// </summary>
+        public static string BolnicaZdravoTxtBlock {
+            get {
+                return ResourceManager.GetString("BolnicaZdravoTxtBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bolnička soba.
         /// </summary>
         public static string Bolnička_soba {
@@ -277,6 +286,15 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datum i vreme:.
+        /// </summary>
+        public static string DatumIVremeTxtBlock {
+            get {
+                return ResourceManager.GetString("DatumIVremeTxtBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datum:.
         /// </summary>
         public static string DatumLabel {
@@ -457,6 +475,15 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Izveštaj o količini lekova - trenutno stanje.
+        /// </summary>
+        public static string Izveštaj_o_količini_lekova___trenutno_stanje {
+            get {
+                return ResourceManager.GetString("Izveštaj o količini lekova - trenutno stanje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IZVEŠTAJ.
         /// </summary>
         public static string IzvestajTxtBlock {
@@ -570,6 +597,15 @@ namespace Bolnica.Localization {
         public static string LekoviTabItem {
             get {
                 return ResourceManager.GetString("LekoviTabItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Izveštaj o količini lekova.
+        /// </summary>
+        public static string NaslovTxtBlock {
+            get {
+                return ResourceManager.GetString("NaslovTxtBlock", resourceCulture);
             }
         }
         
@@ -808,11 +844,29 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - trenutno stanje -.
+        /// </summary>
+        public static string PodnaslovTxtBlock {
+            get {
+                return ResourceManager.GetString("PodnaslovTxtBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PONUDE I OGLASI.
         /// </summary>
         public static string PonudeIOglasiTxtBlock {
             get {
                 return ResourceManager.GetString("PonudeIOglasiTxtBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potpis upravnika:.
+        /// </summary>
+        public static string PotpisTxtBlock {
+            get {
+                return ResourceManager.GetString("PotpisTxtBlock", resourceCulture);
             }
         }
         
@@ -1074,6 +1128,15 @@ namespace Bolnica.Localization {
         public static string SrpskiMenuItem {
             get {
                 return ResourceManager.GetString("SrpskiMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ŠTAMPAJ.
+        /// </summary>
+        public static string StampajTxtBlock {
+            get {
+                return ResourceManager.GetString("StampajTxtBlock", resourceCulture);
             }
         }
         

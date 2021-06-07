@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BolnicaZdravoTxtBlock" xml:space="preserve">
+    <value>Bolnica "Zdravo" korporacije, Novi Sad</value>
+  </data>
   <data name="BolnickaSobaCombo" xml:space="preserve">
     <value>Bolnička soba</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Da li ste sigurni da želite da obrišete sastojak" xml:space="preserve">
     <value>Da li ste sigurni da želite da obrišete sastojak</value>
   </data>
+  <data name="DatumIVremeTxtBlock" xml:space="preserve">
+    <value>Datum i vreme:</value>
+  </data>
   <data name="DatumLabel" xml:space="preserve">
     <value>Datum:</value>
   </data>
@@ -249,6 +255,9 @@
   <data name="IzvestajTxtBlock" xml:space="preserve">
     <value>IZVEŠTAJ</value>
   </data>
+  <data name="Izveštaj o količini lekova - trenutno stanje" xml:space="preserve">
+    <value>Izveštaj o količini lekova - trenutno stanje</value>
+  </data>
   <data name="KolicinaDataGrid" xml:space="preserve">
     <value>KOLIČINA</value>
   </data>
@@ -284,6 +293,9 @@
   </data>
   <data name="LekoviTabItem" xml:space="preserve">
     <value>LEKOVI</value>
+  </data>
+  <data name="NaslovTxtBlock" xml:space="preserve">
+    <value>Izveštaj o količini lekova</value>
   </data>
   <data name="NazivDataGrid" xml:space="preserve">
     <value>NAZIV</value>
@@ -363,8 +375,14 @@
   <data name="PodelaProstorijaTxtBlock" xml:space="preserve">
     <value>Unesite broj prostorija koje će nastati podelom:</value>
   </data>
+  <data name="PodnaslovTxtBlock" xml:space="preserve">
+    <value>- trenutno stanje -</value>
+  </data>
   <data name="PonudeIOglasiTxtBlock" xml:space="preserve">
     <value>PONUDE I OGLASI</value>
+  </data>
+  <data name="PotpisTxtBlock" xml:space="preserve">
+    <value>Potpis upravnika:</value>
   </data>
   <data name="PregledRenoviranjaTabItem" xml:space="preserve">
     <value>PREGLED RENOVIRANJA</value>
@@ -452,6 +470,9 @@
   </data>
   <data name="SrpskiMenuItem" xml:space="preserve">
     <value>Srpski</value>
+  </data>
+  <data name="StampajTxtBlock" xml:space="preserve">
+    <value>ŠTAMPAJ</value>
   </data>
   <data name="StatickaCombo" xml:space="preserve">
     <value>Statička</value>
