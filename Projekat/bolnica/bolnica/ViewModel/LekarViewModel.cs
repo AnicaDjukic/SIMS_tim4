@@ -1041,8 +1041,8 @@ namespace Bolnica.ViewModel
         public void ZaLek(ref int i, ref LekLekarViewModel vm, ref int predjiDalje1)
         {
             string proi = "Sinofarm";
-            string leka = "Kardiopirin ";
-            string doza = "200";
+            string leka = "Paracetamol ";
+            string doza = "500";
             if (i < 8)
             {
                 if (i == 0)
