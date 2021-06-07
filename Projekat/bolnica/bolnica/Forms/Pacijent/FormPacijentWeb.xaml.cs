@@ -9,6 +9,7 @@ using Model.Pacijenti;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -21,6 +22,8 @@ namespace Bolnica.Forms
     {
         public static FormPacijentWeb Forma;
         public static Pacijent Pacijent;
+
+        private List<int> obavestenjaPregled = new List<int>();
 
         private Pacijent trenutniPacijent = new Pacijent();
         private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
@@ -44,6 +47,8 @@ namespace Bolnica.Forms
 
         public FormPacijentWeb(Pacijent pacijent)
         {
+            FormObavestenjaPacijentPage.ObavestenjaPacijent = new ObservableCollection<Obavestenje>();
+
             InitializeComponent();
 
             this.DataContext = this;
@@ -77,7 +82,8 @@ namespace Bolnica.Forms
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
                 }
-                Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent);
+                ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel = new ZakaziPregledPacijentViewModel(trenutniPacijent);
+                Pocetna.Content = new FormZakaziPacijentPage(/*trenutniPacijent*/zakaziPregledPacijentViewModel);
             }
             
         }
@@ -166,7 +172,24 @@ namespace Bolnica.Forms
             {
                 if (trenutniPacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
                 {
+                    ProveriPocetakPregleda(pregled);
                     ProveriNotifikacije(pregled);
+                }
+            }
+        }
+
+        private void ProveriPocetakPregleda(Pregled pregled)
+        {
+            if (!pregled.Zavrsen && DateTime.Now.AddHours(1).CompareTo(pregled.Datum) >= 0 && DateTime.Now.CompareTo(pregled.Datum) <= 0)
+            {
+                if (!obavestenjaPregled.Contains(pregled.Id))
+                {
+                    string poruka = "Vaš zakazani pregled/operacija počinje danas " +
+                    pregled.Datum.ToShortDateString() + ". godine u " + pregled.Datum.ToShortTimeString() + ".\n" +
+                    "Pregled se održava u prostoriji broj " + pregled.Prostorija.BrojProstorije + ".";
+                    MessageBox.Show(poruka);
+                    FormObavestenjaPacijentPage.ObavestenjaPacijent.Add(new Obavestenje(-1, DateTime.Now, poruka, "Početak pregelda/operacije", false));
+                    obavestenjaPregled.Add(pregled.Id);
                 }
             }
         }
@@ -201,7 +224,9 @@ namespace Bolnica.Forms
 
         private void PosaljiNotifikaciju(Beleska beleska, DateTime vremeObavestenja)
         {
-            MessageBox.Show(vremeObavestenja.ToString() + " - Obavestenje na osnovu vase beleske:\r" + beleska.Zabeleska, "Obavestenje!");
+            string poruka = vremeObavestenja.ToString() + " - Obavestenje na osnovu Vaše beleske:\r" + beleska.Zabeleska;
+            MessageBox.Show(poruka, "Obavestenje na osnovu Vaše beleške!");
+            FormObavestenjaPacijentPage.ObavestenjaPacijent.Add(new Obavestenje(-1, vremeObavestenja, beleska.Zabeleska, "Obaveštenje na osnovu Vaše beleške", false));
             beleska.Prikazana = true;
             storageBeleska.Update(beleska);
         }

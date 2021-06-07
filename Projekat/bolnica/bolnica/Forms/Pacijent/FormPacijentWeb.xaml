@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPacijentWeb" Height="700" Width="1400" Icon="\Resources\hospital.png" Loaded="Window_Loaded">
+        Title="FormPacijentWeb" Height="750" Width="1400" Icon="\Resources\hospital.png" Loaded="Window_Loaded">
     <Grid Background="AliceBlue">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Width="1400" Background="LightBlue">
             <Image Source="/Resources/hospital.png" Height="60" Width="60" Margin="70,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>

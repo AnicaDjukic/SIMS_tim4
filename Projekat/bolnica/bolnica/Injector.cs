@@ -25,6 +25,17 @@ namespace Bolnica
         {
             get { return pacijentPageController; }
         }
+
+        private ZakaziPregledPacijentService zakaziPregledPacijentService = new ZakaziPregledPacijentService();
+        public ZakaziPregledPacijentService ZakaziPregledPacijentService
+        {
+            get { return zakaziPregledPacijentService; }
+        }
+        private ZazaziPregledPacijentController zakaziPregledPacijentController = new ZazaziPregledPacijentController();
+        public ZazaziPregledPacijentController ZakaziPregledPacijentController
+        {
+            get { return zakaziPregledPacijentController; }
+        }
         #endregion
 
         #region LEKAR

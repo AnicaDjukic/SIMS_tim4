@@ -30,7 +30,8 @@ namespace Bolnica.Service
             else
             {
                 PosaljiPoslednjeUpozorenje(brojac);
-                FormPacijentWeb.Forma.Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent);
+                ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel = new ZakaziPregledPacijentViewModel(trenutniPacijent);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormZakaziPacijentPage(/*trenutniPacijent*/zakaziPregledPacijentViewModel);
             }
         }
 
@@ -77,6 +78,10 @@ namespace Bolnica.Service
                                 ObrisiOperacijuIzTabele(prikazOperacije);
                                 ObrisiOperaciju(prikazOperacije);
                                 SacuvajAntiTrol(prikazOperacije);
+
+                                PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
+                                FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
+
                                 break;
                             }
                         }
@@ -90,6 +95,10 @@ namespace Bolnica.Service
                                 ObrisiPregledIzTabele(objekat);
                                 ObrisiPregled(objekat);
                                 SacuvajAntiTrol(objekat);
+
+                                PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
+                                FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
+
                                 break;
                             }
                         }
@@ -171,7 +180,7 @@ namespace Bolnica.Service
             var objekat = SelektovaniRed;
             if (objekat != null)
             {
-                if (objekat.GetType().Equals(new Operacija().GetType()))
+                if (objekat.GetType().Equals(new PrikazOperacije().GetType()))
                 {
                     MessageBox.Show("Ne mozete da izmenite operaciju!");
                 }

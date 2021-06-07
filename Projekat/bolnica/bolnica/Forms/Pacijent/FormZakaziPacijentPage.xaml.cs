@@ -20,7 +20,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormZakaziPacijentPage : Page
     {
-        private Pacijent pacijent = new Pacijent();
+        /*private Pacijent pacijent = new Pacijent();
 
         private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
         private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
@@ -28,12 +28,16 @@ namespace Bolnica.Forms
         private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<Pregled> pregledi = new List<Pregled>();
-        private List<Lekar> lekari = new List<Lekar>();
+        private List<Lekar> lekari = new List<Lekar>();*/
 
-        public FormZakaziPacijentPage(Pacijent trenutniPacijent)
+        public FormZakaziPacijentPage(/*Pacijent trenutniPacijent*/ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel)
         {
             InitializeComponent();
 
+            this.DataContext = zakaziPregledPacijentViewModel;
+            FormPacijentWeb.Forma.Pocetna.Content = this;
+
+            /*
             datumPicker.IsEnabled = false;
             comboSat.IsEnabled = false;
             comboMinut.IsEnabled = false;
@@ -49,9 +53,10 @@ namespace Bolnica.Forms
             }
 
             pacijent = trenutniPacijent;
+            */
         }
 
-        private void Potvrdi(object sender, RoutedEventArgs e)
+        /*private void Potvrdi(object sender, RoutedEventArgs e)
         {
             if (datumPicker.Text.Length == 0)
             {
@@ -160,7 +165,7 @@ namespace Bolnica.Forms
                     storageAntiTrol.Save(antiTrol);
 
                     PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
-                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikaz.Pacijent*/);
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel*prikaz.Pacijent*);
                 }
             }
         }
@@ -182,7 +187,7 @@ namespace Bolnica.Forms
         private void Otkazi(object sender, RoutedEventArgs e)
         {
             PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(pacijent);
-            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*pacijent*/);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel*pacijent*);
         }
 
         private void NasiPredlozi(object sender, RoutedEventArgs e)
@@ -240,7 +245,7 @@ namespace Bolnica.Forms
                 }
             }
             return false;
-        }
+        }*/
 
         private void RadioButton_Checked_Datum(object sender, RoutedEventArgs e)
         {

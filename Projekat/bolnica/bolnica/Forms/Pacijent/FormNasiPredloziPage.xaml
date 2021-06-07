@@ -5,31 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="580" d:DesignWidth="1400"
+      d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormNasiPredloziPage">
 
     <Grid>
         <DataGrid Name="nasiPredloziGrid" ItemsSource="{Binding PredlozeniTermini}" VerticalAlignment="Top" HorizontalAlignment="Center" 
-                  AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True"
-                  Height="440" Width="1000" Margin="0,20,0,0">
+                  AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" RowHeight="40"
+                  FontSize="16" Height="400" Width="1000" Margin="0,20,0,0" VerticalScrollBarVisibility="Visible" Background="LightBlue">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#FF00DFFF"></Setter>
+                    <Setter Property="Background" Value="LightBlue"></Setter>
                     <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                    <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                    <Setter Property="BorderThickness" Value="1,1,1,2"></Setter>
                     <Setter Property="BorderBrush" Value="black"></Setter>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
+                <Style TargetType="DataGridCell">
+                    <Style.Setters>
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style.Setters>
+                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}"  Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}"  Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}"  Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Potvrdi izabrani termin" HorizontalAlignment="Left" Margin="500,490,0,0" VerticalAlignment="Top" Height="35" Width="150" Click="PotvrdiIzabraniTermin"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="800,490,0,0" VerticalAlignment="Top" Height="35" Width="100" Click="Odustani"/>
+        <Button Content="Potvrdi izabrani termin" HorizontalAlignment="Left" Margin="500,470,0,0" VerticalAlignment="Top" Height="35" Width="150" Click="PotvrdiIzabraniTermin"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="800,470,0,0" VerticalAlignment="Top" Height="35" Width="100" Click="Odustani"/>
     </Grid>
 </Page>

@@ -154,25 +154,8 @@
   },
   {
     "Id": 10,
-    "Datum": "2021-06-10T14:15:00",
+    "Datum": "2021-06-07T16:15:00",
     "Trajanje": 15,
-    "Zavrsen": false,
-    "Hitan": false,
-    "Anamneza": { "Id": -1 },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    },
-    "Prostorija": { "BrojProstorije": "103" },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    }
-  },
-  {
-    "Id": 11,
-    "Datum": "2021-06-12T11:30:00",
-    "Trajanje": 30,
     "Zavrsen": false,
     "Hitan": false,
     "Anamneza": { "Id": -1 },

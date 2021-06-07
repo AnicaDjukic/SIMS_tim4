@@ -22,6 +22,7 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormLekoviTerapijePage : Page
     {
+        private Pacijent pacijent = new Pacijent();
         public static List<PrikazRecepta> LekoviPacijenta { get; set; }
 
         private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
@@ -34,17 +35,107 @@ namespace Bolnica.Forms
         private List<Anamneza> anamneze = new List<Anamneza>();
         private List<Lek> lekovi = new List<Lek>();
 
+        public static string PrviDanSedmice
+        {
+            get;
+            set;
+        }
+
+        public static string PoslednjiDanSedmice
+        {
+            get;
+            set;
+        }
+
+        public static DateTime Ponedeljak
+        {
+            get;
+            set;
+        }
+
+        public static DateTime Nedelja
+        {
+            get;
+            set;
+        }
+
+        public static List<SedmicnaTerapija> SedmicnaTerapija
+        {
+            get;
+            set;
+        }
+
         public FormLekoviTerapijePage(Pacijent trenutniPacijent)
         {
             InitializeComponent();
             this.DataContext = this;
 
+            DobijTrenutnuSedmicu();
+
             PopuniListe();
             NadjiPacijenta(trenutniPacijent);
+            pacijent = trenutniPacijent;
+        }
+
+        private static void DobijTrenutnuSedmicu()
+        {
+            String danasnjiDan = DateTime.Today.DayOfWeek.ToString();
+            switch (danasnjiDan)
+            {
+                case "Monday":
+                    PrviDanSedmice = DateTime.Today.ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(6).ToShortDateString();
+                    Ponedeljak = DateTime.Today;
+                    Nedelja = DateTime.Today.AddDays(6);
+                    break;
+                case "Tuesday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-1).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(5).ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-1);
+                    Nedelja = DateTime.Today.AddDays(5);
+                    break;
+                case "Wednesday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-2).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(4).ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-2);
+                    Nedelja = DateTime.Today.AddDays(4);
+                    break;
+                case "Thursday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-3).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(3).ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-3);
+                    Nedelja = DateTime.Today.AddDays(3);
+                    break;
+                case "Friday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-4).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(2).ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-4);
+                    Nedelja = DateTime.Today.AddDays(2);
+                    break;
+                case "Sathurday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-5).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(1).ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-5);
+                    Nedelja = DateTime.Today.AddDays(1);
+                    break;
+                case "Sunday":
+                    PrviDanSedmice = DateTime.Today.AddDays(-6).ToShortDateString();
+                    PoslednjiDanSedmice = DateTime.Today.ToShortDateString();
+                    Ponedeljak = DateTime.Today.AddDays(-6);
+                    Nedelja = DateTime.Today;
+                    break;
+            }
         }
 
         private void PopuniListe()
         {
+            SedmicnaTerapija = new List<SedmicnaTerapija>();
+            SedmicnaTerapija.Add(new SedmicnaTerapija("00:00h", "", "", "", "", "", "", ""));
+            SedmicnaTerapija.Add(new SedmicnaTerapija("04:00h", "", "", "", "", "", "", ""));
+            SedmicnaTerapija.Add(new SedmicnaTerapija("08:00h", "", "", "", "", "", "", ""));
+            SedmicnaTerapija.Add(new SedmicnaTerapija("12:00h", "", "", "", "", "", "", ""));
+            SedmicnaTerapija.Add(new SedmicnaTerapija("16:00h", "", "", "", "", "", "", ""));
+            SedmicnaTerapija.Add(new SedmicnaTerapija("20:00h", "", "", "", "", "", "", ""));
             LekoviPacijenta = new List<PrikazRecepta>();
             pregledi = storagePregledi.GetAll();
             operacije = storageOperacije.GetAll();
@@ -84,6 +175,363 @@ namespace Bolnica.Forms
 
         private void DodajLekoveIzRecepta(Anamneza anamneza)
         {
+            foreach (SedmicnaTerapija s in SedmicnaTerapija)
+            {
+                if (s.Vreme.Equals("00:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 8 || recept.VremeUzimanja == 12)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+                else if (s.Vreme.Equals("04:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 8)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+                else if (s.Vreme.Equals("08:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 6)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+                else if (s.Vreme.Equals("12:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 8 || recept.VremeUzimanja == 12)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+                else if (s.Vreme.Equals("16:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 6 || recept.VremeUzimanja == 24)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+                else if (s.Vreme.Equals("20:00h"))
+                {
+                    foreach (Recept recept in anamneza.Recept)
+                    {
+                        Lek lek = NadjiLek(recept);
+                        if (recept.VremeUzimanja == 4 || recept.VremeUzimanja == 8)
+                        {
+                            if (recept.Trajanje.CompareTo(Nedelja) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                                s.Nedelja += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-1)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                                s.Subota += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-2)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                                s.Petak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-3)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                                s.Cetvrtak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-4)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                                s.Sreda += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Nedelja.AddDays(-5)) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                                s.Utorak += lek.Naziv + "\n";
+                            }
+                            else if (recept.Trajanje.CompareTo(Ponedeljak) >= 0)
+                            {
+                                s.Ponedeljak += lek.Naziv + "\n";
+                            }
+                        }
+                    }
+                }
+            }
             foreach (Recept recept in anamneza.Recept)
             {
                 Lek lek = NadjiLek(recept);
@@ -104,7 +552,25 @@ namespace Bolnica.Forms
             return null;
         }
 
-        private void Button_Click_Vidi_Detalje_Leka(object sender, RoutedEventArgs e)
+        private void Button_Click_Stampaj(object sender, RoutedEventArgs e)
+        {
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
+            try
+            {
+                this.IsEnabled = false;
+                PrintDialog printDialog = new PrintDialog();
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(Izvestaj, "Izveštaj");
+                }
+            }
+            finally
+            {
+                this.IsEnabled = true;
+            }
+        }
+
+        /*private void Button_Click_Vidi_Detalje_Leka(object sender, RoutedEventArgs e)
         {
             var objekat = lekoviPacijenta.SelectedValue;
 
@@ -117,11 +583,6 @@ namespace Bolnica.Forms
             {
                 MessageBox.Show("Morate odabrati lek za koji zelite da vidite detalje!", "Upozorenje");
             }
-        }
-
-        private void Button_Click_Vidi_Detalje_Terapije(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }*/
     }
 }

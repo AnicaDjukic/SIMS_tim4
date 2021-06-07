@@ -16,6 +16,11 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormObavestenjaPacijentPage : Page
     {
+        public static ObservableCollection<Obavestenje> ObavestenjaPacijent
+        {
+            get;
+            set;
+        }
         public static ObservableCollection<string> ObavestenjaZaPacijente
         {
             get;
@@ -25,11 +30,13 @@ namespace Bolnica.Forms
         private Pacijent pacijent = new Pacijent();
 
         private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
         private FileRepositoryAnamneza storageAnamneze = new FileRepositoryAnamneza();
         private FileRepositoryLek storageLek = new FileRepositoryLek();
         private FileRepositoryObavestenje storageObavestenja = new FileRepositoryObavestenje();
 
         private List<Pregled> pregledi = new List<Pregled>();
+        private List<Operacija> operacije = new List<Operacija>();
         private List<Anamneza> anamneze = new List<Anamneza>();
         private List<Lek> lekovi = new List<Lek>();
         private List<Obavestenje> obavestenja = new List<Obavestenje>();
@@ -48,6 +55,7 @@ namespace Bolnica.Forms
 
             pacijent = trenutniPacijent;
             ObavestenjaZaPacijente = new ObservableCollection<string>();
+            //ObavestenjaPacijent = new ObservableCollection<Obavestenje>();
             Obavestenja = new List<Obavestenje>();
             obavestenja = storageObavestenja.GetAll();
             foreach (Obavestenje o in obavestenja)
@@ -63,9 +71,18 @@ namespace Bolnica.Forms
             }
             DanasnjiDatum = "Obaveštenja o lekovima za dan " + DateTime.Today.ToShortDateString() + ":";
             pregledi = storagePregledi.GetAll();
+            operacije = storageOperacije.GetAll();
             anamneze = storageAnamneze.GetAll();
-
+            List<Pregled> preglediOperacije = new List<Pregled>();
             foreach (Pregled pregled in pregledi)
+            {
+                preglediOperacije.Add(pregled);
+            }
+            foreach (Operacija operacija in operacije)
+            {
+                preglediOperacije.Add(operacija);
+            }
+            foreach (Pregled pregled in preglediOperacije)
             {
                 if (pacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
                 {
@@ -94,6 +111,23 @@ namespace Bolnica.Forms
                     " dnevno u razmaku od po " + DobijVremeUzimanja(vremeUzimanja) +
                     "Ovaj lek Vam je prepisan do " + datumZavrsetka + ".";
                     ObavestenjaZaPacijente.Add(obavestenje);
+                    
+                    List<string> list = new List<string>();
+                    foreach(Obavestenje ob in ObavestenjaPacijent)
+                    {
+                        list.Add(ob.Sadrzaj);
+                    }
+                    if (!list.Contains(obavestenje))
+                    {
+                        Obavestenje o = new Obavestenje()
+                        {
+                            Id = -1,
+                            Datum = DateTime.Now,
+                            Naslov = "Obavestenje o leku",
+                            Sadrzaj = obavestenje
+                        };
+                        ObavestenjaPacijent.Add(o);
+                    }
                 }
             }
         }
