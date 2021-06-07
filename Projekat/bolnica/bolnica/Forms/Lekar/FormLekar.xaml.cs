@@ -36,7 +36,7 @@ namespace Bolnica.Forms
             this.DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)
                 viewModel.ZatvoriAkcija = new Action(this.Close);
-            viewModel.Popuni(lekarGrid, lekarGridIstorija, dataGridLekovi);
+            viewModel.Popuni(lekarGrid, lekarGridIstorija, dataGridLekovi,dataGridOcene);
             this.Show();
             viewModel.PodesiParametre(Zakazi, PreglediTab, IstorijaTab, LekTab, AnamnezaIstorijaDugme, Odobri);
             

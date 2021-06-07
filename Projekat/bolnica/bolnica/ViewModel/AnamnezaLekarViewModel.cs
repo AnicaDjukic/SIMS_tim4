@@ -412,6 +412,30 @@ namespace Bolnica.ViewModel
             NapraviKomande();
      
         }
+        public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled)
+        {
+            FokusirajZatvoriDugme = false;
+            Inject = new Injector();
+            DaLiJePregled = true;
+            FiltirajLekove();
+            InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
+            PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
+            NapraviKomande();
+            DatumProsao = false;
+
+        }
+
+        public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija)
+        {
+            FokusirajZatvoriDugme = false;
+            Inject = new Injector();
+            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
+            FiltirajLekove();
+            PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
+            NapraviKomande();
+            DatumProsao = false ;
+
+        }
         #region POMOCNE FUNKCIJE
         public void NapraviKomande()
         {

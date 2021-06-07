@@ -10,6 +10,7 @@
     <Window.InputBindings>
         <KeyBinding Key="J" Modifiers="Ctrl" Command="{Binding Path=DemoOtkaziKomanda}"></KeyBinding>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding Path=DemoKomanda}"></KeyBinding>
+        <KeyBinding Key="T" Modifiers="Ctrl" Command="{Binding Path=OdjavaKomanda}"/>
     </Window.InputBindings>
 
     <Window.Resources>
@@ -139,10 +140,51 @@
 
 
                 </Style>
+                <Style TargetType="{x:Type TabItem}" x:Key="CetvrtiTab" >
+                    <Setter Property="Header">
+                        <Setter.Value>
+
+                            <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/informacijeLekar.png" Opacity="0.9" >
+                                <Image.Effect>
+                                    <DropShadowEffect/>
+                                </Image.Effect>
+                            </Image>
+
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Padding" Value="3" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Header">
+                                <Setter.Value>
+
+                                    <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/informacijeLekar.png"/>
+
+                                </Setter.Value>
+
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Header">
+                                <Setter.Value>
+
+                                    <Image  MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/informacijeLekar.png" >
+
+
+                                    </Image>
+
+                                </Setter.Value>
+
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+
+
+                </Style>
 
             </TabControl.Resources>
 
-            <TabItem Name="PreglediTab" Style="{StaticResource PrviTab}" >
+            <TabItem  Name="PreglediTab" Style="{StaticResource PrviTab}" >
                 <TabItem.InputBindings>
                     <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=ZakaziPregledKomanda}" />
                     <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=OtkaziPregledKomanda}" />
@@ -151,7 +193,7 @@
                     <KeyBinding Modifiers="Ctrl" Key="I" Command="{Binding Path=InformacijeOPacijentuKomanda}" />
                 </TabItem.InputBindings>
 
-                <Grid Height="Auto" MinHeight="300" MinWidth="500" >
+                <Grid  Height="Auto" MinHeight="300" MinWidth="500" >
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -223,7 +265,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid RowHeaderWidth="0" MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
+                    <DataGrid  RowHeaderWidth="0"  MinRowHeight="30" Grid.Row="0" Grid.Column="0" Grid.RowSpan="25" Grid.ColumnSpan="31" Name="lekarGrid" SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow"  >
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterKomanda}"/>
                             <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoKomanda}"/>
@@ -429,7 +471,7 @@
                     <KeyBinding Modifiers="Ctrl" Key="P" Command="{Binding Path=OdobriLekKomanda}" />
                     <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Path=VratiNaIzmenuKomanda}" />
                     <KeyBinding Modifiers="Ctrl" Key="H" Command="{Binding Path=IzmeniLekKomanda}" />
-                    <KeyBinding Key="Down" Command="{Binding Path=DemoFokusKomanda}"/>
+                    
                 </TabItem.InputBindings>
                 <Grid Height="Auto" MinHeight="300" MinWidth="500"  >
                     <Grid.ColumnDefinitions>
@@ -569,11 +611,167 @@
                     <Label Content="Ctrl+H" Grid.Row="29" Grid.Column="19" Grid.ColumnSpan="5" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </TabItem>
+            <TabItem Name="InfoTab" Style="{StaticResource CetvrtiTab}" >
+                <TabItem.InputBindings>
+                    <KeyBinding Key="Down" Command="{Binding Path=DemoFokusKomanda}"/>
+                </TabItem.InputBindings>
+                <Grid  Height="Auto" MinHeight="300" MinWidth="500"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
 
+
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Grid.RowSpan="14" Grid.ColumnSpan="31" />
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="14" Grid.RowSpan="17" Grid.ColumnSpan="31" />
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Grid.RowSpan="14" Grid.ColumnSpan="19" />
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="19" Grid.Row="0" Grid.RowSpan="14" Grid.ColumnSpan="19" />
+                    <Image Source="/Resources/slikaDoktora.png" Grid.Column="1" Grid.Row="1" Grid.RowSpan="10" Grid.ColumnSpan="6" Stretch="Fill" />
+                    
+                    <Label FontSize="15" Content="Korisničko ime:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Ime:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Prezime:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="JMBG:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Broj telefona:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="E-mail:" Grid.Column="8" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.KorisnickoIme}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Ime}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Prezime}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Jmbg}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.BrojTelefona}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Email}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                    <Label FontSize="15" Content="Datum rođenja:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Adresa stanovanja:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Plata:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Specijalizacija:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Godine staza:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Radno vreme:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.DatumRodjenja}" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.AdresaStanovanja}" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Plata}" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Specijalizacija.Naziv}" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.GodineStaza}" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="Prva smena" Grid.Column="25" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                    <DataGrid IsEnabled="False" RowHeaderWidth="0" MinRowHeight="30" Grid.Row="15" Grid.Column="6" Grid.RowSpan="25" Grid.ColumnSpan="19" Name="dataGridOcene"  SelectionMode="Single" IsReadOnly="True"  HorizontalAlignment="Center" VerticalAlignment="Top"  AutoGenerateColumns="False" SelectionUnit="FullRow" >
+                        <DataGrid.InputBindings>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#1176ae"></Setter>
+                                <Setter Property="FontSize" Value="15"></Setter>
+                                <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                                <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                                <Setter Property="BorderBrush" Value="black"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                <Setter Property="FontSize" Value="12"></Setter>
+                                <Setter Property="Background" Value="#FF7EA6BC"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            
+                            <DataGridTextColumn Header="Ime" Binding="{Binding Pacijent.Ime}"  MinWidth="75"  Width="*"/>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding Pacijent.Prezime}" MinWidth="75"  Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Ocena" Binding="{Binding BrojOcene}" MinWidth="75" Width="*"/>
+                            <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="*"/>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox Focusable="False"  IsReadOnly="True" BorderBrush="Black"  BorderThickness="2" TextWrapping="Wrap"  Text="{Binding Path=prosecnaOcena}" FontSize="40" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Adobe Caslon Pro Bold" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Grid.Row="20">
+                        
+                    </TextBox>
+                </Grid>
+            </TabItem>
 
         </TabControl>
-        <StackPanel Margin="2,457,819,63" Orientation="Vertical" >
+        <StackPanel Margin="2,457,819,0" Orientation="Vertical" >
             <Button local:FocusExtension.IsFocused="{Binding Path=DemoFokus,Mode=TwoWay}"   Width="60" Height="60" Command="{Binding Path=DemoKomanda}" >
+                
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Content" Value=""></Setter>
@@ -602,6 +800,38 @@
             </Button>
             <Label Content="Demo"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="Ctrl+D" Height="20"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button   Width="60" Height="60" Command="{Binding Path=OdjavaKomanda}" >
+                
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Content" Value=""></Setter>
+                        <Setter Property="Opacity" Value="0.8"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Opacity" Value="1">
+
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Ellipse >
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Resources/logoutLekarSlika.png" Stretch="UniformToFill">
+                                        
+                                    </ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Label Content="Odjava"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="Ctrl+T" Height="20"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>
 

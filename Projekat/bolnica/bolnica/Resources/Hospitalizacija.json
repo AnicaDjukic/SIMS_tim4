@@ -1,1 +1,58 @@
-[{"Id":1,"DatumPocetka":"2021-05-24T21:46:15.2794524+02:00","DatumZavrsetka":"2021-05-24T21:46:15.2795429+02:00","Prostorija":{"BrojProstorije":"107"},"Razlog":null,"Pacijent":{"Jmbg":"1212000190000","KorisnickoIme":"pero"}},{"Id":2,"DatumPocetka":"2021-05-31T20:09:41.2176162+02:00","DatumZavrsetka":"2021-05-31T20:09:41.217706+02:00","Prostorija":{"BrojProstorije":"111"},"Razlog":"upala pluca","Pacijent":{"Jmbg":"1212000190000","KorisnickoIme":"pero"}},{"Id":3,"DatumPocetka":"2021-05-31T20:11:00.1801075+02:00","DatumZavrsetka":"2021-06-17T00:00:00","Prostorija":{"BrojProstorije":"111"},"Razlog":"upalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","Pacijent":{"Jmbg":"1212000190000","KorisnickoIme":"pero"}},{"Id":5,"DatumPocetka":"2021-06-07T01:13:46.7458211+02:00","DatumZavrsetka":"2021-06-09T00:00:00","Prostorija":{"BrojProstorije":"111"},"Razlog":"Boli ga glava","Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}},{"Id":4,"DatumPocetka":"2021-06-01T00:59:31.5332527+02:00","DatumZavrsetka":"2021-06-16T00:00:00","Prostorija":{"BrojProstorije":"111"},"Razlog":"jadi","Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}}]
+[
+  
+  {
+    "Id": 1,
+    "DatumPocetka": "2021-05-24T21:46:15.2794524+02:00",
+    "DatumZavrsetka": "2021-05-24T21:46:15.2795429+02:00",
+    "Prostorija": { "BrojProstorije": "107" },
+    "Razlog": null,
+    "Pacijent": {
+      "Jmbg": "1212000190000",
+      "KorisnickoIme": "pero"
+    }
+  },
+  {
+    "Id": 2,
+    "DatumPocetka": "2021-05-31T20:09:41.2176162+02:00",
+    "DatumZavrsetka": "2021-05-31T20:09:41.217706+02:00",
+    "Prostorija": { "BrojProstorije": "111" },
+    "Razlog": "Upala pluca",
+    "Pacijent": {
+      "Jmbg": "1212000190000",
+      "KorisnickoIme": "pero"
+    }
+  },
+  {
+    "Id": 3,
+    "DatumPocetka": "2021-05-31T20:11:00.1801075+02:00",
+    "DatumZavrsetka": "2021-06-17T00:00:00",
+    "Prostorija": { "BrojProstorije": "111" },
+    "Razlog": "Bol u stomaku",
+    "Pacijent": {
+      "Jmbg": "1212000190000",
+      "KorisnickoIme": "pero"
+    }
+  },
+  {
+    "Id": 5,
+    "DatumPocetka": "2021-06-07T01:13:46.7458211+02:00",
+    "DatumZavrsetka": "2021-06-09T00:00:00",
+    "Prostorija": { "BrojProstorije": "111" },
+    "Razlog": "Korona virus",
+    "Pacijent": {
+      "Jmbg": "0910990130002",
+      "KorisnickoIme": null
+    }
+  },
+  {
+    "Id": 4,
+    "DatumPocetka": "2021-06-01T00:59:31.5332527+02:00",
+    "DatumZavrsetka": "2021-06-16T00:00:00",
+    "Prostorija": { "BrojProstorije": "111" },
+    "Razlog": "Rak pluca",
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  }
+]

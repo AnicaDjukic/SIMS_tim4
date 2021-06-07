@@ -1,1 +1,274 @@
-[{"Id":1,"Simptomi":"Kasalj, grlobolja","Dijagnoza":"Upala pluca.","Recept":[{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-07T00:00:00","Kolicina":5,"VremeUzimanja":12,"Trajanje":"2021-06-18T00:00:00"}],"Beleska":{"Id":-1}},{"Id":2,"Simptomi":"Prehlada","Dijagnoza":"Nista posebno.","Recept":[{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-27T00:00:00","Kolicina":5,"VremeUzimanja":12,"Trajanje":"2021-06-11T00:00:00"}],"Beleska":{"Id":1}},{"Id":3,"Simptomi":"Bolovi u stomaku.","Dijagnoza":"Ostecenje jetre.","Recept":[{"Lek":{"Id":2341},"Id":0,"DatumIzdavanja":"2021-05-08T00:00:00","Kolicina":3,"VremeUzimanja":4,"Trajanje":"2021-05-28T00:00:00"},{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-14T00:00:00","Kolicina":8,"VremeUzimanja":12,"Trajanje":"2021-05-18T00:00:00"}],"Beleska":{"Id":-1}},{"Id":4,"Simptomi":"Nema simptoma.","Dijagnoza":"Nema dijagnoze","Recept":[{"Lek":{"Id":1234},"Id":0,"DatumIzdavanja":"2021-05-07T00:00:00","Kolicina":9,"VremeUzimanja":12,"Trajanje":"2021-08-13T00:00:00"},{"Lek":{"Id":2435},"Id":0,"DatumIzdavanja":"2021-05-21T00:00:00","Kolicina":8,"VremeUzimanja":4,"Trajanje":"2021-06-02T00:00:00"},{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-07T00:00:00","Kolicina":9,"VremeUzimanja":12,"Trajanje":"2021-05-25T00:00:00"}],"Beleska":{"Id":-1}},{"Id":5,"Simptomi":"Otezano disanje.","Dijagnoza":"Korona virus.","Recept":[{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-02T00:00:00","Kolicina":8,"VremeUzimanja":12,"Trajanje":"2021-05-25T00:00:00"},{"Lek":{"Id":3452},"Id":0,"DatumIzdavanja":"2021-05-07T00:00:00","Kolicina":3,"VremeUzimanja":8,"Trajanje":"2021-06-25T00:00:00"}],"Beleska":{"Id":-1}},{"Id":6,"Simptomi":"Oteceno lice.","Dijagnoza":"Ujed pcele.","Recept":[{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-08T00:00:00","Kolicina":1,"VremeUzimanja":12,"Trajanje":"2021-05-12T00:00:00"}],"Beleska":null},{"Id":7,"Simptomi":"Temperatura, kasalj.","Dijagnoza":"Korona virus.","Recept":[{"Lek":{"Id":4567},"Id":0,"DatumIzdavanja":"2021-05-08T00:00:00","Kolicina":9,"VremeUzimanja":6,"Trajanje":"2021-05-29T00:00:00"},{"Lek":{"Id":3256},"Id":0,"DatumIzdavanja":"2021-05-08T00:00:00","Kolicina":5,"VremeUzimanja":8,"Trajanje":"2021-06-12T00:00:00"},{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-08T00:00:00","Kolicina":9,"VremeUzimanja":12,"Trajanje":"2021-05-29T00:00:00"}],"Beleska":{"Id":-1}},{"Id":8,"Simptomi":"Malaksalost.","Dijagnoza":"Predinfarktno stanje.","Recept":[{"Lek":{"Id":4567},"Id":0,"DatumIzdavanja":"2021-05-23T00:00:00","Kolicina":3,"VremeUzimanja":6,"Trajanje":"2021-05-29T00:00:00"},{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-16T00:00:00","Kolicina":8,"VremeUzimanja":12,"Trajanje":"2021-05-20T00:00:00"}],"Beleska":{"Id":-1}},{"Id":9,"Simptomi":"Blagi bol u predjelu stomaka.","Dijagnoza":"Kamen u bubregu.","Recept":[{"Lek":{"Id":4567},"Id":0,"DatumIzdavanja":"2021-05-09T00:00:00","Kolicina":7,"VremeUzimanja":6,"Trajanje":"2021-05-30T00:00:00"},{"Lek":{"Id":3567},"Id":0,"DatumIzdavanja":"2021-05-09T00:00:00","Kolicina":8,"VremeUzimanja":12,"Trajanje":"2021-05-09T00:00:00"}],"Beleska":null},{"Id":10,"Simptomi":"Nema posebnih simptoma.","Dijagnoza":"Zdravstveno stanje pacijenta dobro.","Recept":[{"Lek":{"Id":4567},"Id":0,"DatumIzdavanja":"2021-05-16T00:00:00","Kolicina":2,"VremeUzimanja":6,"Trajanje":"2021-05-30T00:00:00"},{"Lek":{"Id":2435},"Id":0,"DatumIzdavanja":"2021-05-16T00:00:00","Kolicina":8,"VremeUzimanja":4,"Trajanje":"2021-07-18T00:00:00"}],"Beleska":{"Id":-1}},{"Id":11,"Simptomi":"dadsa","Dijagnoza":"dadsa","Recept":[{"Lek":{"Id":2435},"Id":0,"DatumIzdavanja":"2021-06-01T00:00:00","Kolicina":4,"VremeUzimanja":7,"Trajanje":"2021-06-08T00:00:00"}],"Beleska":null},{"Id":12,"Simptomi":"Nesto","Dijagnoza":"nesto","Recept":[],"Beleska":null},{"Id":13,"Simptomi":"nesto","Dijagnoza":"nesto","Recept":[{"Lek":{"Id":5678},"Id":0,"DatumIzdavanja":"2021-06-07T02:07:14","Kolicina":2,"VremeUzimanja":3,"Trajanje":"2021-06-14T00:00:00"}],"Beleska":null}]
+[
+  
+  {
+    "Id": 1,
+    "Simptomi": "Kasalj, grlobolja",
+    "Dijagnoza": "Upala pluca.",
+    "Recept": [
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-07T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-06-18T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 2,
+    "Simptomi": "Prehlada",
+    "Dijagnoza": "Nista posebno.",
+    "Recept": [
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-27T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-06-11T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": 1 }
+  },
+  {
+    "Id": 3,
+    "Simptomi": "Bolovi u stomaku.",
+    "Dijagnoza": "Ostecenje jetre.",
+    "Recept": [
+      {
+        "Lek": { "Id": 2341 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-08T00:00:00",
+        "Kolicina": 3,
+        "VremeUzimanja": 4,
+        "Trajanje": "2021-05-28T00:00:00"
+      },
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-14T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-18T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 4,
+    "Simptomi": "Nema simptoma.",
+    "Dijagnoza": "Nema dijagnoze",
+    "Recept": [
+      {
+        "Lek": { "Id": 1234 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-07T00:00:00",
+        "Kolicina": 9,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-08-13T00:00:00"
+      },
+      {
+        "Lek": { "Id": 2435 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-21T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 4,
+        "Trajanje": "2021-06-02T00:00:00"
+      },
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-07T00:00:00",
+        "Kolicina": 9,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-25T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 5,
+    "Simptomi": "Otezano disanje.",
+    "Dijagnoza": "Korona virus.",
+    "Recept": [
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-02T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-25T00:00:00"
+      },
+      {
+        "Lek": { "Id": 5678 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-07T00:00:00",
+        "Kolicina": 3,
+        "VremeUzimanja": 8,
+        "Trajanje": "2021-06-25T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 6,
+    "Simptomi": "Oteceno lice.",
+    "Dijagnoza": "Ujed pcele.",
+    "Recept": [
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-08T00:00:00",
+        "Kolicina": 1,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-12T00:00:00"
+      }
+    ],
+    "Beleska": null
+  },
+  {
+    "Id": 7,
+    "Simptomi": "Temperatura, kasalj.",
+    "Dijagnoza": "Korona virus.",
+    "Recept": [
+      {
+        "Lek": { "Id": 4567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-08T00:00:00",
+        "Kolicina": 9,
+        "VremeUzimanja": 6,
+        "Trajanje": "2021-05-29T00:00:00"
+      },
+      {
+        "Lek": { "Id": 2435 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-08T00:00:00",
+        "Kolicina": 5,
+        "VremeUzimanja": 8,
+        "Trajanje": "2021-06-12T00:00:00"
+      },
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-08T00:00:00",
+        "Kolicina": 9,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-29T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 8,
+    "Simptomi": "Malaksalost.",
+    "Dijagnoza": "Predinfarktno stanje.",
+    "Recept": [
+      {
+        "Lek": { "Id": 4567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-23T00:00:00",
+        "Kolicina": 3,
+        "VremeUzimanja": 6,
+        "Trajanje": "2021-05-29T00:00:00"
+      },
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-16T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-20T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 9,
+    "Simptomi": "Blagi bol u predjelu stomaka.",
+    "Dijagnoza": "Kamen u bubregu.",
+    "Recept": [
+      {
+        "Lek": { "Id": 4567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-09T00:00:00",
+        "Kolicina": 7,
+        "VremeUzimanja": 6,
+        "Trajanje": "2021-05-30T00:00:00"
+      },
+      {
+        "Lek": { "Id": 3567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-09T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 12,
+        "Trajanje": "2021-05-09T00:00:00"
+      }
+    ],
+    "Beleska": null
+  },
+  {
+    "Id": 10,
+    "Simptomi": "Nema posebnih simptoma.",
+    "Dijagnoza": "Zdravstveno stanje pacijenta dobro.",
+    "Recept": [
+      {
+        "Lek": { "Id": 4567 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-16T00:00:00",
+        "Kolicina": 2,
+        "VremeUzimanja": 6,
+        "Trajanje": "2021-05-30T00:00:00"
+      },
+      {
+        "Lek": { "Id": 2435 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-05-16T00:00:00",
+        "Kolicina": 8,
+        "VremeUzimanja": 4,
+        "Trajanje": "2021-07-18T00:00:00"
+      }
+    ],
+    "Beleska": { "Id": -1 }
+  },
+  {
+    "Id": 11,
+    "Simptomi": "Bol u plucima",
+    "Dijagnoza": "Rak pluca",
+    "Recept": [
+      {
+        "Lek": { "Id": 2435 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-06-01T00:00:00",
+        "Kolicina": 4,
+        "VremeUzimanja": 7,
+        "Trajanje": "2021-06-08T00:00:00"
+      }
+    ],
+    "Beleska": null
+  },
+  {
+    "Id": 12,
+    "Simptomi": "Tesko disanje",
+    "Dijagnoza": "Bronhitis",
+    "Recept": [],
+    "Beleska": null
+  },
+  {
+    "Id": 13,
+    "Simptomi": "Upala pluca",
+    "Dijagnoza": "Prehlada",
+    "Recept": [
+      {
+        "Lek": { "Id": 5678 },
+        "Id": 0,
+        "DatumIzdavanja": "2021-06-07T02:07:14",
+        "Kolicina": 2,
+        "VremeUzimanja": 3,
+        "Trajanje": "2021-06-14T00:00:00"
+      }
+    ],
+    "Beleska": null
+  }
+]

@@ -4,8 +4,8 @@
         "Smena": 0,
         "Specijalizacija": {
             "Id": 3,
-            "Naziv": "kardioloski majstor",
-            "OblastMedicine": "kardiologija"
+            "Naziv": "Kardioloski majstor",
+            "OblastMedicine": "Kardiologija"
         },
         "Mbr": 123123,
         "Plata": 15000.0,
@@ -28,8 +28,8 @@
         "Smena": 0,
         "Specijalizacija": {
             "Id": 3,
-            "Naziv": "kardioloski majstor",
-            "OblastMedicine": "kardiologija"
+            "Naziv": "Kardioloski majstor",
+            "OblastMedicine": "Kardiologija"
         },
         "Mbr": 654321,
         "Plata": 8000.0,

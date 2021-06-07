@@ -1,8 +1,10 @@
-﻿using Bolnica.Commands;
+﻿using bolnica;
+using Bolnica.Commands;
 using Bolnica.DTO;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -33,12 +35,14 @@ namespace Bolnica.ViewModel
         public static DataGrid podaciLista = new DataGrid();
         public static DataGrid podaciListaIstorija = new DataGrid();
         public static ObservableCollection<PrikazLek> lekoviPrikaz = new ObservableCollection<PrikazLek>();
-        private Lekar lekarTrenutni = new Lekar();
+        public static ObservableCollection<Ocena> ocenePrikaz = new ObservableCollection<Ocena>();
+        public Lekar lekarTrenutni { get; set; }
         private PrikazPregleda prikazPregleda = new PrikazPregleda();
         private PrikazOperacije prikazOperacije = new PrikazOperacije();
         private DataGrid preglediTabela;
         private DataGrid istorijaPregledaTabela;
         private DataGrid lekoviTabela;
+        private DataGrid oceneTabela;
         private Button zakaziDugme;
         private TabItem preglediTab;
         private TabItem istorijaTab;
@@ -47,8 +51,9 @@ namespace Bolnica.ViewModel
         private Button odobriDugme;
         private DispatcherTimer _activeTimer;
         public static bool prekidaj = false;
+        public string prosecnaOcena { get; set; }
 
-
+    
 
         private Injector inject;
         public Injector Inject
@@ -74,6 +79,47 @@ namespace Bolnica.ViewModel
 
         #endregion
         #region KOMANDE
+        private RelayCommand odjavaKomanda;
+        public RelayCommand OdjavaKomanda
+        {
+            get { return odjavaKomanda; }
+            set
+            {
+                odjavaKomanda = value;
+
+            }
+        }
+
+        public void Executed_OdjavaKomanda(object obj)
+        {
+            if (MessageBox.Show("Da li ste sigurni da želite da se odjavite.", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+
+            }
+            else
+            {
+                MainWindow form = new MainWindow();
+                form.Show();
+                listaPregleda = new List<Pregled>();
+                listaOperacija = new List<Operacija>();
+                podaciLista = new DataGrid();
+                podaciListaIstorija = new DataGrid();
+                lekoviPrikaz = new ObservableCollection<PrikazLek>();
+                ocenePrikaz = new ObservableCollection<Ocena>();
+                prekidaj = false;
+                InformacijeOPacijentuLekarViewModel.Hospitalizacije = new ObservableCollection<Hospitalizacija>();
+                InformacijeOPacijentuLekarViewModel.Pregledi = new ObservableCollection<PrikazPregleda>();
+                AnamnezaLekarViewModel.Recepti = new ObservableCollection<PrikazRecepta>();
+        
+                ZatvoriAkcija();
+            }
+        }
+
+        public bool CanExecute_OdjavaKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand demoOtkaziKomanda;
         public RelayCommand DemoOtkaziKomanda
         {
@@ -599,6 +645,8 @@ namespace Bolnica.ViewModel
 
         public LekarViewModel(Lekar lekar)
         {
+            lekarTrenutni = new Lekar();
+            
             DemoFokus = false;
             Inject = new Injector();
             IzfiltrirajLekove();
@@ -609,17 +657,19 @@ namespace Bolnica.ViewModel
 
         }
         #region POMOCNE FUNKCIJE
-        public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii)
+        public void Popuni(DataGrid lekarGridd, DataGrid lekarGridIstorijaa, DataGrid dataGridLekovii, DataGrid dataGridOcena)
         {
             preglediTabela = lekarGridd;
             istorijaPregledaTabela = lekarGridIstorijaa;
             lekoviTabela = dataGridLekovii;
+            oceneTabela = dataGridOcena;
             SortirajPodatke();
             FiltrirajPregledeZaPrikaz();
             FiltrirajOperacijeZaPrikaz();
             NapraviListuLekovaZaPrikaz();
             PodesiPrikazPregledaIOperacija();
             PrikaziLekove();
+            PrikaziOcene();
         }
 
         public void PodesiParametre(Button Zakazi,TabItem PreglediTab,TabItem IstorijaTab,TabItem LekTab,Button AnamenzaIstorijaDugme,Button Odobri)
@@ -690,6 +740,7 @@ namespace Bolnica.ViewModel
         }
         public void NapraviKomande()
         {
+     
             ZakaziPregledKomanda = new RelayCommand(Executed_ZakaziPregledKomanda, CanExecute_ZakaziPregledKomanda);
             OtkaziPregledKomanda = new RelayCommand(Executed_OtkaziPregledKomanda, CanExecute_OtkaziPregledKomanda);
             IzmeniPregledKomanda = new RelayCommand(Executed_IzmeniPregledKomanda, CanExecute_IzmeniPregledKomanda);
@@ -715,6 +766,7 @@ namespace Bolnica.ViewModel
             DemoFokusKomanda = new RelayCommand(Executed_DemoFokusKomanda, CanExecute_DemoFokusKomanda);
             DemoKomanda = new RelayCommand(Executed_DemoKomanda, CanExecute_DemoKomanda);
             DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
+            OdjavaKomanda = new RelayCommand(Executed_OdjavaKomanda, CanExecute_OdjavaKomanda);
         }
 
         public void SortirajPodatke()
@@ -797,9 +849,41 @@ namespace Bolnica.ViewModel
         public void PrikaziLekove()
         {
             lekoviTabela.ItemsSource = lekoviPrikaz;
+            
+        }
+        public void PrikaziOcene()
+        {
+            List<Ocena> ocene = new List<Ocena>();
+            List<Pacijent> pacijenti = new List<Pacijent>();
+            FileRepositoryOcena skalidsteOcena = new FileRepositoryOcena();
+            FileRepositoryPacijent skladistePacijenata = new FileRepositoryPacijent();
+            ocene = skalidsteOcena.GetAll();
+            pacijenti = skladistePacijenata.GetAll();
+            double sveOcene = 0;
+            double brojOcena = 0;
+            for (int i = 0; i < ocene.Count; i++)
+            {
+                if (ocene[i].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
+                {
+                    for (int m = 0; m < pacijenti.Count; m++)
+                    {
+                        if (ocene[i].Pacijent.Jmbg.Equals(pacijenti[m].Jmbg))
+                        {
+                            ocene[i].Pacijent = pacijenti[m];
+                            break;
+                        }
+                    }
+                    sveOcene += ocene[i].BrojOcene;
+                    brojOcena += 1;
+                    ocenePrikaz.Add(ocene[i]);
+                }
+            }
+            prosecnaOcena = "Ocena: "+(sveOcene / brojOcena).ToString("0.0");
+            oceneTabela.ItemsSource = ocenePrikaz;
+
         }
 
-  
+
 
 
 
@@ -942,6 +1026,7 @@ namespace Bolnica.ViewModel
                     else if (predjiDalje1 == 1)
                     {
                         _activeTimer.Stop();
+                        DemoKomandaIzView();
                     }
                 }
                 else

@@ -16,6 +16,7 @@ namespace Bolnica.ViewModel
 {
     public class IzvestajLekarViewModel : ViewModel
     {
+        #region POLJA
         public string Simptomi { get; set; }
 
         public string Dijagnoza { get; set; }
@@ -33,6 +34,8 @@ namespace Bolnica.ViewModel
         }
         public Action ZatvoriAction { get; set; }
 
+        #endregion
+        #region KOMANDE
         private RelayCommand potvrdiKomanda;
         public RelayCommand PotvrdiKomanda
         {
@@ -128,7 +131,7 @@ namespace Bolnica.ViewModel
             get;
             set;
         }
-
+        #endregion 
         public IzvestajLekarViewModel(string simptom, string dijagnoz) {
 
             Inject = new Injector();
@@ -139,10 +142,12 @@ namespace Bolnica.ViewModel
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
         
         }
-      public  void Postavi(DataGrid grid)
+        #region POMOCNE FUNKCIJE
+        public void Postavi(DataGrid grid)
     {
             this.grid = grid;
     }
+        #endregion
 
     }
 }
