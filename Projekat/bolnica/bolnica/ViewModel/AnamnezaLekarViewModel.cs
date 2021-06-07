@@ -88,6 +88,17 @@ namespace Bolnica.ViewModel
             }
         }
 
+        private bool fokusirajZatvoriDugme;
+        public bool FokusirajZatvoriDugme
+        {
+            get { return fokusirajZatvoriDugme; }
+            set
+            {
+                fokusirajZatvoriDugme = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int selektovaniIndeks;
         public int SelektovaniIndeks
         {
@@ -121,7 +132,29 @@ namespace Bolnica.ViewModel
             return true;
         }
 
-        
+        private RelayCommand fokusirajDole;
+        public RelayCommand FokusirajDole
+        {
+            get { return fokusirajDole; }
+            set
+            {
+                fokusirajDole = value;
+
+            }
+        }
+
+        public void Executed_FokusirajDole(object obj)
+        {
+            FokusirajZatvoriDugme = true;
+            
+        }
+
+        public bool CanExecute_FokusirajDole(object obj)
+        {
+            return true;
+        }
+
+
         private RelayCommand obrisiReceptKomanda;
         public RelayCommand ObrisiReceptKomanda
         {
@@ -202,13 +235,13 @@ namespace Bolnica.ViewModel
             }
 
             //Exporting to PDF
-            string folderPath = "C:\\Users\\Minja\\Desktop\\Ejada\\";
+            string folderPath = "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Izvestaji\\";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
             }
            
-            using (FileStream stream = new FileStream(folderPath + "DataGridViewExport.pdf", FileMode.Create))
+            using (FileStream stream = new FileStream(folderPath + trenutniPacijent.KorisnickoIme+DateTime.Now.Hour+DateTime.Now.Minute+DateTime.Now.Second+".pdf", FileMode.Create))
             {
                 Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 10f, 0f);
                 PdfWriter.GetInstance(pdfDoc, stream);
@@ -236,6 +269,7 @@ namespace Bolnica.ViewModel
 
                 pdfDoc.Close();
                 stream.Close();
+                MessageBox.Show("Izvestaj je uspesno istampan u pdf");
             }
             
 
@@ -358,6 +392,7 @@ namespace Bolnica.ViewModel
 #endregion
         public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
+            FokusirajZatvoriDugme = false;
             Inject = new Injector();
             DaLiJePregled = true;
             FiltirajLekove();
@@ -369,6 +404,7 @@ namespace Bolnica.ViewModel
 
         public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
         {
+            FokusirajZatvoriDugme = false;
             Inject = new Injector();
             InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
             FiltirajLekove();
@@ -387,6 +423,7 @@ namespace Bolnica.ViewModel
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
             DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
             IzvestajKomanda = new RelayCommand(Executed_IzvestajKomanda, CanExecute_IzvestajKomanda);
+            FokusirajDole = new RelayCommand(Executed_FokusirajDole, CanExecute_FokusirajDole);
         }
        
         

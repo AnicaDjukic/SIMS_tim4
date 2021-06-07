@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Bolnica.Forms"
         xmlns:localExtensions="clr-namespace:Bolnica"
         mc:Ignorable="d"
-        Title="Napravi anamnezu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Anamneza" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.InputBindings>
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding Path=IzvestajKomanda}"/>
@@ -24,7 +24,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#1176ae"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="80"/>
@@ -52,7 +52,7 @@
             <Setter Property="FontStretch" Value="Medium"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -65,7 +65,7 @@
             <Setter Property="FontStretch" Value="Medium"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
 
 
             <Setter Property="IsEnabled" Value="False"/>
@@ -84,7 +84,7 @@
         </Style>
 
     </Window.Resources>
-    <Grid Background="#1176ae">
+    <Grid Background="#FF7EA6BC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -131,7 +131,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.RowSpan="16" Grid.Column="0" Grid.ColumnSpan="20">
-            <Grid Background="#1176ae" MinHeight="275">
+            <Grid Background="#FF7EA6BC" MinHeight="275">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -233,7 +233,7 @@
 
                 <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="7" />
             </Grid>
-            <Grid Background="#1176ae" MinHeight="300">
+            <Grid Background="#FF7EA6BC" MinHeight="300">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -279,9 +279,12 @@
                 <Label Content="Lekovi/terapije" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="8"  FontSize="30" />
                 <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="20" Grid.RowSpan="8"  />
                 <DataGrid MinRowHeight="30" SelectedItem="{Binding Path=SelektovaniItem,Mode=TwoWay}" SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" Name="dataGridLekovi" ItemsSource="{Binding Recepti}" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="18" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Path=FokusirajDole}"></KeyBinding>
+                    </DataGrid.InputBindings>
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF20BC15"></Setter>
+                            <Setter Property="Background" Value="#1176ae"></Setter>
                             <Setter Property="FontSize" Value="15"></Setter>
                             <Setter Property="FontWeight" Value="SemiBold"></Setter>
                             <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -292,7 +295,7 @@
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
                             <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="Background" Value="#1176ae"/>
+                            <Setter Property="Background" Value="#FF7EA6BC"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Foreground" Value="Black" />
@@ -303,7 +306,7 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Naziv" Binding="{Binding lek.Naziv}"  MinWidth="75"  Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Datum prepisivanja" Binding="{Binding DatumIzdavanja, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum propisivanja" Binding="{Binding DatumIzdavanja, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Datum prekida" Binding="{Binding Trajanje, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Vreme" Binding="{Binding VremeUzimanja}" MinWidth="75" Width="*"></DataGridTextColumn>
 
@@ -311,10 +314,10 @@
                 </DataGrid>
                 <Button IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajReceptKomanda}"
                          Name="DodajButton" Content="Dodaj" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
-                <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
+                <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=VidiReceptKomanda}"
                          Name="VidiDetaljeButton" Content="Vidi detalje" Grid.Row="6" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" />
-                <Button localExtensions:FocusExtension.IsFocused="{Binding Path=FokusirajZatvoriDugme, Mode=TwoWay}" IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
-                         Name="IzbrisiButton" Content="Izbrisi" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" >
+                <Button  IsEnabled="{Binding Path=DatumProsao}" FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ObrisiReceptKomanda}"
+                         Name="IzbrisiButton" Content="Izbriši" Grid.Row="6" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" MinHeight="30" MinWidth="100" >
                 </Button>
                 <Label FontSize="12" Content="Ctrl+D" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                 <Label FontSize="12" Content="Ctrl+I" Grid.Row="7" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
@@ -329,9 +332,9 @@
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"
                           Name="PotvrdiButton" Content="Potvrdi" Grid.Row="16" Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100" />
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZakaziPregledKomanda}"
-                          Content="Zakazi pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100"/>
+                          Content="Zakaži pregled" Grid.Row="16" Grid.Column="8" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
-                          Content="Otkazi" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100">
+                          Content="Otkaži" Grid.Row="16" Grid.Column="14" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" MinHeight="30" MinWidth="100">
         </Button>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="17" Grid.Column="4" Grid.ColumnSpan="2"   HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
         <Label FontSize="12" Content="Ctrl+P" Grid.Row="17" Grid.Column="8"  Grid.ColumnSpan="4" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>

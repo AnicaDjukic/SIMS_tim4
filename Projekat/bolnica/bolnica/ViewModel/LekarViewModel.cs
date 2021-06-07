@@ -254,7 +254,14 @@ namespace Bolnica.ViewModel
 
         public void Executed_DemoKomanda(object obj)
         {
-            DemoKomandaIzView();
+            if (MessageBox.Show("Da li ste sigurni da želite da pokrenete demo mod. Izlazak iz demo moda možete izvrišiti u bilo kome trenutku pritiskom tastera Ctrl+J", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+
+            }
+            else
+            {
+                DemoKomandaIzView();
+            }
         }
 
         public bool CanExecute_DemoKomanda(object obj)

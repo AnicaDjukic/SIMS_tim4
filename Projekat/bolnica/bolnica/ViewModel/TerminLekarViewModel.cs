@@ -387,6 +387,11 @@ namespace Bolnica.ViewModel
                 MessageBox.Show("Prostorija nije slobodna");
                 return;
             }
+            if (DatumPregleda.ToShortDateString().Equals(DateTime.Now.ToShortDateString()) && TimeSpan.Parse(VremePregleda) < DateTime.Now.TimeOfDay)
+            {
+                MessageBox.Show("Nije moguce napraviti termin u to vreme");
+                return;
+            }
             inject.TerminLekarController.Potvrdi(new TerminLekarDTO(DatumPregleda.ToShortDateString(), VremePregleda, TrajanjePregleda, sviLekari, LekarPodaci, sviPacijenti, PacijentPodaci, sveProstorije, ItemSourceDaLiJeOperacije, TipOperacije, ItemSourceDaLiJeHitan, BrojProstorije, ulogovaniLekar));
             CloseAction();
             
@@ -433,6 +438,11 @@ namespace Bolnica.ViewModel
             if (!inject.TerminLekarController.ProstorijaSlobodna(new TerminLekarDTO(sveProstorije, BrojProstorije, DatumPregleda)))
             {
                 MessageBox.Show("Prostorija nije slobodna");
+                return;
+            }
+            if (DatumPregleda.ToShortDateString().Equals(DateTime.Now.ToShortDateString()) && TimeSpan.Parse(VremePregleda) < DateTime.Now.TimeOfDay)
+            {
+                MessageBox.Show("Nije moguce izmeniti termin u to vreme");
                 return;
             }
             inject.TerminLekarController.PotvrdiIzmenu(new TerminLekarDTO(DatumPregleda.ToShortDateString(), VremePregleda, TrajanjePregleda, LekarPodaci, PacijentPodaci, ItemSourceDaLiJeOperacije, TipOperacije, ItemSourceDaLiJeHitan, BrojProstorije, ulogovaniLekar, staraOperacija, stariPregled));
@@ -746,7 +756,7 @@ namespace Bolnica.ViewModel
                     if (sveProstorije[pr].Obrisana == false && sveProstorije[pr].Zauzeta == false && sveProstorije[pr].TipProstorije.Equals(TipProstorije.operacionaSala))
                     {
                         brojeviProstorija.Add(sveProstorije[pr].BrojProstorije);
-                    }
+                        }
                 }
                 ItemSourceBrojProstorije = brojeviProstorija;
                 daLiJeOperacija = true;

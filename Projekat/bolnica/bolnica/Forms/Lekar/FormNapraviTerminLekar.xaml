@@ -34,7 +34,7 @@
                 <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#1176ae"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
             </Style>
 
             <Style TargetType="ComboBox">
@@ -61,7 +61,7 @@
             <Style TargetType="Button">
                 <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
                 <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -71,7 +71,7 @@
             <Style TargetType="Button" x:Key="SaveButton">
                 <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
                 <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Setter Property="IsEnabled" Value="False"/>
                 <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
@@ -96,7 +96,7 @@
 
     </Window.Resources>
 
-    <Grid Background="#1176ae" >
+    <Grid Background="#FF7EA6BC" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -130,7 +130,7 @@
                 />
             </CheckBox.InputBindings>
         </CheckBox>
-        <ComboBox IsDropDownOpen="{Binding ItemSourceSpecijalizacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceSpecijalizacija, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Name="textSpecijalizacija" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="250">
+        <ComboBox MinHeight="28" IsDropDownOpen="{Binding ItemSourceSpecijalizacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceSpecijalizacija, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" Name="textSpecijalizacija" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="250">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -163,7 +163,7 @@
             </Validation.ErrorTemplate>
             
         </ComboBox>
-        <ComboBox IsDropDownOpen="{Binding ItemSourceLekarComboOpen, Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceLekarB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" >
+        <ComboBox MinHeight="28" IsDropDownOpen="{Binding ItemSourceLekarComboOpen, Mode=TwoWay}" ItemsSource="{Binding Path=ItemSourceLekarB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textLekar" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -196,7 +196,7 @@
             </Validation.ErrorTemplate>
 
         </ComboBox>
-        <ComboBox IsEnabled="{Binding PacijentEnabled,Mode=TwoWay}" IsDropDownOpen="{Binding ItemSourcePacijentComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourcePrezimeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="250" >
+        <ComboBox MinHeight="28" IsEnabled="{Binding PacijentEnabled,Mode=TwoWay}" IsDropDownOpen="{Binding ItemSourcePacijentComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourcePrezimeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True"  Name="textPrezime" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="250" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -226,7 +226,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <DatePicker  Name="textDatum"  Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" MinWidth="150" >
+        <DatePicker  MinHeight="28" Name="textDatum"  Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" MinWidth="150" >
             <DatePicker.InputBindings>
                 <KeyBinding Key="Tab"
                     Command="{Binding Path=DatumComboOpenCommand}" />
@@ -254,7 +254,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <ComboBox IsDropDownOpen="{Binding ItemSourceProstorijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojProstorije, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textProstorija" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" >
+        <ComboBox MinHeight="28" IsDropDownOpen="{Binding ItemSourceProstorijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojProstorije, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textProstorija" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -284,8 +284,8 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        
-        <ComboBox IsDropDownOpen="{Binding ItemSourceVremeComboOpen, Mode=TwoWay}"  ItemsSource="{Binding ItemSourceVremeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textVreme" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
+
+        <ComboBox MinHeight="28" IsDropDownOpen="{Binding ItemSourceVremeComboOpen, Mode=TwoWay}"  ItemsSource="{Binding ItemSourceVremeB, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="textVreme" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -317,7 +317,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <TextBox IsEnabled="{Binding ItemSourceDaLiJeTrajanje, Mode=TwoWay}"  Name="textTrajanje" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="150">
+        <TextBox MinHeight="28" IsEnabled="{Binding ItemSourceDaLiJeTrajanje, Mode=TwoWay}"  Name="textTrajanje" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap" MinWidth="150">
             <TextBox.Text>
                 <Binding Path="TrajanjePregleda" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
@@ -341,15 +341,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
-        <CheckBox IsChecked="{Binding ItemSourceDaLiJeHitan}"  Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}"  Content="" Grid.Column="2" Grid.Row="11" Name="checkHitan" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <CheckBox.InputBindings>
-                <KeyBinding
-                    Key="Enter" 
-                    Command="{Binding Path=HitanCheckCommand}"
-                />
-            </CheckBox.InputBindings>
-        </CheckBox>
-        <ComboBox IsEditable="{Binding ItemSourceDaLiJeOperacije, Mode=TwoWay}" IsDropDownOpen="{Binding ItemSourceOperacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourceTipOperacije, Mode=TwoWay}"   Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}"  Name="textOperacija" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="12" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" >
+        <ComboBox MinHeight="28" FontSize="14" IsEditable="{Binding ItemSourceDaLiJeOperacije, Mode=TwoWay}" IsDropDownOpen="{Binding ItemSourceOperacijaComboOpen, Mode=TwoWay}" ItemsSource="{Binding ItemSourceTipOperacije, Mode=TwoWay}"   Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}"  Name="textOperacija" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -379,10 +371,19 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
+        <CheckBox IsChecked="{Binding ItemSourceDaLiJeHitan}"  Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}"  Content="" Grid.Column="2" Grid.Row="12" Name="checkHitan" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <CheckBox.InputBindings>
+                <KeyBinding
+                    Key="Enter" 
+                    Command="{Binding Path=HitanCheckCommand}"
+                />
+            </CheckBox.InputBindings>
+        </CheckBox>
+        
 
 
         <Label Content="Operacija" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <Label Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}" Name="textHitna" Content="Hitna" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Label Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}" Name="textHitna" Content="Hitna" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <Label Content="Specijalizacija" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <Label Content="Lekar" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Datum" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -390,7 +391,7 @@
         <Label Content="Trajanje" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Pacijent" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Prostorija" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Visibility="{Binding ItemSourceVisibility, Mode=TwoWay}" Content="Tip Operacije" Name="labelTextOperacija" Grid.Column="1" Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=DodajPregledLekarCommand}"

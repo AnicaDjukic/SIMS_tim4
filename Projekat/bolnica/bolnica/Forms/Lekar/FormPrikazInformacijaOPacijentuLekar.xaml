@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica"
         mc:Ignorable="d"
-        Title="Informacije o pacijentu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#1176ae">
+        Title="Informacije o pacijentu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF7EA6BC">
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}" />
     </Window.InputBindings>
@@ -14,7 +14,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#1176ae"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
         </Style>
         <Style TargetType="DataGridCell">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
@@ -25,7 +25,7 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -93,7 +93,7 @@
             </Style>
         </TabControl.Resources>
         <TabItem Name="InformacijeTab" Style="{StaticResource PrviTab}" >
-            <Grid Background="#1176ae">
+            <Grid Background="#FF7EA6BC">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -126,15 +126,15 @@
                 <Label Content="Prezime:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Content="Pol:" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Content="JMBG:" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                <Label Content="Datum rodjenja:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Datum rođenja:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Content="Adresa stanovanja:" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Content="Broj telefona:" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                <Label Content="Email adresa:" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="E-mail adresa:" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
 
-                <Label Visibility="{Binding vidljiv}" Name="korisnickoIme" Content="Korisnicko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Name="korisnickoIme" Content="Korisničko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label  Name="alergeni" Content="Alergeni:" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Visibility="{Binding vidljiv}" Name="zanimanje" Content="Zanimanje:" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                <Label Visibility="{Binding vidljiv}" Name="bracniStatus" Content="Bracni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Name="bracniStatus" Content="Bračni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                 <Label Visibility="{Binding vidljiv}" Name="osiguranje" Content="Osiguranje:" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
 
                 <CheckBox IsChecked="{Binding gost}" IsEnabled="False" Name="checkGuest" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
@@ -199,7 +199,7 @@
                     <DataGrid.Resources>
 
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF20BC15"></Setter>
+                            <Setter Property="Background" Value="#1176ae"></Setter>
                             <Setter Property="FontSize" Value="15"></Setter>
                             <Setter Property="FontWeight" Value="SemiBold"></Setter>
                             <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
@@ -214,7 +214,7 @@
                         <Style TargetType="{x:Type DataGridCell}">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="FontSize" Value="12"></Setter>
-                            <Setter Property="Background" Value="#1176ae"/>
+                            <Setter Property="Background" Value="#FF7EA6BC"/>
                             <Setter Property="BorderBrush" Value="Black"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
@@ -229,7 +229,7 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Datum primanja" Binding="{Binding DatumPocetka, StringFormat='dd.MM.yyyy'}"  MinWidth="75"  Width="140"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Datum otpustanja" Binding="{Binding DatumZavrsetka, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="140"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum otpuštanja" Binding="{Binding DatumZavrsetka, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="140"></DataGridTextColumn>
                         <DataGridTextColumn Header="Broj sobe" Binding="{Binding Prostorija.BrojProstorije, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="80"></DataGridTextColumn>
                         <DataGridTextColumn Header="Razlog" Binding="{Binding Razlog}" MinWidth="75" Width="*">
                             <DataGridTextColumn.ElementStyle>
@@ -247,10 +247,10 @@
                 </Button>
                 <Button   BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
                           Content="Zatvori" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="15" Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" MinHeight="50" MinWidth="100" />
-                <Label Background="White"  Content="Ctrl+Q" Grid.Row="17" Grid.Column="2" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top" />
-                <Label Content="Ctrl+P" Background="White" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label FontSize="12" Background="White"  Content="Ctrl+Q" Grid.Row="17" Grid.Column="2" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <Label FontSize="12" Content="Ctrl+P" Background="White" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                <Label Content="Ctrl+H" Background="White" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label FontSize="12" Content="Ctrl+H" Background="White" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             </Grid>
         </TabItem>

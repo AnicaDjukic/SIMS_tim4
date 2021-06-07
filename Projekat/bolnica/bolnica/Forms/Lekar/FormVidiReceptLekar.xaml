@@ -16,7 +16,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#1176ae"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
         </Style>
 
         <Style TargetType="ComboBox">
@@ -43,7 +43,7 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#FF20BC15"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -54,7 +54,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Background" Value="#FF20BC15"/>
+            <Setter Property="Background" Value="#1176ae"/>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -74,7 +74,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="#1176ae">
+    <Grid Background="#FF7EA6BC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -99,7 +99,7 @@
         </Grid.RowDefinitions>
 
 
-        <DatePicker IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
+        <DatePicker MinHeight="28" IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumIzdavanja" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
             <DatePicker.SelectedDate>
                 <Binding Path="DatumIzdavanjaRecepta" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -123,7 +123,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <ComboBox IsEnabled="False" IsDropDownOpen="{Binding ItemSourceProizvodjacComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceProizvodjacLeka, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150" >
+        <ComboBox MinHeight="28" IsEnabled="False" IsDropDownOpen="{Binding ItemSourceProizvodjacComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceProizvodjacLeka, Mode=TwoWay}" IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxProizvodjac" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -155,7 +155,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsEnabled="False" IsDropDownOpen="{Binding ItemSourceNazivLekaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceNazivLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150" >
+        <ComboBox MinHeight="28" IsEnabled="False" IsDropDownOpen="{Binding ItemSourceNazivLekaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceNazivLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxLek" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -187,7 +187,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsEnabled="False" IsDropDownOpen="{Binding ItemSourceDozaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceDozaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
+        <ComboBox MinHeight="28" IsEnabled="False" IsDropDownOpen="{Binding ItemSourceDozaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceDozaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxDoza" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -218,7 +218,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsEnabled="False" IsDropDownOpen="{Binding ItemSourceBrojKutijaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojKutijaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
+        <ComboBox MinHeight="28" IsEnabled="False" IsDropDownOpen="{Binding ItemSourceBrojKutijaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojKutijaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojKutija" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -249,7 +249,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <ComboBox IsEnabled="False" IsDropDownOpen="{Binding ItemSourceVremeUzimanjaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceVremeUzimanjaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
+        <ComboBox MinHeight="28" IsEnabled="False" IsDropDownOpen="{Binding ItemSourceVremeUzimanjaComboOpen,Mode=TwoWay}" ItemsSource="{Binding ItemSourceVremeUzimanjaLeka, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxVremeUzimanja" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -280,7 +280,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <DatePicker IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
+        <DatePicker MinHeight="28" IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPrekida" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150">
             <DatePicker.SelectedDate>
                 <Binding Path="DatumPrekidaRecepta" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -306,7 +306,7 @@
         </DatePicker>
 
         <Label Content="Datum izdavanja" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label Content="Proizvodjac" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Proizvođač" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Lek" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Doza" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label Content="Broj kutija" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center"/>
