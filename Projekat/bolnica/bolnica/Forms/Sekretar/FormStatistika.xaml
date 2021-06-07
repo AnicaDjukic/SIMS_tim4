@@ -68,18 +68,21 @@
         <RoutedUICommand x:Key="myNewCommand1"/>
         <RoutedUICommand x:Key="myNewCommand2"/>
         <RoutedUICommand x:Key="myNewCommand3"/>
+        <RoutedUICommand x:Key="myNewCommand4"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource myNewCommand}" Executed="Button_Click_Pacijenti"/>
         <CommandBinding Command="{StaticResource myNewCommand1}" Executed="Button_Click_Pregledi"/>
         <CommandBinding Command="{StaticResource myNewCommand2}" Executed="Button_Click_Obavestenja"/>
         <CommandBinding Command="{StaticResource myNewCommand3}" Executed="Button_Click_Lekari"/>
+        <CommandBinding Command="{StaticResource myNewCommand4}" Executed="Button_Click_Odjavljivanje"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand}}" Modifiers="Ctrl" Key="P" />
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand1}}" Modifiers="Ctrl" Key="R" />
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand2}}" Modifiers="Ctrl" Key="O" />
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand3}}" Modifiers="Ctrl" Key="L" />
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand4}}" Modifiers="Ctrl" Key="N" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -90,7 +93,8 @@
         <Button ToolTip="Ctrl + R" x:Name="btnPregledi" Content="Pregledi" FontSize="14" Margin="0,93,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Pregledi" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button ToolTip="Ctrl + O" x:Name="btnObavestenja" Content="Obaveštenja" FontSize="14" Margin="0,133,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Obavestenja" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button ToolTip="Ctrl + L" x:Name="btnLekari" Content="Lekari" FontSize="14" Margin="0,173,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Lekari" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
-        <Button ToolTip="Ctrl + T" x:Name="btnStats" Content="Statistika" FontSize="14" Width="180" Margin="0,213,987,0" VerticalAlignment="Top" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button ToolTip="Ctrl + T" x:Name="btnStats" Content="Statistika" FontSize="14" Width="180" Margin="0,290,987,0" VerticalAlignment="Top" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button ToolTip="Ctrl + N" x:Name="btnLogout" Content="Odjavi se" FontSize="14" Width="180" Margin="0,330,987,0" VerticalAlignment="Top" Click="Button_Click_Odjavljivanje" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Label Content="Broj termina po specijalizacijama za mesec maj" Margin="384,351,525,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="Broj lekara po specijalizacijama" Margin="864,351,82,0" VerticalAlignment="Top" Grid.Row="1"/>
 

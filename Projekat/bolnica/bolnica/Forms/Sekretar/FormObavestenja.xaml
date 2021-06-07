@@ -71,6 +71,7 @@
         <RoutedUICommand x:Key="myNewCommand5"/>
         <RoutedUICommand x:Key="myNewCommand6"/>
         <RoutedUICommand x:Key="myNewCommand7"/>
+        <RoutedUICommand x:Key="myNewCommand8"/>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF707070"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF707070"/>
@@ -125,6 +126,7 @@
         <CommandBinding Command="{StaticResource myNewCommand5}" Executed="Button_Click_Obrisi"/>
         <CommandBinding Command="{StaticResource myNewCommand6}" Executed="Button_Click_Lekari"/>
         <CommandBinding Command="{StaticResource myNewCommand7}" Executed="Button_Click_Statistika"/>
+        <CommandBinding Command="{StaticResource myNewCommand8}" Executed="Button_Click_Odjavljivanje"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand}}" Modifiers="Ctrl" Key="P" />
@@ -135,6 +137,7 @@
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand5}}" Modifiers="Ctrl" Key="B" />
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand6}}" Modifiers="Ctrl" Key="L" />
         <KeyBinding Command="{Binding Source={StaticResource myNewCommand7}}" Modifiers="Ctrl" Key="T" />
+        <KeyBinding Command="{Binding Source={StaticResource myNewCommand8}}" Modifiers="Ctrl" Key="N" />
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -151,7 +154,8 @@
         <Button ToolTip="Ctrl + R" x:Name="btnPregledi" Content="Pregledi" FontSize="14" Margin="0,93,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Pregledi" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button ToolTip="Ctrl + O" x:Name="btnObavestenja" Content="Obaveštenja" FontSize="14" Margin="0,133,987,0" Width="180" VerticalAlignment="Top" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <Button ToolTip="Ctrl + L" x:Name="btnLekari" Content="Lekari" FontSize="14" Margin="0,173,987,0" Width="180" VerticalAlignment="Top" Click="Button_Click_Lekari" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
-        <Button ToolTip="Ctrl + T" x:Name="btnStats" Content="Statistika" FontSize="14" Width="180" Margin="0,213,987,0" VerticalAlignment="Top" Click="Button_Click_Statistika" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button ToolTip="Ctrl + T" x:Name="btnStats" Content="Statistika" FontSize="14" Width="180" Margin="0,290,987,0" VerticalAlignment="Top" Click="Button_Click_Statistika" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
+        <Button ToolTip="Ctrl + N" x:Name="btnLogout" Content="Odjavi se" FontSize="14" Width="180" Margin="0,330,987,0" VerticalAlignment="Top" Click="Button_Click_Odjavljivanje" RenderTransformOrigin="-0.186,0.578" Grid.Row="1"/>
         <DataGrid x:Name="dataGridObavestenja" MouseLeftButtonDown="DataGridObavestenjaMouseLeftButtonDown" IsReadOnly="True" ItemsSource="{Binding Obavestenja}"
                   SelectionMode="Single" AutoGenerateColumns="False"
                   Height="300" Margin="199,53,50,0" VerticalAlignment="Top"

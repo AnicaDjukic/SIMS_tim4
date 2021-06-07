@@ -19,6 +19,7 @@ using Bolnica.Validation;
 using Bolnica.Repository.Pregledi;
 using Model.Pregledi;
 using System.Linq;
+using bolnica;
 
 namespace Bolnica.Forms.Sekretar
 {
@@ -165,6 +166,20 @@ namespace Bolnica.Forms.Sekretar
             s.btnLekari.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
+        }
+
+        private void Button_Click_Odjavljivanje(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da se odjavite?",
+                                              "Odjavljivanje",
+                                              MessageBoxButton.YesNo,
+                                              MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.Yes)
+            {
+                var s = new MainWindow();
+                s.Show();
+                this.Close();
+            }
         }
     }
 }

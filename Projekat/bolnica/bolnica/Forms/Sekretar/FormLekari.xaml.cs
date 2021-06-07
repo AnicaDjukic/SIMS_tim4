@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using bolnica;
+using Bolnica.Model.Korisnici;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -143,6 +144,8 @@ namespace Bolnica.Forms.Sekretar
                 btnDodajSmenu.IsEnabled = false;
                 btnZakaziGodisnji.Visibility = Visibility.Visible;
                 btnZakaziGodisnji.IsEnabled = true;
+                btnGenerisiIzvestaj.Visibility = Visibility.Visible;
+                btnGenerisiIzvestaj.IsEnabled = true;
             }
             else if (ti2.IsSelected)
             {
@@ -152,6 +155,8 @@ namespace Bolnica.Forms.Sekretar
                 btnDodajSmenu.IsEnabled = true;
                 btnZakaziGodisnji.Visibility = Visibility.Hidden;
                 btnZakaziGodisnji.IsEnabled = false;
+                btnGenerisiIzvestaj.Visibility = Visibility.Hidden;
+                btnGenerisiIzvestaj.IsEnabled = false;
             }
         }
 
@@ -195,6 +200,37 @@ namespace Bolnica.Forms.Sekretar
             s.btnStats.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
+        }
+
+        private void GenerisiIzvestaj(object sender, RoutedEventArgs e)
+        {
+            Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
+            if (lekar != null)
+            {
+                IzvestajParametri s = new IzvestajParametri(lekar.Jmbg);
+                s.ShowDialog();
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Odaberite lekara za generisanje njegovog izveštaja.",
+                                          "Generisanje izveštaja",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_Click_Odjavljivanje(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da se odjavite?",
+                                              "Odjavljivanje",
+                                              MessageBoxButton.YesNo,
+                                              MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.Yes)
+            {
+                var s = new MainWindow();
+                s.Show();
+                this.Close();
+            }
         }
     }
 }
