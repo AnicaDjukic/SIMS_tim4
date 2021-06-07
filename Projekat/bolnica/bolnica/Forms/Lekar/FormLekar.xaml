@@ -703,7 +703,7 @@
                     <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Prezime}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Jmbg}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="7" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label FontSize="15" Content="{Binding Path=lekarTrenutni.BrojTelefona}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="9" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Email}" Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <Label FontSize="15" Content="{Binding Path=lekarTrenutni.Email}"  Grid.Column="13" Grid.ColumnSpan="6" Grid.Row="11" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
 
                     <Label FontSize="15" Content="Datum rođenja:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="5" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
                     <Label FontSize="15" Content="Adresa stanovanja:" Grid.Column="20" Grid.ColumnSpan="6" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
@@ -762,7 +762,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox Focusable="False"  IsReadOnly="True" BorderBrush="Black"  BorderThickness="2" TextWrapping="Wrap"  Text="{Binding Path=prosecnaOcena}" FontSize="40" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Adobe Caslon Pro Bold" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Grid.Row="20">
+                    <TextBox Margin="13,0,-13,0" Focusable="False"  IsReadOnly="True" BorderBrush="Black"  BorderThickness="2" TextWrapping="Wrap"  Text="{Binding Path=prosecnaOcena}" FontSize="40" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Adobe Caslon Pro Bold" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Grid.Row="20">
                         
                     </TextBox>
                 </Grid>
