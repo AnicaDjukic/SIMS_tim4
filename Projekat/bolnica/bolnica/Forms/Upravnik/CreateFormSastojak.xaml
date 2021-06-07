@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         Title="Dodavanje novog sastojka" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
@@ -21,14 +25,14 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Unesite naziv novog sastojka:" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="15"/>
+        <Label Name="UnesiteNazivSastojkaLabel" Content="{lex:Loc}" Grid.Row="0" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="15"/>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Label Content="Naziv sastojka:" />
+            <Label Name="NazivLabel" Content="{lex:Loc}" />
             <TextBox Height="20" Width="120" Margin="10,0,0,0" FontSize="14" Text="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
-            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

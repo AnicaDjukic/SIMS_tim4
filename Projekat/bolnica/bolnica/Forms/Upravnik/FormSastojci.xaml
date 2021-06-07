@@ -4,6 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
         Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
@@ -25,19 +30,19 @@
 
         <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
             <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" />
-            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}" Style="{DynamicResource ButtonStyle}"/>
-            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnDodajNovi" Content="{lex:Loc}" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnObrisi" Content="{lex:Loc}" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
         <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding SastojciZaPrikaz}" SelectedItem="{Binding IzabraniSastojak, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True"  FontSize="13"
                   RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
+                <DataGridTextColumn Header="{lex:Loc NazivDataGrid}" Binding="{Binding Naziv}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
-            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
 
         </StackPanel>
 

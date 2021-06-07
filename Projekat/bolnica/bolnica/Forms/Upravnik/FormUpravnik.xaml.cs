@@ -1,6 +1,7 @@
 ﻿using Bolnica.DTO;
 using Bolnica.Forms;
 using Bolnica.Forms.Upravnik;
+using Bolnica.Localization;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Pregledi;
@@ -12,10 +13,13 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using WPFLocalizeExtension.Engine;
 
 namespace bolnica.Forms
 {
@@ -57,7 +61,7 @@ namespace bolnica.Forms
         public FormUpravnik()
         {
             InitializeComponent();
-
+            Title = LocalizedStrings.Instance["Upravnik"];
             DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 Vreme.Text = DateTime.Now.ToString("HH:mm");
@@ -77,7 +81,7 @@ namespace bolnica.Forms
                             novaKvadratura = novaKvadratura / r.BrojNovihProstorija;
                             for(int i = 0; i < r.BrojNovihProstorija - 1; i++)
                             {
-                                Prostorija p = new Prostorija { BrojProstorije = r.Prostorija.BrojProstorije + "nova" + (i + 1).ToString() };
+                                Prostorija p = new Prostorija { BrojProstorije = r.Prostorija.BrojProstorije + LocalizedStrings.Instance["nova"] + (i + 1).ToString() };
                                 p.Kvadratura = novaKvadratura;
                                 serviceProstorija.SacuvajProstoriju(p);
                             }
@@ -192,9 +196,9 @@ namespace bolnica.Forms
                         s.lblKvadratura.Content = p.Kvadratura.ToString();
                         s.checkZauzeta.IsEnabled = false;
                         if (p.TipProstorije == TipProstorije.salaZaPreglede)
-                            s.lblTipProstorije.Content = "Sala za preglede";
+                            s.lblTipProstorije.Content = LocalizedStrings.Instance["Sala za preglede"];
                         else
-                            s.lblTipProstorije.Content = "Operaciona sala";
+                            s.lblTipProstorije.Content = LocalizedStrings.Instance["Operaciona sala"];
                         s.checkZauzeta.IsChecked = p.Zauzeta;
                         s.Show();
                         found = true;
@@ -212,7 +216,7 @@ namespace bolnica.Forms
                             s.lblSprat.Content = b.Sprat.ToString();
                             s.lblKvadratura.Content = b.Kvadratura.ToString();
                             s.checkZauzeta.IsEnabled = false;
-                            s.lblTipProstorije.Content = "Bolnička soba";
+                            s.lblTipProstorije.Content = LocalizedStrings.Instance["Bolnička soba"];
                             s.checkZauzeta.IsChecked = b.Zauzeta;
                             s.lblUkBrojKreveta.Visibility = Visibility.Visible;
                             s.lblUkBrKreveta.Content = b.UkBrojKreveta.ToString();
@@ -237,9 +241,9 @@ namespace bolnica.Forms
                         s.lblSifra.Content = o.Sifra;
                         s.lblNaziv.Content = o.Naziv;
                         if (o.TipOpreme == TipOpreme.dinamicka)
-                            s.lblTipOpreme.Content = "Dinamička";
+                            s.lblTipOpreme.Content = LocalizedStrings.Instance["Dinamička"];
                         else
-                            s.lblTipOpreme.Content = "Statička";
+                            s.lblTipOpreme.Content = LocalizedStrings.Instance["Statička"];
                         s.lblKolicina.Content = o.Kolicina.ToString();
                         s.Show();
                         break;
@@ -261,11 +265,11 @@ namespace bolnica.Forms
                         s.lblKolicinaUMg.Content = l.KolicinaUMg;
                         s.lblProizvodjac.Content = l.Proizvodjac;
                         if (l.Status == StatusLeka.odobren)
-                            s.lblStatus.Content = "Odobren";
+                            s.lblStatus.Content = LocalizedStrings.Instance["Odobren"];
                         else if (l.Status == StatusLeka.odbijen)
-                            s.lblStatus.Content = "Odbijen";
+                            s.lblStatus.Content = LocalizedStrings.Instance["Odbijen"];
                         else
-                            s.lblStatus.Content = "Čeka validaciju";
+                            s.lblStatus.Content = LocalizedStrings.Instance["Čeka validaciju"];
 
                         s.lblZalihe.Content = l.Zalihe;
                         s.Show();
@@ -358,7 +362,7 @@ namespace bolnica.Forms
                     {
                         if (l.Status == StatusLeka.cekaValidaciju)
                         {
-                            MessageBox.Show("Nije moguće izmeniti lek koji čeka validaciju!");
+                            MessageBox.Show(LocalizedStrings.Instance["Nije moguće izmeniti lek koji čeka validaciju!"]);
 
                         } else
                         {
@@ -379,7 +383,7 @@ namespace bolnica.Forms
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
                 if (row.Zauzeta)
                 {
-                    MessageBox.Show("Prostorija je trenutno zauzeta, ne možete je obrisati.");
+                    MessageBox.Show(LocalizedStrings.Instance["Prostorija je trenutno zauzeta, ne možete je obrisati."]);
                 }
                 else
                 {
@@ -437,8 +441,8 @@ namespace bolnica.Forms
                 Oprema row = (Oprema)dataGridOprema.SelectedItems[0];
                 List<Oprema> oprema = storageOprema.GetAll();
 
-                string sMessageBoxText = "Da li ste sigurni da želite da obrišete opremu sa nazivom \"" + row.Naziv + "\" i šifrom \"" + row.Sifra + "\"?";
-                string sCaption = "Brisanje opreme";
+                string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete opremu sa nazivom"] + " \"" + row.Naziv + " \"" + LocalizedStrings.Instance["i šifrom"] + " \"" + row.Sifra + "\"?";
+                string sCaption = LocalizedStrings.Instance["Brisanje opreme"];
 
                 MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
                 MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
@@ -473,8 +477,8 @@ namespace bolnica.Forms
 
                 if (row.Status != StatusLeka.cekaValidaciju)
                 {
-                    string sMessageBoxText = "Da li ste sigurni da želite da obrišete lek sa nazivom \"" + row.Naziv + "\" i id-jem \"" + row.Id + "\"?";
-                    string sCaption = "Brisanje opreme";
+                    string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete lek sa nazivom"] + " \"" + row.Naziv + " \"" + LocalizedStrings.Instance["i id-jem"] + " \"" + row.Id + "\"?";
+                    string sCaption = LocalizedStrings.Instance["Brisanje leka"];
 
                     MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
                     MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
@@ -511,7 +515,7 @@ namespace bolnica.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Nije moguće obrisati lek koji čeka validaciju!");
+                    MessageBox.Show(LocalizedStrings.Instance["Nije moguće obrisati lek koji čeka validaciju!"]);
                 }
             }
         }
@@ -542,7 +546,7 @@ namespace bolnica.Forms
 
                 if (o.TipOpreme == TipOpreme.dinamicka)
                 {
-                    string dinamicka = "dinamička";
+                    string dinamicka = LocalizedStrings.Instance["dinamička"];
                     if (dinamicka.Contains(txtSearch.Text.ToLower()))
                     {
                         oprema.Remove(o);
@@ -552,7 +556,7 @@ namespace bolnica.Forms
 
                 if (o.TipOpreme == TipOpreme.staticka)
                 {
-                    string staticka = "statička";
+                    string staticka = LocalizedStrings.Instance["statička"];
                     if (staticka.Contains(txtSearch.Text.ToLower()))
                     {
                         oprema.Remove(o);
@@ -668,16 +672,36 @@ namespace bolnica.Forms
             var app = (App)Application.Current;
 
             MenuItem mi = (MenuItem)sender;
-            if (mi.Header.Equals("Tamna tema"))
+            if (mi.Header.Equals(LocalizedStrings.Instance["Tamna tema"]))
             {
                 app.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
-                mi.Header = "Svetla tema";
+                mi.Header = LocalizedStrings.Instance["Svetla tema"];
             }
             else
             {
                 app.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
-                mi.Header = "Tamna tema";
+                mi.Header = LocalizedStrings.Instance["Tamna tema"];
             }
+        }
+
+        private void SrpskiMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            IzaberiJezikMenuItem.Header = "SRB";
+            IzaberiJezikMenuItem.Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("../Images/serbia.png", UriKind.Relative))
+            };
+            LocalizedStrings.Instance.SetCulture("sr-LATN-CS");
+        }
+
+        private void EngleskiMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            IzaberiJezikMenuItem.Header = "ENG";
+            IzaberiJezikMenuItem.Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("../Images/great-britain.png", UriKind.Relative))
+            };
+            LocalizedStrings.Instance.SetCulture("en-US");
         }
     }
 }

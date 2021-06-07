@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.ViewModel.Upravnik;
 using System;
 using System.Windows;
@@ -14,7 +15,9 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             if (!FormUpravnik.clickedDodaj)
-                Title = "Izmena leka";
+                Title = LocalizedStrings.Instance["Izmena leka"];
+            else
+                Title = LocalizedStrings.Instance["Dodavanje leka"];
             DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)
                 viewModel.ZatvoriAkcija = new Action(this.Close);

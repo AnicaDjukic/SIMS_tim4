@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         Title="Dodavanje opreme" Height="340" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
@@ -31,25 +35,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Šifra:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Naziv:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Tip opreme:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Skladište:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="SifraLabel" Content="{lex:Loc}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="NazivLabel" Content="{lex:Loc}" Grid.Row="2" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="TipOpremeLabel" Content="{lex:Loc}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="KolicinaLabel" Content="{lex:Loc}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="SladisteLabel" Content="{lex:Loc}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Text ="{Binding Path=Sifra, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text ="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
         <ComboBox x:Name="ComboTipOpreme" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="120" Margin="15,0,0,0">
-            <ComboBoxItem Content="Statička"/>
-            <ComboBoxItem Content="Dinamička"/>
+            <ComboBoxItem Name="StatickaCombo" Content="{lex:Loc}"/>
+            <ComboBoxItem Name="DinamickaCombo" Content="{lex:Loc}"/>
         </ComboBox>
         <TextBox x:Name="txtKolicina" Grid.Row="4" Grid.Column="1" Text ="{Binding Path=Kolicina, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Skladišti" HorizontalAlignment="Center" VerticalAlignment="Center" 
+        <Button Name="btnSkladisti" Content="{lex:Loc}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 Height="25" Width="120" Margin="15,0,0,0" Click="Button_Click_Skladisti" Style="{DynamicResource ButtonStyle}"/>
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="50,0,0,10">
-            <Button  Content="Potvrdi" Height="25" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
-            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
+            <Button  Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
         
     </Grid>

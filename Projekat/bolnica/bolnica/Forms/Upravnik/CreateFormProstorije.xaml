@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         Title="Dodavanje prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
@@ -33,27 +37,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Broj prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Sprat:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Kvadratura:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Tip prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Zauzeta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row ="6" Grid.Column="0" x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <Label Grid.Row="7" Grid.Column="0" x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="BrojProstorijeLabel" Content="{lex:Loc}" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="SpratLabel" Content="{lex:Loc}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="KvadraturaLabel" Content="{lex:Loc}" Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="TipProstorijeLabel" Content="{lex:Loc}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="ZauzetaLabel" Content="{lex:Loc}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lblUkBrojKreveta" Content="{lex:Loc}" Grid.Row ="6" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label x:Name="lblBrojSlobodnihKreveta" Content="{lex:Loc}" Grid.Row="7" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=BrojProstorije, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Sprat, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Kvadratura, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
         <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipProstorije" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="comboTipProstorije_SelectionChanged">
-            <ComboBoxItem Content="Sala za preglede"/>
-            <ComboBoxItem Content="Operaciona sala"/>
-            <ComboBoxItem Content="Bolnička soba"/>
+            <ComboBoxItem Name="SalaZaPregledeCombo" Content="{lex:Loc}"/>
+            <ComboBoxItem Name="OperacionaSalaCombo" Content="{lex:Loc}"/>
+            <ComboBoxItem Name="BolnickaSobaCombo" Content="{lex:Loc}"/>
         </ComboBox>
         <CheckBox Grid.Row="5" Grid.Column="1" x:Name="checkZauzeta" Margin ="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="checkZauzeta_Checked"/>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtUkBrojKreveta" Text="{Binding Path=UkBrojKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
         <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtBrojSlobodnihKreveta" Text="{Binding Path=BrojSlobodnihKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" />
-
-        <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Potvrdi" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10" Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
+        <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10">
+            <Button Name="btnPotvrdi" Content="{lex:Loc}"  Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}" Margin="0,0,30,0"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
+        </StackPanel>
+        
 
     </Grid>
 </Window>

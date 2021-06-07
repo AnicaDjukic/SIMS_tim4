@@ -1,5 +1,6 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
+using Bolnica.Localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -61,7 +62,7 @@ namespace Bolnica.ViewModel.Upravnik
             }
             else
             {
-                MessageBox.Show("Sastojak već postoji!");
+                MessageBox.Show(LocalizedStrings.Instance["Sastojak već postoji!"]);
             }
         }
 

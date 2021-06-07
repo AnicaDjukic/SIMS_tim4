@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Korisnici;
 using Bolnica.Services.Korisnici;
 using Model.Korisnici;
 using System;
@@ -25,7 +26,7 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             DataContext = this;
-            
+            Title = LocalizedStrings.Instance["Obaveštenja"];
             List<Obavestenje> obavestenjaZaPrikaz = NadjiObavestenjaZaPrikaz();
             
             SortirajObavestenjaPoDatumu(obavestenjaZaPrikaz);

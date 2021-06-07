@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Bolnica.Forms
         public ViewFormProstorije(string brojProstorije)
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Prikaz prostorije"];
             this.DataContext = this;
             OpremaSobe = new ObservableCollection<Zaliha>();
             AzurirajSveZalihe();

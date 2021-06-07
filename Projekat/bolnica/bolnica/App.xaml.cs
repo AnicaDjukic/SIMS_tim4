@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Bolnica.Localization;
+using System;
+using System.Globalization;
 using System.Windows;
+using WPFLocalizeExtension.Engine;
 
 namespace bolnica
 {
@@ -8,6 +11,10 @@ namespace bolnica
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            LocalizedStrings.Instance.SetCulture("sr-LATN-CS");
+        }
         public ResourceDictionary ThemeDictionary
         {
             // You could probably get it via its name with some query logic as well.

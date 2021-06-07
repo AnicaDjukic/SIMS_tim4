@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -24,6 +25,7 @@ namespace Bolnica.Forms.Upravnik
         public FormDatumPremestanja()
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Unos datuma premeštanja statičke opreme"];
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)

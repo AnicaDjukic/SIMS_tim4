@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="Podela Prostorije" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
+        Title="Podela prostorije" Height="200" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
@@ -21,15 +25,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="Unesite broj prostorija koje će nastati podelom:" 
+        <TextBlock Name="PodelaProstorijaTxtBlock" Text="{lex:Loc}" Grid.Row="0" TextWrapping="Wrap"
                VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="15"/>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Label Content="Broj prostorija:"/>
+            <Label Name="BrojProstorijaLabel" Content="{lex:Loc}"/>
             <TextBox x:Name="txtBrojProstorija" Height="20" Width="120" Margin="10,0,0,0"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Height="25" Width="60" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
-            <Button Content="Odustani" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

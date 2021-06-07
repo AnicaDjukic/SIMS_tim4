@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:dislocal="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         mc:Ignorable="d"
@@ -33,22 +37,22 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        <Label Name="KolicinaLabel" Content="{lex:Loc}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
         <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" Width="50" Height="20" Margin="20,0,0,0" Text="{Binding Path=KolicinaZaPremestanje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <DataGrid x:Name="GridProstorije" Grid.Column="0" Grid.Row="1" Margin="10,10,5,10" ItemsSource="{Binding ProstorijeZaSkladistenje}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="BrojProstorije" Header="PROSTORIJA" Binding="{Binding BrojProstorije}" Width="auto"/>
-                <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" SelectedValueBinding="{Binding TipProstorije}" />
+                <DataGridTextColumn x:Name="BrojProstorije" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding BrojProstorije}" Width="auto"/>
+                <DataGridComboBoxColumn Header="{lex:Loc TipProstorijeDataGrid}" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" SelectedValueBinding="{Binding TipProstorije}" />
             </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid x:Name="GridZalihe" Grid.Column="3" Grid.Row="1" Margin="5,10,10,10" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
-                <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn x:Name="Prostorija" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
+                <DataGridTextColumn Header="{lex:Loc KolicinaDataGrid}" Binding="{Binding Kolicina, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -62,8 +66,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal"  HorizontalAlignment="Center">
-            <Button Height="25" VerticalAlignment="Top" Content="Potvrdi" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
-            <Button Height="25" VerticalAlignment="Top" Content="Odustani" Margin="20,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" VerticalAlignment="Top" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" VerticalAlignment="Top" Margin="20,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
         
 

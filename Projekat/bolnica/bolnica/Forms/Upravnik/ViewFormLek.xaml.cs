@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
 using Model.Pregledi;
@@ -39,6 +40,7 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             this.DataContext = this;
+            Title = LocalizedStrings.Instance["Prikaz leka"];
             
             Lek lek = PronadjiLek(idLeka);
 

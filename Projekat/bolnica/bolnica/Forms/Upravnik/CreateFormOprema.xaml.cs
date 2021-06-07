@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using System.ComponentModel;
@@ -77,6 +78,10 @@ namespace Bolnica.Forms.Upravnik
         public CreateFormOprema()
         {
             InitializeComponent();
+            if (!FormUpravnik.clickedDodaj)
+                Title = LocalizedStrings.Instance["Izmena opreme"];
+            else
+                Title = LocalizedStrings.Instance["Dodavanje opreme"];
             this.DataContext = this;
         }
 
@@ -86,7 +91,6 @@ namespace Bolnica.Forms.Upravnik
             {
                 if (!FormUpravnik.clickedDodaj)
                 {
-                    Title = "Izmena opreme";
                     serviceOprema.ObrisiOpremu(sifra);
                     UkloniIzPrikaza(sifra);
                 }
@@ -98,7 +102,7 @@ namespace Bolnica.Forms.Upravnik
             }
             else
             {
-                MessageBox.Show("Oprema sa istom šifrom već postoji");
+                MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
                 return;
             }
 
@@ -140,7 +144,7 @@ namespace Bolnica.Forms.Upravnik
                 }
                 else
                 {
-                    MessageBox.Show("Oprema sa istom šifrom već postoji");
+                    MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
                     return;
                 }
             }
@@ -151,7 +155,7 @@ namespace Bolnica.Forms.Upravnik
             bool validna = true;
             if (ukKolicina <= 0)
             {
-                MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
+                MessageBox.Show(LocalizedStrings.Instance["Unesite validnu količinu! Količina mora biti veća od 0."]);
                 validna = false;
             }
             else
@@ -159,7 +163,7 @@ namespace Bolnica.Forms.Upravnik
                 int rezervisanaKolicina = serviceOprema.IzracunajRezervisanuKolicinu(sifra);
                 if (!serviceOprema.MoguceSmanjitiKolicinu(ukKolicina, rezervisanaKolicina))
                 {
-                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
+                    MessageBox.Show(LocalizedStrings.Instance["Nije moguće toliko smajiti količinu. Količina ne sme biti manja od"] + " " + rezervisanaKolicina);
                     validna = false;
                 }
             }

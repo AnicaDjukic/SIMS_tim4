@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -117,7 +118,9 @@ namespace Bolnica.Forms
             InitializeComponent();
             this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
-                Title = "Izmeni prostoriju";
+                Title = LocalizedStrings.Instance["Izmena prostorije"];
+            else
+                Title = LocalizedStrings.Instance["Dodavanje prostorije"];
             SakrijPoljaZaBolnickuSobu();
         }
 
@@ -147,7 +150,7 @@ namespace Bolnica.Forms
             } 
             else
             {
-                MessageBox.Show("Prostorija već postoji");
+                MessageBox.Show(LocalizedStrings.Instance["Prostorija već postoji!"]);
                 return;
             }
             this.Close();

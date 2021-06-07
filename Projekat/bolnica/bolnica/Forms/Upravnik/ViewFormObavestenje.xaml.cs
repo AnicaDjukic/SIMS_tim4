@@ -1,4 +1,5 @@
 ﻿using bolnica;
+using Bolnica.Localization;
 using Bolnica.Model.Korisnici;
 using Bolnica.Services.Korisnici;
 using System;
@@ -24,6 +25,7 @@ namespace Bolnica.Forms.Upravnik
         public ViewFormObavestenje(int id)
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Obaveštenje"];
             Owner = App.Current.MainWindow;
             PrikaziObavestenje(id);
         }

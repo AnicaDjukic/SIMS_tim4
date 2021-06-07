@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
 using Bolnica.ViewModel.Upravnik;
 using System;
@@ -14,6 +15,7 @@ namespace Bolnica.Forms.Upravnik
         public CreateFormSastojak(ViewModelCreateFormSastojak viewModel)
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Dodavanje novog sastojka"];
             DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)
                 viewModel.ZatvoriAkcija = new Action(this.Close);

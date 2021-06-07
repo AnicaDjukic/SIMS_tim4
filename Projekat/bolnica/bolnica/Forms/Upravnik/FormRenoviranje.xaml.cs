@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -69,6 +70,7 @@ namespace Bolnica.Forms.Upravnik
         public FormRenoviranje(string brojProstorije)
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Renoviranje prostorije"];
             DataContext = this;
             PrikaziRenoviranja(brojProstorije);
             novoRenoviranje.Prostorija = new Prostorija();

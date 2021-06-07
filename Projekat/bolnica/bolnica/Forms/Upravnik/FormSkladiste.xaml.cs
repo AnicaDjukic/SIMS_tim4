@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
@@ -66,6 +67,7 @@ namespace Bolnica.Forms.Upravnik
         public FormSkladiste(Oprema oprema)
         {
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Skladištenje"];
             this.DataContext = this;
             opremaZaSkladistenje = oprema;
             List<Zaliha> zaliheOpreme = PronadjiZaliheOpreme();
@@ -215,7 +217,7 @@ namespace Bolnica.Forms.Upravnik
                 }
                 else
                 {
-                    MessageBox.Show("Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od količine opreme u magacinu.");
+                    MessageBox.Show(LocalizedStrings.Instance["Unesite validnu količinu. Količina mora biti veća od 0 i manja ili jednaka od količine opreme u magacinu."]);
                 }
             }
         }

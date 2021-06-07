@@ -1,6 +1,7 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
 using Bolnica.Forms.Upravnik;
+using Bolnica.Localization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,7 +123,7 @@ namespace Bolnica.ViewModel.Upravnik
 
         public bool CanExecute_PotvrdiKomanda(object obj)
         {
-            return true;
+            return IzabraniSastojak != null; ;
         }
         #endregion
 
@@ -196,8 +197,8 @@ namespace Bolnica.ViewModel.Upravnik
 
         private MessageBoxResult UpitZaBrisanjeLeka()
         {
-            string sMessageBoxText = "Da li ste sigurni da želite da obrišete sastojak " + IzabraniSastojak.Naziv + "?";
-            string sCaption = "Brisanje opreme";
+            string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete sastojak"] + " \"" + IzabraniSastojak.Naziv + "?";
+            string sCaption = LocalizedStrings.Instance["Brisanje sastojka"];
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;

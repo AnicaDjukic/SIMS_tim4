@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -34,6 +35,7 @@ namespace Bolnica.Forms.Upravnik
         {
             InitializeComponent();
             this.DataContext = this;
+            Title = LocalizedStrings.Instance["Prikaz opreme"];
             
             List<BuducaZaliha> buduceZalihe = serviceBuduceZalihe.DobaviBuduceZaliheOpreme(sifraOpreme);
 

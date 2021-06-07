@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
         Title="Prikaz opreme" Height="360" Width="300" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
@@ -17,7 +21,7 @@
         </Grid.Resources>
         <StackPanel>
             <TabControl Height="280" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource TabControlStyle}" BorderBrush="MediumPurple">
-                <TabItem Header="INFORMACIJE" Style="{DynamicResource TabItemStyle}">
+                <TabItem Header="{lex:Loc InformacijeTabItem}" Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
@@ -31,10 +35,10 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Šifra:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Naziv:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Tip opreme:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="SifraLabel" Content="{lex:Loc}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="NazivLabel" Content="{lex:Loc}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="TipOpremeLabel" Content="{lex:Loc}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="KolicinaLabel" Content="{lex:Loc}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
                         <Label x:Name="lblSifra" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         <Label x:Name="lblNaziv" Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center"/>
@@ -43,17 +47,17 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="SKLADIŠTA" Style="{DynamicResource TabItemStyle}">
+                <TabItem Header="{lex:Loc SkladistaTabItem}" Style="{DynamicResource TabItemStyle}">
                     <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="300" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
-                            <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
+                            <DataGridTextColumn x:Name="Prostorija" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
+                            <DataGridTextColumn Header="{lex:Loc KolicinaDataGrid}" Binding="{Binding Kolicina}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnZatvori" Content="{lex:Loc}" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

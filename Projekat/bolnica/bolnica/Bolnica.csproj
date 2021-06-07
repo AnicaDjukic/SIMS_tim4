@@ -48,6 +48,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,6 +89,27 @@
 
   <ItemGroup>
     <Folder Include="Service\Lekar\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localization\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Strings.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\Strings.sr-LATN-CS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
