@@ -81,44 +81,44 @@ namespace Bolnica.Forms
             switch (danasnjiDan)
             {
                 case "Monday":
-                    PrviDanSedmice = DateTime.Today.ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(6).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(6).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today;
                     Nedelja = DateTime.Today.AddDays(6);
                     break;
                 case "Tuesday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-1).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(5).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-1).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(5).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-1);
                     Nedelja = DateTime.Today.AddDays(5);
                     break;
                 case "Wednesday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-2).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(4).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-2).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(4).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-2);
                     Nedelja = DateTime.Today.AddDays(4);
                     break;
                 case "Thursday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-3).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(3).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-3).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(3).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-3);
                     Nedelja = DateTime.Today.AddDays(3);
                     break;
                 case "Friday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-4).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(2).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-4).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(2).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-4);
                     Nedelja = DateTime.Today.AddDays(2);
                     break;
                 case "Sathurday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-5).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.AddDays(1).ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-5).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.AddDays(1).ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-5);
                     Nedelja = DateTime.Today.AddDays(1);
                     break;
                 case "Sunday":
-                    PrviDanSedmice = DateTime.Today.AddDays(-6).ToShortDateString();
-                    PoslednjiDanSedmice = DateTime.Today.ToShortDateString();
+                    PrviDanSedmice = DateTime.Today.AddDays(-6).ToShortDateString() + ".";
+                    PoslednjiDanSedmice = DateTime.Today.ToShortDateString() + ".";
                     Ponedeljak = DateTime.Today.AddDays(-6);
                     Nedelja = DateTime.Today;
                     break;
