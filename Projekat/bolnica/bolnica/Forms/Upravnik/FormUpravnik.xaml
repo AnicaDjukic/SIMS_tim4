@@ -128,7 +128,7 @@
                             <DataGridTextColumn Header="{lex:Loc KolicinaDataGrid}" Binding="{Binding Kolicina}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Margin="10" Height="30" Width="150" Style="{DynamicResource ButtonStyle}">
+                    <Button Margin="10" Height="30" Width="150" Style="{DynamicResource ButtonStyle}" Click="Button_Click_Premesti">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/moving.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                             <TextBlock Name="PremestanjeTxtBlock" Text="{lex:Loc}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="12" RenderTransformOrigin="0.505,0.516"/>

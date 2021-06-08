@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
@@ -45,9 +46,78 @@
         <Label x:Name="lblUkBrojKreveta" Content="{lex:Loc}" Grid.Row ="6" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <Label x:Name="lblBrojSlobodnihKreveta" Content="{lex:Loc}" Grid.Row="7" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=BrojProstorije, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Sprat, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Kvadratura, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120">
+            <TextBox.Text>
+                <Binding Path="BrojProstorije" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleId ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="120" Margin ="10,0,0,0" VerticalAlignment="Center">
+            <TextBox.Text>
+                <Binding Path="Sprat" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin ="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120">
+            <TextBox.Text>
+                <Binding Path="Kvadratura" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKvadratura ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboTipProstorije" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="comboTipProstorije_SelectionChanged">
             <ComboBoxItem Name="SalaZaPregledeCombo" Content="{lex:Loc}"/>
             <ComboBoxItem Name="OperacionaSalaCombo" Content="{lex:Loc}"/>

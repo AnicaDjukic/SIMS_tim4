@@ -139,7 +139,7 @@ namespace Bolnica.Forms.Upravnik
             bool validni = true;
             if (datumPocetka > datumKraja)
             {
-                MessageBox.Show("Datum kraja renoviranja mora biti posle datuma početka renoviranja!");
+                MessageBox.Show(LocalizedStrings.Instance["Datum kraja renoviranja mora biti posle datuma početka renoviranja!"]);
                 validni = false;
             }
             if (DatumNijeSlobodan(datumPocetka) || DatumNijeSlobodan(datumKraja))
@@ -150,7 +150,7 @@ namespace Bolnica.Forms.Upravnik
 
             if(PostojeZauzetiDatumiIzmedju(datumPocetka, datumKraja))
             {
-                MessageBox.Show("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!");
+                MessageBox.Show(LocalizedStrings.Instance["Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!"]);
                 validni = false;
             }
            

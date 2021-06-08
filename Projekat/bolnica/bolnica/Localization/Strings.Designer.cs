@@ -106,11 +106,29 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brisanje prostorije.
+        /// </summary>
+        public static string Brisanje_prostorije {
+            get {
+                return ResourceManager.GetString("Brisanje prostorije", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brisanje sastojka.
         /// </summary>
         public static string Brisanje_sastojka {
             get {
                 return ResourceManager.GetString("Brisanje sastojka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Broj slobodnih kreveta ne sme biti veći od ukupnog broja kreveta!.
+        /// </summary>
+        public static string Broj_slobodnih_kreveta_ne_sme_biti_veći_od_ukupnog_broja_kreveta_ {
+            get {
+                return ResourceManager.GetString("Broj slobodnih kreveta ne sme biti veći od ukupnog broja kreveta!", resourceCulture);
             }
         }
         
@@ -277,11 +295,38 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Da li ste sigurni da želite da obrišete prostoriju.
+        /// </summary>
+        public static string Da_li_ste_sigurni_da_želite_da_obrišete_prostoriju {
+            get {
+                return ResourceManager.GetString("Da li ste sigurni da želite da obrišete prostoriju", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Da li ste sigurni da želite da obrišete sastojak.
         /// </summary>
         public static string Da_li_ste_sigurni_da_želite_da_obrišete_sastojak {
             get {
                 return ResourceManager.GetString("Da li ste sigurni da želite da obrišete sastojak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datum kraja renoviranja mora biti posle datuma početka renoviranja!.
+        /// </summary>
+        public static string Datum_kraja_renoviranja_mora_biti_posle_datuma_početka_renoviranja_ {
+            get {
+                return ResourceManager.GetString("Datum kraja renoviranja mora biti posle datuma početka renoviranja!", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datum nije slobodan.
+        /// </summary>
+        public static string Datum_nije_slobodan {
+            get {
+                return ResourceManager.GetString("Datum nije slobodan", resourceCulture);
             }
         }
         
@@ -439,6 +484,15 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!.
+        /// </summary>
+        public static string Između_datuma_početka_i_datuma_kraja_renoviranja_postoje_zauzeti_datumi_ {
+            get {
+                return ResourceManager.GetString("Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Izmena leka.
         /// </summary>
         public static string Izmena_leka {
@@ -565,7 +619,7 @@ namespace Bolnica.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vroj slobodnih kreveta:.
+        ///   Looks up a localized string similar to Broj slobodnih kreveta:.
         /// </summary>
         public static string lblBrojSlobodnihKreveta {
             get {
@@ -597,6 +651,42 @@ namespace Bolnica.Localization {
         public static string LekoviTabItem {
             get {
                 return ResourceManager.GetString("LekoviTabItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mora biti brojčana vrednost!.
+        /// </summary>
+        public static string Mora_biti_brojčana_vrednost_ {
+            get {
+                return ResourceManager.GetString("Mora biti brojčana vrednost!", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mora početi velikim slovom!.
+        /// </summary>
+        public static string Mora_početi_velikim_slovom_ {
+            get {
+                return ResourceManager.GetString("Mora početi velikim slovom!", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mora sadržati samo brojeve!.
+        /// </summary>
+        public static string Mora_sadržati_samo_brojeve_ {
+            get {
+                return ResourceManager.GetString("Mora sadržati samo brojeve!", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mora sadržati samo slova!.
+        /// </summary>
+        public static string Mora_sadržati_samo_slova_ {
+            get {
+                return ResourceManager.GetString("Mora sadržati samo slova!", resourceCulture);
             }
         }
         
@@ -858,6 +948,15 @@ namespace Bolnica.Localization {
         public static string PonudeIOglasiTxtBlock {
             get {
                 return ResourceManager.GetString("PonudeIOglasiTxtBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popunite.
+        /// </summary>
+        public static string Popunite {
+            get {
+                return ResourceManager.GetString("Popunite", resourceCulture);
             }
         }
         

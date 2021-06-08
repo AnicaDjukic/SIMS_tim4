@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
@@ -42,12 +43,60 @@
         <Label Name="SladisteLabel" Content="{lex:Loc}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Text ="{Binding Path=Sifra, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text ="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0">
+            <TextBox.Text>
+                <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleNaziv ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <ComboBox x:Name="ComboTipOpreme" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="120" Margin="15,0,0,0">
-            <ComboBoxItem Name="StatickaCombo" Content="{lex:Loc}"/>
-            <ComboBoxItem Name="DinamickaCombo" Content="{lex:Loc}"/>
+            <ComboBoxItem Name="StatickaCombo" Content="{lex:Loc}" />
+            <ComboBoxItem Name="DinamickaCombo" Content="{lex:Loc}" IsSelected="True"/>
         </ComboBox>
-        <TextBox x:Name="txtKolicina" Grid.Row="4" Grid.Column="1" Text ="{Binding Path=Kolicina, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0"/>
+        <TextBox x:Name="txtKolicina" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="15,0,0,0">
+            <TextBox.Text>
+                <Binding Path="Kolicina" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <Button Name="btnSkladisti" Content="{lex:Loc}" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 Height="25" Width="120" Margin="15,0,0,0" Click="Button_Click_Skladisti" Style="{DynamicResource ButtonStyle}"/>
 

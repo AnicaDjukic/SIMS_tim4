@@ -132,8 +132,14 @@
   <data name="Brisanje opreme" xml:space="preserve">
     <value>Deleting equipment</value>
   </data>
+  <data name="Brisanje prostorije" xml:space="preserve">
+    <value>Deleting room</value>
+  </data>
   <data name="Brisanje sastojka" xml:space="preserve">
     <value>Deleting an ingredient</value>
+  </data>
+  <data name="Broj slobodnih kreveta ne sme biti veći od ukupnog broja kreveta!" xml:space="preserve">
+    <value>The number of free beds must not exceed the total number of beds!</value>
   </data>
   <data name="BrojProstorijaLabel" xml:space="preserve">
     <value>Number of rooms:</value>
@@ -186,8 +192,17 @@
   <data name="Da li ste sigurni da želite da obrišete opremu sa nazivom" xml:space="preserve">
     <value>Are you sure you want to delete the equipment with the name</value>
   </data>
+  <data name="Da li ste sigurni da želite da obrišete prostoriju" xml:space="preserve">
+    <value>Are you sure you want to delete the room</value>
+  </data>
   <data name="Da li ste sigurni da želite da obrišete sastojak" xml:space="preserve">
     <value>Are you sure you want to delete the ingredient</value>
+  </data>
+  <data name="Datum kraja renoviranja mora biti posle datuma početka renoviranja!" xml:space="preserve">
+    <value>The renovation end date must be after the renovation start date!</value>
+  </data>
+  <data name="Datum nije slobodan" xml:space="preserve">
+    <value>Date not available</value>
   </data>
   <data name="DatumIVremeTxtBlock" xml:space="preserve">
     <value>Date and Time:</value>
@@ -252,6 +267,9 @@
   <data name="IzmeniTxtBlock" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!" xml:space="preserve">
+    <value>There are busy dates between the start date and the end date of the renovation!</value>
+  </data>
   <data name="IzvestajTxtBlock" xml:space="preserve">
     <value>REPORT</value>
   </data>
@@ -293,6 +311,18 @@
   </data>
   <data name="LekoviTabItem" xml:space="preserve">
     <value>MEDICINES</value>
+  </data>
+  <data name="Mora biti brojčana vrednost!" xml:space="preserve">
+    <value>Must be a numeric value!</value>
+  </data>
+  <data name="Mora početi velikim slovom!" xml:space="preserve">
+    <value>Start with a capital letter!</value>
+  </data>
+  <data name="Mora sadržati samo brojeve!" xml:space="preserve">
+    <value>Must contain only numbers!</value>
+  </data>
+  <data name="Mora sadržati samo slova!" xml:space="preserve">
+    <value>Must contain only letters!</value>
   </data>
   <data name="NaslovTxtBlock" xml:space="preserve">
     <value>Medicine Quantity Report</value>
@@ -380,6 +410,9 @@
   </data>
   <data name="PonudeIOglasiTxtBlock" xml:space="preserve">
     <value>OFFERS &amp; ADV</value>
+  </data>
+  <data name="Popunite" xml:space="preserve">
+    <value>Required</value>
   </data>
   <data name="PotpisTxtBlock" xml:space="preserve">
     <value>Manager's signature:</value>
@@ -482,9 +515,6 @@
   </data>
   <data name="StatusLekaDataGrid" xml:space="preserve">
     <value>STATUS</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="Svetla tema" xml:space="preserve">
     <value>Light theme</value>

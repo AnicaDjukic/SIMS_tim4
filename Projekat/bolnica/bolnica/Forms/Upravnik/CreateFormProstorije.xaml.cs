@@ -134,26 +134,36 @@ namespace Bolnica.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int tipProstorije = comboTipProstorije.SelectedIndex;
-            if (!serviceProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
+            if (BrojProstorije != null && Kvadratura != 0.0)
             {
-                if (tipProstorije == 2)
+                int tipProstorije = comboTipProstorije.SelectedIndex;
+                if (!serviceProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
                 {
-                    BolnickaSoba bolnickaSoba = NapraviBolnickuSobu();
-                    SacuvajBolnickuSobu(bolnickaSoba);
+                    if (tipProstorije == 2)
+                    {
+                        if (BrojSlobodnihKreveta <= UkBrojKreveta)
+                        {
+                            BolnickaSoba bolnickaSoba = NapraviBolnickuSobu();
+                            SacuvajBolnickuSobu(bolnickaSoba);
+                        } else
+                        {
+                            MessageBox.Show(LocalizedStrings.Instance["Broj slobodnih kreveta ne sme biti veći od ukupnog broja kreveta!"]);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Prostorija prostorija = NapraviProstoriju(tipProstorije);
+                        SacuvajProstoriju(prostorija);
+                    }
                 }
                 else
                 {
-                    Prostorija prostorija = NapraviProstoriju(tipProstorije);
-                    SacuvajProstoriju(prostorija);
+                    MessageBox.Show(LocalizedStrings.Instance["Prostorija već postoji!"]);
+                    return;
                 }
-            } 
-            else
-            {
-                MessageBox.Show(LocalizedStrings.Instance["Prostorija već postoji!"]);
-                return;
+                this.Close();
             }
-            this.Close();
         }
 
         private BolnickaSoba NapraviBolnickuSobu()
@@ -235,6 +245,11 @@ namespace Bolnica.Forms
         {
             if (comboTipProstorije.SelectedIndex == 2)
                 txtBrojSlobodnihKreveta.Text = "0";
+        }
+
+        private void Button_Click_Odustani(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -13,13 +13,10 @@ using Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using WPFLocalizeExtension.Engine;
 
 namespace bolnica.Forms
 {
@@ -69,27 +66,27 @@ namespace bolnica.Forms
 
             }, Dispatcher);
 
-            foreach(Renoviranje r in serviceRenoviranje.DobaviSvaRenoviranja())
+            foreach (Renoviranje r in serviceRenoviranje.DobaviSvaRenoviranja())
             {
-                if(r.KrajRenoviranja <= DateTime.Now.Date)
+                if (r.KrajRenoviranja <= DateTime.Now.Date)
                 {
-                    if(r.BrojNovihProstorija > 0 || r.ProstorijeZaSpajanje.Count > 0)
+                    if (r.BrojNovihProstorija > 0 || r.ProstorijeZaSpajanje.Count > 0)
                     {
                         double novaKvadratura = serviceProstorija.DobaviKvadraturu(r.Prostorija.BrojProstorije);
-                        if(r.BrojNovihProstorija > 0)
+                        if (r.BrojNovihProstorija > 0)
                         {
                             novaKvadratura = novaKvadratura / r.BrojNovihProstorija;
-                            for(int i = 0; i < r.BrojNovihProstorija - 1; i++)
+                            for (int i = 0; i < r.BrojNovihProstorija - 1; i++)
                             {
                                 Prostorija p = new Prostorija { BrojProstorije = r.Prostorija.BrojProstorije + LocalizedStrings.Instance["nova"] + (i + 1).ToString() };
                                 p.Kvadratura = novaKvadratura;
                                 serviceProstorija.SacuvajProstoriju(p);
                             }
                             r.BrojNovihProstorija = 0;
-                        } 
+                        }
                         else
                         {
-                            foreach(Prostorija p in r.ProstorijeZaSpajanje)
+                            foreach (Prostorija p in r.ProstorijeZaSpajanje)
                             {
                                 Prostorija prostorija = serviceProstorija.DobaviProstoriju(p.BrojProstorije);
                                 novaKvadratura += prostorija.Kvadratura;
@@ -149,7 +146,7 @@ namespace bolnica.Forms
                         //LekDTO lek = new LekDTO(l);
                         Lekovi.Add(l);
                     }
-                        
+
                 }
             }
         }
@@ -354,7 +351,7 @@ namespace bolnica.Forms
             else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek row = (Lek)dataGridLekovi.SelectedItems[0];
-                LekDTO lekZaIzmenu = new LekDTO(row); 
+                LekDTO lekZaIzmenu = new LekDTO(row);
                 List<Lek> sviLekovi = storageLekovi.GetAll();
                 foreach (Lek l in sviLekovi)
                 {
@@ -364,7 +361,8 @@ namespace bolnica.Forms
                         {
                             MessageBox.Show(LocalizedStrings.Instance["Nije moguće izmeniti lek koji čeka validaciju!"]);
 
-                        } else
+                        }
+                        else
                         {
                             ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(lekZaIzmenu);
                             CreateFormLekovi s = new CreateFormLekovi(vm);
@@ -381,46 +379,35 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija row = (Prostorija)dataGridProstorije.SelectedItems[0];
-                if (row.Zauzeta)
-                {
-                    MessageBox.Show(LocalizedStrings.Instance["Prostorija je trenutno zauzeta, ne možete je obrisati."]);
-                }
-                else
-                {
-                    List<Prostorija> prostorije = storageProstorije.GetAll();
-                    List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
 
-                    var s = new CreateFormProstorije();
-                    bool found = false;
-                    foreach (Prostorija p in prostorije)
+                string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete prostoriju"] + " \"" + row.BrojProstorije + "\"?";
+                string sCaption = LocalizedStrings.Instance["Brisanje prostorije"];
+
+                MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+                MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+                if (rsltMessageBox == MessageBoxResult.Yes)
+                {
+                    if (row.Zauzeta)
                     {
-                        if (p.BrojProstorije == row.BrojProstorije)
-                        {
-                            storageProstorije.Delete(p);
-                            p.Obrisana = true;
-                            storageProstorije.Save(p);
-
-                            for (int i = 0; i < Prostorije.Count; i++)
-                            {
-                                if (Prostorije[i].BrojProstorije == row.BrojProstorije)
-                                {
-                                    Prostorije.Remove(Prostorije[i]);
-                                }
-                            }
-                            found = true;
-                            break;
-                        }
+                        MessageBox.Show(LocalizedStrings.Instance["Prostorija je trenutno zauzeta, ne možete je obrisati."]);
                     }
-
-                    if (!found)
+                    else
                     {
-                        foreach (BolnickaSoba b in bolnickeSobe)
+                        List<Prostorija> prostorije = storageProstorije.GetAll();
+                        List<BolnickaSoba> bolnickeSobe = storageBolnickeSobe.GetAll();
+
+                        var s = new CreateFormProstorije();
+                        bool found = false;
+                        foreach (Prostorija p in prostorije)
                         {
-                            if (b.BrojProstorije == row.BrojProstorije)
+                            if (p.BrojProstorije == row.BrojProstorije)
                             {
-                                storageProstorije.Delete(b);
-                                b.Obrisana = true;
-                                storageProstorije.Save(b);
+                                storageProstorije.Delete(p);
+                                p.Obrisana = true;
+                                storageProstorije.Save(p);
 
                                 for (int i = 0; i < Prostorije.Count; i++)
                                 {
@@ -429,8 +416,31 @@ namespace bolnica.Forms
                                         Prostorije.Remove(Prostorije[i]);
                                     }
                                 }
-
+                                found = true;
                                 break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            foreach (BolnickaSoba b in bolnickeSobe)
+                            {
+                                if (b.BrojProstorije == row.BrojProstorije)
+                                {
+                                    storageProstorije.Delete(b);
+                                    b.Obrisana = true;
+                                    storageProstorije.Save(b);
+
+                                    for (int i = 0; i < Prostorije.Count; i++)
+                                    {
+                                        if (Prostorije[i].BrojProstorije == row.BrojProstorije)
+                                        {
+                                            Prostorije.Remove(Prostorije[i]);
+                                        }
+                                    }
+
+                                    break;
+                                }
                             }
                         }
                     }
@@ -518,202 +528,211 @@ namespace bolnica.Forms
                     MessageBox.Show(LocalizedStrings.Instance["Nije moguće obrisati lek koji čeka validaciju!"]);
                 }
             }
-        }
-
-        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
-        {
-            FormObavestenja s = new FormObavestenja();
-            s.Show();
-        }
-
-        private void Button_Click_Search(object sender, RoutedEventArgs e)
-        {
-            List<Oprema> svaOprema = storageOprema.GetAll();
-            List<Oprema> oprema = new List<Oprema>();
-            foreach (Oprema o in svaOprema)
-            {
-                if (o.Sifra.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.Naziv.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.TipOpreme == TipOpreme.dinamicka)
-                {
-                    string dinamicka = LocalizedStrings.Instance["dinamička"];
-                    if (dinamicka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
-
-                if (o.TipOpreme == TipOpreme.staticka)
-                {
-                    string staticka = LocalizedStrings.Instance["statička"];
-                    if (staticka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
             }
-            Oprema.Clear();
-            foreach (Oprema o in oprema)
+
+            private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
             {
-                if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
-                    Oprema.Add(o);
-                else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
-                    Oprema.Add(o);
-                else if (comboTipOpreme.SelectedIndex == 0)
-                    Oprema.Add(o);
+                FormObavestenja s = new FormObavestenja();
+                s.Show();
             }
-        }
 
-        private void Tabovi_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (Tabovi.SelectedIndex == 1)
-                comboTipOpreme.Visibility = Visibility.Visible;
-            else
-                comboTipOpreme.Visibility = Visibility.Hidden;
-        }
-
-        private void comboTipOpreme_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (comboTipOpreme.Visibility == Visibility.Visible)
+            private void Button_Click_Search(object sender, RoutedEventArgs e)
             {
-                storageOprema = new FileRepositoryOprema();
                 List<Oprema> svaOprema = storageOprema.GetAll();
                 List<Oprema> oprema = new List<Oprema>();
-
                 foreach (Oprema o in svaOprema)
                 {
-                    if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
+                    if (o.Sifra.ToLower().Contains(txtSearch.Text.ToLower()))
                     {
                         oprema.Remove(o);
                         oprema.Add(o);
                     }
-                    else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+
+                    if (o.Naziv.ToLower().Contains(txtSearch.Text.ToLower()))
                     {
                         oprema.Remove(o);
                         oprema.Add(o);
                     }
-                    else if (comboTipOpreme.SelectedIndex == 0)
+
+                    if (o.TipOpreme == TipOpreme.dinamicka)
                     {
-                        oprema.Remove(o);
-                        oprema.Add(o);
+                        string dinamicka = LocalizedStrings.Instance["dinamička"];
+                        if (dinamicka.Contains(txtSearch.Text.ToLower()))
+                        {
+                            oprema.Remove(o);
+                            oprema.Add(o);
+                        }
+                    }
+
+                    if (o.TipOpreme == TipOpreme.staticka)
+                    {
+                        string staticka = LocalizedStrings.Instance["statička"];
+                        if (staticka.Contains(txtSearch.Text.ToLower()))
+                        {
+                            oprema.Remove(o);
+                            oprema.Add(o);
+                        }
                     }
                 }
                 Oprema.Clear();
                 foreach (Oprema o in oprema)
                 {
-                    Oprema.Add(o);
+                    if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
+                        Oprema.Add(o);
+                    else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+                        Oprema.Add(o);
+                    else if (comboTipOpreme.SelectedIndex == 0)
+                        Oprema.Add(o);
                 }
             }
-        }
 
-        private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
-        {
-            if(dataGridProstorije.SelectedCells.Count > 0)
+            private void Tabovi_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
             {
-                List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
-                if (renoviranja == null)
-                    return;
-                Prostorija row = (Prostorija)dataGridProstorije.SelectedItem;
-                FormRenoviranje formRenoviranje = new FormRenoviranje(row.BrojProstorije);
-                List<Renoviranje> renoviranjaProstorije = new List<Renoviranje>();
-                foreach (Renoviranje r in renoviranja)
+                if (Tabovi.SelectedIndex == 1)
+                    comboTipOpreme.Visibility = Visibility.Visible;
+                else
+                    comboTipOpreme.Visibility = Visibility.Hidden;
+            }
+
+            private void comboTipOpreme_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+            {
+                if (comboTipOpreme.Visibility == Visibility.Visible)
                 {
-                    if (r.Prostorija.BrojProstorije == row.BrojProstorije)
-                        renoviranjaProstorije.Add(r);
-                }
-                foreach(Renoviranje r in renoviranjaProstorije)
-                {
-                    formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
-                }
-                FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-                FileRepositoryOperacija storageOperacija = new FileRepositoryOperacija();
-                List<Pregled> pregledi = storagePregledi.GetAll();
-                foreach(Pregled p in pregledi)
-                {
-                    if(p.Prostorija.BrojProstorije == row.BrojProstorije)
+                    storageOprema = new FileRepositoryOprema();
+                    List<Oprema> svaOprema = storageOprema.GetAll();
+                    List<Oprema> oprema = new List<Oprema>();
+
+                    foreach (Oprema o in svaOprema)
                     {
-                        formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
-                    } 
-                }
-                if(row.TipProstorije == TipProstorije.operacionaSala)
-                {
-                    List<Operacija> operacije = storageOperacija.GetAll();
-                    foreach(Operacija o in operacije)
-                    {
-                        if(o.Prostorija.BrojProstorije == row.BrojProstorije)
+                        if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
                         {
-                            formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(o.Datum));
+                            oprema.Remove(o);
+                            oprema.Add(o);
+                        }
+                        else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+                        {
+                            oprema.Remove(o);
+                            oprema.Add(o);
+                        }
+                        else if (comboTipOpreme.SelectedIndex == 0)
+                        {
+                            oprema.Remove(o);
+                            oprema.Add(o);
                         }
                     }
+                    Oprema.Clear();
+                    foreach (Oprema o in oprema)
+                    {
+                        Oprema.Add(o);
+                    }
                 }
-                
-                formRenoviranje.datePickerPocetak.DisplayDateStart = DateTime.Now;
-                formRenoviranje.datePickerKraj.DisplayDateStart = DateTime.Now;
-                formRenoviranje.btnZakazi.IsEnabled = false;
-                formRenoviranje.Show();
             }
-            
-        }
 
-        private void Theme_Click(object sender, RoutedEventArgs e)
-        {
-            var app = (App)Application.Current;
-
-            MenuItem mi = (MenuItem)sender;
-            if (mi.Header.Equals(LocalizedStrings.Instance["Tamna tema"]))
+            private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
             {
-                app.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
-                mi.Header = LocalizedStrings.Instance["Svetla tema"];
+                if (dataGridProstorije.SelectedCells.Count > 0)
+                {
+                    List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
+                    if (renoviranja == null)
+                        return;
+                    Prostorija row = (Prostorija)dataGridProstorije.SelectedItem;
+                    FormRenoviranje formRenoviranje = new FormRenoviranje(row.BrojProstorije);
+                    List<Renoviranje> renoviranjaProstorije = new List<Renoviranje>();
+                    foreach (Renoviranje r in renoviranja)
+                    {
+                        if (r.Prostorija.BrojProstorije == row.BrojProstorije)
+                            renoviranjaProstorije.Add(r);
+                    }
+                    foreach (Renoviranje r in renoviranjaProstorije)
+                    {
+                        formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
+                    }
+                    FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+                    FileRepositoryOperacija storageOperacija = new FileRepositoryOperacija();
+                    List<Pregled> pregledi = storagePregledi.GetAll();
+                    foreach (Pregled p in pregledi)
+                    {
+                        if (p.Prostorija.BrojProstorije == row.BrojProstorije)
+                        {
+                            formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
+                        }
+                    }
+                    if (row.TipProstorije == TipProstorije.operacionaSala)
+                    {
+                        List<Operacija> operacije = storageOperacija.GetAll();
+                        foreach (Operacija o in operacije)
+                        {
+                            if (o.Prostorija.BrojProstorije == row.BrojProstorije)
+                            {
+                                formRenoviranje.Calendar.BlackoutDates.Add(new CalendarDateRange(o.Datum));
+                            }
+                        }
+                    }
+
+                    formRenoviranje.datePickerPocetak.DisplayDateStart = DateTime.Now;
+                    formRenoviranje.datePickerKraj.DisplayDateStart = DateTime.Now;
+                    formRenoviranje.btnZakazi.IsEnabled = false;
+                    formRenoviranje.Show();
+                }
+
             }
-            else
+
+            private void Theme_Click(object sender, RoutedEventArgs e)
             {
-                app.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
-                mi.Header = LocalizedStrings.Instance["Tamna tema"];
+                var app = (App)Application.Current;
+
+                MenuItem mi = (MenuItem)sender;
+                if (mi.Header.Equals(LocalizedStrings.Instance["Tamna tema"]))
+                {
+                    app.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
+                    mi.Header = LocalizedStrings.Instance["Svetla tema"];
+                }
+                else
+                {
+                    app.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
+                    mi.Header = LocalizedStrings.Instance["Tamna tema"];
+                }
             }
-        }
 
-        private void SrpskiMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            IzaberiJezikMenuItem.Header = "SRB";
-            IzaberiJezikMenuItem.Icon = new Image
+            private void SrpskiMenuItem_Click(object sender, RoutedEventArgs e)
             {
-                Source = new BitmapImage(new Uri("../Images/serbia.png", UriKind.Relative))
-            };
-            LocalizedStrings.Instance.SetCulture("sr-LATN-CS");
-        }
+                IzaberiJezikMenuItem.Header = "SRB";
+                IzaberiJezikMenuItem.Icon = new Image
+                {
+                    Source = new BitmapImage(new Uri("../Images/serbia.png", UriKind.Relative))
+                };
+                LocalizedStrings.Instance.SetCulture("sr-LATN-CS");
+            }
 
-        private void EngleskiMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            IzaberiJezikMenuItem.Header = "ENG";
-            IzaberiJezikMenuItem.Icon = new Image
+            private void EngleskiMenuItem_Click(object sender, RoutedEventArgs e)
             {
-                Source = new BitmapImage(new Uri("../Images/great-britain.png", UriKind.Relative))
-            };
-            LocalizedStrings.Instance.SetCulture("en-US");
-        }
+                IzaberiJezikMenuItem.Header = "ENG";
+                IzaberiJezikMenuItem.Icon = new Image
+                {
+                    Source = new BitmapImage(new Uri("../Images/great-britain.png", UriKind.Relative))
+                };
+                LocalizedStrings.Instance.SetCulture("en-US");
+            }
 
-        private void OdjaviSeMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            new MainWindow().Show();
-            this.Close();
-        }
+            private void OdjaviSeMenuItem_Click(object sender, RoutedEventArgs e)
+            {
+                new MainWindow().Show();
+                this.Close();
+            }
 
-        private void Button_Click_Izvestaj(object sender, RoutedEventArgs e)
-        {
-            Report r = new Report();
-            r.Show();
+            private void Button_Click_Izvestaj(object sender, RoutedEventArgs e)
+            {
+                Report r = new Report();
+                r.Show();
+            }
+
+            private void Button_Click_Premesti(object sender, RoutedEventArgs e)
+            {
+                if (dataGridOprema.SelectedCells.Count > 0)
+                {
+                    var s = new FormSkladiste((Oprema)dataGridOprema.SelectedItem);
+                    s.Show();
+                }
+            }
         }
     }
-}

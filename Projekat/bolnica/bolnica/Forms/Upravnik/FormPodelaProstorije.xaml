@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
@@ -29,7 +30,31 @@
                VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="15"/>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
             <Label Name="BrojProstorijaLabel" Content="{lex:Loc}"/>
-            <TextBox x:Name="txtBrojProstorija" Height="20" Width="120" Margin="10,0,0,0"/>
+            <TextBox Height="20" Width="120" Margin="10,0,0,0">
+                <TextBox.Text>
+                    <Binding Path="BrojProstorija" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>

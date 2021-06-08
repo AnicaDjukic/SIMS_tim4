@@ -87,26 +87,29 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            if (!serviceOprema.OpremaPostoji(sifra) || !FormUpravnik.clickedDodaj)
+            if (Sifra != null && Naziv != null)
             {
-                if (!FormUpravnik.clickedDodaj)
+                if (!serviceOprema.OpremaPostoji(sifra) || !FormUpravnik.clickedDodaj)
                 {
-                    serviceOprema.ObrisiOpremu(sifra);
-                    UkloniIzPrikaza(sifra);
+                    if (!FormUpravnik.clickedDodaj)
+                    {
+                        serviceOprema.ObrisiOpremu(sifra);
+                        UkloniIzPrikaza(sifra);
+                    }
+
+                    Oprema oprema = NapraviOpremu();
+
+                    serviceOprema.SacuvajOpremu(oprema);
+                    FormUpravnik.Oprema.Add(oprema);
                 }
-
-                Oprema oprema = NapraviOpremu();
-
-                serviceOprema.SacuvajOpremu(oprema);
-                FormUpravnik.Oprema.Add(oprema);
+                else
+                {
+                    MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
+                    return;
+                }
+                Close();
             }
-            else
-            {
-                MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
-                return;
-            }
-
-            Close();
+            
         }
 
         private void UkloniIzPrikaza(string sifra)
