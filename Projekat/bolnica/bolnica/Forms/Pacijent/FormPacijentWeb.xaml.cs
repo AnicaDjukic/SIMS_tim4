@@ -24,6 +24,7 @@ namespace Bolnica.Forms
         public static Pacijent Pacijent;
 
         private List<int> obavestenjaPregled = new List<int>();
+        private List<string> obavestenjaTerapija = new List<string>();
 
         private Pacijent trenutniPacijent = new Pacijent();
         private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
@@ -173,6 +174,49 @@ namespace Bolnica.Forms
             {
                 if (trenutniPacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
                 {
+                    List<Anamneza> anamneze = storageAnamneza.GetAll();
+                    foreach (Anamneza a in anamneze)
+                    {
+                        if (pregled.Anamneza.Id.Equals(a.Id))
+                        {
+                            foreach (Recept r in a.Recept)
+                            {
+                                if (r.Trajanje.CompareTo(DateTime.Now) >= 0)
+                                {
+                                    if (r.VremeUzimanja == 4)
+                                    {
+
+                                    } else if (r.VremeUzimanja == 6)
+                                    {
+
+                                    }
+                                    else if (r.VremeUzimanja == 8)
+                                    {
+
+                                    }
+                                    else if (r.VremeUzimanja == 12)
+                                    {
+
+                                    }
+                                    else if (r.VremeUzimanja == 24)
+                                    {
+                                        if (DateTime.Now.AddMinutes(15).CompareTo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16,0,0)) >= 0
+                                            && DateTime.Now.CompareTo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0,0)) <= 0)
+                                        {
+                                            string poruka = "Podsetnik o terapiji:\n" +
+                                                "Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
+                                                "' u 16:00h.";
+                                            if (!obavestenjaTerapija.Contains(poruka))
+                                            {
+                                                obavestenjaTerapija.Add(poruka);
+                                                MessageBox.Show(poruka);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     ProveriPocetakPregleda(pregled);
                     ProveriNotifikacije(pregled);
                 }
@@ -261,6 +305,20 @@ namespace Bolnica.Forms
         private static DateTime DobijTacnoVremeObavestenje(Beleska beleska)
         {
             return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, beleska.Vreme.Hours, beleska.Vreme.Minutes, beleska.Vreme.Seconds);
+        }
+
+        private string GetNazivLeka(int id)
+        {
+            FileRepositoryLek storageLekovi = new FileRepositoryLek();
+            List<Lek> lekovi = storageLekovi.GetAll();
+            foreach (Lek l in lekovi)
+            {
+                if (l.Id.Equals(id))
+                {
+                    return l.Naziv;
+                }
+            }
+            return "";
         }
     }
 }

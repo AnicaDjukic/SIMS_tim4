@@ -353,7 +353,16 @@ namespace Bolnica.ViewModel
 
         public void PrikaziObavestenja()
         {
+            List<PrikazPregleda> lista = new List<PrikazPregleda>();
             foreach (PrikazPregleda prikaz in preglediPrikaz)
+            {
+                lista.Add(prikaz);
+            }
+            foreach (PrikazOperacije prikaz in operacijePrikaz)
+            {
+                lista.Add(prikaz);
+            }
+            foreach (PrikazPregleda prikaz in lista)
             {
                 if (trenutniPacijent.Jmbg.Equals(prikaz.Pacijent.Jmbg) && !prikaz.Pacijent.Guest && prikaz.Zavrsen)
                 {
