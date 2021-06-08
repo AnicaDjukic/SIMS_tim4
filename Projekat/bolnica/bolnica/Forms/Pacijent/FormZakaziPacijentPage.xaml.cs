@@ -20,40 +20,12 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormZakaziPacijentPage : Page
     {
-        /*private Pacijent pacijent = new Pacijent();
-
-        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
-        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
-        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
-
-        private List<Pregled> pregledi = new List<Pregled>();
-        private List<Lekar> lekari = new List<Lekar>();*/
-
-        public FormZakaziPacijentPage(/*Pacijent trenutniPacijent*/ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel)
+        public FormZakaziPacijentPage(ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel)
         {
             InitializeComponent();
 
             this.DataContext = zakaziPregledPacijentViewModel;
             FormPacijentWeb.Forma.Pocetna.Content = this;
-
-            /*
-            datumPicker.IsEnabled = false;
-            comboSat.IsEnabled = false;
-            comboMinut.IsEnabled = false;
-            comboLekar.IsEnabled = false;
-            potvrdi.IsEnabled = false;
-            nasiPredlozi.IsEnabled = false;
-
-            lekari = storageLekari.GetAll();
-
-            foreach (Lekar l in lekari)
-            {
-                comboLekar.Items.Add(l.Ime + " " + l.Prezime);
-            }
-
-            pacijent = trenutniPacijent;
-            */
         }
 
         /*private void Potvrdi(object sender, RoutedEventArgs e)

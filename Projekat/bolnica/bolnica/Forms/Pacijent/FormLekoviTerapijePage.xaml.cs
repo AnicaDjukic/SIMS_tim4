@@ -22,7 +22,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormLekoviTerapijePage : Page
     {
-        private Pacijent pacijent = new Pacijent();
         public static List<PrikazRecepta> LekoviPacijenta { get; set; }
 
         private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
@@ -74,7 +73,6 @@ namespace Bolnica.Forms
 
             PopuniListe();
             NadjiPacijenta(trenutniPacijent);
-            pacijent = trenutniPacijent;
         }
 
         private static void DobijTrenutnuSedmicu()
@@ -554,7 +552,6 @@ namespace Bolnica.Forms
 
         private void Button_Click_Stampaj(object sender, RoutedEventArgs e)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
             try
             {
                 this.IsEnabled = false;
@@ -569,20 +566,5 @@ namespace Bolnica.Forms
                 this.IsEnabled = true;
             }
         }
-
-        /*private void Button_Click_Vidi_Detalje_Leka(object sender, RoutedEventArgs e)
-        {
-            var objekat = lekoviPacijenta.SelectedValue;
-
-            if (objekat != null)
-            {
-                PrikazRecepta prikazRecepta = (PrikazRecepta)lekoviPacijenta.SelectedItem;
-                FormPacijentWeb.Forma.Pocetna.Content = new FormLekDetaljiPage(prikazRecepta);
-            }
-            else
-            {
-                MessageBox.Show("Morate odabrati lek za koji zelite da vidite detalje!", "Upozorenje");
-            }
-        }*/
     }
 }

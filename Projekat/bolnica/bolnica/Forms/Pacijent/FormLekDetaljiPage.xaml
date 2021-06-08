@@ -10,7 +10,7 @@
 
     <Grid>
         <DockPanel Margin="150,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="450" Width="500">
-            <Border BorderBrush="Aquamarine" BorderThickness="5">
+            <Border BorderBrush="LightBlue" BorderThickness="5">
                 
             </Border>
         </DockPanel>

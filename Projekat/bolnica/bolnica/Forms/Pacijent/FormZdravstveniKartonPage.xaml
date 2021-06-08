@@ -10,10 +10,10 @@
 
     <Grid>
         <DockPanel Margin="100,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" Height="350">
-            <Border BorderBrush="Aquamarine" BorderThickness="5"></Border>
+            <Border BorderBrush="LightBlue" BorderThickness="5"></Border>
         </DockPanel>
         <DockPanel Margin="0,20,100,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="600" Height="350">
-            <Border BorderBrush="Aquamarine" BorderThickness="5"></Border>
+            <Border BorderBrush="LightBlue" BorderThickness="5"></Border>
         </DockPanel>
         <StackPanel Margin="100,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="350">
             <Image Source="/Resources/user.png" Height="160" Width="160" Margin="20,90,15,0" VerticalAlignment="Top"></Image>
@@ -98,9 +98,14 @@
                 </Label.Content>
             </Label>
         </StackPanel>
-        <TextBlock Text="Ukoliko želite da vidite sve vaše protekle preglede i oberacije možete to uraditi klikom na dugme 'Istorija pregleda'"
-                   Width="440" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100,400,0,0"
+        <TextBlock Text="Ukoliko želite da vidite sve vaše protekle preglede i oberacije možete to uraditi klikom na dugme 'Istorija pregleda'."
+                   Width="440" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="160,400,0,0"
                    FontSize="16" TextWrapping="Wrap"/>
-        <Button Content="Istorija pregelda" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260,460,0,0" Click="Button_Click_Istorija_Pregleda"></Button>
+        <Button Content="Istorija pregelda" Height="40" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,460,0,0" Click="Button_Click_Istorija_Pregleda"/>
+        <TextBlock Text="Ukoliko želite da vidite vašu trenutnu terapiju možete to uraditi klikom na dugme 'Moji lekovi'."
+                   Width="440" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,400,160,0"
+                   FontSize="16" TextWrapping="Wrap"/>
+        <Button Content="Moji lekovi" Height="40" Width="120" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,460,340,0" Click="Button_Click_Moji_Lekovi"/>
+
     </Grid>
 </Page>

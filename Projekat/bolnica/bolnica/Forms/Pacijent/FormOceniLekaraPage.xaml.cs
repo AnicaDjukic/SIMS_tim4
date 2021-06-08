@@ -2,6 +2,7 @@
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -95,13 +96,15 @@ namespace Bolnica.Forms
 
                 storageOcene.Save(ocena);
 
-                FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
+                IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(pacijent);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
             }
         }
 
         private void Button_Click_Otkazi(object sender, RoutedEventArgs e)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
+            IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(pacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
         }
     }
 }

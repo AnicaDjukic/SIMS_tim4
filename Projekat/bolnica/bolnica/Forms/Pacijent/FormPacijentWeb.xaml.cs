@@ -97,7 +97,8 @@ namespace Bolnica.Forms
 
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent);
+            IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(trenutniPacijent);
+            Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
         }
 
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)

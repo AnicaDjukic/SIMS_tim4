@@ -230,7 +230,8 @@ namespace Bolnica.Service
 
         public void IstorijaPregleda(Pacijent trenutniPacijent)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent);
+            IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(trenutniPacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
         }
 
         public void ObavestenjaPacijent(Pacijent trenutniPacijent)

@@ -21,11 +21,6 @@ namespace Bolnica.Forms
             get;
             set;
         }
-        public static ObservableCollection<string> ObavestenjaZaPacijente
-        {
-            get;
-            set;
-        }
         public List<Obavestenje> Obavestenja { get; set; }
         private Pacijent pacijent = new Pacijent();
 
@@ -54,7 +49,6 @@ namespace Bolnica.Forms
             this.DataContext = this;
 
             pacijent = trenutniPacijent;
-            ObavestenjaZaPacijente = new ObservableCollection<string>();
             //ObavestenjaPacijent = new ObservableCollection<Obavestenje>();
             Obavestenja = new List<Obavestenje>();
             obavestenja = storageObavestenja.GetAll();
@@ -69,7 +63,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            DanasnjiDatum = "Obaveštenja o lekovima za dan " + DateTime.Today.ToShortDateString() + ":";
+            DanasnjiDatum = "Obaveštenja o lekovima za dan " + DateTime.Today.ToShortDateString();
             pregledi = storagePregledi.GetAll();
             operacije = storageOperacije.GetAll();
             anamneze = storageAnamneze.GetAll();
@@ -110,7 +104,6 @@ namespace Bolnica.Forms
                     "Ovaj lek se pije " + DobijBrojUzimanjaDnevno(vremeUzimanja) +
                     " dnevno u razmaku od po " + DobijVremeUzimanja(vremeUzimanja) +
                     "Ovaj lek Vam je prepisan do " + datumZavrsetka + ".";
-                    ObavestenjaZaPacijente.Add(obavestenje);
                     
                     List<string> list = new List<string>();
                     foreach(Obavestenje ob in ObavestenjaPacijent)

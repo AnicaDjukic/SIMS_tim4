@@ -36,6 +36,17 @@ namespace Bolnica
         {
             get { return zakaziPregledPacijentController; }
         }
+
+        private IstorijaPregledaService istorijaPregledaService = new IstorijaPregledaService();
+        public IstorijaPregledaService IstorijaPregledaService
+        {
+            get { return istorijaPregledaService; }
+        }
+        private IstorijaPregledaController istorijaPregledaController = new IstorijaPregledaController();
+        public IstorijaPregledaController IstorijaPregledaController
+        {
+            get { return istorijaPregledaController; }
+        }
         #endregion
 
         #region LEKAR
@@ -108,6 +119,19 @@ namespace Bolnica
             get { return lekarController; }
         }
 
+        #endregion
+
+        #region REPOZITORIJUMI
+        private RepositoryService repositoryService = new RepositoryService();
+        public RepositoryService RepositoryService
+        {
+            get { return repositoryService; }
+        }
+        private RepositoryController repositoryController = new RepositoryController();
+        public RepositoryController RepositoryController
+        {
+            get { return repositoryController; }
+        }
         #endregion
 
     }

@@ -11,7 +11,8 @@
     <Grid>
         <DataGrid Name="pacijentIstorijaGrid" ItemsSource="{Binding PrikazZavrsenihPregleda}" HorizontalAlignment="Left" VerticalAlignment="Top" 
                   Margin="40,20,0,40" Height="530" Width="1200" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="40" FontSize="16"
-                  SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue">
+                  SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue"
+                  SelectedItem="{Binding SelektovaniRed, Mode=TwoWay}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="LightBlue"></Setter>
@@ -37,10 +38,14 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Anamneza" Height="35" Width="120" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Anamneza"></Button>
-        <Button Content="Oceni lekara" Height="35" Width="120" Margin="0,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Oceni_Lekara"></Button>
-        <Button Content="Oceni bolnicu" Height="35" Width="120" Margin="0,230,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Button_Click_Oceni_Bolnicu"/>
-        <Button Height="35" Width="120" Margin="0,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click_Istorija_Ocena_I_Komentara">
+        <Button Content="Anamneza" Height="35" Width="120" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Command="{Binding Path=AnamnezaKomanda}"/>
+        <Button Content="Oceni lekara" Height="35" Width="120" Margin="0,180,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Command="{Binding Path=OceniLekaraKomanda}"/>
+        <Button Content="Oceni bolnicu" Height="35" Width="120" Margin="0,230,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Command="{Binding Path=OceniBolnicuKomanda}"/>
+        <Button Height="35" Width="120" Margin="0,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Command="{Binding Path=IstorijaOcenaKomanda}">
             <TextBlock Text="Istorija ocena i komentara" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
  

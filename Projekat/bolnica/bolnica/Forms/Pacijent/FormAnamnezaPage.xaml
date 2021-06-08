@@ -10,10 +10,10 @@
 
     <Grid>
         <DockPanel Margin="150,20,0,0" Width="540" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Border BorderThickness="5" BorderBrush="Aquamarine"></Border>
+            <Border BorderThickness="5" BorderBrush="LightBlue"></Border>
         </DockPanel>
         <DockPanel Margin="0,20,150,0" Width="540" Height="480" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Border BorderThickness="5" BorderBrush="Aquamarine"></Border>
+            <Border BorderThickness="5" BorderBrush="LightBlue"></Border>
         </DockPanel>
         <StackPanel Orientation="Horizontal" Margin="150,20,0,0" Width="540" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Content="Simptomi:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" FontSize="16"></Label>

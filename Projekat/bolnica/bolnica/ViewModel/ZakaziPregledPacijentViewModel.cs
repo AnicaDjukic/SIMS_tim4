@@ -12,6 +12,7 @@ namespace Bolnica.ViewModel
     public class ZakaziPregledPacijentViewModel : ViewModel
     {
         private Pacijent pacijent = new Pacijent();
+
         private Injector inject;
         public Injector Inject
         {
@@ -381,16 +382,6 @@ namespace Bolnica.ViewModel
             nasiPredloziEnable = true;
             RadioDatumEnable = false;
             RadioLekarEnable = false;
-            /*datumPicker.IsEnabled = true;
-            datumPicker.Focus();
-            datumPicker.Background = Brushes.Aqua;
-            comboSat.IsEnabled = false;
-            comboMinut.IsEnabled = false;
-            comboLekar.IsEnabled = false;
-            potvrdi.IsEnabled = false;
-            nasiPredlozi.IsEnabled = true;
-            datum.IsEnabled = false;
-            lekar.IsEnabled = false;*/
         }
 
         private void Checked_Lekar()
@@ -404,16 +395,6 @@ namespace Bolnica.ViewModel
             nasiPredloziEnable = true;
             RadioDatumEnable = false;
             RadioLekarEnable = false;
-            /*comboLekar.IsEnabled = true;
-            comboLekar.Focus();
-            comboLekar.Background = Brushes.Aqua;
-            datumPicker.IsEnabled = false;
-            comboSat.IsEnabled = false;
-            comboMinut.IsEnabled = false;
-            potvrdi.IsEnabled = false;
-            nasiPredlozi.IsEnabled = true;
-            datum.IsEnabled = false;
-            lekar.IsEnabled = false;*/
         }
 
         private void SelectedDateChanged_Datum()
@@ -423,18 +404,6 @@ namespace Bolnica.ViewModel
             SatEnable = true;
             SatPozadina = Brushes.Aqua;
             MinutEnable = false;
-            /*LekarEnable = false;
-            potvrdiEnable = false;
-            nasiPredloziEnable = true;
-            RadioDatumEnable = false;
-            RadioLekarEnable = false;*/
-            /*comboSat.IsEnabled = true;
-            comboMinut.IsEnabled = false;
-            datumPicker.IsEnabled = false;
-            datumPicker.FontWeight = FontWeights.UltraBold;
-            datumPicker.Background = Brushes.Green;
-            datumPicker.Foreground = Brushes.Green;
-            comboSat.Background = Brushes.Aqua;*/
         }
 
         private void SelectionChanged_Sat()
@@ -443,17 +412,6 @@ namespace Bolnica.ViewModel
             SatEnable = false;
             MinutEnable = true;
             MinutPozadina = Brushes.Aqua;
-            /*LekarEnable = false;
-            potvrdiEnable = false;
-            nasiPredloziEnable = true;
-            RadioDatumEnable = false;
-            RadioLekarEnable = false;*/
-            /*comboSat.IsEnabled = false;
-            comboMinut.IsEnabled = false;
-            datumPicker.IsEnabled = false;
-            comboSat.Foreground = Brushes.Green;
-            comboMinut.IsEnabled = true;
-            comboMinut.Background = Brushes.Aqua;*/
         }
 
         private void SelectionChanged_Minut()
@@ -470,19 +428,6 @@ namespace Bolnica.ViewModel
             {
                 PotvrdiEnable = true;
             }
-            /*comboSat.IsEnabled = false;
-            comboMinut.IsEnabled = false;
-            datumPicker.IsEnabled = false;
-            comboMinut.Foreground = Brushes.Green;
-            if (datum.IsChecked == false)
-            {
-                potvrdi.IsEnabled = true;
-            }
-            else
-            {
-                comboLekar.IsEnabled = true;
-                comboLekar.Background = Brushes.Aqua;
-            }*/
         }
 
         private void SelectionChanged_Lekar()
@@ -499,21 +444,6 @@ namespace Bolnica.ViewModel
             {
                 PotvrdiEnable = true;
             }
-            /*if (!(comboLekar.SelectedItem is null))
-            {
-                comboLekar.IsEnabled = false;
-                comboLekar.Background = Brushes.Green;
-                comboLekar.Foreground = Brushes.Green;
-                if (lekar.IsChecked == false)
-                {
-                    potvrdi.IsEnabled = true;
-                }
-                else
-                {
-                    datumPicker.IsEnabled = true;
-                    datumPicker.Background = Brushes.Aqua;
-                }
-            }*/
         }
 
     }

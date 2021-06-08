@@ -8,60 +8,67 @@
       d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormLekoviTerapijePage">
 
-    <Grid x:Name="Izvestaj">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Width="700" Height="50">
-            <TextBlock Text="Terapija za sedmicu: " Margin="80,10,0,0" Height="40" Width="200" FontSize="20"
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border BorderBrush="LightBlue" BorderThickness="5" Margin="150,0,150,0">
+                <StackPanel x:Name="Izvestaj" HorizontalAlignment="Center" Width="1000" Height="1200" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" Width="700" Height="50">
+                        <TextBlock Text="Terapija za sedmicu: " Margin="80,0,0,0" Height="40" Width="260" FontSize="28"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Label Height="50" Width="100" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">
-                <Label.Content>
-                    <Binding Path="PrviDanSedmice"></Binding>
-                </Label.Content>
-            </Label>
-            <TextBlock Text="-" FontSize="20" Height="50" Margin="0,10,0,0"></TextBlock>
-            <Label Height="50" Width="100" FontSize="20" VerticalContentAlignment="Center">
-                <Label.Content>
-                    <Binding Path="PoslednjiDanSedmice"></Binding>
-                </Label.Content>
-            </Label>
-        </StackPanel>
-
-        <DataGrid Name="sedmicnaTerapija" ItemsSource="{Binding SedmicnaTerapija}" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                  Margin="0,60,0,0" Height="500" Width="1000" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="70"
+                        <Label Height="50" Width="150" FontSize="28" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">
+                            <Label.Content>
+                                <Binding Path="PrviDanSedmice"></Binding>
+                            </Label.Content>
+                        </Label>
+                        <TextBlock Text="-" FontSize="28" Height="50" Margin="0,10,0,0"></TextBlock>
+                        <Label Height="50" Width="150" FontSize="28" VerticalContentAlignment="Center">
+                            <Label.Content>
+                                <Binding Path="PoslednjiDanSedmice"></Binding>
+                            </Label.Content>
+                        </Label>
+                    </StackPanel>
+                    <DataGrid Name="sedmicnaTerapija" ItemsSource="{Binding SedmicnaTerapija}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                  Margin="0,200,0,0" Height="450" Width="1000" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="70"
                   FontSize="16" SelectionMode="Single" IsReadOnly="True" Background="LightBlue">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="LightBlue"></Setter>
-                    <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                    <Setter Property="BorderThickness" Value="1,1,1,2"></Setter>
-                    <Setter Property="BorderBrush" Value="black"></Setter>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-                <Style TargetType="DataGridCell">
-                    <Style.Setters>
-                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                    </Style.Setters>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Vreme}" Width="*">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="BorderBrush" Value="Black" />
-                            <Setter Property="BorderThickness" Value="1,0,1,0" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Ponedeljak" Binding="{Binding Ponedeljak}" Width="*"/>
-                <DataGridTextColumn Header="Utorak" Binding="{Binding Utorak}" Width="*"/>
-                <DataGridTextColumn Header="Sreda" Binding="{Binding Sreda}" Width="*"/>
-                <DataGridTextColumn Header="Četvrtak" Binding="{Binding Cetvrtak}" Width="*"/>
-                <DataGridTextColumn Header="Petak" Binding="{Binding Petak}" Width="*"/>
-                <DataGridTextColumn Header="Subota" Binding="{Binding Subota}" Width="*"/>
-                <DataGridTextColumn Header="Nedelja" Binding="{Binding Nedelja}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <Button Content="Stampaj" Height="40" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,0,0" Click="Button_Click_Stampaj"/>
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="LightBlue"></Setter>
+                                <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                                <Setter Property="BorderThickness" Value="1,1,1,2"></Setter>
+                                <Setter Property="BorderBrush" Value="black"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Style.Setters>
+                                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Vreme" Binding="{Binding Vreme}" Width="*">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                        <Setter Property="BorderThickness" Value="1,0,1,0" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Ponedeljak" Binding="{Binding Ponedeljak}" Width="*"/>
+                            <DataGridTextColumn Header="Utorak" Binding="{Binding Utorak}" Width="*"/>
+                            <DataGridTextColumn Header="Sreda" Binding="{Binding Sreda}" Width="*"/>
+                            <DataGridTextColumn Header="Četvrtak" Binding="{Binding Cetvrtak}" Width="*"/>
+                            <DataGridTextColumn Header="Petak" Binding="{Binding Petak}" Width="*"/>
+                            <DataGridTextColumn Header="Subota" Binding="{Binding Subota}" Width="*"/>
+                            <DataGridTextColumn Header="Nedelja" Binding="{Binding Nedelja}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+        
+        
+        <Button Content="Štampaj" Height="40" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,20,0" Click="Button_Click_Stampaj"/>
     </Grid>
 </Page>

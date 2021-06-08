@@ -46,14 +46,6 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
-        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
-        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
-        private FileRepositoryProstorija storageProstorija = new FileRepositoryProstorija();
-        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
-        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
-
         private List<PrikazPregleda> preglediPrikaz = new List<PrikazPregleda>();
         private List<PrikazOperacije> operacijePrikaz = new List<PrikazOperacije>();
         private List<Pregled> pregledi = new List<Pregled>();
@@ -175,7 +167,6 @@ namespace Bolnica.ViewModel
             Inject = new Injector();
             trenutniPacijent = pacijent;
             PrikazNezavrsenihPregleda = new ObservableCollection<PrikazPregleda>();
-            FormObavestenjaPacijentPage.ObavestenjaZaPacijente = new ObservableCollection<string>();
 
             UcitajPodatke();
             UcitajPreglede(pacijent);
@@ -223,12 +214,12 @@ namespace Bolnica.ViewModel
 
         private void UcitajPodatke()
         {
-            pregledi = storagePregledi.GetAll();
-            operacije = storageOperacije.GetAll();
-            pacijenti = storagePacijenti.GetAll();
-            lekari = storageLekari.GetAll();
-            prostorije = storageProstorija.GetAll();
-            anamneze = storageAnamneza.GetAll();
+            pregledi = inject.RepositoryController.DobijPreglede();
+            operacije = inject.RepositoryController.DobijOperacije();
+            pacijenti = inject.RepositoryController.DobijPacijente();
+            lekari = inject.RepositoryController.DobijLekare();
+            prostorije = inject.RepositoryController.DobijProstorije();
+            anamneze = inject.RepositoryController.DobijAnamneze();
         }
 
         private static PrikazPregleda DobijPrikazPregleda(Pregled pregled)
