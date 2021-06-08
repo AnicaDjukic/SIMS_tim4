@@ -606,7 +606,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="0.1*">
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="0.08*">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -648,7 +648,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="0.06*">
+                <DataGridTextColumn Header="Trajanje (min)" Binding="{Binding Trajanje}" Width="0.08*">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
