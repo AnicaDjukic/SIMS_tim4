@@ -246,7 +246,7 @@ namespace Bolnica.ViewModel.Upravnik
 
         public bool CanExecute_ValidacijaLekaKomanda(object obj)
         {
-            return true;
+            return lekZaPrikaz.Id != 0 && lekZaPrikaz.Naziv != null && lekZaPrikaz.Proizvodjac != null && lekZaPrikaz.KolicinaUMg != 0;
         }
         #endregion
 

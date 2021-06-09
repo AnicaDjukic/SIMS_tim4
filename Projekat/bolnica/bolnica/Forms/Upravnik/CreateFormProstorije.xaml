@@ -124,8 +124,54 @@
             <ComboBoxItem Name="BolnickaSobaCombo" Content="{lex:Loc}"/>
         </ComboBox>
         <CheckBox Grid.Row="5" Grid.Column="1" x:Name="checkZauzeta" Margin ="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="checkZauzeta_Checked"/>
-        <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtUkBrojKreveta" Text="{Binding Path=UkBrojKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120"/>
-        <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtBrojSlobodnihKreveta" Text="{Binding Path=BrojSlobodnihKreveta, UpdateSourceTrigger=PropertyChanged}" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120" />
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtUkBrojKreveta" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120">
+            <TextBox.Text>
+                <Binding Path="UkBrojKreveta" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtBrojSlobodnihKreveta" Margin ="10,0,0,0" VerticalAlignment="Center" Width="120">
+            <TextBox.Text>
+                <Binding Path="BrojSlobodnihKreveta" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
         <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin ="50,0,0,10">
             <Button Name="btnPotvrdi" Content="{lex:Loc}"  Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}" Margin="0,0,30,0"/>
             <Button Name="btnOdustani" Content="{lex:Loc}" Height="30" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>

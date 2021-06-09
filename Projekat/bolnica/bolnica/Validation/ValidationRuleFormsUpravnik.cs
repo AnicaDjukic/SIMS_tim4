@@ -66,7 +66,7 @@ namespace Bolnica.Validation
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            Regex rgxNaziv = new Regex(@"^[0-9]+[0-9]*$");
+            Regex rgxNaziv = new Regex(@"^[0-9]+.?[0-9]+$");
             var naziv = value as string;
             if (rgxNaziv.IsMatch(naziv.Trim()))
             {
