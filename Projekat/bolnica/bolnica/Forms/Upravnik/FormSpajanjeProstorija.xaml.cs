@@ -52,13 +52,21 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            if(GridProstorije.SelectedCells.Count > 0)
+            if(GridProstorijeZaSpajanje.SelectedCells.Count > 0)
             {
                 renoviranje.ProstorijeZaSpajanje.Clear();
-                var izabraneProstorije = GridProstorije.SelectedItems;
+                var izabraneProstorije = GridProstorijeZaSpajanje.SelectedItems;
                 foreach(Prostorija p in izabraneProstorije)
                 {
-                    renoviranje.ProstorijeZaSpajanje.Add(p);
+                    if (!Inject.ControllerProstorija.ZauzetaOdDatuma(p.BrojProstorije, renoviranje.PocetakRenoviranja))
+                    {
+                        renoviranje.ProstorijeZaSpajanje.Add(p);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Prostorija je " + p.BrojProstorije + " je zauzeta u narednom periodu!");
+                        return;
+                    }
                 }
                 Close();
             }

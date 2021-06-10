@@ -188,8 +188,16 @@ namespace Bolnica.Forms.Upravnik
 
         private void btnSpoji_Click(object sender, RoutedEventArgs e)
         {
-            FormSpajanjeProstorija formSpajanje = new FormSpajanjeProstorija(novoRenoviranje);
-            formSpajanje.Show();
+            if(datumPocetka != null)
+            {
+                FormSpajanjeProstorija formSpajanje = new FormSpajanjeProstorija(novoRenoviranje);
+                formSpajanje.Show();
+            }
+            else
+            {
+                MessageBox.Show("Unesite datum pocetka renoviranja!");
+            }
+            
         }
 
         private void btnPodeli_Click(object sender, RoutedEventArgs e)

@@ -1,9 +1,9 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
+using Model.Pregledi;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Controller.Prostorije
 {
@@ -56,6 +56,42 @@ namespace Bolnica.Controller.Prostorije
                     prostorijeNaSpratu.Add(p);
             }
             return prostorijeNaSpratu;
+        }
+
+        public bool ZauzetaOdDatuma(string brojProstorije, DateTime datum)
+        {
+            if (service.DobaviProstoriju(brojProstorije).TipProstorije != TipProstorije.operacionaSala)
+            {
+                if (ProstorijaImaPregledePosleDatuma(brojProstorije, datum))
+                    return true;
+            }
+            else
+            {
+                if (ProstorijaImaOperacijePosleDatuma(brojProstorije, datum))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool ProstorijaImaPregledePosleDatuma(string brojProstorije, DateTime datum)
+        {
+            foreach (Pregled p in service.DobaviPregledeProstorije(brojProstorije))
+            {
+                if (p.Datum >= datum)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool ProstorijaImaOperacijePosleDatuma(string brojProstorije, DateTime datum)
+        {
+            foreach (Operacija o in service.DobaviOperacijeProstorije(brojProstorije))
+            {
+                if (o.Datum >= datum)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

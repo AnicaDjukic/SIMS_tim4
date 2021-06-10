@@ -19,7 +19,7 @@
         <Grid.Resources>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9783E8" />
         </Grid.Resources>
-        <DataGrid x:Name="GridProstorije" Grid.Column="0" Grid.Row="0"  Margin="20,20" ItemsSource="{Binding ProstorijeZaSpajanje}" IsReadOnly="True" SelectionMode="Extended" 
+        <DataGrid x:Name="GridProstorijeZaSpajanje" Grid.Column="0" Grid.Row="0"  Margin="20,20" ItemsSource="{Binding ProstorijeZaSpajanje}" IsReadOnly="True" SelectionMode="Extended" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BrojProstorije" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding BrojProstorije}" Width="*"/>
