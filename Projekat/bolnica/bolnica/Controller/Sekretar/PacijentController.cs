@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Bolnica.Controller
 {
-    public class PacijentiController
+    public class PacijentController
     {
         private PacijentService service = new PacijentService();
 

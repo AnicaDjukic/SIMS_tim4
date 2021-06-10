@@ -20,6 +20,7 @@ using Bolnica.Model.Pregledi;
 using Bolnica.Model.Pacijenti;
 using Bolnica.DTO;
 using Bolnica.Controller;
+using Bolnica.DTO.Sekretar;
 
 namespace Bolnica.Forms
 {
@@ -226,13 +227,13 @@ namespace Bolnica.Forms
             }
         }
 
-        private PacijentiController pacijentiController;
-        private List<Sastojak> alergeni;
-        public FormDodajPacijenta(List<Sastojak> alergeni)
+        private PacijentController pacijentiController;
+        private List<SastojakDTO> alergeni;
+        public FormDodajPacijenta(List<SastojakDTO> alergeni)
         {
             InitializeComponent();
             this.alergeni = alergeni;
-            pacijentiController = new PacijentiController();
+            pacijentiController = new PacijentController();
             InicijalizujGUI();
         }
 
@@ -265,7 +266,7 @@ namespace Bolnica.Forms
                 Guest = false,
             };
 
-            pacijent.ZdravstveniKarton = new ZdravstveniKarton { Zanimanje = txtZanimanje.Text, BracniStatus = PostaviPoljeBracniStatusPacijenta(), Osiguranje = (bool)checkOsiguranje.IsChecked };
+            pacijent.ZdravstveniKarton = new ZdravstveniKartonDTO { Zanimanje = txtZanimanje.Text, BracniStatus = PostaviPoljeBracniStatusPacijenta(), Osiguranje = (bool)checkOsiguranje.IsChecked };
             PostaviPoljeAlergeniPacijenta(pacijent);
 
             if (!PostaviPoljeDatumRodjenjaPacijenta(pacijent) || !PostaviPoljeBrojKartonaPacijenta(pacijent) || !SvaPoljaValidna(pacijent))

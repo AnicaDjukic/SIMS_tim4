@@ -1,5 +1,6 @@
 ﻿using Bolnica.Controller;
 using Bolnica.DTO;
+using Bolnica.DTO.Sekretar;
 using Bolnica.Model.Pregledi;
 using Bolnica.Sekretar;
 using Model.Korisnici;
@@ -156,7 +157,7 @@ namespace Bolnica.Forms.Sekretar
             }
         }
 
-        private PacijentiController pacijentiController;
+        private PacijentController pacijentiController;
         public static Pacijent pacijent;
         private ComboBox comboPacijent;
         public FormDodajGosta(ComboBox comboPacijent)
@@ -164,7 +165,7 @@ namespace Bolnica.Forms.Sekretar
             InitializeComponent();
             this.comboPacijent = comboPacijent;
             pacijent = new Pacijent();
-            pacijentiController = new PacijentiController();
+            pacijentiController = new PacijentController();
             InicijalizujGUI();
         }
 
@@ -214,7 +215,6 @@ namespace Bolnica.Forms.Sekretar
                 Ime = pacijentDTO.Ime,
                 Prezime = pacijentDTO.Prezime,
                 DatumRodjenja = pacijentDTO.DatumRodjenja,
-                Alergeni = pacijentDTO.Alergeni,
                 Pol = pacijentDTO.Pol,
                 BrojTelefona = pacijentDTO.BrojTelefona,
                 AdresaStanovanja = pacijentDTO.AdresaStanovanja,
@@ -223,10 +223,16 @@ namespace Bolnica.Forms.Sekretar
                 Guest = true,
             };
 
+            pacijent.Alergeni = new List<Sastojak>();
+            foreach (SastojakDTO alergen in pacijentDTO.Alergeni)
+                pacijent.Alergeni.Add(new Sastojak { Id = alergen.Id, Naziv = alergen.Naziv });
+
             comboPacijent.Text = pacijent.Ime + " " + pacijent.Prezime + " " + pacijent.Jmbg;
             FormZakaziHitanTermin.guest = true;
             this.Close();
         }
+
+
 
         private bool SvaPoljaValidna(PacijentDTO pacijent)
         {

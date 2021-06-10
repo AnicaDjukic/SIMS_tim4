@@ -36,14 +36,13 @@ namespace Bolnica.Forms
         public static ObservableCollection<PacijentDTO> GostiPacijenti { get; set; }
         public static ObservableCollection<PacijentDTO> ObrisaniPacijenti { get; set; }
         public static bool clickedDodaj;
-        private PacijentiController pacijentiController;
+        private PacijentController pacijentiController;
         private ZdravstveniKartonController zdravstveniKartonController;
 
         public FormSekretar()
         {
             InitializeComponent();
-
-            pacijentiController = new PacijentiController();
+            pacijentiController = new PacijentController();
             zdravstveniKartonController = new ZdravstveniKartonController();
             clickedDodaj = false;
             InicijalizujGUI();
@@ -52,7 +51,6 @@ namespace Bolnica.Forms
         private void InicijalizujGUI() 
         {
             DataContext = this;
-
             btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             RedovniPacijenti = new ObservableCollection<PacijentDTO>(pacijentiController.GetRedovnePacijente());
             GostiPacijenti = new ObservableCollection<PacijentDTO>(pacijentiController.GetGostPacijente());

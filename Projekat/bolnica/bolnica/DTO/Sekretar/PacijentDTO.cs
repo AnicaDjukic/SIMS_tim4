@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.DTO.Sekretar;
+using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -23,14 +24,14 @@ namespace Bolnica.DTO
         public bool Guest { get; set; }
         public bool Obrisan { get; set; }
         public Pol Pol { get; set; }
-        public ZdravstveniKarton ZdravstveniKarton { get; set; }
-        public List<Sastojak> Alergeni { get; set; }
+        public ZdravstveniKartonDTO ZdravstveniKarton { get; set; }
+        public List<SastojakDTO> Alergeni { get; set; }
 
         public PacijentDTO() 
         {
         }
 
-        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, List<Sastojak> alergeni)
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, List<SastojakDTO> alergeni)
         {
             this.Jmbg = jmbg;
             this.Ime = ime;
@@ -48,7 +49,7 @@ namespace Bolnica.DTO
             this.Alergeni = alergeni;
         }
 
-        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, ZdravstveniKarton zdravstveniKarton, List<Sastojak> alergeni)
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, ZdravstveniKartonDTO zdravstveniKarton, List<SastojakDTO> alergeni)
         {
             this.Jmbg = jmbg;
             this.Ime = ime;

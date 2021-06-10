@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Pregledi;
+﻿using Bolnica.DTO.Sekretar;
+using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Bolnica.Forms.Sekretar
                 if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Jmbg))
                 {
                     if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                        foreach (SastojakDTO s in FormSekretar.RedovniPacijenti[i].Alergeni)
                         {
                             foreach (Sastojak sas in alergeni)
                                 if (sas.Id == s.Id)
@@ -52,7 +53,7 @@ namespace Bolnica.Forms.Sekretar
                 if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Jmbg))
                 {
                     if (FormSekretar.GostiPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
+                        foreach (SastojakDTO s in FormSekretar.GostiPacijenti[i].Alergeni)
                         {
                             foreach (Sastojak sas in alergeni)
                                 if (sas.Id == s.Id)
