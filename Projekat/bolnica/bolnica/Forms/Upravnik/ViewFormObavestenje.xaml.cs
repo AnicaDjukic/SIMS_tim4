@@ -20,11 +20,20 @@ namespace Bolnica.Forms.Upravnik
     /// Interaction logic for ViewFormObavestenje.xaml
     /// </summary>
     public partial class ViewFormObavestenje : Window
-    {
-        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
+    {   
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public ViewFormObavestenje(int id)
         {
             InitializeComponent();
+            Inject = new Injector();
             Title = LocalizedStrings.Instance["Obaveštenje"];
             Owner = App.Current.MainWindow;
             PrikaziObavestenje(id);
@@ -32,7 +41,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PrikaziObavestenje(int id)
         {
-            Obavestenje obavestenje = serviceObavestenje.DobaviObavestenje(id);
+            Obavestenje obavestenje = Inject.ControllerObavestenje.DobaviObavestenje(id);
             txtNaslov.Text = obavestenje.Naslov;
             txtSadrzaj.Text = obavestenje.Sadrzaj;
         }

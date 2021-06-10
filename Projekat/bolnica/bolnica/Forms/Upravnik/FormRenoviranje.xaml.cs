@@ -66,12 +66,22 @@ namespace Bolnica.Forms.Upravnik
         }
 
         public static Renoviranje novoRenoviranje = new Renoviranje();
-        private ServiceRenoviranje serviceRenoviranje = new ServiceRenoviranje();
+
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public FormRenoviranje(string brojProstorije)
         {
             InitializeComponent();
-            Title = LocalizedStrings.Instance["Renoviranje prostorije"];
             DataContext = this;
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Renoviranje prostorije"];
             PrikaziRenoviranja(brojProstorije);
             novoRenoviranje.Prostorija = new Prostorija();
             novoRenoviranje.Prostorija.BrojProstorije = brojProstorije;
@@ -80,7 +90,7 @@ namespace Bolnica.Forms.Upravnik
         private void PrikaziRenoviranja(string brojProstorije)
         {
             Renoviranja = new ObservableCollection<Renoviranje>();
-            foreach (Renoviranje r in serviceRenoviranje.DobaviRenoviranjaProstorije(brojProstorije))
+            foreach (Renoviranje r in Inject.ControllerRenoviranje.DobaviRenoviranjaProstorije(brojProstorije))
             {
                 Renoviranja.Add(r);
             }
@@ -129,7 +139,7 @@ namespace Bolnica.Forms.Upravnik
             if (DatumiRenoviranjaValidni())
             {
                 novoRenoviranje.Opis = txtOpis.Text;
-                serviceRenoviranje.SacuvajRenoviranje(novoRenoviranje);
+                Inject.ControllerRenoviranje.SacuvajRenoviranje(novoRenoviranje);
                 Close();
             }
         }

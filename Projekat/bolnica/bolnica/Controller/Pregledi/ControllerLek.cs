@@ -10,11 +10,16 @@ namespace Bolnica.Controller.Pregledi
 {
     public class ControllerLek
     {
-        ServiceLek serviceLek = new ServiceLek();
+        ServiceLek service;
+
+        public ControllerLek()
+        {
+            service = new ServiceLek();
+        }
 
         public bool LekPostoji(int id)
         {
-            return serviceLek.LekPostoji(id);
+            return service.LekPostoji(id);
         }
 
         public bool LekIspravan(int id)
@@ -24,7 +29,7 @@ namespace Bolnica.Controller.Pregledi
 
         public void ObrisiLek(int id)
         {
-            serviceLek.ObrisiLek(id);
+            service.ObrisiLek(id);
         }
 
         public Lek NapraviLek(LekDTO lekDto, List<SastojakDTO> sastojci)
@@ -41,7 +46,7 @@ namespace Bolnica.Controller.Pregledi
         public List<LekDTO> DobaviSveLekove()
         {
             List<LekDTO> lekovi = new List<LekDTO>();
-            foreach(Lek l in  serviceLek.DobaviSveLekove())
+            foreach(Lek l in  service.DobaviSveLekove())
             {
                 lekovi.Add(new LekDTO(l));
             }
@@ -50,12 +55,22 @@ namespace Bolnica.Controller.Pregledi
 
         public void SacuvajLek(Lek lek)
         {
-            serviceLek.SacuvajLek(lek);
+            service.SacuvajLek(lek);
         }
 
-        internal Lek DobaviLek(int id)
+        public Lek DobaviLek(int id)
         {
-            return serviceLek.DobaviLek(id);
+            return service.DobaviLek(id);
+        }
+
+        public List<Sastojak> DobaviSastojkeLeka(Lek lek)
+        {
+            return service.DobaviSastojkeLeka(lek);
+        }
+
+        public List<Lek> DobaviSveZameneLeka(Lek lek)
+        {
+            return service.DobaviSveZameneLeka(lek);
         }
     }
 }

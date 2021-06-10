@@ -110,12 +110,19 @@ namespace Bolnica.Forms
             }
         }
 
-        ServiceProstorija serviceProstorija = new ServiceProstorija();
-        ServiceBolnickaSoba serviceBolnickaSoba = new ServiceBolnickaSoba();
-
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public CreateFormProstorije()
         {
             InitializeComponent();
+            Inject = new Injector();
             this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
                 Title = LocalizedStrings.Instance["Izmena prostorije"];
@@ -137,7 +144,7 @@ namespace Bolnica.Forms
             if (BrojProstorije != null && Kvadratura != 0.0)
             {
                 int tipProstorije = comboTipProstorije.SelectedIndex;
-                if (!serviceProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
+                if (!Inject.ControllerProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
                 {
                     if (tipProstorije == 2)
                     {
@@ -182,11 +189,11 @@ namespace Bolnica.Forms
         {
             if (!FormUpravnik.clickedDodaj)
             {
-                serviceBolnickaSoba.ObrisiBolnickuSobu(brojProstorije);
+                Inject.ControllerBolnickaSoba.ObrisiBolnickuSobu(brojProstorije);
                 UkloniIzPrikaza(brojProstorije);
             }
 
-            serviceBolnickaSoba.SacuvajBolnickuSobu(bolnickaSoba);
+            Inject.ControllerBolnickaSoba.SacuvajBolnickuSobu(bolnickaSoba);
             FormUpravnik.Prostorije.Add(bolnickaSoba);
         }
 
@@ -217,11 +224,11 @@ namespace Bolnica.Forms
         {
             if (!FormUpravnik.clickedDodaj)
             {
-                serviceProstorija.ObrisiProstoriju(brojProstorije);
+                Inject.ControllerProstorija.ObrisiProstoriju(brojProstorije);
                 UkloniIzPrikaza(brojProstorije);
             }
 
-            serviceProstorija.SacuvajProstoriju(prostorija);
+            Inject.ControllerProstorija.SacuvajProstoriju(prostorija);
             FormUpravnik.Prostorije.Add(prostorija);
         }
 

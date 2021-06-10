@@ -2,16 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Bolnica.Controller.Pregledi;
 using Bolnica.Localization;
 
 namespace Bolnica.Forms.Upravnik
@@ -27,12 +19,21 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
 
-        private ControllerLek contollerLek = new ControllerLek();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public Report()
         {
             InitializeComponent();
-            Title = LocalizedStrings.Instance["Izveštaj o količini lekova - trenutno stanje"];
             DataContext = this;
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Izveštaj o količini lekova - trenutno stanje"];
             UcitajSveLekove();
             UcitajVreme();
         }
@@ -40,7 +41,7 @@ namespace Bolnica.Forms.Upravnik
         private void UcitajSveLekove()
         {
             Lekovi = new ObservableCollection<LekDTO>();
-            List<LekDTO> sviLekovi = contollerLek.DobaviSveLekove();
+            List<LekDTO> sviLekovi = Inject.ControllerLek.DobaviSveLekove();
             foreach(LekDTO l in sviLekovi)
             {
                 Lekovi.Add(l);

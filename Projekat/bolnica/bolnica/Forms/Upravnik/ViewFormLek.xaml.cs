@@ -35,17 +35,23 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
 
-        private ServiceLek serviceLek = new ServiceLek();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public ViewFormLek(int idLeka)
         {
             InitializeComponent();
             this.DataContext = this;
+            Inject = new Injector();
             Title = LocalizedStrings.Instance["Prikaz leka"];
-            
-            Lek lek = PronadjiLek(idLeka);
-
+            Lek lek = Inject.ControllerLek.DobaviLek(idLeka);
             PrikaziZameneLeka(lek);
-            
             PrikaziSastojkeLeka(lek);
             
         }
@@ -53,7 +59,7 @@ namespace Bolnica.Forms.Upravnik
         private void PrikaziSastojkeLeka(Lek lek)
         {
             Sastojci = new ObservableCollection<Sastojak>();
-            foreach (Sastojak s in serviceLek.DobaviSastojkeLeka(lek))
+            foreach (Sastojak s in Inject.ControllerLek.DobaviSastojkeLeka(lek))
             {
                 Sastojci.Add(s);
             }
@@ -62,18 +68,11 @@ namespace Bolnica.Forms.Upravnik
         private void PrikaziZameneLeka(Lek lek)
         {
             LekoviZamene = new ObservableCollection<Lek>();
-            foreach (Lek l in serviceLek.DobaviSveZameneLeka(lek))
+            foreach (Lek l in Inject.ControllerLek.DobaviSveZameneLeka(lek))
             {
                 LekoviZamene.Add(l);
             }
         }
-
-        private Lek PronadjiLek(int idLeka)
-        {
-            Lek lek = serviceLek.DobaviLek(idLeka);
-            return lek;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();

@@ -59,14 +59,19 @@ namespace Bolnica.Forms.Upravnik
             }
         }
 
-        private ServiceProstorija serviceProstorija = new ServiceProstorija();
-        private ServiceBolnickaSoba serviceBolnickaSoba = new ServiceBolnickaSoba();
-        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
-        private ServiceZaliha serviceZaliha = new ServiceZaliha();
-
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public FormSkladiste(Oprema oprema)
         {
             InitializeComponent();
+            Inject = new Injector();
             Title = LocalizedStrings.Instance["Skladištenje"];
             this.DataContext = this;
             opremaZaSkladistenje = oprema;
@@ -77,7 +82,7 @@ namespace Bolnica.Forms.Upravnik
 
         private List<Zaliha> PronadjiZaliheOpreme()
         {
-            List<BuducaZaliha> buduceZalihe = PronadjiBuduceZalihe();
+            List<BuducaZaliha> buduceZalihe = Inject.ControllerBuducaZaliha.DobaviBuduceZaliheOpreme(opremaZaSkladistenje.Sifra);
             if (buduceZalihe.Count > 0)
             {
                 ObrisiStareZalihe();
@@ -89,24 +94,19 @@ namespace Bolnica.Forms.Upravnik
             return zaliheOpreme;
         }
 
-        private List<BuducaZaliha> PronadjiBuduceZalihe()
-        {
-            return serviceBuducaZaliha.DobaviBuduceZaliheOpreme(opremaZaSkladistenje.Sifra);
-        }
-
         private void ObrisiStareZalihe()
         {
-            serviceZaliha.ObrisiZalihe(opremaZaSkladistenje.Sifra);
+            Inject.ControllerZaliha.ObrisiZaliheOpreme(opremaZaSkladistenje.Sifra);
         }
 
         private void SacuvajNoveZalihe(List<BuducaZaliha> buduceZalihe)
         {
-            serviceZaliha.PrebaciBuduceZaliheUZalihe(buduceZalihe);
+            Inject.ControllerZaliha.PrebaciBuduceZaliheUZalihe(buduceZalihe);
         }
 
         private List<Zaliha> UcitajZalihe()
         {
-            return serviceZaliha.DobaviZaliheOpreme(opremaZaSkladistenje.Sifra);
+            return Inject.ControllerZaliha.DobaviZaliheOpreme(opremaZaSkladistenje.Sifra);
         }
 
         private void InicijalizujPrikazZalihe(List<Zaliha> zaliheOpreme)
@@ -125,7 +125,7 @@ namespace Bolnica.Forms.Upravnik
 
         private Zaliha NapraviMagacin()
         {
-            Prostorija prostorijaMagacin = serviceProstorija.NapraviProstoriju("magacin");
+            Prostorija prostorijaMagacin = Inject.ControllerProstorija.NapraviProstoriju("magacin");
             return new Zaliha { Prostorija = prostorijaMagacin, Oprema = opremaZaSkladistenje, Kolicina = opremaZaSkladistenje.Kolicina };
         }
 
@@ -166,7 +166,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PrikaziSveProstorije()
         {
-            List<Prostorija> prostorije = serviceProstorija.DobaviSveProstorije();
+            List<Prostorija> prostorije = Inject.ControllerProstorija.DobaviSveProstorije();
             foreach (Prostorija p in prostorije)
             {
                 if (!p.Obrisana)
@@ -176,7 +176,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PrikaziSveBolnickeSobe()
         {
-            List<BolnickaSoba> bolnickeSobe = serviceBolnickaSoba.DobaviSveBolnickeSobe();
+            List<BolnickaSoba> bolnickeSobe = Inject.ControllerBolnickaSoba.DobaviSveBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
                 if (!b.Obrisana)
@@ -186,7 +186,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PrikaziSlobodneProstorije(List<Zaliha> zaliheOpreme)
         {
-            List<Prostorija> slobodneProstorije = serviceProstorija.DobaviProstorijeBezOpreme(zaliheOpreme);
+            List<Prostorija> slobodneProstorije = Inject.ControllerProstorija.DobaviProstorijeBezOpreme(zaliheOpreme);
             foreach (Prostorija prostorija in slobodneProstorije)
             {
                 ProstorijeZaSkladistenje.Add(prostorija);
@@ -195,7 +195,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void PrikaziSlobodneBolnickeSobe(List<Zaliha> zaliheOpreme)
         {
-            List<BolnickaSoba> slobodneBolnickeSobe = serviceBolnickaSoba.DobaviBolnickeSobeBezOpreme(zaliheOpreme);
+            List<BolnickaSoba> slobodneBolnickeSobe = Inject.ControllerBolnickaSoba.DobaviBolnickeSobeBezOpreme(zaliheOpreme);
             foreach (BolnickaSoba bolnickaSoba in slobodneBolnickeSobe)
             {
                 ProstorijeZaSkladistenje.Add(bolnickaSoba);
@@ -206,7 +206,7 @@ namespace Bolnica.Forms.Upravnik
         {
             if (GridProstorije.SelectedCells.Count > 0)
             {
-                if (serviceZaliha.ValidnaKolicina(kolicinaZaPremestanje, opremaZaSkladistenje))
+                if (Inject.ControllerZaliha.ValidnaKolicina(kolicinaZaPremestanje, opremaZaSkladistenje))
                 {
                     Prostorija izabranaProstorija = (Prostorija)GridProstorije.SelectedItem;
                     UkloniProstorijuIzPrikaza(izabranaProstorija);
@@ -273,8 +273,7 @@ namespace Bolnica.Forms.Upravnik
             if (opremaZaSkladistenje.TipOpreme != TipOpreme.staticka)
             {
                 ObrisiStareZalihe();
-                foreach (Zaliha z in Zalihe)
-                    serviceZaliha.SacuvajZalihu(z);
+                Inject.ControllerZaliha.SacuvajZalihe(Zalihe);
             }
             else
             {

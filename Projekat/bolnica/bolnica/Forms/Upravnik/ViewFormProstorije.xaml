@@ -60,7 +60,7 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="{lex:Loc OpremaTabItem}" Style="{DynamicResource TabItemStyle}">
-                    <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaSobe}" IsReadOnly="True" SelectionMode="Single" 
+                    <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaProstorije}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="300" HeadersVisibility="Column" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="Sifra" Header="{lex:Loc SifraDataGrid}" Binding="{Binding Oprema.Sifra}" Width="auto"/>

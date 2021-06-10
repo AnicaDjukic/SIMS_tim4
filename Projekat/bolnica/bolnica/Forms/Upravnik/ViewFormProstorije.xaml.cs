@@ -1,6 +1,5 @@
 ﻿using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,77 +12,70 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class ViewFormProstorije : Window
     {
-        public static ObservableCollection<Zaliha> OpremaSobe
+        public static ObservableCollection<Zaliha> OpremaProstorije
         {
             get;
             set;
         }
 
-        private ServiceZaliha serviceZaliha = new ServiceZaliha();
-        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
-        private ServiceOprema serviceOprema = new ServiceOprema();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public ViewFormProstorije(string brojProstorije)
         {
             InitializeComponent();
+            DataContext = this;
+            Inject = new Injector();
             Title = LocalizedStrings.Instance["Prikaz prostorije"];
-            this.DataContext = this;
-            OpremaSobe = new ObservableCollection<Zaliha>();
             AzurirajSveZalihe();
             PrikaziOpremuProstorije(brojProstorije);
         }
 
         private void AzurirajSveZalihe()
         {
-            FileRepositoryBuducaZaliha storageBuducaZaliha = new FileRepositoryBuducaZaliha();
-            List<Zaliha> noveZalihe = new List<Zaliha>();
-            noveZalihe = NapraviNoveZaliheOdBuducih();
+            List<Zaliha> noveZalihe = NapraviNoveZaliheOdBuducih();
             ZameniStareZaliheNovim(noveZalihe);
         }
 
         private List<Zaliha> NapraviNoveZaliheOdBuducih()
         {
-            List<BuducaZaliha> buduceZalihe = serviceBuducaZaliha.DobaviBuduceZaliheIsteklogDatuma();
-            List<Zaliha> noveZalihe = serviceZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe);
-            serviceBuducaZaliha.ObrisiBuduceZalihe(buduceZalihe);
+            List<BuducaZaliha> buduceZalihe = Inject.ControllerBuducaZaliha.DobaviBuduceZaliheIsteklogDatuma();
+            List<Zaliha> noveZalihe = Inject.ControllerZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe);
+            Inject.ControllerBuducaZaliha.ObrisiBuduceZalihe(buduceZalihe);
             return noveZalihe;
         }
 
         private void ZameniStareZaliheNovim(List<Zaliha> noveZalihe)
         {
-            if (serviceZaliha.DobaviZalihe() != null)
+            foreach (Zaliha z in Inject.ControllerZaliha.DobaviZalihe())
             {
-                foreach (Zaliha z in serviceZaliha.DobaviZalihe())
+                foreach (Zaliha nz in noveZalihe)
                 {
-                    foreach (Zaliha nz in noveZalihe)
-                    {
-                        if (z.Oprema.Sifra == nz.Oprema.Sifra)
-                        {
-                            serviceZaliha.ObrisiZalihu(z);
-
-                        }
-                    }
+                    if (z.Oprema.Sifra == nz.Oprema.Sifra)
+                        Inject.ControllerZaliha.ObrisiZalihu(z);
                 }
             }
-
-            serviceZaliha.SacuvajZalihe(noveZalihe);
-
+            Inject.ControllerZaliha.SacuvajZalihe(noveZalihe);
         }
 
         private void PrikaziOpremuProstorije(string brojProstorije)
         {
-            foreach (Zaliha zaliha in serviceZaliha.DobaviZalihe())
+            OpremaProstorije = new ObservableCollection<Zaliha>();
+            foreach (Zaliha z in Inject.ControllerZaliha.DobaviZaliheProstorije(brojProstorije))
             {
-                if (zaliha.Prostorija.BrojProstorije == brojProstorije)
-                {
-                    zaliha.Oprema = serviceOprema.DobaviOpremu(zaliha.Oprema.Sifra);
-                    OpremaSobe.Add(zaliha);
-                }
+                OpremaProstorije.Add(z);
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

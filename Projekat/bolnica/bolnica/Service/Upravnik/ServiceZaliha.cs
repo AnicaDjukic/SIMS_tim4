@@ -8,12 +8,14 @@ namespace Bolnica.Services.Prostorije
     public class ServiceZaliha
     {
         private RepositoryZaliha repository;
+        private ServiceOprema serviceOprema;
         public ServiceZaliha()
         {
             repository = new FileRepositoryZaliha();
+            serviceOprema = new ServiceOprema();
         }
 
-        public void ObrisiZalihe(string sifraOpreme)
+        public void ObrisiZaliheOpreme(string sifraOpreme)
         {
             foreach (Zaliha z in repository.GetAll())
             {
@@ -31,6 +33,17 @@ namespace Bolnica.Services.Prostorije
                 z.Oprema = bz.Oprema;
                 repository.Save(z);
             }
+        }
+
+        public int IzracunajRezervisanuKolicinu(string sifraOpreme)
+        {
+            int rezervisanaKolicina = 0;
+            foreach (Zaliha z in DobaviSveZalihe())
+            {
+                if (z.Oprema.Sifra == sifraOpreme && z.Prostorija.BrojProstorije != "magacin")
+                    rezervisanaKolicina += z.Kolicina;
+            }
+            return rezervisanaKolicina;
         }
 
         public List<Zaliha> DobaviZaliheOpreme(string sifraOpreme)
@@ -56,7 +69,7 @@ namespace Bolnica.Services.Prostorije
             repository.Save(zaliha);
         }
 
-        public List<Zaliha> DobaviZalihe()
+        public List<Zaliha> DobaviSveZalihe()
         {
             return repository.GetAll();
         }
@@ -77,7 +90,21 @@ namespace Bolnica.Services.Prostorije
             return false;
         }
 
-        internal List<Zaliha> NapraviZaliheOdBuducihZaliha(List<BuducaZaliha> buduceZalihe)
+        public List<Zaliha> DobaviZaliheProstorije(string brojProstorije)
+        {
+            List<Zaliha> zaliheProstorije = new List<Zaliha>();
+            foreach (Zaliha zaliha in DobaviSveZalihe())
+            {
+                if (zaliha.Prostorija.BrojProstorije == brojProstorije)
+                {
+                    zaliha.Oprema = serviceOprema.DobaviOpremu(zaliha.Oprema.Sifra);
+                    zaliheProstorije.Add(zaliha);
+                }
+            }
+            return zaliheProstorije;
+        }
+
+        public List<Zaliha> NapraviZaliheOdBuducihZaliha(List<BuducaZaliha> buduceZalihe)
         {
             List<Zaliha> noveZalihe = new List<Zaliha>();
             foreach (BuducaZaliha bz in buduceZalihe)

@@ -27,13 +27,13 @@ namespace Bolnica.Services.Prostorije
                         buduceZalihe.Add(bz);
                         repository.Delete(bz);
                     }
-                }               
+                }             
             }
 
             return buduceZalihe;
         }
 
-        public void ObrisiBuduceZaliheOpreme(string sifraOpreme, DateTime datum)
+        public void ObrisiBuduceZaliheOpremeZaDatum(string sifraOpreme, DateTime datum)
         {
             foreach (BuducaZaliha bz in repository.GetAll())
             {
@@ -47,21 +47,7 @@ namespace Bolnica.Services.Prostorije
             repository.Save(buduceZalihe);
         }
 
-        public List<BuducaZaliha> DobaviBuduceZaliheIsteklogDatuma()
-        {
-            List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
-            foreach (BuducaZaliha bz in repository.GetAll())
-            {
-                if (bz.Datum <= DateTime.Now.Date)
-                {
-                    buduceZalihe.Add(bz);
-                }
-            }
-
-            return buduceZalihe;
-        }
-
-        internal void ObrisiBuduceZalihe(List<BuducaZaliha> buduceZalihe)
+        public void ObrisiBuduceZalihe(List<BuducaZaliha> buduceZalihe)
         {
             foreach(BuducaZaliha bz in buduceZalihe)
             {
