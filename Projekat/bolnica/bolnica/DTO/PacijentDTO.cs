@@ -10,30 +10,60 @@ namespace Bolnica.DTO
 {
     public class PacijentDTO
     {
-        public Pacijent Pacijent { get; set; }
-        public List<TextBox> textBoxes { get; set; }
-        public DatePicker datePicker { get; set; }
-        public ComboBox comboBox { get; set; }
-        public CheckBox checkBox { get; set; }
-        public RadioButton radioButton { get; set; }
+        public string Jmbg { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+        public DateTime DatumRodjenja { get; set; }
+        public string BrojTelefona { get; set; }
+        public string AdresaStanovanja { get; set; }
+        public string Email { get; set; }
+        public string KorisnickoIme { get; set; }
+        public string Lozinka { get; set; }
+        public TipKorisnika TipKorisnika { get; set; }
+        public bool Guest { get; set; }
+        public bool Obrisan { get; set; }
+        public Pol Pol { get; set; }
+        public ZdravstveniKarton ZdravstveniKarton { get; set; }
         public List<Sastojak> Alergeni { get; set; }
 
         public PacijentDTO() 
         {
         }
 
-        public PacijentDTO(Pacijent p)
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, List<Sastojak> alergeni)
         {
-            this.Pacijent = p;
+            this.Jmbg = jmbg;
+            this.Ime = ime;
+            this.Prezime = prezime;
+            this.DatumRodjenja = datumRodjenja;
+            this.BrojTelefona = brojTelefona;
+            this.AdresaStanovanja = adresaStanovanja;
+            this.Email = email;
+            this.KorisnickoIme = korisnickoIme;
+            this.Lozinka = lozinka;
+            this.TipKorisnika = tipKorisnika;
+            this.Guest = guest;
+            this.Obrisan = obrisan;
+            this.Pol = pol;
+            this.Alergeni = alergeni;
         }
 
-        public PacijentDTO(List<TextBox> textBoxes, DatePicker datePicker, ComboBox comboBox, CheckBox checkBox, RadioButton radioButton, List<Sastojak> alergeni) 
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, ZdravstveniKarton zdravstveniKarton, List<Sastojak> alergeni)
         {
-            this.textBoxes = textBoxes;
-            this.datePicker = datePicker;
-            this.comboBox = comboBox;
-            this.checkBox = checkBox;
-            this.radioButton = radioButton;
+            this.Jmbg = jmbg;
+            this.Ime = ime;
+            this.Prezime = prezime;
+            this.DatumRodjenja = datumRodjenja;
+            this.BrojTelefona = brojTelefona;
+            this.AdresaStanovanja = adresaStanovanja;
+            this.Email = email;
+            this.KorisnickoIme = korisnickoIme;
+            this.Lozinka = lozinka;
+            this.TipKorisnika = tipKorisnika;
+            this.Guest = guest;
+            this.Obrisan = obrisan;
+            this.Pol = pol;
+            this.ZdravstveniKarton = zdravstveniKarton;
             this.Alergeni = alergeni;
         }
     }

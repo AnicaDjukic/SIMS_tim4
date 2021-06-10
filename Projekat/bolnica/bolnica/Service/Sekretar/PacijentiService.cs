@@ -2,6 +2,7 @@
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pacijenti;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Sekretar;
 using Model.Korisnici;
@@ -17,259 +18,179 @@ namespace Bolnica.Services
 {
     public class PacijentiService
     {
-        private FileRepositoryPacijent skladistePacijenata = new FileRepositoryPacijent();
-        private FileRepositoryZdravstveniKarton skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
-        private FileRepositoryKorisnik skladisteKorisnika = new FileRepositoryKorisnik();
-        private FileRepositoryPregled skladistePregleda = new FileRepositoryPregled();
-        private FileRepositoryOperacija skladisteOperacija = new FileRepositoryOperacija();
+        private IRepositoryPacijent skladistePacijenata;
+        private IRepositoryZdravstveniKarton skladisteZdravstvenihKartona;
+        private IRepositoryKorisnik skladisteKorisnika;
+        private IRepositoryPregled skladistePregleda;
+        private IRepositoryOperacija skladisteOperacija;
 
-        public List<Pacijent> DobaviPacijente() 
+        public PacijentiService() 
         {
-            return skladistePacijenata.GetAll();
+            skladistePacijenata = new FileRepositoryPacijent();
+            skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
+            skladisteKorisnika = new FileRepositoryKorisnik();
+            skladistePregleda = new FileRepositoryPregled();
+            skladisteOperacija = new FileRepositoryOperacija();
         }
 
-        public List<ZdravstveniKarton> DobaviZdravstveneKartone()
+        public PacijentDTO GetPacijentByID(string jmbg) 
         {
-            return skladisteZdravstvenihKartona.GetAll();
+            Pacijent pacijent = skladistePacijenata.GetById(jmbg);
+            PacijentDTO pacijentDTO = new PacijentDTO(pacijent.Jmbg, pacijent.Ime, pacijent.Prezime, pacijent.DatumRodjenja, pacijent.BrojTelefona, pacijent.AdresaStanovanja, pacijent.Email, pacijent.KorisnickoIme, pacijent.Lozinka, pacijent.TipKorisnika, pacijent.Guest, pacijent.Obrisan, pacijent.Pol, pacijent.ZdravstveniKarton, pacijent.Alergeni);
+            return pacijentDTO;
         }
 
-        private List<Pregled> DobaviPreglede()
+        public List<PacijentDTO> GetAllPacijente()
         {
-            return skladistePregleda.GetAll();
+            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
+            List<PacijentDTO> sviPacijentiDTO = new List<PacijentDTO>();
+
+            foreach (Pacijent p in sviPacijenti)
+                sviPacijentiDTO.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, p.ZdravstveniKarton, p.Alergeni));
+
+            return sviPacijentiDTO;
         }
 
-        private List<Operacija> DobaviOperacije()
+        public List<PacijentDTO> GetRedovnePacijente() 
         {
-            return skladisteOperacija.GetAll();
+            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
+            List<PacijentDTO> redovniPacijenti = new List<PacijentDTO>();
+
+            foreach (Pacijent p in sviPacijenti)
+                if (p.Obrisan == false && !p.Guest)
+                    redovniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, p.ZdravstveniKarton, p.Alergeni));
+
+            return redovniPacijenti;
         }
 
-        public void ObrisiRedovnogPacijenta(PacijentDTO pacijentDTO)
+        public List<PacijentDTO> GetGostPacijente()
         {
-            Pacijent pacijent = pacijentDTO.Pacijent;
-            Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-            skladisteKorisnika.Delete(korisnik);
-            List<Pregled> pregledi = DobaviPreglede();
-            List<Operacija> operacije = DobaviOperacije();
+            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
+            List<PacijentDTO> gostPacijenti = new List<PacijentDTO>();
+
+            foreach (Pacijent p in sviPacijenti)
+                if (p.Obrisan == false && p.Guest)
+                    gostPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, p.Alergeni));
+
+            return gostPacijenti;
+        }
+
+        public List<PacijentDTO> GetObrisanePacijente()
+        {
+            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
+            List<PacijentDTO> obrisaniPacijenti = new List<PacijentDTO>();
+
+            foreach (Pacijent p in sviPacijenti)
+                if (p.Obrisan)
+                    obrisaniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, p.ZdravstveniKarton, p.Alergeni));
+
+            return obrisaniPacijenti;
+        }
+
+        public void BlokirajPacijenta(PacijentDTO pacijentDTO)
+        {
+            UpdatePacijentaBlokiranje(pacijentDTO);
+            UpdateTerminaPacijentaBlokiranje(pacijentDTO);
+        }
+
+        private void UpdatePacijentaBlokiranje(PacijentDTO pacijentDTO) 
+        {
+            Pacijent pacijent = skladistePacijenata.GetById(pacijentDTO.Jmbg);
+            pacijent.Obrisan = true;
+            skladistePacijenata.Update(pacijent);
+
+            if (!pacijent.Guest)
+            {
+                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                skladisteKorisnika.Delete(korisnik);
+            }
+        }
+
+        private void UpdateTerminaPacijentaBlokiranje(PacijentDTO pacijentDTO) 
+        {
+            List<Pregled> pregledi = skladistePregleda.GetAll();
+            List<Operacija> operacije = skladisteOperacija.GetAll();
             foreach (Pregled p in pregledi)
-                if (p.Pacijent.Jmbg == pacijent.Jmbg)
+                if (p.Pacijent.Jmbg == pacijentDTO.Jmbg)
                     skladistePregleda.Delete(p);
             foreach (Operacija o in operacije)
-                if (o.Pacijent.Jmbg == pacijent.Jmbg)
+                if (o.Pacijent.Jmbg == pacijentDTO.Jmbg)
                     skladisteOperacija.Delete(o);
-            if (FormPregledi.Pregledi != null)
-                for (int i = FormPregledi.Pregledi.Count - 1; i >= 0; i--)
-                    if (FormPregledi.Pregledi[i].Pacijent.Jmbg == pacijent.Jmbg)
-                        FormPregledi.Pregledi.RemoveAt(i);
-            FormSekretar.RedovniPacijenti.Remove(pacijentDTO);
-            FormSekretar.ObrisaniPacijenti.Add(pacijentDTO);
-            skladistePacijenata.Delete(pacijent);
-            pacijent.Obrisan = true;
-            skladistePacijenata.Save(pacijent);
-        }
-
-        public void ObrisiGostPacijenta(PacijentDTO pacijentDTO)
-        {
-            Pacijent pacijent = pacijentDTO.Pacijent;
-            List<Pregled> pregledi = DobaviPreglede();
-            List<Operacija> operacije = DobaviOperacije();
-            foreach (Pregled p in pregledi)
-                if (p.Pacijent.Jmbg == pacijent.Jmbg)
-                    skladistePregleda.Delete(p);
-            foreach (Operacija o in operacije)
-                if (o.Pacijent.Jmbg == pacijent.Jmbg)
-                    skladisteOperacija.Delete(o);
-            if (FormPregledi.Pregledi != null)
-                for (int i = FormPregledi.Pregledi.Count - 1; i >= 0; i--)
-                    if (FormPregledi.Pregledi[i].Pacijent.Jmbg == pacijent.Jmbg)
-                        FormPregledi.Pregledi.RemoveAt(i);
-            FormSekretar.GostiPacijenti.Remove(pacijentDTO);
-            FormSekretar.ObrisaniPacijenti.Add(pacijentDTO);
-            skladistePacijenata.Delete(pacijent);
-            pacijent.Obrisan = true;
-            skladistePacijenata.Save(pacijent);
         }
 
         public void OdblokirajPacijenta(PacijentDTO pacijentDTO) 
         {
-            Pacijent pacijent = pacijentDTO.Pacijent;
+            Pacijent pacijent = skladistePacijenata.GetById(pacijentDTO.Jmbg);
+            pacijent.Obrisan = false;
+            skladistePacijenata.Update(pacijent);
+
             if (!pacijent.Guest)
             {
                 Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
                 skladisteKorisnika.Save(korisnik);
             }
-
-            FormSekretar.ObrisaniPacijenti.Remove(pacijentDTO);
-            if (!pacijent.Guest)
-                FormSekretar.RedovniPacijenti.Add(pacijentDTO);
-            else
-                FormSekretar.GostiPacijenti.Add(pacijentDTO);
-            skladistePacijenata.Delete(pacijent);
-            pacijent.Obrisan = false;
-            skladistePacijenata.Save(pacijent);
         }
 
         public void DodajIliIzmeniRedovnogPacijenta(PacijentDTO pacijentDTO) 
         {
-            Regex rgxBrojTelefona = new Regex(@"^\([0-9]{3}\)\s[0-9]{3}-[0-9]{3,4}$");
-            bool isEmail = Regex.IsMatch(pacijentDTO.Pacijent.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-            Regex rgxIDKartona = new Regex(@"^[1-9][0-9]*$");
-            Regex rgxJmbg = new Regex(@"^[0-9]{13}$");
-            List<Pacijent> pacijenti = skladistePacijenata.GetAll();
+            SnimiPacijentaDodavanjeIliIzmena(pacijentDTO);
+            SnimiZdravstveniKartonDodavanjeIliIzmena(pacijentDTO);
+            SnimiKorisnikaDodavanjeIliIzmena(pacijentDTO);
+        }
 
-            if (DateTime.Compare(pacijentDTO.Pacijent.DatumRodjenja, DateTime.Now) > 0 || pacijentDTO.Pacijent.DatumRodjenja.Year < 1900)
+        private void SnimiPacijentaDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
+        {
+            Pacijent pacijent = new Pacijent
             {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (pacijentDTO.Pacijent.Ime == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (pacijentDTO.Pacijent.Prezime == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
+                Guest = pacijentDTO.Guest,
+                Obrisan = pacijentDTO.Obrisan,
+                Pol = pacijentDTO.Pol,
+                ZdravstveniKarton = pacijentDTO.ZdravstveniKarton,
+                Alergeni = pacijentDTO.Alergeni,
+                Jmbg = pacijentDTO.Jmbg,
+                Ime = pacijentDTO.Ime,
+                Prezime = pacijentDTO.Prezime,
+                DatumRodjenja = pacijentDTO.DatumRodjenja,
+                BrojTelefona = pacijentDTO.BrojTelefona,
+                AdresaStanovanja = pacijentDTO.AdresaStanovanja,
+                Email = pacijentDTO.Email,
+                KorisnickoIme = pacijentDTO.KorisnickoIme,
+                Lozinka = pacijentDTO.Lozinka,
+                TipKorisnika = pacijentDTO.TipKorisnika
+            };
             if (FormSekretar.clickedDodaj)
-            {
-                if (!rgxJmbg.IsMatch(pacijentDTO.Pacijent.Jmbg))
-                {
-                    MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            if (FormSekretar.clickedDodaj)
-            {
-                foreach (Pacijent p in pacijenti)
-                {
-                    if (String.Equals(p.Jmbg, pacijentDTO.Pacijent.Jmbg))
-                    {
-                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-            }
-
-            if ((Int32.Parse(pacijentDTO.Pacijent.Jmbg.Substring(0, 2)) != pacijentDTO.Pacijent.DatumRodjenja.Day) || (Int32.Parse(pacijentDTO.Pacijent.Jmbg.Substring(2, 2)) != pacijentDTO.Pacijent.DatumRodjenja.Month) || (Int32.Parse(pacijentDTO.Pacijent.Jmbg.Substring(4, 3)) != (pacijentDTO.Pacijent.DatumRodjenja.Year % 1000)))
-            {
-                MessageBox.Show("JMBG i datum rođenja se ne poklapaju", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-
-            if (pacijentDTO.Pacijent.AdresaStanovanja == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!rgxBrojTelefona.IsMatch(pacijentDTO.Pacijent.BrojTelefona) || pacijentDTO.Pacijent.BrojTelefona == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!isEmail || pacijentDTO.Pacijent.Email == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (pacijentDTO.Pacijent.KorisnickoIme == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (FormSekretar.clickedDodaj)
-            {
-                foreach (Pacijent p in pacijenti)
-                {
-                    if (String.Equals(pacijentDTO.Pacijent.KorisnickoIme, p.KorisnickoIme))
-                    {
-                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-            }
-
-            if (pacijentDTO.Pacijent.Lozinka == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (FormSekretar.clickedDodaj)
-            {
-                if (!rgxIDKartona.IsMatch(pacijentDTO.Pacijent.ZdravstveniKarton.BrojKartona.ToString()))
-                {
-                    MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            if (FormSekretar.clickedDodaj)
-            {
-                foreach (Pacijent p in pacijenti)
-                {
-                    if (!p.Guest && p.ZdravstveniKarton.BrojKartona == pacijentDTO.Pacijent.ZdravstveniKarton.BrojKartona)
-                    {
-                        MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-            }
-
-            if (pacijentDTO.Pacijent.ZdravstveniKarton.Zanimanje == "")
-            {
-                MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Pacijent pacijent = pacijentDTO.Pacijent;
-            if (FormSekretar.clickedDodaj)
-            {
                 skladistePacijenata.Save(pacijent);
-                skladisteZdravstvenihKartona.Save(pacijent.ZdravstveniKarton);
-                FormSekretar.RedovniPacijenti.Add(pacijentDTO);
-
-                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                skladisteKorisnika.Save(korisnik);
-
-                FormSekretar.clickedDodaj = false;
-                FormDodajPacijenta.pacijentiUpdate = true;
-            }
             else
+                skladistePacijenata.Update(pacijent);
+        }
+
+        private void SnimiZdravstveniKartonDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
+        {
+            ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton
             {
-                foreach (Pacijent p in pacijenti)
-                {
-                    if (String.Equals(p.Jmbg, pacijent.Jmbg))
-                    {
-                        skladistePacijenata.Update(pacijent);
-                        skladisteZdravstvenihKartona.Update(pacijent.ZdravstveniKarton);
-                        skladisteKorisnika.Update(pacijent);
+                BrojKartona = pacijentDTO.ZdravstveniKarton.BrojKartona,
+                Zanimanje = pacijentDTO.ZdravstveniKarton.Zanimanje,
+                Osiguranje = pacijentDTO.ZdravstveniKarton.Osiguranje,
+                BracniStatus = pacijentDTO.ZdravstveniKarton.BracniStatus
+            };
+            if (FormSekretar.clickedDodaj)
+                skladisteZdravstvenihKartona.Save(zdravstveniKarton);
+            else
+                skladisteZdravstvenihKartona.Update(zdravstveniKarton);
+        }
 
-                        for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
-                        {
-                            if (FormSekretar.RedovniPacijenti[i].Pacijent.Jmbg == pacijent.Jmbg)
-                            {
-                                FormSekretar.RedovniPacijenti.Remove(FormSekretar.RedovniPacijenti[i]);
-                                break;
-                            }
-                        }
-
-                        FormSekretar.RedovniPacijenti.Add(pacijentDTO);
-                        FormDodajPacijenta.pacijentiUpdate = true;
-
-                        break;
-                    }
-                }
-            }
+        private void SnimiKorisnikaDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
+        {
+            Korisnik korisnik = new Korisnik
+            {
+                KorisnickoIme = pacijentDTO.KorisnickoIme,
+                Lozinka = pacijentDTO.Lozinka,
+                TipKorisnika = TipKorisnika.pacijent
+            };
+            if (FormSekretar.clickedDodaj)
+                skladisteKorisnika.Save(korisnik);
+            else
+                skladisteKorisnika.Update(korisnik);
         }
     }
 }
