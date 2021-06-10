@@ -64,7 +64,7 @@ namespace Bolnica.Forms.Upravnik
                     }
                     else
                     {
-                        MessageBox.Show("Prostorija je " + p.BrojProstorije + " je zauzeta u narednom periodu!");
+                        MessageBox.Show(LocalizedStrings.Instance["Prostorija"] + " " + p.BrojProstorije + " " + LocalizedStrings.Instance["je zauzeta u narednom periodu!"]);
                         return;
                     }
                 }

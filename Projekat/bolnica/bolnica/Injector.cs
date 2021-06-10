@@ -113,6 +113,8 @@ namespace Bolnica
         private ControllerRenoviranje controllerRenoviranje = new ControllerRenoviranje();
 
         private ControllerZaliha controllerZaliha = new ControllerZaliha();
+
+        private ControllerOcenaAplikacije controllerOcenaAplikacije = new ControllerOcenaAplikacije();
         public ControllerLek ControllerLek
         {
             get { return controllerLek; }
@@ -155,6 +157,11 @@ namespace Bolnica
         public ControllerZaliha ControllerZaliha
         {
             get { return controllerZaliha; }
+        }
+
+        public ControllerOcenaAplikacije ControllerOcenaAplikacije
+        {
+            get { return controllerOcenaAplikacije; }
         }
         #endregion
 

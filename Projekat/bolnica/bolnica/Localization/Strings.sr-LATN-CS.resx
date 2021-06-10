@@ -249,6 +249,9 @@
   <data name="InformacijeTabItem" xml:space="preserve">
     <value>INFORMACIJE</value>
   </data>
+  <data name="IskustvoTxtBlock" xml:space="preserve">
+    <value>Kakvo je vaše iskustvo u korišćenju aplikacije?</value>
+  </data>
   <data name="IzaberiJezikMenuItem" xml:space="preserve">
     <value>Jezik</value>
   </data>
@@ -276,6 +279,9 @@
   <data name="Izveštaj o količini lekova - trenutno stanje" xml:space="preserve">
     <value>Izveštaj o količini lekova - trenutno stanje</value>
   </data>
+  <data name="je zauzeta u narednom periodu!" xml:space="preserve">
+    <value>je zauzeta u narednom periodu!</value>
+  </data>
   <data name="KolicinaDataGrid" xml:space="preserve">
     <value>KOLIČINA</value>
   </data>
@@ -287,6 +293,9 @@
   </data>
   <data name="KolicinaUMgLabel" xml:space="preserve">
     <value>Količina u mg:</value>
+  </data>
+  <data name="KomentarTxtBlock" xml:space="preserve">
+    <value>Vaš komentar:</value>
   </data>
   <data name="KrajDataGrid" xml:space="preserve">
     <value>KRAJ</value>
@@ -303,8 +312,23 @@
   <data name="lblBrojSlobodnihKreveta" xml:space="preserve">
     <value>Broj slobodnih kreveta:</value>
   </data>
+  <data name="lblDobro" xml:space="preserve">
+    <value>Dobro</value>
+  </data>
+  <data name="lblLose" xml:space="preserve">
+    <value>Loše</value>
+  </data>
+  <data name="lblOdlicno" xml:space="preserve">
+    <value>Odlično</value>
+  </data>
   <data name="lblUkBrojKreveta" xml:space="preserve">
     <value>Ukupan broj kreveta:</value>
+  </data>
+  <data name="lblVrloDobro" xml:space="preserve">
+    <value>Vrlo dobro</value>
+  </data>
+  <data name="lblVrloLose" xml:space="preserve">
+    <value>Vrlo loše</value>
   </data>
   <data name="lblZalihe" xml:space="preserve">
     <value>Zalihe:</value>
@@ -362,6 +386,9 @@
   </data>
   <data name="ObrisiTxtBlock" xml:space="preserve">
     <value>Obriši</value>
+  </data>
+  <data name="Ocenjivanje aplikacije" xml:space="preserve">
+    <value>Ocenjivanje aplikacije</value>
   </data>
   <data name="Odbijen" xml:space="preserve">
     <value>Odbijen</value>
@@ -423,6 +450,9 @@
   <data name="PremestanjeTxtBlock" xml:space="preserve">
     <value>PREMEŠTANJA</value>
   </data>
+  <data name="PrijavaGreskeTxtBlock" xml:space="preserve">
+    <value>OCENI APLIKACIJU</value>
+  </data>
   <data name="Prikaz leka" xml:space="preserve">
     <value>Prikaz leka</value>
   </data>
@@ -443,6 +473,9 @@
   </data>
   <data name="ProizvodjacLabel" xml:space="preserve">
     <value>Proizvođač:</value>
+  </data>
+  <data name="Prostorija" xml:space="preserve">
+    <value>Prostorija</value>
   </data>
   <data name="Prostorija je trenutno zauzeta, ne možete je obrisati." xml:space="preserve">
     <value>Prostorija je trenutno zauzeta, ne možete je obrisati.</value>

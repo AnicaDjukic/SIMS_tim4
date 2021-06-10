@@ -85,7 +85,6 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                                 </Grid>
@@ -111,7 +110,6 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                                 </Grid>

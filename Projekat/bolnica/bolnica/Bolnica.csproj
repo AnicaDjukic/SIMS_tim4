@@ -15,6 +15,7 @@
     <None Remove="Forms\Images\diamond.png" />
     <None Remove="Forms\Images\document.png" />
     <None Remove="Forms\Images\edit.png" />
+    <None Remove="Forms\Images\feedback.png" />
     <None Remove="Forms\Images\great-britain.png" />
     <None Remove="Forms\Images\help.png" />
     <None Remove="Forms\Images\info.png" />
@@ -59,6 +60,7 @@
     <Resource Include="Forms\Images\diamond.png" />
     <Resource Include="Forms\Images\document.png" />
     <Resource Include="Forms\Images\edit.png" />
+    <Resource Include="Forms\Images\feedback.png" />
     <Resource Include="Forms\Images\great-britain.png" />
     <Resource Include="Forms\Images\help.png" />
     <Resource Include="Forms\Images\info.png" />

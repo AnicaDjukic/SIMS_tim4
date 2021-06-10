@@ -160,29 +160,35 @@
             </TabItem>
         </TabControl>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,45,10,0">
-            <Button Margin="10,0,5,10" Click="Button_Click_Obavestenja" Style="{DynamicResource ButtonStyle}">
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0,40,10,0">
+            <Button Margin="5,0,0,10" Click="Button_Click_Obavestenja" Style="{DynamicResource ButtonStyle}">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/notification-bell.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock Name="ObavestenjaTxtBlock" VerticalAlignment="Center" Margin="5,0,0,0" Text="{lex:Loc}" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10,10,5,10" Style="{DynamicResource ButtonStyle}">
+            <Button Margin="5,10,0,10" Style="{DynamicResource ButtonStyle}">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/diamond.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock Name="CenovnikTxtBlock" Text="{lex:Loc}" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10,10,5,10" Style="{DynamicResource ButtonStyle}">
+            <Button Margin="5,10,0,10" Style="{DynamicResource ButtonStyle}">
                 <StackPanel Width="150" Orientation="Horizontal">
                     <Image Source="../Images/document.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock Name="ZahteviTxtBlock" Text="{lex:Loc}"  VerticalAlignment="Center" Margin="5,0,0,0" FontSize="12"/>
                 </StackPanel>
             </Button>
-            <Button Margin="10,10,5,10" Style="{DynamicResource ButtonStyle}">
-                <StackPanel Orientation="Horizontal">
+            <Button Margin="5,10,0,10" Style="{DynamicResource ButtonStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Image Source="../Images/shopping-cart.png" Width="25" Height="25" HorizontalAlignment="Left"/>
                     <TextBlock Name="PonudeIOglasiTxtBlock" Text="{lex:Loc}" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="12"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="5,10,0,10" Style="{DynamicResource ButtonStyle}" Click="Button_Click_Oceni">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Source="../Images/feedback.png" Width="25" Height="25" HorizontalAlignment="Left"/>
+                    <TextBlock Name="PrijavaGreskeTxtBlock" Text="{lex:Loc}" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="12"/>
                 </StackPanel>
             </Button>
         </StackPanel>

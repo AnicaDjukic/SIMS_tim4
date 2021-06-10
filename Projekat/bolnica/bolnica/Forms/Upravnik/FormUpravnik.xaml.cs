@@ -734,5 +734,11 @@ namespace bolnica.Forms
                 s.Show();
             }
         }
+
+        private void Button_Click_Oceni(object sender, RoutedEventArgs e)
+        {
+            var s = new FormOceniAplikaciju();
+            s.Show();
+        }
     }
 }
