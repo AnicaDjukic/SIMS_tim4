@@ -483,7 +483,7 @@ namespace Bolnica.Forms.Sekretar
                 o.Hitan = trenutnaOperacija.Hitan;
                 o.TipOperacije = trenutnaOperacija.TipOperacije;
 
-                sviPregledi.Save(o);
+                sveOperacije.Save(o);
                 FormPregledi.listaOperacija.Add(o);
                 FormPregledi.Pregledi.Add(trenutnaOperacija);
 

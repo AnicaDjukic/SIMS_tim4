@@ -85,12 +85,7 @@ namespace Bolnica.Sekretar
         {
             List<Sastojak> alergeni = new List<Sastojak>();
             if (dataGridAlergeniSvi.SelectedItems.Count == 0)
-            {
-                MessageBoxResult result = MessageBox.Show("Niste odabrali alergen za dodavanje.",
-                                          "Dodavanje alergena",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-            }
+                MessageBox.Show("Niste odabrali alergen za dodavanje.", "Dodavanje alergena", MessageBoxButton.OK, MessageBoxImage.Information);
             else
             {
                 for (int i = 0; i < dataGridAlergeniSvi.SelectedItems.Count; i++)
@@ -114,12 +109,7 @@ namespace Bolnica.Sekretar
         {
             List<Sastojak> alergeni = new List<Sastojak>();
             if (dataGridAlergeniDodati.SelectedItems.Count == 0) 
-            {
-                MessageBoxResult result = MessageBox.Show("Niste odabrali alergen za uklanjanje.",
-                                          "Uklanjanje alergena",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-            }
+                MessageBox.Show("Niste odabrali alergen za uklanjanje.", "Uklanjanje alergena", MessageBoxButton.OK, MessageBoxImage.Information);
             else
             {
                 for (int i = 0; i < dataGridAlergeniDodati.SelectedItems.Count; i++)

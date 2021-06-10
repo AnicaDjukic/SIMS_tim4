@@ -14,7 +14,7 @@ namespace Bolnica.Controller
 {
     public class PacijentiController
     {
-        private PacijentiService service = new PacijentiService();
+        private PacijentService service = new PacijentService();
 
         public PacijentDTO GetPacijentByID(string jmbg)
         {

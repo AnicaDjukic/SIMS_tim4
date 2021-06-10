@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace Bolnica.Services
 {
-    public class PacijentiService
+    public class PacijentService
     {
         private IRepositoryPacijent skladistePacijenata;
         private IRepositoryZdravstveniKarton skladisteZdravstvenihKartona;
@@ -24,7 +24,7 @@ namespace Bolnica.Services
         private IRepositoryPregled skladistePregleda;
         private IRepositoryOperacija skladisteOperacija;
 
-        public PacijentiService() 
+        public PacijentService() 
         {
             skladistePacijenata = new FileRepositoryPacijent();
             skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
