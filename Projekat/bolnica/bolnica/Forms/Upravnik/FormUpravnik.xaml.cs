@@ -58,6 +58,15 @@ namespace bolnica.Forms
         public FormUpravnik()
         {
             InitializeComponent();
+            this.DataContext = this;
+            clickedDodaj = false;
+            AzurirajVreme();
+            ProveriPodeleISpajanjaProstorija();
+            InicijalizujPrikaz();
+        }
+
+        private void AzurirajVreme()
+        {
             Title = LocalizedStrings.Instance["Upravnik"];
             DispatcherTimer timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
@@ -65,7 +74,10 @@ namespace bolnica.Forms
                 Datum.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             }, Dispatcher);
+        }
 
+        private void ProveriPodeleISpajanjaProstorija()
+        {
             foreach (Renoviranje r in serviceRenoviranje.DobaviSvaRenoviranja())
             {
                 if (r.KrajRenoviranja <= DateTime.Now.Date)
@@ -74,37 +86,57 @@ namespace bolnica.Forms
                     {
                         double novaKvadratura = serviceProstorija.DobaviKvadraturu(r.Prostorija.BrojProstorije);
                         if (r.BrojNovihProstorija > 0)
-                        {
-                            novaKvadratura = novaKvadratura / r.BrojNovihProstorija;
-                            for (int i = 0; i < r.BrojNovihProstorija - 1; i++)
-                            {
-                                Prostorija p = new Prostorija { BrojProstorije = r.Prostorija.BrojProstorije + LocalizedStrings.Instance["nova"] + (i + 1).ToString() };
-                                p.Kvadratura = novaKvadratura;
-                                serviceProstorija.SacuvajProstoriju(p);
-                            }
-                            r.BrojNovihProstorija = 0;
-                        }
+                            PodeliProstoriju(r, novaKvadratura);
                         else
-                        {
-                            foreach (Prostorija p in r.ProstorijeZaSpajanje)
-                            {
-                                Prostorija prostorija = serviceProstorija.DobaviProstoriju(p.BrojProstorije);
-                                novaKvadratura += prostorija.Kvadratura;
-                                serviceZaliha.ObrisiZaliheProstorije(prostorija.BrojProstorije);
-                                serviceBuducaZaliha.ObrisiBuduceZaliheProstorije(prostorija.BrojProstorije);
-                                serviceProstorija.ObrisiProstoriju(prostorija.BrojProstorije);
-                            }
-                        }
-                        Prostorija renoviranaProstorija = serviceProstorija.DobaviProstoriju(r.Prostorija.BrojProstorije);
-                        renoviranaProstorija.Kvadratura = novaKvadratura;
-                        serviceProstorija.IzmeniProstoriju(renoviranaProstorija);
-                        serviceRenoviranje.Izmeni(r);
+                            SpojiProstorije(r, novaKvadratura);
+
+                        AzurirajProstorijuIRenoviranje(r,novaKvadratura);
                     }
                 }
             }
+        }
 
-            clickedDodaj = false;
-            this.DataContext = this;
+        private void PodeliProstoriju(Renoviranje renoviranje, double novaKvadratura)
+        {
+            novaKvadratura = novaKvadratura / renoviranje.BrojNovihProstorija;
+            for (int i = 0; i < renoviranje.BrojNovihProstorija - 1; i++)
+            {
+                Prostorija p = new Prostorija { BrojProstorije = renoviranje.Prostorija.BrojProstorije + LocalizedStrings.Instance["nova"] + (i + 1).ToString() };
+                p.Kvadratura = novaKvadratura;
+                serviceProstorija.SacuvajProstoriju(p);
+            }
+            renoviranje.BrojNovihProstorija = 0;
+        }
+
+        private void SpojiProstorije(Renoviranje renoviranje, double novaKvadratura)
+        {
+            foreach (Prostorija p in renoviranje.ProstorijeZaSpajanje)
+            {
+                Prostorija prostorija = serviceProstorija.DobaviProstoriju(p.BrojProstorije);
+                novaKvadratura += prostorija.Kvadratura;
+                serviceZaliha.ObrisiZaliheProstorije(prostorija.BrojProstorije);
+                serviceBuducaZaliha.ObrisiBuduceZaliheProstorije(prostorija.BrojProstorije);
+                serviceProstorija.ObrisiProstoriju(prostorija.BrojProstorije);
+            }
+        }
+
+        private void AzurirajProstorijuIRenoviranje(Renoviranje renoviranje, double novaKvadratura)
+        {
+            Prostorija renoviranaProstorija = serviceProstorija.DobaviProstoriju(renoviranje.Prostorija.BrojProstorije);
+            renoviranaProstorija.Kvadratura = novaKvadratura;
+            serviceProstorija.IzmeniProstoriju(renoviranaProstorija);
+            serviceRenoviranje.Izmeni(renoviranje);
+        }
+
+        private void InicijalizujPrikaz()
+        {
+            PrikaziSveProstorije();
+            PrikaziSvuOpremu();
+            PrikaziSveLekove();
+        }
+
+        private void PrikaziSveProstorije()
+        {
             Prostorije = new ObservableCollection<Prostorija>();
             storageProstorije = new FileRepositoryProstorija();
 
@@ -120,7 +152,10 @@ namespace bolnica.Forms
                 if (b.Obrisana == false)
                     Prostorije.Add(b);
             }
+        }
 
+        private void PrikaziSvuOpremu()
+        {
             Oprema = new ObservableCollection<Oprema>();
             storageOprema = new FileRepositoryOprema();
 
@@ -132,7 +167,10 @@ namespace bolnica.Forms
                     Oprema.Add(o);
                 }
             }
+        }
 
+        private void PrikaziSveLekove()
+        {
             Lekovi = new ObservableCollection<Lek>();
             storageLekovi = new FileRepositoryLek();
 
@@ -155,23 +193,30 @@ namespace bolnica.Forms
         {
             clickedDodaj = true;
             if (Tabovi.SelectedIndex == 0)
-            {
-                var p = new CreateFormProstorije();
-                p.Show();
-            }
+                PrikaziFormuZaDodavanjeProstorije();
             else if (Tabovi.SelectedIndex == 1)
-            {
-                var o = new CreateFormOprema();
-                o.Show();
-            }
-            else if (Tabovi.SelectedIndex == 2)
-            {
-                LekDTO noviLek = new LekDTO();
-                ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(noviLek);
-                CreateFormLekovi l = new CreateFormLekovi(vm);
-            }
+                PrikaziFormuZaDodavanjeOpreme();
+            else
+                PrikaziFormuZaDodavanjeLeka();
         }
 
+        private void PrikaziFormuZaDodavanjeProstorije()
+        {
+            var p = new CreateFormProstorije();
+            p.Show();
+        }
+        private void PrikaziFormuZaDodavanjeOpreme()
+        {
+            var o = new CreateFormOprema();
+            o.Show();
+        }
+
+        private void PrikaziFormuZaDodavanjeLeka()
+        {
+            LekDTO noviLek = new LekDTO();
+            ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(noviLek);
+            CreateFormLekovi l = new CreateFormLekovi(vm);
+        }
         private void Button_Click_Prikazi(object sender, RoutedEventArgs e)
         {
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
