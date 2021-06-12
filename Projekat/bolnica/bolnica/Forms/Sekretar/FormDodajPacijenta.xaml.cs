@@ -228,11 +228,11 @@ namespace Bolnica.Forms
         }
 
         private PacijentController pacijentiController;
-        private List<SastojakDTO> alergeni;
-        public FormDodajPacijenta(List<SastojakDTO> alergeni)
+        private List<int> idsAlergeni;
+        public FormDodajPacijenta(List<int> idsAlergeni)
         {
             InitializeComponent();
-            this.alergeni = alergeni;
+            this.idsAlergeni = idsAlergeni;
             pacijentiController = new PacijentController();
             InicijalizujGUI();
         }
@@ -261,12 +261,14 @@ namespace Bolnica.Forms
                 Pol = PostaviPoljePolPacijenta(),
                 BrojTelefona = txtBrojTelefona.Text,
                 AdresaStanovanja = txtAdresaStanovanja.Text,
+                Zanimanje = txtZanimanje.Text,
+                BracniStatus = PostaviPoljeBracniStatusPacijenta(),
+                Osiguranje = (bool)checkOsiguranje.IsChecked,
                 Email = txtEmail.Text,
                 Obrisan = false,
                 Guest = false,
             };
 
-            pacijent.ZdravstveniKarton = new ZdravstveniKartonDTO { Zanimanje = txtZanimanje.Text, BracniStatus = PostaviPoljeBracniStatusPacijenta(), Osiguranje = (bool)checkOsiguranje.IsChecked };
             PostaviPoljeAlergeniPacijenta(pacijent);
 
             if (!PostaviPoljeDatumRodjenjaPacijenta(pacijent) || !PostaviPoljeBrojKartonaPacijenta(pacijent) || !SvaPoljaValidna(pacijent))
@@ -296,7 +298,7 @@ namespace Bolnica.Forms
             Regex rgxIDKartona = new Regex(@"^[1-9][0-9]*$");
 
             if (FormSekretar.clickedDodaj)
-                if (!rgxIDKartona.IsMatch(pacijent.ZdravstveniKarton.BrojKartona.ToString()))
+                if (!rgxIDKartona.IsMatch(pacijent.BrojKartona.ToString()))
                 {
                     MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
@@ -304,7 +306,7 @@ namespace Bolnica.Forms
 
             if (FormSekretar.clickedDodaj)
                 foreach (PacijentDTO p in sviPacijenti)
-                    if (!p.Guest && p.ZdravstveniKarton.BrojKartona == pacijent.ZdravstveniKarton.BrojKartona)
+                    if (!p.Guest && p.BrojKartona == pacijent.BrojKartona)
                     {
                         MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
@@ -386,7 +388,7 @@ namespace Bolnica.Forms
 
         private bool JednostavneValidacijeValidne(PacijentDTO pacijent) 
         {
-            if (pacijent.Ime == "" || pacijent.Prezime == "" || pacijent.AdresaStanovanja == "" || pacijent.KorisnickoIme == "" || pacijent.Lozinka == "" || pacijent.ZdravstveniKarton.Zanimanje == "")
+            if (pacijent.Ime == "" || pacijent.Prezime == "" || pacijent.AdresaStanovanja == "" || pacijent.KorisnickoIme == "" || pacijent.Lozinka == "" || pacijent.Zanimanje == "")
             {
                 MessageBox.Show("Postoje greške pri popunjavanju forme ili neki podatak nije unet", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
@@ -397,11 +399,16 @@ namespace Bolnica.Forms
         private void PostaviPoljeAlergeniPacijenta(PacijentDTO pacijent) 
         {
             if (!FormSekretar.clickedDodaj && FormAlergeniDodaj.DodatiAlergeni == null)
-                pacijent.Alergeni = alergeni;
-            else if (FormAlergeniDodaj.DodatiAlergeni != null && FormAlergeniDodaj.DodatiAlergeni.Count != 0)
-                pacijent.Alergeni = FormAlergeniDodaj.DodatiAlergeni.ToList();
+                pacijent.IdsAlergena = idsAlergeni;
+            else if (FormAlergeniDodaj.DodatiAlergeni != null && FormAlergeniDodaj.DodatiAlergeni.Count != 0) 
+            {
+                List<SastojakDTO> alergeni = FormAlergeniDodaj.DodatiAlergeni.ToList();
+                pacijent.IdsAlergena = new List<int>();
+                foreach (SastojakDTO sastojakDTO in alergeni)
+                    pacijent.IdsAlergena.Add(sastojakDTO.Id);
+            }
             else
-                pacijent.Alergeni = null;
+                pacijent.IdsAlergena = null;
         }
 
         private Pol PostaviPoljePolPacijenta()
@@ -433,7 +440,7 @@ namespace Bolnica.Forms
         {
             try
             {
-                pacijent.ZdravstveniKarton.BrojKartona = Int32.Parse(txtIDKarton.Text);
+                pacijent.BrojKartona = Int32.Parse(txtIDKarton.Text);
                 return true;
             }
             catch (FormatException)

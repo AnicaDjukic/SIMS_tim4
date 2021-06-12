@@ -23,5 +23,31 @@ namespace Bolnica.Service.Sekretar
             ZdravstveniKartonDTO zdravstveniKartonDTO = new ZdravstveniKartonDTO(zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje);
             return zdravstveniKartonDTO;
         }
+
+        public void SaveZdravstveniKarton(ZdravstveniKartonDTO zdravstveniKartonDTO) 
+        {
+            ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton
+            {
+                BrojKartona = zdravstveniKartonDTO.BrojKartona,
+                Zanimanje = zdravstveniKartonDTO.Zanimanje,
+                Osiguranje = zdravstveniKartonDTO.Osiguranje,
+                BracniStatus = zdravstveniKartonDTO.BracniStatus
+            };
+
+            skladisteZdravstvenihKartona.Save(zdravstveniKarton);
+        }
+
+        public void UpdateZdravstveniKarton(ZdravstveniKartonDTO zdravstveniKartonDTO) 
+        {
+            ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton
+            {
+                BrojKartona = zdravstveniKartonDTO.BrojKartona,
+                Zanimanje = zdravstveniKartonDTO.Zanimanje,
+                Osiguranje = zdravstveniKartonDTO.Osiguranje,
+                BracniStatus = zdravstveniKartonDTO.BracniStatus
+            };
+
+            skladisteZdravstvenihKartona.Update(zdravstveniKarton);
+        }
     }
 }

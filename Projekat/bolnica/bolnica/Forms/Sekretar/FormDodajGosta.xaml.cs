@@ -1,4 +1,5 @@
 ﻿using Bolnica.Controller;
+using Bolnica.Controller.Sekretar;
 using Bolnica.DTO;
 using Bolnica.DTO.Sekretar;
 using Bolnica.Model.Pregledi;
@@ -158,6 +159,7 @@ namespace Bolnica.Forms.Sekretar
         }
 
         private PacijentController pacijentiController;
+        private SastojakController sastojakController;
         public static Pacijent pacijent;
         private ComboBox comboPacijent;
         public FormDodajGosta(ComboBox comboPacijent)
@@ -166,6 +168,7 @@ namespace Bolnica.Forms.Sekretar
             this.comboPacijent = comboPacijent;
             pacijent = new Pacijent();
             pacijentiController = new PacijentController();
+            sastojakController = new SastojakController();
             InicijalizujGUI();
         }
 
@@ -224,9 +227,12 @@ namespace Bolnica.Forms.Sekretar
             };
 
             pacijent.Alergeni = new List<Sastojak>();
-            foreach (SastojakDTO alergen in pacijentDTO.Alergeni)
-                pacijent.Alergeni.Add(new Sastojak { Id = alergen.Id, Naziv = alergen.Naziv });
-
+            foreach (int id in pacijentDTO.IdsAlergena) 
+            {
+                SastojakDTO sastojakDTO = sastojakController.GetAlergenById(id);
+                pacijent.Alergeni.Add(new Sastojak { Id = sastojakDTO.Id, Naziv = sastojakDTO.Naziv });
+            }
+                
             comboPacijent.Text = pacijent.Ime + " " + pacijent.Prezime + " " + pacijent.Jmbg;
             FormZakaziHitanTermin.guest = true;
             this.Close();
@@ -313,9 +319,14 @@ namespace Bolnica.Forms.Sekretar
         private void PostaviPoljeAlergeniPacijenta(PacijentDTO pacijent) 
         {
             if (FormAlergeniDodaj.DodatiAlergeni != null && FormAlergeniDodaj.DodatiAlergeni.Count != 0)
-                pacijent.Alergeni = FormAlergeniDodaj.DodatiAlergeni.ToList();
+            {
+                List<SastojakDTO> alergeni = FormAlergeniDodaj.DodatiAlergeni.ToList();
+                pacijent.IdsAlergena = new List<int>();
+                foreach (SastojakDTO sastojakDTO in alergeni)
+                    pacijent.IdsAlergena.Add(sastojakDTO.Id);
+            }
             else
-                pacijent.Alergeni = null;
+                pacijent.IdsAlergena = null;
         }
 
         private bool PostaviPoljeDatumRodjenjaPacijenta(PacijentDTO pacijent)

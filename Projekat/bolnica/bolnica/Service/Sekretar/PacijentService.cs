@@ -7,6 +7,7 @@ using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Sekretar;
+using Bolnica.Service.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -21,31 +22,31 @@ namespace Bolnica.Services
     public class PacijentService
     {
         private IRepositoryPacijent skladistePacijenata;
-        private IRepositoryZdravstveniKarton skladisteZdravstvenihKartona;
         private IRepositoryKorisnik skladisteKorisnika;
         private IRepositoryPregled skladistePregleda;
         private IRepositoryOperacija skladisteOperacija;
+        private SastojakService sastojakService;
+        private ZdravstveniKartonService zdravstveniKartonService;
 
         public PacijentService() 
         {
             skladistePacijenata = new FileRepositoryPacijent();
-            skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
             skladisteKorisnika = new FileRepositoryKorisnik();
             skladistePregleda = new FileRepositoryPregled();
             skladisteOperacija = new FileRepositoryOperacija();
+            sastojakService = new SastojakService();
+            zdravstveniKartonService = new ZdravstveniKartonService();
         }
 
         public PacijentDTO GetPacijentByID(string jmbg) 
         {
             Pacijent pacijent = skladistePacijenata.GetById(jmbg);
-            ZdravstveniKarton zdravstveniKarton = skladisteZdravstvenihKartona.GetById(pacijent.ZdravstveniKarton.BrojKartona);
-            ZdravstveniKartonDTO zdravstveniKartonDTO = new ZdravstveniKartonDTO(zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje);
-            List<SastojakDTO> alergeniDTO = new List<SastojakDTO>();
+            ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonService.GetZdravstveniKartonByID(pacijent.ZdravstveniKarton.BrojKartona);
+            List<int> idsAlergena = new List<int>();
             if (pacijent.Alergeni != null)
-                foreach (Sastojak alergen in pacijent.Alergeni)
-                    alergeniDTO.Add(new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv });
-
-            PacijentDTO pacijentDTO = new PacijentDTO(pacijent.Jmbg, pacijent.Ime, pacijent.Prezime, pacijent.DatumRodjenja, pacijent.BrojTelefona, pacijent.AdresaStanovanja, pacijent.Email, pacijent.KorisnickoIme, pacijent.Lozinka, pacijent.TipKorisnika, pacijent.Guest, pacijent.Obrisan, pacijent.Pol, zdravstveniKartonDTO, alergeniDTO);
+                foreach (Sastojak sastojak in pacijent.Alergeni)
+                    idsAlergena.Add(sastojak.Id);
+            PacijentDTO pacijentDTO = new PacijentDTO(pacijent.Jmbg, pacijent.Ime, pacijent.Prezime, pacijent.DatumRodjenja, pacijent.BrojTelefona, pacijent.AdresaStanovanja, pacijent.Email, pacijent.KorisnickoIme, pacijent.Lozinka, pacijent.TipKorisnika, pacijent.Guest, pacijent.Obrisan, pacijent.Pol, zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje, idsAlergena);
             return pacijentDTO;
         }
 
@@ -56,18 +57,17 @@ namespace Bolnica.Services
 
             foreach (Pacijent p in sviPacijenti)
             {
-                ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton();
-                ZdravstveniKartonDTO zdravstveniKartonDTO = new ZdravstveniKartonDTO();
-                if (p.ZdravstveniKarton != null)
-                {
-                    zdravstveniKarton = skladisteZdravstvenihKartona.GetById(p.ZdravstveniKarton.BrojKartona);
-                    zdravstveniKartonDTO = new ZdravstveniKartonDTO(zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje);
-                }
-                List<SastojakDTO> alergeniDTO = new List<SastojakDTO>();
+                List<int> idsAlergena = new List<int>();
                 if (p.Alergeni != null)
-                    foreach (Sastojak alergen in p.Alergeni)
-                        alergeniDTO.Add(new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv });
-                sviPacijentiDTO.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKartonDTO, alergeniDTO));
+                    foreach (Sastojak sastojak in p.Alergeni)
+                        idsAlergena.Add(sastojak.Id);
+                if (!p.Guest)
+                {
+                    ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonService.GetZdravstveniKartonByID(p.ZdravstveniKarton.BrojKartona);
+                    sviPacijentiDTO.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje, idsAlergena));
+                }
+                else
+                    sviPacijentiDTO.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, idsAlergena));
             }
             return sviPacijentiDTO;
         }
@@ -80,13 +80,12 @@ namespace Bolnica.Services
             foreach (Pacijent p in sviPacijenti)
                 if (p.Obrisan == false && !p.Guest)
                 {
-                    ZdravstveniKarton zdravstveniKarton = skladisteZdravstvenihKartona.GetById(p.ZdravstveniKarton.BrojKartona);
-                    ZdravstveniKartonDTO zdravstveniKartonDTO = new ZdravstveniKartonDTO(zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje);
-                    List<SastojakDTO> alergeniDTO = new List<SastojakDTO>();
+                    ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonService.GetZdravstveniKartonByID(p.ZdravstveniKarton.BrojKartona);
+                    List<int> idsAlergena = new List<int>();
                     if (p.Alergeni != null)
-                        foreach (Sastojak alergen in p.Alergeni)
-                            alergeniDTO.Add(new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv });
-                    redovniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKartonDTO, alergeniDTO));
+                        foreach (Sastojak sastojak in p.Alergeni)
+                            idsAlergena.Add(sastojak.Id);
+                    redovniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje, idsAlergena));
                 }
             return redovniPacijenti;
         }
@@ -99,11 +98,11 @@ namespace Bolnica.Services
             foreach (Pacijent p in sviPacijenti)
                 if (p.Obrisan == false && p.Guest)
                 {
-                    List<SastojakDTO> alergeniDTO = new List<SastojakDTO>();
+                    List<int> idsAlergena = new List<int>();
                     if (p.Alergeni != null)
-                        foreach (Sastojak alergen in p.Alergeni)
-                            alergeniDTO.Add(new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv });
-                    gostPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, alergeniDTO));
+                        foreach (Sastojak sastojak in p.Alergeni)
+                            idsAlergena.Add(sastojak.Id);
+                    gostPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, idsAlergena));
                 }
             return gostPacijenti;
         }
@@ -116,17 +115,17 @@ namespace Bolnica.Services
             foreach (Pacijent p in sviPacijenti)
                 if (p.Obrisan)
                 {
-                    ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton();
-                    ZdravstveniKartonDTO zdravstveniKartonDTO = new ZdravstveniKartonDTO();
-                    if (p.ZdravstveniKarton != null) { 
-                        zdravstveniKarton = skladisteZdravstvenihKartona.GetById(p.ZdravstveniKarton.BrojKartona);
-                        zdravstveniKartonDTO = new ZdravstveniKartonDTO(zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje);
-                    }
-                    List<SastojakDTO> alergeniDTO = new List<SastojakDTO>();
+                    List<int> idsAlergena = new List<int>();
                     if (p.Alergeni != null)
-                        foreach (Sastojak alergen in p.Alergeni)
-                            alergeniDTO.Add(new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv });
-                    obrisaniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKartonDTO, alergeniDTO));
+                        foreach (Sastojak sastojak in p.Alergeni)
+                            idsAlergena.Add(sastojak.Id);
+                    if (!p.Guest)
+                    {
+                        ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonService.GetZdravstveniKartonByID(p.ZdravstveniKarton.BrojKartona);
+                        obrisaniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.KorisnickoIme, p.Lozinka, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, zdravstveniKarton.BrojKartona, zdravstveniKarton.Zanimanje, zdravstveniKarton.BracniStatus, zdravstveniKarton.Osiguranje, idsAlergena));
+                    }
+                    else
+                        obrisaniPacijenti.Add(new PacijentDTO(p.Jmbg, p.Ime, p.Prezime, p.DatumRodjenja, p.BrojTelefona, p.AdresaStanovanja, p.Email, p.TipKorisnika, p.Guest, p.Obrisan, p.Pol, idsAlergena));
                 }
             return obrisaniPacijenti;
         }
@@ -200,13 +199,15 @@ namespace Bolnica.Services
                 Lozinka = pacijentDTO.Lozinka,
                 TipKorisnika = pacijentDTO.TipKorisnika
             };
-            ZdravstveniKarton zdravstveniKarton = skladisteZdravstvenihKartona.GetById(pacijentDTO.ZdravstveniKarton.BrojKartona);
-            pacijent.ZdravstveniKarton = new ZdravstveniKarton { BrojKartona = zdravstveniKarton.BrojKartona, Zanimanje = zdravstveniKarton.Zanimanje, BracniStatus = zdravstveniKarton.BracniStatus, Osiguranje = zdravstveniKarton.Osiguranje };
+            pacijent.ZdravstveniKarton = new ZdravstveniKarton { BrojKartona = pacijentDTO.BrojKartona, Zanimanje = pacijentDTO.Zanimanje, BracniStatus = pacijentDTO.BracniStatus, Osiguranje = pacijentDTO.Osiguranje };
             pacijent.Alergeni = new List<Sastojak>();
-            if (pacijentDTO.Alergeni != null)
-                foreach (SastojakDTO alergen in pacijentDTO.Alergeni)
-                    pacijent.Alergeni.Add(new Sastojak { Id = alergen.Id, Naziv = alergen.Naziv });
-
+            if (pacijentDTO.IdsAlergena != null)
+                foreach (int id in pacijentDTO.IdsAlergena) 
+                {
+                    SastojakDTO sastojakDTO = sastojakService.GetAlergenById(id);
+                    pacijent.Alergeni.Add(new Sastojak { Id = sastojakDTO.Id, Naziv = sastojakDTO.Naziv});
+                }
+                    
             if (FormSekretar.clickedDodaj)
                 skladistePacijenata.Save(pacijent);
             else
@@ -215,17 +216,18 @@ namespace Bolnica.Services
 
         private void SnimiZdravstveniKartonDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
         {
-            ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton
+            ZdravstveniKartonDTO zdravstveniKarton = new ZdravstveniKartonDTO
             {
-                BrojKartona = pacijentDTO.ZdravstveniKarton.BrojKartona,
-                Zanimanje = pacijentDTO.ZdravstveniKarton.Zanimanje,
-                Osiguranje = pacijentDTO.ZdravstveniKarton.Osiguranje,
-                BracniStatus = pacijentDTO.ZdravstveniKarton.BracniStatus
+                BrojKartona = pacijentDTO.BrojKartona,
+                Zanimanje = pacijentDTO.Zanimanje,
+                Osiguranje = pacijentDTO.Osiguranje,
+                BracniStatus = pacijentDTO.BracniStatus
             };
+
             if (FormSekretar.clickedDodaj)
-                skladisteZdravstvenihKartona.Save(zdravstveniKarton);
+                zdravstveniKartonService.SaveZdravstveniKarton(zdravstveniKarton);
             else
-                skladisteZdravstvenihKartona.Update(zdravstveniKarton);
+                zdravstveniKartonService.UpdateZdravstveniKarton(zdravstveniKarton);
         }
 
         private void SnimiKorisnikaDodavanjeIliIzmena(PacijentDTO pacijentDTO) 

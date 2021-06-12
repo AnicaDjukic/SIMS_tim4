@@ -24,48 +24,52 @@ namespace Bolnica.DTO
         public bool Guest { get; set; }
         public bool Obrisan { get; set; }
         public Pol Pol { get; set; }
-        public ZdravstveniKartonDTO ZdravstveniKarton { get; set; }
-        public List<SastojakDTO> Alergeni { get; set; }
+        public int BrojKartona { get; set; }
+        public string Zanimanje { get; set; }
+        public BracniStatus BracniStatus { get; set; }
+        public bool Osiguranje { get; set; }
+        public List<int> IdsAlergena { get; set; }
 
         public PacijentDTO() 
         {
         }
 
-        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, List<SastojakDTO> alergeni)
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, int brojKartona, string zanimanje, BracniStatus bracniStatus, bool osiguranje, List<int> idsAlergena)
         {
-            this.Jmbg = jmbg;
-            this.Ime = ime;
-            this.Prezime = prezime;
-            this.DatumRodjenja = datumRodjenja;
-            this.BrojTelefona = brojTelefona;
-            this.AdresaStanovanja = adresaStanovanja;
-            this.Email = email;
-            this.KorisnickoIme = korisnickoIme;
-            this.Lozinka = lozinka;
-            this.TipKorisnika = tipKorisnika;
-            this.Guest = guest;
-            this.Obrisan = obrisan;
-            this.Pol = pol;
-            this.Alergeni = alergeni;
+            Jmbg = jmbg;
+            Ime = ime;
+            Prezime = prezime;
+            DatumRodjenja = datumRodjenja;
+            BrojTelefona = brojTelefona;
+            AdresaStanovanja = adresaStanovanja;
+            Email = email;
+            KorisnickoIme = korisnickoIme;
+            Lozinka = lozinka;
+            TipKorisnika = tipKorisnika;
+            Guest = guest;
+            Obrisan = obrisan;
+            Pol = pol;
+            BrojKartona = brojKartona;
+            Zanimanje = zanimanje;
+            BracniStatus = bracniStatus;
+            Osiguranje = osiguranje;
+            IdsAlergena = idsAlergena;
         }
 
-        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, string korisnickoIme, string lozinka, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, ZdravstveniKartonDTO zdravstveniKarton, List<SastojakDTO> alergeni)
+        public PacijentDTO(string jmbg, string ime, string prezime, DateTime datumRodjenja, string brojTelefona, string adresaStanovanja, string email, TipKorisnika tipKorisnika, bool guest, bool obrisan, Pol pol, List<int> idsAlergena)
         {
-            this.Jmbg = jmbg;
-            this.Ime = ime;
-            this.Prezime = prezime;
-            this.DatumRodjenja = datumRodjenja;
-            this.BrojTelefona = brojTelefona;
-            this.AdresaStanovanja = adresaStanovanja;
-            this.Email = email;
-            this.KorisnickoIme = korisnickoIme;
-            this.Lozinka = lozinka;
-            this.TipKorisnika = tipKorisnika;
-            this.Guest = guest;
-            this.Obrisan = obrisan;
-            this.Pol = pol;
-            this.ZdravstveniKarton = zdravstveniKarton;
-            this.Alergeni = alergeni;
+            Jmbg = jmbg;
+            Ime = ime;
+            Prezime = prezime;
+            DatumRodjenja = datumRodjenja;
+            BrojTelefona = brojTelefona;
+            AdresaStanovanja = adresaStanovanja;
+            Email = email;
+            TipKorisnika = tipKorisnika;
+            Guest = guest;
+            Obrisan = obrisan;
+            Pol = pol;
+            IdsAlergena = idsAlergena;
         }
     }
 }

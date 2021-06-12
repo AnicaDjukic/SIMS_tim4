@@ -438,7 +438,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="ID Kartona" Binding="{Binding ZdravstveniKarton.BrojKartona}" Width="*">
+                        <DataGridTextColumn Header="ID Kartona" Binding="{Binding BrojKartona}" Width="*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -588,7 +588,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="ID Kartona" Binding="{Binding ZdravstveniKarton.BrojKartona, FallbackValue='Gost'}" Width="*">
+                        <DataGridTextColumn Header="ID Kartona" Binding="{Binding BrojKartona, FallbackValue='Gost'}" Width="*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="HorizontalContentAlignment" Value="Center" />

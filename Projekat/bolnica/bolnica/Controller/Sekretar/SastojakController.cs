@@ -1,4 +1,5 @@
-﻿using Bolnica.DTO.Sekretar;
+﻿using Bolnica.DTO;
+using Bolnica.DTO.Sekretar;
 using Bolnica.Service.Sekretar;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,19 @@ namespace Bolnica.Controller.Sekretar
     {
         private SastojakService service = new SastojakService();
 
-        public List<SastojakDTO> GetDodatiAlergeni(string jmbg) 
+        public List<SastojakDTO> GetDodatiAlergeni(PacijentDTO pacijentDTO) 
         {
-            return service.GetDodatiAlergeni(jmbg);
+            return service.GetDodatiAlergeni(pacijentDTO);
         }
 
         public List<SastojakDTO> GetSviAlergeni(List<SastojakDTO> dodatiAlergeni) 
         {
             return service.GetSviAlergeni(dodatiAlergeni);
         }
+
+        public SastojakDTO GetAlergenById(int id) 
+        {
+            return service.GetAlergenById(id);
+        } 
     }
 }

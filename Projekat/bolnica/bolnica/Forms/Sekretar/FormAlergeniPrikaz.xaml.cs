@@ -35,14 +35,12 @@ namespace Bolnica.Forms.Sekretar
             { 
                 if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Jmbg))
                 {
-                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
-                        foreach (SastojakDTO s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                    if (FormSekretar.RedovniPacijenti[i].IdsAlergena != null)
+                        foreach (int id in FormSekretar.RedovniPacijenti[i].IdsAlergena)
                         {
                             foreach (Sastojak sas in alergeni)
-                                if (sas.Id == s.Id)
-                                {
+                                if (sas.Id == id)
                                     Alergeni.Add(sas);
-                                }
                         }
                     break;
                 }
@@ -52,11 +50,11 @@ namespace Bolnica.Forms.Sekretar
             {
                 if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Jmbg))
                 {
-                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
-                        foreach (SastojakDTO s in FormSekretar.GostiPacijenti[i].Alergeni)
+                    if (FormSekretar.GostiPacijenti[i].IdsAlergena != null)
+                        foreach (int id in FormSekretar.GostiPacijenti[i].IdsAlergena)
                         {
                             foreach (Sastojak sas in alergeni)
-                                if (sas.Id == s.Id)
+                                if (sas.Id == id)
                                 {
                                     Alergeni.Add(sas);
                                 }

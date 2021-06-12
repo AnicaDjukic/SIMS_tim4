@@ -31,19 +31,22 @@ namespace Bolnica.Sekretar
         public static ObservableCollection<SastojakDTO> SviAlergeni { get; set; }
         public static ObservableCollection<SastojakDTO> DodatiAlergeni { get; set; }
         private SastojakController sastojakController;
+        private PacijentController pacijentController;
 
         public FormAlergeniDodaj(TextBox txtJMBG)
         {
             InitializeComponent();
             sastojakController = new SastojakController();
+            pacijentController = new PacijentController();
             InicijalizujGUI(txtJMBG);
         }
 
         private void InicijalizujGUI(TextBox txtJMBG) 
         {
             this.DataContext = this;
-            DodatiAlergeni = new ObservableCollection<SastojakDTO>(sastojakController.GetDodatiAlergeni(txtJMBG.Text));
-            List<SastojakDTO> dodatiAlergeni = new List<SastojakDTO>(sastojakController.GetDodatiAlergeni(txtJMBG.Text));
+            PacijentDTO pacijentDTO = pacijentController.GetPacijentByID(txtJMBG.Text);
+            DodatiAlergeni = new ObservableCollection<SastojakDTO>(sastojakController.GetDodatiAlergeni(pacijentDTO));
+            List<SastojakDTO> dodatiAlergeni = new List<SastojakDTO>(sastojakController.GetDodatiAlergeni(pacijentDTO));
             SviAlergeni = new ObservableCollection<SastojakDTO>(sastojakController.GetSviAlergeni(dodatiAlergeni));
         }
 

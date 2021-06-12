@@ -71,7 +71,7 @@ namespace Bolnica.Forms
             PacijentDTO pacijent = (PacijentDTO)dataGridRedovniPacijenti.SelectedItem;
             if (pacijent != null)
             {
-                FormDodajPacijenta window = new FormDodajPacijenta(pacijent.Alergeni);
+                FormDodajPacijenta window = new FormDodajPacijenta(pacijent.IdsAlergena);
                 window.btnAlergeni.Content = "Izmeni";
                 window.btnKreiraj.Content = "Izmeni";
                 InicijalizujGUIZaOdabranogPacijentaIzmeni(pacijent, window);
@@ -82,7 +82,7 @@ namespace Bolnica.Forms
 
         private void InicijalizujGUIZaOdabranogPacijentaIzmeni(PacijentDTO pacijent, FormDodajPacijenta window)
         {
-            ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonController.GetZdravstveniKartonByID(pacijent.ZdravstveniKarton.BrojKartona);
+            ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonController.GetZdravstveniKartonByID(pacijent.BrojKartona);
             InicijalizujGUIElementePacijentIzmeni(pacijent, window);
             InicijalizujGUIElementeZdravstveniKartonIzmeni(zdravstveniKarton, window);
 
@@ -200,7 +200,7 @@ namespace Bolnica.Forms
             if (!pacijent.Guest)
             {
                 FormPrikazPacijenta window = new FormPrikazPacijenta();
-                ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonController.GetZdravstveniKartonByID(pacijent.ZdravstveniKarton.BrojKartona);
+                ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonController.GetZdravstveniKartonByID(pacijent.BrojKartona);
                 InicijalizujGUIElementeRedovniPacijentPrikazi(pacijent, window);
                 InicijalizujGUIElementeZdravstveniKartonPrikazi(zdravstveniKarton, window);
 

@@ -3,6 +3,7 @@ using Bolnica.DTO.Sekretar;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Services;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -13,24 +14,21 @@ namespace Bolnica.Service.Sekretar
 {
     public class SastojakService
     {
-        private IRepositoryPacijent skladistePacijenata;
         private IRepositorySastojak skladisteAlergena;
 
         public SastojakService()
         {
-            skladistePacijenata = new FileRepositoryPacijent();
             skladisteAlergena = new FileRepositorySastojak();
         }
 
-        public List<SastojakDTO> GetDodatiAlergeni(string jmbg) 
+        public List<SastojakDTO> GetDodatiAlergeni(PacijentDTO pacijentDTO) 
         {
-            Pacijent pacijent = skladistePacijenata.GetById(jmbg);
             List<Sastojak> alergeniIzSkladista = skladisteAlergena.GetAll();
             List<SastojakDTO> dodatiAlergeni = new List<SastojakDTO>();
-            if (pacijent.Alergeni != null)
-                foreach (Sastojak s in pacijent.Alergeni)
+            if (pacijentDTO.IdsAlergena != null)
+                foreach (int id in pacijentDTO.IdsAlergena)
                     foreach (Sastojak sas in alergeniIzSkladista)
-                        if (sas.Id == s.Id)
+                        if (sas.Id == id)
                             dodatiAlergeni.Add(new SastojakDTO { Id = sas.Id, Naziv = sas.Naziv });
             return dodatiAlergeni;
         }
@@ -47,6 +45,13 @@ namespace Bolnica.Service.Sekretar
                     if (string.Equals(alergeniIzSkladista[i].Naziv, dodatiAlergeni[j].Naziv))
                         sviAlergeni.RemoveAt(i);
             return sviAlergeni;
+        }
+
+        public SastojakDTO GetAlergenById(int id)
+        {
+            Sastojak alergen = skladisteAlergena.GetById(id);
+            SastojakDTO alergenDTO = new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv };
+            return alergenDTO;
         }
     }
 }

@@ -1,14 +1,1 @@
-[
-    {
-        "BrojKartona": 1,
-        "Zanimanje": "student",
-        "BracniStatus": 0,
-        "Osiguranje": false
-    },
-    {
-        "BrojKartona": 352,
-        "Zanimanje": "trgovac",
-        "BracniStatus": 0,
-        "Osiguranje": false
-    }
-]
+[{"BrojKartona":1,"Zanimanje":"student","BracniStatus":0,"Osiguranje":false},{"BrojKartona":352,"Zanimanje":"trgovac","BracniStatus":0,"Osiguranje":false},{"BrojKartona":543,"Zanimanje":"sfs","BracniStatus":0,"Osiguranje":false}]
