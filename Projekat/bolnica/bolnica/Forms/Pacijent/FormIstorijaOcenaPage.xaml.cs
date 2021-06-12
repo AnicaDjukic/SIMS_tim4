@@ -23,7 +23,7 @@ namespace Bolnica.Forms
         {
             InitializeComponent();
             this.DataContext = this;
-            ocenaController.PopuniTabeluOcena(trenutniPacijent);
+            ocenaController.DobijOcenePacijenta(trenutniPacijent);
         }
     }
 }

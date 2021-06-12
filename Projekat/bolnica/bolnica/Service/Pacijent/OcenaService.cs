@@ -2,10 +2,8 @@
 using Bolnica.Repository.Pregledi;
 using Bolnica.Services;
 using Model.Korisnici;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Bolnica.Service
 {
@@ -48,7 +46,7 @@ namespace Bolnica.Service
             return max + 1;
         }
 
-        public void PopuniTabeluOcena(Pacijent trenutniPacijent)
+        public void DobijOcenePacijenta(Pacijent trenutniPacijent)
         {
             FormIstorijaOcenaPage.PrikazOcenaIKomentara = new ObservableCollection<PrikazOcena>();
             List<Ocena> ocene = DobaviSveOcene();

@@ -20,7 +20,7 @@ namespace Bolnica.Service
         private ServiceProstorija serviceProstorija = new ServiceProstorija();
         private LekarService serviceLekar = new LekarService();
 
-        public void PopuniPredlozeneTermine(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
+        public void DobijPredlozeneTermine(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
         {
             FormNasiPredloziPage.PredlozeniTermini = new ObservableCollection<PrikazPregleda>();
             List<DateTime> zauzetiTermini = DobijZauzeteTermine();

@@ -17,9 +17,9 @@ namespace Bolnica.Controller
             service.InicijalizujSedmicnuTerapiju();
         }
 
-        public void PopuniTerapijuPacijenta(Pacijent trenutniPacijent)
+        public void DobijTerapijuPacijenta(Pacijent trenutniPacijent)
         {
-            service.PopuniTerapijuPacijenta(trenutniPacijent);
+            service.DobijTerapijuPacijenta(trenutniPacijent);
         }
     }
 }

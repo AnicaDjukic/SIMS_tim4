@@ -75,7 +75,7 @@ namespace Bolnica.Service
             FormLekoviTerapijePage.SedmicnaTerapija.Add(new SedmicnaTerapija("20:00h", "", "", "", "", "", "", ""));
         }
 
-        public void PopuniTerapijuPacijenta(Pacijent trenutniPacijent)
+        public void DobijTerapijuPacijenta(Pacijent trenutniPacijent)
         {
             List<Pregled> pregledi = servicePregled.DobijSvePregledeIOperacije();
             foreach (Pregled pregled in pregledi)

@@ -17,9 +17,9 @@ namespace Bolnica.Controller
             return service.IzracunajIdOcene();
         }
 
-        public void PopuniTabeluOcena(Pacijent trenutniPacijent)
+        public void DobijOcenePacijenta(Pacijent trenutniPacijent)
         {
-            service.PopuniTabeluOcena(trenutniPacijent);
+            service.DobijOcenePacijenta(trenutniPacijent);
         }
     }
 }

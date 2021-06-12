@@ -11,9 +11,9 @@ namespace Bolnica.Controller
     {
         private NasiPredloziService service = new NasiPredloziService();
 
-        public void PopuniPredlozeneTermine(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
+        public void DobijPredlozeneTermine(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
         {
-            service.PopuniPredlozeneTermine(pacijent, datum, sat, minut, lekar);
+            service.DobijPredlozeneTermine(pacijent, datum, sat, minut, lekar);
         }
 
         public void OdaberiTermin(PrikazPregleda prikazPregleda)

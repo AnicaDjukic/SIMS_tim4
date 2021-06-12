@@ -29,7 +29,7 @@ namespace Bolnica.Forms
             this.DataContext = this;
             trenutniPacijent = pacijent;
 
-            nasiPredloziController.PopuniPredlozeneTermine(pacijent, datum, sat, minut, lekar);
+            nasiPredloziController.DobijPredlozeneTermine(pacijent, datum, sat, minut, lekar);
         }
 
         private void PotvrdiIzabraniTermin(object sender, RoutedEventArgs e)

@@ -50,7 +50,7 @@ namespace Bolnica.Forms
 
             terapijaPacijentController.DobijTrenutnuSedmicu();
             terapijaPacijentController.InicijalizujSedmicnuTerapiju();
-            terapijaPacijentController.PopuniTerapijuPacijenta(trenutniPacijent);
+            terapijaPacijentController.DobijTerapijuPacijenta(trenutniPacijent);
         }
 
         private void Button_Click_Stampaj(object sender, RoutedEventArgs e)
