@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Bolnica.Controller
 {
-    public class InformacijeOPacijentuLekarController
+    public class PacijentLekarController
     {
-        InformacijeOPacijentuLekarService service = new InformacijeOPacijentuLekarService();
+        PacijentLekarService service = new PacijentLekarService();
 
         public List<Sastojak> DobijSastojke()
         {

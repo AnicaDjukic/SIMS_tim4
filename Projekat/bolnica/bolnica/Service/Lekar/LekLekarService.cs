@@ -1,5 +1,6 @@
 ﻿using Bolnica.DTO;
 using Bolnica.Forms;
+using Bolnica.InterfejsiLekar;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
@@ -11,7 +12,7 @@ using System.Windows.Controls;
 
 namespace Bolnica.Services
 {
-    public class LekLekarService
+    public class LekLekarService : ILekLekarInterface
     {
         private FileRepositorySastojak skladisteSastojaka = new FileRepositorySastojak();
         private FileRepositoryLek skladisteLekova = new FileRepositoryLek();
@@ -122,7 +123,7 @@ namespace Bolnica.Services
             AzurirajSkladiste(new LekLekarDTO(izmenjeniLek));
             
         }
-        private void AzurirajTabelu(LekLekarDTO lekDTO)
+        public void AzurirajTabelu(LekLekarDTO lekDTO)
         {
             for (int j = 0; j < LekarViewModel.lekoviPrikaz.Count; j++)
             {
@@ -132,12 +133,12 @@ namespace Bolnica.Services
                 }
             }
         }
-        private void AzurirajSkladiste(LekLekarDTO lekDTO)
+        public void AzurirajSkladiste(LekLekarDTO lekDTO)
         {
             skladisteLekova.Delete(lekDTO.izmenjeniLek);
             skladisteLekova.Save(lekDTO.izmenjeniLek);
         }
-        private PrikazLek PopuniStringSastojaka(LekLekarDTO lekDTO)
+        public PrikazLek PopuniStringSastojaka(LekLekarDTO lekDTO)
         {
             bool dozvolaZaStringSastojak = true;
             for (int i = 0; i < lekDTO.sastojciKutija.Items.Count; i++)
@@ -165,7 +166,7 @@ namespace Bolnica.Services
             }
             return lekDTO.lekZaPrikaz;
         }
-        private PrikazLek PopuniStringZamena(LekLekarDTO lekDTO)
+        public PrikazLek PopuniStringZamena(LekLekarDTO lekDTO)
         {
             bool dozvolaZaStringZamena = true;
             for (int i = 0; i < lekDTO.zameneKutija.Items.Count; i++)

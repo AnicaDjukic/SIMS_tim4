@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Bolnica.Services
 {
-    public class InformacijeOPacijentuLekarService
+    public class PacijentLekarService
     {
         FileRepositorySastojak skladisteSastojaka = new FileRepositorySastojak();
         FileRepositoryHospitalizacija skladisteHospitalizacija = new FileRepositoryHospitalizacija();

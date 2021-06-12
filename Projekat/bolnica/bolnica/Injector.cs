@@ -57,9 +57,9 @@ namespace Bolnica
 
         private HospitalizacijaLekarController hospitalizacijaLekarController = new HospitalizacijaLekarController();
 
-        private InformacijeOPacijentuLekarController informacijeOPacijentuLekarController = new InformacijeOPacijentuLekarController();
+        private PacijentLekarController informacijeOPacijentuLekarController = new PacijentLekarController();
 
-        public InformacijeOPacijentuLekarController InformacijeOPacijentuLekarController
+        public PacijentLekarController InformacijeOPacijentuLekarController
         {
             get { return informacijeOPacijentuLekarController; }
         }
