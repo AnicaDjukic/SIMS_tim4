@@ -1,12 +1,7 @@
 ﻿using Bolnica.Commands;
-using Bolnica.Forms;
-using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
-using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
-using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
-using Model.Pacijenti;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;

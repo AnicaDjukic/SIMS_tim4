@@ -9,117 +9,189 @@ using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Service
 {
     public class RepositoryService
     {
+        private FileRepositoryAntiTrol repositoryAntiTrol = new FileRepositoryAntiTrol();
+        private FileRepositoryGodisnji repositoryGodisnji = new FileRepositoryGodisnji();
+        private FileRepositoryKorisnik repositoryKorisnik = new FileRepositoryKorisnik();
+        private FileRepositoryLekar repositoryLekar = new FileRepositoryLekar();
+        private FileRepositoryObavestenje repositoryObavestenje = new FileRepositoryObavestenje();
+        private FileRepositoryPacijent repositoryPacijent = new FileRepositoryPacijent();
+        private FileRepositoryZdravstveniKarton repositoryZdravstveniKarton = new FileRepositoryZdravstveniKarton();
+
+        private FileRepositoryAnamneza repositoryAnamneza = new FileRepositoryAnamneza();
+        private FileRepositoryBeleska repositoryBeleska = new FileRepositoryBeleska();
+        private FileRepositoryLek repositoryLek = new FileRepositoryLek();
+        private FileRepositoryOcena repositoryOcena = new FileRepositoryOcena();
+        private FileRepositoryOperacija repositoryOperacija = new FileRepositoryOperacija();
+        private FileRepositoryPregled repositoryPregled = new FileRepositoryPregled();
+        private FileRepositorySastojak repositorySastojak = new FileRepositorySastojak();
+
+        private FileRepositoryBolnickaSoba repositoryBolnickaSoba = new FileRepositoryBolnickaSoba();
+        private FileRepositoryBuducaZaliha repositoryBuducaZaliha = new FileRepositoryBuducaZaliha();
+        private FileRepositoryHospitalizacija repositoryHospitalizacija = new FileRepositoryHospitalizacija();
+        private FileRepositoryOprema repositoryOprema = new FileRepositoryOprema();
+        private FileRepositoryProstorija repositoryProstorija = new FileRepositoryProstorija();
+        private FileRepositoryRenoviranje repositoryRenoviranje = new FileRepositoryRenoviranje();
+        private FileRepositoryZaliha repositoryZaliha = new FileRepositoryZaliha();
+
         public List<Pacijent> DobijPacijente()
         {
-            return new FileRepositoryPacijent().GetAll();
+            return repositoryPacijent.GetAll();
         }
 
         public List<Lekar> DobijLekare()
         {
-            return new FileRepositoryLekar().GetAll();
+            return repositoryLekar.GetAll();
         }
 
         public List<Korisnik> DobijKorisnike()
         {
-            return new FileRepositoryKorisnik().GetAll();
+            return repositoryKorisnik.GetAll();
         }
 
         public List<AntiTrol> DobijAntiTrol()
         {
-            return new FileRepositoryAntiTrol().GetAll();
+            return repositoryAntiTrol.GetAll();
         }
 
         public List<Godisnji> DobijGodisnje()
         {
-            return new FileRepositoryGodisnji().GetAll();
+            return repositoryGodisnji.GetAll();
         }
 
         public List<Obavestenje> DobijObavestenja()
         {
-            return new FileRepositoryObavestenje().GetAll();
+            return repositoryObavestenje.GetAll();
         }
 
         public List<ZdravstveniKarton> DobijZdravstveneKartone()
         {
-            return new FileRepositoryZdravstveniKarton().GetAll();
+            return repositoryZdravstveniKarton.GetAll();
         }
 
         public List<Prostorija> DobijProstorije()
         {
-            return new FileRepositoryProstorija().GetAll();
+            return repositoryProstorija.GetAll();
         }
 
         public List<BolnickaSoba> DobijBolnickeSobe()
         {
-            return new FileRepositoryBolnickaSoba().GetAll();
+            return repositoryBolnickaSoba.GetAll();
         }
 
         public List<BuducaZaliha> DobijBuduceZalihe()
         {
-            return new FileRepositoryBuducaZaliha().GetAll();
+            return repositoryBuducaZaliha.GetAll();
         }
 
         public List<Hospitalizacija> DobijHospitalizacije()
         {
-            return new FileRepositoryHospitalizacija().GetAll();
+            return repositoryHospitalizacija.GetAll();
         }
 
         public List<Oprema> DobijOpremu()
         {
-            return new FileRepositoryOprema().GetAll();
+            return repositoryOprema.GetAll();
         }
 
         public List<Renoviranje> DobijRenoviranja()
         {
-            return new FileRepositoryRenoviranje().GetAll();
+            return repositoryRenoviranje.GetAll();
         }
 
         public List<Zaliha> DobijZalihe()
         {
-            return new FileRepositoryZaliha().GetAll();
+            return repositoryZaliha.GetAll();
         }
 
         public List<Pregled> DobijPreglede()
         {
-            return new FileRepositoryPregled().GetAll();
+            return repositoryPregled.GetAll();
         }
 
         public List<Operacija> DobijOperacije()
         {
-            return new FileRepositoryOperacija().GetAll();
+            return repositoryOperacija.GetAll();
         }
 
         public List<Anamneza> DobijAnamneze()
         {
-            return new FileRepositoryAnamneza().GetAll();
+            return repositoryAnamneza.GetAll();
         }
 
         public List<Lek> DobijLekove()
         {
-            return new FileRepositoryLek().GetAll();
+            return repositoryLek.GetAll();
         }
 
         public List<Beleska> DobijBeleske()
         {
-            return new FileRepositoryBeleska().GetAll();
+            return repositoryBeleska.GetAll();
         }
 
         public List<Ocena> DobijOcene()
         {
-            return new FileRepositoryOcena().GetAll();
+            return repositoryOcena.GetAll();
         }
 
         public List<Sastojak> DobijSastojke()
         {
-            return new FileRepositorySastojak().GetAll();
+            return repositorySastojak.GetAll();
+        }
+
+        public void SacuvajPregled(Pregled pregled)
+        {
+            repositoryPregled.Save(pregled);
+        }
+
+        public void SacuvajOcenu(Ocena ocena)
+        {
+            repositoryOcena.Save(ocena);
+        }
+
+        public void SacuvajAntiTrol(AntiTrol antiTrol)
+        {
+            repositoryAntiTrol.Save(antiTrol);
+        }
+
+        public void SacuvajBelesku(Beleska beleska)
+        {
+            repositoryBeleska.Save(beleska);
+        }
+
+        public void IzmeniPregled(Pregled noviPregled)
+        {
+            repositoryPregled.Update(noviPregled);
+        }
+
+        public void IzmeniPacijenta(Pacijent noviPacijent)
+        {
+            repositoryPacijent.Update(noviPacijent);
+        }
+
+        public void IzmeniAnamnezu(Anamneza novaAmaneza)
+        {
+            repositoryAnamneza.Update(novaAmaneza);
+        }
+
+        public void IzmeniBelesku(Beleska novaBeleska)
+        {
+            repositoryBeleska.Update(novaBeleska);
+        }
+
+        public void IzbrisiPregled(Pregled pregled)
+        {
+            repositoryPregled.Delete(pregled);
+        }
+
+        public void IzbrisiOperaciju(Operacija operacija)
+        {
+            repositoryOperacija.Delete(operacija);
         }
     }
 }

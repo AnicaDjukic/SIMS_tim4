@@ -3,10 +3,8 @@ using Bolnica.Model.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Bolnica.ViewModel
 {

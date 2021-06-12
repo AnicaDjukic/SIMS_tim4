@@ -1,18 +1,12 @@
 ﻿using Bolnica.Service;
 using Bolnica.Model.Korisnici;
-using Bolnica.Model.Pacijenti;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Korisnici;
-using Bolnica.Repository.Pregledi;
-using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pacijenti;
 using Model.Pregledi;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Controller
 {
@@ -122,6 +116,56 @@ namespace Bolnica.Controller
         public List<Sastojak> DobijSastojke()
         {
             return service.DobijSastojke();
+        }
+
+        public void SacuvajPregled(Pregled pregled)
+        {
+            service.SacuvajPregled(pregled);
+        }
+
+        public void SacuvajOcenu(Ocena ocena)
+        {
+            service.SacuvajOcenu(ocena);
+        }
+
+        public void SacuvajAntiTrol(AntiTrol antiTrol)
+        {
+            service.SacuvajAntiTrol(antiTrol);
+        }
+
+        public void SacuvajBelesku(Beleska beleska)
+        {
+            service.SacuvajBelesku(beleska);
+        }
+
+        public void IzmeniPregled(Pregled noviPregled)
+        {
+            service.IzmeniPregled(noviPregled);
+        }
+
+        public void IzmeniPacijenta(Pacijent noviPacijent)
+        {
+            service.IzmeniPacijenta(noviPacijent);
+        }
+
+        public void IzmeniAnamnezu(Anamneza novaAnamneza)
+        {
+            service.IzmeniAnamnezu(novaAnamneza);
+        }
+
+        public void IzmeniBelesku(Beleska novaBeleska)
+        {
+            service.IzmeniBelesku(novaBeleska);
+        }
+
+        public void IzbrisiPregled(Pregled pregled)
+        {
+            service.IzbrisiPregled(pregled);
+        }
+
+        public void IzbrisiOperaciju(Operacija operacija)
+        {
+            service.IzbrisiOperaciju(operacija);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using Bolnica.Controller;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Korisnici;
-using Bolnica.Repository.Prostorije;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -20,20 +18,12 @@ namespace Bolnica.Forms
     public partial class FormIzmeniPacijentPage : Page
     {
         private PrikazPregleda prikazPregleda;
-
-        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
-        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
-        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
-        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
-
-        private List<Lekar> lekari = new List<Lekar>();
-        private List<Prostorija> prostorije = new List<Prostorija>();
+        private RepositoryController repositoryController = new RepositoryController();
+        private RacunajIdController racunajIdController = new RacunajIdController();
 
         public FormIzmeniPacijentPage(PrikazPregleda prikazPre)
         {
             InitializeComponent();
-
             prikazPregleda = prikazPre;
 
             DodajLekareUComboBox();
@@ -42,7 +32,7 @@ namespace Bolnica.Forms
 
         private void DodajLekareUComboBox()
         {
-            lekari = storageLekari.GetAll();
+            List<Lekar> lekari = repositoryController.DobijLekare();
             foreach (Lekar l in lekari)
             {
                 comboLekar.Items.Add(l.Ime + " " + l.Prezime);
@@ -95,39 +85,30 @@ namespace Bolnica.Forms
                     Pregled pregled = SetPregled(prikaz);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
-                    storagePregledi.Update(pregled);
+                    repositoryController.IzmeniPregled(pregled);
 
-                    AntiTrol antiTrol = new AntiTrol
-                    {
-                        Id = DobijIdAntiTrol(),
-                        Pacijent = prikaz.Pacijent,
-                        Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
-                    };
-                    storageAntiTrol.Save(antiTrol);
+                    AntiTrol antiTrol = KreirajAntiTrol(prikaz);
+                    repositoryController.SacuvajAntiTrol(antiTrol);
                     PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
-                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikaz.Pacijent*/);
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
                 }
             }
         }
 
-        private int DobijIdAntiTrol()
+        private AntiTrol KreirajAntiTrol(PrikazPregleda prikaz)
         {
-            List<AntiTrol> antiTrolList = storageAntiTrol.GetAll();
-            int max = 0;
-            foreach (AntiTrol antiTrol in antiTrolList)
+            return new AntiTrol
             {
-                if (antiTrol.Id > max)
-                {
-                    max = antiTrol.Id;
-                }
-            }
-            return max + 1;
+                Id = racunajIdController.IzracunajIdAntiTrol(),
+                Pacijent = prikaz.Pacijent,
+                Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
+            };
         }
 
         private void OtkaziIzmenu(object sender, RoutedEventArgs e)
         {
             PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikazPregleda.Pacijent);
-            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*prikazPregleda.Pacijent*/);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
         }
 
         private void NasiPredlozi(object sender, RoutedEventArgs e)
@@ -203,6 +184,7 @@ namespace Bolnica.Forms
         private Lekar DobijLekara(string ime, string prezime)
         {
             Lekar lekar = new Lekar();
+            List<Lekar> lekari = repositoryController.DobijLekare();
             foreach (Lekar l in lekari)
             {
                 if (ime.Equals(l.Ime) && prezime.Equals(l.Prezime))
@@ -232,7 +214,7 @@ namespace Bolnica.Forms
 
         private Prostorija DobijProstoriju()
         {
-            prostorije = storageProstorije.GetAll();
+            List<Prostorija> prostorije = repositoryController.DobijProstorije();
             foreach (Prostorija prostorija in prostorije)
             {
                 if (prostorija.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !prostorija.Obrisana && !NaRenoviranju(prostorija))
@@ -245,7 +227,7 @@ namespace Bolnica.Forms
 
         private bool NaRenoviranju(Prostorija p)
         {
-            List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
+            List<Renoviranje> renoviranja = repositoryController.DobijRenoviranja();
             foreach (Renoviranje r in renoviranja)
             {
                 if (p.BrojProstorije.Equals(r.Prostorija.BrojProstorije))

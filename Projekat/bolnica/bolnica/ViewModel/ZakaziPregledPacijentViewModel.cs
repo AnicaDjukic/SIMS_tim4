@@ -1,10 +1,7 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
-using Bolnica.Model.Korisnici;
 using Model.Korisnici;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Media;
 
 namespace Bolnica.ViewModel
@@ -370,81 +367,5 @@ namespace Bolnica.ViewModel
             CheckedDatum = new RelayCommand(Executed_CheckedDatum, CanExecute_CheckedDatum);
             CheckedLekar = new RelayCommand(Executed_CheckedLekar, CanExecute_CheckedLekar);
         }
-        
-        private void Checked_Datum()
-        {
-            DatumEnable = true;
-            DatumPozadina = Brushes.Aqua;
-            SatEnable = false;
-            MinutEnable = false;
-            LekarEnable = false;
-            potvrdiEnable = false;
-            nasiPredloziEnable = true;
-            RadioDatumEnable = false;
-            RadioLekarEnable = false;
-        }
-
-        private void Checked_Lekar()
-        {
-            DatumEnable = false;
-            SatEnable = false;
-            MinutEnable = false;
-            LekarEnable = true;
-            LekarPozadina = Brushes.Aqua;
-            potvrdiEnable = false;
-            nasiPredloziEnable = true;
-            RadioDatumEnable = false;
-            RadioLekarEnable = false;
-        }
-
-        private void SelectedDateChanged_Datum()
-        {
-            DatumEnable = false;
-            DatumPozadina = Brushes.Green;
-            SatEnable = true;
-            SatPozadina = Brushes.Aqua;
-            MinutEnable = false;
-        }
-
-        private void SelectionChanged_Sat()
-        {
-            DatumEnable = false;
-            SatEnable = false;
-            MinutEnable = true;
-            MinutPozadina = Brushes.Aqua;
-        }
-
-        private void SelectionChanged_Minut()
-        {
-            SatEnable = false;
-            MinutEnable = false;
-            DatumEnable = false;
-            if (RadioDatumChecked)
-            {
-                LekarEnable = true;
-                LekarPozadina = Brushes.Aqua;
-            }
-            else
-            {
-                PotvrdiEnable = true;
-            }
-        }
-
-        private void SelectionChanged_Lekar()
-        {
-            SatEnable = false;
-            MinutEnable = false;
-            LekarEnable = false;
-            if (RadioLekarChecked)
-            {
-                DatumEnable = true;
-                DatumPozadina = Brushes.Aqua;
-            }
-            else
-            {
-                PotvrdiEnable = true;
-            }
-        }
-
     }
 }
