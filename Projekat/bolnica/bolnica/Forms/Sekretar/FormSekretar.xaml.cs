@@ -449,5 +449,11 @@ namespace Bolnica.Forms
                 Close();
             }
         }
+
+        private void Button_Click_Feedback(object sender, RoutedEventArgs e)
+        {
+            var s = new FormFeedback();
+            s.ShowDialog();
+        }
     }
 }

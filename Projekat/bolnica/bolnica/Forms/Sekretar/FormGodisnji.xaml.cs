@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -91,10 +92,8 @@ namespace Bolnica.Forms.Sekretar
                         }
                        
                         godisnji.Lekar = l;
-                        storageLekari.Delete(l);
                         l.BrojSlobodnihDana -= calendar.SelectedDates.Count;
-                        storageLekari.Save(l);
-
+                        storageLekari.Update(l);
                         storageGodisnji.Save(godisnji);
                         Close();
                         break;

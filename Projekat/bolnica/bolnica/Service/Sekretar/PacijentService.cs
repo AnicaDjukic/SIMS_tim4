@@ -25,7 +25,6 @@ namespace Bolnica.Services
         private IRepositoryKorisnik skladisteKorisnika;
         private IRepositoryPregled skladistePregleda;
         private IRepositoryOperacija skladisteOperacija;
-        private IRepositorySastojak skladisteAlergena;
 
         public PacijentService() 
         {
@@ -34,7 +33,6 @@ namespace Bolnica.Services
             skladisteKorisnika = new FileRepositoryKorisnik();
             skladistePregleda = new FileRepositoryPregled();
             skladisteOperacija = new FileRepositoryOperacija();
-            skladisteAlergena = new FileRepositorySastojak();
         }
 
         public PacijentDTO GetPacijentByID(string jmbg) 

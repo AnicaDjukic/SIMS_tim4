@@ -10,7 +10,12 @@ namespace Bolnica.Service.Sekretar
 {
     public class ZdravstveniKartonService
     {
-        private IRepositoryZdravstveniKarton skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
+        private IRepositoryZdravstveniKarton skladisteZdravstvenihKartona;
+
+        public ZdravstveniKartonService()
+        {
+            skladisteZdravstvenihKartona = new FileRepositoryZdravstveniKarton();
+        }
 
         public ZdravstveniKartonDTO GetZdravstveniKartonByID(int brojKartona) 
         {
