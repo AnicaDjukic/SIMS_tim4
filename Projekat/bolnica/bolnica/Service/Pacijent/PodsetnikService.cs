@@ -1,8 +1,8 @@
 ﻿using bolnica;
-using Bolnica.Controller;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Model.Korisnici;
+using Model.Pacijenti;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -12,14 +12,16 @@ namespace Bolnica.Service
 {
     public class PodsetnikService
     {
-        private RepositoryController repositoryController = new RepositoryController();
-
         private List<int> obavestenjaPregled = new List<int>();
         private List<string> obavestenjaTerapija = new List<string>();
 
+        private PregledService servicePregled = new PregledService();
+        private AnamnezaPacijentService serviceAnamneza = new AnamnezaPacijentService();
+        private BeleskaService serviceBeleska = new BeleskaService();
+
         public void ProveriObavestenja(Pacijent trenutniPacijent)
         {
-            List<Pregled> pregledi = NadjiSvePreglede();
+            List<Pregled> pregledi = servicePregled.DobijSvePregledeIOperacije();
             foreach (Pregled pregled in pregledi)
             {
                 if (trenutniPacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
@@ -31,21 +33,9 @@ namespace Bolnica.Service
             }
         }
 
-        private List<Pregled> NadjiSvePreglede()
-        {
-            List<Pregled> pregledi = repositoryController.DobijPreglede();
-            List<Operacija> operacije = repositoryController.DobijOperacije();
-            foreach (Operacija o in operacije)
-            {
-                pregledi.Add(o);
-            }
-
-            return pregledi;
-        }
-
         private void ProveriVremeZaTerapiju(Pregled pregled)
         {
-            List<Anamneza> anamneze = repositoryController.DobijAnamneze();
+            List<Anamneza> anamneze = serviceAnamneza.DobaviSveAnamneze();
             foreach (Anamneza a in anamneze)
             {
                 if (pregled.Anamneza.Id.Equals(a.Id))
@@ -54,29 +44,13 @@ namespace Bolnica.Service
                     {
                         if (r.Trajanje.CompareTo(DateTime.Now) >= 0)
                         {
-                            if (r.VremeUzimanja == 4)
-                            {
-
-                            }
-                            else if (r.VremeUzimanja == 6)
-                            {
-
-                            }
-                            else if (r.VremeUzimanja == 8)
-                            {
-
-                            }
-                            else if (r.VremeUzimanja == 12)
-                            {
-
-                            }
-                            else if (r.VremeUzimanja == 24)
+                            if (r.VremeUzimanja == 24)
                             {
                                 if (DateTime.Now.AddMinutes(15).CompareTo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0, 0)) >= 0
                                     && DateTime.Now.CompareTo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0, 0)) <= 0)
                                 {
                                     string poruka = "Podsetnik o terapiji:\n" +
-                                        "Danas treba da popijete lek '" + GetNazivLeka(r.Lek.Id) +
+                                        "Danas treba da popijete lek '" + serviceAnamneza.DobijNazivLeka(r.Lek.Id) +
                                         "' u 16:00h.";
                                     if (!obavestenjaTerapija.Contains(poruka))
                                     {
@@ -109,8 +83,8 @@ namespace Bolnica.Service
 
         private void ProveriNotifikacije(Pregled pregled)
         {
-            List<Anamneza> anamneze = repositoryController.DobijAnamneze();
-            List<Beleska> beleske = repositoryController.DobijBeleske();
+            List<Anamneza> anamneze = serviceAnamneza.DobaviSveAnamneze();
+            List<Beleska> beleske = serviceBeleska.DobaviSveBeleske();
             foreach (Anamneza anamneza in anamneze)
             {
                 if (pregled.Anamneza.Id.Equals(anamneza.Id))
@@ -141,7 +115,7 @@ namespace Bolnica.Service
             MessageBox.Show(poruka, "Obavestenje na osnovu Vaše beleške!");
             FormObavestenjaPacijentPage.ObavestenjaPacijent.Add(new Obavestenje(-1, vremeObavestenja, beleska.Zabeleska, "Obaveštenje na osnovu Vaše beleške", false));
             beleska.Prikazana = true;
-            repositoryController.IzmeniBelesku(beleska);
+            serviceBeleska.IzmeniBelesku(beleska);
         }
 
         private bool ProveraVremenaObavestenja(Beleska beleska, DateTime vremeObavestenja)
@@ -166,7 +140,7 @@ namespace Bolnica.Service
             if (beleska.Prikazana)
             {
                 beleska.Prikazana = false;
-                repositoryController.IzmeniBelesku(beleska);
+                serviceBeleska.IzmeniBelesku(beleska);
             }
         }
 
@@ -175,40 +149,14 @@ namespace Bolnica.Service
             return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, beleska.Vreme.Hours, beleska.Vreme.Minutes, beleska.Vreme.Seconds);
         }
 
-        private string GetNazivLeka(int id)
-        {
-            List<Lek> lekovi = repositoryController.DobijLekove();
-            foreach (Lek l in lekovi)
-            {
-                if (l.Id.Equals(id))
-                {
-                    return l.Naziv;
-                }
-            }
-            return "";
-        }
-
         public void BlokirajPacijenta(Pacijent trenutniPacijent)
         {
             trenutniPacijent.Obrisan = true;
-            repositoryController.IzmeniPacijenta(trenutniPacijent);
+            FileRepositoryPacijent repositoryPacijent = new FileRepositoryPacijent();
+            repositoryPacijent.Update(trenutniPacijent);
             MessageBox.Show("Zbog zloupotrebe nase aplikacije prinudjeni smo da Vam onemogucimo pristup istoj. " +
                 "Vas nalog ce biti obrisan i vise necete moci da se ulogujete na Vas profil!", "Iskljucenje");
             new MainWindow().Show();
-        }
-
-        public int DobijBrojAktivnosti(Pacijent trenutniPacijent)
-        {
-            int brojac = 0;
-            List<AntiTrol> antiTrol = repositoryController.DobijAntiTrol();
-            foreach (AntiTrol a in antiTrol)
-            {
-                if (trenutniPacijent.Jmbg.Equals(a.Pacijent.Jmbg) && a.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
-                {
-                    brojac++;
-                }
-            }
-            return brojac;
         }
     }
 }

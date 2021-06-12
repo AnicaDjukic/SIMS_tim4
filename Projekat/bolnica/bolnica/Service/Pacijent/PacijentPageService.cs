@@ -1,27 +1,26 @@
-﻿using Bolnica.Controller;
-using Bolnica.Forms;
+﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace Bolnica.Service
 {
     public class PacijentPageService
     {
-        private RepositoryController repositoryController = new RepositoryController();
-        private PodsetnikController podsetnikController = new PodsetnikController();
+        private PodsetnikService servicePodsetnik = new PodsetnikService();
+        private AntiTrolService serviceAntiTrol = new AntiTrolService();
+        private PregledService servicePregled = new PregledService();
 
         public void ZakaziPregled(Pacijent trenutniPacijent)
         {
-            int brojac = podsetnikController.DobijBrojAktivnosti(trenutniPacijent);
+            int brojac = serviceAntiTrol.DobijBrojAktivnosti(trenutniPacijent);
 
             if (brojac > 5)
             {
-                podsetnikController.BlokirajPacijenta(trenutniPacijent);
+                servicePodsetnik.BlokirajPacijenta(trenutniPacijent);
                 FormPacijentWeb.Forma.Close();
             }
             else
@@ -73,7 +72,7 @@ namespace Bolnica.Service
                             {
                                 PrikazOperacije prikazOperacije = (PrikazOperacije)objekat;
                                 ObrisiOperacijuIzTabele(prikazOperacije);
-                                ObrisiOperaciju(prikazOperacije);
+                                ObrisiPregled(prikazOperacije);
                                 SacuvajAntiTrol(prikazOperacije);
 
                                 PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
@@ -115,15 +114,6 @@ namespace Bolnica.Service
             PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(prikazOperacije);
         }
 
-        private void ObrisiOperaciju(PrikazOperacije prikazOperacije)
-        {
-            Operacija operacija = new Operacija
-            {
-                Id = prikazOperacije.Id
-            };
-            repositoryController.IzbrisiOperaciju(operacija);
-        }
-
         private static void ObrisiPregledIzTabele(PrikazPregleda prikazPregleda)
         {
             PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(prikazPregleda);
@@ -135,43 +125,13 @@ namespace Bolnica.Service
             {
                 Id = prikazPregleda.Id
             };
-            repositoryController.IzbrisiPregled(pregled);
-        }
-
-        private void SacuvajAntiTrol(PrikazOperacije prikazOperacije)
-        {
-            AntiTrol antiTrol = new AntiTrol
-            {
-                Id = DobijIdAntiTrol(),
-                Pacijent = prikazOperacije.Pacijent,
-                Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
-            };
-            repositoryController.SacuvajAntiTrol(antiTrol);
-        }
-
-        private int DobijIdAntiTrol()
-        {
-            List<AntiTrol> antiTrolList = repositoryController.DobijAntiTrol();
-            int max = 0;
-            foreach (AntiTrol antiTrol in antiTrolList)
-            {
-                if (antiTrol.Id > max)
-                {
-                    max = antiTrol.Id;
-                }
-            }
-            return max + 1;
+            servicePregled.IzbrisiPregled(pregled);
         }
 
         private void SacuvajAntiTrol(PrikazPregleda prikazPregleda)
         {
-            AntiTrol antiTrol = new AntiTrol
-            {
-                Id = DobijIdAntiTrol(),
-                Pacijent = prikazPregleda.Pacijent,
-                Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
-            };
-            repositoryController.SacuvajAntiTrol(antiTrol);
+            AntiTrol antiTrol = serviceAntiTrol.KreirajAntiTrol(prikazPregleda);
+            serviceAntiTrol.SacuvajAntiTrol(antiTrol);
         }
 
         public void IzmeniPregled(PrikazPregleda SelektovaniRed)
@@ -202,11 +162,11 @@ namespace Bolnica.Service
                     }
                     else
                     {
-                        int brojac = podsetnikController.DobijBrojAktivnosti(SelektovaniRed.Pacijent);
+                        int brojac = serviceAntiTrol.DobijBrojAktivnosti(SelektovaniRed.Pacijent);
 
                         if (brojac > 5)
                         {
-                            podsetnikController.BlokirajPacijenta(SelektovaniRed.Pacijent);
+                            servicePodsetnik.BlokirajPacijenta(SelektovaniRed.Pacijent);
                             FormPacijentWeb.Forma.Close();
                         }
                         else

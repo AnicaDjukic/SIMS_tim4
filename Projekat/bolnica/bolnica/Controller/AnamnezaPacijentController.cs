@@ -18,9 +18,9 @@ namespace Bolnica.Controller
             service.PostaviDatumComboBox();
         }
 
-        public void PostaviSveLekovePacijentu(Anamneza anamneza)
+        public void DobijLekoveIzAnamneze(Anamneza anamneza)
         {
-            service.PostaviSveLekovePacijentu(anamneza);
+            service.DobijLekoveIzAnamneze(anamneza);
         }
 
         public Anamneza DobijAnamnezu(PrikazPregleda prikazPregleda)

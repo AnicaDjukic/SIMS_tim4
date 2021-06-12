@@ -2,9 +2,7 @@
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace Bolnica.Service

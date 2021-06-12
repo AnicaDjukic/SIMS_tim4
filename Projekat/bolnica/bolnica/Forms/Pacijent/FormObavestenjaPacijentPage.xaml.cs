@@ -35,8 +35,8 @@ namespace Bolnica.Forms
             this.DataContext = this;
             PostaviDanasnjiDatum();
 
-            obavestenjaPacijentController.PrikaziObavestenjaBolnice(trenutniPacijent);
-            obavestenjaPacijentController.PrikaziObavestenjaOLekovima(trenutniPacijent);
+            obavestenjaPacijentController.DobijObavestenjaBolnice(trenutniPacijent);
+            obavestenjaPacijentController.DobijObavestenjaOLekovima(trenutniPacijent);
         }
 
         private static void PostaviDanasnjiDatum()

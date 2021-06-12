@@ -16,10 +16,5 @@ namespace Bolnica.Controller
         {
             service.BlokirajPacijenta(trenutniPacijent);
         }
-
-        public int DobijBrojAktivnosti(Pacijent trenutniPacijent)
-        {
-            return service.DobijBrojAktivnosti(trenutniPacijent);
-        }
     }
 }

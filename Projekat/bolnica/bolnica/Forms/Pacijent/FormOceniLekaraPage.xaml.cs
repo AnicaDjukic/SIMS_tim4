@@ -19,7 +19,7 @@ namespace Bolnica.Forms
         private Pregled pregled = new Pregled();
 
         private RepositoryController repositoryController = new RepositoryController();
-        private RacunajIdController racunajIdController = new RacunajIdController();
+        private OcenaController controllerOcena = new OcenaController();
 
         public FormOceniLekaraPage(PrikazPregleda prikazPregleda)
         {
@@ -45,7 +45,7 @@ namespace Bolnica.Forms
             else
             {
                 Ocena ocena = KreirajOcenu();
-                repositoryController.SacuvajOcenu(ocena);
+                controllerOcena.SacuvajOcenu(ocena);
 
                 IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(pacijent);
                 FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
@@ -56,7 +56,7 @@ namespace Bolnica.Forms
         {
             return new Ocena
             {
-                IdOcene = racunajIdController.IzracunajIdOcene(),
+                IdOcene = controllerOcena.IzracunajIdOcene(),
                 BrojOcene = DobijOdabranuOcenu(),
                 Datum = DateTime.Now,
                 Sadrzaj = sadrzaj.Text,

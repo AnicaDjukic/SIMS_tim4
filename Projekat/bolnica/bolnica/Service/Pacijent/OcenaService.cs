@@ -1,5 +1,6 @@
-﻿using Bolnica.Controller;
-using Bolnica.Forms;
+﻿using Bolnica.Forms;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Services;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,49 @@ using System.Text;
 
 namespace Bolnica.Service
 {
-    public class IstorijaOcenaService
+    public class OcenaService
     {
-        private RepositoryController repositoryController = new RepositoryController();
+        private FileRepositoryOcena repositoryOcena = new FileRepositoryOcena();
+        private LekarService lekarService = new LekarService();
+
+        public List<Ocena> DobaviSveOcene()
+        {
+            return repositoryOcena.GetAll();
+        }
+
+        public void SacuvajOcenu(Ocena novaOcena)
+        {
+            repositoryOcena.Save(novaOcena);
+        }
+
+        public void IzmeniOcenu(Ocena novaOcena)
+        {
+            repositoryOcena.Update(novaOcena);
+        }
+
+        public void IzbrisiOcenu(Ocena ocena)
+        {
+            repositoryOcena.Delete(ocena);
+        }
+
+        public int IzracunajIdOcene()
+        {
+            int max = 0;
+            List<Ocena> ocene = DobaviSveOcene();
+            foreach (Ocena ocena in ocene)
+            {
+                if (ocena.IdOcene > max)
+                {
+                    max = ocena.IdOcene;
+                }
+            }
+            return max + 1;
+        }
 
         public void PopuniTabeluOcena(Pacijent trenutniPacijent)
         {
             FormIstorijaOcenaPage.PrikazOcenaIKomentara = new ObservableCollection<PrikazOcena>();
-            List<Ocena> ocene = repositoryController.DobijOcene();
+            List<Ocena> ocene = DobaviSveOcene();
             foreach (Ocena ocena in ocene)
             {
                 if (trenutniPacijent.Jmbg.Equals(ocena.Pacijent.Jmbg))
@@ -42,7 +78,7 @@ namespace Bolnica.Service
 
         private void PostaviLekaraZaOcenu(Ocena ocena, PrikazOcena prikazOcene)
         {
-            List<Lekar> lekari = repositoryController.DobijLekare();
+            List<Lekar> lekari = lekarService.DobijLekare();
             foreach (Lekar l in lekari)
             {
                 if (l.Jmbg.Equals(ocena.Lekar.Jmbg))

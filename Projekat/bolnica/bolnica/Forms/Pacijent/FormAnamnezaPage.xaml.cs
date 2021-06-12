@@ -33,7 +33,7 @@ namespace Bolnica.Forms
             anamnezaPacijentController.PostaviDatumComboBox();
             Anamneza = anamnezaPacijentController.DobijAnamnezu(prikazPregleda);
             Beleska = anamnezaPacijentController.DobijBelesku(Anamneza);
-            anamnezaPacijentController.PostaviSveLekovePacijentu(Anamneza);
+            anamnezaPacijentController.DobijLekoveIzAnamneze(Anamneza);
         }
 
         private void Button_Click_Vidi_Detalje(object sender, RoutedEventArgs e)

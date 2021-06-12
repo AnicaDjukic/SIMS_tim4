@@ -1,6 +1,7 @@
 ﻿using Bolnica.Controller;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
+using Bolnica.Services.Korisnici;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -10,11 +11,13 @@ namespace Bolnica.Service
 {
     public class ObavestenjaPacijentService
     {
-        private RepositoryController repositoryController = new RepositoryController();
+        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
+        private AnamnezaPacijentService serviceAnameza = new AnamnezaPacijentService();
+        private PregledService servicePregled = new PregledService();
 
-        public void PrikaziObavestenjaBolnice(Pacijent pacijent)
+        public void DobijObavestenjaBolnice(Pacijent pacijent)
         {
-            List<Obavestenje> obavestenja = repositoryController.DobijObavestenja();
+            List<Obavestenje> obavestenja = serviceObavestenje.DobaviSvaObavestenja();
             FormObavestenjaPacijentPage.Obavestenja = new List<Obavestenje>();
             foreach (Obavestenje o in obavestenja)
             {
@@ -29,10 +32,10 @@ namespace Bolnica.Service
             }
         }
 
-        public void PrikaziObavestenjaOLekovima(Pacijent pacijent)
+        public void DobijObavestenjaOLekovima(Pacijent pacijent)
         {
-            List<Pregled> preglediOperacije = DobijSvePregledeIOperacije();
-            List<Anamneza> anamneze = repositoryController.DobijAnamneze();
+            List<Pregled> preglediOperacije = servicePregled.DobijSvePregledeIOperacije();
+            List<Anamneza> anamneze = serviceAnameza.DobaviSveAnamneze();
             foreach (Pregled pregled in preglediOperacije)
             {
                 if (pacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
@@ -48,28 +51,11 @@ namespace Bolnica.Service
             }
         }
 
-        private List<Pregled> DobijSvePregledeIOperacije()
-        {
-            List<Pregled> preglediOperacije = new List<Pregled>();
-            List<Pregled> pregledi = repositoryController.DobijPreglede();
-            List<Operacija> operacije = repositoryController.DobijOperacije();
-            foreach (Pregled pregled in pregledi)
-            {
-                preglediOperacije.Add(pregled);
-            }
-            foreach (Operacija operacija in operacije)
-            {
-                preglediOperacije.Add(operacija);
-            }
-
-            return preglediOperacije;
-        }
-
         private void ProcitajRecepte(List<Recept> recepti)
         {
             foreach (Recept recept in recepti)
             {
-                string nazivLeka = DobijNazivLeka(recept.Lek.Id);
+                string nazivLeka = serviceAnameza.DobijNazivLeka(recept.Lek.Id);
                 int vremeUzimanja = recept.VremeUzimanja;
                 string datumZavrsetka = recept.Trajanje.ToShortDateString();
                 if (recept.Trajanje.CompareTo(DateTime.Today) >= 0)
@@ -114,19 +100,6 @@ namespace Bolnica.Service
                 Naslov = "Obavestenje o leku",
                 Sadrzaj = obavestenje
             };
-        }
-
-        private string DobijNazivLeka(int id)
-        {
-            List<Lek> lekovi = repositoryController.DobijLekove();
-            foreach (Lek lek in lekovi)
-            {
-                if (id.Equals(lek.Id))
-                {
-                    return lek.Naziv;
-                }
-            }
-            return "";
         }
 
         private string DobijBrojUzimanjaDnevno(int vremeUzimanja)

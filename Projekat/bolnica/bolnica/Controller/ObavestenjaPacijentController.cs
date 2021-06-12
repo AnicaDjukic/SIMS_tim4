@@ -7,14 +7,14 @@ namespace Bolnica.Controller
     {
         private ObavestenjaPacijentService service = new ObavestenjaPacijentService();
 
-        public void PrikaziObavestenjaBolnice(Pacijent pacijent)
+        public void DobijObavestenjaBolnice(Pacijent pacijent)
         {
-            service.PrikaziObavestenjaBolnice(pacijent);
+            service.DobijObavestenjaBolnice(pacijent);
         }
 
-        public void PrikaziObavestenjaOLekovima(Pacijent pacijent)
+        public void DobijObavestenjaOLekovima(Pacijent pacijent)
         {
-            service.PrikaziObavestenjaOLekovima(pacijent);
+            service.DobijObavestenjaOLekovima(pacijent);
         }
 
     }

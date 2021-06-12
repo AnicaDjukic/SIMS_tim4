@@ -14,8 +14,7 @@ namespace Bolnica.Forms
     public partial class FormOceniBolnicuPage : Page
     {
         private Pacijent pacijent = new Pacijent();
-        private RepositoryController repositoryController = new RepositoryController();
-        private RacunajIdController racunajIdController = new RacunajIdController();
+        private OcenaController controllerOcena = new OcenaController();
 
         public FormOceniBolnicuPage(Pacijent trenutniPacijent)
         {
@@ -32,7 +31,7 @@ namespace Bolnica.Forms
             else
             {
                 Ocena ocena = KreirajOcenu();
-                repositoryController.SacuvajOcenu(ocena);
+                controllerOcena.SacuvajOcenu(ocena);
 
                 IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(pacijent);
                 FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
@@ -48,7 +47,7 @@ namespace Bolnica.Forms
         {
             Ocena ocena = new Ocena
             {
-                IdOcene = racunajIdController.IzracunajIdOcene(),
+                IdOcene = controllerOcena.IzracunajIdOcene(),
                 BrojOcene = DobijOdabranuOcenu(),
                 Datum = DateTime.Now,
                 Sadrzaj = sadrzaj.Text,

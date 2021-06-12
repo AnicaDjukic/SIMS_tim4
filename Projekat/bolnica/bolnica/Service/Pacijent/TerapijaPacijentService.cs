@@ -1,6 +1,6 @@
-﻿using Bolnica.Controller;
-using Bolnica.Forms;
+﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Services.Pregledi;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -10,7 +10,9 @@ namespace Bolnica.Service
 {
     public class TerapijaPacijentService
     {
-        private RepositoryController repositoryController = new RepositoryController();
+        private PregledService servicePregled = new PregledService();
+        private AnamnezaPacijentService serviceAnamneza = new AnamnezaPacijentService();
+        private ServiceLek serviceLek = new ServiceLek();
 
         public void DobijTrenutnuSedmicu()
         {
@@ -75,7 +77,7 @@ namespace Bolnica.Service
 
         public void PopuniTerapijuPacijenta(Pacijent trenutniPacijent)
         {
-            List<Pregled> pregledi = repositoryController.DobijPreglede();
+            List<Pregled> pregledi = servicePregled.DobijSvePregledeIOperacije();
             foreach (Pregled pregled in pregledi)
             {
                 if (trenutniPacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
@@ -83,20 +85,11 @@ namespace Bolnica.Service
                     NadjiAnamnezu(pregled);
                 }
             }
-
-            List<Operacija> operacije = repositoryController.DobijOperacije();
-            foreach (Operacija operacija in operacije)
-            {
-                if (trenutniPacijent.Jmbg.Equals(operacija.Pacijent.Jmbg))
-                {
-                    NadjiAnamnezu(operacija);
-                }
-            }
         }
 
         private void NadjiAnamnezu(Pregled pregled)
         {
-            List<Anamneza> anamneze = repositoryController.DobijAnamneze();
+            List<Anamneza> anamneze = serviceAnamneza.DobaviSveAnamneze();
             foreach (Anamneza anamneza in anamneze)
             {
                 if (pregled.Anamneza.Id.Equals(anamneza.Id))
@@ -293,7 +286,7 @@ namespace Bolnica.Service
 
         private Lek NadjiLek(Recept recept)
         {
-            List<Lek> lekovi = repositoryController.DobijLekove();
+            List<Lek> lekovi = serviceLek.DobaviSveLekove();
             foreach (Lek lek in lekovi)
             {
                 if (recept.Lek.Id.Equals(lek.Id))

@@ -19,6 +19,7 @@ namespace Bolnica.Forms
         public static Pacijent Pacijent;
 
         private PodsetnikController podsetnikController = new PodsetnikController();
+        private AntiTrolController controllerAntiTrol = new AntiTrolController();
 
         public static string ImeIPre
         {
@@ -47,7 +48,7 @@ namespace Bolnica.Forms
 
         private void Button_Click_Zakazivanje_Pregleda(object sender, RoutedEventArgs e)
         {
-            int brojac = podsetnikController.DobijBrojAktivnosti(Pacijent);
+            int brojac = controllerAntiTrol.DobijBrojAktivnosti(Pacijent);
             
             if (brojac > 5)
             {

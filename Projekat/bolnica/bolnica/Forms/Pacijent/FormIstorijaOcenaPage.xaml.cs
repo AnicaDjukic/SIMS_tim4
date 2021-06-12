@@ -17,13 +17,13 @@ namespace Bolnica.Forms
             set;
         }
 
-        private IstorijaOcenaController istorijaOcenaController = new IstorijaOcenaController();
+        private OcenaController ocenaController = new OcenaController();
 
         public FormIstorijaOcenaPage(Pacijent trenutniPacijent)
         {
             InitializeComponent();
             this.DataContext = this;
-            istorijaOcenaController.PopuniTabeluOcena(trenutniPacijent);
+            ocenaController.PopuniTabeluOcena(trenutniPacijent);
         }
     }
 }

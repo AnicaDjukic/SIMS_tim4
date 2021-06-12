@@ -1,6 +1,7 @@
-﻿using Bolnica.Controller;
-using Bolnica.Forms;
+﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Services.Pregledi;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,29 @@ namespace Bolnica.Service
 {
     public class AnamnezaPacijentService
     {
-        private RepositoryController repositoryController = new RepositoryController();
-        private RacunajIdController racunajIdController = new RacunajIdController();
+        private FileRepositoryAnamneza repositoryAnamneza = new FileRepositoryAnamneza();
+        private BeleskaService serviceBeleska = new BeleskaService();
+        private ServiceLek serviceLek = new ServiceLek();
+
+        public List<Anamneza> DobaviSveAnamneze()
+        {
+            return repositoryAnamneza.GetAll();
+        }
+
+        public void SacuvajAnamnezu(Anamneza novaAmaneza)
+        {
+            repositoryAnamneza.Save(novaAmaneza);
+        }
+
+        public void IzmeniAnamnezu(Anamneza novaAmaneza)
+        {
+            repositoryAnamneza.Update(novaAmaneza);
+        }
+
+        public void IzbrisiAnamnezu(Anamneza anamneza)
+        {
+            repositoryAnamneza.Delete(anamneza);
+        }
 
         public void PostaviVremeComboBox()
         {
@@ -33,7 +55,7 @@ namespace Bolnica.Service
             }
         }
 
-        public void PostaviSveLekovePacijentu(Anamneza anamneza)
+        public void DobijLekoveIzAnamneze(Anamneza anamneza)
         {
             FormAnamnezaPage.LekoviPacijenta = new List<PrikazRecepta>();
             foreach (Recept r in anamneza.Recept)
@@ -44,7 +66,7 @@ namespace Bolnica.Service
 
         private void DodajLekPacijentu(Recept recept)
         {
-            List<Lek> lekovi = repositoryController.DobijLekove();
+            List<Lek> lekovi = serviceLek.DobaviSveLekove();
             foreach (Lek lek in lekovi)
             {
                 if (recept.Lek.Id.Equals(lek.Id))
@@ -57,7 +79,7 @@ namespace Bolnica.Service
 
         public Anamneza DobijAnamnezu(PrikazPregleda prikazPregleda)
         {
-            List<Anamneza> anamneze = repositoryController.DobijAnamneze();
+            List<Anamneza> anamneze = DobaviSveAnamneze();
             foreach (Anamneza anamneza in anamneze)
             {
                 if (anamneza.Id.Equals(prikazPregleda.Anamneza.Id))
@@ -70,7 +92,7 @@ namespace Bolnica.Service
 
         public Beleska DobijBelesku(Anamneza anamneza)
         {
-            List<Beleska> beleske = repositoryController.DobijBeleske();
+            List<Beleska> beleske = serviceBeleska.DobaviSveBeleske();
             foreach (Beleska beleska in beleske)
             {
                 if (anamneza.Beleska.Id.Equals(beleska.Id))
@@ -84,12 +106,12 @@ namespace Bolnica.Service
         public void SacuvajNovuBelesku(Beleska novaBeleska, PrikazPregleda prikaz)
         {
             bool izmenjen = false;
-            List<Beleska> beleske = repositoryController.DobijBeleske();
+            List<Beleska> beleske = serviceBeleska.DobaviSveBeleske();
             foreach (Beleska beleska in beleske)
             {
                 if (novaBeleska.Id.Equals(beleska.Id))
                 {
-                    repositoryController.IzmeniBelesku(novaBeleska);
+                    serviceBeleska.IzmeniBelesku(novaBeleska);
                     izmenjen = true;
                     MessageBox.Show("Beleska uspesno izmenjena.");
                     break;
@@ -97,13 +119,26 @@ namespace Bolnica.Service
             }
             if (!izmenjen)
             {
-                novaBeleska.Id = racunajIdController.IzracunajIdBeleske();
-                repositoryController.SacuvajBelesku(novaBeleska);
+                novaBeleska.Id = serviceBeleska.IzracunajIdBeleske();
+                serviceBeleska.SacuvajBelesku(novaBeleska);
                 Anamneza novaAnamneza = DobijAnamnezu(prikaz);
                 novaAnamneza.Beleska.Id = novaBeleska.Id;
-                repositoryController.IzmeniAnamnezu(novaAnamneza);
+                IzmeniAnamnezu(novaAnamneza);
                 MessageBox.Show("Beleska uspesno napravljena.");
             }
+        }
+
+        public string DobijNazivLeka(int id)
+        {
+            List<Lek> lekovi = serviceLek.DobaviSveLekove();
+            foreach (Lek lek in lekovi)
+            {
+                if (id.Equals(lek.Id))
+                {
+                    return lek.Naziv;
+                }
+            }
+            return "";
         }
     }
 }

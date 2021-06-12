@@ -1,6 +1,9 @@
 ﻿using Bolnica.Controller;
+using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Prostorije;
+using Bolnica.Service;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -18,8 +21,8 @@ namespace Bolnica.Forms
     public partial class FormIzmeniPacijentPage : Page
     {
         private PrikazPregleda prikazPregleda;
-        private RepositoryController repositoryController = new RepositoryController();
-        private RacunajIdController racunajIdController = new RacunajIdController();
+        private AntiTrolService antiTrolService = new AntiTrolService();
+        private PregledController controllerPregled = new PregledController();
 
         public FormIzmeniPacijentPage(PrikazPregleda prikazPre)
         {
@@ -32,7 +35,8 @@ namespace Bolnica.Forms
 
         private void DodajLekareUComboBox()
         {
-            List<Lekar> lekari = repositoryController.DobijLekare();
+            FileRepositoryLekar repositoryLekar = new FileRepositoryLekar();
+            List<Lekar> lekari = repositoryLekar.GetAll();
             foreach (Lekar l in lekari)
             {
                 comboLekar.Items.Add(l.Ime + " " + l.Prezime);
@@ -85,24 +89,14 @@ namespace Bolnica.Forms
                     Pregled pregled = SetPregled(prikaz);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Remove(this.prikazPregleda);
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
-                    repositoryController.IzmeniPregled(pregled);
+                    controllerPregled.IzmeniPregled(pregled);
 
-                    AntiTrol antiTrol = KreirajAntiTrol(prikaz);
-                    repositoryController.SacuvajAntiTrol(antiTrol);
+                    AntiTrol antiTrol = antiTrolService.KreirajAntiTrol(prikaz);
+                    antiTrolService.SacuvajAntiTrol(antiTrol);
                     PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
                     FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
                 }
             }
-        }
-
-        private AntiTrol KreirajAntiTrol(PrikazPregleda prikaz)
-        {
-            return new AntiTrol
-            {
-                Id = racunajIdController.IzracunajIdAntiTrol(),
-                Pacijent = prikaz.Pacijent,
-                Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
-            };
         }
 
         private void OtkaziIzmenu(object sender, RoutedEventArgs e)
@@ -184,7 +178,8 @@ namespace Bolnica.Forms
         private Lekar DobijLekara(string ime, string prezime)
         {
             Lekar lekar = new Lekar();
-            List<Lekar> lekari = repositoryController.DobijLekare();
+            FileRepositoryLekar repositoryLekar = new FileRepositoryLekar();
+            List<Lekar> lekari = repositoryLekar.GetAll();
             foreach (Lekar l in lekari)
             {
                 if (ime.Equals(l.Ime) && prezime.Equals(l.Prezime))
@@ -214,7 +209,8 @@ namespace Bolnica.Forms
 
         private Prostorija DobijProstoriju()
         {
-            List<Prostorija> prostorije = repositoryController.DobijProstorije();
+            FileRepositoryProstorija repositoryProstorija = new FileRepositoryProstorija();
+            List<Prostorija> prostorije = repositoryProstorija.GetAll();
             foreach (Prostorija prostorija in prostorije)
             {
                 if (prostorija.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !prostorija.Obrisana && !NaRenoviranju(prostorija))
@@ -227,7 +223,8 @@ namespace Bolnica.Forms
 
         private bool NaRenoviranju(Prostorija p)
         {
-            List<Renoviranje> renoviranja = repositoryController.DobijRenoviranja();
+            FileRepositoryRenoviranje repositoryRenoviranje = new FileRepositoryRenoviranje();
+            List<Renoviranje> renoviranja = repositoryRenoviranje.GetAll();
             foreach (Renoviranje r in renoviranja)
             {
                 if (p.BrojProstorije.Equals(r.Prostorija.BrojProstorije))
