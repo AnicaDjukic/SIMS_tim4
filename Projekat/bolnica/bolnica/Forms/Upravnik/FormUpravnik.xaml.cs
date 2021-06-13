@@ -1,12 +1,9 @@
-﻿using Bolnica;
-using Bolnica.DTO;
-using Bolnica.Forms;
+﻿using Bolnica.Controller.Pregledi;
+using Bolnica.Controller.Prostorije;
 using Bolnica.Forms.Upravnik;
 using Bolnica.Forms.Upravnik.FactoryMethod;
 using Bolnica.Localization;
-using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
@@ -24,6 +21,7 @@ namespace bolnica.Forms
     /// </summary>
     public partial class FormUpravnik : Window
     {
+        #region ObservableCollections
         public static ObservableCollection<Prostorija> Prostorije
         {
             get;
@@ -43,31 +41,30 @@ namespace bolnica.Forms
             get;
             set;
         }
+        #endregion
 
-        private Injector inject;
-        public Injector Inject
-        {
-            get { return inject; }
-            set
-            {
-                inject = value;
-            }
-        }
+        #region Controllers
+        ControllerRenoviranje controllerRenoviranje = new ControllerRenoviranje();
+        ControllerProstorija controllerProstorija = new ControllerProstorija();
+        ControllerBolnickaSoba controllerBolnickaSoba = new ControllerBolnickaSoba();
+        ControllerOprema controllerOprema = new ControllerOprema();
+        ControllerLek controllerLek = new ControllerLek();
+        #endregion
 
-        Operator<Prostorija, string> operatorProstorije = new OperatorProstorije();
-        Operator<Oprema, string> operatorOpreme = new OperatorOpreme();
-        Operator<Lek, int> operatorLeka = new OperatorLeka();
+        OperatorCreator<Prostorija, string> operatorProstorije = new OperatorProstorijeCreator();
+        OperatorCreator<Oprema, string> operatorOpreme = new OperatorOpremeCreator();
+        OperatorCreator<Lek, int> operatorLeka = new OperatorLekaCreator();
         public FormUpravnik()
         {
             InitializeComponent();
-            this.DataContext = this;
-            Inject = new Injector();
+            DataContext = this;
             clickedDodaj = false;
             AzurirajVreme();
-            Inject.ControllerRenoviranje.PodeliISpojiProstorije();
+            controllerRenoviranje.PodeliISpojiProstorije();
             InicijalizujPrikaz();
         }
 
+        #region INICIJALIZACIJA PRIKAZA
         private void AzurirajVreme()
         {
             Title = LocalizedStrings.Instance["Upravnik"];
@@ -95,7 +92,7 @@ namespace bolnica.Forms
 
         private void PrikaziProstorije()
         {
-            List<Prostorija> prostorije = Inject.ControllerProstorija.DobaviSveProstorije();
+            List<Prostorija> prostorije = controllerProstorija.DobaviSveProstorije();
             foreach (Prostorija p in prostorije)
             {
                 if (p.Obrisana == false)
@@ -105,7 +102,7 @@ namespace bolnica.Forms
 
         private void PrikaziBolnickeSobe()
         {
-            List<BolnickaSoba> bolnickeSobe = Inject.ControllerBolnickaSoba.DobaviSveBolnickeSobe();
+            List<BolnickaSoba> bolnickeSobe = controllerBolnickaSoba.DobaviSveBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
                 if (b.Obrisana == false)
@@ -117,7 +114,7 @@ namespace bolnica.Forms
         {
             Oprema = new ObservableCollection<Oprema>();
 
-            List<Oprema> oprema = Inject.ControllerOprema.DobaviSvuOpremu();
+            List<Oprema> oprema = controllerOprema.DobaviSvuOpremu();
             if (oprema != null)
             {
                 foreach (Oprema o in oprema)
@@ -129,7 +126,7 @@ namespace bolnica.Forms
         {
             Lekovi = new ObservableCollection<Lek>();
 
-            List<Lek> lekovi = Inject.ControllerLek.DobaviSveLekove();
+            List<Lek> lekovi = controllerLek.DobaviSveLekove();
             if (lekovi != null)
             {
                 foreach (Lek l in lekovi)
@@ -139,7 +136,9 @@ namespace bolnica.Forms
                 }
             }
         }
+        #endregion
 
+        #region CRUD OPERACIJE
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
             clickedDodaj = true;
@@ -156,36 +155,18 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                OtvoriFormuZaPrikazProstorije(prostorija.BrojProstorije);
+                operatorProstorije.OperacijaPrikazivanja(prostorija.BrojProstorije);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                OtvoriFormuZaPrikazOpreme(oprema.Sifra);
+                operatorOpreme.OperacijaPrikazivanja(oprema.Sifra);
             }
-            else
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                OtvoriFormuZaPrikazLeka(lek.Id);
+                operatorLeka.OperacijaPrikazivanja(lek.Id);
             }
-        }
-
-        private void OtvoriFormuZaPrikazProstorije(string brojProstorije)
-        {
-            var s = new ViewFormProstorije(brojProstorije);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaPrikazOpreme(string sifra)
-        {
-            var s = new ViewFormOprema(sifra);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaPrikazLeka(int idLeka)
-        {
-            var s = new ViewFormLek(idLeka);
-            s.Show();
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
@@ -194,41 +175,19 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                OtvoriFormuZaIzmenuProstorije(prostorija.BrojProstorije);
-
+                operatorProstorije.OperacijaIzmene(prostorija.BrojProstorije);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                OtvoriFormuZaIzmenuOpreme(oprema.Sifra);
-
+                operatorOpreme.OperacijaIzmene(oprema.Sifra);
             }
             else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                if (lek.Status == StatusLeka.cekaValidaciju)
-                    MessageBox.Show(LocalizedStrings.Instance["Nije moguće izmeniti lek koji čeka validaciju!"]);
-                else
-                    OtvoriFormuZaIzmenuLeka(lek.Id);
+                operatorLeka.OperacijaIzmene(lek.Id);
+
             }
-        }
-
-        private void OtvoriFormuZaIzmenuProstorije(string brojProstorije)
-        {
-            var s = new CreateFormProstorije(brojProstorije);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaIzmenuOpreme(string sifra)
-        {
-            var s = new CreateFormOprema(sifra);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaIzmenuLeka(int id)
-        {
-            ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(id);
-            CreateFormLekovi s = new CreateFormLekovi(vm);
         }
 
         private void Button_Click_Obrisi(object sender, RoutedEventArgs e)
@@ -249,7 +208,34 @@ namespace bolnica.Forms
                 operatorLeka.OperacijaBrisanja(lek);
             }
         }
+        #endregion
 
+        #region PRETRAGA
+        private void Button_Click_Search(object sender, RoutedEventArgs e)
+        {
+            if (Tabovi.SelectedIndex == 1)
+            {
+                List<Oprema> nadjenaOprema = operatorOpreme.OperacijaPretrage(txtSearch.Text);
+                FiltrirajRezultat(nadjenaOprema);
+            }
+        }
+
+        private void FiltrirajRezultat(List<Oprema> nadjenaOprema)
+        {
+            Oprema.Clear();
+            foreach (Oprema o in nadjenaOprema)
+            {
+                if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
+                    Oprema.Add(o);
+                else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
+                    Oprema.Add(o);
+                else if (comboTipOpreme.SelectedIndex == 0)
+                    Oprema.Add(o);
+            }
+        }
+        #endregion
+
+        #region OSTALE FUNKCIONALNOSTI
         private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
         {
             if (dataGridProstorije.SelectedCells.Count > 0)
@@ -266,55 +252,6 @@ namespace bolnica.Forms
             s.Show();
         }
 
-        private void Button_Click_Search(object sender, RoutedEventArgs e)
-        {
-            List<Oprema> oprema = new List<Oprema>();
-            foreach (Oprema o in Inject.ControllerOprema.DobaviSvuOpremu())
-            {
-                if (o.Sifra.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.Naziv.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.TipOpreme == TipOpreme.dinamicka)
-                {
-                    string dinamicka = LocalizedStrings.Instance["dinamička"];
-                    if (dinamicka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
-
-                if (o.TipOpreme == TipOpreme.staticka)
-                {
-                    string staticka = LocalizedStrings.Instance["statička"];
-                    if (staticka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
-            }
-            Oprema.Clear();
-            foreach (Oprema o in oprema)
-            {
-                if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
-                    Oprema.Add(o);
-                else if (comboTipOpreme.SelectedIndex == 2 && o.TipOpreme == TipOpreme.dinamicka)
-                    Oprema.Add(o);
-                else if (comboTipOpreme.SelectedIndex == 0)
-                    Oprema.Add(o);
-            }
-        }
-
         private void Tabovi_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Tabovi.SelectedIndex == 1)
@@ -329,7 +266,7 @@ namespace bolnica.Forms
             {
                 List<Oprema> oprema = new List<Oprema>();
 
-                foreach (Oprema o in Inject.ControllerOprema.DobaviSvuOpremu())
+                foreach (Oprema o in controllerOprema.DobaviSvuOpremu())
                 {
                     if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
                     {
@@ -419,4 +356,5 @@ namespace bolnica.Forms
             s.Show();
         }
     }
+    #endregion
 }

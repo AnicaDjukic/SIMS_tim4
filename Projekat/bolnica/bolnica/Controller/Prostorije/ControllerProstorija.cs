@@ -51,13 +51,12 @@ namespace Bolnica.Controller.Prostorije
             return service.DobaviProstoriju(brojProstorije);
         }
 
-        public List<Prostorija> DobaviProstorijeNaIstomSpratu(string brojProstorije)
+        public List<Prostorija> DobaviProstorijeNaIstomSpratu(int sprat)
         {
             List<Prostorija> prostorijeNaSpratu = new List<Prostorija>();
-            Prostorija prostorija = service.DobaviProstoriju(brojProstorije);
             foreach (Prostorija p in service.DobaviSveProstorije())
             {
-                if (p.Sprat == prostorija.Sprat)
+                if (p.Sprat == sprat && !p.Obrisana)
                     prostorijeNaSpratu.Add(p);
             }
             return prostorijeNaSpratu;
