@@ -8,5 +8,6 @@ namespace Bolnica.Repository.Pregledi
 {
     public interface IRepositoryLek : IRepository<Lek, int>
     {
+        public void DeleteById(int id);
     }
 }

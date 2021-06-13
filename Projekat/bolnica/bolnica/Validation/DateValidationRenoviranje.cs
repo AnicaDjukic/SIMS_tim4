@@ -1,4 +1,5 @@
 ﻿using Bolnica.Forms.Upravnik;
+using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
@@ -30,7 +31,7 @@ namespace Bolnica.Validation
                     {
                         if ((DateTime)value >= r.PocetakRenoviranja && (DateTime)value <= r.KrajRenoviranja)
                         {
-                            return new ValidationResult(false, "Datum nije slobodan");
+                            return new ValidationResult(false, LocalizedStrings.Instance["Datum nije slobodan"]);
                         }
                     }
 
@@ -42,7 +43,7 @@ namespace Bolnica.Validation
                     {
                         if(((DateTime)value).Date == p.Datum.Date)
                         {
-                            return new ValidationResult(false, "Datum nije slobodan");
+                            return new ValidationResult(false, LocalizedStrings.Instance["Datum nije slobodan"]);
                         }
                     }
                 }
@@ -53,13 +54,13 @@ namespace Bolnica.Validation
                     {
                         if (((DateTime)value).Date == o.Datum.Date)
                         {
-                            return new ValidationResult(false, "Datum nije slobodan");
+                            return new ValidationResult(false, LocalizedStrings.Instance["Datum nije slobodan"]);
                         }
                     }
                 }
                 return new ValidationResult(true, null);
             }
-            return new ValidationResult(false, "Popunite");
+            return new ValidationResult(false, LocalizedStrings.Instance["Popunite"]);
         }
     }
 }

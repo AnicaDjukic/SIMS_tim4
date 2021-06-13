@@ -74,7 +74,7 @@ namespace Model.Pregledi
             Obrisan = false;
         }
 
-        public Lek(int Id,string Naziv, string Proizvodjac, int KolicinaUMg, StatusLeka Status, int Zalihe)
+        public Lek(int Id, string Naziv, string Proizvodjac, int KolicinaUMg, StatusLeka Status, int Zalihe)
 
         {
             Sastojak = new List<Sastojak>();

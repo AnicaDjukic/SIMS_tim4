@@ -1,13 +1,11 @@
 ﻿using Bolnica.Controller;
-using Bolnica.Services;
-using Model.Pregledi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bolnica.Controller.Korisnici;
+using Bolnica.Controller.Pregledi;
+using Bolnica.Controller.Prostorije;
 using Bolnica.Service;
 using Bolnica.Controller.Korisnici;
+using Bolnica.Services;
+
 
 namespace Bolnica
 {
@@ -18,7 +16,7 @@ namespace Bolnica
         private PacijentPageService pacijentPageService = new PacijentPageService();
         public PacijentPageService PacijentPageService
         {
-            get { return pacijentPageService;  }
+            get { return pacijentPageService; }
         }
         private PacijentPageController pacijentPageController = new PacijentPageController();
         public PacijentPageController PacijentPageController
@@ -101,6 +99,91 @@ namespace Bolnica
         public LekarController LekarController
         {
             get { return lekarController; }
+        }
+        #endregion
+
+        #region UPRAVNIK
+
+        private ControllerLek controllerLek = new ControllerLek();
+
+        private ControllerSastojak controllerSastojak = new ControllerSastojak();
+
+        private ControllerObavestenje controllerObavestenje = new ControllerObavestenje();
+
+        private ControllerOprema controllerOprema = new ControllerOprema();
+
+        private ControllerProstorija controllerProstorija = new ControllerProstorija();
+
+        private ControllerBolnickaSoba controllerBolnickaSoba = new ControllerBolnickaSoba();
+
+        private ControllerBuducaZaliha controllerBuducaZaliha = new ControllerBuducaZaliha();
+
+        private ControllerRenoviranje controllerRenoviranje = new ControllerRenoviranje();
+
+        private ControllerZaliha controllerZaliha = new ControllerZaliha();
+
+        private ControllerOcenaAplikacije controllerOcenaAplikacije = new ControllerOcenaAplikacije();
+
+        private ControllerPregled controllerPregled = new ControllerPregled();
+
+        private ControllerOperacija controllerOperacija = new ControllerOperacija();
+        public ControllerLek ControllerLek
+        {
+            get { return controllerLek; }
+        }
+
+        public ControllerSastojak ControllerSastojak
+        {
+            get { return controllerSastojak; }
+        }
+
+        public ControllerObavestenje ControllerObavestenje
+        {
+            get { return controllerObavestenje; }
+        }
+
+        public ControllerOprema ControllerOprema
+        {
+            get { return controllerOprema; }
+        }
+
+        public ControllerProstorija ControllerProstorija 
+        { 
+            get { return controllerProstorija; }
+        }
+        public ControllerBolnickaSoba ControllerBolnickaSoba 
+        { 
+            get { return controllerBolnickaSoba; } 
+        }
+
+        public ControllerBuducaZaliha ControllerBuducaZaliha
+        {
+            get { return controllerBuducaZaliha; }
+        }
+
+        public ControllerRenoviranje ControllerRenoviranje
+        {
+            get { return controllerRenoviranje; }
+        }
+
+        public ControllerZaliha ControllerZaliha
+        {
+            get { return controllerZaliha; }
+        }
+
+        public ControllerOcenaAplikacije ControllerOcenaAplikacije
+        {
+            get { return controllerOcenaAplikacije; }
+        }
+
+        public ControllerPregled ControllerPregled
+        {
+            get { return controllerPregled; }
+        }
+
+        public ControllerOperacija ControllerOperacija
+        {
+            get { return controllerOperacija; }
         }
 
         #endregion

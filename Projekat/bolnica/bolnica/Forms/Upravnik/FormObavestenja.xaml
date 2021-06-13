@@ -4,27 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="Obaveštenja" Height="440" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Obaveštenja" Height="440" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +19,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="50,20,50,20" Text="Ako želite da vidite celo obaveštenje, potrebno je da dvokliknete na obaveštenje koje želite da pročitate:" FontSize="18" TextWrapping="Wrap"/>
+        <TextBlock Name="ObavestenjeTxtBlock" Text="{lex:Loc}" Grid.Row="0" Margin="50,20,50,20" FontSize="18" TextWrapping="Wrap"/>
         <ListView Grid.Row="1" Margin="50,0,50,0" Name="lvDataBinding">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -52,11 +38,11 @@
                             <TextBlock Text="{Binding Naslov}" TextWrapping="NoWrap" FontWeight="Bold" FontSize="20"/>
                             <TextBlock Text="{Binding Sadrzaj}" TextWrapping="Wrap" Width ="380" FontSize="15"/>
                         </StackPanel>
-                        
-                        <Label Grid.Column="1" Grid.Row="0" Content=" Datum:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+                        <Label Name="DatumLabel" Content="{lex:Loc}" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Top"/>
                         <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Datum, StringFormat={}{0:dd.MM.yyyy}}" TextWrapping="Wrap" Margin="0,5,0,0" VerticalAlignment="Top"/>
-                       
-                        <Label Grid.Column="1" Grid.Row="0" Content="Vreme:" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+
+                        <Label Name="VremeLabel" Content="{lex:Loc}" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Datum, StringFormat=t}" VerticalAlignment="Center"/>
                         
                     </Grid>
@@ -70,6 +56,6 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <Button Grid.Row="2" Content="Zatvori" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="22" Width="88" Click="Button_Click"/>
+        <Button Name="btnZatvori" Content="{lex:Loc}" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="22" Width="90" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
     </Grid>
 </Window>

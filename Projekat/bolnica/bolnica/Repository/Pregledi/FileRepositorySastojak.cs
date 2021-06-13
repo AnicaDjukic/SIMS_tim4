@@ -81,14 +81,38 @@ namespace Bolnica.Repository.Pregledi
         public Sastojak GetById(int id)
         {
             FileRepositoryPacijent.serializeAlergeni = true;
-            var json = File.ReadAllText(fileLocation);
-            var alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
+            Sastojak sastojak = new Sastojak();
+            List<Sastojak> alergeni = new List<Sastojak>();
+            alergeni = GetAll();
 
-            Sastojak alergen = new Sastojak();
-            foreach (Sastojak a in alergeni)
-                if (a.Id == id)
-                    alergen = a;
-            return alergen;
+            for (int i = 0; i < alergeni.Count; i++)
+            {
+                if (alergeni[i].Id.Equals(id))
+                {
+                    sastojak = alergeni[i];
+                    break;
+                }
+            }
+            return sastojak;
+        }
+
+        public void DeleteById(int id)
+        {
+            FileRepositoryPacijent.serializeAlergeni = true;
+            var json = File.ReadAllText(fileLocation);
+            List<Sastojak> alergeni = JsonConvert.DeserializeObject<List<Sastojak>>(json);
+            if (alergeni != null)
+            {
+                for (int i = 0; i < alergeni.Count; i++)
+                {
+                    if (alergeni[i].Id == id)
+                    {
+                        alergeni.Remove(alergeni[i]);
+                        break;
+                    }
+                }
+                File.WriteAllText(fileLocation, JsonConvert.SerializeObject(alergeni));
+            }
         }
     }
 }

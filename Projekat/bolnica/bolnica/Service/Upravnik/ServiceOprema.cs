@@ -9,11 +9,9 @@ namespace Bolnica.Services.Prostorije
     public class ServiceOprema
     {
         private RepositoryOprema repository;
-        private ServiceZaliha serviceZaliha;
         public ServiceOprema()
         {
             repository = new FileRepositoryOprema();
-            serviceZaliha = new ServiceZaliha();
         }
         public bool OpremaPostoji(string sifra)
         {
@@ -39,23 +37,12 @@ namespace Bolnica.Services.Prostorije
             repository.Save(oprema);
         }
 
-        public int IzracunajRezervisanuKolicinu(string sifraOpreme)
+        public List<Oprema> DobaviSvuOpremu()
         {
-            int rezervisanaKolicina = 0;
-            foreach (Zaliha z in serviceZaliha.DobaviZalihe())
-            {
-                if (z.Oprema.Sifra == sifraOpreme && z.Prostorija.BrojProstorije != "magacin")
-                    rezervisanaKolicina += z.Kolicina;
-            }
-            return rezervisanaKolicina;
+            return repository.GetAll();
         }
 
-        public bool MoguceSmanjitiKolicinu(int ukKolicina, int rezervisanaKolicina)
-        {
-            return ukKolicina - rezervisanaKolicina >= 0;
-        }
-
-        internal Oprema DobaviOpremu(string sifra)
+        public Oprema DobaviOpremu(string sifra)
         {
             return repository.GetById(sifra);
         }

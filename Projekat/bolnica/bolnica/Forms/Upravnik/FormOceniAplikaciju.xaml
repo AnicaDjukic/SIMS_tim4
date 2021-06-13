@@ -1,0 +1,41 @@
+﻿<Window x:Class="Bolnica.Forms.Upravnik.FormOceniAplikaciju"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        mc:Ignorable="d"
+        Title="FormOceniAplikaciju" Height="350" Width="525" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="IskustvoTxtBlock" Text="{lex:Loc}" Grid.Row="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <RadioButton x:Name="rbVrloLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Name="lblVrloLose" Content="{lex:Loc}" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="lblLose" Content="{lex:Loc}" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="lblDobro" Content="{lex:Loc}" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbVrloDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="lblVrloDobro" Content="{lex:Loc}" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbOdlicno" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="lblOdlicno" Content="{lex:Loc}" VerticalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+        <TextBlock Name="KomentarTxtBlock" Text="{lex:Loc}" Grid.Row="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Name="txtKomentar" Grid.Row="3" Margin="20,10" FontSize="15" TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button  Name="btnPotvrdi" Content="{lex:Loc}" Click="btnPotvrdi_Click" Height="25" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Click="btnOdustani_Click" Height="25" Margin="30,0,0,0" Style="{DynamicResource ButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>

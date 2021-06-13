@@ -4,26 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:val="clr-namespace:Bolnica.Validation"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="Dodavanje leka" Height="425" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Dodavanje leka" Height="425" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -31,33 +25,8 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9783E8"/>
         </Grid.Resources>
         <StackPanel>
-            <TabControl Height="310" Width="376" Margin="0,20,0,0">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
-                                        <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#D0C8F9"/>
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="INFORMACIJE">
+            <TabControl Height="310" Width="376" Margin="0,20,0,0" Style="{DynamicResource TabControlStyle}" BorderBrush="MediumPurple">
+                <TabItem Name="InformacijeTabItem" Header="{lex:Loc}" FontSize="13" Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="160"/>
@@ -71,41 +40,165 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Naziv:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Količina u mg:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Proizvođač:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label x:Name="lblZalihe" Grid.Row="4" Grid.Column="0" Content="Zalihe:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="IdLabel" Content="{lex:Loc}" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="NazivLabel" Content="{lex:Loc}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="KolicinaUMgLabel" Content="{lex:Loc}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="ProizvodjacLabel" Content="{lex:Loc}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label x:Name="lblZalihe"  Content="{lex:Loc}" Visibility="{Binding Path=VidljivaLabelaZalihe, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                        <TextBox x:Name="txtId" Grid.Row="0" Grid.Column="1" Text ="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
-                        <TextBox x:Name="txtNaziv" Grid.Row="1" Grid.Column="1" Text ="{Binding Path=Naziv, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
-                        <TextBox x:Name="txtKolicinaUMg" Grid.Row="2" Grid.Column="1" Text ="{Binding Path=KolicinaUMg, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
-                        <TextBox x:Name="txtProizvodjac" Grid.Row="3" Grid.Column="1" Text ="{Binding Path=Proizvodjac, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
-                        <TextBox x:Name="txtZalihe" Grid.Row="4" Grid.Column="1" Text ="{Binding Path=Zalihe, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0"/>
+                        <TextBox x:Name="txtId" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0">
+                            <TextBox.Text>
+                                <Binding Path="LekZaPrikaz.Id" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:ValidationRuleId ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox x:Name="txtNaziv" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0">
+                            <TextBox.Text>
+                                <Binding Path="LekZaPrikaz.Naziv" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:ValidationRuleNaziv ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox x:Name="txtKolicinaUMg" Grid.Row="2" Grid.Column="1" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0">
+                            <TextBox.Text>
+                                <Binding Path="LekZaPrikaz.KolicinaUMg" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox x:Name="txtProizvodjac" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0">
+                            <TextBox.Text>
+                                <Binding Path="LekZaPrikaz.Proizvodjac" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:ValidationRuleProizvodjac ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
+                        <TextBox x:Name="txtZalihe" Visibility="{Binding Path=VidljivTxtZalihe, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=DozvoljenUnosZaliha, UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="10,0,0,0">
+                            <TextBox.Text>
+                                <Binding Path="LekZaPrikaz.Zalihe" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </Grid>
                 </TabItem>
-                <TabItem Header="SASTOJCI">
+                <TabItem Name="SastojciTabItem" Header="{lex:Loc}" FontSize="13" Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-                            <Button x:Name="btnDodaj" Content="DODAJ" Height="20" Width="50" Margin="0,0,0,0" Click="Button_Click_Dodaj"/>
-                            <Button x:Name="btnUkloni" Content="UKLONI" Height="20" Width="50" Margin="20,0,0,0" Click="Button_Click_Ukloni"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,15,0,0">
+                            <Button x:Name="btnDodaj" Content="{lex:Loc}" Margin="10,0,0,0" Command="{Binding Path=DodajKomanda}" 
+                                    IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ButtonStyle}"/>
+                            <Button x:Name="btnUkloni" Content="{lex:Loc}" Margin="20,0,0,0" Command="{Binding Path=UkloniKomanda}" 
+                                    IsEnabled="{Binding Path=DozvoljenUnosSvegaOsimZaliha, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ButtonStyle}"/>
                         </StackPanel>
-                        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="10" ItemsSource="{Binding Sastojci}"
-                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="10" ItemsSource="{Binding Sastojci}" SelectedItem="{Binding SastojakZaUklanjanje}"
+                                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
+                                <DataGridTextColumn Header="{lex:Loc NazivDataGrid}" Binding="{Binding Naziv}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
                 </TabItem>
             </TabControl>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" Height="25">
-                <Button x:Name="btnValidacija" Content="Validacija" HorizontalAlignment="Center" Margin="0,0,0,0" Width="70" Click="Button_Click_Validacija"/>
-                <Button Content="Odustani" HorizontalAlignment="Center" Margin="40,0,0,0" Width="70" Click="Button_Click_Odustani"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" Height="25" >
+                <Button x:Name="btnValidacija" Content="{lex:Loc}" HorizontalAlignment="Center" Margin="0,0,0,0" Command="{Binding Path=ValidacijaLekaKomanda}" Style="{DynamicResource ButtonStyle}"/>
+                <Button Name="btnOdustani" Content="{lex:Loc}" HorizontalAlignment="Center" Margin="50,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
             </StackPanel>
         </StackPanel>
 

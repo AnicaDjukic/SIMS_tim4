@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Model.Pregledi;
 using Bolnica.Services.Pregledi;
 using Model.Pregledi;
@@ -34,44 +35,67 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
 
-        private ServiceLek serviceLek = new ServiceLek();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public ViewFormLek(int idLeka)
         {
             InitializeComponent();
             this.DataContext = this;
-            
-            Lek lek = PronadjiLek(idLeka);
-
-            PrikaziZameneLeka(lek);
-            
-            PrikaziSastojkeLeka(lek);
-            
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Prikaz leka"];
+            PrikaziLek(idLeka);
         }
 
-        private void PrikaziSastojkeLeka(Lek lek)
+        private void PrikaziLek(int idLeka)
         {
+            PrikaziInformacijeLeka(idLeka);
+            PrikaziZameneLeka(idLeka);
+            PrikaziSastojkeLeka(idLeka);
+        }
+
+        private void PrikaziInformacijeLeka(int idLeka)
+        {
+            Lek lek = Inject.ControllerLek.DobaviLek(idLeka);
+            lblId.Content = lek.Id;
+            lblNaziv.Content = lek.Naziv;
+            lblKolicinaUMg.Content = lek.KolicinaUMg;
+            lblProizvodjac.Content = lek.Proizvodjac;
+            if (lek.Status == StatusLeka.odobren)
+                lblStatus.Content = LocalizedStrings.Instance["Odobren"];
+            else if (lek.Status == StatusLeka.odbijen)
+                lblStatus.Content = LocalizedStrings.Instance["Odbijen"];
+            else
+                lblStatus.Content = LocalizedStrings.Instance["Čeka validaciju"];
+
+            lblZalihe.Content = lek.Zalihe;
+        }
+
+        private void PrikaziSastojkeLeka(int idLeka)
+        {
+            Lek lek = Inject.ControllerLek.DobaviLek(idLeka);
             Sastojci = new ObservableCollection<Sastojak>();
-            foreach (Sastojak s in serviceLek.DobaviSastojkeLeka(lek))
+            foreach (Sastojak s in Inject.ControllerLek.DobaviSastojkeLeka(lek))
             {
                 Sastojci.Add(s);
             }
         }
 
-        private void PrikaziZameneLeka(Lek lek)
+        private void PrikaziZameneLeka(int idLeka)
         {
+            Lek lek = Inject.ControllerLek.DobaviLek(idLeka);
             LekoviZamene = new ObservableCollection<Lek>();
-            foreach (Lek l in serviceLek.DobaviSveZameneLeka(lek))
+            foreach (Lek l in Inject.ControllerLek.DobaviSveZameneLeka(lek))
             {
                 LekoviZamene.Add(l);
             }
         }
-
-        private Lek PronadjiLek(int idLeka)
-        {
-            Lek lek = serviceLek.DobaviLek(idLeka);
-            return lek;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();

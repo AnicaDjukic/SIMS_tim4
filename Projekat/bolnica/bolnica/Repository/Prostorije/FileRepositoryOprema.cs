@@ -19,7 +19,17 @@ namespace Bolnica.Repository.Prostorije
         }
         public void Delete(Oprema entity)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeOprema = true;
+            List<Oprema> oprema = GetAll();
+            foreach (Oprema o in oprema)
+            {
+                if (entity.Sifra.Equals(o.Sifra))
+                {
+                    oprema.Remove(o);
+                    break;
+                }
+            }
+            File.WriteAllText(fileLocation, JsonConvert.SerializeObject(oprema));
         }
 
         public void DeleteById(string sifra)

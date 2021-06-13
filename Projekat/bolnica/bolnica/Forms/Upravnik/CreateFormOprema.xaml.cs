@@ -1,6 +1,7 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
-using Bolnica.Services.Prostorije;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -73,35 +74,67 @@ namespace Bolnica.Forms.Upravnik
             }
         }
 
-        private ServiceOprema serviceOprema = new ServiceOprema();
-        public CreateFormOprema()
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
+        public CreateFormOprema(string sifra)
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
+            Inject = new Injector();
+            if (!FormUpravnik.clickedDodaj)
+            {
+                Title = LocalizedStrings.Instance["Izmena opreme"];
+                PopuniPolja(sifra);
+            }
+            else
+                Title = LocalizedStrings.Instance["Dodavanje opreme"];
+        }
+
+        private void PopuniPolja(string sifra)
+        {
+            Oprema o = Inject.ControllerOprema.DobaviOpremu(sifra);
+            Sifra = o.Sifra;
+            Naziv = o.Naziv;
+            Kolicina = o.Kolicina;
+            if (o.TipOpreme == TipOpreme.staticka)
+                ComboTipOpreme.SelectedIndex = 0;
+            else
+                ComboTipOpreme.SelectedIndex = 1;
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            if (!serviceOprema.OpremaPostoji(sifra) || !FormUpravnik.clickedDodaj)
+            if (Sifra != null && Naziv != null)
             {
-                if (!FormUpravnik.clickedDodaj)
+                if (!Inject.ControllerOprema.OpremaPostoji(sifra) || !FormUpravnik.clickedDodaj)
                 {
-                    serviceOprema.ObrisiOpremu(sifra);
-                    UkloniIzPrikaza(sifra);
+                    if(UkKolicinaValidna(kolicina))
+                    {
+                        if (!FormUpravnik.clickedDodaj)
+                        {
+                            Inject.ControllerOprema.ObrisiOpremu(sifra);
+                            UkloniIzPrikaza(sifra);
+                        }
+
+                        Oprema oprema = NapraviOpremu();
+
+                        Inject.ControllerOprema.SacuvajOpremu(oprema);
+                        FormUpravnik.Oprema.Add(oprema);
+                        Close();
+                    }
                 }
-
-                Oprema oprema = NapraviOpremu();
-
-                serviceOprema.SacuvajOpremu(oprema);
-                FormUpravnik.Oprema.Add(oprema);
+                else
+                {
+                    MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
+                }
             }
-            else
-            {
-                MessageBox.Show("Oprema sa istom šifrom već postoji");
-                return;
-            }
-
-            Close();
         }
 
         private void UkloniIzPrikaza(string sifra)
@@ -132,14 +165,14 @@ namespace Bolnica.Forms.Upravnik
             Oprema oprema = NapraviOpremu();
             if (UkKolicinaValidna(kolicina))
             {
-                if (!FormUpravnik.clickedDodaj || !serviceOprema.OpremaPostoji(sifra))
+                if (!FormUpravnik.clickedDodaj || !Inject.ControllerOprema.OpremaPostoji(sifra))
                 {
                     var s = new FormSkladiste(oprema);
                     s.Show();
                 }
                 else
                 {
-                    MessageBox.Show("Oprema sa istom šifrom već postoji");
+                    MessageBox.Show(LocalizedStrings.Instance["Oprema sa istom šifrom već postoji!"]);
                     return;
                 }
             }
@@ -150,20 +183,27 @@ namespace Bolnica.Forms.Upravnik
             bool validna = true;
             if (ukKolicina <= 0)
             {
-                MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
+                MessageBox.Show(LocalizedStrings.Instance["Unesite validnu količinu! Količina mora biti veća od 0."]);
                 validna = false;
             }
             else
             {
-                int rezervisanaKolicina = serviceOprema.IzracunajRezervisanuKolicinu(sifra);
-                if (!serviceOprema.MoguceSmanjitiKolicinu(ukKolicina, rezervisanaKolicina))
-                {
-                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
-                    validna = false;
-                }
+                validna = UkupnaKolicinaVecaOdRezervisane(ukKolicina);
             }
 
             return validna;
+        }
+
+        private bool UkupnaKolicinaVecaOdRezervisane(int ukKolicina)
+        {
+            int rezervisanaKolicina = Inject.ControllerZaliha.DobaviRezervisanuKolicinu(sifra);
+            if (ukKolicina < rezervisanaKolicina)
+            {
+                MessageBox.Show(LocalizedStrings.Instance["Nije moguće toliko smajiti količinu. Količina ne sme biti manja od"] + " " + rezervisanaKolicina);
+                return false;
+            }
+
+            return true;
         }
 
         private void Button_Click_Odustani(object sender, RoutedEventArgs e)

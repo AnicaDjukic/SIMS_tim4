@@ -1,17 +1,8 @@
-﻿using Bolnica.Model.Korisnici;
-using Bolnica.Services.Korisnici;
-using Model.Korisnici;
-using System;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Korisnici;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -20,14 +11,23 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class FormObavestenja : Window
     {
-        private ServiceObavestenje serviceObavestenje = new ServiceObavestenje();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public FormObavestenja()
         {
             InitializeComponent();
             DataContext = this;
-            
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Obaveštenja"];
             List<Obavestenje> obavestenjaZaPrikaz = NadjiObavestenjaZaPrikaz();
-            
+
             SortirajObavestenjaPoDatumu(obavestenjaZaPrikaz);
 
             lvDataBinding.ItemsSource = obavestenjaZaPrikaz;
@@ -35,12 +35,12 @@ namespace Bolnica.Forms.Upravnik
 
         private void SortirajObavestenjaPoDatumu(List<Obavestenje> obavestenjaZaPrikaz)
         {
-            serviceObavestenje.SortirajObavestenja(obavestenjaZaPrikaz);
+            Inject.ControllerObavestenje.SortirajObavestenja(obavestenjaZaPrikaz);
         }
 
         private List<Obavestenje> NadjiObavestenjaZaPrikaz()
         {
-            return serviceObavestenje.NadjiObavestenjaKorisnika("upravnik");
+            return Inject.ControllerObavestenje.NadjiObavestenjaKorisnika("upravnik");
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

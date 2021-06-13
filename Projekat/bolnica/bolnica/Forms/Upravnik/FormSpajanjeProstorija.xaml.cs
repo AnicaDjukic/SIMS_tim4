@@ -1,18 +1,9 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -26,12 +17,24 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
-        private ServiceProstorija serviceProstorija = new ServiceProstorija();
+
         Renoviranje renoviranje;
+
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public FormSpajanjeProstorija(Renoviranje novoRenoviranje)
         {
             InitializeComponent();
             DataContext = this;
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Izbor prostorija za spajanje"];
             novoRenoviranje.BrojNovihProstorija = 0;
             renoviranje = novoRenoviranje;
             PrikaziProstorijeZaSpajanje();
@@ -40,7 +43,8 @@ namespace Bolnica.Forms.Upravnik
         private void PrikaziProstorijeZaSpajanje()
         {
             ProstorijeZaSpajanje = new ObservableCollection<Prostorija>();
-            foreach(Prostorija p in serviceProstorija.DobaviProstorijeNaIstomSpratu(renoviranje.Prostorija.BrojProstorije)){
+
+            foreach(Prostorija p in Inject.ControllerProstorija.DobaviProstorijeNaIstomSpratu(renoviranje.Prostorija.BrojProstorije)){
                 if(p.BrojProstorije != renoviranje.Prostorija.BrojProstorije)
                     ProstorijeZaSpajanje.Add(p);
             }
@@ -48,13 +52,21 @@ namespace Bolnica.Forms.Upravnik
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            if(GridProstorije.SelectedCells.Count > 0)
+            if(GridProstorijeZaSpajanje.SelectedCells.Count > 0)
             {
                 renoviranje.ProstorijeZaSpajanje.Clear();
-                var izabraneProstorije = GridProstorije.SelectedItems;
+                var izabraneProstorije = GridProstorijeZaSpajanje.SelectedItems;
                 foreach(Prostorija p in izabraneProstorije)
                 {
-                    renoviranje.ProstorijeZaSpajanje.Add(p);
+                    if (!Inject.ControllerProstorija.ZauzetaOdDatuma(p.BrojProstorije, renoviranje.PocetakRenoviranja))
+                    {
+                        renoviranje.ProstorijeZaSpajanje.Add(p);
+                    }
+                    else
+                    {
+                        MessageBox.Show(LocalizedStrings.Instance["Prostorija"] + " " + p.BrojProstorije + " " + LocalizedStrings.Instance["je zauzeta u narednom periodu!"]);
+                        return;
+                    }
                 }
                 Close();
             }

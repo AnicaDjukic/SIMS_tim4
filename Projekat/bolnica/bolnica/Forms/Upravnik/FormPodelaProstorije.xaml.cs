@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,23 +20,27 @@ namespace Bolnica.Forms.Upravnik
     public partial class FormPodelaProstorije : Window
     {
         private Renoviranje renoviranje;
+
+        public int BrojProstorija
+        {
+            get;
+            set;
+        }
         public FormPodelaProstorije(Renoviranje novoRenoviranje)
         {
             InitializeComponent();
+            DataContext = this;
+            Title = LocalizedStrings.Instance["Podela prostorije"];
             novoRenoviranje.ProstorijeZaSpajanje.Clear();
             renoviranje = novoRenoviranje;
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            if (txtBrojProstorija.Text != "")
+            if (BrojProstorija != 0)
             {
-                renoviranje.BrojNovihProstorija = Int32.Parse(txtBrojProstorija.Text);
+                renoviranje.BrojNovihProstorija = BrojProstorija;
                 Close();
-            }
-            else
-            {
-                MessageBox.Show("Morate uneti broj prostorija.");
             }
         }
 
