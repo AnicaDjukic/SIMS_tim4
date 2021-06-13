@@ -1,6 +1,5 @@
 ﻿using Bolnica.Controller;
 using Model.Korisnici;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
