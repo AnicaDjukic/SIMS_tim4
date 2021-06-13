@@ -29,7 +29,7 @@ namespace Bolnica.Service.Sekretar
                 foreach (int id in pacijentDTO.IdsAlergena)
                     foreach (Sastojak sas in alergeniIzSkladista)
                         if (sas.Id == id)
-                            dodatiAlergeni.Add(new SastojakDTO { Id = sas.Id, Naziv = sas.Naziv });
+                            dodatiAlergeni.Add(new SastojakDTO(sas.Id, sas.Naziv));
             return dodatiAlergeni;
         }
 
@@ -38,7 +38,7 @@ namespace Bolnica.Service.Sekretar
             List<Sastojak> alergeniIzSkladista = skladisteAlergena.GetAll();
             List<SastojakDTO> sviAlergeni = new List<SastojakDTO>();
             foreach (Sastojak s in alergeniIzSkladista)
-                sviAlergeni.Add(new SastojakDTO { Id = s.Id, Naziv = s.Naziv });
+                sviAlergeni.Add(new SastojakDTO(s.Id, s.Naziv));
 
             for (int i = alergeniIzSkladista.Count - 1; i >= 0; i--)
                 for (int j = 0; j < dodatiAlergeni.Count; j++)
@@ -50,7 +50,7 @@ namespace Bolnica.Service.Sekretar
         public SastojakDTO GetAlergenById(int id)
         {
             Sastojak alergen = skladisteAlergena.GetById(id);
-            SastojakDTO alergenDTO = new SastojakDTO { Id = alergen.Id, Naziv = alergen.Naziv };
+            SastojakDTO alergenDTO = new SastojakDTO(alergen.Id, alergen.Naziv);
             return alergenDTO;
         }
     }

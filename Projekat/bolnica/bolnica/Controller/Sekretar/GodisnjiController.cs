@@ -10,9 +10,14 @@ namespace Bolnica.Controller.Sekretar
     {
         private GodisnjiService service = new GodisnjiService();
 
-        /*public List<GodisnjiDTO> GetAllGodisnji() 
+        public List<GodisnjiDTO> GetAllGodisnji()
         {
             return service.GetAllGodisnji();
-        }*/
+        }
+
+        public void ZakaziGodisnji(GodisnjiDTO godisnjiDTO, LekarDTO lekarDTO, int daniNaGodisnjem)
+        {
+            service.ZakaziGodisnji(godisnjiDTO, lekarDTO, daniNaGodisnjem);
+        }
     }
 }

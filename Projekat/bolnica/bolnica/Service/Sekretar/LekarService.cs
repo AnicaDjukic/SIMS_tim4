@@ -29,5 +29,11 @@ namespace Bolnica.Service.Sekretar
             Lekar lekar = new Lekar { AdresaStanovanja = lekarDTO.AdresaStanovanja, BrojSlobodnihDana = lekarDTO.BrojSlobodnihDana, BrojTelefona = lekarDTO.BrojTelefona, DatumRodjenja = lekarDTO.DatumRodjenja, Email = lekarDTO.Email, GodineStaza = lekarDTO.GodineStaza, Ime = lekarDTO.Ime, Jmbg = lekarDTO.Jmbg, KorisnickoIme = lekarDTO.KorisnickoIme, Lozinka = lekarDTO.Lozinka, Mbr = lekarDTO.Mbr, Plata = lekarDTO.Plata, Prezime = lekarDTO.Prezime, Smena = lekarDTO.Smena, Specijalizacija = lekarDTO.Specijalizacija, TipKorisnika = lekarDTO.TipKorisnika, Zaposlen = lekarDTO.Zaposlen };
             skladisteLekara.Update(lekar);
         }
+
+        public void UpdateLekaraPoBrojuSlobodnihDana(LekarDTO lekar, int daniNaGodisnjem) 
+        {
+            lekar.BrojSlobodnihDana -= daniNaGodisnjem;
+            UpdateLekara(lekar);
+        }
     }
 }

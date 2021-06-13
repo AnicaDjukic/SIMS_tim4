@@ -1245,8 +1245,8 @@
             </TextBlock.Style>
         </TextBlock>
         <ComboBox ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" Name="comboBracniStatus" SelectedIndex="0" HorizontalAlignment="Left" Margin="150,489,0,0" VerticalAlignment="Top" Width="210">
-            <ComboBoxItem Content="Neoženjen/Neudata"/>
-            <ComboBoxItem Content="Oženjen/Udata"/>
+            <ComboBoxItem Content="Neozenjen/Neudata"/>
+            <ComboBoxItem Content="Ozenjen/Udata"/>
             <ComboBoxItem Content="Udovac/Udovica"/>
             <ComboBoxItem Content="Razveden/Razvedena"/>
         </ComboBox>

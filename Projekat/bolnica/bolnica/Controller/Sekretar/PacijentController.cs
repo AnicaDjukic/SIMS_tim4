@@ -1,4 +1,5 @@
-﻿using Bolnica.DTO;
+﻿using Bolnica.Controller.Sekretar;
+using Bolnica.DTO;
 using Bolnica.Forms;
 using Bolnica.Sekretar;
 using Bolnica.Services;
@@ -54,6 +55,11 @@ namespace Bolnica.Controller
         public void DodajIliIzmeniRedovnogPacijenta(PacijentDTO pacijent) 
         {
             service.DodajIliIzmeniRedovnogPacijenta(pacijent);
+        }
+
+        public BracniStatus PostaviPoljeBracniStatusPacijenta(IBracniStatusMehanizam bsm) 
+        {
+            return service.PostaviPoljeBracniStatusPacijenta(bsm);
         }
     }
 }
