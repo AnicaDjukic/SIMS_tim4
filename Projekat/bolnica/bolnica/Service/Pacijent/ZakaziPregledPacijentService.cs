@@ -21,7 +21,6 @@ namespace Bolnica.Service
         private FileRepositoryRenoviranje repositoryRenoviranje = new FileRepositoryRenoviranje();
         private AntiTrolService serviceAntiTrol = new AntiTrolService();
 
-        private List<Pregled> pregledi = new List<Pregled>();
         private List<Lekar> lekari = new List<Lekar>();
 
         public void Potvrdi(ZakazaniPregledDTO pregledDTO)
@@ -40,7 +39,7 @@ namespace Bolnica.Service
             string prezime = splited[1];
 
             Lekar lekar = new Lekar();
-            lekari = new FileRepositoryLekar().GetAll();
+            lekari = repositoryLekar.GetAll();
             foreach (Lekar l in lekari)
             {
                 if (ime.Equals(l.Ime) && prezime.Equals(l.Prezime))
@@ -78,17 +77,7 @@ namespace Bolnica.Service
             }
             else
             {
-                pregledi = servicePregled.DobaviSvePreglede();
-                int max = 0;
-                foreach (Pregled p in pregledi)
-                {
-                    if (p.Id > max)
-                    {
-                        max = p.Id;
-                    }
-                }
-                prikaz.Id = max + 1;
-
+                prikaz.Id = servicePregled.IzracunajIdPregleda();
                 PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
 
                 Pregled pregled = new Pregled

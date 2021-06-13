@@ -20,7 +20,6 @@ namespace Bolnica.Forms
         public static List<TimeSpan> Vremena { get; set; }
         public static List<DateTime> Datumi { get; set; }
 
-        private RepositoryController repositoryController = new RepositoryController();
         private AnamnezaPacijentController anamnezaPacijentController = new AnamnezaPacijentController();
         
         public FormAnamnezaPage(PrikazPregleda prikazPregleda)

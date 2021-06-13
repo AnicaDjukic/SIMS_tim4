@@ -18,7 +18,6 @@ namespace Bolnica.Forms
         private PrikazPregleda prikaz = new PrikazPregleda();
         private Pregled pregled = new Pregled();
 
-        private RepositoryController repositoryController = new RepositoryController();
         private OcenaController controllerOcena = new OcenaController();
 
         public FormOceniLekaraPage(PrikazPregleda prikazPregleda)

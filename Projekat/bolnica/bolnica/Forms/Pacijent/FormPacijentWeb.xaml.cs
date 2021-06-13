@@ -109,5 +109,10 @@ namespace Bolnica.Forms
             }, this.Dispatcher);
             timer.Start();
         }
+
+        private void Button_Click_Oceni_Aplikaciju(object sender, RoutedEventArgs e)
+        {
+            Pocetna.Content = new FormOceniAplikacijuPage(Pacijent);
+        }
     }
 }
