@@ -82,15 +82,15 @@
         </Grid.RowDefinitions>
         <TextBlock Name="IskustvoTxtBlock" Text="Iskustvo" Grid.Row="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <RadioButton x:Name="rbVrloLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <RadioButton x:Name="rbVrloLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewKeyDown="RBVrloLosePritisnuto"/>
             <Label Name="VrloLose" Content="Vrlo lose" VerticalAlignment="Center" FontSize="15"/>
-            <RadioButton x:Name="rbLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <RadioButton  PreviewKeyDown="RBLosePritisnuto" x:Name="rbLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <Label Name="Lose" Content="Lose" VerticalAlignment="Center" FontSize="15"/>
-            <RadioButton x:Name="rbDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <RadioButton  PreviewKeyDown="RBDobroPritisnuto" x:Name="rbDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <Label Name="Dobro" Content="Dobro" VerticalAlignment="Center" FontSize="15"/>
-            <RadioButton x:Name="rbVrloDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <RadioButton  PreviewKeyDown="RBVrloDobroPritisnuto" x:Name="rbVrloDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <Label Name="VrloDobro" Content="Vrlo dobro" VerticalAlignment="Center" FontSize="15"/>
-            <RadioButton x:Name="rbOdlicno" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <RadioButton  PreviewKeyDown="RBOdlicnoPritisnuto" x:Name="rbOdlicno" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <Label Name="Odlicno" Content="Odlicno" VerticalAlignment="Center" FontSize="15"/>
         </StackPanel>
         <TextBlock Name="KomentarTxtBlock" Text="Komentar" Grid.Row="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
