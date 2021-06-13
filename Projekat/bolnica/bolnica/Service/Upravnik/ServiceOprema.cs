@@ -37,6 +37,11 @@ namespace Bolnica.Services.Prostorije
             repository.Save(oprema);
         }
 
+        public List<Oprema> DobaviSvuOpremu()
+        {
+            return repository.GetAll();
+        }
+
         public Oprema DobaviOpremu(string sifra)
         {
             return repository.GetById(sifra);

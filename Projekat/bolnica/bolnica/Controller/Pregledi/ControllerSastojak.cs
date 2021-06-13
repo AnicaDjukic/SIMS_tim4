@@ -9,7 +9,7 @@ namespace Bolnica.Controller.Pregledi
 {
     public class ControllerSastojak
     {
-        ServiceSastojak serviceSastojak = new ServiceSastojak();
+        private ServiceSastojak serviceSastojak = new ServiceSastojak();
         public List<SastojakDTO> DobaviSastojkeLeka(int id)
         {
             List<SastojakDTO> sastojci = new List<SastojakDTO>();
@@ -22,7 +22,7 @@ namespace Bolnica.Controller.Pregledi
             return sastojci;
         }
 
-        internal List<SastojakDTO> DobaviSveSastojke()
+        public List<SastojakDTO> DobaviSveSastojke()
         {
             List<SastojakDTO> sastojci = new List<SastojakDTO>();
             foreach(Sastojak s in serviceSastojak.DobaviSveSastojke())
@@ -34,23 +34,23 @@ namespace Bolnica.Controller.Pregledi
             return sastojci;
         }
 
-        internal void ObrisiSastojak(int id)
+        public void ObrisiSastojak(int id)
         {
             serviceSastojak.ObrisiSastojak(id);
         }
 
-        internal bool SastojakPostoji(string naziv)
+        public bool SastojakPostoji(string naziv)
         {
             return serviceSastojak.SastojakPostoji(naziv);
         }
 
-        internal void SacuvajSastojak(SastojakDTO noviSastojak)
+        public void SacuvajSastojak(SastojakDTO noviSastojak)
         {
             Sastojak sastojak = new Sastojak { Id = noviSastojak.Id, Naziv = noviSastojak.Naziv };
             serviceSastojak.SacuvajSastojak(sastojak);
         }
 
-        internal int DobaviNoviId()
+        public int DobaviNoviId()
         {
             return serviceSastojak.MaxId() + 1;
         }

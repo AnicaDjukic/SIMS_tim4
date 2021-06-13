@@ -10,7 +10,7 @@ namespace Bolnica.Controller.Pregledi
 {
     public class ControllerLek
     {
-        ServiceLek service;
+        private ServiceLek service;
 
         public ControllerLek()
         {
@@ -43,14 +43,19 @@ namespace Bolnica.Controller.Pregledi
             return lek;
         }
 
-        public List<LekDTO> DobaviSveLekove()
+        public List<LekDTO> DobaviSveLekoveDTO()
         {
             List<LekDTO> lekovi = new List<LekDTO>();
-            foreach(Lek l in  service.DobaviSveLekove())
+            foreach(Lek l in service.DobaviSveLekove())
             {
                 lekovi.Add(new LekDTO(l));
             }
             return lekovi;
+        }
+
+        public List<Lek> DobaviSveLekove()
+        {
+            return service.DobaviSveLekove();
         }
 
         public void SacuvajLek(Lek lek)

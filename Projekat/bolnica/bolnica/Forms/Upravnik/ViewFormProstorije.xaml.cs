@@ -1,6 +1,8 @@
 ﻿using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
+using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -34,7 +36,47 @@ namespace Bolnica.Forms
             Inject = new Injector();
             Title = LocalizedStrings.Instance["Prikaz prostorije"];
             AzurirajSveZalihe();
+            PrikaziInformacijeProstorije(brojProstorije);
             PrikaziOpremuProstorije(brojProstorije);
+        }
+
+        private void PrikaziInformacijeProstorije(string brojProstorije)
+        {
+            Prostorija prostorija = Inject.ControllerProstorija.DobaviProstoriju(brojProstorije);
+            if (prostorija.BrojProstorije != null)
+            {
+                UkloniIzPrikazaBrojKreveta();
+            } 
+            else
+            {
+                prostorija = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+                PrikaziBrojKrevetaBolnickeSobe(brojProstorije);
+            }
+            lblBrojProstorije.Content = prostorija.BrojProstorije.ToString();
+            lblSprat.Content = prostorija.Sprat.ToString();
+            lblKvadratura.Content = prostorija.Kvadratura.ToString();
+            checkZauzeta.IsEnabled = false;
+            if (prostorija.TipProstorije == TipProstorije.salaZaPreglede)
+                lblTipProstorije.Content = LocalizedStrings.Instance["Sala za preglede"];
+            else
+                lblTipProstorije.Content = LocalizedStrings.Instance["Operaciona sala"];
+            checkZauzeta.IsChecked = prostorija.Zauzeta;
+
+        }
+
+        private void UkloniIzPrikazaBrojKreveta()
+        {
+            lblUkBrojKreveta.Visibility = Visibility.Hidden;
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
+        }
+
+        private void PrikaziBrojKrevetaBolnickeSobe(string brojBolnickeSobe)
+        {
+            BolnickaSoba bolnicka = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojBolnickeSobe);
+            lblUkBrojKreveta.Visibility = Visibility.Visible;
+            lblUkBrKreveta.Content = bolnicka.UkBrojKreveta.ToString();
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+            lblBrSlobodnihKreveta.Content = bolnicka.BrojSlobodnihKreveta.ToString();
         }
 
         private void AzurirajSveZalihe()

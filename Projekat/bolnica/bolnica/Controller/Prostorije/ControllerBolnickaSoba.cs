@@ -34,5 +34,10 @@ namespace Bolnica.Controller.Prostorije
         {
             return service.DobaviBolnickeSobeBezOpreme(zaliheOpreme);
         }
+
+        public BolnickaSoba DobaviBolnickuSobu(string brojBolnickeSobe)
+        {
+            return service.DobaviBolnickuSobu(brojBolnickeSobe);
+        }
     }
 }

@@ -117,21 +117,22 @@ namespace Bolnica.ViewModel.Upravnik
         #endregion
 
         #region Konstruktor i inicijalizacija
-        public ViewModelCreateFormLekovi(LekDTO lekZaIzmenu)
+        public ViewModelCreateFormLekovi(int idLeka)
         {
             if (FormUpravnik.clickedDodaj)
             {
                 vidljivaLabelaZalihe = Visibility.Hidden;
                 vidljivTxtZalihe = Visibility.Hidden;
             }
-            Inicijalizacija(lekZaIzmenu);
+            Inicijalizacija(idLeka);
             PostaviKomande();
         }
 
-        private void Inicijalizacija(LekDTO lekZaIzmenu)
+        private void Inicijalizacija(int idLeka)
         {
             Inject = new Injector();
-            lekZaPrikaz = lekZaIzmenu;
+            Lek lek = Inject.ControllerLek.DobaviLek(idLeka);
+            lekZaPrikaz = new LekDTO(lek);
             InicijalizujPoljaZaUnos();
             InicijalizujSastojke();
         }

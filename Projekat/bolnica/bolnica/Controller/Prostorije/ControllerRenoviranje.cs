@@ -24,5 +24,20 @@ namespace Bolnica.Controller.Prostorije
         {
             service.SacuvajRenoviranje(novoRenoviranje);
         }
+
+        public List<Renoviranje> DobaviSvaRenoviranja()
+        {
+            return service.DobaviSvaRenoviranja();
+        }
+
+        public void IzmeniRenoviranje(Renoviranje renoviranje)
+        {
+            service.Izmeni(renoviranje);
+        }
+
+        internal void PodeliISpojiProstorije()
+        {
+            service.PodeliISpojiProstorije();
+        }
     }
 }

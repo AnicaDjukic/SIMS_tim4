@@ -50,6 +50,11 @@ namespace Bolnica.Services.Prostorije
             return slobodneBolnickeSobe;
         }
 
+        public BolnickaSoba DobaviBolnickuSobu(string brojBolnickeSobe)
+        {
+            return repository.GetById(brojBolnickeSobe);
+        }
+
         public bool BolnickaSobaPostoji(string brojProstorije)
         {
             bool postoji = false;

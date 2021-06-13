@@ -83,15 +83,30 @@ namespace Bolnica.Forms.Upravnik
                 inject = value;
             }
         }
-        public CreateFormOprema()
+        public CreateFormOprema(string sifra)
         {
             InitializeComponent();
+            DataContext = this;
             Inject = new Injector();
             if (!FormUpravnik.clickedDodaj)
+            {
                 Title = LocalizedStrings.Instance["Izmena opreme"];
+                PopuniPolja(sifra);
+            }
             else
                 Title = LocalizedStrings.Instance["Dodavanje opreme"];
-            this.DataContext = this;
+        }
+
+        private void PopuniPolja(string sifra)
+        {
+            Oprema o = Inject.ControllerOprema.DobaviOpremu(sifra);
+            Sifra = o.Sifra;
+            Naziv = o.Naziv;
+            Kolicina = o.Kolicina;
+            if (o.TipOpreme == TipOpreme.staticka)
+                ComboTipOpreme.SelectedIndex = 0;
+            else
+                ComboTipOpreme.SelectedIndex = 1;
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)

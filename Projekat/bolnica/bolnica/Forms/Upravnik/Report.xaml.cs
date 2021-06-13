@@ -41,7 +41,7 @@ namespace Bolnica.Forms.Upravnik
         private void UcitajSveLekove()
         {
             Lekovi = new ObservableCollection<LekDTO>();
-            List<LekDTO> sviLekovi = Inject.ControllerLek.DobaviSveLekove();
+            List<LekDTO> sviLekovi = Inject.ControllerLek.DobaviSveLekoveDTO();
             foreach(LekDTO l in sviLekovi)
             {
                 Lekovi.Add(l);

@@ -46,6 +46,11 @@ namespace Bolnica.Controller.Prostorije
             return new Prostorija { BrojProstorije = brojProstorije };
         }
 
+        public Prostorija DobaviProstoriju(string brojProstorije)
+        {
+            return service.DobaviProstoriju(brojProstorije);
+        }
+
         public List<Prostorija> DobaviProstorijeNaIstomSpratu(string brojProstorije)
         {
             List<Prostorija> prostorijeNaSpratu = new List<Prostorija>();
@@ -92,6 +97,16 @@ namespace Bolnica.Controller.Prostorije
             }
 
             return false;
+        }
+
+        public double DobaviKvadraturu(string brojProstorije)
+        {
+            return service.DobaviKvadraturu(brojProstorije);
+        }
+
+        public void IzmeniProstoriju(Prostorija prostorija)
+        {
+            service.IzmeniProstoriju(prostorija);
         }
     }
 }

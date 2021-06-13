@@ -28,5 +28,15 @@ namespace Bolnica.Controller.Prostorije
         {
             service.SacuvajOpremu(oprema);
         }
+
+        public Oprema DobaviOpremu(string sifraOpreme)
+        {
+            return service.DobaviOpremu(sifraOpreme);
+        }
+
+        public List<Oprema> DobaviSvuOpremu()
+        {
+            return service.DobaviSvuOpremu();
+        }
     }
 }

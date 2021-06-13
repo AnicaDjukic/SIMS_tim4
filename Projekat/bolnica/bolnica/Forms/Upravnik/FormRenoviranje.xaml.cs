@@ -1,8 +1,9 @@
 ﻿using Bolnica.Localization;
 using Bolnica.Model.Prostorije;
-using Bolnica.Services.Prostorije;
+using Model.Pregledi;
 using Model.Prostorije;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -82,9 +83,38 @@ namespace Bolnica.Forms.Upravnik
             DataContext = this;
             Inject = new Injector();
             Title = LocalizedStrings.Instance["Renoviranje prostorije"];
+            PopuniKalendarZauzetimDatumima(brojProstorije);
+            InicijalizujPoljaForme();
             PrikaziRenoviranja(brojProstorije);
-            novoRenoviranje.Prostorija = new Prostorija();
-            novoRenoviranje.Prostorija.BrojProstorije = brojProstorije;
+            novoRenoviranje.Prostorija = new Prostorija { BrojProstorije = brojProstorije };
+        }
+
+        private void PopuniKalendarZauzetimDatumima(string brojProstorije)
+        {
+            List<Renoviranje> renoviranjaProstorije = Inject.ControllerRenoviranje.DobaviRenoviranjaProstorije(brojProstorije);
+            foreach (Renoviranje r in renoviranjaProstorije)
+            {
+                Calendar.BlackoutDates.Add(new CalendarDateRange(r.PocetakRenoviranja, r.KrajRenoviranja));
+            }
+
+            List<Pregled> preglediProstorije = Inject.ControllerPregled.DobaviSvePregledeProstorije(brojProstorije);
+            foreach (Pregled p in preglediProstorije)
+            {
+                Calendar.BlackoutDates.Add(new CalendarDateRange(p.Datum));
+            }
+
+            List<Operacija> operacijeProstorije = Inject.ControllerOperacija.DobaviSveOperacijeProstorije(brojProstorije);
+            foreach (Operacija o in operacijeProstorije)
+            {
+                Calendar.BlackoutDates.Add(new CalendarDateRange(o.Datum));
+            }
+        }
+
+        private void InicijalizujPoljaForme()
+        {
+            datePickerPocetak.DisplayDateStart = DateTime.Now;
+            datePickerKraj.DisplayDateStart = DateTime.Now;
+            btnZakazi.IsEnabled = false;
         }
 
         private void PrikaziRenoviranja(string brojProstorije)
@@ -158,12 +188,12 @@ namespace Bolnica.Forms.Upravnik
                 validni = false;
             }
 
-            if(PostojeZauzetiDatumiIzmedju(datumPocetka, datumKraja))
+            if (PostojeZauzetiDatumiIzmedju(datumPocetka, datumKraja))
             {
                 MessageBox.Show(LocalizedStrings.Instance["Između datuma početka i datuma kraja renoviranja postoje zauzeti datumi!"]);
                 validni = false;
             }
-           
+
             return validni;
         }
 
@@ -188,7 +218,7 @@ namespace Bolnica.Forms.Upravnik
 
         private void btnSpoji_Click(object sender, RoutedEventArgs e)
         {
-            if(datumPocetka != null)
+            if (datumPocetka != null)
             {
                 FormSpajanjeProstorija formSpajanje = new FormSpajanjeProstorija(novoRenoviranje);
                 formSpajanje.Show();
@@ -197,7 +227,7 @@ namespace Bolnica.Forms.Upravnik
             {
                 MessageBox.Show("Unesite datum pocetka renoviranja!");
             }
-            
+
         }
 
         private void btnPodeli_Click(object sender, RoutedEventArgs e)

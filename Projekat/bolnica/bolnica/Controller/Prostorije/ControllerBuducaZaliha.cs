@@ -49,5 +49,10 @@ namespace Bolnica.Controller.Prostorije
         {
             service.ObrisiBuduceZalihe(buduceZalihe);
         }
+
+        internal void ObrisiBuduceZaliheProstorije(string brojProstorije)
+        {
+            service.ObrisiBuduceZaliheProstorije(brojProstorije);
+        }
     }
 }

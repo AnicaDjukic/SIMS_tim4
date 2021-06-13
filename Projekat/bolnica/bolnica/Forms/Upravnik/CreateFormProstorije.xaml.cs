@@ -119,16 +119,49 @@ namespace Bolnica.Forms
                 inject = value;
             }
         }
-        public CreateFormProstorije()
+        public CreateFormProstorije(string brojProstorije)
         {
             InitializeComponent();
             Inject = new Injector();
             this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
+            {
                 Title = LocalizedStrings.Instance["Izmena prostorije"];
+                PopuniPolja(brojProstorije);
+            }
             else
+            {
                 Title = LocalizedStrings.Instance["Dodavanje prostorije"];
-            SakrijPoljaZaBolnickuSobu();
+                SakrijPoljaZaBolnickuSobu();
+            }
+        }
+
+        private void PopuniPolja(string brojProstorije)
+        {
+            Prostorija prostorija = Inject.ControllerProstorija.DobaviProstoriju(brojProstorije);
+            if (prostorija.BrojProstorije == null)
+            {
+                prostorija = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+                PrikaziBrojKrevetaBolnickeSobe(brojProstorije);
+            }
+
+            BrojProstorije = prostorija.BrojProstorije;
+            Sprat = prostorija.Sprat;
+            Kvadratura = prostorija.Kvadratura;
+            if (prostorija.TipProstorije == TipProstorije.salaZaPreglede)
+                comboTipProstorije.SelectedIndex = 0;
+            else if(prostorija.TipProstorije == TipProstorije.operacionaSala)
+                comboTipProstorije.SelectedIndex = 1;
+            else
+                comboTipProstorije.SelectedIndex = 2;
+            checkZauzeta.IsChecked = prostorija.Zauzeta;
+        }
+
+        private void PrikaziBrojKrevetaBolnickeSobe(string brojProstorije)
+        {
+            BolnickaSoba bolnicka = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+            UkBrojKreveta = bolnicka.UkBrojKreveta;
+            BrojSlobodnihKreveta = bolnicka.BrojSlobodnihKreveta;
         }
 
         private void SakrijPoljaZaBolnickuSobu()

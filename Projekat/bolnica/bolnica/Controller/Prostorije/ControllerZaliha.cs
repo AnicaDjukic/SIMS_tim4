@@ -71,5 +71,10 @@ namespace Bolnica.Controller.Prostorije
         {
             return service.DobaviZaliheProstorije(brojProstorije);
         }
+
+        public void ObrisiZaliheProstorije(string brojProstorije)
+        {
+            service.ObrisiZaliheProstorije(brojProstorije);
+        }
     }
 }
