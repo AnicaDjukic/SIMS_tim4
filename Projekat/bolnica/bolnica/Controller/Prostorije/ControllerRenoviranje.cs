@@ -35,7 +35,7 @@ namespace Bolnica.Controller.Prostorije
             service.Izmeni(renoviranje);
         }
 
-        internal void PodeliISpojiProstorije()
+        public void PodeliISpojiProstorije()
         {
             service.PodeliISpojiProstorije();
         }

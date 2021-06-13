@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Repository.Korisnici;
+using Bolnica.Service.Upravnik;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,16 +9,16 @@ namespace Bolnica.Controller.Korisnici
 {
     public class ControllerOcenaAplikacije
     {
-        private IRepositoryOcenaAplikacije repository;
+        private ServiceOcenaAplikacije service;
 
         public ControllerOcenaAplikacije()
         {
-            repository = new FileRepositoryOcenaAplikacije();
+            service = new ServiceOcenaAplikacije();
         }
 
         public void SacuvajOcenuAplikacije(OcenaAplikacije ocena)
         {
-            repository.Save(ocena);
+            service.SacuvajOcenuAplikacije(ocena);
         }
     }
 }
