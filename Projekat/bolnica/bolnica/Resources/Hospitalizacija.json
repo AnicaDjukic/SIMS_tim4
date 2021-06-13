@@ -7,8 +7,8 @@
     "Prostorija": { "BrojProstorije": "107" },
     "Razlog": null,
     "Pacijent": {
-      "Jmbg": "1212000190000",
-      "KorisnickoIme": "pero"
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
     }
   },
   {
@@ -18,8 +18,8 @@
     "Prostorija": { "BrojProstorije": "111" },
     "Razlog": "Upala pluca",
     "Pacijent": {
-      "Jmbg": "1212000190000",
-      "KorisnickoIme": "pero"
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
     }
   },
   {
@@ -31,17 +31,6 @@
     "Pacijent": {
       "Jmbg": "1212000190000",
       "KorisnickoIme": "pero"
-    }
-  },
-  {
-    "Id": 5,
-    "DatumPocetka": "2021-06-07T01:13:46.7458211+02:00",
-    "DatumZavrsetka": "2021-06-09T00:00:00",
-    "Prostorija": { "BrojProstorije": "111" },
-    "Razlog": "Korona virus",
-    "Pacijent": {
-      "Jmbg": "0910990130002",
-      "KorisnickoIme": null
     }
   },
   {

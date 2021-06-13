@@ -1,5 +1,6 @@
 ﻿using Bolnica.Commands;
 using Bolnica.Forms;
+using Bolnica.Iterator;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
@@ -349,6 +350,7 @@ namespace Bolnica.ViewModel
         public void PostaviAlergene(Pacijent izabraniPacijent)
         {
             List<Sastojak>? alergeniPacijenta = izabraniPacijent.Alergeni;
+
             List<String> alergeniZaPrikaz = new List<string>();
 
             if (alergeniPacijenta != null)
@@ -371,14 +373,20 @@ namespace Bolnica.ViewModel
         public void PostaviHospitalizacije()
         {
             List<Hospitalizacija> sveHospitalizacije = inject.InformacijeOPacijentuLekarController.DobijHospitalizacije();
+            var kolekcijaHospitalizacija = new Kolekcija();
             for (int i = 0; i < sveHospitalizacije.Count; i++)
             {
                 if (sveHospitalizacije[i].Pacijent.Jmbg.Equals(pacijentIzabrani.Jmbg))
                 {
-                    Hospitalizacije.Add(sveHospitalizacije[i]);
+                    kolekcijaHospitalizacija.Dodaj(sveHospitalizacije[i]);
                 }
             }
-          
+            kolekcijaHospitalizacija.ObrnutiRedosled();
+            foreach (var element in kolekcijaHospitalizacija)
+            {
+                Hospitalizacije.Add(element as Hospitalizacija);
+            }
+            
         }
 
         public void AnamnezaIstorija()
