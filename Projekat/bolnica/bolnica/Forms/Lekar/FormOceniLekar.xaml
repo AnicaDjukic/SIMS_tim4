@@ -1,0 +1,103 @@
+﻿<Window x:Class="Bolnica.Forms.Lekar.FormOceniLekar"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bolnica.Forms"
+        mc:Ignorable="d"
+        Title="FormOceniAplikaciju" Height="350" Width="525" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF7EA6BC">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="150"/>
+            <Setter Property="MinWidth" Value="480"/>
+
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#1176ae"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="SaveButton">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStretch" Value="Medium"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#1176ae"></Setter>
+
+
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#FFD2FCFF"/>
+                </Trigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textSimptomi}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textDijagnoza}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid Background="#FF7EA6BC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="IskustvoTxtBlock" Text="Iskustvo" Grid.Row="0" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <RadioButton x:Name="rbVrloLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Name="VrloLose" Content="Vrlo lose" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbLose" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="Lose" Content="Lose" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="Dobro" Content="Dobro" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbVrloDobro" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="VrloDobro" Content="Vrlo dobro" VerticalAlignment="Center" FontSize="15"/>
+            <RadioButton x:Name="rbOdlicno" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            <Label Name="Odlicno" Content="Odlicno" VerticalAlignment="Center" FontSize="15"/>
+        </StackPanel>
+        <TextBlock Name="KomentarTxtBlock" Text="Komentar" Grid.Row="2" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Name="txtKomentar" Grid.Row="3" Margin="20,10" FontSize="15" TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button  Name="Potvrdi" Content="Potvrdi" Click="btnPotvrdi_Click" Height="25" />
+            <Button Name="Odustani" Content="Odustani" Click="btnOdustani_Click" Height="25" Margin="30,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
