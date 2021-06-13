@@ -88,6 +88,7 @@
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="gray"/>
             </DataGrid.Resources>
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime" Binding="{Binding Ime}" Width="*">
                     <DataGridTextColumn.HeaderStyle>

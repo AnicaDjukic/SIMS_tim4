@@ -13,8 +13,9 @@ namespace Bolnica.Model.Korisnici
     public class FileRepositoryLekar : IRepositoryLekar
     {
 
-        public string fileLocation { get; set; }
+        private string fileLocation;
 
+        public static bool serializeSmena;
         public FileRepositoryLekar()
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -24,6 +25,7 @@ namespace Bolnica.Model.Korisnici
         public List<Lekar> GetAll()
         {
             FileRepositoryPregled.serializeKorisnik = true;
+            serializeSmena = false;
             var json = File.ReadAllText(fileLocation);
             var lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             return lekari;
@@ -32,6 +34,7 @@ namespace Bolnica.Model.Korisnici
         public void Save(Lekar noviLekar)
         {
             FileRepositoryPregled.serializeKorisnik = true;
+            serializeSmena = false;
             var json = File.ReadAllText(fileLocation);
             List<Lekar> lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             if (lekari == null)
@@ -45,6 +48,7 @@ namespace Bolnica.Model.Korisnici
         public void Delete(Lekar lekar)
         {
             FileRepositoryPregled.serializeKorisnik = true;
+            serializeSmena = false;
             var json = File.ReadAllText(fileLocation);
             List<Lekar> lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
             if (lekari != null)
@@ -64,6 +68,7 @@ namespace Bolnica.Model.Korisnici
         public void Update(Lekar entity)
         {
             FileRepositoryPregled.serializeKorisnik = true;
+            serializeSmena = false;
             List<Lekar> lekari = new List<Lekar>();
             lekari = GetAll();
 
@@ -81,6 +86,7 @@ namespace Bolnica.Model.Korisnici
         public Lekar GetById(string id)
         {
             FileRepositoryPregled.serializeKorisnik = true;
+            serializeSmena = false;
             var json = File.ReadAllText(fileLocation);
             var lekari = JsonConvert.DeserializeObject<List<Lekar>>(json);
 

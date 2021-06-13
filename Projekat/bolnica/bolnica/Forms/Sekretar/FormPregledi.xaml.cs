@@ -1,4 +1,5 @@
-﻿using Bolnica.Forms;
+﻿using bolnica;
+using Bolnica.Forms;
 using Bolnica.Forms.Sekretar;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
@@ -185,6 +186,7 @@ namespace Bolnica.Sekretar
         private void Button_Click_Pacijenti(object sender, RoutedEventArgs e)
         {
             var s = new FormSekretar();
+            s.btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -192,6 +194,7 @@ namespace Bolnica.Sekretar
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
             var s = new FormObavestenja();
+            s.btnObavestenja.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -326,6 +329,7 @@ namespace Bolnica.Sekretar
         private void Button_Click_Lekari(object sender, RoutedEventArgs e)
         {
             var s = new FormLekari();
+            s.btnLekari.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -333,8 +337,29 @@ namespace Bolnica.Sekretar
         private void Button_Click_Statistika(object sender, RoutedEventArgs e)
         {
             var s = new FormStatistika();
+            s.btnStats.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
+        }
+
+        private void Button_Click_Odjavljivanje(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da se odjavite?",
+                                              "Odjavljivanje",
+                                              MessageBoxButton.YesNo,
+                                              MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.Yes)
+            {
+                var s = new MainWindow();
+                s.Show();
+                this.Close();
+            }
+        }
+
+        private void Button_Click_Feedback(object sender, RoutedEventArgs e)
+        {
+            var s = new FormFeedback();
+            s.ShowDialog();
         }
     }
 }

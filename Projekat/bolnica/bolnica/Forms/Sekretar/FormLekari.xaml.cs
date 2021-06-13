@@ -1,4 +1,6 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using bolnica;
+using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -28,32 +30,28 @@ namespace Bolnica.Forms.Sekretar
             get;
             set;
         }
-        public static ObservableCollection<Lekar> NoviLekari
-        {
-            get;
-            set;
-        }
-        private FileRepositoryLekar storage;
+        private FileRepositoryLekar skladisteLekara;
+        private FileRepositorySmena skladisteSmena;
         public FormLekari()
         {
             InitializeComponent();
-            dataGridLekari.DataContext = this;
-            dataGridLekariNovi.DataContext = this;
+            this.DataContext = this;
 
-            NoviLekari = new ObservableCollection<Lekar>();
             Lekari = new ObservableCollection<Lekar>();
-            storage = new FileRepositoryLekar();
-            List<Lekar> lekari = storage.GetAll();
+            skladisteLekara = new FileRepositoryLekar();
+            skladisteSmena = new FileRepositorySmena();
+            List<Lekar> lekari = skladisteLekara.GetAll();
             foreach (Lekar l in lekari)
-                if (l.PostavljenaSmena)
-                    Lekari.Add(l);
-                else
-                    NoviLekari.Add(l);
+            {
+                l.Smena = skladisteSmena.GetById(l.Smena.Id);
+                Lekari.Add(l);
+            }
         }
 
         private void Button_Click_Pacijenti(object sender, RoutedEventArgs e)
         {
             var s = new FormSekretar();
+            s.btnPacijenti.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -61,6 +59,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Pregledi(object sender, RoutedEventArgs e)
         {
             var s = new FormPregledi();
+            s.btnPregledi.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -68,6 +67,7 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
             var s = new FormObavestenja();
+            s.btnObavestenja.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
         }
@@ -109,64 +109,16 @@ namespace Bolnica.Forms.Sekretar
             }
         }
 
-        private void SearchBoxLekariNoviKeyUp(object sender, KeyEventArgs e)
+        private void PromeniDefaultSmenu(object sender, RoutedEventArgs e)
         {
-            string[] searchBoxText = searchBoxLekariNovi.Text.Split(" ");
-
-            if (searchBoxText.Length == 1)
-            {
-                var filtered = NoviLekari.Where(lekar => lekar.Ime.StartsWith(searchBoxLekariNovi.Text, StringComparison.InvariantCultureIgnoreCase));
-                dataGridLekariNovi.ItemsSource = filtered;
-            }
-            else if (searchBoxText.Length == 2)
-            {
-                var filtered = NoviLekari.Where(lekar => lekar.Ime.StartsWith(searchBoxText[0], StringComparison.InvariantCultureIgnoreCase) && lekar.Prezime.StartsWith(searchBoxText[1], StringComparison.InvariantCultureIgnoreCase));
-                dataGridLekariNovi.ItemsSource = filtered;
-            }
-            else if (searchBoxText.Length > 2)
-            {
-                dataGridLekariNovi.ItemsSource = null;
-                dataGridLekariNovi.Items.Refresh();
-            }
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ti1.IsSelected)
-            {
-                searchBoxLekari.Visibility = Visibility.Visible;
-                searchBoxLekariNovi.Visibility = Visibility.Hidden;
-                btnDodajSmenu.Visibility = Visibility.Hidden;
-                btnDodajSmenu.IsEnabled = false;
-                btnZakaziGodisnji.Visibility = Visibility.Visible;
-                btnZakaziGodisnji.IsEnabled = true;
-            }
-            else if (ti2.IsSelected)
-            {
-                searchBoxLekariNovi.Visibility = Visibility.Visible;
-                searchBoxLekari.Visibility = Visibility.Hidden;
-                btnDodajSmenu.Visibility = Visibility.Visible;
-                btnDodajSmenu.IsEnabled = true;
-                btnZakaziGodisnji.Visibility = Visibility.Hidden;
-                btnZakaziGodisnji.IsEnabled = false;
-            }
-        }
-
-        private void DodajSmenu(object sender, RoutedEventArgs e)
-        {
-            Lekar lekar = (Lekar)dataGridLekariNovi.SelectedItem;
+            Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
             if (lekar != null)
             {
-                var s = new FormSmene(lekar.Jmbg);
+                var s = new FormDefaultSmene(lekar.KorisnickoIme);
                 s.ShowDialog();
             }
             else
-            {
-                MessageBoxResult result = MessageBox.Show("Odaberite lekara za dodavanje smene.",
-                                          "Dodavanje smene",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-            }
+                MessageBox.Show("Odaberite lekara za izmenu podrazumevane smene.", "Izmena podrazumevane smene", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ZakaziGodisnji(object sender, RoutedEventArgs e)
@@ -174,7 +126,7 @@ namespace Bolnica.Forms.Sekretar
             Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
             if (lekar != null)
             {
-                var s = new FormGodisnji(lekar.Jmbg);
+                var s = new FormGodisnji(lekar.KorisnickoIme);
                 s.ShowDialog();
             }
             else
@@ -189,8 +141,58 @@ namespace Bolnica.Forms.Sekretar
         private void Button_Click_Statistika(object sender, RoutedEventArgs e)
         {
             var s = new FormStatistika();
+            s.btnStats.Background = new SolidColorBrush(Color.FromArgb(255, 169, 169, 169));
             s.Show();
             this.Close();
+        }
+
+        private void GenerisiIzvestaj(object sender, RoutedEventArgs e)
+        {
+            Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
+            if (lekar != null)
+            {
+                IzvestajParametri s = new IzvestajParametri(lekar.Jmbg);
+                s.ShowDialog();
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Odaberite lekara za generisanje njegovog izveštaja.",
+                                          "Generisanje izveštaja",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_Click_Odjavljivanje(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite da se odjavite?",
+                                              "Odjavljivanje",
+                                              MessageBoxButton.YesNo,
+                                              MessageBoxImage.Exclamation);
+            if (result == MessageBoxResult.Yes)
+            {
+                var s = new MainWindow();
+                s.Show();
+                this.Close();
+            }
+        }
+
+        private void PromeniSmenu(object sender, RoutedEventArgs e)
+        {
+            Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
+            if (lekar != null)
+            {
+                var s = new FormSmena(lekar.KorisnickoIme);
+                s.ShowDialog();
+            }
+            else
+                MessageBox.Show("Odaberite lekara za izmenu smene.", "Izmena smene", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Button_Click_Feedback(object sender, RoutedEventArgs e)
+        {
+            var s = new FormFeedback();
+            s.ShowDialog();
         }
     }
 }
