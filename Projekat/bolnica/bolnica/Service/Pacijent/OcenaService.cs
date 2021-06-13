@@ -1,15 +1,13 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Services;
-using Bolnica.Template;
 using Model.Korisnici;
-using Model.Pregledi;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Bolnica.Service
 {
-    public class OcenaService : RacunajId
+    public class OcenaService
     {
         private FileRepositoryOcena repositoryOcena = new FileRepositoryOcena();
         private LekarService lekarService = new LekarService();
@@ -32,11 +30,6 @@ namespace Bolnica.Service
         public void IzbrisiOcenu(Ocena ocena)
         {
             repositoryOcena.Delete(ocena);
-        }
-
-        public int IzracunajIdOcene()
-        {
-            return IzracunajId();
         }
 
         public void DobijOcenePacijenta(Pacijent trenutniPacijent)
@@ -83,17 +76,6 @@ namespace Bolnica.Service
         private static void DodajOcenuUTabelu(PrikazOcena prikaz)
         {
             FormIstorijaOcenaPage.PrikazOcenaIKomentara.Add(prikaz);
-        }
-
-        public override List<int> DobijListu()
-        {
-            List<int> ideovi = new List<int>();
-            List<Ocena> ocene = DobaviSveOcene();
-            foreach (Ocena ocena in ocene)
-            {
-                ideovi.Add(ocena.IdOcene);
-            }
-            return ideovi;
         }
     }
 }

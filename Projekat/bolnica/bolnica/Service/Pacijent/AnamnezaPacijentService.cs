@@ -13,6 +13,7 @@ namespace Bolnica.Service
     {
         private FileRepositoryAnamneza repositoryAnamneza = new FileRepositoryAnamneza();
         private BeleskaService serviceBeleska = new BeleskaService();
+        private BeleskaIdService serviceBeleskaId = new BeleskaIdService();
         private ServiceLek serviceLek = new ServiceLek();
 
         public List<Anamneza> DobaviSveAnamneze()
@@ -119,7 +120,7 @@ namespace Bolnica.Service
             }
             if (!izmenjen)
             {
-                novaBeleska.Id = serviceBeleska.IzracunajIdBeleske();
+                novaBeleska.Id = serviceBeleskaId.IzracunajIdBeleske();
                 serviceBeleska.SacuvajBelesku(novaBeleska);
                 Anamneza novaAnamneza = DobijAnamnezu(prikaz);
                 novaAnamneza.Beleska.Id = novaBeleska.Id;

@@ -1,12 +1,11 @@
 ﻿using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
-using Bolnica.Template;
 using Model.Pregledi;
 using System.Collections.Generic;
 
 namespace Bolnica.Service
 {
-    public class PregledService : RacunajId
+    public class PregledService
     {
         private FileRepositoryPregled repositoryPregled = new FileRepositoryPregled();
 
@@ -28,11 +27,6 @@ namespace Bolnica.Service
         public void IzbrisiPregled(Pregled pregled)
         {
             repositoryPregled.Delete(pregled);
-        }
-
-        public int IzracunajIdPregleda()
-        {
-            return IzracunajId();
         }
 
         public Pregled KreirajPregled(PrikazPregleda p)
@@ -66,17 +60,6 @@ namespace Bolnica.Service
             }
 
             return preglediOperacije;
-        }
-
-        public override List<int> DobijListu()
-        {
-            List<int> ideovi = new List<int>();
-            List<Pregled> pregledi = DobaviSvePreglede();
-            foreach (Pregled pregled in pregledi)
-            {
-                ideovi.Add(pregled.Id);
-            }
-            return ideovi;
         }
     }
 }
