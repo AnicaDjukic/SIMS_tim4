@@ -27,8 +27,6 @@ namespace Bolnica.Forms.Sekretar
         private FileRepositoryOperacija storageOperacije;
         private FileRepositoryLekar storageLekari;
         private FileRepositoryGodisnji storageGodisnji;
-        private List<Pregled> pregledi;
-        private List<Operacija> operacije;
         private List<Lekar> sviLekari;
         private List<Godisnji> sviGodisnji;
         public FormGodisnji(string jmbg)
@@ -39,30 +37,12 @@ namespace Bolnica.Forms.Sekretar
             storageOperacije = new FileRepositoryOperacija();
             storageLekari = new FileRepositoryLekar();
             storageGodisnji = new FileRepositoryGodisnji();
-            pregledi = storagePregledi.GetAll();
-            operacije = storageOperacije.GetAll();
             sviLekari = storageLekari.GetAll();
             sviGodisnji = storageGodisnji.GetAll();
 
             foreach (Lekar l in sviLekari)
                 if (jmbg == l.Jmbg)
                     lblSlobodniDani.Content = l.BrojSlobodnihDana.ToString();
-
-            foreach (Pregled p in pregledi) 
-            {
-                if (jmbg == p.Lekar.Jmbg)
-                {
-                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(p.Datum.Year, p.Datum.Month, p.Datum.Day), new DateTime(p.Datum.Year, p.Datum.Month, p.Datum.Day)));
-                }
-            }
-
-            foreach (Operacija o in operacije)
-            {
-                if (jmbg == o.Lekar.Jmbg)
-                {
-                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(o.Datum.Year, o.Datum.Month, o.Datum.Day), new DateTime(o.Datum.Year, o.Datum.Month, o.Datum.Day)));
-                }
-            }
 
             foreach (Godisnji g in sviGodisnji) 
             {
@@ -95,6 +75,31 @@ namespace Bolnica.Forms.Sekretar
                         l.BrojSlobodnihDana -= calendar.SelectedDates.Count;
                         storageLekari.Update(l);
                         storageGodisnji.Save(godisnji);
+
+                        foreach (Pregled p in storagePregledi.GetAll())
+                            if (godisnji.PocetakGodisnjeg <= p.Datum && godisnji.KrajGodisnjeg.AddDays(1) > p.Datum)
+                            {
+                                storagePregledi.Delete(p);
+                                for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
+                                    if (FormPregledi.Pregledi[i].Id == p.Id)
+                                    {
+                                        FormPregledi.Pregledi.RemoveAt(i);
+                                        break;
+                                    }
+                            }
+
+                        foreach (Operacija o in storageOperacije.GetAll())
+                            if (godisnji.PocetakGodisnjeg <= o.Datum && godisnji.KrajGodisnjeg.AddDays(1) > o.Datum)
+                            {
+                                storageOperacije.Delete(o);
+                                for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
+                                    if (FormPregledi.Pregledi[i].Id == o.Id)
+                                    {
+                                        FormPregledi.Pregledi.RemoveAt(i);
+                                        break;
+                                    }
+                            }
+
                         Close();
                         break;
                     }

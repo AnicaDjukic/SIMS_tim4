@@ -156,7 +156,10 @@ namespace Bolnica.Sekretar
             for (int i = 0; i < sviPregledi.Count; i++)
                 if (sviPregledi[i].Id > maxId)
                     maxId = sviPregledi[i].Id;
-            
+            for (int i = 0; i < sveOperacije.Count; i++)
+                if (sveOperacije[i].Id > maxId)
+                    maxId = sveOperacije[i].Id;
+
             zakazivaniPregled.Id = maxId + 1;
         }
 

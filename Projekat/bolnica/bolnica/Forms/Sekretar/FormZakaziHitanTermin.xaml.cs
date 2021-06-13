@@ -255,13 +255,18 @@ namespace Bolnica.Forms.Sekretar
                     }
                 }
 
-                List<Pregled> pregledi = new List<Pregled>();
-                pregledi = sviPregledi.GetAll();
+                List<Pregled> pregledi = sviPregledi.GetAll();
+                List<Operacija> operacije = sveOperacije.GetAll();
                 int max = 0;
                 for (int i = 0; i < pregledi.Count; i++)
                 {
                     if (pregledi[i].Id > max)
                         max = pregledi[i].Id;
+                }
+                for (int i = 0; i < operacije.Count; i++)
+                {
+                    if (operacije[i].Id > max)
+                        max = operacije[i].Id;
                 }
                 trenutniPregled.Id = max + 1;
                 Pregled p = new Pregled();
@@ -462,13 +467,18 @@ namespace Bolnica.Forms.Sekretar
                     }
                 }
 
-                List<Operacija> operacije = new List<Operacija>();
-                operacije = sveOperacije.GetAll();
+                List<Pregled> pregledi = sviPregledi.GetAll();
+                List<Operacija> operacije = sveOperacije.GetAll();
                 int max = 0;
                 for (int i = 0; i < operacije.Count; i++)
                 {
                     if (operacije[i].Id > max)
                         max = operacije[i].Id;
+                }
+                for (int i = 0; i < pregledi.Count; i++)
+                {
+                    if (pregledi[i].Id > max)
+                        max = pregledi[i].Id;
                 }
                 trenutnaOperacija.Id = max + 1;
                 Operacija o = new Operacija();
