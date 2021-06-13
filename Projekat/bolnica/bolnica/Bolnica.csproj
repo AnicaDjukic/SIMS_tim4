@@ -97,7 +97,6 @@
     <Resource Include="Resources\LekarPregled.png" />
     <Resource Include="Forms\Images\left-arrow.png" />
     <Resource Include="Forms\Images\right-arrow.png" />
-    <Resource Include="Forms\Images\woman-profile.png" />
     <Resource Include="Resources\logoutLekarSlika.png" />
     <Resource Include="Resources\printLekar.png" />
     <Resource Include="Resources\slikaDoktora.png" />

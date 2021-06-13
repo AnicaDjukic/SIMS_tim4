@@ -27,7 +27,6 @@ namespace Bolnica
 
         #region LEKAR
 
-        private ControllerOcenaAplikacije controllerOcenaAplikacije = new ControllerOcenaAplikacije();
 
         private TerminLekarService pregledService = new TerminLekarService();
 
@@ -59,10 +58,6 @@ namespace Bolnica
 
         private PacijentLekarController informacijeOPacijentuLekarController = new PacijentLekarController();
 
-        public ControllerOcenaAplikacije ControllerOcenaAplikacije
-        {
-            get { return controllerOcenaAplikacije; }
-        }
         public PacijentLekarController InformacijeOPacijentuLekarController
         {
             get { return informacijeOPacijentuLekarController; }
