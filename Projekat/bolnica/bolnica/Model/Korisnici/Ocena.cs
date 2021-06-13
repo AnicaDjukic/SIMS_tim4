@@ -1,5 +1,4 @@
-﻿using Model.Korisnici;
-using Model.Pregledi;
+﻿using Model.Pregledi;
 using System;
 
 namespace Model.Korisnici

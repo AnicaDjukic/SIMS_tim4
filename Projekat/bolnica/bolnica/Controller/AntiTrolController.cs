@@ -1,8 +1,7 @@
-﻿using Bolnica.Service;
+﻿using Bolnica.Model.Pregledi;
+using Bolnica.Service;
 using Model.Korisnici;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Controller
 {
@@ -10,9 +9,19 @@ namespace Bolnica.Controller
     {
         private AntiTrolService service = new AntiTrolService();
 
-        public int DobijBrojAktivnosti(Pacijent trenutniPacijent)
+        public List<AntiTrol> DobaviSveAntiTrolove()
         {
-            return service.DobijBrojAktivnosti(trenutniPacijent);
+            return service.DobaviSveAntiTrolove();
+        }
+
+        public void SacuvajAntiTrol(AntiTrol noviAntiTrol)
+        {
+            service.SacuvajAntiTrol(noviAntiTrol);
+        }
+
+        public AntiTrol KreirajAntiTrol(PrikazPregleda prikazPregleda)
+        {
+            return service.KreirajAntiTrol(prikazPregleda);
         }
     }
 }

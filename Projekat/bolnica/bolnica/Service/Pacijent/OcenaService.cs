@@ -1,13 +1,15 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Services;
+using Bolnica.Template;
 using Model.Korisnici;
+using Model.Pregledi;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Bolnica.Service
 {
-    public class OcenaService
+    public class OcenaService : RacunajId
     {
         private FileRepositoryOcena repositoryOcena = new FileRepositoryOcena();
         private LekarService lekarService = new LekarService();
@@ -34,16 +36,7 @@ namespace Bolnica.Service
 
         public int IzracunajIdOcene()
         {
-            int max = 0;
-            List<Ocena> ocene = DobaviSveOcene();
-            foreach (Ocena ocena in ocene)
-            {
-                if (ocena.IdOcene > max)
-                {
-                    max = ocena.IdOcene;
-                }
-            }
-            return max + 1;
+            return IzracunajId();
         }
 
         public void DobijOcenePacijenta(Pacijent trenutniPacijent)
@@ -79,7 +72,7 @@ namespace Bolnica.Service
             List<Lekar> lekari = lekarService.DobijLekare();
             foreach (Lekar l in lekari)
             {
-                if (l.Jmbg.Equals(ocena.Lekar.Jmbg))
+                if (l.Jmbg.Equals(ocena.Pregled.Lekar.Jmbg))
                 {
                     prikazOcene.ImeIPrezime = l.Ime + " " + l.Prezime;
                     break;
@@ -90,6 +83,17 @@ namespace Bolnica.Service
         private static void DodajOcenuUTabelu(PrikazOcena prikaz)
         {
             FormIstorijaOcenaPage.PrikazOcenaIKomentara.Add(prikaz);
+        }
+
+        public override List<int> DobijListu()
+        {
+            List<int> ideovi = new List<int>();
+            List<Ocena> ocene = DobaviSveOcene();
+            foreach (Ocena ocena in ocene)
+            {
+                ideovi.Add(ocena.IdOcene);
+            }
+            return ideovi;
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Korisnici;
+using Bolnica.Template;
 using Model.Korisnici;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Service
 {
-    public class AntiTrolService
+    public class AntiTrolService : RacunajId
     {
         private FileRepositoryAntiTrol repositoryAntiTrol = new FileRepositoryAntiTrol();
 
@@ -21,23 +21,9 @@ namespace Bolnica.Service
             repositoryAntiTrol.Save(noviAntiTrol);
         }
 
-        public void IzmeniAntiTrol(AntiTrol noviAntiTrol)
-        {
-            repositoryAntiTrol.Update(noviAntiTrol);
-        }
-
         public int IzracunajIdAntiTrol()
         {
-            int max = 0;
-            List<AntiTrol> antiTrolovi = DobaviSveAntiTrolove();
-            foreach (AntiTrol antiTrol in antiTrolovi)
-            {
-                if (antiTrol.Id > max)
-                {
-                    max = antiTrol.Id;
-                }
-            }
-            return max + 1;
+            return IzracunajId();
         }
 
         public AntiTrol KreirajAntiTrol(PrikazPregleda prikazPregleda)
@@ -50,18 +36,15 @@ namespace Bolnica.Service
             };
         }
 
-        public int DobijBrojAktivnosti(Pacijent trenutniPacijent)
+        public override List<int> DobijListu()
         {
-            int brojac = 0;
+            List<int> ideovi = new List<int>();
             List<AntiTrol> antiTrolovi = DobaviSveAntiTrolove();
             foreach (AntiTrol antiTrol in antiTrolovi)
             {
-                if (trenutniPacijent.Jmbg.Equals(antiTrol.Pacijent.Jmbg) && antiTrol.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
-                {
-                    brojac++;
-                }
+                ideovi.Add(antiTrol.Id);
             }
-            return brojac;
+            return ideovi;
         }
     }
 }

@@ -12,11 +12,12 @@ namespace Bolnica.Service
     {
         private PodsetnikService servicePodsetnik = new PodsetnikService();
         private AntiTrolService serviceAntiTrol = new AntiTrolService();
+        private AktivnostService serviceAktivnost = new AktivnostService();
         private PregledService servicePregled = new PregledService();
 
         public void ZakaziPregled(Pacijent trenutniPacijent)
         {
-            int brojac = serviceAntiTrol.DobijBrojAktivnosti(trenutniPacijent);
+            int brojac = serviceAktivnost.DobijBrojAktivnosti(trenutniPacijent);
 
             if (brojac > 5)
             {
@@ -162,7 +163,7 @@ namespace Bolnica.Service
                     }
                     else
                     {
-                        int brojac = serviceAntiTrol.DobijBrojAktivnosti(SelektovaniRed.Pacijent);
+                        int brojac = serviceAktivnost.DobijBrojAktivnosti(SelektovaniRed.Pacijent);
 
                         if (brojac > 5)
                         {

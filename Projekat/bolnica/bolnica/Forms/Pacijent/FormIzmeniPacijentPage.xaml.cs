@@ -3,7 +3,6 @@ using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
-using Bolnica.Service;
 using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
@@ -21,7 +20,7 @@ namespace Bolnica.Forms
     public partial class FormIzmeniPacijentPage : Page
     {
         private PrikazPregleda prikazPregleda;
-        private AntiTrolService antiTrolService = new AntiTrolService();
+        private AntiTrolController antiTrolController = new AntiTrolController();
         private PregledController controllerPregled = new PregledController();
 
         public FormIzmeniPacijentPage(PrikazPregleda prikazPre)
@@ -91,8 +90,8 @@ namespace Bolnica.Forms
                     PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
                     controllerPregled.IzmeniPregled(pregled);
 
-                    AntiTrol antiTrol = antiTrolService.KreirajAntiTrol(prikaz);
-                    antiTrolService.SacuvajAntiTrol(antiTrol);
+                    AntiTrol antiTrol = antiTrolController.KreirajAntiTrol(prikaz);
+                    antiTrolController.SacuvajAntiTrol(antiTrol);
                     PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(prikaz.Pacijent);
                     FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
                 }

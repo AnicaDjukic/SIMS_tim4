@@ -27,174 +27,12 @@
     }
   },
   {
-    "IdOcene": 3,
-    "Datum": "2021-06-07T15:46:51",
-    "BrojOcene": 3,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
-    "IdOcene": 4,
-    "Datum": "2021-05-08T15:46:51",
-    "BrojOcene": 5,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
-    "IdOcene": 5,
-    "Datum": "2021-04-07T15:46:51",
-    "BrojOcene": 3,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
-    "IdOcene": 6,
-    "Datum": "2021-03-07T15:46:51",
-    "BrojOcene": 5,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
-    "IdOcene": 7,
-    "Datum": "2021-02-07T15:46:51",
-    "BrojOcene": 3,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
-    "IdOcene": 8,
-    "Datum": "2021-01-07T15:46:51",
-    "BrojOcene": 5,
-    "Sadrzaj": "Jako los lekar, veoma neprijatan prema pacijentima. Takodje cesto kasni.",
-    "Pregled": {
-      "Id": 3,
-      "Anamneza": { "Id": 7 },
-      "Lekar": {
-        "Jmbg": "123456789",
-        "KorisnickoIme": "mico"
-      },
-      "Prostorija": { "BrojProstorije": "103" },
-      "Pacijent": {
-        "Jmbg": "2512002149573",
-        "KorisnickoIme": "stefo"
-      }
-    },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
-    }
-  },
-  {
     "IdOcene": 2,
-    "Datum": "2021-05-06T15:47:12",
-    "BrojOcene": 4,
-    "Sadrzaj": "Jedna od boljih bolnica u kojoj sam se lecio.",
+    "Datum": "2021-06-13T21:27:17.3274177+02:00",
+    "BrojOcene": 5,
+    "Sadrzaj": "Najbolja bolnica na svijetu. Sve najbolje. Topla preporuka.",
     "Pregled": {
-      "Id": 2,
+      "Id": -1,
       "Anamneza": { "Id": 0 },
       "Lekar": {
         "Jmbg": null,
@@ -211,8 +49,8 @@
       "KorisnickoIme": "stefo"
     },
     "Lekar": {
-      "Jmbg": "null",
-      "KorisnickoIme": "null"
+      "Jmbg": null,
+      "KorisnickoIme": null
     }
   }
 ]
