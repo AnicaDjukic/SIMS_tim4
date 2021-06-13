@@ -5,12 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="580" d:DesignWidth="1400"
+      d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormLekDetaljiPage">
 
     <Grid>
         <DockPanel Margin="150,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="450" Width="500">
-            <Border BorderBrush="Aquamarine" BorderThickness="5">
+            <Border BorderBrush="LightBlue" BorderThickness="5">
                 
             </Border>
         </DockPanel>

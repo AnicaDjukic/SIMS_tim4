@@ -1,10 +1,1 @@
-[
-  {
-    "Id": 1,
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    },
-    "Datum": "2021-05-05T00:00:00"
-  }
-]
+[{"Id":1,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-05-05T00:00:00"},{"Id":2,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-06-08T10:52:30"},{"Id":3,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-06-08T10:52:47"},{"Id":4,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-06-12T22:19:08"},{"Id":5,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-06-12T22:19:16"},{"Id":6,"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"},"Datum":"2021-06-12T22:19:36"}]

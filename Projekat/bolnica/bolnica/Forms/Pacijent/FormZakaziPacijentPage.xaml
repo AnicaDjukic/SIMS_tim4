@@ -5,14 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="580" d:DesignWidth="1400"
+      d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormZakaziPacijentPage">
 
     <Grid>
         <StackPanel Orientation="Horizontal" Margin="350,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30">
-            <TextBlock Text="Odaberite prioritet pri zakazivanju pregleda:" FontSize="24"></TextBlock>
-            <RadioButton Name="datum" Content="Datum" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Datum"></RadioButton>
-            <RadioButton Name="lekar" Content="Lekar" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Lekar"></RadioButton>
+            <TextBlock Text="Odaberite prioritet pri zakazivanju pregleda:" FontSize="24"/>
+            <RadioButton Name="datum" Content="Datum" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Datum"
+                         IsEnabled="{Binding RadioDatumEnable, Mode=TwoWay}"
+                         IsChecked="{Binding RadioDatumChecked, Mode=TwoWay}"
+                         Command="{Binding Path=Checked_Datum, Mode=TwoWay}"/>
+            <RadioButton Name="lekar" Content="Lekar" Margin="30,0,0,0" FontSize="24" Checked="RadioButton_Checked_Lekar"
+                         IsEnabled="{Binding RadioLekarEnable, Mode=TwoWay}"
+                         IsChecked="{Binding RadioLekarChecked, Mode=TwoWay}"
+                         Command="{Binding Path=Checked_Lekar, Mode=TwoWay}"/>
         </StackPanel>
         
         <Label Content="Datum:" HorizontalAlignment="Left" Margin="420,100,0,0" VerticalAlignment="Top" FontSize="20"/>
@@ -20,10 +26,16 @@
         <Label Content="Lekar:" HorizontalAlignment="Left" Margin="420,260,0,0" VerticalAlignment="Top" FontSize="20"/>
 
         <DatePicker Name="datumPicker"  HorizontalAlignment="Left" Margin="620,100,0,0"  VerticalAlignment="Top" Width="200" FirstDayOfWeek="Monday" 
-                    SelectedDateFormat="Short" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}" 
-                    SelectedDateChanged="SelectedDateChanged_Datum" FontSize="20"/>
+                    SelectedDateFormat="Short" DisplayDateStart="{Binding DisplayDate, ElementName=datumPicker}"
+                    SelectedDateChanged="SelectedDateChanged_Datum" FontSize="20" DisplayDate="{Binding DateTime.Now}"
+                    SelectedDate="{Binding SelektovaniDatum, Mode=TwoWay}"
+                    IsEnabled="{Binding DatumEnable, Mode=TwoWay}"
+                    Background="{Binding DatumPozadina, Mode=TwoWay}"/>
         <ComboBox Name="comboSat"  HorizontalAlignment="Left" Margin="620,180,0,0"  VerticalAlignment="Top" Width="95"
-                    SelectionChanged="SelectionChanged_Sat" FontSize="20">
+                  SelectionChanged="SelectionChanged_Sat" FontSize="20"
+                  SelectedItem="{Binding SelektovaniSat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="{Binding SatEnable, Mode=TwoWay}"
+                  Background="{Binding SatPozadina, Mode=TwoWay}">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="01"></ComboBoxItem>
             <ComboBoxItem Content="02"></ComboBoxItem>
@@ -50,19 +62,35 @@
             <ComboBoxItem Content="23"></ComboBoxItem>
         </ComboBox>
         <ComboBox  Name="comboMinut"  HorizontalAlignment="Left" Margin="725,180,0,0"  VerticalAlignment="Top" Width="95"
-                   SelectionChanged="SelectionChanged_Minut" FontSize="20">
+                   SelectionChanged="SelectionChanged_Minut" FontSize="20" 
+                   SelectedItem="{Binding SelektovaniMinut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   IsEnabled="{Binding MinutEnable, Mode=TwoWay}"
+                   Background="{Binding MinutPozadina, Mode=TwoWay}">
             <ComboBoxItem Content="00"></ComboBoxItem>
             <ComboBoxItem Content="15"></ComboBoxItem>
             <ComboBoxItem Content="30"></ComboBoxItem>
             <ComboBoxItem Content="45"></ComboBoxItem>
         </ComboBox>
         <ComboBox  Name="comboLekar" HorizontalAlignment="Left" Margin="620,260,0,0" VerticalAlignment="Top" Width="200"
-                   SelectionChanged="SelectionChanged_Lekar" FontSize="20"/>
+                   SelectionChanged="SelectionChanged_Lekar" FontSize="20"
+                   SelectedItem="{Binding SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   IsEnabled="{Binding LekarEnable, Mode=TwoWay}"
+                   Background="{Binding LekarPozadina, Mode=TwoWay}">
+            <ComboBoxItem Content="Radmilo Bodiroga"></ComboBoxItem>
+            <ComboBoxItem Content="Vatroslav Pap"></ComboBoxItem>
+            <ComboBoxItem Content="Mio Prodano"></ComboBoxItem>
+            <ComboBoxItem Content="Mico Govedarica"></ComboBoxItem>
+        </ComboBox>
 
-        <Button Name="potvrdi" Content="Potvrdi" HorizontalAlignment="Left" Margin="550,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Potvrdi"/>
-        <Button Name="otkazi" Content="Otkaži" HorizontalAlignment="Left" Margin="680,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20" Click="Otkazi"/>
-        
-        <Button Name="nasiPredlozi" Content="Naši predlozi" HorizontalAlignment="Left" Margin="950,180,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Click="NasiPredlozi"/>
+        <Button Name="potvrdi" Content="Potvrdi" HorizontalAlignment="Left" Margin="550,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20"
+                Command="{Binding Path=PotvrdiZakazivanjePregledaKomanda}"
+                IsEnabled="{Binding PotvrdiEnable, Mode=TwoWay}"/>
+        <Button Name="otkazi" Content="Otkaži" HorizontalAlignment="Left" Margin="680,350,0,0" VerticalAlignment="Top" Width="80" FontSize="20"
+                Command="{Binding Path=OtkaziZakazivanjePregledaKomanda}"/>
+
+        <Button Name="nasiPredlozi" Content="Naši predlozi" HorizontalAlignment="Left" Margin="950,180,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20"
+                Command="{Binding Path=NasiPredloziKomanda}"
+                IsEnabled="{Binding NasiPredloziEnable, Mode=TwoWay}"/>
 
     </Grid>
 </Page>

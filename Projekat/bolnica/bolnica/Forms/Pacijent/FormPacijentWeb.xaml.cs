@@ -1,14 +1,10 @@
 ﻿using bolnica;
+using Bolnica.Controller;
 using Bolnica.Model.Korisnici;
-using Bolnica.Model.Pregledi;
-using Bolnica.Repository.Korisnici;
-using Bolnica.Repository.Pregledi;
 using Bolnica.ViewModel;
 using Model.Korisnici;
-using Model.Pacijenti;
-using Model.Pregledi;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -22,19 +18,8 @@ namespace Bolnica.Forms
         public static FormPacijentWeb Forma;
         public static Pacijent Pacijent;
 
-        private Pacijent trenutniPacijent = new Pacijent();
-        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
-        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
-        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
-        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
-        private FileRepositoryBeleska storageBeleska = new FileRepositoryBeleska();
-
-        private List<AntiTrol> antiTrol = new List<AntiTrol>();
-        private List<Pregled> pregledi = new List<Pregled>();
-        private List<Operacija> operacije = new List<Operacija>();
-        private List<Anamneza> anamneze = new List<Anamneza>();
-        private List<Beleska> beleske = new List<Beleska>();
+        private PodsetnikController podsetnikController = new PodsetnikController();
+        private AntiTrolController controllerAntiTrol = new AntiTrolController();
 
         public static string ImeIPre
         {
@@ -44,31 +29,31 @@ namespace Bolnica.Forms
 
         public FormPacijentWeb(Pacijent pacijent)
         {
+            FormObavestenjaPacijentPage.ObavestenjaPacijent = new ObservableCollection<Obavestenje>();
             InitializeComponent();
-
             this.DataContext = this;
             Forma = this;
             Pacijent = pacijent;
+
             PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(pacijent);
-            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*pacijent*/);
-            trenutniPacijent = pacijent;
+            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
             ImeIPre = pacijent.Ime + " " + pacijent.Prezime;
         }
 
         private void Button_Click_Pocetna_Stranica(object sender, RoutedEventArgs e)
         {
-            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
-            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(Pacijent);
+            Pocetna.Content = new FormPacijentPage(pacijentPageViewModel);
         }
 
         private void Button_Click_Zakazivanje_Pregleda(object sender, RoutedEventArgs e)
         {
-            int brojac = DobijBrojAktivnosti();
+            int brojac = controllerAntiTrol.DobijBrojAktivnosti(Pacijent);
             
             if (brojac > 5)
             {
-                BlokirajPacijenta();
-                this.Close();
+                podsetnikController.BlokirajPacijenta(Pacijent);
+                Close();
             }
             else
             {
@@ -77,66 +62,42 @@ namespace Bolnica.Forms
                     MessageBox.Show("Posljednje upozorenje pred gasenje Vaseg naloga. Ukoliko nastavite da zloupotrebljavate " +
                         "nasu aplikaciju pristup samoj aplikaciji ce Vam biti onemogucen!", "Upozorenje");
                 }
-                Pocetna.Content = new FormZakaziPacijentPage(trenutniPacijent);
+                ZakaziPregledPacijentViewModel zakaziPregledPacijentViewModel = new ZakaziPregledPacijentViewModel(Pacijent);
+                Pocetna.Content = new FormZakaziPacijentPage(zakaziPregledPacijentViewModel);
             }
             
         }
 
         public void DanasnjaObavestenja()
         {
-            //PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
-            //new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/).PrikaziObavestenja();
-            new PacijentPageViewModel(trenutniPacijent).PrikaziObavestenja();
+            new PacijentPageViewModel(Pacijent).PrikaziObavestenja();
         }
 
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormIstorijaPregledaPage(trenutniPacijent);
+            IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(Pacijent);
+            Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
         }
 
         private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormObavestenjaPacijentPage(trenutniPacijent);
-        }
-
-        public int DobijBrojAktivnosti()
-        {
-            int brojac = 0;
-            storageAntiTrol = new FileRepositoryAntiTrol();
-            antiTrol = storageAntiTrol.GetAll();
-            foreach (AntiTrol a in antiTrol)
-            {
-                if (trenutniPacijent.Jmbg.Equals(a.Pacijent.Jmbg) && a.Datum.AddDays(3).CompareTo(DateTime.Now) > 0)
-                {
-                    brojac++;
-                }
-            }
-            return brojac;
-        }
-
-        public void BlokirajPacijenta()
-        {
-            trenutniPacijent.Obrisan = true;
-            storagePacijenti.Update(trenutniPacijent);
-            MessageBox.Show("Zbog zloupotrebe nase aplikacije prinudjeni smo da Vam onemogucimo pristup istoj. " +
-                "Vas nalog ce biti obrisan i vise necete moci da se ulogujete na Vas profil!", "Iskljucenje");
-            new MainWindow().Show();
+            Pocetna.Content = new FormObavestenjaPacijentPage(Pacijent);
         }
 
         private void Button_Click_Odjava(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
-            this.Close();
+            Close();
         }
 
         private void Button_Click_Lekovi_Terapije(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormLekoviTerapijePage(trenutniPacijent);
+            Pocetna.Content = new FormLekoviTerapijePage(Pacijent);
         }
 
         private void Button_Click_Zdravstveni_Karton(object sender, RoutedEventArgs e)
         {
-            Pocetna.Content = new FormZdravstveniKartonPage(trenutniPacijent);
+            Pocetna.Content = new FormZdravstveniKartonPage(Pacijent);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -144,97 +105,14 @@ namespace Bolnica.Forms
             DispatcherTimer timer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Normal, (object s, EventArgs ev) =>
             {
                 vremeLabel.Content = DateTime.Now;
-                NadjiSvePreglede();
-                NadjiPacijenta();
+                podsetnikController.ProveriObavestenja(Pacijent);
             }, this.Dispatcher);
             timer.Start();
         }
 
-        private void NadjiSvePreglede()
+        private void Button_Click_Oceni_Aplikaciju(object sender, RoutedEventArgs e)
         {
-            pregledi = storagePregledi.GetAll();
-            operacije = storageOperacije.GetAll();
-            foreach (Operacija o in operacije)
-            {
-                pregledi.Add(o);
-            }
-        }
-
-        private void NadjiPacijenta()
-        {
-            foreach (Pregled pregled in pregledi)
-            {
-                if (trenutniPacijent.Jmbg.Equals(pregled.Pacijent.Jmbg))
-                {
-                    ProveriNotifikacije(pregled);
-                }
-            }
-        }
-
-        private void ProveriNotifikacije(Pregled pregled)
-        {
-            anamneze = storageAnamneza.GetAll();
-            beleske = storageBeleska.GetAll();
-            foreach (Anamneza anamneza in anamneze)
-            {
-                if (pregled.Anamneza.Id.Equals(anamneza.Id))
-                {
-                    foreach (Beleska beleska in beleske)
-                    {
-                        if (anamneza.Beleska.Id.Equals(beleska.Id))
-                        {
-                            SlanjeNotifikacijeiZaJednuBelesku(beleska);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void SlanjeNotifikacijeiZaJednuBelesku(Beleska beleska)
-        {
-            DateTime vremeObavestenja = DobijTacnoVremeObavestenje(beleska);
-            if (ProveraVremenaObavestenja(beleska, vremeObavestenja))
-            {
-                PosaljiNotifikaciju(beleska, vremeObavestenja);
-            }
-        }
-
-        private void PosaljiNotifikaciju(Beleska beleska, DateTime vremeObavestenja)
-        {
-            MessageBox.Show(vremeObavestenja.ToString() + " - Obavestenje na osnovu vase beleske:\r" + beleska.Zabeleska, "Obavestenje!");
-            beleska.Prikazana = true;
-            storageBeleska.Update(beleska);
-        }
-
-        private bool ProveraVremenaObavestenja(Beleska beleska, DateTime vremeObavestenja)
-        {
-            if (beleska.Podsetnik && DateTime.Now.CompareTo(beleska.DatumPrekida) <= 0)
-            {
-                if (DateTime.Now.CompareTo(vremeObavestenja.AddMinutes(30)) <= 0)
-                {
-                    return !beleska.Prikazana && DateTime.Now.CompareTo(vremeObavestenja) >= 0;
-                }
-                else
-                {
-                    IzmeniStatusBeleske(beleska);
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        private void IzmeniStatusBeleske(Beleska beleska)
-        {
-            if (beleska.Prikazana)
-            {
-                beleska.Prikazana = false;
-                storageBeleska.Update(beleska);
-            }
-        }
-
-        private static DateTime DobijTacnoVremeObavestenje(Beleska beleska)
-        {
-            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, beleska.Vreme.Hours, beleska.Vreme.Minutes, beleska.Vreme.Seconds);
+            Pocetna.Content = new FormOceniAplikacijuPage(Pacijent);
         }
     }
 }
