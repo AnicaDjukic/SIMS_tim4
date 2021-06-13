@@ -1,1 +1,128 @@
-[{"TipOperacije":1,"Id":1,"Datum":"2021-05-14T20:15:00","Trajanje":30,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":2,"Datum":"2021-02-15T09:30:00","Trajanje":90,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":4},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":3,"Datum":"2021-03-22T07:00:00","Trajanje":120,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":5},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"1212000190000","KorisnickoIme":"pero"}},{"TipOperacije":1,"Id":4,"Datum":"2021-05-01T12:00:00","Trajanje":60,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":6},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":5,"Datum":"2021-06-21T08:30:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"234567891","KorisnickoIme":"mio"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":6,"Datum":"2021-06-09T12:30:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"234567891","KorisnickoIme":"mio"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":2,"Id":7,"Datum":"2021-05-09T13:00:00","Trajanje":111,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":10},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"1212000190000","KorisnickoIme":"pero"}},{"TipOperacije":0,"Id":8,"Datum":"2021-05-31T01:30:00","Trajanje":111,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":11},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"103"},"Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}},{"TipOperacije":1,"Id":9,"Datum":"2021-06-23T01:00:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"0303965123456","KorisnickoIme":"vatro"},"Prostorija":{"BrojProstorije":"103"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":0,"Id":10,"Datum":"2021-06-01T00:30:00","Trajanje":111,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":12},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}},{"TipOperacije":1,"Id":11,"Datum":"2021-06-14T00:30:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"0303965123456","KorisnickoIme":"vatro"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":12,"Datum":"2021-06-14T02:30:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"0303965123456","KorisnickoIme":"vatro"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":13,"Datum":"2021-06-14T05:45:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":0,"Id":14,"Datum":"2021-06-14T02:45:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}},{"TipOperacije":0,"Id":15,"Datum":"2021-06-07T00:45:00","Trajanje":111,"Zavrsen":true,"Hitan":true,"Anamneza":{"Id":13},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":1,"Id":16,"Datum":"2021-06-24T00:15:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"2512002149573","KorisnickoIme":"stefo"}},{"TipOperacije":0,"Id":17,"Datum":"2021-06-16T03:30:00","Trajanje":111,"Zavrsen":false,"Hitan":true,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}},{"TipOperacije":0,"Id":18,"Datum":"2021-06-07T23:15:00","Trajanje":111,"Zavrsen":false,"Hitan":false,"Anamneza":{"Id":-1},"Lekar":{"Jmbg":"123456789","KorisnickoIme":"mico"},"Prostorija":{"BrojProstorije":"106"},"Pacijent":{"Jmbg":"0910990130002","KorisnickoIme":null}}]
+[
+  {
+    "TipOperacije": 1,
+    "Id": 1,
+    "Datum": "2021-05-14T20:15:00",
+    "Trajanje": 30,
+    "Zavrsen": true,
+    "Hitan": true,
+    "Anamneza": { "Id": 1 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 2,
+    "Datum": "2021-02-15T09:30:00",
+    "Trajanje": 90,
+    "Zavrsen": true,
+    "Hitan": true,
+    "Anamneza": { "Id": 4 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 3,
+    "Datum": "2021-03-22T07:00:00",
+    "Trajanje": 120,
+    "Zavrsen": true,
+    "Hitan": true,
+    "Anamneza": { "Id": 5 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "1212000190000",
+      "KorisnickoIme": "pero"
+    }
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 4,
+    "Datum": "2021-05-01T12:00:00",
+    "Trajanje": 60,
+    "Zavrsen": true,
+    "Hitan": true,
+    "Anamneza": { "Id": 6 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 5,
+    "Datum": "2021-06-21T08:30:00",
+    "Trajanje": 111,
+    "Zavrsen": false,
+    "Hitan": true,
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "234567891",
+      "KorisnickoIme": "mio"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "TipOperacije": 1,
+    "Id": 6,
+    "Datum": "2021-06-09T12:30:00",
+    "Trajanje": 111,
+    "Zavrsen": false,
+    "Hitan": true,
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "234567891",
+      "KorisnickoIme": "mio"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "TipOperacije": 2,
+    "Id": 7,
+    "Datum": "2021-05-09T13:00:00",
+    "Trajanje": 111,
+    "Zavrsen": true,
+    "Hitan": true,
+    "Anamneza": { "Id": 10 },
+    "Lekar": {
+      "Jmbg": "123456789",
+      "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "106" },
+    "Pacijent": {
+      "Jmbg": "1212000190000",
+      "KorisnickoIme": "pero"
+    }
+  }
+]
