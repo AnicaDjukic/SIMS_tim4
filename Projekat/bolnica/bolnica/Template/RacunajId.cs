@@ -12,7 +12,8 @@ namespace Bolnica.Template
             List<int> lista = DobijListu();
             int max = PronadjiNajveci(lista);
             int prviSlobodan = PronadjiPrviSlobodan(lista, max);
-            return DobijId(max, prviSlobodan);
+            int id = DobijId(max, prviSlobodan);
+            return id;
         }
 
         public abstract List<int> DobijListu();
