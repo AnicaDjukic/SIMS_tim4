@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Bolnica.Controller.Prostorije
 
         public ControllerBolnickaSoba()
         {
-            service = new ServiceBolnickaSoba();
+            service = new ServiceBolnickaSoba(new FileRepositoryBolnickaSoba());
         }
         public void SacuvajBolnickuSobu(BolnickaSoba bolnickaSoba)
         {

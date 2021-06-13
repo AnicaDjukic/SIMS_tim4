@@ -18,7 +18,7 @@ namespace Bolnica.Services.Prostorije
         public ServiceProstorija()
         {
             repository = new FileRepositoryProstorija();
-            serviceBolnickaSoba = new ServiceBolnickaSoba();
+            serviceBolnickaSoba = new ServiceBolnickaSoba(new FileRepositoryBolnickaSoba());
             servicePregled = new ServicePregled();
             serviceOperacija = new ServiceOperacija();
         }
