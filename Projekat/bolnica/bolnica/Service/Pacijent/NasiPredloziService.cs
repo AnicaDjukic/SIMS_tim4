@@ -17,6 +17,7 @@ namespace Bolnica.Service
     {
         private AntiTrolService serviceAntiTrol = new AntiTrolService();
         private PregledService servicePregled = new PregledService();
+        private PregledIdService servicePregledId = new PregledIdService();
         private ServiceProstorija serviceProstorija = new ServiceProstorija();
         private LekarService serviceLekar = new LekarService();
 
@@ -272,10 +273,10 @@ namespace Bolnica.Service
 
         private void DodajPredlozeneTermine(PrikazPregleda p1, PrikazPregleda p2, PrikazPregleda p3, PrikazPregleda p4)
         {
-            p1.Id = servicePregled.IzracunajIdPregleda();
-            p2.Id = servicePregled.IzracunajIdPregleda();
-            p3.Id = servicePregled.IzracunajIdPregleda();
-            p4.Id = servicePregled.IzracunajIdPregleda();
+            p1.Id = servicePregledId.IzracunajIdPregleda();
+            p2.Id = servicePregledId.IzracunajIdPregleda();
+            p3.Id = servicePregledId.IzracunajIdPregleda();
+            p4.Id = servicePregledId.IzracunajIdPregleda();
 
             FormNasiPredloziPage.PredlozeniTermini.Add(p1);
             FormNasiPredloziPage.PredlozeniTermini.Add(p2);

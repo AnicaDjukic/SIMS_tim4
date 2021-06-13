@@ -17,6 +17,7 @@ namespace Bolnica.Service
     public class ZakaziPregledPacijentService
     {
         private PregledService servicePregled = new PregledService();
+        private PregledIdService servicePregledId = new PregledIdService();
         private FileRepositoryLekar repositoryLekar = new FileRepositoryLekar();
         private FileRepositoryRenoviranje repositoryRenoviranje = new FileRepositoryRenoviranje();
         private AntiTrolService serviceAntiTrol = new AntiTrolService();
@@ -77,7 +78,7 @@ namespace Bolnica.Service
             }
             else
             {
-                prikaz.Id = servicePregled.IzracunajIdPregleda();
+                prikaz.Id = servicePregledId.IzracunajIdPregleda();
                 PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(prikaz);
 
                 Pregled pregled = new Pregled
