@@ -887,7 +887,7 @@ namespace Bolnica.ViewModel
             double brojOcena = 0;
             for (int i = 0; i < ocene.Count; i++)
             {
-                if (ocene[i].Lekar.Jmbg.Equals(lekarTrenutni.Jmbg))
+                if (lekarTrenutni.Jmbg.Equals(ocene[i].Lekar.Jmbg))
                 {
                     for (int m = 0; m < pacijenti.Count; m++)
                     {
