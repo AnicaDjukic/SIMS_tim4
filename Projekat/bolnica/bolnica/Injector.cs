@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bolnica.Service;
-
+using Bolnica.Controller.Korisnici;
 
 namespace Bolnica
 {
@@ -28,6 +28,8 @@ namespace Bolnica
         #endregion
 
         #region LEKAR
+
+        private ControllerOcenaAplikacije controllerOcenaAplikacije = new ControllerOcenaAplikacije();
 
         private TerminLekarService pregledService = new TerminLekarService();
 
@@ -59,6 +61,10 @@ namespace Bolnica
 
         private PacijentLekarController informacijeOPacijentuLekarController = new PacijentLekarController();
 
+        public ControllerOcenaAplikacije ControllerOcenaAplikacije
+        {
+            get { return controllerOcenaAplikacije; }
+        }
         public PacijentLekarController InformacijeOPacijentuLekarController
         {
             get { return informacijeOPacijentuLekarController; }

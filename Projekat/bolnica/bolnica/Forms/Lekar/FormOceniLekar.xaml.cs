@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bolnica.Model.Korisnici;
+using Bolnica.Controller.Korisnici;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -10,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Bolnica.Forms.Lekar
+namespace Bolnica.Forms
 {
     /// <summary>
     /// Interaction logic for FormOceniLekar.xaml
@@ -36,20 +38,20 @@ namespace Bolnica.Forms.Lekar
         }
         private void btnPotvrdi_Click(object sender, RoutedEventArgs e)
         {
-            if (VrloLose.IsChecked == true)
+            if (rbVrloLose.IsChecked == true)
                 ocena.BrojnaVrednost = 1;
-            else if (Lose.IsChecked == true)
+            else if (rbLose.IsChecked == true)
                 ocena.BrojnaVrednost = 2;
-            else if (Dobro.IsChecked == true)
+            else if (rbDobro.IsChecked == true)
                 ocena.BrojnaVrednost = 3;
-            else if (VrloDobro.IsChecked == true)
+            else if (rbVrloDobro.IsChecked == true)
                 ocena.BrojnaVrednost = 4;
             else
                 ocena.BrojnaVrednost = 5;
 
             ocena.Komentar = txtKomentar.Text;
 
-            // Inject.ControllerOcenaAplikacije.SacuvajOcenuAplikacije(ocena);
+            Inject.ControllerOcenaAplikacije.SacuvajOcenuAplikacije(ocena);
 
             Close();
         }

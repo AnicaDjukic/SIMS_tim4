@@ -79,6 +79,29 @@ namespace Bolnica.ViewModel
 
         #endregion
         #region KOMANDE
+
+        private RelayCommand oceniKomanda;
+        public RelayCommand OceniKomanda
+        {
+            get { return oceniKomanda; }
+            set
+            {
+                oceniKomanda = value;
+
+            }
+        }
+
+        public void Executed_OceniKomanda(object obj)
+        {
+            FormOceniLekar form = new FormOceniLekar();
+            form.Show();
+        }
+
+        public bool CanExecute_OceniKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand odjavaKomanda;
         public RelayCommand OdjavaKomanda
         {
@@ -767,6 +790,7 @@ namespace Bolnica.ViewModel
             DemoKomanda = new RelayCommand(Executed_DemoKomanda, CanExecute_DemoKomanda);
             DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
             OdjavaKomanda = new RelayCommand(Executed_OdjavaKomanda, CanExecute_OdjavaKomanda);
+            OceniKomanda = new RelayCommand(Executed_OceniKomanda, CanExecute_OceniKomanda);
         }
 
         public void SortirajPodatke()

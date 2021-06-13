@@ -769,7 +769,8 @@
             </TabItem>
 
         </TabControl>
-        <StackPanel Margin="2,457,819,0" Orientation="Vertical" >
+        <StackPanel Margin="2,397,819,0" Orientation="Vertical" >
+           
             <Button local:FocusExtension.IsFocused="{Binding Path=DemoFokus,Mode=TwoWay}"   Width="60" Height="60" Command="{Binding Path=DemoKomanda}" >
                 
                 <Button.Resources>
@@ -832,7 +833,36 @@
             </Button>
             <Label Content="Odjava"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="Ctrl+T" Height="20"   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="Oceni nas"  Width="60" Height="60" Command="{Binding Path=OceniKomanda}" >
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Content" Value=""></Setter>
+                        <Setter Property="Opacity" Value="0.8"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Opacity" Value="1">
+
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Ellipse Fill="White" >
+
+
+
+                            </Ellipse>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
+        
     </Grid>
 
 
