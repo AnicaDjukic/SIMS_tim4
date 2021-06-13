@@ -33,9 +33,9 @@ namespace Bolnica.Template
             for (int i = 1; i < max; i++)
             {
                 bool pronadjen = false;
-                foreach (int antiTrol in lista)
+                foreach (int id in lista)
                 {
-                    if (antiTrol.Equals(i))
+                    if (id.Equals(i))
                     {
                         pronadjen = true;
                         break;
