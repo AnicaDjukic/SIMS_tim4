@@ -22,12 +22,14 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
 
         public void Prikazivanje(string id)
         {
-            throw new NotImplementedException();
+            var s = new ViewFormProstorije(id);
+            s.Show();
         }
 
         public void Izmena(string id)
         {
-            throw new NotImplementedException();
+            var s = new CreateFormProstorije(id);
+            s.Show();
         }
 
         public void Brisanje(Prostorija zaBrisanje)

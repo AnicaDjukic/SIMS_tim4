@@ -19,15 +19,24 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             CreateFormLekovi l = new CreateFormLekovi(vm);
         }
 
-        public void Izmena(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Prikazivanje(int id)
         {
-            throw new System.NotImplementedException();
+            var s = new ViewFormLek(id);
+            s.Show();
         }
+
+        public void Izmena(int id)
+        {
+            Lek lek = controllerLek.DobaviLek(id);
+            if (lek.Status == StatusLeka.cekaValidaciju)
+                MessageBox.Show(LocalizedStrings.Instance["Nije moguće izmeniti lek koji čeka validaciju!"]);
+            else
+            {
+                ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(id);
+                CreateFormLekovi s = new CreateFormLekovi(vm);
+            }
+        }
+
         public void Brisanje(Lek zaBrisanje)
         {
             MessageBoxResult rsltMessageBox = UpitZaBrisanjeLeka(zaBrisanje);

@@ -60,7 +60,7 @@ namespace bolnica.Forms
         public FormUpravnik()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = this;
             Inject = new Injector();
             clickedDodaj = false;
             AzurirajVreme();
@@ -68,6 +68,7 @@ namespace bolnica.Forms
             InicijalizujPrikaz();
         }
 
+        #region INICIJALIZACIJA PRIKAZA
         private void AzurirajVreme()
         {
             Title = LocalizedStrings.Instance["Upravnik"];
@@ -139,7 +140,9 @@ namespace bolnica.Forms
                 }
             }
         }
+        #endregion
 
+        #region CRUD OPERACIJE
         private void Button_Click_Dodaj(object sender, RoutedEventArgs e)
         {
             clickedDodaj = true;
@@ -156,36 +159,18 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                OtvoriFormuZaPrikazProstorije(prostorija.BrojProstorije);
+                operatorProstorije.OperacijaPrikazivanja(prostorija.BrojProstorije);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                OtvoriFormuZaPrikazOpreme(oprema.Sifra);
+                operatorOpreme.OperacijaPrikazivanja(oprema.Sifra);
             }
-            else
+            else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                OtvoriFormuZaPrikazLeka(lek.Id);
+                operatorLeka.OperacijaPrikazivanja(lek.Id);
             }
-        }
-
-        private void OtvoriFormuZaPrikazProstorije(string brojProstorije)
-        {
-            var s = new ViewFormProstorije(brojProstorije);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaPrikazOpreme(string sifra)
-        {
-            var s = new ViewFormOprema(sifra);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaPrikazLeka(int idLeka)
-        {
-            var s = new ViewFormLek(idLeka);
-            s.Show();
         }
 
         private void Button_Click_Izmeni(object sender, RoutedEventArgs e)
@@ -194,41 +179,19 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                OtvoriFormuZaIzmenuProstorije(prostorija.BrojProstorije);
-
+                operatorProstorije.OperacijaIzmene(prostorija.BrojProstorije);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                OtvoriFormuZaIzmenuOpreme(oprema.Sifra);
-
+                operatorOpreme.OperacijaIzmene(oprema.Sifra);
             }
             else if (dataGridLekovi.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 2)
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                if (lek.Status == StatusLeka.cekaValidaciju)
-                    MessageBox.Show(LocalizedStrings.Instance["Nije moguće izmeniti lek koji čeka validaciju!"]);
-                else
-                    OtvoriFormuZaIzmenuLeka(lek.Id);
+                operatorLeka.OperacijaIzmene(lek.Id);
+                
             }
-        }
-
-        private void OtvoriFormuZaIzmenuProstorije(string brojProstorije)
-        {
-            var s = new CreateFormProstorije(brojProstorije);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaIzmenuOpreme(string sifra)
-        {
-            var s = new CreateFormOprema(sifra);
-            s.Show();
-        }
-
-        private void OtvoriFormuZaIzmenuLeka(int id)
-        {
-            ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(id);
-            CreateFormLekovi s = new CreateFormLekovi(vm);
         }
 
         private void Button_Click_Obrisi(object sender, RoutedEventArgs e)
@@ -249,23 +212,9 @@ namespace bolnica.Forms
                 operatorLeka.OperacijaBrisanja(lek);
             }
         }
+        #endregion
 
-        private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
-        {
-            if (dataGridProstorije.SelectedCells.Count > 0)
-            {
-                Prostorija renoviranje = (Prostorija)dataGridProstorije.SelectedItem;
-                FormRenoviranje formRenoviranje = new FormRenoviranje(renoviranje.BrojProstorije);
-                formRenoviranje.Show();
-            }
-        }
-
-        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
-        {
-            FormObavestenja s = new FormObavestenja();
-            s.Show();
-        }
-
+        #region PRETRAGA
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
             List<Oprema> oprema = new List<Oprema>();
@@ -313,6 +262,24 @@ namespace bolnica.Forms
                 else if (comboTipOpreme.SelectedIndex == 0)
                     Oprema.Add(o);
             }
+        }
+        #endregion
+
+        #region OSTALE FUNKCIONALNOSTI
+        private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)
+        {
+            if (dataGridProstorije.SelectedCells.Count > 0)
+            {
+                Prostorija renoviranje = (Prostorija)dataGridProstorije.SelectedItem;
+                FormRenoviranje formRenoviranje = new FormRenoviranje(renoviranje.BrojProstorije);
+                formRenoviranje.Show();
+            }
+        }
+
+        private void Button_Click_Obavestenja(object sender, RoutedEventArgs e)
+        {
+            FormObavestenja s = new FormObavestenja();
+            s.Show();
         }
 
         private void Tabovi_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -419,4 +386,5 @@ namespace bolnica.Forms
             s.Show();
         }
     }
+#endregion
 }

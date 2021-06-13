@@ -19,14 +19,16 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             o.Show();
         }
 
-        public void Izmena(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Prikazivanje(string id)
         {
-            throw new NotImplementedException();
+            var s = new ViewFormOprema(id);
+            s.Show();
+        }
+
+        public void Izmena(string id)
+        {
+            var s = new CreateFormOprema(id);
+            s.Show();
         }
 
         public void Brisanje(Oprema zaBrisanje)
