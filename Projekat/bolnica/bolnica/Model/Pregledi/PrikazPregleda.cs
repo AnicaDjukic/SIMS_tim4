@@ -107,6 +107,11 @@ namespace Bolnica.Model.Pregledi
             return null;
         }
 
-        
+        public PrikazPregleda(int id, DateTime datum, int trajanje, bool zavrsen, bool hitan, Anamneza anamneza, Lekar lekar, Prostorija prostorija, Pacijent pacijent) : this(id, datum, trajanje, zavrsen, hitan, anamneza)
+        {
+            Lekar = lekar;
+            Prostorija = prostorija;
+            Pacijent = pacijent;
+        }
     }
 }

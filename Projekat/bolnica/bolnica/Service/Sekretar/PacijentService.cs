@@ -22,20 +22,20 @@ namespace Bolnica.Services
     public class PacijentService
     {
         private IRepositoryPacijent skladistePacijenata;
-        private IRepositoryKorisnik skladisteKorisnika;
-        private IRepositoryPregled skladistePregleda;
-        private IRepositoryOperacija skladisteOperacija;
         private SastojakService sastojakService;
+        private KorisnikService korisnikService;
         private ZdravstveniKartonService zdravstveniKartonService;
+        private PregledService pregledService;
+        private OperacijaService operacijaService;
 
         public PacijentService() 
         {
             skladistePacijenata = new FileRepositoryPacijent();
-            skladisteKorisnika = new FileRepositoryKorisnik();
-            skladistePregleda = new FileRepositoryPregled();
-            skladisteOperacija = new FileRepositoryOperacija();
             sastojakService = new SastojakService();
+            korisnikService = new KorisnikService();
             zdravstveniKartonService = new ZdravstveniKartonService();
+            pregledService = new PregledService();
+            operacijaService = new OperacijaService();
         }
 
         public PacijentDTO GetPacijentByID(string jmbg) 
@@ -52,10 +52,8 @@ namespace Bolnica.Services
 
         public List<PacijentDTO> GetAllPacijente()
         {
-            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
             List<PacijentDTO> sviPacijentiDTO = new List<PacijentDTO>();
-
-            foreach (Pacijent p in sviPacijenti)
+            foreach (Pacijent p in skladistePacijenata.GetAll())
             {
                 List<int> idsAlergena = new List<int>();
                 if (p.Alergeni != null)
@@ -74,10 +72,8 @@ namespace Bolnica.Services
 
         public List<PacijentDTO> GetRedovnePacijente() 
         {
-            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
             List<PacijentDTO> redovniPacijenti = new List<PacijentDTO>();
-
-            foreach (Pacijent p in sviPacijenti)
+            foreach (Pacijent p in skladistePacijenata.GetAll())
                 if (p.Obrisan == false && !p.Guest)
                 {
                     ZdravstveniKartonDTO zdravstveniKarton = zdravstveniKartonService.GetZdravstveniKartonByID(p.ZdravstveniKarton.BrojKartona);
@@ -92,10 +88,8 @@ namespace Bolnica.Services
 
         public List<PacijentDTO> GetGostPacijente()
         {
-            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
             List<PacijentDTO> gostPacijenti = new List<PacijentDTO>();
-
-            foreach (Pacijent p in sviPacijenti)
+            foreach (Pacijent p in skladistePacijenata.GetAll())
                 if (p.Obrisan == false && p.Guest)
                 {
                     List<int> idsAlergena = new List<int>();
@@ -109,10 +103,8 @@ namespace Bolnica.Services
 
         public List<PacijentDTO> GetObrisanePacijente()
         {
-            List<Pacijent> sviPacijenti = skladistePacijenata.GetAll();
             List<PacijentDTO> obrisaniPacijenti = new List<PacijentDTO>();
-
-            foreach (Pacijent p in sviPacijenti)
+            foreach (Pacijent p in skladistePacijenata.GetAll())
                 if (p.Obrisan)
                 {
                     List<int> idsAlergena = new List<int>();
@@ -144,21 +136,19 @@ namespace Bolnica.Services
 
             if (!pacijent.Guest)
             {
-                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                skladisteKorisnika.Delete(korisnik);
+                KorisnikDTO korisnikDTO = new KorisnikDTO { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                korisnikService.DeleteKorisnika(korisnikDTO);
             }
         }
 
         private void UpdateTerminaPacijentaBlokiranje(PacijentDTO pacijentDTO) 
         {
-            List<Pregled> pregledi = skladistePregleda.GetAll();
-            List<Operacija> operacije = skladisteOperacija.GetAll();
-            foreach (Pregled p in pregledi)
-                if (p.Pacijent.Jmbg == pacijentDTO.Jmbg)
-                    skladistePregleda.Delete(p);
-            foreach (Operacija o in operacije)
-                if (o.Pacijent.Jmbg == pacijentDTO.Jmbg)
-                    skladisteOperacija.Delete(o);
+            foreach (PrikazPregleda pp in pregledService.GetAllPregledi())
+                if (pp.Pacijent.Jmbg == pacijentDTO.Jmbg)
+                    pregledService.DeletePregled(pp);
+            foreach (PrikazOperacije po in operacijaService.GetAllOperacije())
+                if (po.Pacijent.Jmbg == pacijentDTO.Jmbg)
+                    operacijaService.DeleteOperacija(po);
         }
 
         public void OdblokirajPacijenta(PacijentDTO pacijentDTO) 
@@ -169,8 +159,8 @@ namespace Bolnica.Services
 
             if (!pacijent.Guest)
             {
-                Korisnik korisnik = new Korisnik() { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
-                skladisteKorisnika.Save(korisnik);
+                KorisnikDTO korisnikDTO = new KorisnikDTO { KorisnickoIme = pacijent.KorisnickoIme, Lozinka = pacijent.Lozinka, TipKorisnika = TipKorisnika.pacijent };
+                korisnikService.SaveKorisnika(korisnikDTO);
             }
         }
 
@@ -183,22 +173,7 @@ namespace Bolnica.Services
 
         private void SnimiPacijentaDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
         {
-            Pacijent pacijent = new Pacijent
-            {
-                Guest = pacijentDTO.Guest,
-                Obrisan = pacijentDTO.Obrisan,
-                Pol = pacijentDTO.Pol,
-                Jmbg = pacijentDTO.Jmbg,
-                Ime = pacijentDTO.Ime,
-                Prezime = pacijentDTO.Prezime,
-                DatumRodjenja = pacijentDTO.DatumRodjenja,
-                BrojTelefona = pacijentDTO.BrojTelefona,
-                AdresaStanovanja = pacijentDTO.AdresaStanovanja,
-                Email = pacijentDTO.Email,
-                KorisnickoIme = pacijentDTO.KorisnickoIme,
-                Lozinka = pacijentDTO.Lozinka,
-                TipKorisnika = pacijentDTO.TipKorisnika
-            };
+            Pacijent pacijent = new Pacijent { Guest = pacijentDTO.Guest, Obrisan = pacijentDTO.Obrisan, Pol = pacijentDTO.Pol, Jmbg = pacijentDTO.Jmbg, Ime = pacijentDTO.Ime, Prezime = pacijentDTO.Prezime, DatumRodjenja = pacijentDTO.DatumRodjenja, BrojTelefona = pacijentDTO.BrojTelefona, AdresaStanovanja = pacijentDTO.AdresaStanovanja, Email = pacijentDTO.Email, KorisnickoIme = pacijentDTO.KorisnickoIme, Lozinka = pacijentDTO.Lozinka, TipKorisnika = pacijentDTO.TipKorisnika };
             pacijent.ZdravstveniKarton = new ZdravstveniKarton { BrojKartona = pacijentDTO.BrojKartona, Zanimanje = pacijentDTO.Zanimanje, BracniStatus = pacijentDTO.BracniStatus, Osiguranje = pacijentDTO.Osiguranje };
             pacijent.Alergeni = new List<Sastojak>();
             if (pacijentDTO.IdsAlergena != null)
@@ -216,14 +191,7 @@ namespace Bolnica.Services
 
         private void SnimiZdravstveniKartonDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
         {
-            ZdravstveniKartonDTO zdravstveniKarton = new ZdravstveniKartonDTO
-            {
-                BrojKartona = pacijentDTO.BrojKartona,
-                Zanimanje = pacijentDTO.Zanimanje,
-                Osiguranje = pacijentDTO.Osiguranje,
-                BracniStatus = pacijentDTO.BracniStatus
-            };
-
+            ZdravstveniKartonDTO zdravstveniKarton = new ZdravstveniKartonDTO { BrojKartona = pacijentDTO.BrojKartona, Zanimanje = pacijentDTO.Zanimanje, Osiguranje = pacijentDTO.Osiguranje, BracniStatus = pacijentDTO.BracniStatus };
             if (FormSekretar.clickedDodaj)
                 zdravstveniKartonService.SaveZdravstveniKarton(zdravstveniKarton);
             else
@@ -232,16 +200,11 @@ namespace Bolnica.Services
 
         private void SnimiKorisnikaDodavanjeIliIzmena(PacijentDTO pacijentDTO) 
         {
-            Korisnik korisnik = new Korisnik
-            {
-                KorisnickoIme = pacijentDTO.KorisnickoIme,
-                Lozinka = pacijentDTO.Lozinka,
-                TipKorisnika = TipKorisnika.pacijent
-            };
+            KorisnikDTO korisnikDTO = new KorisnikDTO { KorisnickoIme = pacijentDTO.KorisnickoIme, Lozinka = pacijentDTO.Lozinka, TipKorisnika = TipKorisnika.pacijent };
             if (FormSekretar.clickedDodaj)
-                skladisteKorisnika.Save(korisnik);
+                korisnikService.SaveKorisnika(korisnikDTO);
             else
-                skladisteKorisnika.Update(korisnik);
+                korisnikService.UpdateKorisnika(korisnikDTO);
         }
     }
 }

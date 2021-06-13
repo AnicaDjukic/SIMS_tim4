@@ -126,7 +126,7 @@ namespace Bolnica.Forms.Sekretar
             Lekar lekar = (Lekar)dataGridLekari.SelectedItem;
             if (lekar != null)
             {
-                var s = new FormGodisnji(lekar.Jmbg);
+                var s = new FormGodisnji(lekar.KorisnickoIme);
                 s.ShowDialog();
             }
             else

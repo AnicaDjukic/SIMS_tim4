@@ -95,6 +95,13 @@ namespace Model.Pregledi
             }
             return null;
         }
+
+        public PrikazOperacije(int id, DateTime datum, int trajanje, bool zavrsen, bool hitan, Anamneza anamneza, Lekar lekar, Prostorija prostorija, Pacijent pacijent, TipOperacije tipOperacije) : this(id, datum, trajanje, zavrsen, hitan, anamneza)
+        {
+            TipOperacije = tipOperacije;
+            Lekar = lekar;
+            Prostorija = prostorija;
+            Pacijent = pacijent;
+        }
     }
-    
 }
