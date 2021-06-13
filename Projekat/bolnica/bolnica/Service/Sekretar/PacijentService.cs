@@ -1,4 +1,5 @@
-﻿using Bolnica.DTO;
+﻿using Bolnica.Controller.Sekretar;
+using Bolnica.DTO;
 using Bolnica.DTO.Sekretar;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
@@ -27,6 +28,7 @@ namespace Bolnica.Services
         private ZdravstveniKartonService zdravstveniKartonService;
         private PregledService pregledService;
         private OperacijaService operacijaService;
+        private IBracniStatusMehanizam bracniStatusMehanizam;
         public PacijentService() 
         {
             skladistePacijenata = new FileRepositoryPacijent();
@@ -207,6 +209,12 @@ namespace Bolnica.Services
                 korisnikService.SaveKorisnika(korisnikDTO);
             else
                 korisnikService.UpdateKorisnika(korisnikDTO);
+        }
+
+        public BracniStatus PostaviPoljeBracniStatusPacijenta(IBracniStatusMehanizam bsm) 
+        {
+            BracniStatus bracniStatus = bsm.PostaviPoljeBracniStatusPacijenta();
+            return bracniStatus;
         }
     }
 }

@@ -21,6 +21,7 @@ using Bolnica.Model.Pacijenti;
 using Bolnica.DTO;
 using Bolnica.Controller;
 using Bolnica.DTO.Sekretar;
+using Bolnica.Controller.Sekretar;
 
 namespace Bolnica.Forms
 {
@@ -457,18 +458,15 @@ namespace Bolnica.Forms
 
         private BracniStatus PostaviPoljeBracniStatusPacijenta() 
         {
-            int selectedBracniStatus = comboBracniStatus.SelectedIndex;
-            BracniStatus bracniStatus = new BracniStatus();
-            if (selectedBracniStatus == 0)
-                bracniStatus = BracniStatus.neozenjen_neudata;
-            else if (selectedBracniStatus == 1)
-                bracniStatus = BracniStatus.ozenjen_udata;
-            else if (selectedBracniStatus == 2)
-                bracniStatus = BracniStatus.udovac_udovica;
-            else if (selectedBracniStatus == 3)
-                bracniStatus = BracniStatus.razveden_razvedena;
-
-            return bracniStatus;
+            string selektovaniBracniStatus = ((ComboBoxItem)comboBracniStatus.SelectedItem).Content.ToString();
+            if (selektovaniBracniStatus == "Neozenjen/Neudata")
+                return pacijentiController.PostaviPoljeBracniStatusPacijenta(new BracniStatusNeozenjen());
+            else if (selektovaniBracniStatus == "Ozenjen/Udata")
+                return pacijentiController.PostaviPoljeBracniStatusPacijenta(new BracniStatusOzenjen());
+            else if (selektovaniBracniStatus == "Udovac/Udovica")
+                return pacijentiController.PostaviPoljeBracniStatusPacijenta(new BracniStatusUdovac());
+            else
+                return pacijentiController.PostaviPoljeBracniStatusPacijenta(new BracniStatusRazveden());
         }
 
         private void Button_Click_Dodaj_Alergene(object sender, RoutedEventArgs e)
