@@ -1,9 +1,7 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bolnica.Controller.Prostorije
 {
@@ -38,6 +36,23 @@ namespace Bolnica.Controller.Prostorije
         public BolnickaSoba DobaviBolnickuSobu(string brojBolnickeSobe)
         {
             return service.DobaviBolnickuSobu(brojBolnickeSobe);
+        }
+
+        public bool PostojeZauzetiKreveti(string brojProstorije)
+        {
+            BolnickaSoba bolnickaSoba = service.DobaviBolnickuSobu(brojProstorije);
+            return bolnickaSoba.BrojSlobodnihKreveta != bolnickaSoba.UkBrojKreveta;
+        }
+
+        public List<BolnickaSoba> DobaviBolnickeSobeNaIstomSpratu(int sprat)
+        {
+            List<BolnickaSoba> bolnickeSobeNaIstomSpratu = new List<BolnickaSoba>();
+            foreach (BolnickaSoba b in service.DobaviSveBolnickeSobe())
+            {
+                if (b.Sprat == sprat && !b.Obrisana)
+                    bolnickeSobeNaIstomSpratu.Add(b);
+            }
+            return bolnickeSobeNaIstomSpratu;
         }
     }
 }
