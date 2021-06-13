@@ -53,6 +53,10 @@ namespace bolnica.Forms
                 inject = value;
             }
         }
+
+        Operator<Prostorija, string> operatorProstorije = new OperatorProstorije();
+        Operator<Oprema, string> operatorOpreme = new OperatorOpreme();
+        Operator<Lek, int> operatorLeka = new OperatorLeka();
         public FormUpravnik()
         {
             InitializeComponent();
@@ -140,30 +144,13 @@ namespace bolnica.Forms
         {
             clickedDodaj = true;
             if (Tabovi.SelectedIndex == 0)
-                PrikaziFormuZaDodavanjeProstorije();
+                operatorProstorije.OperacijaDodavanja();
             else if (Tabovi.SelectedIndex == 1)
-                PrikaziFormuZaDodavanjeOpreme();
+                operatorOpreme.OperacijaDodavanja();
             else
-                PrikaziFormuZaDodavanjeLeka();
+                operatorLeka.OperacijaDodavanja();
         }
 
-        private void PrikaziFormuZaDodavanjeProstorije()
-        {
-            var p = new CreateFormProstorije(null);
-            p.Show();
-        }
-        private void PrikaziFormuZaDodavanjeOpreme()
-        {
-            var o = new CreateFormOprema(null);
-            o.Show();
-        }
-
-        private void PrikaziFormuZaDodavanjeLeka()
-        {
-            LekDTO noviLek = new LekDTO();
-            ViewModelCreateFormLekovi vm = new ViewModelCreateFormLekovi(noviLek.Id);
-            CreateFormLekovi l = new CreateFormLekovi(vm);
-        }
         private void Button_Click_Prikazi(object sender, RoutedEventArgs e)
         {
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
@@ -249,33 +236,18 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                BrisanjeProstorije(new CRUDOperatorProstorije(), prostorija);
+                operatorProstorije.OperacijaBrisanja(prostorija);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                BrisanjeOpreme(new CRUDOperatorOpreme(), oprema);
+                operatorOpreme.OperacijaBrisanja(oprema);
             }
             else
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                BrisanjeLeka(new CRUDOperatorLeka(), lek);
+                operatorLeka.OperacijaBrisanja(lek);
             }
-        }
-
-        private void BrisanjeProstorije(CRUDOperator<Prostorija> crudOperator, Prostorija prostorija)
-        {
-            crudOperator.OperacijaBrisanja(prostorija);
-        }
-
-        private void BrisanjeOpreme(CRUDOperatorOpreme crudOperator, Oprema oprema)
-        {
-            crudOperator.OperacijaBrisanja(oprema);
-        }
-
-        private void BrisanjeLeka(CRUDOperatorLeka crudOperator, Lek lek)
-        {
-            crudOperator.OperacijaBrisanja(lek);
         }
 
         private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)

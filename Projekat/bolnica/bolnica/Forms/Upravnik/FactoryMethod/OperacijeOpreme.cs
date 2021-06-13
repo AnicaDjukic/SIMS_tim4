@@ -9,9 +9,26 @@ using System.Windows;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    class OperacijeOpreme : IOperacije<Oprema>
+    class OperacijeOpreme : IOperacije<Oprema, string>
     {
         ControllerOprema controllerOprema = new ControllerOprema();
+
+        public void Dodavanje()
+        {
+            var o = new CreateFormOprema(null);
+            o.Show();
+        }
+
+        public void Izmena(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Prikazivanje(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Brisanje(Oprema zaBrisanje)
         {
             MessageBoxResult rsltMessageBox = UpitZaBrisanjeOpreme(zaBrisanje);

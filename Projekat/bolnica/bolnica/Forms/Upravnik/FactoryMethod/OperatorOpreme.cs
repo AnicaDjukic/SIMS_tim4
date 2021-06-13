@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    public class CRUDOperatorOpreme : CRUDOperator<Oprema>
+    public class OperatorOpreme : Operator<Oprema, string>
     {
-        public override IOperacije<Oprema> FactoryMethod()
+        public override IOperacije<Oprema, string> FactoryMethod()
         {
             return new OperacijeOpreme();
         }

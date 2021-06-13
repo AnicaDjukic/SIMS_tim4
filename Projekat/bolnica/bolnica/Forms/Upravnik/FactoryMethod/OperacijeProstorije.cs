@@ -9,10 +9,27 @@ using System.Windows;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    public class OperacijeProstorije : IOperacije<Prostorija>
+    public class OperacijeProstorije : IOperacije<Prostorija, string>
     {
         ControllerProstorija controllerProstorija = new ControllerProstorija();
         ControllerBolnickaSoba controllerBolnickaSoba = new ControllerBolnickaSoba();
+
+        public void Dodavanje()
+        {
+            var p = new CreateFormProstorije(null);
+            p.Show();
+        }
+
+        public void Prikazivanje(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Izmena(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Brisanje(Prostorija zaBrisanje)
         {
             MessageBoxResult rsltMessageBox = UpitZaBrisanjeProstorije(zaBrisanje.BrojProstorije);
@@ -47,5 +64,7 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
 
             FormUpravnik.Prostorije.Remove(prostorija);
         }
+
+        
     }
 }
