@@ -5,11 +5,12 @@ using Bolnica.Localization;
 using Bolnica.Model.Pregledi;
 using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    public class OperacijeLeka : IOperacije<Lek, int>
+    public class OperacijeNadLekom : IOperacijeNadEntitetima<Lek, int>
     {
         ControllerLek controllerLek = new ControllerLek();
         public void Dodavanje()
@@ -65,6 +66,11 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
 
             return rsltMessageBox;
+        }
+
+        public List<Lek> Pretraga(string text)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

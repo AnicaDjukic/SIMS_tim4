@@ -7,9 +7,9 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
     public class OperatorOpreme : Operator<Oprema, string>
     {
-        public override IOperacije<Oprema, string> FactoryMethod()
+        public override IOperacijeNadEntitetima<Oprema, string> FactoryMethod()
         {
-            return new OperacijeOpreme();
+            return new OperacijeNadOpremom();
         }
     }
 }

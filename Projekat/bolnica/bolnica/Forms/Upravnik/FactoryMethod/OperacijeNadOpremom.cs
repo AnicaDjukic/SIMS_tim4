@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    class OperacijeOpreme : IOperacije<Oprema, string>
+    class OperacijeNadOpremom : IOperacijeNadEntitetima<Oprema, string>
     {
         ControllerOprema controllerOprema = new ControllerOprema();
 
@@ -52,6 +52,47 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
 
             return rsltMessageBox;
+        }
+
+        public List<Oprema> Pretraga(string text)
+        {
+            List<Oprema> oprema = new List<Oprema>();
+            foreach (Oprema o in controllerOprema.DobaviSvuOpremu())
+            {
+                if (o.Sifra.ToLower().Contains(text.ToLower()))
+                {
+                    oprema.Remove(o);
+                    oprema.Add(o);
+                }
+
+                if (o.Naziv.ToLower().Contains(text.ToLower()))
+                {
+                    oprema.Remove(o);
+                    oprema.Add(o);
+                }
+
+                if (o.TipOpreme == TipOpreme.dinamicka)
+                {
+                    string dinamicka = LocalizedStrings.Instance["dinamička"];
+                    if (dinamicka.Contains(text.ToLower()))
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                }
+
+                if (o.TipOpreme == TipOpreme.staticka)
+                {
+                    string staticka = LocalizedStrings.Instance["statička"];
+                    if (staticka.Contains(text.ToLower()))
+                    {
+                        oprema.Remove(o);
+                        oprema.Add(o);
+                    }
+                }
+            }
+
+            return oprema;
         }
     }
 }

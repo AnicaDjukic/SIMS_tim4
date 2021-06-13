@@ -9,11 +9,10 @@ using System.Windows;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    public class OperacijeProstorije : IOperacije<Prostorija, string>
+    public class OperacijeNadProstorijom : IOperacijeNadEntitetima<Prostorija, string>
     {
         ControllerProstorija controllerProstorija = new ControllerProstorija();
         ControllerBolnickaSoba controllerBolnickaSoba = new ControllerBolnickaSoba();
-
         public void Dodavanje()
         {
             var p = new CreateFormProstorije(null);
@@ -67,6 +66,9 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             FormUpravnik.Prostorije.Remove(prostorija);
         }
 
-        
+        public List<Prostorija> Pretraga(string text)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

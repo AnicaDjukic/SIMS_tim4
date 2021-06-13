@@ -6,7 +6,7 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
     public abstract class Operator<T, ID>
     {
-        public abstract IOperacije<T, ID> FactoryMethod();
+        public abstract IOperacijeNadEntitetima<T, ID> FactoryMethod();
         
         public void OperacijaDodavanja()
         {
@@ -32,5 +32,10 @@ namespace Bolnica.Forms.Upravnik.FactoryMethod
             product.Brisanje(zaBrisanje);
         }
 
+        public List<T> OperacijaPretrage(string text)
+        {
+            var product = FactoryMethod();
+            return product.Pretraga(text);
+        }
     }
 }

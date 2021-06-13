@@ -1,12 +1,9 @@
-﻿using Bolnica;
-using Bolnica.DTO;
-using Bolnica.Forms;
+﻿using Bolnica.Controller.Pregledi;
+using Bolnica.Controller.Prostorije;
 using Bolnica.Forms.Upravnik;
 using Bolnica.Forms.Upravnik.FactoryMethod;
 using Bolnica.Localization;
-using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
@@ -24,6 +21,7 @@ namespace bolnica.Forms
     /// </summary>
     public partial class FormUpravnik : Window
     {
+        #region ObservableCollections
         public static ObservableCollection<Prostorija> Prostorije
         {
             get;
@@ -43,16 +41,15 @@ namespace bolnica.Forms
             get;
             set;
         }
+        #endregion
 
-        private Injector inject;
-        public Injector Inject
-        {
-            get { return inject; }
-            set
-            {
-                inject = value;
-            }
-        }
+        #region Controllers
+        ControllerRenoviranje controllerRenoviranje = new ControllerRenoviranje();
+        ControllerProstorija controllerProstorija = new ControllerProstorija();
+        ControllerBolnickaSoba controllerBolnickaSoba = new ControllerBolnickaSoba();
+        ControllerOprema controllerOprema = new ControllerOprema();
+        ControllerLek controllerLek = new ControllerLek();
+        #endregion
 
         Operator<Prostorija, string> operatorProstorije = new OperatorProstorije();
         Operator<Oprema, string> operatorOpreme = new OperatorOpreme();
@@ -61,10 +58,9 @@ namespace bolnica.Forms
         {
             InitializeComponent();
             DataContext = this;
-            Inject = new Injector();
             clickedDodaj = false;
             AzurirajVreme();
-            Inject.ControllerRenoviranje.PodeliISpojiProstorije();
+            controllerRenoviranje.PodeliISpojiProstorije();
             InicijalizujPrikaz();
         }
 
@@ -96,7 +92,7 @@ namespace bolnica.Forms
 
         private void PrikaziProstorije()
         {
-            List<Prostorija> prostorije = Inject.ControllerProstorija.DobaviSveProstorije();
+            List<Prostorija> prostorije = controllerProstorija.DobaviSveProstorije();
             foreach (Prostorija p in prostorije)
             {
                 if (p.Obrisana == false)
@@ -106,7 +102,7 @@ namespace bolnica.Forms
 
         private void PrikaziBolnickeSobe()
         {
-            List<BolnickaSoba> bolnickeSobe = Inject.ControllerBolnickaSoba.DobaviSveBolnickeSobe();
+            List<BolnickaSoba> bolnickeSobe = controllerBolnickaSoba.DobaviSveBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
                 if (b.Obrisana == false)
@@ -118,7 +114,7 @@ namespace bolnica.Forms
         {
             Oprema = new ObservableCollection<Oprema>();
 
-            List<Oprema> oprema = Inject.ControllerOprema.DobaviSvuOpremu();
+            List<Oprema> oprema = controllerOprema.DobaviSvuOpremu();
             if (oprema != null)
             {
                 foreach (Oprema o in oprema)
@@ -130,7 +126,7 @@ namespace bolnica.Forms
         {
             Lekovi = new ObservableCollection<Lek>();
 
-            List<Lek> lekovi = Inject.ControllerLek.DobaviSveLekove();
+            List<Lek> lekovi = controllerLek.DobaviSveLekove();
             if (lekovi != null)
             {
                 foreach (Lek l in lekovi)
@@ -190,7 +186,7 @@ namespace bolnica.Forms
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
                 operatorLeka.OperacijaIzmene(lek.Id);
-                
+
             }
         }
 
@@ -217,43 +213,17 @@ namespace bolnica.Forms
         #region PRETRAGA
         private void Button_Click_Search(object sender, RoutedEventArgs e)
         {
-            List<Oprema> oprema = new List<Oprema>();
-            foreach (Oprema o in Inject.ControllerOprema.DobaviSvuOpremu())
+            if (Tabovi.SelectedIndex == 1)
             {
-                if (o.Sifra.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.Naziv.ToLower().Contains(txtSearch.Text.ToLower()))
-                {
-                    oprema.Remove(o);
-                    oprema.Add(o);
-                }
-
-                if (o.TipOpreme == TipOpreme.dinamicka)
-                {
-                    string dinamicka = LocalizedStrings.Instance["dinamička"];
-                    if (dinamicka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
-
-                if (o.TipOpreme == TipOpreme.staticka)
-                {
-                    string staticka = LocalizedStrings.Instance["statička"];
-                    if (staticka.Contains(txtSearch.Text.ToLower()))
-                    {
-                        oprema.Remove(o);
-                        oprema.Add(o);
-                    }
-                }
+                List<Oprema> nadjenaOprema = operatorOpreme.OperacijaPretrage(txtSearch.Text);
+                FiltrirajRezultat(nadjenaOprema);
             }
+        }
+
+        private void FiltrirajRezultat(List<Oprema> nadjenaOprema)
+        {
             Oprema.Clear();
-            foreach (Oprema o in oprema)
+            foreach (Oprema o in nadjenaOprema)
             {
                 if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
                     Oprema.Add(o);
@@ -296,7 +266,7 @@ namespace bolnica.Forms
             {
                 List<Oprema> oprema = new List<Oprema>();
 
-                foreach (Oprema o in Inject.ControllerOprema.DobaviSvuOpremu())
+                foreach (Oprema o in controllerOprema.DobaviSvuOpremu())
                 {
                     if (comboTipOpreme.SelectedIndex == 1 && o.TipOpreme == TipOpreme.staticka)
                     {
@@ -386,5 +356,5 @@ namespace bolnica.Forms
             s.Show();
         }
     }
-#endregion
+    #endregion
 }
