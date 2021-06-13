@@ -2,12 +2,10 @@
 using Bolnica.DTO;
 using Bolnica.Forms;
 using Bolnica.Forms.Upravnik;
+using Bolnica.Forms.Upravnik.FactoryMethod;
 using Bolnica.Localization;
 using Bolnica.Model.Pregledi;
 using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Pregledi;
-using Bolnica.Repository.Prostorije;
-using Bolnica.Services.Prostorije;
 using Bolnica.ViewModel.Upravnik;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -87,13 +85,22 @@ namespace bolnica.Forms
         private void PrikaziSveProstorije()
         {
             Prostorije = new ObservableCollection<Prostorija>();
+            PrikaziProstorije();
+            PrikaziBolnickeSobe();
+        }
 
+        private void PrikaziProstorije()
+        {
             List<Prostorija> prostorije = Inject.ControllerProstorija.DobaviSveProstorije();
             foreach (Prostorija p in prostorije)
             {
                 if (p.Obrisana == false)
                     Prostorije.Add(p);
             }
+        }
+
+        private void PrikaziBolnickeSobe()
+        {
             List<BolnickaSoba> bolnickeSobe = Inject.ControllerBolnickaSoba.DobaviSveBolnickeSobe();
             foreach (BolnickaSoba b in bolnickeSobe)
             {
@@ -242,106 +249,33 @@ namespace bolnica.Forms
             if (dataGridProstorije.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 0)
             {
                 Prostorija prostorija = (Prostorija)dataGridProstorije.SelectedItems[0];
-                BrisanjeProstorije(prostorija);
+                BrisanjeProstorije(new CRUDOperatorProstorije(), prostorija);
             }
             else if (dataGridOprema.SelectedCells.Count > 0 && Tabovi.SelectedIndex == 1)
             {
                 Oprema oprema = (Oprema)dataGridOprema.SelectedItems[0];
-                BrisanjeOpreme(oprema);
+                BrisanjeOpreme(new CRUDOperatorOpreme(), oprema);
             }
             else
             {
                 Lek lek = (Lek)dataGridLekovi.SelectedItems[0];
-                BrisanjeLeka(lek);
+                BrisanjeLeka(new CRUDOperatorLeka(), lek);
             }
         }
 
-        private void BrisanjeProstorije(Prostorija prostorija)
+        private void BrisanjeProstorije(CRUDOperator<Prostorija> crudOperator, Prostorija prostorija)
         {
-            MessageBoxResult rsltMessageBox = UpitZaBrisanjeProstorije(prostorija.BrojProstorije);
-            if (rsltMessageBox == MessageBoxResult.Yes)
-            {
-                if (prostorija.Zauzeta)
-                    MessageBox.Show(LocalizedStrings.Instance["Prostorija je trenutno zauzeta, ne možete je obrisati."]);
-                else
-                    ObrisiProstoriju(prostorija);
-            }
+            crudOperator.OperacijaBrisanja(prostorija);
         }
 
-        private MessageBoxResult UpitZaBrisanjeProstorije(string brojProstorije)
+        private void BrisanjeOpreme(CRUDOperatorOpreme crudOperator, Oprema oprema)
         {
-            string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete prostoriju"] + " \"" + brojProstorije + "\"?";
-            string sCaption = LocalizedStrings.Instance["Brisanje prostorije"];
-
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-            return rsltMessageBox;
+            crudOperator.OperacijaBrisanja(oprema);
         }
 
-        private void ObrisiProstoriju(Prostorija prostorija)
+        private void BrisanjeLeka(CRUDOperatorLeka crudOperator, Lek lek)
         {
-            if (prostorija.TipProstorije != TipProstorije.bolnickaSoba)
-                Inject.ControllerProstorija.ObrisiProstoriju(prostorija.BrojProstorije);
-            else
-                Inject.ControllerBolnickaSoba.ObrisiBolnickuSobu(prostorija.BrojProstorije);
-
-            Prostorije.Remove(prostorija);
-        }
-
-        private void BrisanjeOpreme(Oprema oprema)
-        {
-            MessageBoxResult rsltMessageBox = UpitZaBrisanjeOpreme(oprema);
-            if (rsltMessageBox == MessageBoxResult.Yes)
-            {
-                Inject.ControllerOprema.ObrisiOpremu(oprema.Sifra);
-                Oprema.Remove(oprema);
-            }
-        }
-
-        private MessageBoxResult UpitZaBrisanjeOpreme(Oprema row)
-        {
-            string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete opremu sa nazivom"] + " \"" + row.Naziv + " \"" + LocalizedStrings.Instance["i šifrom"] + " \"" + row.Sifra + "\"?";
-            string sCaption = LocalizedStrings.Instance["Brisanje opreme"];
-
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-            return rsltMessageBox;
-        }
-
-        private void BrisanjeLeka(Lek lek)
-        {
-            MessageBoxResult rsltMessageBox = UpitZaBrisanjeLeka(lek);
-            if (rsltMessageBox == MessageBoxResult.Yes)
-            {
-                if (lek.Status == StatusLeka.cekaValidaciju)
-                {
-                    MessageBox.Show(LocalizedStrings.Instance["Nije moguće obrisati lek koji čeka validaciju!"]);
-                }
-                else
-                {
-                    Inject.ControllerLek.ObrisiLek(lek.Id);
-                    Lekovi.Remove(lek);
-                }
-            }
-        }
-
-        private MessageBoxResult UpitZaBrisanjeLeka(Lek row)
-        {
-            string sMessageBoxText = LocalizedStrings.Instance["Da li ste sigurni da želite da obrišete lek sa nazivom"] + " \"" + row.Naziv + " \"" + LocalizedStrings.Instance["i id-jem"] + " \"" + row.Id + "\"?";
-            string sCaption = LocalizedStrings.Instance["Brisanje leka"];
-
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-            return rsltMessageBox;
+            crudOperator.OperacijaBrisanja(lek);
         }
 
         private void Button_Click_Renoviranje(object sender, RoutedEventArgs e)

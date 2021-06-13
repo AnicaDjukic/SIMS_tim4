@@ -31,17 +31,17 @@ namespace Bolnica.Services.Prostorije
             return renoviranja;
         }
 
-        internal void SacuvajRenoviranje(Renoviranje novoRenoviranje)
+        public void SacuvajRenoviranje(Renoviranje novoRenoviranje)
         {
             repository.Save(novoRenoviranje);
         }
 
-        internal List<Renoviranje> DobaviSvaRenoviranja()
+        public List<Renoviranje> DobaviSvaRenoviranja()
         {
             return repository.GetAll();
         }
 
-        internal void Izmeni(Renoviranje r)
+        public void Izmeni(Renoviranje r)
         {
             repository.Delete(r);
             repository.Save(r);
