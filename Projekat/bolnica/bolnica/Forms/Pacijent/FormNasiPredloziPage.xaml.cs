@@ -1,5 +1,8 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
+using Bolnica.Repository.Prostorije;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -16,7 +19,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormNasiPredloziPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
         public static ObservableCollection<PrikazPregleda> PredlozeniTermini
         {
@@ -30,28 +32,27 @@ namespace Bolnica.Forms
         private List<Prostorija> prostorije = new List<Prostorija>();
         private List<Prostorija> slobodneProstorije = new List<Prostorija>();
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageProstorija storageProstorije = new FileStorageProstorija();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageAntiTrol storageAntiTrol = new FileStorageAntiTrol();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
-        public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar, FormPacijentWeb formPacijentWeb)
+        public FormNasiPredloziPage(Pacijent pacijent, DateTime datum, int sat, int minut, Lekar lekar)
         {
             InitializeComponent();
 
             this.DataContext = this;
 
-            form = formPacijentWeb;
             trenutniPacijent = pacijent;
             PredlozeniTermini = new ObservableCollection<PrikazPregleda>();
 
-            pregledi = storagePregledi.GetAllPregledi();
+            pregledi = storagePregledi.GetAll();
             foreach (Pregled p in pregledi)
             {
                 zauzetiTermini.Add(p.Datum);
             }
 
-            prostorije = storageProstorije.GetAllProstorije();
+            prostorije = storageProstorije.GetAll();
             foreach (Prostorija p in prostorije)
             {
                 if (p.TipProstorije.Equals(TipProstorije.salaZaPreglede) && !p.Obrisana)
@@ -541,18 +542,20 @@ namespace Bolnica.Forms
                             Pacijent = p.Pacijent
                         };
 
-                        FormPacijentPage.PrikazNezavrsenihPregleda.Add(p);
+                        PacijentPageViewModel.PrikazNezavrsenihPregleda.Add(p);
                         storagePregledi.Save(pregled);
 
                         
                         AntiTrol antiTrol = new AntiTrol
                         {
+                            Id = DobijIdAntiTrol(),
                             Pacijent = p.Pacijent,
                             Datum = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second)
                         };
                         storageAntiTrol.Save(antiTrol);
 
-                        form.Pocetna.Content = new FormPacijentPage(pregled.Pacijent, form);
+                        PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(pregled.Pacijent);
+                        FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*pregled.Pacijent*/);
 
                         break;
                     }
@@ -564,9 +567,24 @@ namespace Bolnica.Forms
             }
         }
 
+        private int DobijIdAntiTrol()
+        {
+            List<AntiTrol> antiTrolList = storageAntiTrol.GetAll();
+            int max = 0;
+            foreach (AntiTrol antiTrol in antiTrolList)
+            {
+                if (antiTrol.Id > max)
+                {
+                    max = antiTrol.Id;
+                }
+            }
+            return max + 1;
+        }
+
         private void Odustani(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormPacijentPage(trenutniPacijent, form);
+            PacijentPageViewModel pacijentPageViewModel = new PacijentPageViewModel(trenutniPacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormPacijentPage(pacijentPageViewModel/*trenutniPacijent*/);
         }
     }
 }

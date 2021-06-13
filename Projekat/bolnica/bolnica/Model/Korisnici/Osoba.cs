@@ -10,7 +10,7 @@ namespace Model.Korisnici
         public bool ShouldSerializeIme()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
         public string Prezime { get; set; }
@@ -18,31 +18,31 @@ namespace Model.Korisnici
         public bool ShouldSerializePrezime()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
         public DateTime DatumRodjenja { get; set; }
         public bool ShouldSerializeDatumRodjenja()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
         public string BrojTelefona { get; set; }
         public bool ShouldSerializeBrojTelefona()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
         public string AdresaStanovanja { get; set; }
         public bool ShouldSerializeAdresaStanovanja()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
         public string Email { get; set; }
         public bool ShouldSerializeEmail()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
     }
 }

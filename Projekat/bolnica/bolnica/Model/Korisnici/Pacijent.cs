@@ -1,3 +1,4 @@
+using Bolnica.DTO;
 using Bolnica.Model.Pregledi;
 using Model.Pacijenti;
 using Model.Pregledi;
@@ -11,7 +12,7 @@ namespace Model.Korisnici
         public bool ShouldSerializeGuest()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
 
@@ -20,7 +21,7 @@ namespace Model.Korisnici
         public bool ShouldSerializeObrisan()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
 
@@ -28,7 +29,7 @@ namespace Model.Korisnici
         public bool ShouldSerializePol()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
 
@@ -36,15 +37,14 @@ namespace Model.Korisnici
         public bool ShouldSerializeZdravstveniKarton()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
 
         public List<Sastojak> Alergeni { get; set; }
         public bool ShouldSerializeAlergeni()
         {
 
-            return FileStoragePregledi.serializeKorisnik;
+            return FileRepositoryPregled.serializeKorisnik;
         }
-
     }
 }

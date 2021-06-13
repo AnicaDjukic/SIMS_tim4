@@ -1,5 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
 using Model.Pregledi;
 using Model.Prostorije;
@@ -15,7 +17,6 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormIstorijaPregledaPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent trenutniPacijent = new Pacijent();
         public static ObservableCollection<PrikazPregleda> PrikazZavrsenihPregleda
         {
@@ -23,18 +24,20 @@ namespace Bolnica.Forms
             set;
         }
 
-        private FileStoragePregledi storagePregledi = new FileStoragePregledi();
-        private FileStorageLekar storageLekari = new FileStorageLekar();
-        private FileStorageProstorija storageProstorije = new FileStorageProstorija();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
+        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
+        private FileRepositoryProstorija storageProstorije = new FileRepositoryProstorija();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
         private List<Lekar> lekari = new List<Lekar>();
         private List<Prostorija> prostorije = new List<Prostorija>();
+        private List<Ocena> ocene = new List<Ocena>();
 
-        public FormIstorijaPregledaPage(Pacijent pacijent, FormPacijentWeb formPacijentWeb)
+        public FormIstorijaPregledaPage(Pacijent pacijent)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             trenutniPacijent = pacijent;
 
             this.DataContext = this;
@@ -43,9 +46,9 @@ namespace Bolnica.Forms
 
             lekari = storageLekari.GetAll();
 
-            prostorije = storageProstorije.GetAllProstorije();
+            prostorije = storageProstorije.GetAll();
 
-            List<Pregled> pregledi = storagePregledi.GetAllPregledi();
+            List<Pregled> pregledi = storagePregledi.GetAll();
             foreach (Pregled p in pregledi)
             {
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))
@@ -83,7 +86,7 @@ namespace Bolnica.Forms
                     }
                 }
             }
-            List<Operacija> operacije = storagePregledi.GetAllOperacije();
+            List<Operacija> operacije = storageOperacije.GetAll();
             foreach (Operacija o in operacije)
             {
                 if (o.Pacijent.Jmbg.Equals(pacijent.Jmbg))
@@ -130,8 +133,15 @@ namespace Bolnica.Forms
 
             if (objekat != null)
             {
-                PrikazPregleda p = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
-                form.Pocetna.Content = new FormOceniLekaraPage(p, form);
+                PrikazPregleda prikazPregleda = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
+                if (PregledVecOcenjen(prikazPregleda))
+                {
+                    MessageBox.Show("Za izabrani pregled ste vec ocenili lekara!", "Upozorenje");
+                }
+                else
+                {
+                    FormPacijentWeb.Forma.Pocetna.Content = new FormOceniLekaraPage(prikazPregleda);
+                }
             }
             else
             {
@@ -139,14 +149,42 @@ namespace Bolnica.Forms
             }
         }
 
+        private bool PregledVecOcenjen(PrikazPregleda prikazPregleda)
+        {
+            ocene = storageOcene.GetAll();
+            foreach (Ocena ocena in ocene)
+            {
+                if (prikazPregleda.Id.Equals(ocena.Pregled.Id))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void Button_Click_Oceni_Bolnicu(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormOceniBolnicuPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormOceniBolnicuPage(trenutniPacijent);
         }
 
         private void Button_Click_Istorija_Ocena_I_Komentara(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaOcenaPage(trenutniPacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaOcenaPage(trenutniPacijent);
+        }
+
+        private void Button_Click_Anamneza(object sender, RoutedEventArgs e)
+        {
+            var objekat = pacijentIstorijaGrid.SelectedValue;
+
+            if (objekat != null)
+            {
+                PrikazPregleda prikazPregleda = (PrikazPregleda)pacijentIstorijaGrid.SelectedItem;
+                FormPacijentWeb.Forma.Pocetna.Content = new FormAnamnezaPage(prikazPregleda);
+            }
+            else
+            {
+                MessageBox.Show("Morate odabrati pregled za koji zelite da vidite anamnezu!", "Upozorenje");
+            }
         }
     }
 }

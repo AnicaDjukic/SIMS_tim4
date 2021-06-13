@@ -1,3 +1,5 @@
+using Bolnica.Repository.Prostorije;
+
 namespace Model.Prostorije
 {
     public class Prostorija
@@ -7,31 +9,31 @@ namespace Model.Prostorije
         public bool ShouldSerializeSprat()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
         public double Kvadratura { get; set; }
         public bool ShouldSerializeKvadratura()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
         public TipProstorije TipProstorije { get; set; }
         public bool ShouldSerializeTipProstorije()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
         public bool Zauzeta { get; set; }
         public bool ShouldSerializeZauzeta()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
         public bool Obrisana { get; set; }
         public bool ShouldSerializeObrisana()
         {
 
-            return FileStorageZaliha.serializeProstorija;
+            return FileRepositoryZaliha.serializeProstorija;
         }
 
         public Prostorija()

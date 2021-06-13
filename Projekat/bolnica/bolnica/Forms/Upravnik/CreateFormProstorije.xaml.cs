@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -108,14 +109,20 @@ namespace Bolnica.Forms
             }
         }
 
+        ServiceProstorija serviceProstorija = new ServiceProstorija();
+        ServiceBolnickaSoba serviceBolnickaSoba = new ServiceBolnickaSoba();
+
         public CreateFormProstorije()
         {
             InitializeComponent();
             this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
-            {
                 Title = "Izmeni prostoriju";
-            }
+            SakrijPoljaZaBolnickuSobu();
+        }
+
+        private void SakrijPoljaZaBolnickuSobu()
+        {
             lblUkBrojKreveta.Visibility = Visibility.Hidden;
             txtUkBrojKreveta.Visibility = Visibility.Hidden;
             lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
@@ -125,182 +132,100 @@ namespace Bolnica.Forms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int tipProstorije = comboTipProstorije.SelectedIndex;
-            bool zauzeta = (bool)checkZauzeta.IsChecked;
-            if (tipProstorije == 2)
+            if (!serviceProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
             {
-                BolnickaSoba prostorija = new BolnickaSoba { BrojProstorije = BrojProstorije, Sprat = Sprat, Kvadratura = Kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = UkBrojKreveta, BrojSlobodnihKreveta = BrojSlobodnihKreveta};
-
-                if (prostorija.BrojSlobodnihKreveta == 0)
+                if (tipProstorije == 2)
                 {
-                    prostorija.Zauzeta = true;
-                }
-                update(prostorija);
-            }
-            else
-            {
-                Prostorija prostorija = new Prostorija();
-                prostorija.BrojProstorije = BrojProstorije;
-                prostorija.Sprat = Sprat;
-                prostorija.Kvadratura = Kvadratura;
-
-                if (tipProstorije == 0)
-                {
-                    prostorija.TipProstorije = TipProstorije.salaZaPreglede;
+                    BolnickaSoba bolnickaSoba = NapraviBolnickuSobu();
+                    SacuvajBolnickuSobu(bolnickaSoba);
                 }
                 else
                 {
-                    prostorija.TipProstorije = TipProstorije.operacionaSala;
+                    Prostorija prostorija = NapraviProstoriju(tipProstorije);
+                    SacuvajProstoriju(prostorija);
                 }
-                update(prostorija);
+            } 
+            else
+            {
+                MessageBox.Show("Prostorija već postoji");
+                return;
             }
             this.Close();
         }
 
-        private void update(Prostorija prostorija)
+        private BolnickaSoba NapraviBolnickuSobu()
         {
-            bool postoji = false;
-            FileStorageProstorija storage = new FileStorageProstorija();
-            List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
-            List<Prostorija> prostorije = storage.GetAllProstorije();
-            foreach (Prostorija p in prostorije)
-            {
-                if (p.BrojProstorije == prostorija.BrojProstorije)
-                {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Prostorija već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(p);
-                        for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
-                        {
-                            if (FormUpravnik.Prostorije[i].BrojProstorije == prostorija.BrojProstorije)
-                            {
-                                FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
-                                break;
-                            }
+            bool zauzeta = (bool)checkZauzeta.IsChecked;
+            BolnickaSoba bolnickaSoba = new BolnickaSoba { BrojProstorije = BrojProstorije, Sprat = Sprat, Kvadratura = Kvadratura, TipProstorije = TipProstorije.bolnickaSoba, Zauzeta = zauzeta, Obrisana = false, UkBrojKreveta = UkBrojKreveta, BrojSlobodnihKreveta = BrojSlobodnihKreveta };
 
-                        }
-                    }
-                }
+            if (bolnickaSoba.BrojSlobodnihKreveta == 0)
+            {
+                bolnickaSoba.Zauzeta = true;
+            }
+            return bolnickaSoba;
+        }
+
+        private void SacuvajBolnickuSobu(BolnickaSoba bolnickaSoba)
+        {
+            if (!FormUpravnik.clickedDodaj)
+            {
+                serviceBolnickaSoba.ObrisiBolnickuSobu(brojProstorije);
+                UkloniIzPrikaza(brojProstorije);
             }
 
-            foreach (BolnickaSoba p in bolnickeSobe)
-            {
-                if (p.BrojProstorije == prostorija.BrojProstorije)
-                {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Prostorija već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(p);
-                        for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
-                        {
-                            if (FormUpravnik.Prostorije[i].BrojProstorije == prostorija.BrojProstorije)
-                            {
-                                FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
-                                break;
-                            }
+            serviceBolnickaSoba.SacuvajBolnickuSobu(bolnickaSoba);
+            FormUpravnik.Prostorije.Add(bolnickaSoba);
+        }
 
-                        }
-                    }
-                }
-            }
-            FormUpravnik.clickedDodaj = false;
-            if (!postoji)
+        private void UkloniIzPrikaza(string brojProstorije)
+        {
+            for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
             {
-                storage.Save(prostorija);
-                FormUpravnik.Prostorije.Add(prostorija);
+                if (FormUpravnik.Prostorije[i].BrojProstorije == brojProstorije)
+                {
+                    FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
+                    break;
+                }
             }
         }
 
-        private void update(BolnickaSoba prostorija)
+        private Prostorija NapraviProstoriju(int tipProstorije)
         {
-            bool postoji = false;
-            FileStorageProstorija storage = new FileStorageProstorija();
-            List<BolnickaSoba> bolnickeSobe = storage.GetAllBolnickeSobe();
-            List<Prostorija> prostorije = storage.GetAllProstorije();
-            foreach (Prostorija p in prostorije)
-            {
-                if (p.BrojProstorije == prostorija.BrojProstorije)
-                {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Prostorija već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(p);
-                        for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
-                        {
-                            if (FormUpravnik.Prostorije[i].BrojProstorije == prostorija.BrojProstorije)
-                            {
-                                FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
-                                break;
-                            }
+            bool zauzeta = (bool)checkZauzeta.IsChecked;
+            Prostorija prostorija = new Prostorija { BrojProstorije = brojProstorije, Sprat = sprat, Kvadratura = kvadratura, Zauzeta = zauzeta };
+            if (tipProstorije == 0)
+                prostorija.TipProstorije = TipProstorije.salaZaPreglede;
+            else
+                prostorija.TipProstorije = TipProstorije.operacionaSala;
+            return prostorija;
+        }
 
-                        }
-                    }
-                }
+        private void SacuvajProstoriju(Prostorija prostorija)
+        {
+            if (!FormUpravnik.clickedDodaj)
+            {
+                serviceProstorija.ObrisiProstoriju(brojProstorije);
+                UkloniIzPrikaza(brojProstorije);
             }
 
-            foreach (BolnickaSoba p in bolnickeSobe)
-            {
-                if (p.BrojProstorije == prostorija.BrojProstorije)
-                {
-                    if (FormUpravnik.clickedDodaj)
-                    {
-                        MessageBox.Show("Prostorija već postoji");
-                        postoji = true;
-                        FormUpravnik.clickedDodaj = false;
-                    }
-                    else
-                    {
-                        storage.Delete(p);
-                        for (int i = 0; i < FormUpravnik.Prostorije.Count; i++)
-                        {
-                            if (FormUpravnik.Prostorije[i].BrojProstorije == prostorija.BrojProstorije)
-                            {
-                                FormUpravnik.Prostorije.Remove(FormUpravnik.Prostorije[i]);
-                                break;
-                            }
-
-                        }
-                    }
-                }
-            }
-            FormUpravnik.clickedDodaj = false;
-            if (!postoji)
-            {
-                storage.Save(prostorija);
-                FormUpravnik.Prostorije.Add(prostorija);
-            }
+            serviceProstorija.SacuvajProstoriju(prostorija);
+            FormUpravnik.Prostorije.Add(prostorija);
         }
 
         private void comboTipProstorije_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboTipProstorije.SelectedIndex == 2)
-            {
-                lblUkBrojKreveta.Visibility = Visibility.Visible;
-                txtUkBrojKreveta.Visibility = Visibility.Visible;
-                lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
-                txtBrojSlobodnihKreveta.Visibility = Visibility.Visible;
-            } else
-            {
-                lblUkBrojKreveta.Visibility = Visibility.Hidden;
-                txtUkBrojKreveta.Visibility = Visibility.Hidden;
-                lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
-                txtBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
-            }
+                PrikaziPojaZaBolnickuSobu();
+            else
+                SakrijPoljaZaBolnickuSobu();
+        }
+
+        private void PrikaziPojaZaBolnickuSobu()
+        {
+            lblUkBrojKreveta.Visibility = Visibility.Visible;
+            txtUkBrojKreveta.Visibility = Visibility.Visible;
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+            txtBrojSlobodnihKreveta.Visibility = Visibility.Visible;
         }
 
         private void checkZauzeta_Checked(object sender, RoutedEventArgs e)

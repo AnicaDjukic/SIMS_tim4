@@ -1,5 +1,7 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pacijenti;
@@ -25,13 +27,14 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormZakaziHitanTermin : Window
     {
         public static bool guest;
-        private FileStorageLekar storageLekari;
+        private FileRepositoryLekar storageLekari;
         private List<Lekar> lekari;
-        private FileStoragePacijenti storagePacijenti;
+        private FileRepositoryPacijent storagePacijenti;
         private List<Pacijent> pacijenti;
-        private FileStorageProstorija storageProstorije;
+        private FileRepositoryProstorija storageProstorije;
         private List<Prostorija> prostorije;
-        private FileStoragePregledi sviPregledi;
+        private FileRepositoryPregled sviPregledi;
+        private FileRepositoryOperacija sveOperacije;
         private DataGrid dataGrid;
         public FormZakaziHitanTermin(DataGrid dg)
         {
@@ -40,13 +43,14 @@ namespace Bolnica.Forms.Sekretar
             lblTipOperacije.Visibility = Visibility.Hidden;
             txtTrajanje.Text = "30";
             txtTrajanje.IsEnabled = false;
-            storageLekari = new FileStorageLekar();
+            storageLekari = new FileRepositoryLekar();
             lekari = storageLekari.GetAll();
-            storagePacijenti = new FileStoragePacijenti();
+            storagePacijenti = new FileRepositoryPacijent();
             pacijenti = storagePacijenti.GetAll();
-            storageProstorije = new FileStorageProstorija();
-            prostorije = storageProstorije.GetAllProstorije();
-            sviPregledi = new FileStoragePregledi();
+            storageProstorije = new FileRepositoryProstorija();
+            prostorije = storageProstorije.GetAll();
+            sviPregledi = new FileRepositoryPregled();
+            sveOperacije = new FileRepositoryOperacija();
             dataGrid = dg;
 
             foreach (Pacijent p in pacijenti)
@@ -252,7 +256,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
                 List<Pregled> pregledi = new List<Pregled>();
-                pregledi = sviPregledi.GetAllPregledi();
+                pregledi = sviPregledi.GetAll();
                 int max = 0;
                 for (int i = 0; i < pregledi.Count; i++)
                 {
@@ -459,7 +463,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
                 List<Operacija> operacije = new List<Operacija>();
-                operacije = sviPregledi.GetAllOperacije();
+                operacije = sveOperacije.GetAll();
                 int max = 0;
                 for (int i = 0; i < operacije.Count; i++)
                 {
@@ -496,8 +500,8 @@ namespace Bolnica.Forms.Sekretar
             List<Pregled> preglediProstorije = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijeProstorije = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Prostorija.BrojProstorije.Equals(prostorija.BrojProstorije))
@@ -547,8 +551,8 @@ namespace Bolnica.Forms.Sekretar
             List<Pregled> preglediLekara = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijeLekara = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Lekar.Jmbg.Equals(lekar.Jmbg))
@@ -598,8 +602,8 @@ namespace Bolnica.Forms.Sekretar
             List<Pregled> preglediPacijenta = new List<Pregled>();
             List<Operacija> operacije = new List<Operacija>();
             List<Operacija> operacijePacijenta = new List<Operacija>();
-            pregledi = sviPregledi.GetAllPregledi();
-            operacije = sviPregledi.GetAllOperacije();
+            pregledi = sviPregledi.GetAll();
+            operacije = sveOperacije.GetAll();
 
             foreach (Pregled p in pregledi)
                 if (p.Pacijent.Jmbg.Equals(pacijent.Jmbg))

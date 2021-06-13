@@ -18,5 +18,15 @@ namespace Bolnica.Model.Korisnici
         {
             Korisnici = new List<Korisnik>();
         }
+
+        public Obavestenje(int Id, DateTime Datum, string Sadrzaj, string Naslov, bool Obrisan)
+        {
+            Korisnici = new List<Korisnik>();
+            this.Id = Id;
+            this.Datum = Datum;
+            this.Sadrzaj = Sadrzaj;
+            this.Naslov = Naslov;
+            this.Obrisan = Obrisan;
+        }
     }
 }

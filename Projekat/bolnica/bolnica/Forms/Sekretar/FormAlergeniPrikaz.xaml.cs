@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,33 +21,45 @@ namespace Bolnica.Forms.Sekretar
     public partial class FormAlergeniPrikaz : Window
     {
         public static ObservableCollection<Sastojak> Alergeni { get; set; }
-        private FileStorageSastojak storage;
+        private FileRepositorySastojak storage;
         public FormAlergeniPrikaz(Label lblJMBG)
         {
             InitializeComponent();
             dataGridAlergeni.DataContext = this;
             Alergeni = new ObservableCollection<Sastojak>();
-            storage = new FileStorageSastojak();
+            storage = new FileRepositorySastojak();
             List<Sastojak> alergeni = storage.GetAll();
 
             for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
             { 
-                if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Jmbg))
+                if (String.Equals(lblJMBG.Content, FormSekretar.RedovniPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                    if (FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni)
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }
 
             for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
             {
-                if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Jmbg))
+                if (String.Equals(lblJMBG.Content, FormSekretar.GostiPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
-                            Alergeni.Add(s);
+                    if (FormSekretar.GostiPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Pacijent.Alergeni)
+                        {
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    Alergeni.Add(sas);
+                                }
+                        }
                     break;
                 }
             }

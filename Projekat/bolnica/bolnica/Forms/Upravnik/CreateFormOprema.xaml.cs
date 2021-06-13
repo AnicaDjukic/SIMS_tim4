@@ -1,19 +1,8 @@
 ﻿using bolnica.Forms;
 using Bolnica.Model.Prostorije;
-using Model.Prostorije;
-using System;
-using System.Collections.Generic;
+using Bolnica.Services.Prostorije;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static Bolnica.Forms.Upravnik.FormSkladiste;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -35,22 +24,6 @@ namespace Bolnica.Forms.Upravnik
         private string sifra;
         private string naziv;
         private int kolicina;
-        private FileStorageOprema storage;
-        private Oprema oprema;
-        public Oprema Oprema
-        {
-            get
-            {
-                return oprema;
-            }
-            set
-            {
-                if(value != oprema)
-                {
-                    oprema = value;
-                }
-            }
-        }
 
         public string Sifra
         {
@@ -100,130 +73,97 @@ namespace Bolnica.Forms.Upravnik
             }
         }
 
+        private ServiceOprema serviceOprema = new ServiceOprema();
         public CreateFormOprema()
         {
             InitializeComponent();
-            if (FormUpravnik.clickedDodaj)
-                oprema = new Oprema();
-            storage = new FileStorageOprema();
             this.DataContext = this;
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
         {
-            oprema.Sifra = sifra;
-            oprema.Naziv = naziv;
-            oprema.Kolicina = kolicina;
+            if (!serviceOprema.OpremaPostoji(sifra) || !FormUpravnik.clickedDodaj)
+            {
+                if (!FormUpravnik.clickedDodaj)
+                {
+                    serviceOprema.ObrisiOpremu(sifra);
+                    UkloniIzPrikaza(sifra);
+                }
+
+                Oprema oprema = NapraviOpremu();
+
+                serviceOprema.SacuvajOpremu(oprema);
+                FormUpravnik.Oprema.Add(oprema);
+            }
+            else
+            {
+                MessageBox.Show("Oprema sa istom šifrom već postoji");
+                return;
+            }
+
+            Close();
+        }
+
+        private void UkloniIzPrikaza(string sifra)
+        {
+            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
+            {
+                if (FormUpravnik.Oprema[i].Sifra == sifra)
+                {
+                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
+                    break;
+                }
+
+            }
+        }
+        private Oprema NapraviOpremu()
+        {
+            Oprema oprema = new Oprema { Sifra = sifra, Naziv = naziv, Kolicina = kolicina };
             if (ComboTipOpreme.SelectedIndex == 0)
                 oprema.TipOpreme = TipOpreme.staticka;
             else
                 oprema.TipOpreme = TipOpreme.dinamicka;
 
-            List<Oprema> svaOprema = storage.GetAll();
-            bool postoji = false;
-            if (svaOprema != null)
-            {
-                foreach (Oprema o in svaOprema)
-                {
-                    if (o.Sifra == oprema.Sifra)
-                    {
-                        if (FormUpravnik.clickedDodaj)
-                        {
-                            MessageBox.Show("Oprema sa istom šifrom već postoji");
-                            postoji = true;
-                            FormUpravnik.clickedDodaj = false;
-                        }
-                        else
-                        {
-                            storage.Delete(o);
-                            for (int i = 0; i < FormUpravnik.Oprema.Count; i++)
-                            {
-                                if (FormUpravnik.Oprema[i].Sifra == oprema.Sifra)
-                                {
-                                    FormUpravnik.Oprema.Remove(FormUpravnik.Oprema[i]);
-                                    break;
-                                }
-
-                            }
-                        }
-                    }
-                }
-                if (!postoji)
-                {
-                    storage.Save(oprema);
-                    FormUpravnik.Oprema.Add(oprema);
-                }
-            }
-            else
-            {
-                storage.Save(oprema);
-                FormUpravnik.Oprema.Add(oprema);
-            }
-
-        Close();
-
+            return oprema;
         }
 
         private void Button_Click_Skladisti(object sender, RoutedEventArgs e)
         {
-            oprema.Sifra = sifra;
-            oprema.Naziv = naziv;
-            oprema.Kolicina = kolicina;
-            if (ComboTipOpreme.SelectedIndex == 0)
-                oprema.TipOpreme = TipOpreme.staticka;
-            else
-                oprema.TipOpreme = TipOpreme.dinamicka;
-
+            Oprema oprema = NapraviOpremu();
             if (UkKolicinaValidna(kolicina))
             {
-                var s = new FormSkladiste(oprema);
-                s.Show();
+                if (!FormUpravnik.clickedDodaj || !serviceOprema.OpremaPostoji(sifra))
+                {
+                    var s = new FormSkladiste(oprema);
+                    s.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Oprema sa istom šifrom već postoji");
+                    return;
+                }
             }
         }
 
         private bool UkKolicinaValidna(int ukKolicina)
         {
+            bool validna = true;
             if (ukKolicina <= 0)
             {
                 MessageBox.Show("Unesite validnu količinu! Količina mora biti veća od 0.");
-                return false;
+                validna = false;
             }
             else
             {
-                if (!FormUpravnik.clickedDodaj)
+                int rezervisanaKolicina = serviceOprema.IzracunajRezervisanuKolicinu(sifra);
+                if (!serviceOprema.MoguceSmanjitiKolicinu(ukKolicina, rezervisanaKolicina))
                 {
-                    FileStorageZaliha storageZalihe = new FileStorageZaliha();
-                    List<Zaliha> zalihe = storageZalihe.GetAll();
-
-                    if (zalihe != null)
-                    {
-                        int rezervisanaKolicina = 0;
-                        foreach (Zaliha z in zalihe)
-                        {
-                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije != "magacin")
-                                rezervisanaKolicina += z.Kolicina;
-                        }
-
-                        foreach (Zaliha z in zalihe)
-                        {
-                            if (z.Oprema.Sifra == oprema.Sifra && z.Prostorija.BrojProstorije == "magacin")
-                            {
-                                if (ukKolicina - rezervisanaKolicina >= 0)
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
-                                    return false;
-                                }
-                            }
-                        }
-                    }
+                    MessageBox.Show("Nije moguće toliko smajiti količinu. Količina ne sme biti manja od " + rezervisanaKolicina);
+                    validna = false;
                 }
             }
 
-            return true;
+            return validna;
         }
 
         private void Button_Click_Odustani(object sender, RoutedEventArgs e)

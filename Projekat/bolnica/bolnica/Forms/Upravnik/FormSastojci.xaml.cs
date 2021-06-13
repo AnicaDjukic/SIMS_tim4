@@ -1,17 +1,12 @@
 ﻿using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Services.Pregledi;
 using Model.Pregledi;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms.Upravnik
 {
@@ -26,15 +21,20 @@ namespace Bolnica.Forms.Upravnik
             set;
         }
         private Lek noviLek;
-        FileStorageSastojak storage = new FileStorageSastojak();
+        FileRepositorySastojak storage = new FileRepositorySastojak();
+        private ServiceSastojak serviceSastojak = new ServiceSastojak();
         public FormSastojci(Lek lek)
         {
             InitializeComponent();
             DataContext = this;
             noviLek = lek;
+            PrikaziSveSastojke();
+        }
+
+        private void PrikaziSveSastojke()
+        {
             Sastojci = new ObservableCollection<Sastojak>();
-            List<Sastojak> sastojci = storage.GetAll();
-            foreach(Sastojak s in sastojci)
+            foreach (Sastojak s in serviceSastojak.DobaviSveSastojke())
             {
                 Sastojci.Add(s);
             }
@@ -70,47 +70,62 @@ namespace Bolnica.Forms.Upravnik
         {
             if (dataGridSastojci.SelectedItems.Count > 0)
             {
-                string sMessageBoxText = "";
-                if (dataGridSastojci.SelectedItems.Count > 1)
-                    sMessageBoxText = "Da li ste sigurni da želite da obrišete izabrane sastojke?";
-                else
-                    sMessageBoxText = "Da li ste sigurni da želite da obrišete sastojak " + ((Sastojak)dataGridSastojci.SelectedItem).Naziv + "?";
-                string sCaption = "Brisanje opreme";
-
-                MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-                MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-                MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-
-                if (rsltMessageBox == MessageBoxResult.Yes)
+                if (UpitZaBrisanjeLeka() == MessageBoxResult.Yes)
                 {
                     var selectedItems = dataGridSastojci.SelectedItems;
                     List<Sastojak> sastojciZaBrisanje = new List<Sastojak>();
-                    foreach (Sastojak s in selectedItems)
-                    {
-                        sastojciZaBrisanje.Add(s);
-                        storage.Delete(s);
-                    }
-                    foreach (Sastojak s in sastojciZaBrisanje)
-                    {
-                        Sastojci.Remove(s);
-                    }
+                    ObrisiSastojke(selectedItems);
                 }
             }
+        }
+
+        private void ObrisiSastojke(IList selectedItems)
+        {
+            List<Sastojak> sastojciZaBrisanje = new List<Sastojak>();
+            foreach (Sastojak s in selectedItems)
+            {
+                sastojciZaBrisanje.Add(s);
+                serviceSastojak.ObrisiSastojak(s);
+            }
+            foreach (Sastojak s in sastojciZaBrisanje)
+            {
+                Sastojci.Remove(s);
+            }
+        }
+
+        private MessageBoxResult UpitZaBrisanjeLeka()
+        {
+            string sMessageBoxText = "";
+            if (dataGridSastojci.SelectedItems.Count > 1)
+                sMessageBoxText = "Da li ste sigurni da želite da obrišete izabrane sastojke?";
+            else
+                sMessageBoxText = "Da li ste sigurni da želite da obrišete sastojak " + ((Sastojak)dataGridSastojci.SelectedItem).Naziv + "?";
+            string sCaption = "Brisanje opreme";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+            return rsltMessageBox;
         }
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                Sastojci.Clear();
-                foreach(Sastojak s in storage.GetAll())
+                PretraziSastojke();
+            }
+        }
+
+        private void PretraziSastojke()
+        {
+            Sastojci.Clear();
+            foreach (Sastojak s in storage.GetAll())
+            {
+                if (s.Naziv.ToLower().StartsWith(txtSearch.Text.ToLower()))
                 {
-                    if(s.Naziv.ToLower().StartsWith(txtSearch.Text.ToLower()))
-                    {
-                        Sastojci.Add(s);
-                    }
+                    Sastojci.Add(s);
                 }
             }
         }

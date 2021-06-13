@@ -1,10 +1,11 @@
 ﻿using Model.Korisnici;
 using System;
 
-namespace Bolnica.Model.Korisnici
+namespace Model.Korisnici
 {
-    class AntiTrol
+    public class AntiTrol
     {
+        public int Id { get; set; }
         public Pacijent Pacijent { get; set; }
         public DateTime Datum { get; set; }
     }

@@ -7,53 +7,73 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Forms\Images\add.png" />
+    <None Remove="Forms\Images\change-theme.png" />
+    <None Remove="Forms\Images\cheap.png" />
     <None Remove="Forms\Images\clock.png" />
+    <None Remove="Forms\Images\delete.png" />
+    <None Remove="Forms\Images\diamond.png" />
+    <None Remove="Forms\Images\document.png" />
+    <None Remove="Forms\Images\edit.png" />
+    <None Remove="Forms\Images\great-britain.png" />
+    <None Remove="Forms\Images\help.png" />
+    <None Remove="Forms\Images\info.png" />
+    <None Remove="Forms\Images\languages.png" />
+    <None Remove="Forms\Images\log-out.png" />
+    <None Remove="Forms\Images\notification-bell.png" />
+    <None Remove="Forms\Images\recycle.png" />
+    <None Remove="Forms\Images\search.png" />
+    <None Remove="Forms\Images\serbia.png" />
+    <None Remove="Forms\Images\shopping-cart.png" />
+    <None Remove="Forms\Images\view.png" />
     <None Remove="Resources\hospital.png" />
     <None Remove="Resources\LekarIstorija.png" />
     <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
-    <None Remove="Forms\Images\add.png" />
-    <None Remove="Forms\Images\delete-bin.png" />
-    <None Remove="Forms\Images\diamond.png" />
-    <None Remove="Forms\Images\document.png" />
-    <None Remove="Forms\Images\edit.png" />
     <None Remove="Forms\Images\left-arrow.png" />
-    <None Remove="Forms\Images\notification.png" />
-    <None Remove="Forms\Images\recycle.png" />
     <None Remove="Forms\Images\right-arrow.png" />
-    <None Remove="Forms\Images\search.png" />
-    <None Remove="Forms\Images\shopping.png" />
-    <None Remove="Forms\Images\view-details.png" />
     <None Remove="Forms\Images\woman-profile.png" />
     <None Remove="Resources\user.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <Resource Include="Forms\Images\change-theme.png" />
+    <Resource Include="Forms\Images\cheap.png" />
+    <Resource Include="Forms\Images\delete.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Forms\Images\add.png" />
     <Resource Include="Forms\Images\clock.png">
       <Generator>s</Generator>
     </Resource>
+    <Resource Include="Forms\Images\diamond.png" />
+    <Resource Include="Forms\Images\document.png" />
+    <Resource Include="Forms\Images\edit.png" />
+    <Resource Include="Forms\Images\great-britain.png" />
+    <Resource Include="Forms\Images\help.png" />
+    <Resource Include="Forms\Images\info.png" />
+    <Resource Include="Forms\Images\languages.png" />
+    <Resource Include="Forms\Images\log-out.png" />
+    <Resource Include="Forms\Images\notification-bell.png" />
+    <Resource Include="Forms\Images\recycle.png" />
+    <Resource Include="Forms\Images\search.png" />
+    <Resource Include="Forms\Images\serbia.png" />
+    <Resource Include="Forms\Images\shopping-cart.png" />
+    <Resource Include="Forms\Images\view.png" />
     <Resource Include="Resources\hospital.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LekarIstorija.png" />
     <Resource Include="Resources\LekarLek.png" />
     <Resource Include="Resources\LekarPregled.png" />
-    <Resource Include="Forms\Images\add.png" />
-    <Resource Include="Forms\Images\delete-bin.png" />
-    <Resource Include="Forms\Images\diamond.png" />
-    <Resource Include="Forms\Images\document.png" />
-    <Resource Include="Forms\Images\edit.png" />
     <Resource Include="Forms\Images\left-arrow.png" />
-    <Resource Include="Forms\Images\notification.png" />
-    <Resource Include="Forms\Images\recycle.png" />
     <Resource Include="Forms\Images\right-arrow.png" />
-    <Resource Include="Forms\Images\search.png" />
-    <Resource Include="Forms\Images\shopping.png" />
-    <Resource Include="Forms\Images\view-details.png" />
     <Resource Include="Forms\Images\woman-profile.png" />
     <Resource Include="Resources\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -61,7 +81,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Forms\Pacijent\" />
+    <Folder Include="Service\Lekar\" />
   </ItemGroup>
 
 </Project>

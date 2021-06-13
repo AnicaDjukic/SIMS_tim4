@@ -9,31 +9,31 @@ namespace Model.Korisnici
       public bool ShouldSerializeMbr()
       {
 
-          return FileStoragePregledi.serializeKorisnik;
+          return FileRepositoryPregled.serializeKorisnik;
       }
       public double Plata { get; set; }
       public bool ShouldSerializePlata()
       {
 
-          return FileStoragePregledi.serializeKorisnik;
+          return FileRepositoryPregled.serializeKorisnik;
       }
       public int BrojSlobodnihDana { get; set; }
       public bool ShouldSerializeBrojSlobodnihDana()
       {
 
-          return FileStoragePregledi.serializeKorisnik;
+          return FileRepositoryPregled.serializeKorisnik;
       }
       public int GodineStaza { get; set; }
       public bool ShouldSerializeGodineStaza()
       {
 
-          return FileStoragePregledi.serializeKorisnik;
+          return FileRepositoryPregled.serializeKorisnik;
       }
       public bool Zaposlen { get; set; }
       public bool ShouldSerializeZaposlen()
       {
 
-          return FileStoragePregledi.serializeKorisnik;
+          return FileRepositoryPregled.serializeKorisnik;
       }
    }
 }

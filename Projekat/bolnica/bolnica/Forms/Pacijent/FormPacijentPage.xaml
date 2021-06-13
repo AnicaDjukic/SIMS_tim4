@@ -5,13 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="390" d:DesignWidth="1000"
+      d:DesignHeight="580" d:DesignWidth="1400"
       Title="FormPacijentPage">
 
     <Grid>
         <DataGrid Name="pacijentGrid" ItemsSource="{Binding PrikazNezavrsenihPregleda}" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                  Margin="20,20,0,40" Height="330" Width="820" AutoGenerateColumns="False" SelectionUnit="FullRow" 
-                  SelectionMode="Single" IsReadOnly="True" Background="LightBlue">
+                  Margin="100,20,0,40" Height="530" Width="1000" AutoGenerateColumns="False" SelectionUnit="FullRow" RowHeight="40"
+                  FontSize="16" SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue"
+                  SelectedItem="{Binding SelektovaniRed, Mode=TwoWay}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#FF00DFFF"></Setter>
@@ -20,20 +21,33 @@
                     <Setter Property="BorderBrush" Value="black"></Setter>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
+                <Style TargetType="DataGridCell">
+                    <Style.Setters>
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style.Setters>
+                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum}"  Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}" MinWidth="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime lekara" Binding="{Binding Lekar.Ime}" MinWidth="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime lekara" Binding="{Binding Lekar.Prezime}" MinWidth="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}" MinWidth="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pregled/Tip operacije" Binding="{Binding TipOperacije, FallbackValue='pregled'}" MinWidth="200"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Zakazivanje pregleda" HorizontalAlignment="Right" Margin="0,30,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="ZakaziPregled"/>
-        <Button Content="Otkaži pregled" HorizontalAlignment="Right" Margin="0,80,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="OtkaziPregled"/>
-        <Button Content="Izmeni pregled" HorizontalAlignment="Right" Margin="0,130,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="IzmeniPregled"/>
-        <Button Content="Istorija pregleda" HorizontalAlignment="Right" Margin="0,180,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="IstorijaPregleda"/>
-        <Button Content="Obaveštenja" HorizontalAlignment="Right" Margin="0,280,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="ObavestenjaPacijent"/>
+        <StackPanel Orientation="Vertical" Margin="1080,20,0,0" Width="200" Height="490" VerticalAlignment="Top" Background="LightBlue">
+            <Button Content="Zakazivanje pregleda" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=ZakaziPregledKomanda}"/>
+            <Button Content="Otkaži pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=OtkaziPregledKomanda}"/>
+            <Button Content="Izmeni pregled" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=IzmeniPregledKomanda}"/>
+            <Button Content="Istorija pregleda" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=IstorijaPregledaKomanda}"/>
+            <Button Content="Obaveštenja o lekovima" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Height="45" Width="150"
+                    Command="{Binding Path=ObavestenjaPacijentKomanda}"/>
+        </StackPanel>
     </Grid>
 </Page>

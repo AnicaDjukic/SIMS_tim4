@@ -1,5 +1,6 @@
 ﻿using bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Services.Pregledi;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -32,48 +33,48 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
+
+        private ServiceLek serviceLek = new ServiceLek();
         public ViewFormLek(int idLeka)
         {
             InitializeComponent();
             this.DataContext = this;
-            Sastojci = new ObservableCollection<Sastojak>();
-            LekoviZamene = new ObservableCollection<Lek>();
-            FileStorageLek storageLek = new FileStorageLek();
-            List<Lek> lekovi = storageLek.GetAll();
-            Lek lek = new Lek();
-            foreach (Lek l in lekovi)
-            {
-                if (l.Id == idLeka && !l.Obrisan)
-                {
-                    lek = l;
-                    break;
-                }
-            }
-
-            foreach (Lek l in lekovi)
-            {
-                foreach (int id in lek.IdZamena)
-                {
-                    if(l.Id == id)
-                    {
-                        if(!l.Obrisan)
-                            LekoviZamene.Add(l);
-                    }
-                }
-            }
-            FileStorageSastojak storageSastojak = new FileStorageSastojak();
-            foreach(Sastojak s in lek.Sastojak)
-            {
-                foreach(Sastojak sas in storageSastojak.GetAll())
-                    if(s.Id == sas.Id)
-                        Sastojci.Add(sas);
-            }
             
+            Lek lek = PronadjiLek(idLeka);
+
+            PrikaziZameneLeka(lek);
+            
+            PrikaziSastojkeLeka(lek);
+            
+        }
+
+        private void PrikaziSastojkeLeka(Lek lek)
+        {
+            Sastojci = new ObservableCollection<Sastojak>();
+            foreach (Sastojak s in serviceLek.DobaviSastojkeLeka(lek))
+            {
+                Sastojci.Add(s);
+            }
+        }
+
+        private void PrikaziZameneLeka(Lek lek)
+        {
+            LekoviZamene = new ObservableCollection<Lek>();
+            foreach (Lek l in serviceLek.DobaviSveZameneLeka(lek))
+            {
+                LekoviZamene.Add(l);
+            }
+        }
+
+        private Lek PronadjiLek(int idLeka)
+        {
+            Lek lek = serviceLek.DobaviLek(idLeka);
+            return lek;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

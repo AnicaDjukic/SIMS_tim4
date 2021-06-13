@@ -1,6 +1,8 @@
+
 using bolnica.Forms;
 using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
+using Bolnica.ViewModel;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System.Collections.Generic;
@@ -14,8 +16,8 @@ namespace bolnica
     /// </summary>
     public partial class MainWindow : Window
     {
-        private FileStorageKorisnici storage = new FileStorageKorisnici();
-        private FileStoragePacijenti storagePacijenti = new FileStoragePacijenti();
+        private FileRepositoryKorisnik storage = new FileRepositoryKorisnik();
+        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
 
         public MainWindow()
         {
@@ -47,20 +49,20 @@ namespace bolnica
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.lekar)
                     {
-                        FileStorageLekar storageLekar = new FileStorageLekar();
+                        FileRepositoryLekar storageLekar = new FileRepositoryLekar();
                         List<Lekar> lekari = storageLekar.GetAll();
                         Lekar l = new Lekar();
-                        foreach(Lekar ln in lekari)
+                        foreach (Lekar ln in lekari)
                         {
-                            if(ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
+                            if (ln.KorisnickoIme.Equals(korisnickoIme) && ln.Lozinka.Equals(lozinka))
                             {
                                 l = ln;
                                 break;
                             }
                         }
-                        var s = new FormLekar(l);
-                        s.Show();
 
+                        LekarViewModel vm = new LekarViewModel(l);
+                        FormLekar form = new FormLekar(vm);
                     }
                     else if (korisnik.TipKorisnika == TipKorisnika.pacijent)
                     {
@@ -80,7 +82,12 @@ namespace bolnica
                         }
                         else
                         {
-                            var s = new FormPacijentWeb(pacijent);
+                            var s = new FormPacijentWeb(pacijent)
+                            {
+                                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                                ResizeMode = ResizeMode.CanMinimize,
+                                Title = "Zdravo bolnica Novi Sad"
+                            };
                             s.Show();
                             s.DanasnjaObavestenja();
                         }

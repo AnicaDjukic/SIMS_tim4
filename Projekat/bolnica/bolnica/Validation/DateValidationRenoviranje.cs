@@ -1,5 +1,7 @@
 ﻿using Bolnica.Forms.Upravnik;
 using Bolnica.Model.Prostorije;
+using Bolnica.Repository.Pregledi;
+using Bolnica.Repository.Prostorije;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
@@ -11,18 +13,16 @@ namespace Bolnica.Validation
 {
     public class DateValidationRenoviranje : ValidationRule
     {
-        private FileStorageRenoviranje storageRenoviranje;
-        private FileStoragePregledi StoragePregledi;
+        private FileRepositoryRenoviranje storageRenoviranje = new FileRepositoryRenoviranje();
+        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
+        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if(value as string != "" && value != null)
             {
-                storageRenoviranje = new FileStorageRenoviranje();
-                StoragePregledi = new FileStoragePregledi();
-
                 List<Renoviranje> renoviranja = storageRenoviranje.GetAll();
-                List<Pregled> pregledi = StoragePregledi.GetAllPregledi();
-                List<Operacija> operacije = StoragePregledi.GetAllOperacije();
+                List<Pregled> pregledi = storagePregledi.GetAll();
+                List<Operacija> operacije = storageOperacije.GetAll();
 
                 foreach(Renoviranje r in renoviranja)
                 {

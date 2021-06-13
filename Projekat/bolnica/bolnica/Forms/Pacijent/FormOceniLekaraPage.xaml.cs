@@ -1,7 +1,9 @@
 ﻿using Bolnica.Model;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -16,18 +18,21 @@ namespace Bolnica.Forms
     {
         private Pacijent pacijent = new Pacijent();
         private PrikazPregleda prikaz = new PrikazPregleda();
+        private Pregled pregled = new Pregled();
 
-        private FileStorageOcene storageOcene = new FileStorageOcene();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
-        private FormPacijentWeb form;
-
-        public FormOceniLekaraPage(PrikazPregleda prikazPregleda, FormPacijentWeb formPacijentWeb)
+        public FormOceniLekaraPage(PrikazPregleda prikazPregleda)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             pacijent = prikazPregleda.Pacijent;
             prikaz = prikazPregleda;
+            pregled.Id = prikaz.Id;
+            pregled.Lekar = prikaz.Lekar;
+            pregled.Pacijent = prikaz.Pacijent;
+            pregled.Prostorija = prikaz.Prostorija;
+            pregled.Anamneza = prikaz.Anamneza;
 
             lekarIme.Text = prikazPregleda.Lekar.Ime + " " + prikazPregleda.Lekar.Prezime;
         }
@@ -76,26 +81,27 @@ namespace Bolnica.Forms
                 {
                     brojOcene = 5;
                 }
-
+              
                 Ocena ocena = new Ocena
                 {
                     IdOcene = max + 1,
                     BrojOcene = brojOcene,
                     Datum = DateTime.Now,
                     Sadrzaj = sadrzaj.Text,
+                    Pregled = pregled,
                     Pacijent = pacijent,
                     Lekar = prikaz.Lekar
                 };
 
                 storageOcene.Save(ocena);
 
-                form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
             }
         }
 
         private void Button_Click_Otkazi(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
         }
     }
 }

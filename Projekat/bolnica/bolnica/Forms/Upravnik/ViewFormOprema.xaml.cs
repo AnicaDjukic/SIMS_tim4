@@ -1,4 +1,5 @@
 ﻿using Bolnica.Model.Prostorije;
+using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -26,60 +27,46 @@ namespace Bolnica.Forms.Upravnik
             get;
             set;
         }
+
+        private ServiceZaliha serviceZaliha = new ServiceZaliha();
+        private ServiceBuducaZaliha serviceBuduceZalihe = new ServiceBuducaZaliha();
         public ViewFormOprema(string sifraOpreme)
         {
             InitializeComponent();
             this.DataContext = this;
-            Zalihe = new ObservableCollection<Zaliha>();
-            FileStorageBuducaZaliha storageBuducaZaliha = new FileStorageBuducaZaliha();
-            List<BuducaZaliha> buduceZalihe = new List<BuducaZaliha>();
-            if (storageBuducaZaliha.GetAll() != null)
-            {
-                foreach (BuducaZaliha bz in storageBuducaZaliha.GetAll())
-                {
-                    if (bz.Oprema.Sifra == sifraOpreme && bz.Datum <= DateTime.Now.Date)
-                    {
-                        buduceZalihe.Add(bz);
-                        storageBuducaZaliha.Delete(bz);
-                    }
-                }
-            }
+            
+            List<BuducaZaliha> buduceZalihe = serviceBuduceZalihe.DobaviBuduceZaliheOpreme(sifraOpreme);
 
-            FileStorageZaliha storageZaliha = new FileStorageZaliha();
+            List<Zaliha> zalihe;
             if (buduceZalihe.Count > 0)
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
-                {
-                    if (z.Oprema.Sifra == sifraOpreme)
-                        storageZaliha.Delete(z);
-                }
-                foreach (BuducaZaliha bz in buduceZalihe)
-                {
-                    Zaliha z = new Zaliha { Kolicina = bz.Kolicina };
-                    z.Prostorija = bz.Prostorija;
-                    z.Oprema = bz.Oprema;
-                    storageZaliha.Save(z);
-                    Zalihe.Add(z);
-                }
+                ObrisiStareZalihe(sifraOpreme);
+                zalihe = NapraviNoveZalihe(buduceZalihe);
+                serviceZaliha.SacuvajZalihe(zalihe);
             }
             else
             {
-                foreach (Zaliha z in storageZaliha.GetAll())
-                {
-                    if (sifraOpreme == z.Oprema.Sifra)
-                        Zalihe.Add(z);
-                }
+                zalihe = serviceZaliha.DobaviZaliheOpreme(sifraOpreme);
             }
-            /*FileStorageZaliha storageZalihe = new FileStorageZaliha();
-            List<Zaliha> zalihe = storageZalihe.GetAll();
-            foreach(Zaliha z in zalihe)
-            {
-                if(z.SifraOpreme == sifraOpreme)
-                {
-                    Zalihe.Add(z);
-                }
-            }*/
 
+            PrikaziZalihe(zalihe);
+        }
+
+        private void PrikaziZalihe(List<Zaliha> zalihe)
+        {
+            Zalihe = new ObservableCollection<Zaliha>();
+            foreach (Zaliha z in zalihe)
+                Zalihe.Add(z);
+        }
+
+        private List<Zaliha> NapraviNoveZalihe(List<BuducaZaliha> buduceZalihe)
+        {
+            return serviceZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe); ;
+        }
+
+        private void ObrisiStareZalihe(string sifraOpreme)
+        {
+            serviceZaliha.ObrisiZalihe(sifraOpreme);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

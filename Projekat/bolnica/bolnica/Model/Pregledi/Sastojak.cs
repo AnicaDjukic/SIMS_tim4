@@ -12,7 +12,7 @@ namespace Bolnica.Model.Pregledi
         public bool ShouldSerializeNaziv()
         {
 
-            return FileStoragePacijenti.serializeAlergeni;
+            return FileRepositoryPacijent.serializeAlergeni;
         }
     }
 }

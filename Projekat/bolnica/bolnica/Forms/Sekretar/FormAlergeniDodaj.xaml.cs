@@ -1,5 +1,6 @@
 ﻿using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
 using Model.Pacijenti;
 using System;
@@ -25,7 +26,7 @@ namespace Bolnica.Sekretar
     {
         public static ObservableCollection<Sastojak> SviAlergeni { get; set; }
         public static ObservableCollection<Sastojak> DodatiAlergeni { get; set; }
-        private FileStorageSastojak storage;
+        private FileRepositorySastojak storage;
 
         public FormAlergeniDodaj(TextBox txtJMBG)
         {
@@ -34,31 +35,39 @@ namespace Bolnica.Sekretar
             dataGridAlergeniSvi.DataContext = this;
             SviAlergeni = new ObservableCollection<Sastojak>();
             DodatiAlergeni = new ObservableCollection<Sastojak>();
-            storage = new FileStorageSastojak();
+            storage = new FileRepositorySastojak();
             
             List<Sastojak> alergeni = storage.GetAll();
             List<Sastojak> dodati = new List<Sastojak>();
 
             for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
-                if(String.Equals(txtJMBG.Text, FormSekretar.RedovniPacijenti[i].Jmbg))
+                if(String.Equals(txtJMBG.Text, FormSekretar.RedovniPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.RedovniPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Alergeni)
+                    if (FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni)
                         {
-                            DodatiAlergeni.Add(s);
-                            dodati.Add(s);
+                            foreach(Sastojak sas in alergeni)
+                                if(sas.Id == s.Id) 
+                                {
+                                    DodatiAlergeni.Add(sas);
+                                    dodati.Add(sas);
+                                }
                         }
                     break;
                 }
 
             for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
-                if (String.Equals(txtJMBG.Text, FormSekretar.GostiPacijenti[i].Jmbg))
+                if (String.Equals(txtJMBG.Text, FormSekretar.GostiPacijenti[i].Pacijent.Jmbg))
                 {
-                    if (FormSekretar.GostiPacijenti[i].Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Alergeni)
+                    if (FormSekretar.GostiPacijenti[i].Pacijent.Alergeni != null)
+                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Pacijent.Alergeni)
                         {
-                            DodatiAlergeni.Add(s);
-                            dodati.Add(s);
+                            foreach (Sastojak sas in alergeni)
+                                if (sas.Id == s.Id)
+                                {
+                                    DodatiAlergeni.Add(sas);
+                                    dodati.Add(sas);
+                                }
                         }
                     break;
                 }
@@ -94,6 +103,10 @@ namespace Bolnica.Sekretar
                     SviAlergeni.Remove(s);
                     DodatiAlergeni.Add(s);
                 }
+
+                btnUkloni.IsEnabled = true;
+                if (SviAlergeni.Count == 0)
+                    btnDodaj.IsEnabled = false;
             }
         }
 
@@ -119,27 +132,21 @@ namespace Bolnica.Sekretar
                     DodatiAlergeni.Remove(s);
                     SviAlergeni.Add(s);
                 }
+
+                btnDodaj.IsEnabled = true;
+                if (DodatiAlergeni.Count == 0)
+                    btnUkloni.IsEnabled = false;
             }
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Potvrdi(object sender, RoutedEventArgs e)
         {
-            if (ti1.IsSelected)
-            {
-                btnUkloni.IsEnabled = false;
-                if (SviAlergeni.Count != 0)
-                    btnDodaj.IsEnabled = true;
-                else
-                    btnDodaj.IsEnabled = false;
-            }
-            else if (ti2.IsSelected) 
-            {
-                btnDodaj.IsEnabled = false;
-                if (DodatiAlergeni.Count != 0)
-                    btnUkloni.IsEnabled = true;
-                else
-                    btnUkloni.IsEnabled = false;
-            }
+            Close();
+        }
+
+        private void Zatvori(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

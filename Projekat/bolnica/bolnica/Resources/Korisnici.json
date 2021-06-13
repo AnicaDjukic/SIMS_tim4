@@ -1,1 +1,42 @@
-[{"KorisnickoIme":"upravnik","Lozinka":"upravnik","TipKorisnika":0},{"KorisnickoIme":"sekretar","Lozinka":"sekretar","TipKorisnika":1},{"KorisnickoIme":"mico","Lozinka":"mico","TipKorisnika":2},{"KorisnickoIme":"mio","Lozinka":"mio","TipKorisnika":2},{"KorisnickoIme":"vatro","Lozinka":"vatro","TipKorisnika":2},{"KorisnickoIme":"bodi","Lozinka":"bodi","TipKorisnika":2},{"KorisnickoIme":"pero","Lozinka":"perivoje","TipKorisnika":3},{"KorisnickoIme":"stefo","Lozinka":"stefke","TipKorisnika":3}]
+[
+  {
+    "KorisnickoIme": "stefo",
+    "Lozinka": "stefke",
+    "TipKorisnika": 3
+  },
+  {
+    "KorisnickoIme": "upravnik",
+    "Lozinka": "upravnik",
+    "TipKorisnika": 0
+  },
+  {
+    "KorisnickoIme": "sekretar",
+    "Lozinka": "sekretar",
+    "TipKorisnika": 1
+  },
+  {
+    "KorisnickoIme": "mico",
+    "Lozinka": "mico",
+    "TipKorisnika": 2
+  },
+  {
+    "KorisnickoIme": "mio",
+    "Lozinka": "mio",
+    "TipKorisnika": 2
+  },
+  {
+    "KorisnickoIme": "vatro",
+    "Lozinka": "vatro",
+    "TipKorisnika": 2
+  },
+  {
+    "KorisnickoIme": "bodi",
+    "Lozinka": "bodi",
+    "TipKorisnika": 2
+  },
+  {
+    "KorisnickoIme": "pero",
+    "Lozinka": "perivoje",
+    "TipKorisnika": 3
+  }
+]

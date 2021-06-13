@@ -1,6 +1,8 @@
 ﻿using Bolnica.Model;
 using Bolnica.Model.Korisnici;
+using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
+using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -13,15 +15,13 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class FormOceniBolnicuPage : Page
     {
-        private FormPacijentWeb form;
         private Pacijent pacijent = new Pacijent();
-        private FileStorageOcene storageOcene = new FileStorageOcene();
+        private FileRepositoryOcena storageOcene = new FileRepositoryOcena();
 
-        public FormOceniBolnicuPage(Pacijent trenutniPacijent, FormPacijentWeb formPacijentWeb)
+        public FormOceniBolnicuPage(Pacijent trenutniPacijent)
         {
             InitializeComponent();
 
-            form = formPacijentWeb;
             pacijent = trenutniPacijent;
         }
 
@@ -76,19 +76,24 @@ namespace Bolnica.Forms
                     BrojOcene = brojOcene,
                     Datum = DateTime.Now,
                     Sadrzaj = sadrzaj.Text,
+                    Pregled = new Pregled(),
                     Pacijent = pacijent,
-                    Lekar = null
+                    Lekar = new Lekar()
                 };
+                ocena.Lekar.Jmbg = null;
+                ocena.Lekar.KorisnickoIme = null;
+                ocena.Pregled.Id = -1;
+                ocena.Pregled.Pacijent = pacijent;
 
                 storageOcene.Save(ocena);
 
-                form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+                FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
             }
         }
 
         private void Button_Click_Otkazi(object sender, RoutedEventArgs e)
         {
-            form.Pocetna.Content = new FormIstorijaPregledaPage(pacijent, form);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(pacijent);
         }
     }
 }
