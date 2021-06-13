@@ -16,6 +16,8 @@ namespace Bolnica.DTO
             Naziv = sastojak.Naziv;
         }
 
+        public SastojakDTO() { }
+
         public SastojakDTO(int id, string naziv)
         {
             Id = id;
