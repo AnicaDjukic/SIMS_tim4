@@ -51,9 +51,9 @@ namespace bolnica.Forms
         ControllerLek controllerLek = new ControllerLek();
         #endregion
 
-        Operator<Prostorija, string> operatorProstorije = new OperatorProstorije();
-        Operator<Oprema, string> operatorOpreme = new OperatorOpreme();
-        Operator<Lek, int> operatorLeka = new OperatorLeka();
+        OperatorCreator<Prostorija, string> operatorProstorije = new OperatorProstorijeCreator();
+        OperatorCreator<Oprema, string> operatorOpreme = new OperatorOpremeCreator();
+        OperatorCreator<Lek, int> operatorLeka = new OperatorLekaCreator();
         public FormUpravnik()
         {
             InitializeComponent();

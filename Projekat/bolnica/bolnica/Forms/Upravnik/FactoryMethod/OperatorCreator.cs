@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bolnica.Forms.Upravnik.FactoryMethod
 {
-    public abstract class Operator<T, ID>
+    public abstract class OperatorCreator<T, ID>
     {
         public abstract IOperacijeNadEntitetima<T, ID> FactoryMethod();
         
