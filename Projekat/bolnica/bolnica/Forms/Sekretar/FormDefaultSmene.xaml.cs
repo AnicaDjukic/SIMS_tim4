@@ -70,7 +70,7 @@ namespace Bolnica.Forms.Sekretar
                     int sati = p.Datum.Hour;
                     int minute = p.Datum.Minute;
 
-                    if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minute > 30))) 
+                    if (smena.Id == skladisteLekara.GetById(p.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minute > 30))) 
                     {
                         skladistePregleda.Delete(p);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -80,7 +80,7 @@ namespace Bolnica.Forms.Sekretar
                                 break;
                             }
                     }
-                    else if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minute > 30))) 
+                    else if (smena.Id == skladisteLekara.GetById(p.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minute > 30))) 
                     {
                         skladistePregleda.Delete(p);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -90,7 +90,7 @@ namespace Bolnica.Forms.Sekretar
                                 break;
                             }
                     }
-                    else if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minute > 30)) 
+                    else if (smena.Id == skladisteLekara.GetById(p.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minute > 30)) 
                     {
                         skladistePregleda.Delete(p);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -110,7 +110,7 @@ namespace Bolnica.Forms.Sekretar
                     int sati = o.Datum.Hour;
                     int minute = o.Datum.Minute;
 
-                    if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minute > 30)))
+                    if (smena.Id == skladisteLekara.GetById(o.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minute > 30)))
                     {
                         skladisteOperacija.Delete(o);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -120,7 +120,7 @@ namespace Bolnica.Forms.Sekretar
                                 break;
                             }
                     }
-                    else if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minute > 30)))
+                    else if (smena.Id == skladisteLekara.GetById(o.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minute > 30)))
                     {
                         skladisteOperacija.Delete(o);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -130,7 +130,7 @@ namespace Bolnica.Forms.Sekretar
                                 break;
                             }
                     }
-                    else if (smena.PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minute > 30))
+                    else if (smena.Id == skladisteLekara.GetById(o.Lekar.KorisnickoIme).Smena.Id && smena.PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minute > 30))
                     {
                         skladisteOperacija.Delete(o);
                         for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
