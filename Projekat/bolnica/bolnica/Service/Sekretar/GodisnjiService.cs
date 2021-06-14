@@ -42,22 +42,26 @@ namespace Bolnica.Service.Sekretar
             skladisteGodisnji.Save(godisnji);
         }
 
-        public void ZakaziGodisnji(GodisnjiDTO godisnji, LekarDTO lekar, int daniNaGodisnjem)
+        public void ZakaziGodisnji(GodisnjiDTO godisnji, LekarDTO lekar, int daniNaGodisnjem, bool pomeriTermine)
         {
             lekarService.UpdateLekaraPoBrojuSlobodnihDana(lekar, daniNaGodisnjem);
             SaveGodisnji(godisnji);
-            DeleteTerminaNakonZakazivanjaGodisnjeg(godisnji);
+            IzvrsiManipulacijuTerminima(godisnji, daniNaGodisnjem, pomeriTermine);
         }
 
-        private void DeleteTerminaNakonZakazivanjaGodisnjeg(GodisnjiDTO godisnji) 
+        private void IzvrsiManipulacijuTerminima(GodisnjiDTO godisnji, int daniNaGodisnjem, bool pomeriTermine) 
         {
-            foreach (PrikazPregleda pregledDTO in pregledService.GetAllPregledi())
-                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
-                    pregledService.DeletePregled(pregledDTO);
-
-            foreach (PrikazOperacije operacijaDTO in operacijaService.GetAllOperacije())
-                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
-                    operacijaService.DeleteOperacija(operacijaDTO);
+            Context context = new Context();
+            if (!pomeriTermine)
+            {
+                context.PostaviStrategiju(new StrategyDeleteTermine());
+                context.IzvrsiPoslovnuLogiku(godisnji, daniNaGodisnjem);
+            }
+            else
+            {
+                context.PostaviStrategiju(new StrategyPomeriTermine());
+                context.IzvrsiPoslovnuLogiku(godisnji, daniNaGodisnjem);
+            }
         }
     }
 }

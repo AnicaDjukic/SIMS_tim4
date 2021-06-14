@@ -98,7 +98,7 @@ namespace Bolnica.Forms.Sekretar
             FormLekari.Lekari.Add(lekar);
 
             foreach (Pregled p in skladistePregleda.GetAll())
-                if (smena.PocetakSmene.Date == p.Datum.Date && smena.PocetakSmene <= p.Datum && smena.KrajSmene > p.Datum)
+                if (smena.Id == skladisteLekara.GetById(p.Lekar.KorisnickoIme).Smena.Id && smena.PocetakSmene.Date == p.Datum.Date && smena.PocetakSmene <= p.Datum && smena.KrajSmene > p.Datum)
                 {
                     skladistePregleda.Delete(p);
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
@@ -110,7 +110,7 @@ namespace Bolnica.Forms.Sekretar
                 }
 
             foreach (Operacija o in skladisteOperacija.GetAll())
-                if (smena.PocetakSmene.Date == o.Datum.Date && smena.PocetakSmene <= o.Datum && smena.KrajSmene > o.Datum)
+                if (smena.Id == skladisteLekara.GetById(o.Lekar.KorisnickoIme).Smena.Id && smena.PocetakSmene.Date == o.Datum.Date && smena.PocetakSmene <= o.Datum && smena.KrajSmene > o.Datum)
                 {
                     skladisteOperacija.Delete(o);
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)

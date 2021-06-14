@@ -32,5 +32,18 @@ namespace Bolnica.Service.Sekretar
             Pregled pregled = new Pregled { Id = pregledDTO.Id, Pacijent = pregledDTO.Pacijent, Anamneza = pregledDTO.Anamneza, Datum = pregledDTO.Datum, Hitan = pregledDTO.Hitan, Lekar = pregledDTO.Lekar, Prostorija = pregledDTO.Prostorija, Trajanje = pregledDTO.Trajanje, Zavrsen = pregledDTO.Zavrsen };
             skladistePregleda.Delete(pregled);
         }
+
+        public void UpdateDatumPregleda(PrikazPregleda pregledDTO, int brojDanaZaPomeranje)
+        {
+            Pregled pregled = new Pregled { Id = pregledDTO.Id, Pacijent = pregledDTO.Pacijent, Anamneza = pregledDTO.Anamneza, Datum = pregledDTO.Datum.AddDays(brojDanaZaPomeranje), Hitan = pregledDTO.Hitan, Lekar = pregledDTO.Lekar, Prostorija = pregledDTO.Prostorija, Trajanje = pregledDTO.Trajanje, Zavrsen = pregledDTO.Zavrsen };
+            skladistePregleda.Update(pregled);
+        }
+
+        public PrikazPregleda GetPregledById(int id)
+        {
+            Pregled pregled = skladistePregleda.GetById(id);
+            PrikazPregleda pregledDTO = new PrikazPregleda(pregled.Id, pregled.Datum, pregled.Trajanje, pregled.Zavrsen, pregled.Hitan, pregled.Anamneza, pregled.Lekar, pregled.Prostorija, pregled.Pacijent);
+            return pregledDTO;
+        }
     }
 }

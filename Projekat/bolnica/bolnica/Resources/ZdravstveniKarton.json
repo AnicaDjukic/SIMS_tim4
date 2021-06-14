@@ -1,1 +1,14 @@
-[{"BrojKartona":1,"Zanimanje":"student","BracniStatus":0,"Osiguranje":false},{"BrojKartona":352,"Zanimanje":"trgovac","BracniStatus":0,"Osiguranje":false},{"BrojKartona":54,"Zanimanje":"gfgsg","BracniStatus":0,"Osiguranje":false},{"BrojKartona":75,"Zanimanje":"hdfh","BracniStatus":2,"Osiguranje":false}]
+[
+    {
+        "BrojKartona": 1,
+        "Zanimanje": "student",
+        "BracniStatus": 0,
+        "Osiguranje": false
+    },
+    {
+        "BrojKartona": 352,
+        "Zanimanje": "trgovac",
+        "BracniStatus": 0,
+        "Osiguranje": false
+    }
+]

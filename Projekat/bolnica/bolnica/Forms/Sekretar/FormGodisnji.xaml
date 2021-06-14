@@ -67,7 +67,7 @@
         <RoutedUICommand x:Key="myNewCommand1"/>
     </Window.Resources>
     <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource myNewCommand}" Executed="ZakaziGodisnji"/>
+        <CommandBinding Command="{StaticResource myNewCommand}" Executed="ZakaziGodisnjiBrisanjeTermina"/>
         <CommandBinding Command="{StaticResource myNewCommand1}" Executed="Zatvori"/>
     </Window.CommandBindings>
     <Window.InputBindings>
@@ -80,7 +80,8 @@
         </Viewbox>
         <Label Content="Broj slobodnih dana:" HorizontalAlignment="Left" Margin="210,50,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblSlobodniDani" HorizontalAlignment="Left" Margin="325,50,0,0" VerticalAlignment="Top"/>
-        <Button ToolTip="Ctrl + A" Content="Zakaži" Margin="0,430,100,0" Width="80" Height="20" VerticalAlignment="Top" Click="ZakaziGodisnji"/>
-        <Button ToolTip="Ctrl + E" Content="Zatvori" Margin="100,430,0,0" Width="80" Height="20" VerticalAlignment="Top" Click="Zatvori"/>
+        <Button ToolTip="Ctrl + M" Content="Zakaži i pomeri termine" Margin="0,430,300,0" Width="130" Height="20" VerticalAlignment="Top" Click="ZakaziGodisnjiPomeranjeTermina"/>
+        <Button ToolTip="Ctrl + A" Content="Zakaži i obriši termine" Margin="130,430,100,0" Width="130" Height="20" VerticalAlignment="Top" Click="ZakaziGodisnjiBrisanjeTermina"/>
+        <Button ToolTip="Ctrl + E" Content="Zatvori" Margin="350,430,0,0" Width="130" Height="20" VerticalAlignment="Top" Click="Zatvori"/>
     </Grid>
 </Window>

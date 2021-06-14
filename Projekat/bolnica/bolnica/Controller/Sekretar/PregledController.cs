@@ -19,5 +19,10 @@ namespace Bolnica.Controller.Sekretar
         {
             service.DeletePregled(pregledDTO);
         }
+
+        public PrikazPregleda GetPregledById(int id)
+        {
+            return service.GetPregledById(id);
+        }
     }
 }
