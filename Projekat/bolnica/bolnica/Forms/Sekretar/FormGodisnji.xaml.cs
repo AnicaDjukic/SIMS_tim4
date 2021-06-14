@@ -52,7 +52,7 @@ namespace Bolnica.Forms.Sekretar
                     calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(godisnji.PocetakGodisnjeg.Year, godisnji.PocetakGodisnjeg.Month, godisnji.PocetakGodisnjeg.Day), new DateTime(godisnji.KrajGodisnjeg.Year, godisnji.KrajGodisnjeg.Month, godisnji.KrajGodisnjeg.Day)));
         }
 
-        private void ZakaziGodisnjiOdlaganjeTermina(object sender, RoutedEventArgs e)
+        private void ZakaziGodisnjiBrisanjeTermina(object sender, RoutedEventArgs e)
         {
             LekarDTO lekar = lekarController.GetLekarById(korisnickoIme);
             if (lekar.BrojSlobodnihDana >= calendar.SelectedDates.Count) 
@@ -62,7 +62,7 @@ namespace Bolnica.Forms.Sekretar
                     return;
 
                 godisnjiController.ZakaziGodisnji(godisnji, lekar, calendar.SelectedDates.Count, pomeriTermine);
-                UpdateTabeleNaGUIOdlaganjeTermina(godisnji);
+                UpdateTabeleNaGUIBrisanjeTermina(godisnji);
 
                 Close();
             }
@@ -90,10 +90,10 @@ namespace Bolnica.Forms.Sekretar
                 MessageBox.Show("Lekar nema dovoljan broj slobodnih dana", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void UpdateTabeleNaGUIOdlaganjeTermina(GodisnjiDTO godisnji) 
+        private void UpdateTabeleNaGUIBrisanjeTermina(GodisnjiDTO godisnji) 
         {
-            UpdateTabeleNaGUIPreglediOdlaganjeTermina(godisnji);
-            UpdateTabeleNaGUIOperacijeOdlaganjeTermina(godisnji);
+            UpdateTabeleNaGUIPreglediBrisanjeTermina(godisnji);
+            UpdateTabeleNaGUIOperacijeBrisanjeTermina(godisnji);
         }
 
         private void UpdateTabeleNaGUIPomeranjeTermina(GodisnjiDTO godisnji)
@@ -105,7 +105,7 @@ namespace Bolnica.Forms.Sekretar
         private void UpdateTabeleNaGUIPreglediPomeranjeTermina(GodisnjiDTO godisnji)
         {
             foreach (PrikazPregleda pregledDTO in pregledController.GetAllPregledi())
-                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == pregledDTO.Lekar.KorisnickoIme &&  godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
                         if (FormPregledi.Pregledi[i].Id == pregledDTO.Id)
                         {
@@ -118,7 +118,7 @@ namespace Bolnica.Forms.Sekretar
         private void UpdateTabeleNaGUIOperacijePomeranjeTermina(GodisnjiDTO godisnji)
         {
             foreach (PrikazOperacije operacijaDTO in operacijaController.GetAllOperacije())
-                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == operacijaDTO.Lekar.KorisnickoIme &&  godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
                         if (FormPregledi.Pregledi[i].Id == operacijaDTO.Id)
                         {
@@ -128,10 +128,10 @@ namespace Bolnica.Forms.Sekretar
                         }
         }
 
-        private void UpdateTabeleNaGUIPreglediOdlaganjeTermina(GodisnjiDTO godisnji)
+        private void UpdateTabeleNaGUIPreglediBrisanjeTermina(GodisnjiDTO godisnji)
         {
             foreach (PrikazPregleda pregledDTO in pregledController.GetAllPregledi())
-                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == pregledDTO.Lekar.KorisnickoIme && godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
                         if (FormPregledi.Pregledi[i].Id == pregledDTO.Id)
                         {
@@ -140,10 +140,10 @@ namespace Bolnica.Forms.Sekretar
                         }
         }
 
-        private void UpdateTabeleNaGUIOperacijeOdlaganjeTermina(GodisnjiDTO godisnji) 
+        private void UpdateTabeleNaGUIOperacijeBrisanjeTermina(GodisnjiDTO godisnji) 
         {
             foreach (PrikazOperacije operacijaDTO in operacijaController.GetAllOperacije())
-                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == operacijaDTO.Lekar.KorisnickoIme && godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
                     for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
                         if (FormPregledi.Pregledi[i].Id == operacijaDTO.Id)
                         {

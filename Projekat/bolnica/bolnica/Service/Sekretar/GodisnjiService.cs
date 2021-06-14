@@ -46,11 +46,22 @@ namespace Bolnica.Service.Sekretar
         {
             lekarService.UpdateLekaraPoBrojuSlobodnihDana(lekar, daniNaGodisnjem);
             SaveGodisnji(godisnji);
+            IzvrsiManipulacijuTerminima(godisnji, daniNaGodisnjem, pomeriTermine);
+        }
+
+        private void IzvrsiManipulacijuTerminima(GodisnjiDTO godisnji, int daniNaGodisnjem, bool pomeriTermine) 
+        {
             Context context = new Context();
             if (!pomeriTermine)
+            {
                 context.PostaviStrategiju(new StrategyDeleteTermine());
+                context.IzvrsiPoslovnuLogiku(godisnji, daniNaGodisnjem);
+            }
             else
+            {
                 context.PostaviStrategiju(new StrategyPomeriTermine());
+                context.IzvrsiPoslovnuLogiku(godisnji, daniNaGodisnjem);
+            }
         }
     }
 }

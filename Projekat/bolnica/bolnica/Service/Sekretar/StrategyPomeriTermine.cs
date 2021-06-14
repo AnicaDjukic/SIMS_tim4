@@ -14,11 +14,11 @@ namespace Bolnica.Service.Sekretar
         public void IzvrsiAlgoritam(GodisnjiDTO godisnji, int daniNaGodisnjem)
         {
             foreach (PrikazPregleda pregledDTO in pregledService.GetAllPregledi())
-                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == pregledDTO.Lekar.KorisnickoIme && godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
                     pregledService.UpdateDatumPregleda(pregledDTO, daniNaGodisnjem);
 
             foreach (PrikazOperacije operacijaDTO in operacijaService.GetAllOperacije())
-                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
+                if (godisnji.KorisnickoImeLekara == operacijaDTO.Lekar.KorisnickoIme && godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
                     operacijaService.UpdateDatumOperacije(operacijaDTO, daniNaGodisnjem);
         }
     }
