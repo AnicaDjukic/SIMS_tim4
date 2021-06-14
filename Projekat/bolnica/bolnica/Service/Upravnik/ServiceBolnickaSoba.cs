@@ -11,9 +11,9 @@ namespace Bolnica.Services.Prostorije
     {
         private RepositoryBolnickaSoba repository;
 
-        public ServiceBolnickaSoba()
+        public ServiceBolnickaSoba(RepositoryBolnickaSoba rp)
         {
-            repository = new FileRepositoryBolnickaSoba();
+            repository = rp;
         }
 
         public List<BolnickaSoba> DobaviSveBolnickeSobe()
@@ -48,6 +48,11 @@ namespace Bolnica.Services.Prostorije
             }
 
             return slobodneBolnickeSobe;
+        }
+
+        public BolnickaSoba DobaviBolnickuSobu(string brojBolnickeSobe)
+        {
+            return repository.GetById(brojBolnickeSobe);
         }
 
         public bool BolnickaSobaPostoji(string brojProstorije)

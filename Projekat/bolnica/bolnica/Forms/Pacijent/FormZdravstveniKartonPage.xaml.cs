@@ -1,17 +1,7 @@
-﻿using Model.Korisnici;
-using Model.Pacijenti;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Bolnica.ViewModel;
+using Model.Korisnici;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -30,7 +20,13 @@ namespace Bolnica.Forms
 
         private void Button_Click_Istorija_Pregleda(object sender, RoutedEventArgs e)
         {
-            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(Pacijent);
+            IstorijaPregledaPacijentViewModel istorijaPregledaPacijentViewModel = new IstorijaPregledaPacijentViewModel(Pacijent);
+            FormPacijentWeb.Forma.Pocetna.Content = new FormIstorijaPregledaPage(istorijaPregledaPacijentViewModel);
+        }
+
+        private void Button_Click_Moji_Lekovi(object sender, RoutedEventArgs e)
+        {
+            FormPacijentWeb.Forma.Pocetna.Content = new FormLekoviTerapijePage(Pacijent);
         }
     }
 }

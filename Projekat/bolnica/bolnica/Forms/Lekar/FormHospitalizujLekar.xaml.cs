@@ -21,8 +21,6 @@ namespace Bolnica.Forms
         public FormHospitalizujLekar(HospitalizacijaLekarViewModel viewModel)
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
             this.DataContext = viewModel;
             if (viewModel.ZatvoriAkcija == null)
                 viewModel.ZatvoriAkcija = new Action(this.Close);

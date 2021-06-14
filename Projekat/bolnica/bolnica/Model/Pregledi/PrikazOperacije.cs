@@ -39,6 +39,25 @@ namespace Model.Pregledi
             this.Prostorija = dobijProstorijuZaOperaciju(i, lekarServiceDTO);
 
         }
+
+        public PrikazOperacije(Operacija o)
+        {
+            this.Anamneza = new Anamneza();
+            this.Lekar = new Lekar();
+            this.Prostorija = new Prostorija();
+            this.Pacijent = new Pacijent();
+            this.Id = o.Id;
+            this.Datum = o.Datum;
+            this.Trajanje = o.Trajanje;
+            this.Zavrsen = o.Zavrsen;
+            this.Hitan = o.Hitan;
+            this.Anamneza = o.Anamneza;
+            this.TipOperacije = o.TipOperacije;
+            this.Lekar = o.Lekar;
+            this.Pacijent = o.Pacijent;
+            this.Prostorija = o.Prostorija;
+
+        }
         public PrikazOperacije(int Id, DateTime Datum, int Trajanje, bool Zavrsen, bool Hitan, Anamneza Anamneza)
         {
             this.Anamneza = new Anamneza();
@@ -95,6 +114,13 @@ namespace Model.Pregledi
             }
             return null;
         }
+
+        public PrikazOperacije(int id, DateTime datum, int trajanje, bool zavrsen, bool hitan, Anamneza anamneza, Lekar lekar, Prostorija prostorija, Pacijent pacijent, TipOperacije tipOperacije) : this(id, datum, trajanje, zavrsen, hitan, anamneza)
+        {
+            TipOperacije = tipOperacije;
+            Lekar = lekar;
+            Prostorija = prostorija;
+            Pacijent = pacijent;
+        }
     }
-    
 }

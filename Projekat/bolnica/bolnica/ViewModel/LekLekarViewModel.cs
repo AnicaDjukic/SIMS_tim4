@@ -74,9 +74,20 @@ namespace Bolnica.ViewModel
             }
         }
         private Lek izabraniLek = new Lek();
-        public string proizvodjac { get; set; }
-        public string lek { get; set; }
-        public string doza { get; set; }
+        private string proizvodjac;
+        public string Proizvodjac {
+            get { return proizvodjac; }
+            set { proizvodjac = value; OnPropertyChanged(); } }
+
+        private string lek;
+        public string Lek { 
+            get { return lek; }
+            set { lek = value; OnPropertyChanged(); } }
+
+        private string doza;
+        public string Doza { 
+            get { return doza; } 
+            set { doza = value; OnPropertyChanged(); } }
         public String stariLek = "";
         public String stariProizvodjac = "";
 
@@ -100,6 +111,28 @@ namespace Bolnica.ViewModel
         private ListBox zameneKutija;
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
+        
         private RelayCommand proizvodjacComboNaEnterKomanda;
         public RelayCommand ProizvodjacComboNaEnterKomanda
         {
@@ -135,7 +168,7 @@ namespace Bolnica.ViewModel
         public void Executed_ProizvodjacComboNaTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.LekLekarController.ProizvodjacComboNaTab(new LekLekarDTO(proizvodjac, sviLekovi, ItemSourceNazivLeka), ref stariProizvodjac);
+            ItemSourceNazivLeka = inject.LekLekarController.ProizvodjacComboNaTab(new LekLekarDTO(Proizvodjac, sviLekovi, ItemSourceNazivLeka), ref stariProizvodjac);
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -202,7 +235,7 @@ namespace Bolnica.ViewModel
         public void Executed_ComboLekNaTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.LekLekarController.LekComboNaTab(new LekLekarDTO(lek, sviLekovi, ItemSourceDozaLeka), ref stariLek);
+            ItemSourceDozaLeka = inject.LekLekarController.LekComboNaTab(new LekLekarDTO(Lek, sviLekovi, ItemSourceDozaLeka), ref stariLek);
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -271,7 +304,7 @@ namespace Bolnica.ViewModel
         public void Executed_IzmeniLekKomanda(object obj)
         {
 
-            inject.LekLekarController.Potvrdi(new LekLekarDTO(izabraniLek, doza, lek, proizvodjac, sastojciKutija, sviSastojci, zameneKutija, sviLekovi));
+            inject.LekLekarController.Potvrdi(new LekLekarDTO(izabraniLek, Doza, Lek, Proizvodjac, sastojciKutija, sviSastojci, zameneKutija, sviLekovi));
             ZatvoriAkcija();
 
 
@@ -343,11 +376,11 @@ namespace Bolnica.ViewModel
         }
         public void PostaviComboBoxove()
         {
-            proizvodjac = izabraniLek.Proizvodjac;
-            lek = izabraniLek.Naziv;
-            doza = izabraniLek.KolicinaUMg.ToString();
-            stariLek = lek;
-            stariProizvodjac = proizvodjac;
+            Proizvodjac = izabraniLek.Proizvodjac;
+            Lek = izabraniLek.Naziv;
+            Doza = izabraniLek.KolicinaUMg.ToString();
+            stariLek = Lek;
+            stariProizvodjac = Proizvodjac;
         }
         public void PopuniNaziveIProizvodjace()
         {
@@ -391,6 +424,7 @@ namespace Bolnica.ViewModel
             SelektujZamenuNaEnterKomanda = new RelayCommand(Executed_SelektujZamenuNaEnterKomanda, CanExecute_SelektujZamenuNaEnterKomanda);
             IzmeniLekKomanda = new RelayCommand(Executed_IzmeniLekKomanda, CanExecute_IzmeniLekKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
 
         public void PopuniSastojkeIZamene(ListBox sastojakKutija,ListBox zamenaKutija)

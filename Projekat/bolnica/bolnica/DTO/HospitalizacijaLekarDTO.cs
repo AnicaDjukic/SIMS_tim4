@@ -12,12 +12,15 @@ namespace Bolnica.DTO
         public string brojBolnickeSobe { get; set; }
         public Pacijent izabraniPacijent { get; set; }
 
-        public HospitalizacijaLekarDTO(DateTime datumPocetka, DateTime datumZavrsetka, string brojBolnickeSobe, Pacijent izabraniPacijent)
+        public string razlog { get; set; }
+
+        public HospitalizacijaLekarDTO(DateTime datumPocetka, DateTime datumZavrsetka, string brojBolnickeSobe, Pacijent izabraniPacijent, string razlog)
         {
             this.datumPocetka = datumPocetka;
             this.datumZavrsetka = datumZavrsetka;
             this.brojBolnickeSobe = brojBolnickeSobe;
             this.izabraniPacijent = izabraniPacijent;
+            this.razlog = razlog;
 
         }
         

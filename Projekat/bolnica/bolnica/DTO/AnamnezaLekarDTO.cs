@@ -27,8 +27,6 @@ namespace Bolnica.DTO
 
         public PrikazRecepta selektovaniItem { get; set; }
 
-        public ScrollViewer ScroolBar { get; set; }
-
         public Lekar ulogovaniLekar { get; set; }
 
         public AnamnezaLekarDTO(Pacijent trenutniPacijent)
@@ -98,9 +96,5 @@ namespace Bolnica.DTO
             this.selektovaniItem = selektovaniItem;
         }
       
-        public AnamnezaLekarDTO(ScrollViewer ScroolBar)
-        {
-            this.ScroolBar = ScroolBar;
-        }
     }
 }

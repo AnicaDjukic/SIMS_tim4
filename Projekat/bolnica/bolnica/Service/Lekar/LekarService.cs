@@ -14,8 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Bolnica.Services
@@ -64,20 +66,30 @@ namespace Bolnica.Services
 
         public void OtkaziPregled(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             {
-                var objekat = lekarServiceDTO.tabela.SelectedValue;
-                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
+                if (MessageBox.Show("Da li ste sigurni", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                 {
-                    OtkaziPregledAkoJePregled(lekarServiceDTO);
+
                 }
-                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
+                else
                 {
-                    OtkaziPregledAkoJeOperacija(lekarServiceDTO);
+                    var objekat = lekarServiceDTO.tabela.SelectedValue;
+                    if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
+                    {
+                        OtkaziPregledAkoJePregled(lekarServiceDTO);
+                    }
+                    else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
+                    {
+                        OtkaziPregledAkoJeOperacija(lekarServiceDTO);
+                    }
+                    int index = lekarServiceDTO.tabela.SelectedIndex;
+                    LekarViewModel.podaciLista.Items.RemoveAt(index);
+                    LekarViewModel.RefreshPodaciListu();
                 }
-                int index = lekarServiceDTO.tabela.SelectedIndex;
-                LekarViewModel.podaciLista.Items.RemoveAt(index);
-                LekarViewModel.RefreshPodaciListu();
+            }
+           else {
+                MessageBox.Show("Odaberite pregled");
             }
 
         }
@@ -114,7 +126,7 @@ namespace Bolnica.Services
 
         public void IzmeniPregled(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             {
 
                 var objekat = lekarServiceDTO.tabela.SelectedValue;
@@ -129,6 +141,10 @@ namespace Bolnica.Services
 
 
             }
+            else{
+                MessageBox.Show("Odaberite pregled");
+            }
+
 
         }
 
@@ -181,7 +197,7 @@ namespace Bolnica.Services
 
         public void InformacijeOPacijentu(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             {
                 var objekat = lekarServiceDTO.tabela.SelectedValue;
 
@@ -195,61 +211,13 @@ namespace Bolnica.Services
                 }
 
             }
-        }
-        public void HospitalizacijaPacijenta(LekarServiceDTO lekarServiceDTO)
-        {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
-            {
-                var objekat = lekarServiceDTO.tabela.SelectedValue;
-
-                if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
-                {
-                    HospitalizacijaPacijentaAkoJePregled(lekarServiceDTO);
-                }
-                else if (objekat.GetType().Equals(lekarServiceDTO.prikazOperacije.GetType()))
-                {
-                    HospitalizacijaPacijentaAkoJeOperacija(lekarServiceDTO);
-                }
-
+            else{
+                MessageBox.Show("Odaberite pregled");
             }
         }
+        
 
-        private void HospitalizacijaPacijentaAkoJePregled(LekarServiceDTO lekarServiceDTO)
-        {
-            var objekat = lekarServiceDTO.tabela.SelectedValue;
-            PrikazPregleda izabraniPrikazPregledaIzTabele = objekat as PrikazPregleda;
-            PrikazPregleda izabraniPrikazPregleda = new PrikazPregleda();
-            for (int i = 0; i < lekarServiceDTO.listaPregleda.Count; i++)
-            {
-                if (izabraniPrikazPregledaIzTabele.Id.Equals(lekarServiceDTO.listaPregleda[i].Id))
-                {
-
-                    izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
-                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazPregleda.Pacijent);
-                    FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
-
-                    break;
-                }
-            }
-        }
-
-        private void HospitalizacijaPacijentaAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
-        {
-            var objekat = lekarServiceDTO.tabela.SelectedValue;
-            PrikazOperacije izabraniPrikazOperacijeIzTabele = objekat as PrikazOperacije;
-            PrikazOperacije izabraniPrikazOperacije = new PrikazOperacije();
-            for (int i = 0; i < lekarServiceDTO.listaOperacija.Count; i++)
-            {
-                if (izabraniPrikazOperacijeIzTabele.Id.Equals(lekarServiceDTO.listaOperacija[i].Id))
-                {
-                    izabraniPrikazOperacije = lekarServiceDTO.tabela.SelectedItem as PrikazOperacije;
-                    HospitalizacijaLekarViewModel vm = new HospitalizacijaLekarViewModel(izabraniPrikazOperacije.Pacijent);
-                    FormHospitalizujLekar ff = new FormHospitalizujLekar(vm);
-
-                    break;
-                }
-            }
-        }
+        
         private void InformacijeOPacijentuAkoJePregled(LekarServiceDTO lekarServiceDTO)
         {
             var objekat = lekarServiceDTO.tabela.SelectedValue;
@@ -263,10 +231,30 @@ namespace Bolnica.Services
                     izabraniPrikazPregleda = lekarServiceDTO.tabela.SelectedItem as PrikazPregleda;
                     InformacijeOPacijentuLekarViewModel vm = new InformacijeOPacijentuLekarViewModel(izabraniPrikazPregleda.Pacijent);
                     FormPrikazInformacijaOPacijentuLekar ff = new FormPrikazInformacijaOPacijentuLekar(vm);
-
+                  
                     break;
                 }
             }
+        }
+
+        public void DemoKomanda()
+        {
+            Thread t = new Thread(new ThreadStart(ThreadMethod));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+        }
+
+        private void ThreadMethod()
+        {
+
+            TerminLekarViewModel vm = new TerminLekarViewModel(skladisteLekara.GetAll()[0]);
+            FormNapraviTerminLekar form = new FormNapraviTerminLekar(vm);
+            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+            Thread.Sleep(500);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
+            Thread.Sleep(500);
+            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
         }
 
         private void InformacijeOPacijentuAkoJeOperacija(LekarServiceDTO lekarServiceDTO)
@@ -346,7 +334,7 @@ namespace Bolnica.Services
 
         public void Anamneza(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             { 
                 var objekat = lekarServiceDTO.tabela.SelectedValue;
                 if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
@@ -358,6 +346,9 @@ namespace Bolnica.Services
                     AnamnezaZaOperaciju(lekarServiceDTO);
                 }
 
+            }
+            else {
+                MessageBox.Show("Odaberite pregled");
             }
         }
 
@@ -414,7 +405,7 @@ namespace Bolnica.Services
 
         public void AnamnezaIstorija(LekarServiceDTO lekarServiceDTO)
         {
-            if (lekarServiceDTO.tabela.SelectedCells.Count > 0)
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             {
                 var objekat = lekarServiceDTO.tabela.SelectedValue;
                 if (objekat.GetType().Equals(lekarServiceDTO.prikazPregleda.GetType()))
@@ -425,6 +416,9 @@ namespace Bolnica.Services
                 {
                     AnamnezaIstorijaZaOperaciju(lekarServiceDTO);
                 }
+            }
+            else{
+                MessageBox.Show("Odaberite pregled");
             }
         }
 
@@ -464,11 +458,17 @@ namespace Bolnica.Services
         }
         public void IzmeniLek(LekarServiceDTO lekarServiceDTO)
         {
-            PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
-            lekarServiceDTO.lekovi = skladisteLekova.GetAll();
-            IzfiltrirajLekove(lekarServiceDTO);
-            NapraviFormuZaIzmenuLeka(lekarServiceDTO,izabraniLek);
-            
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
+            {
+                PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
+                lekarServiceDTO.lekovi = skladisteLekova.GetAll();
+                IzfiltrirajLekove(lekarServiceDTO);
+                NapraviFormuZaIzmenuLeka(lekarServiceDTO, izabraniLek);
+            }
+            else {
+                MessageBox.Show("Odaberite lek");
+            }
+
         }
         private void IzfiltrirajLekove(LekarServiceDTO lekarServiceDTO)
         {
@@ -527,17 +527,29 @@ namespace Bolnica.Services
         public void OdobriLek(LekarServiceDTO lekarServiceDTO)
         {
             PrikazLek izabraniLek = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
+            {
+                if (izabraniLek.Status.Equals(StatusLeka.cekaValidaciju))
+                {
+                    if (MessageBox.Show("Da li ste sigurni", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
 
-            if (izabraniLek.Status.Equals(StatusLeka.cekaValidaciju))
-            {
-                IzfiltrirajLekove(lekarServiceDTO);
-                AzurirajLek(lekarServiceDTO,izabraniLek);
-                AzurirajTabeluLekova(lekarServiceDTO, izabraniLek);
-                PosaljiObavestenje(izabraniLek);
+                    }
+                    else
+                    {
+                        IzfiltrirajLekove(lekarServiceDTO);
+                        AzurirajLek(lekarServiceDTO, izabraniLek);
+                        AzurirajTabeluLekova(lekarServiceDTO, izabraniLek);
+                        PosaljiObavestenje(izabraniLek);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lek je vec odobren");
+                }
             }
-            else
-            {
-                MessageBox.Show("Lek je vec odobren");
+            else {
+                MessageBox.Show("Odaberite lek");
             }
         }
 
@@ -604,15 +616,28 @@ namespace Bolnica.Services
 
         public void VratiNaIzmenu(LekarServiceDTO lekarServiceDTO)
         {
-            PrikazLek p = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
-            if (p.Status.Equals(StatusLeka.cekaValidaciju))
+            if (lekarServiceDTO.tabela.SelectedIndex > -1)
             {
-                KomentarLekaLekarViewModel vm = new KomentarLekaLekarViewModel(p);
-                FormKomentarLekaLekar lek = new FormKomentarLekaLekar(vm);
+                PrikazLek p = lekarServiceDTO.tabela.SelectedItem as PrikazLek;
+                if (p.Status.Equals(StatusLeka.cekaValidaciju))
+                {
+                    if (MessageBox.Show("Da li ste sigurni", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+
+                    }
+                    else
+                    {
+                        KomentarLekaLekarViewModel vm = new KomentarLekaLekarViewModel(p);
+                        FormKomentarLekaLekar lek = new FormKomentarLekaLekar(vm);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Niste odabrali lek koji ceka validaciju");
+                }
             }
-            else
-            {
-                MessageBox.Show("Niste odabrali lek koji ceka validaciju");
+            else {
+                MessageBox.Show("Odaberite lek");
             }
         }
 

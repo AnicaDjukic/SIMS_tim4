@@ -1,5 +1,9 @@
-﻿using Bolnica.Model.Korisnici;
+﻿using Bolnica.Controller.Sekretar;
+using Bolnica.DTO.Sekretar;
+using Bolnica.Model.Korisnici;
+using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
+using Bolnica.Sekretar;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
@@ -21,89 +25,94 @@ namespace Bolnica.Forms.Sekretar
     /// </summary>
     public partial class FormGodisnji : Window
     {
-        private string jmbg;
-        private FileRepositoryPregled storagePregledi;
-        private FileRepositoryOperacija storageOperacije;
-        private FileRepositoryLekar storageLekari;
-        private FileRepositoryGodisnji storageGodisnji;
-        private List<Pregled> pregledi;
-        private List<Operacija> operacije;
-        private List<Lekar> sviLekari;
-        private List<Godisnji> sviGodisnji;
-        public FormGodisnji(string jmbg)
+        private string korisnickoIme;
+        private LekarController lekarController;
+        private GodisnjiController godisnjiController;
+        private PregledController pregledController;
+        private OperacijaController operacijaController;
+        public FormGodisnji(string korisnickoIme)
         {
             InitializeComponent();
-            this.jmbg = jmbg;
-            storagePregledi = new FileRepositoryPregled();
-            storageOperacije = new FileRepositoryOperacija();
-            storageLekari = new FileRepositoryLekar();
-            storageGodisnji = new FileRepositoryGodisnji();
-            pregledi = storagePregledi.GetAll();
-            operacije = storageOperacije.GetAll();
-            sviLekari = storageLekari.GetAll();
-            sviGodisnji = storageGodisnji.GetAll();
+            this.korisnickoIme = korisnickoIme;
+            lekarController = new LekarController();
+            godisnjiController = new GodisnjiController();
+            pregledController = new PregledController();
+            operacijaController = new OperacijaController();
+            InicijalizujGUI();
+        }
 
-            foreach (Lekar l in sviLekari)
-                if (jmbg == l.Jmbg)
-                    lblSlobodniDani.Content = l.BrojSlobodnihDana.ToString();
+        private void InicijalizujGUI() 
+        {
+            LekarDTO lekar = lekarController.GetLekarById(korisnickoIme);
+            lblSlobodniDani.Content = lekar.BrojSlobodnihDana.ToString();
 
-            foreach (Pregled p in pregledi) 
-            {
-                if (jmbg == p.Lekar.Jmbg)
-                {
-                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(p.Datum.Year, p.Datum.Month, p.Datum.Day), new DateTime(p.Datum.Year, p.Datum.Month, p.Datum.Day)));
-                }
-            }
-
-            foreach (Operacija o in operacije)
-            {
-                if (jmbg == o.Lekar.Jmbg)
-                {
-                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(o.Datum.Year, o.Datum.Month, o.Datum.Day), new DateTime(o.Datum.Year, o.Datum.Month, o.Datum.Day)));
-                }
-            }
-
-            foreach (Godisnji g in sviGodisnji) 
-            {
-                if (jmbg == g.Lekar.Jmbg) 
-                {
-                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(g.PocetakGodisnjeg.Year, g.PocetakGodisnjeg.Month, g.PocetakGodisnjeg.Day), new DateTime(g.KrajGodisnjeg.Year, g.KrajGodisnjeg.Month, g.KrajGodisnjeg.Day)));
-                }
-            }
+            foreach (GodisnjiDTO godisnji in godisnjiController.GetAllGodisnji())
+                if (korisnickoIme == godisnji.KorisnickoImeLekara)
+                    calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(godisnji.PocetakGodisnjeg.Year, godisnji.PocetakGodisnjeg.Month, godisnji.PocetakGodisnjeg.Day), new DateTime(godisnji.KrajGodisnjeg.Year, godisnji.KrajGodisnjeg.Month, godisnji.KrajGodisnjeg.Day)));
         }
 
         private void ZakaziGodisnji(object sender, RoutedEventArgs e)
         {
-            foreach (Lekar l in sviLekari)
-                if (l.Jmbg == jmbg)
-                    if(l.BrojSlobodnihDana >= calendar.SelectedDates.Count) 
-                    {
-                        Godisnji godisnji = new Godisnji();
-                        try
-                        {
-                            godisnji.PocetakGodisnjeg = calendar.SelectedDates[0];
-                            godisnji.KrajGodisnjeg = calendar.SelectedDates[calendar.SelectedDates.Count - 1];
-                        }
-                        catch (ArgumentOutOfRangeException)
-                        {
-                            MessageBox.Show("Niste selektovali datume za zakazivanje godišnjeg", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-                       
-                        godisnji.Lekar = l;
-                        storageLekari.Delete(l);
-                        l.BrojSlobodnihDana -= calendar.SelectedDates.Count;
-                        storageLekari.Save(l);
+            LekarDTO lekar = lekarController.GetLekarById(korisnickoIme);
+            if (lekar.BrojSlobodnihDana >= calendar.SelectedDates.Count) 
+            {
+                GodisnjiDTO godisnji = new GodisnjiDTO();
+                if (!PostavljenaPoljaZaGodisnji(godisnji, lekar))
+                    return;
 
-                        storageGodisnji.Save(godisnji);
-                        Close();
-                        break;
-                    }
-                    else 
-                    {
-                        MessageBox.Show("Lekar nema dovoljan broj slobodnih dana", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                godisnjiController.ZakaziGodisnji(godisnji, lekar, calendar.SelectedDates.Count);
+                UpdateTabeleNaGUI(godisnji);
+
+                Close();
+            }
+            else 
+                MessageBox.Show("Lekar nema dovoljan broj slobodnih dana", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void UpdateTabeleNaGUI(GodisnjiDTO godisnji) 
+        {
+            UpdateTabeleNaGUIPregledi(godisnji);
+            UpdateTabeleNaGUIOperacije(godisnji);
+        }
+
+        private void UpdateTabeleNaGUIPregledi(GodisnjiDTO godisnji)
+        {
+            foreach (PrikazPregleda pregledDTO in pregledController.GetAllPregledi())
+                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
+                    for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
+                        if (FormPregledi.Pregledi[i].Id == pregledDTO.Id)
+                        {
+                            FormPregledi.Pregledi.RemoveAt(i);
+                            break;
+                        }
+        }
+
+        private void UpdateTabeleNaGUIOperacije(GodisnjiDTO godisnji) 
+        {
+            foreach (PrikazOperacije operacijaDTO in operacijaController.GetAllOperacije())
+                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
+                    for (int i = 0; i < FormPregledi.Pregledi.Count; i++)
+                        if (FormPregledi.Pregledi[i].Id == operacijaDTO.Id)
+                        {
+                            FormPregledi.Pregledi.RemoveAt(i);
+                            break;
+                        }
+        }
+
+        private bool PostavljenaPoljaZaGodisnji(GodisnjiDTO godisnjiDTO, LekarDTO lekarDTO) 
+        {
+            try
+            {
+                godisnjiDTO.PocetakGodisnjeg = calendar.SelectedDates[0];
+                godisnjiDTO.KrajGodisnjeg = calendar.SelectedDates[calendar.SelectedDates.Count - 1];
+                godisnjiDTO.KorisnickoImeLekara = lekarDTO.KorisnickoIme;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Niste selektovali datume za zakazivanje godišnjeg", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
 
         private void Zatvori(object sender, RoutedEventArgs e)

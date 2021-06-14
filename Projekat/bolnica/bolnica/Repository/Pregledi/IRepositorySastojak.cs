@@ -7,5 +7,6 @@ namespace Bolnica.Repository.Korisnici
 {
     public interface IRepositorySastojak : IRepository<Sastojak, int>
     {
+        public void DeleteById(int id);
     }
 }

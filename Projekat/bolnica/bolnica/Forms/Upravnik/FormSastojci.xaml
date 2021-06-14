@@ -4,26 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+        xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Sastojci" Height="330" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -38,19 +29,20 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler"/>
-            <Button Content="DODAJ NOVI" Width="130"  Margin="20,0,0,0" Click="Button_Click_Dodaj_Novi"/>
-            <Button Content="OBRIŠI" Width="90" Margin="20,0,0,0" Click="Button_Click_Obrisi"/>
+            <TextBox x:Name="txtSearch" Height="20" Width="130" HorizontalAlignment="Left" />
+            <Button Name="btnDodajNovi" Content="{lex:Loc}" Width="130"  Margin="20,0,0,0" Command="{Binding Path=DodajNoviKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnObrisi" Content="{lex:Loc}" Width="90" Margin="20,0,0,0" Command="{Binding Path=ObrisiKomanda}" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
-        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding Sastojci}" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True">
+        <DataGrid x:Name="dataGridSastojci" Grid.Row="1" Margin="20,0,20,0" ItemsSource="{Binding SastojciZaPrikaz}" SelectedItem="{Binding IzabraniSastojak, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Extended" IsReadOnly="True"  FontSize="13"
+                  RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="NAZIV SASTOJKA" Binding="{Binding Naziv}" Width="*"/>
+                <DataGridTextColumn Header="{lex:Loc NazivDataGrid}" Binding="{Binding Naziv}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Potvrdi" Width="60" Height="25" Click="Button_Click_Potvrdi"/>
-            <Button Content="Odustani" Width="60" Height="25" Margin="30,0,0,0" Click="Button_Click_Odustani"/>
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" Command="{Binding Path=PotvrdiKomanda}" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" Margin="30,0,0,0" Command="{Binding Path=OdustaniKomanda}" Style="{DynamicResource ButtonStyle}"/>
 
         </StackPanel>
 

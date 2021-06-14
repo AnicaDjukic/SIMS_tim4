@@ -15,24 +15,36 @@
     <None Remove="Forms\Images\diamond.png" />
     <None Remove="Forms\Images\document.png" />
     <None Remove="Forms\Images\edit.png" />
+    <None Remove="Forms\Images\feedback.png" />
     <None Remove="Forms\Images\great-britain.png" />
     <None Remove="Forms\Images\help.png" />
     <None Remove="Forms\Images\info.png" />
     <None Remove="Forms\Images\languages.png" />
     <None Remove="Forms\Images\log-out.png" />
+    <None Remove="Forms\Images\moving.png" />
     <None Remove="Forms\Images\notification-bell.png" />
+    <None Remove="Forms\Images\person-female.png" />
+    <None Remove="Forms\Images\print.png" />
     <None Remove="Forms\Images\recycle.png" />
     <None Remove="Forms\Images\search.png" />
     <None Remove="Forms\Images\serbia.png" />
     <None Remove="Forms\Images\shopping-cart.png" />
+    <None Remove="Forms\Images\test-account.png" />
     <None Remove="Forms\Images\view.png" />
+    <None Remove="Resources\demo.png" />
     <None Remove="Resources\hospital.png" />
+    <None Remove="Resources\Hospitalizacija.png" />
+    <None Remove="Resources\informacijeLekar.png" />
+    <None Remove="Resources\InformacijePacijent.png" />
     <None Remove="Resources\LekarIstorija.png" />
     <None Remove="Resources\LekarLek.png" />
     <None Remove="Resources\LekarPregled.png" />
     <None Remove="Forms\Images\left-arrow.png" />
     <None Remove="Forms\Images\right-arrow.png" />
     <None Remove="Forms\Images\woman-profile.png" />
+    <None Remove="Resources\logoutLekarSlika.png" />
+    <None Remove="Resources\printLekar.png" />
+    <None Remove="Resources\slikaDoktora.png" />
     <None Remove="Resources\user.png" />
   </ItemGroup>
 
@@ -43,8 +55,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="ceTe.DynamicPDF.CoreSuite.NET" Version="11.12.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NuGet.Protocol" Version="5.9.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,33 +71,66 @@
     <Resource Include="Forms\Images\diamond.png" />
     <Resource Include="Forms\Images\document.png" />
     <Resource Include="Forms\Images\edit.png" />
+    <Resource Include="Forms\Images\feedback.png" />
     <Resource Include="Forms\Images\great-britain.png" />
     <Resource Include="Forms\Images\help.png" />
     <Resource Include="Forms\Images\info.png" />
     <Resource Include="Forms\Images\languages.png" />
     <Resource Include="Forms\Images\log-out.png" />
+    <Resource Include="Forms\Images\moving.png" />
     <Resource Include="Forms\Images\notification-bell.png" />
+    <Resource Include="Forms\Images\person-female.png" />
+    <Resource Include="Forms\Images\print.png" />
     <Resource Include="Forms\Images\recycle.png" />
     <Resource Include="Forms\Images\search.png" />
     <Resource Include="Forms\Images\serbia.png" />
     <Resource Include="Forms\Images\shopping-cart.png" />
+    <Resource Include="Forms\Images\test-account.png" />
     <Resource Include="Forms\Images\view.png" />
+    <Resource Include="Resources\demo.png" />
     <Resource Include="Resources\hospital.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Hospitalizacija.png" />
+    <Resource Include="Resources\informacijeLekar.png" />
+    <Resource Include="Resources\InformacijePacijent.png" />
     <Resource Include="Resources\LekarIstorija.png" />
     <Resource Include="Resources\LekarLek.png" />
     <Resource Include="Resources\LekarPregled.png" />
     <Resource Include="Forms\Images\left-arrow.png" />
     <Resource Include="Forms\Images\right-arrow.png" />
-    <Resource Include="Forms\Images\woman-profile.png" />
+    <Resource Include="Resources\logoutLekarSlika.png" />
+    <Resource Include="Resources\printLekar.png" />
+    <Resource Include="Resources\slikaDoktora.png" />
     <Resource Include="Resources\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Service\Lekar\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localization\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Strings.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\Strings.sr-LATN-CS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

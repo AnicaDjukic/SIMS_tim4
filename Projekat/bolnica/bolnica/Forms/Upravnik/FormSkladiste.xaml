@@ -4,34 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:val="clr-namespace:Bolnica.Validation"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:dislocal="clr-namespace:Model.Prostorije"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         mc:Ignorable="d"
-        Title="FormSkladiste" Height="250" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Skladištenje" Height="250" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
         <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="GetEnumValues">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="dislocal:TipProstorije"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -49,37 +38,61 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Content="Količina:" HorizontalAlignment="Right" VerticalAlignment="Center" />
-        <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Center" Width="50" Height="20" Margin="20,0,0,0" Text="{Binding Path=KolicinaZaPremestanje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Name="KolicinaLabel" Content="{lex:Loc}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <TextBox Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Bottom" Width="50" Height="20" Margin="20,0,0,0">
+            <TextBox.Text>
+                <Binding Path="KolicinaZaPremestanje" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidationRuleKolicina ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
 
         <DataGrid x:Name="GridProstorije" Grid.Column="0" Grid.Row="1" Margin="10,10,5,10" ItemsSource="{Binding ProstorijeZaSkladistenje}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column">
+                  AutoGenerateColumns="False" HeadersVisibility="Column" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}" >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="BrojProstorije" Header="PROSTORIJA" Binding="{Binding BrojProstorije}" Width="auto"/>
-                <DataGridComboBoxColumn Header="TIP PROSTORIJE" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" SelectedValueBinding="{Binding TipProstorije}" />
+                <DataGridTextColumn x:Name="BrojProstorije" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding BrojProstorije}" Width="auto"/>
+                <DataGridComboBoxColumn Header="{lex:Loc TipProstorijeDataGrid}" ItemsSource="{Binding Source={StaticResource GetEnumValues}}" Width="*" SelectedValueBinding="{Binding TipProstorije}" />
             </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid x:Name="GridZalihe" Grid.Column="3" Grid.Row="1" Margin="5,10,10,10" ItemsSource="{Binding Zalihe}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column">
+                  AutoGenerateColumns="False" HeadersVisibility="Column" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Prostorija" Header="PROSTORIJA" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
-                <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn x:Name="Prostorija" Header="{lex:Loc ProstorijaDataGrid}" Binding="{Binding Prostorija.BrojProstorije}" Width="*"/>
+                <DataGridTextColumn Header="{lex:Loc KolicinaDataGrid}" Binding="{Binding Kolicina, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <Button Height="30" Click="Button_Click_Prebaci"  Margin="0,10,0,0">
+            <Button Height="30" Click="Button_Click_Prebaci"  Margin="0,10,0,0" Style="{DynamicResource ButtonStyle}">
                 <Image Source="../Images/right-arrow.png" Width="25" Height="25" HorizontalAlignment="Left"/>
             </Button>
-            <Button Height="30" Click="Button_Click_Vrati" Margin="0,10,0,0">
+            <Button Height="30" Click="Button_Click_Vrati" Margin="0,10,0,0" Style="{DynamicResource ButtonStyle}">
                 <Image Source="../Images/left-arrow.png" Width="25" Height="25" HorizontalAlignment="Left"/>
             </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal"  HorizontalAlignment="Center">
-            <Button Height="25" Width="60" VerticalAlignment="Top" Content="Potvrdi" Click="Button_Click_Potvrdi"/>
-            <Button Height="25" Width="60" VerticalAlignment="Top" Content="Odustani" Margin="20,0,0,0" Click="Button_Click_Odustani" />
+            <Button Name="btnPotvrdi" Content="{lex:Loc}" Height="25" VerticalAlignment="Top" Click="Button_Click_Potvrdi" Style="{DynamicResource ButtonStyle}"/>
+            <Button Name="btnOdustani" Content="{lex:Loc}" Height="25" VerticalAlignment="Top" Margin="20,0,0,0" Click="Button_Click_Odustani" Style="{DynamicResource ButtonStyle}"/>
         </StackPanel>
         
 

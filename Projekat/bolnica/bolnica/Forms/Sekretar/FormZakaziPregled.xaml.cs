@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
@@ -37,6 +38,7 @@ namespace Bolnica.Sekretar
         private FileRepositoryPregled skladistePregleda;
         private FileRepositoryOperacija skladisteOperacija;
         private FileRepositoryGodisnji skladisteGodisnjih;
+        private FileRepositorySmena skladisteSmena;
         private List<Pacijent> sviPacijenti;
         private List<Lekar> sviLekari;
         private List<Prostorija> sveProstorije;
@@ -60,6 +62,7 @@ namespace Bolnica.Sekretar
             skladisteLekara = new FileRepositoryLekar();
             skladisteProstorija = new FileRepositoryProstorija();
             skladisteGodisnjih = new FileRepositoryGodisnji();
+            skladisteSmena = new FileRepositorySmena();
             sviPacijenti = skladistePacijenata.GetAll();
             sviLekari = skladisteLekara.GetAll();
             sveProstorije = skladisteProstorija.GetAll();
@@ -89,8 +92,7 @@ namespace Bolnica.Sekretar
         private void inicijalizujComboBoxLekara()
         {
             foreach (Lekar l in sviLekari)
-                if (l.PostavljenaSmena)
-                    comboBoxLekara.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
+                comboBoxLekara.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
         }
 
         private void inicijalizujComboBoxPacijenata()
@@ -154,7 +156,10 @@ namespace Bolnica.Sekretar
             for (int i = 0; i < sviPregledi.Count; i++)
                 if (sviPregledi[i].Id > maxId)
                     maxId = sviPregledi[i].Id;
-            
+            for (int i = 0; i < sveOperacije.Count; i++)
+                if (sveOperacije[i].Id > maxId)
+                    maxId = sveOperacije[i].Id;
+
             zakazivaniPregled.Id = maxId + 1;
         }
 
@@ -247,32 +252,41 @@ namespace Bolnica.Sekretar
             string imeLekara = lekarPodaci[0];
             string prezimeLekara = lekarPodaci[1];
             string jmbgLekara = lekarPodaci[2];
-
-            int sati = Int32.Parse(comboBoxVremenaPregleda.Text.Split(":")[0]);
+            
+            int sati = zakazivaniPregled.Datum.Hour;
+            int minute = zakazivaniPregled.Datum.Minute;
 
             for (int i = 0; i < sviLekari.Count; i++)
                 if (sviLekari[i].Ime.Equals(imeLekara) && sviLekari[i].Prezime.Equals(prezimeLekara) && sviLekari[i].Jmbg.Equals(jmbgLekara))
                 {
-                    if (sviLekari[i].Smena == Smena.Prva && (sati < 7 || sati >= 15))
+                    Smena smena = skladisteSmena.GetById(sviLekari[i].Smena.Id);
+                    DateTime pocetakSmene = smena.PocetakSmene;
+                    DateTime krajSmene = smena.KrajSmene;
+
+                    if (pocetakSmene.Date == zakazivaniPregled.Datum.Date)
                     {
-                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        comboBoxLekara.Focusable = true;
-                        Keyboard.Focus(comboBoxLekara);
+                        if (pocetakSmene <= zakazivaniPregled.Datum && krajSmene > zakazivaniPregled.Datum)
+                            return false;
+                        LekarNijeUSmeniGreska();
                         return true;
                     }
-                    else if (sviLekari[i].Smena == Smena.Druga && (sati < 15 || sati >= 23))
+                    else
                     {
-                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        comboBoxLekara.Focusable = true;
-                        Keyboard.Focus(comboBoxLekara);
-                        return true;
-                    }
-                    else if (sviLekari[i].Smena == Smena.Treca && !(sati >= 23 || sati < 7)) 
-                    {
-                        MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                        comboBoxLekara.Focusable = true;
-                        Keyboard.Focus(comboBoxLekara);
-                        return true;
+                        if (skladisteSmena.GetById(sviLekari[i].Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minute > 30)))
+                        {
+                            LekarNijeUSmeniGreska();
+                            return true;
+                        }
+                        else if (skladisteSmena.GetById(sviLekari[i].Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minute > 30)))
+                        {
+                            LekarNijeUSmeniGreska();
+                            return true;
+                        }
+                        else if (skladisteSmena.GetById(sviLekari[i].Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minute > 30))
+                        {
+                            LekarNijeUSmeniGreska();
+                            return true;
+                        }
                     }
                 }
 

@@ -5,15 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="580" d:DesignWidth="1400"
+      d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormAnamnezaPage">
 
     <Grid>
         <DockPanel Margin="150,20,0,0" Width="540" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Border BorderThickness="5" BorderBrush="Aquamarine"></Border>
+            <Border BorderThickness="5" BorderBrush="LightBlue"></Border>
         </DockPanel>
         <DockPanel Margin="0,20,150,0" Width="540" Height="480" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Border BorderThickness="5" BorderBrush="Aquamarine"></Border>
+            <Border BorderThickness="5" BorderBrush="LightBlue"></Border>
         </DockPanel>
         <StackPanel Orientation="Horizontal" Margin="150,20,0,0" Width="540" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label Content="Simptomi:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" FontSize="16"></Label>
@@ -47,9 +47,9 @@
                   FontSize="16" SelectionMode="Single" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Background="LightBlue">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#FF00DFFF"></Setter>
+                        <Setter Property="Background" Value="LightBlue"></Setter>
                         <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                        <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                        <Setter Property="BorderThickness" Value="1,1,1,2"></Setter>
                         <Setter Property="BorderBrush" Value="black"></Setter>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     </Style>

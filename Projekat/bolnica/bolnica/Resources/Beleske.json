@@ -1,1 +1,10 @@
-[{"Id":1,"Zabeleska":"Podsetnik o mojoj terapiji.","Podsetnik":true,"Vreme":"01:00:00","DatumPrekida":"2021-06-10T00:00:00","Prikazana":false}]
+[
+  {
+    "Id": 1,
+    "Zabeleska": "Podsetnik o mojoj terapiji.",
+    "Podsetnik": true,
+    "Vreme": "15:30:00",
+    "DatumPrekida": "2021-06-12T00:00:00",
+    "Prikazana": true
+  }
+]

@@ -1,4 +1,5 @@
 ﻿using bolnica.Forms;
+using Bolnica.Localization;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -109,16 +110,58 @@ namespace Bolnica.Forms
             }
         }
 
-        ServiceProstorija serviceProstorija = new ServiceProstorija();
-        ServiceBolnickaSoba serviceBolnickaSoba = new ServiceBolnickaSoba();
-
-        public CreateFormProstorije()
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
+        public CreateFormProstorije(string brojProstorije)
         {
             InitializeComponent();
+            Inject = new Injector();
             this.DataContext = this;
             if (!FormUpravnik.clickedDodaj)
-                Title = "Izmeni prostoriju";
-            SakrijPoljaZaBolnickuSobu();
+            {
+                Title = LocalizedStrings.Instance["Izmena prostorije"];
+                PopuniPolja(brojProstorije);
+            }
+            else
+            {
+                Title = LocalizedStrings.Instance["Dodavanje prostorije"];
+                SakrijPoljaZaBolnickuSobu();
+            }
+        }
+
+        private void PopuniPolja(string brojProstorije)
+        {
+            Prostorija prostorija = Inject.ControllerProstorija.DobaviProstoriju(brojProstorije);
+            if (prostorija.BrojProstorije == null)
+            {
+                prostorija = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+                PrikaziBrojKrevetaBolnickeSobe(brojProstorije);
+            }
+
+            BrojProstorije = prostorija.BrojProstorije;
+            Sprat = prostorija.Sprat;
+            Kvadratura = prostorija.Kvadratura;
+            if (prostorija.TipProstorije == TipProstorije.salaZaPreglede)
+                comboTipProstorije.SelectedIndex = 0;
+            else if(prostorija.TipProstorije == TipProstorije.operacionaSala)
+                comboTipProstorije.SelectedIndex = 1;
+            else
+                comboTipProstorije.SelectedIndex = 2;
+            checkZauzeta.IsChecked = prostorija.Zauzeta;
+        }
+
+        private void PrikaziBrojKrevetaBolnickeSobe(string brojProstorije)
+        {
+            BolnickaSoba bolnicka = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+            UkBrojKreveta = bolnicka.UkBrojKreveta;
+            BrojSlobodnihKreveta = bolnicka.BrojSlobodnihKreveta;
         }
 
         private void SakrijPoljaZaBolnickuSobu()
@@ -131,26 +174,36 @@ namespace Bolnica.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int tipProstorije = comboTipProstorije.SelectedIndex;
-            if (!serviceProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
+            if (BrojProstorije != null && Kvadratura != 0.0)
             {
-                if (tipProstorije == 2)
+                int tipProstorije = comboTipProstorije.SelectedIndex;
+                if (!Inject.ControllerProstorija.ProstorijaPostoji(brojProstorije) || !FormUpravnik.clickedDodaj)
                 {
-                    BolnickaSoba bolnickaSoba = NapraviBolnickuSobu();
-                    SacuvajBolnickuSobu(bolnickaSoba);
+                    if (tipProstorije == 2)
+                    {
+                        if (BrojSlobodnihKreveta <= UkBrojKreveta)
+                        {
+                            BolnickaSoba bolnickaSoba = NapraviBolnickuSobu();
+                            SacuvajBolnickuSobu(bolnickaSoba);
+                        } else
+                        {
+                            MessageBox.Show(LocalizedStrings.Instance["Broj slobodnih kreveta ne sme biti veći od ukupnog broja kreveta!"]);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Prostorija prostorija = NapraviProstoriju(tipProstorije);
+                        SacuvajProstoriju(prostorija);
+                    }
                 }
                 else
                 {
-                    Prostorija prostorija = NapraviProstoriju(tipProstorije);
-                    SacuvajProstoriju(prostorija);
+                    MessageBox.Show(LocalizedStrings.Instance["Prostorija već postoji!"]);
+                    return;
                 }
-            } 
-            else
-            {
-                MessageBox.Show("Prostorija već postoji");
-                return;
+                this.Close();
             }
-            this.Close();
         }
 
         private BolnickaSoba NapraviBolnickuSobu()
@@ -169,11 +222,11 @@ namespace Bolnica.Forms
         {
             if (!FormUpravnik.clickedDodaj)
             {
-                serviceBolnickaSoba.ObrisiBolnickuSobu(brojProstorije);
+                Inject.ControllerBolnickaSoba.ObrisiBolnickuSobu(brojProstorije);
                 UkloniIzPrikaza(brojProstorije);
             }
 
-            serviceBolnickaSoba.SacuvajBolnickuSobu(bolnickaSoba);
+            Inject.ControllerBolnickaSoba.SacuvajBolnickuSobu(bolnickaSoba);
             FormUpravnik.Prostorije.Add(bolnickaSoba);
         }
 
@@ -204,11 +257,11 @@ namespace Bolnica.Forms
         {
             if (!FormUpravnik.clickedDodaj)
             {
-                serviceProstorija.ObrisiProstoriju(brojProstorije);
+                Inject.ControllerProstorija.ObrisiProstoriju(brojProstorije);
                 UkloniIzPrikaza(brojProstorije);
             }
 
-            serviceProstorija.SacuvajProstoriju(prostorija);
+            Inject.ControllerProstorija.SacuvajProstoriju(prostorija);
             FormUpravnik.Prostorije.Add(prostorija);
         }
 
@@ -232,6 +285,11 @@ namespace Bolnica.Forms
         {
             if (comboTipProstorije.SelectedIndex == 2)
                 txtBrojSlobodnihKreveta.Text = "0";
+        }
+
+        private void Button_Click_Odustani(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

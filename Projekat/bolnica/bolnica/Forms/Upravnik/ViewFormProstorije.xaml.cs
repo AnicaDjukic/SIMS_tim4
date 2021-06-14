@@ -1,6 +1,8 @@
-﻿using Bolnica.Model.Prostorije;
-using Bolnica.Repository.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
+using Model.Prostorije;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -12,76 +14,110 @@ namespace Bolnica.Forms
     /// </summary>
     public partial class ViewFormProstorije : Window
     {
-        public static ObservableCollection<Zaliha> OpremaSobe
+        public static ObservableCollection<Zaliha> OpremaProstorije
         {
             get;
             set;
         }
 
-        private ServiceZaliha serviceZaliha = new ServiceZaliha();
-        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
-        private ServiceOprema serviceOprema = new ServiceOprema();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public ViewFormProstorije(string brojProstorije)
         {
             InitializeComponent();
-            this.DataContext = this;
-            OpremaSobe = new ObservableCollection<Zaliha>();
+            DataContext = this;
+            Inject = new Injector();
+            Title = LocalizedStrings.Instance["Prikaz prostorije"];
             AzurirajSveZalihe();
+            PrikaziInformacijeProstorije(brojProstorije);
             PrikaziOpremuProstorije(brojProstorije);
+        }
+
+        private void PrikaziInformacijeProstorije(string brojProstorije)
+        {
+            Prostorija prostorija = Inject.ControllerProstorija.DobaviProstoriju(brojProstorije);
+            if (prostorija.BrojProstorije != null)
+            {
+                UkloniIzPrikazaBrojKreveta();
+            } 
+            else
+            {
+                prostorija = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojProstorije);
+                PrikaziBrojKrevetaBolnickeSobe(brojProstorije);
+            }
+            lblBrojProstorije.Content = prostorija.BrojProstorije.ToString();
+            lblSprat.Content = prostorija.Sprat.ToString();
+            lblKvadratura.Content = prostorija.Kvadratura.ToString();
+            checkZauzeta.IsEnabled = false;
+            if (prostorija.TipProstorije == TipProstorije.salaZaPreglede)
+                lblTipProstorije.Content = LocalizedStrings.Instance["Sala za preglede"];
+            else
+                lblTipProstorije.Content = LocalizedStrings.Instance["Operaciona sala"];
+            checkZauzeta.IsChecked = prostorija.Zauzeta;
+
+        }
+
+        private void UkloniIzPrikazaBrojKreveta()
+        {
+            lblUkBrojKreveta.Visibility = Visibility.Hidden;
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Hidden;
+        }
+
+        private void PrikaziBrojKrevetaBolnickeSobe(string brojBolnickeSobe)
+        {
+            BolnickaSoba bolnicka = Inject.ControllerBolnickaSoba.DobaviBolnickuSobu(brojBolnickeSobe);
+            lblUkBrojKreveta.Visibility = Visibility.Visible;
+            lblUkBrKreveta.Content = bolnicka.UkBrojKreveta.ToString();
+            lblBrojSlobodnihKreveta.Visibility = Visibility.Visible;
+            lblBrSlobodnihKreveta.Content = bolnicka.BrojSlobodnihKreveta.ToString();
         }
 
         private void AzurirajSveZalihe()
         {
-            FileRepositoryBuducaZaliha storageBuducaZaliha = new FileRepositoryBuducaZaliha();
-            List<Zaliha> noveZalihe = new List<Zaliha>();
-            noveZalihe = NapraviNoveZaliheOdBuducih();
+            List<Zaliha> noveZalihe = NapraviNoveZaliheOdBuducih();
             ZameniStareZaliheNovim(noveZalihe);
         }
 
         private List<Zaliha> NapraviNoveZaliheOdBuducih()
         {
-            List<BuducaZaliha> buduceZalihe = serviceBuducaZaliha.DobaviBuduceZaliheIsteklogDatuma();
-            List<Zaliha> noveZalihe = serviceZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe);
-            serviceBuducaZaliha.ObrisiBuduceZalihe(buduceZalihe);
+            List<BuducaZaliha> buduceZalihe = Inject.ControllerBuducaZaliha.DobaviBuduceZaliheIsteklogDatuma();
+            List<Zaliha> noveZalihe = Inject.ControllerZaliha.NapraviZaliheOdBuducihZaliha(buduceZalihe);
+            Inject.ControllerBuducaZaliha.ObrisiBuduceZalihe(buduceZalihe);
             return noveZalihe;
         }
 
         private void ZameniStareZaliheNovim(List<Zaliha> noveZalihe)
         {
-            if (serviceZaliha.DobaviZalihe() != null)
+            foreach (Zaliha z in Inject.ControllerZaliha.DobaviZalihe())
             {
-                foreach (Zaliha z in serviceZaliha.DobaviZalihe())
+                foreach (Zaliha nz in noveZalihe)
                 {
-                    foreach (Zaliha nz in noveZalihe)
-                    {
-                        if (z.Oprema.Sifra == nz.Oprema.Sifra)
-                        {
-                            serviceZaliha.ObrisiZalihu(z);
-
-                        }
-                    }
+                    if (z.Oprema.Sifra == nz.Oprema.Sifra)
+                        Inject.ControllerZaliha.ObrisiZalihu(z);
                 }
             }
-
-            serviceZaliha.SacuvajZalihe(noveZalihe);
-
+            Inject.ControllerZaliha.SacuvajZalihe(noveZalihe);
         }
 
         private void PrikaziOpremuProstorije(string brojProstorije)
         {
-            foreach (Zaliha zaliha in serviceZaliha.DobaviZalihe())
+            OpremaProstorije = new ObservableCollection<Zaliha>();
+            foreach (Zaliha z in Inject.ControllerZaliha.DobaviZaliheProstorije(brojProstorije))
             {
-                if (zaliha.Prostorija.BrojProstorije == brojProstorije)
-                {
-                    zaliha.Oprema = serviceOprema.DobaviOpremu(zaliha.Oprema.Sifra);
-                    OpremaSobe.Add(zaliha);
-                }
+                OpremaProstorije.Add(z);
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

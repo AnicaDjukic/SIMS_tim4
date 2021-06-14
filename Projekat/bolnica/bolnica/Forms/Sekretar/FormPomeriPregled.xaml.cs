@@ -1,5 +1,6 @@
 ﻿using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
 using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
@@ -33,6 +34,7 @@ namespace Bolnica.Sekretar
         private FileRepositoryPregled sviPregledi = new FileRepositoryPregled();
         private FileRepositoryOperacija sveOperacije = new FileRepositoryOperacija();
         private FileRepositoryGodisnji sviGodisnji = new FileRepositoryGodisnji();
+        private FileRepositorySmena skladisteSmena = new FileRepositorySmena();
         private List<Pacijent> pacijenti = new List<Pacijent>();
         private List<Prostorija> prostorije = new List<Prostorija>();
         private PrikazPregleda trenutniPregled = new PrikazPregleda();
@@ -58,8 +60,7 @@ namespace Bolnica.Sekretar
                     comboProstorija.Items.Add(p.BrojProstorije);
 
             foreach (Lekar l in lekari)
-                if(l.PostavljenaSmena)
-                    comboLekar.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
+                comboLekar.Items.Add(l.Ime + " " + l.Prezime + " " + l.Jmbg);
 
             for (int vre = 0; vre < 24; vre++)
             {
@@ -181,26 +182,43 @@ namespace Bolnica.Sekretar
                     return;
                 }
 
-            if (trenutniPregled.Lekar.Smena == Smena.Prva && (sati < 7 || sati >= 15))
+            Smena smena = skladisteSmena.GetById(trenutniPregled.Lekar.Smena.Id);
+            DateTime pocetakSmene = smena.PocetakSmene;
+            DateTime krajSmene = smena.KrajSmene;
+
+            if (pocetakSmene.Date == trenutniPregled.Datum.Date)
             {
-                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboLekar.Focusable = true;
-                Keyboard.Focus(comboLekar);
-                return;
+                if (!(pocetakSmene <= trenutniPregled.Datum && krajSmene > trenutniPregled.Datum))
+                {
+                    MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboLekar.Focusable = true;
+                    Keyboard.Focus(comboLekar);
+                    return;
+                }
             }
-            else if (trenutniPregled.Lekar.Smena == Smena.Druga && (sati < 15 || sati >= 23))
+            else 
             {
-                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboLekar.Focusable = true;
-                Keyboard.Focus(comboLekar);
-                return;
-            }
-            else if (trenutniPregled.Lekar.Smena == Smena.Treca && !(sati >= 23 || sati < 7))
-            {
-                MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                comboLekar.Focusable = true;
-                Keyboard.Focus(comboLekar);
-                return;
+                if (skladisteSmena.GetById(trenutniPregled.Lekar.Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Prva && (sati < 7 || sati >= 15 || (sati == 14 && minuti > 30)))
+                {
+                    MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboLekar.Focusable = true;
+                    Keyboard.Focus(comboLekar);
+                    return;
+                }
+                else if (skladisteSmena.GetById(trenutniPregled.Lekar.Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Druga && (sati < 15 || sati >= 23 || (sati == 22 && minuti > 30)))
+                {
+                    MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboLekar.Focusable = true;
+                    Keyboard.Focus(comboLekar);
+                    return;
+                }
+                else if (skladisteSmena.GetById(trenutniPregled.Lekar.Smena.Id).PodrazumevanaSmena == PodrazumevanaSmena.Treca && !(sati >= 23 || sati < 7) && !(sati == 6 && minuti > 30))
+                {
+                    MessageBox.Show("Lekar nije u smeni", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    comboLekar.Focusable = true;
+                    Keyboard.Focus(comboLekar);
+                    return;
+                }
             }
 
             if (PacijentZauzet(trenutniPregled.Id, trenutniPregled.Pacijent, trenutniPregled.Datum, trenutniPregled.Trajanje))

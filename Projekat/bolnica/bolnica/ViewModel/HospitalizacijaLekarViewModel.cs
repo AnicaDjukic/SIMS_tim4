@@ -19,6 +19,8 @@ namespace Bolnica.ViewModel
         public string brojBolnickeSobe { get; set; }
         public Pacijent izabraniPacijent { get; set; }
 
+        public string razlog { get; set; }
+
         private List<string> slobodneBolniceSobe;
         private List<BolnickaSoba> sveBolnickeSobe;
         private List<Hospitalizacija> sveHospitalizacije;
@@ -80,7 +82,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            if(inject.HospitalizacijaLekarController.Potvrdi(new HospitalizacijaLekarDTO(datumPocetka, datumZavrsetka, brojBolnickeSobe, izabraniPacijent)))
+            if(inject.HospitalizacijaLekarController.Potvrdi(new HospitalizacijaLekarDTO(datumPocetka, datumZavrsetka, brojBolnickeSobe, izabraniPacijent, razlog)))
             {
                 ZatvoriAkcija();
             }
@@ -133,6 +135,7 @@ namespace Bolnica.ViewModel
             datumPocetka = DateTime.Now;
             datumZavrsetka = DateTime.Now;
             brojBolnickeSobe = "";
+            razlog = "";
             slobodneBolniceSobe = new List<string>();
             ItemSourceBrojBolnickeSobe = new List<string>();
             sveBolnickeSobe = inject.HospitalizacijaLekarController.DobijBolnickeSobe();
@@ -144,7 +147,7 @@ namespace Bolnica.ViewModel
             {
                 for (int h = 0; h < sveHospitalizacije.Count; h++)
                 {
-                    if (sveBolnickeSobe[i].BrojProstorije.Equals(sveHospitalizacije[h].Prostorija.BrojProstorije) && sveHospitalizacije[h].DatumPocetka < DateTime.Now && sveHospitalizacije[h].DatumZavrsetka > DateTime.Now)
+                    if (sveBolnickeSobe[i].BrojProstorije.Equals(sveHospitalizacije[h].Prostorija.BrojProstorije) && sveHospitalizacije[h].DatumPocetka < DateTime.Now && sveHospitalizacije[h].DatumZavrsetka > DateTime.Now && !sveHospitalizacije[h].Pacijent.Jmbg.Equals(izabraniPacijent.Jmbg))
                     {
                         sveBolnickeSobe[i].UkBrojKreveta = sveBolnickeSobe[i].UkBrojKreveta - 1;
                     }
@@ -172,6 +175,7 @@ namespace Bolnica.ViewModel
                     brojBolnickeSobe = sveHospitalizacije[i].Prostorija.BrojProstorije;
                     datumPocetka = sveHospitalizacije[i].DatumPocetka;
                     datumZavrsetka = sveHospitalizacije[i].DatumZavrsetka;
+                    razlog = sveHospitalizacije[i].Razlog;
                 }
             }
         }

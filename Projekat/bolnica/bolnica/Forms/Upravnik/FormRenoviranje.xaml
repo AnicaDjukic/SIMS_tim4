@@ -4,27 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms.Upravnik"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:val="clr-namespace:Bolnica.Validation"
         mc:Ignorable="d"
-        Title="Renoviranje prostorije" Height="425" Width="565" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#BFF7F7">
+        Title="Renoviranje prostorije" Height="425" Width="565" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -35,37 +27,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <TabControl Margin="20,20,20,0">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
-                                    <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="#D0C8F9"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="ZAKAŽI RENOVIRANJE">
+        <TabControl Margin="20,20,20,0" Style="{DynamicResource TabControlStyle}" BorderBrush="MediumPurple">
+            <TabItem Name="ZakaziRenoviranjeTabItem" Header="{lex:Loc}" Style="{DynamicResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="280"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="221.5"/>
+                        <ColumnDefinition Width="58.5"/>
+                        <ColumnDefinition Width="95"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -77,9 +45,9 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Viewbox Grid.Column="0" Grid.RowSpan="7" HorizontalAlignment="Center"
-                        Margin="0,25,0,0"
-                        VerticalAlignment="Top" Height="230" Width="260" Stretch="Fill">
+                    <Viewbox Grid.Column="0" Grid.RowSpan="6" HorizontalAlignment="Left"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Top" Height="230" Width="260" Stretch="Fill" Grid.ColumnSpan="2" Grid.Row="1">
                         <Calendar x:Name="Calendar" SelectionMode="MultipleRange">
                             <Calendar.CalendarDayButtonStyle>
                                 <Style TargetType="CalendarDayButton" BasedOn="{StaticResource {x:Type CalendarDayButton}}">
@@ -98,8 +66,8 @@
                             </Calendar.BlackoutDates>
                         </Calendar>
                     </Viewbox>
-                    <Label Grid.Column="1" Grid.Row="1" Content="POČETAK:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <DatePicker x:Name="datePickerPocetak" Grid.Column="2" Grid.Row="1" Margin="10,0" VerticalAlignment="Center" SelectedDateChanged="DatePicker_SelectedDateChanged_Pocetak">
+                    <Label Name="PocetakLabel" Content="{lex:Loc}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <DatePicker x:Name="datePickerPocetak" Grid.Column="3" Grid.Row="1" Margin="5,0,5,0" VerticalAlignment="Center" SelectedDateChanged="DatePicker_SelectedDateChanged_Pocetak">
                         <DatePicker.SelectedDate>
                             <Binding Path="DatumPocetka" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -117,15 +85,14 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                                 </Grid>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </DatePicker>
-                    <Label Grid.Column="1" Grid.Row="2" Content="KRAJ:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <DatePicker x:Name="datePickerKraj" Grid.Column="2" Grid.Row="2" Margin="10,0" VerticalAlignment="Center" SelectedDateChanged="datePickerKraj_SelectedDateChanged_Kraj">
+                    <Label Name="KrajLabel" Content="{lex:Loc}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <DatePicker x:Name="datePickerKraj" Grid.Column="3" Grid.Row="2" Margin="5,0,5,0" VerticalAlignment="Center" SelectedDateChanged="datePickerKraj_SelectedDateChanged_Kraj">
                         <DatePicker.SelectedDate>
                             <Binding Path="DatumKraja" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -143,44 +110,43 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-
                                     <AdornedElementPlaceholder Grid.Column="0" Grid.Row="1"/>
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                                 </Grid>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </DatePicker>
-                    
-                    <Label Content="OPIS:" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Right"/>
-                    <TextBox x:Name="txtOpis" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,5,10,0"/>
-                    <RadioButton x:Name="rbSpoji" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label Content="SPAJANJE" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button x:Name="btnSpoji" Content="IZABERI" Grid.Column="2" Grid.Row="4" Height="30" HorizontalAlignment="Center" Width="120" 
-                            IsEnabled="{Binding IsChecked, ElementName=rbSpoji}" Click="btnSpoji_Click"/>
-                    <RadioButton x:Name="rbPodeli" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Label Content="PODELA" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Button x:Name="btnPodeli" Content="UNESI" Grid.Column="2" Grid.Row="5" Height="30" HorizontalAlignment="Center" Width="120" 
-                            IsEnabled="{Binding IsChecked, ElementName=rbPodeli}" Click="btnPodeli_Click"/>
-                    <Button x:Name="btnZakazi" Grid.Row="6" Grid.Column="2" Height="30" 
-                            Width="115" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click_Zakazi">
+
+                    <Label Name="OpisLabel" Content="{lex:Loc}" Grid.Column="2" Grid.Row="3" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="txtOpis" Grid.Column="3" Grid.Row="3" Margin="5,5,5,0"/>
+                    <RadioButton x:Name="rbSpoji" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <Label Name="SpajanjeLabel" Content="{lex:Loc}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                    <Button x:Name="btnSpoji" Content="{lex:Loc}" Grid.Column="3" Grid.Row="4" Height="30" HorizontalAlignment="Center" Width="120" 
+                            IsEnabled="{Binding IsChecked, ElementName=rbSpoji}" Click="btnSpoji_Click" Style="{DynamicResource ButtonStyle}" Margin="0,5,0,5"/>
+                    <RadioButton x:Name="rbPodeli" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <Label Name="PodelaLabel" Content="{lex:Loc}" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                    <Button x:Name="btnPodeli" Content="{lex:Loc}" Grid.Column="3" Grid.Row="5" Height="30" HorizontalAlignment="Center" Width="120" 
+                            IsEnabled="{Binding IsChecked, ElementName=rbPodeli}" Click="btnPodeli_Click" Style="{DynamicResource ButtonStyle}" Margin="0,5,0,5"/>
+                    <Button x:Name="btnZakazi" Grid.Row="6" Grid.Column="3" Height="30" 
+                            Width="115" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click_Zakazi" Style="{DynamicResource ButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/clock.png" Width="20" Height="25"/>
-                            <TextBlock Text="ZAKAŽI" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock Name="ZakaziTxtBlock" Text="{lex:Loc}" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="PREGLED RENOVIRANJA">
+            <TabItem Name="PregledRenoviranjaTabItem" Header="{lex:Loc}" Style="{DynamicResource TabItemStyle}">
                 <DataGrid x:Name="dataGridRenoviranja" ItemsSource="{Binding Renoviranja}" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                  AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="POČETAK" Binding="{Binding PocetakRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
-                        <DataGridTextColumn Header="KRAJ" Binding="{Binding KrajRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
-                        <DataGridTextColumn Header="OPIS" Binding="{Binding Opis}" Width="*"/>
+                        <DataGridTextColumn Header="{lex:Loc PocetakDataGrid}" Binding="{Binding PocetakRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
+                        <DataGridTextColumn Header="{lex:Loc KrajDataGrid}" Binding="{Binding KrajRenoviranja, StringFormat={}{0:dd.MM.yyyy}}" Width="auto"/>
+                        <DataGridTextColumn Header="{lex:Loc OpisDataGrid}" Binding="{Binding Opis}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
         </TabControl>
-        <Button Grid.Row ="4" Width="80" Height="30" Content="Zatvori" Click="Button_Click_Zatvori" />
+        <Button Name="btnZatvori" Content="{lex:Loc}" Grid.Row ="4" Width="80" Height="30" Click="Button_Click_Zatvori" Style="{DynamicResource ButtonStyle}"/>
     </Grid>
 </Window>

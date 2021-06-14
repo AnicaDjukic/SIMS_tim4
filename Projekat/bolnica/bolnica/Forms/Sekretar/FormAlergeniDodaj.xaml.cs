@@ -1,4 +1,8 @@
-﻿using Bolnica.Forms;
+﻿using Bolnica.Controller;
+using Bolnica.Controller.Sekretar;
+using Bolnica.DTO;
+using Bolnica.DTO.Sekretar;
+using Bolnica.Forms;
 using Bolnica.Model.Pregledi;
 using Bolnica.Repository.Pregledi;
 using Model.Korisnici;
@@ -24,119 +28,70 @@ namespace Bolnica.Sekretar
     /// </summary>
     public partial class FormAlergeniDodaj : Window
     {
-        public static ObservableCollection<Sastojak> SviAlergeni { get; set; }
-        public static ObservableCollection<Sastojak> DodatiAlergeni { get; set; }
-        private FileRepositorySastojak storage;
+        public static ObservableCollection<SastojakDTO> SviAlergeni { get; set; }
+        public static ObservableCollection<SastojakDTO> DodatiAlergeni { get; set; }
+        private SastojakController sastojakController;
+        private PacijentController pacijentController;
 
         public FormAlergeniDodaj(TextBox txtJMBG)
         {
             InitializeComponent();
-            dataGridAlergeniDodati.DataContext = this;
-            dataGridAlergeniSvi.DataContext = this;
-            SviAlergeni = new ObservableCollection<Sastojak>();
-            DodatiAlergeni = new ObservableCollection<Sastojak>();
-            storage = new FileRepositorySastojak();
-            
-            List<Sastojak> alergeni = storage.GetAll();
-            List<Sastojak> dodati = new List<Sastojak>();
+            sastojakController = new SastojakController();
+            pacijentController = new PacijentController();
+            InicijalizujGUI(txtJMBG);
+        }
 
-            for (int i = 0; i < FormSekretar.RedovniPacijenti.Count; i++)
-                if(String.Equals(txtJMBG.Text, FormSekretar.RedovniPacijenti[i].Pacijent.Jmbg))
-                {
-                    if (FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.RedovniPacijenti[i].Pacijent.Alergeni)
-                        {
-                            foreach(Sastojak sas in alergeni)
-                                if(sas.Id == s.Id) 
-                                {
-                                    DodatiAlergeni.Add(sas);
-                                    dodati.Add(sas);
-                                }
-                        }
-                    break;
-                }
-
-            for (int i = 0; i < FormSekretar.GostiPacijenti.Count; i++)
-                if (String.Equals(txtJMBG.Text, FormSekretar.GostiPacijenti[i].Pacijent.Jmbg))
-                {
-                    if (FormSekretar.GostiPacijenti[i].Pacijent.Alergeni != null)
-                        foreach (Sastojak s in FormSekretar.GostiPacijenti[i].Pacijent.Alergeni)
-                        {
-                            foreach (Sastojak sas in alergeni)
-                                if (sas.Id == s.Id)
-                                {
-                                    DodatiAlergeni.Add(sas);
-                                    dodati.Add(sas);
-                                }
-                        }
-                    break;
-                }
-
-            foreach (Sastojak s in alergeni)
-                SviAlergeni.Add(s);
-
-            for (int i = alergeni.Count - 1; i >= 0; i--)
-                for (int j = 0; j < dodati.Count; j++)
-                    if (String.Equals(alergeni[i].Naziv, dodati[j].Naziv))
-                        SviAlergeni.RemoveAt(i);
+        private void InicijalizujGUI(TextBox txtJMBG) 
+        {
+            this.DataContext = this;
+            PacijentDTO pacijentDTO = pacijentController.GetPacijentByID(txtJMBG.Text);
+            DodatiAlergeni = new ObservableCollection<SastojakDTO>(sastojakController.GetDodatiAlergeni(pacijentDTO));
+            List<SastojakDTO> dodatiAlergeni = new List<SastojakDTO>(sastojakController.GetDodatiAlergeni(pacijentDTO));
+            SviAlergeni = new ObservableCollection<SastojakDTO>(sastojakController.GetSviAlergeni(dodatiAlergeni));
         }
 
         private void Button_Clicked_Dodaj(object sender, RoutedEventArgs e)
         {
-            List<Sastojak> alergeni = new List<Sastojak>();
             if (dataGridAlergeniSvi.SelectedItems.Count == 0)
-            {
-                MessageBoxResult result = MessageBox.Show("Niste odabrali alergen za dodavanje.",
-                                          "Dodavanje alergena",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-            }
+                MessageBox.Show("Niste odabrali alergen za dodavanje.", "Dodavanje alergena", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-            {
-                for (int i = 0; i < dataGridAlergeniSvi.SelectedItems.Count; i++)
-                {
-                    Sastojak s = (Sastojak)dataGridAlergeniSvi.SelectedItems[i];
-                    alergeni.Add(s);
-                }
-                foreach (Sastojak s in alergeni) 
-                {
-                    SviAlergeni.Remove(s);
-                    DodatiAlergeni.Add(s);
-                }
+                DodajAlergene();
+        }
 
-                btnUkloni.IsEnabled = true;
-                if (SviAlergeni.Count == 0)
-                    btnDodaj.IsEnabled = false;
+        private void DodajAlergene() 
+        {
+            for (int i = 0; i < dataGridAlergeniSvi.SelectedItems.Count; i++)
+            {
+                SastojakDTO s = (SastojakDTO)dataGridAlergeniSvi.SelectedItems[i];
+                SviAlergeni.Remove(s);
+                DodatiAlergeni.Add(s);
             }
+
+            btnUkloni.IsEnabled = true;
+            if (SviAlergeni.Count == 0)
+                btnDodaj.IsEnabled = false;
         }
 
         private void Button_Clicked_Ukloni(object sender, RoutedEventArgs e)
         {
-            List<Sastojak> alergeni = new List<Sastojak>();
-            if (dataGridAlergeniDodati.SelectedItems.Count == 0) 
-            {
-                MessageBoxResult result = MessageBox.Show("Niste odabrali alergen za uklanjanje.",
-                                          "Uklanjanje alergena",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-            }
+            if (dataGridAlergeniDodati.SelectedItems.Count == 0)
+                MessageBox.Show("Niste odabrali alergen za uklanjanje.", "Uklanjanje alergena", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-            {
-                for (int i = 0; i < dataGridAlergeniDodati.SelectedItems.Count; i++)
-                {
-                    Sastojak s = (Sastojak)dataGridAlergeniDodati.SelectedItems[i];
-                    alergeni.Add(s);
-                }
-                foreach (Sastojak s in alergeni)
-                {
-                    DodatiAlergeni.Remove(s);
-                    SviAlergeni.Add(s);
-                }
+                UkloniAlergene();
+        }
 
-                btnDodaj.IsEnabled = true;
-                if (DodatiAlergeni.Count == 0)
-                    btnUkloni.IsEnabled = false;
+        private void UkloniAlergene() 
+        {
+            for (int i = 0; i < dataGridAlergeniDodati.SelectedItems.Count; i++)
+            {
+                SastojakDTO s = (SastojakDTO)dataGridAlergeniDodati.SelectedItems[i];
+                DodatiAlergeni.Remove(s);
+                SviAlergeni.Add(s);
             }
+
+            btnDodaj.IsEnabled = true;
+            if (DodatiAlergeni.Count == 0)
+                btnUkloni.IsEnabled = false;
         }
 
         private void Potvrdi(object sender, RoutedEventArgs e)

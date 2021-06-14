@@ -1,4 +1,5 @@
-﻿using Bolnica.Model.Prostorije;
+﻿using Bolnica.Localization;
+using Bolnica.Model.Prostorije;
 using Bolnica.Services.Prostorije;
 using Model.Prostorije;
 using System;
@@ -20,10 +21,20 @@ namespace Bolnica.Forms.Upravnik
     /// </summary>
     public partial class FormDatumPremestanja : Window
     {
-        private ServiceBuducaZaliha serviceBuducaZaliha = new ServiceBuducaZaliha();
+        private Injector inject;
+        public Injector Inject
+        {
+            get { return inject; }
+            set
+            {
+                inject = value;
+            }
+        }
         public FormDatumPremestanja()
         {
+            Inject = new Injector();
             InitializeComponent();
+            Title = LocalizedStrings.Instance["Unos datuma premeštanja statičke opreme"];
         }
 
         private void Button_Click_Potvrdi(object sender, RoutedEventArgs e)
@@ -38,15 +49,14 @@ namespace Bolnica.Forms.Upravnik
             }
 
             ObrisiBuduceZaliheIzabranogDatuma(sifraOpreme, datePickerDatum.SelectedDate.Value);
-
-            serviceBuducaZaliha.SacuvajBuduceZalihe(buduceZalihe);
+            Inject.ControllerBuducaZaliha.SacuvajBuduceZalihe(buduceZalihe);
 
             Close();
         }
 
         private void ObrisiBuduceZaliheIzabranogDatuma(string sifraOpreme, DateTime datum)
         {
-            serviceBuducaZaliha.ObrisiBuduceZaliheOpreme(sifraOpreme, datum);
+            Inject.ControllerBuducaZaliha.ObrisiBuduceZaliheOpremeZaDatum(sifraOpreme, datum);
         }
 
         private BuducaZaliha NapraviBuducuZalihu(Zaliha z)

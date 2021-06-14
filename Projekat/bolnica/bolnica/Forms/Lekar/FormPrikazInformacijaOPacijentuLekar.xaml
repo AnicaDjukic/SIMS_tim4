@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:local="clr-namespace:Bolnica"
         mc:Ignorable="d"
-        Title="FormPrikazInformacijaOPacijentuLekar" Height="670" Width="630" >
+        Title="Informacije o pacijentu" Height="670" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FF7EA6BC">
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}" />
     </Window.InputBindings>
@@ -14,12 +14,18 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#FF34FFF4"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"></Setter>
         </Style>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -27,68 +33,334 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF34FFF4">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Label Content="Guest nalog:" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Ime:" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Prezime:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Pol:" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="JMBG:" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Datum rodjenja:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Adresa stanovanja:" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Broj telefona:" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="Email adresa:" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        
-        <Label Visibility="{Binding vidljiv}" Name="korisnickoIme" Content="Korisnicko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label  Name="alergeni" Content="Alergeni:" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding vidljiv}" Name="zanimanje" Content="Zanimanje:" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding vidljiv}" Name="bracniStatus" Content="Bracni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding vidljiv}" Name="osiguranje" Content="Osiguranje:" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        
-        <CheckBox IsChecked="{Binding gost}" IsEnabled="False" Name="checkGuest" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding ime}" Name="ime" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding prezime}" Name="prezime" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding pol}" Name="pol" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding jmbg}" Name="jmbg" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding datumR}" Name="datumRodjenja" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding adresaS}" Name="adresaStanovanja" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding brojTel}" Name="brojTelefona" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Content="{Binding emailAdresa}" Name="emailAdresa" Grid.ColumnSpan="3"  Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+    <TabControl TabStripPlacement="Left" >
 
-        <Label Visibility="{Binding vidljiv}" Content="{Binding korisnickoIme}" Name="korisnickoIme2" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <ListBox ItemsSource="{Binding alergeni}" IsEnabled="False" Grid.RowSpan="2"  FontFamily="Adobe Caslon Pro Bold" FontSize="16"  MinWidth="100" Name="alergeni2" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding vidljiv}" Content="{Binding zanimanje}" Name="zanimanje2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Label Visibility="{Binding vidljiv}" Content="{Binding bracniStatus}" Name="bracniStatus2" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <CheckBox Visibility="{Binding vidljiv}" IsChecked="{Binding osiguranje}" IsEnabled="False" Name="osiguranje2" Grid.Column="2" Grid.Row="15" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-        <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
-                          Content="Zatvori" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" HorizontalAlignment="Center"  VerticalAlignment="Center" />
-        <Label FontSize="12" Content="Ctrl+Q" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        
-    </Grid>
+
+        <TabControl.Resources>
+            <Style TargetType="{x:Type TabItem}" x:Key="PrviTab" >
+                <Setter Property="Header">
+                    <Setter.Value>
+
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/InformacijePacijent.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+                        </Image>
+                    </Setter.Value>
+
+                </Setter>
+
+                <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image  MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/InformacijePacijent.png" />
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TabItem}" x:Key="DrugiTab" >
+                <Setter Property="Header">
+                    <Setter.Value>
+
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/Hospitalizacija.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+
+                        </Image>
+
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/Hospitalizacija.png"/>
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TabItem}" x:Key="TreciTab" >
+                <Setter Property="Header">
+                    <Setter.Value>
+
+                        <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarIstorija.png" Opacity="0.9" >
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+
+                        </Image>
+
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Padding" Value="3" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Header">
+                            <Setter.Value>
+
+                                <Image MinWidth="60" MinHeight="60" MaxWidth="60" MaxHeight="60" Source="/Resources/LekarIstorija.png"/>
+
+                            </Setter.Value>
+
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </TabControl.Resources>
+        <TabItem Name="InformacijeTab" Style="{StaticResource PrviTab}" >
+            <Grid Background="#FF7EA6BC">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="Guest nalog:" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Ime:" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Prezime:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Pol:" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="JMBG:" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Datum rođenja:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Adresa stanovanja:" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="Broj telefona:" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="E-mail adresa:" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                <Label Visibility="{Binding vidljiv}" Name="korisnickoIme" Content="Korisničko ime:" Grid.Column="1" Grid.Row="12" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label  Name="alergeni" Content="Alergeni:" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Name="zanimanje" Content="Zanimanje:" Grid.Column="1" Grid.Row="13" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Name="bracniStatus" Content="Bračni status:" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Name="osiguranje" Content="Osiguranje:" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                <CheckBox IsChecked="{Binding gost}" IsEnabled="False" Name="checkGuest" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding ime}" Name="ime" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding prezime}" Name="prezime" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding pol}" Name="pol" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding jmbg}" Name="jmbg" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding datumR}" Name="datumRodjenja" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding adresaS}" Name="adresaStanovanja" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding brojTel}" Name="brojTelefona" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Content="{Binding emailAdresa}" Name="emailAdresa"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                <Label Visibility="{Binding vidljiv}" Content="{Binding korisnickoIme}" Name="korisnickoIme2" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <ListBox ItemsSource="{Binding alergeni}" IsEnabled="False" Grid.RowSpan="2"  FontFamily="Adobe Caslon Pro Bold" FontSize="16"  MinWidth="100" Name="alergeni2" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Content="{Binding zanimanje}" Name="zanimanje2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Label Visibility="{Binding vidljiv}" Content="{Binding bracniStatus}" Name="bracniStatus2" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <CheckBox Visibility="{Binding vidljiv}" IsChecked="{Binding osiguranje}" IsEnabled="False" Name="osiguranje2" Grid.Column="2" Grid.Row="15" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
+                          Content="Zatvori" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" HorizontalAlignment="Center"  VerticalAlignment="Center" MinHeight="50" MinWidth="100" />
+                <Label FontSize="12" Content="Ctrl+Q" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+            </Grid>
+        </TabItem>
+        <TabItem  local:FocusExtension.IsFocused="{Binding Path=SkociNaTab,Mode=TwoWay}" Name="HospitalizacijaTab" Style="{StaticResource DrugiTab}" >
+            <TabItem.InputBindings>
+                <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding Path=HospitalizujKomanda}"/>
+                <KeyBinding Key="H" Modifiers="Ctrl" Command="{Binding Path=IzmeniKomanda}"/>
+            </TabItem.InputBindings>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid Background="White" IsEnabled="False" Name="dataGridHospitalizacija" RowHeaderWidth="0" MinRowHeight="30" ItemsSource="{Binding Hospitalizacije}" Grid.RowSpan="14" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid.InputBindings>
+                       
+                    </DataGrid.InputBindings>
+                    <DataGrid.Resources>
+
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#1176ae"></Setter>
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                            <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                            <Setter Property="BorderBrush" Value="black"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="Background" Value="#FF7EA6BC"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Datum primanja" Binding="{Binding DatumPocetka, StringFormat='dd.MM.yyyy'}"  MinWidth="75"  Width="140"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum otpuštanja" Binding="{Binding DatumZavrsetka, StringFormat='dd.MM.yyyy'}" MinWidth="75"  Width="140"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Broj sobe" Binding="{Binding Prostorija.BrojProstorije, StringFormat='dd.MM.yyyy'}" MinWidth="75" Width="80"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Razlog" Binding="{Binding Razlog}" MinWidth="75" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button local:FocusExtension.IsFocused="{Binding Path=SkociNaHospitalizuj,Mode=TwoWay}" Name="HospitalizacijaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Grid.RowSpan="2" Content="Hospitalizuj " MinHeight="50" MinWidth="100" MaxHeight="50" MaxWidth="100"  BorderBrush="#FF1E93F4" Command="{Binding Path=HospitalizujKomanda}">
+                </Button>
+                <Button Name="HospitalizacijaIzmeniDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.Row="15" Grid.RowSpan="2" Content="Izmeni " Grid.ColumnSpan="2" MinHeight="50" MinWidth="100" MaxHeight="50" MaxWidth="100"  BorderBrush="#FF1E93F4" Command="{Binding Path=IzmeniKomanda}">
+                </Button>
+                <Button   BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
+                          Content="Zatvori" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="15" Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" MinHeight="50" MinWidth="100" />
+                <Label FontSize="12" Background="White"  Content="Ctrl+Q" Grid.Row="17" Grid.Column="2" Grid.ColumnSpan="2"   HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <Label FontSize="12" Content="Ctrl+P" Background="White" Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Label FontSize="12" Content="Ctrl+H" Background="White" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </Grid>
+        </TabItem>
+        <TabItem Name="IstorijaTab" local:FocusExtension.IsFocused="{Binding Path=SkociNaTabIstorija,Mode=TwoWay}" Style="{StaticResource TreciTab}">
+            <TabItem.InputBindings>
+                <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding Path=AnamnezaKomanda}"/>
+            </TabItem.InputBindings>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid SelectedIndex="{Binding Path=SelektovaniIndeks,Mode=TwoWay}" SelectedValue="{Binding Path=SelektovaniItem,Mode=TwoWay}" Background="White"  Name="dataGridIstorija" RowHeaderWidth="0" MinRowHeight="30" ItemsSource="{Binding Pregledi}" Grid.RowSpan="14" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" AutoGenerateColumns="False" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Path=SkociNaEnterKomanda}"/>
+                        <KeyBinding Key="Left" Command="{Binding Path=SkociNaLevoKomanda}"/>
+                        
+                    </DataGrid.InputBindings>
+                    <DataGrid.Resources>
+
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#1176ae"></Setter>
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                            <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
+                            <Setter Property="BorderBrush" Value="black"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            
+                        </Style>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="Background" Value="#FF7EA6BC"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="White"/>
+                                </Trigger>
+                                
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Header="Vreme" Binding="{Binding Datum, StringFormat='HH:mm'}"   Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat='dd.MM.yyyy'}"   Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Trajanje" Binding="{Binding Trajanje}"  Width="*"></DataGridTextColumn>
+                       
+                        <DataGridTextColumn Header="Prostorija" Binding="{Binding Prostorija.BrojProstorije}"  Width="80"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pregled/operacija" Binding="{Binding TipOperacije,FallbackValue='pregled'}"  Width="*"></DataGridTextColumn>
+                        <DataGridCheckBoxColumn Header="Hitno" Binding="{Binding Hitan}"  Width="50"></DataGridCheckBoxColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button local:FocusExtension.IsFocused="{Binding Path=SkociNaAnamnezu,Mode=TwoWay}" Name="AnamnezaDugme" FontWeight="SemiBold" FontSize="13" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="15" Grid.RowSpan="2" Content="Anamneza " MinHeight="50" MinWidth="100" MaxHeight="50" MaxWidth="100"  BorderBrush="#FF1E93F4" Command="{Binding Path=AnamnezaKomanda}">
+                </Button>
+
+                <Label FontSize="12" Content="Ctrl+N" Background="White" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            </Grid>
+
+        </TabItem>
+    </TabControl>
 </Window>

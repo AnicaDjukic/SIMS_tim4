@@ -1,12 +1,7 @@
 ﻿using Bolnica.Commands;
-using Bolnica.Forms;
-using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
-using Bolnica.Repository.Korisnici;
 using Bolnica.Repository.Pregledi;
-using Bolnica.Repository.Prostorije;
 using Model.Korisnici;
-using Model.Pacijenti;
 using Model.Pregledi;
 using Model.Prostorije;
 using System;
@@ -45,14 +40,6 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private FileRepositoryPregled storagePregledi = new FileRepositoryPregled();
-        private FileRepositoryOperacija storageOperacije = new FileRepositoryOperacija();
-        private FileRepositoryPacijent storagePacijenti = new FileRepositoryPacijent();
-        private FileRepositoryLekar storageLekari = new FileRepositoryLekar();
-        private FileRepositoryProstorija storageProstorija = new FileRepositoryProstorija();
-        private FileRepositoryAnamneza storageAnamneza = new FileRepositoryAnamneza();
-        private FileRepositoryAntiTrol storageAntiTrol = new FileRepositoryAntiTrol();
 
         private List<PrikazPregleda> preglediPrikaz = new List<PrikazPregleda>();
         private List<PrikazOperacije> operacijePrikaz = new List<PrikazOperacije>();
@@ -175,7 +162,6 @@ namespace Bolnica.ViewModel
             Inject = new Injector();
             trenutniPacijent = pacijent;
             PrikazNezavrsenihPregleda = new ObservableCollection<PrikazPregleda>();
-            FormObavestenjaPacijentPage.ObavestenjaZaPacijente = new ObservableCollection<string>();
 
             UcitajPodatke();
             UcitajPreglede(pacijent);
@@ -223,12 +209,12 @@ namespace Bolnica.ViewModel
 
         private void UcitajPodatke()
         {
-            pregledi = storagePregledi.GetAll();
-            operacije = storageOperacije.GetAll();
-            pacijenti = storagePacijenti.GetAll();
-            lekari = storageLekari.GetAll();
-            prostorije = storageProstorija.GetAll();
-            anamneze = storageAnamneza.GetAll();
+            pregledi = inject.RepositoryController.DobijPreglede();
+            operacije = inject.RepositoryController.DobijOperacije();
+            pacijenti = inject.RepositoryController.DobijPacijente();
+            lekari = inject.RepositoryController.DobijLekare();
+            prostorije = inject.RepositoryController.DobijProstorije();
+            anamneze = inject.RepositoryController.DobijAnamneze();
         }
 
         private static PrikazPregleda DobijPrikazPregleda(Pregled pregled)
@@ -362,7 +348,16 @@ namespace Bolnica.ViewModel
 
         public void PrikaziObavestenja()
         {
+            List<PrikazPregleda> lista = new List<PrikazPregleda>();
             foreach (PrikazPregleda prikaz in preglediPrikaz)
+            {
+                lista.Add(prikaz);
+            }
+            foreach (PrikazOperacije prikaz in operacijePrikaz)
+            {
+                lista.Add(prikaz);
+            }
+            foreach (PrikazPregleda prikaz in lista)
             {
                 if (trenutniPacijent.Jmbg.Equals(prikaz.Pacijent.Jmbg) && !prikaz.Pacijent.Guest && prikaz.Zavrsen)
                 {

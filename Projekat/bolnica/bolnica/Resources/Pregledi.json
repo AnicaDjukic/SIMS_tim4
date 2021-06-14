@@ -75,8 +75,8 @@
     "Hitan": false,
     "Anamneza": { "Id": -1 },
     "Lekar": {
-      "Jmbg": "123456789",
-      "KorisnickoIme": "mico"
+      "Jmbg": "090988131533",
+      "KorisnickoIme": "bodi"
     },
     "Prostorija": { "BrojProstorije": "103" },
     "Pacijent": {
@@ -94,23 +94,6 @@
     "Lekar": {
       "Jmbg": "123456789",
       "KorisnickoIme": "mico"
-    },
-    "Prostorija": { "BrojProstorije": "103" },
-    "Pacijent": {
-      "Jmbg": "2512002149573",
-      "KorisnickoIme": "stefo"
-    }
-  },
-  {
-    "Id": 7,
-    "Datum": "2021-07-10T08:45:00",
-    "Trajanje": 30,
-    "Zavrsen": false,
-    "Hitan": false,
-    "Anamneza": { "Id": -1 },
-    "Lekar": {
-      "Jmbg": "234567891",
-      "KorisnickoIme": "mio"
     },
     "Prostorija": { "BrojProstorije": "103" },
     "Pacijent": {
@@ -154,7 +137,7 @@
   },
   {
     "Id": 10,
-    "Datum": "2021-06-10T14:15:00",
+    "Datum": "2021-06-07T16:15:00",
     "Trajanje": 15,
     "Zavrsen": false,
     "Hitan": false,
@@ -171,14 +154,48 @@
   },
   {
     "Id": 11,
-    "Datum": "2021-06-12T11:30:00",
-    "Trajanje": 30,
+    "Datum": "2021-06-08T11:52:00",
+    "Trajanje": 15,
     "Zavrsen": false,
     "Hitan": false,
     "Anamneza": { "Id": -1 },
     "Lekar": {
       "Jmbg": "123456789",
       "KorisnickoIme": "mico"
+    },
+    "Prostorija": { "BrojProstorije": "103" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "Id": 12,
+    "Datum": "2021-06-24T08:45:00",
+    "Trajanje": 30,
+    "Zavrsen": false,
+    "Hitan": false,
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "0303965123456",
+      "KorisnickoIme": "vatro"
+    },
+    "Prostorija": { "BrojProstorije": "103" },
+    "Pacijent": {
+      "Jmbg": "2512002149573",
+      "KorisnickoIme": "stefo"
+    }
+  },
+  {
+    "Id": 13,
+    "Datum": "2021-07-04T17:45:00",
+    "Trajanje": 15,
+    "Zavrsen": false,
+    "Hitan": false,
+    "Anamneza": { "Id": -1 },
+    "Lekar": {
+      "Jmbg": "0303965123456",
+      "KorisnickoIme": "vatro"
     },
     "Prostorija": { "BrojProstorije": "103" },
     "Pacijent": {

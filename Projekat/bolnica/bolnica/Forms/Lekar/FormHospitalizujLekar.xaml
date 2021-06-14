@@ -7,7 +7,7 @@
         xmlns:val="clr-namespace:Bolnica.Validation"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormHospitalizujLekar" Height="400" Width="630" >
+        Title="Hospitalizacija" Height="500" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding Path=PotvrdiKomanda}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding Path=ZatvoriKomanda}"/>
@@ -19,7 +19,7 @@
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontStretch" Value="Medium"/>
-            <Setter Property="Background" Value="#FF34FFF4"/>
+            <Setter Property="Background" Value="#FF7EA6BC"/>
         </Style>
 
         <Style TargetType="ComboBox">
@@ -46,7 +46,7 @@
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#FFD2FCFF"/>
@@ -56,7 +56,7 @@
         <Style TargetType="Button" x:Key="SaveButton">
             <Setter Property="FontFamily" Value="Adobe Caslon Pro Bold"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#FF1E93F4"></Setter>
+            <Setter Property="Background" Value="#1176ae"></Setter>
             <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
@@ -67,13 +67,14 @@
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DatePickerDatumPocetka}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DatePickerDatumZavrsetka}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ComboBoxBrojProstorije}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=textRazlog}" Value="False"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="IsEnabled" Value="True"/>
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="#FF34FFF4">
+    <Grid Background="#FF7EA6BC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -95,7 +96,7 @@
         </Grid.RowDefinitions>
 
 
-        <DatePicker IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPocetka" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
+        <DatePicker MinHeight="28" IsEnabled="False" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumPocetka" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
             <DatePicker.SelectedDate>
                 <Binding Path="datumPocetka" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -114,12 +115,12 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <DatePicker FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumZavrsetka" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70">
+        <DatePicker MinHeight="28" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDateStart="{x:Static sys:DateTime.Today}" Name="DatePickerDatumZavrsetka" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150">
             <DatePicker.SelectedDate>
                 <Binding Path="datumZavrsetka" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -138,12 +139,12 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <ComboBox IsDropDownOpen="{Binding ItemSourceBrojBolnickeSobeComboOtvori,Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojBolnickeSobe, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojProstorije" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="70" >
+        <ComboBox MinHeight="28" IsDropDownOpen="{Binding ItemSourceBrojBolnickeSobeComboOtvori,Mode=TwoWay}" ItemsSource="{Binding ItemSourceBrojBolnickeSobe, Mode=TwoWay}"  IsTextSearchEnabled="True" IsEditable="True" Name="ComboBoxBrojProstorije" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="150" >
             <ComboBox.InputBindings>
                 <KeyBinding
                     Key="Enter" 
@@ -169,19 +170,44 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFBA0808" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
                     </Grid>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </ComboBox>
-        <Label Content="Datum pocetka" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Datum zavrsetka" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="Broj sobe" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Name="textRazlog" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" TextWrapping="Wrap" Width="424" Height="70" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBox.Text>
+                <Binding Path="razlog" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:TextBoxSimptomiValidationRule ValidationStep="RawProposedValue" ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Foreground="#FFF61414" FontFamily="Adobe Caslon Pro Bold" FontSize="14" Text="{Binding [0].ErrorContent}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <Label Content="Datum početka" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Datum završetka" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Broj sobe" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label Content="Razlog     " Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Style="{StaticResource SaveButton}" Command="{Binding Path=PotvrdiKomanda}"
-                         Content="Potvrdi" Grid.Column="1" Grid.Row="6"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55"/>
+                         Content="Potvrdi" Grid.Column="1" Grid.Row="6"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="100" MinHeight="50"/>
         <Button FontSize="13" BorderThickness="2" BorderBrush="#FF1E93F4" Command="{Binding Path=ZatvoriKomanda}"
-                         Content="Odustani" Grid.Column="2" Grid.Row="6"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="55"/>
+                         Content="Odustani" Grid.Column="2" Grid.Row="6"  HorizontalAlignment="Center"  VerticalAlignment="Center" MinWidth="100" MinHeight="50"/>
         <Label FontSize="12" Content="Ctrl+Q" Grid.Row="12" Grid.Column="1"   HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label FontSize="12" Content="Ctrl+W" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>

@@ -12,15 +12,17 @@ namespace Bolnica.Model.Pregledi
         public DateTime DatumPocetka { get; set; }
         public DateTime DatumZavrsetka { get; set; }
         public BolnickaSoba Prostorija { get; set; }
+        public string Razlog { get; set; }
         public Pacijent Pacijent { get; set; }
 
-        public Hospitalizacija(DateTime DatumPocetka,DateTime DatumZavrsetka,int Id,Pacijent Pacijent,BolnickaSoba Prostorija)
+        public Hospitalizacija(DateTime DatumPocetka,DateTime DatumZavrsetka,int Id,Pacijent Pacijent,BolnickaSoba Prostorija,string Razlog)
         {
             this.DatumPocetka = DatumPocetka;
             this.DatumZavrsetka = DatumZavrsetka;
             this.Id = Id;
             this.Pacijent = Pacijent;
             this.Prostorija = Prostorija;
+            this.Razlog = Razlog;
         }
 
         public Hospitalizacija()

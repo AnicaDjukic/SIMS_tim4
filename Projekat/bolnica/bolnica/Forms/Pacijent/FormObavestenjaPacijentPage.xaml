@@ -5,36 +5,54 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bolnica.Forms"
       mc:Ignorable="d" 
-      d:DesignHeight="580" d:DesignWidth="1400"
+      d:DesignHeight="630" d:DesignWidth="1400"
       Title="FormObavestenjaPacijentPage">
 
     <Grid>
-        <DataGrid Name="obavestenjaGrid" ItemsSource="{Binding ObavestenjaZaPacijente}" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Width="600" Height="450" Margin="80,20,0,0" AutoGenerateColumns="False" SelectionUnit="FullRow"
-                  SelectionMode="Single" IsReadOnly="True" Background="LightBlue" RowHeight="60" FontSize="16">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#FF00DFFF"></Setter>
-                    <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                    <Setter Property="BorderThickness" Value="0,0,1,2"></Setter>
-                    <Setter Property="BorderBrush" Value="black"></Setter>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <TextBlock Text="{Binding DanasnjiDatum}" Width="500" Height="50" FontSize="24" FontWeight="SemiBold"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="120,30,0,0"/>
+        <ListView Name="listObavestenjaPacijent" Height="450" Width="600" Margin="80,80,0,0" ItemsSource="{Binding ObavestenjaPacijent}"
+                  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Naslov}" TextWrapping="NoWrap" FontWeight="Bold" FontSize="20"/>
+                            <TextBlock Text="{Binding Sadrzaj}" TextWrapping="Wrap" Width ="380" FontSize="15"/>
+                        </StackPanel>
+
+                        <Label Grid.Column="1" Grid.Row="0" Content=" Datum:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Datum, StringFormat='dd.MM.yyyy'}" TextWrapping="Wrap" Margin="0,5,0,0" VerticalAlignment="Top"/>
+
+                        <Label Grid.Column="1" Grid.Row="0" Content="Vreme:" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Datum, StringFormat='HH:mm'}" VerticalAlignment="Center"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Margin" Value="2,0,0,0"/>
+                    <Setter Property="Padding" Value="0,2"/>
+                    <Setter Property="BorderBrush" Value="LightBlue"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,3"/>
                 </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding }" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataContext.DanasnjiDatum, ElementName=obavestenjaGrid}"></TextBlock>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <ListView Name="listObavestenja" Height="450" Width="600" Margin="0,20,80,0" ItemsSource="{Binding Obavestenja}"
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <TextBlock Text="Obaveštenja od bolnice" Width="500" Height="50" FontSize="24" FontWeight="SemiBold"
+                   VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,120,0"/>
+        <ListView Name="listObavestenja" Height="450" Width="600" Margin="0,80,80,0" ItemsSource="{Binding Obavestenja}"
                   HorizontalAlignment="Right" VerticalAlignment="Top">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -67,7 +85,7 @@
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Margin" Value="2,0,0,0"/>
                     <Setter Property="Padding" Value="0,2"/>
-                    <Setter Property="BorderBrush" Value="Aqua"/>
+                    <Setter Property="BorderBrush" Value="LightBlue"/>
                     <Setter Property="BorderThickness" Value="0,0,0,2"/>
                 </Style>
             </ListView.ItemContainerStyle>

@@ -118,13 +118,74 @@ namespace Bolnica.ViewModel
                 OnPropertyChanged();
             }
         }
-        public DateTime datumIzdavanjaRecepta { get; set; }
-        public string nazivLeka { get; set; }
-        public string dozaLeka { get; set; }
-        public string brojKutijaLeka { get; set; }
-        public string vremeUzimanjaLeka { get; set; }
-        public string proizvodjacLeka { get; set; }
-        public DateTime datumPrekidaRecepta { get; set; }
+        private DateTime datumIzadavanjaRecepta;
+
+        private string nazivLeka;
+        private string dozaLeka;
+        private string brojKutijaLeka;
+        private string vremeUzimanjaLeka;
+        private string proizvodjacLeka;
+        private DateTime datumPrekidaRecepta;
+        public DateTime DatumIzdavanjaRecepta {
+            get { return datumIzadavanjaRecepta; }
+            set {
+                datumIzadavanjaRecepta = value;
+                OnPropertyChanged();
+            } }
+        public string NazivLeka
+        {
+            get { return nazivLeka; }
+            set
+            {
+                nazivLeka = value;
+                OnPropertyChanged();
+            }
+        }
+        public string DozaLeka
+        {
+            get { return dozaLeka; }
+            set
+            {
+                dozaLeka = value;
+                OnPropertyChanged();
+            }
+        }
+        public string BrojKutijaLeka
+        {
+            get { return brojKutijaLeka; }
+            set
+            {
+                brojKutijaLeka = value;
+                OnPropertyChanged();
+            }
+        }
+        public string VremeUzimanjaLeka
+        {
+            get { return vremeUzimanjaLeka; }
+            set
+            {
+                vremeUzimanjaLeka = value;
+                OnPropertyChanged();
+            }
+        }
+        public string ProizvodjacLeka
+        {
+            get { return proizvodjacLeka; }
+            set
+            {
+                proizvodjacLeka = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime DatumPrekidaRecepta
+        {
+            get { return datumPrekidaRecepta; }
+            set
+            {
+                datumPrekidaRecepta = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Pacijent trenutniPacijent = new Pacijent();
 
@@ -145,6 +206,27 @@ namespace Bolnica.ViewModel
 
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
         private RelayCommand proizvodjacComboOtvoriKomanda;
         public RelayCommand ProizvodjacComboOtvoriKomanda
         {
@@ -180,7 +262,7 @@ namespace Bolnica.ViewModel
         public void Executed_ProizvodjacComboTabKomanda(object obj)
         {
 
-            ItemSourceNazivLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabProizvodjac(new ReceptLekarDTO(proizvodjacLeka, sviLekovi));
+            ItemSourceNazivLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabProizvodjac(new ReceptLekarDTO(ProizvodjacLeka, sviLekovi));
             ItemSourceProizvodjacComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -227,7 +309,7 @@ namespace Bolnica.ViewModel
         public void Executed_LekComboTabKomanda(object obj)
         {
 
-            ItemSourceDozaLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabLek(new ReceptLekarDTO(nazivLeka, sviLekovi,proizvodjacLeka));
+            ItemSourceDozaLeka = inject.ReceptLekarController.OtvoriIFiltirajNaTabLek(new ReceptLekarDTO(NazivLeka, sviLekovi,ProizvodjacLeka));
             ItemSourceNazivLekaComboOpen = false;
             TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Next);
             (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
@@ -320,9 +402,9 @@ namespace Bolnica.ViewModel
 
         public void Executed_DodajReceptKomanda(object obj)
         {
-            if (!inject.ReceptLekarController.PacijentAlergicanNaLek(new ReceptLekarDTO(trenutniPacijent,proizvodjacLeka,nazivLeka,dozaLeka,sviLekovi)))
+            if (!inject.ReceptLekarController.PacijentAlergicanNaLek(new ReceptLekarDTO(trenutniPacijent,ProizvodjacLeka,NazivLeka,DozaLeka,sviLekovi)))
             {
-                inject.ReceptLekarController.Potvrdi(new ReceptLekarDTO(nazivLeka,dozaLeka,sviLekovi,datumIzdavanjaRecepta.ToString(),brojKutijaLeka,vremeUzimanjaLeka,datumPrekidaRecepta.ToString()));
+                inject.ReceptLekarController.Potvrdi(new ReceptLekarDTO(NazivLeka,DozaLeka,sviLekovi,DatumIzdavanjaRecepta.ToString(),BrojKutijaLeka,VremeUzimanjaLeka,DatumPrekidaRecepta.ToString()));
                 ZatvoriAkcija();
             }
 
@@ -391,20 +473,20 @@ namespace Bolnica.ViewModel
 
         public void PrikaziInformacije(Recept postojeci)
         {
-            datumIzdavanjaRecepta = postojeci.DatumIzdavanja;
+            DatumIzdavanjaRecepta = postojeci.DatumIzdavanja;
 
             for (int i = 0; i < sviLekovi.Count; i++)
             {
                 if (sviLekovi[i].Id.Equals(postojeci.Lek.Id))
                 {
-                    nazivLeka = sviLekovi[i].Naziv;
-                    dozaLeka = sviLekovi[i].KolicinaUMg.ToString();
-                    proizvodjacLeka = sviLekovi[i].Proizvodjac;
+                    NazivLeka = sviLekovi[i].Naziv;
+                    DozaLeka = sviLekovi[i].KolicinaUMg.ToString();
+                    ProizvodjacLeka = sviLekovi[i].Proizvodjac;
                 }
             }
-            brojKutijaLeka = postojeci.Kolicina.ToString();
-            vremeUzimanjaLeka = postojeci.VremeUzimanja.ToString();
-            datumPrekidaRecepta = postojeci.Trajanje;
+            BrojKutijaLeka = postojeci.Kolicina.ToString();
+            VremeUzimanjaLeka = postojeci.VremeUzimanja.ToString();
+            DatumPrekidaRecepta = postojeci.Trajanje;
         }
 
         public void NapraviKomande()
@@ -418,6 +500,7 @@ namespace Bolnica.ViewModel
             VremeUzimanjaComboOtvoriKomanda = new RelayCommand(Executed_VremeUzimanjaComboOtvoriKomanda, CanExecute_VremeUzimanjaComboOtvoriKomanda);
             BrojKutijaComboOtvoriKomanda = new RelayCommand(Executed_BrojKutijaComboOtvoriKomanda, CanExecute_BrojKutijaComboOtvoriKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
         }
         public void FiltrirajLekove()
         {
@@ -438,8 +521,8 @@ namespace Bolnica.ViewModel
             PopuniComboBoxProizvodjac();
             PopuniComboBoxVremeUzimanja();
             PopuniComboBoxBrojKutija();
-            datumIzdavanjaRecepta = DateTime.Now;
-            datumPrekidaRecepta = DateTime.Now;
+            DatumIzdavanjaRecepta = DateTime.Now;
+            DatumPrekidaRecepta = DateTime.Now;
         }
        
         public void PopuniComboBoxLek()

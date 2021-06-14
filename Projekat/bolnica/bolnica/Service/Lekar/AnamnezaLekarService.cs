@@ -9,6 +9,7 @@ using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -194,8 +195,20 @@ namespace Bolnica.Services
         {
             if (anamnezaDTO.selektovaniIndeks > -1)
             {
-                int index = anamnezaDTO.selektovaniIndeks;
-                AnamnezaLekarViewModel.Recepti.RemoveAt(index);
+                if (MessageBox.Show("Da li ste sigurni", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    
+                }
+                else
+                {
+                    int index = anamnezaDTO.selektovaniIndeks;
+                    AnamnezaLekarViewModel.Recepti.RemoveAt(index);
+                }
+               
+            }
+            else
+            {
+                MessageBox.Show("Odaberite lek");
             }
         }
         public void ZakaziPregled(AnamnezaLekarDTO anamnezaDTO)
@@ -212,6 +225,10 @@ namespace Bolnica.Services
                 ReceptLekarViewModel vm = new ReceptLekarViewModel(anamnezaDTO.trenutniPacijent, PretvoriPrikazReceptaURecept(anamnezaDTO));
                 FormVidiReceptLekar form = new FormVidiReceptLekar(vm);
             }
+            else
+            {
+                MessageBox.Show("Odaberite lek");
+            }
         }
 
         private Recept PretvoriPrikazReceptaURecept(AnamnezaLekarDTO anamnezaDTO)
@@ -225,13 +242,7 @@ namespace Bolnica.Services
 
         
 
-        public void ZaustaviStrelice(AnamnezaLekarDTO anamnezaDTO)
-        {
 
-
-            anamnezaDTO.ScroolBar.ScrollToVerticalOffset(20);
-            
-        }
 
             
     }

@@ -27,8 +27,6 @@ namespace Bolnica.Forms
         public FormIzmeniTerminLekar(TerminLekarViewModel viewModel)
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
             this.DataContext = viewModel;
             if (viewModel.CloseAction == null)
                 viewModel.CloseAction = new Action(this.Close);

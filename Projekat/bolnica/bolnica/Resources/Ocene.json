@@ -28,11 +28,11 @@
   },
   {
     "IdOcene": 2,
-    "Datum": "2021-05-07T15:47:12",
-    "BrojOcene": 4,
-    "Sadrzaj": "Jedna od boljih bolnica u kojoj sam se lecio.",
+    "Datum": "2021-06-13T21:27:17.3274177+02:00",
+    "BrojOcene": 5,
+    "Sadrzaj": "Najbolja bolnica na svijetu. Sve najbolje. Topla preporuka.",
     "Pregled": {
-      "Id": 2,
+      "Id": -1,
       "Anamneza": { "Id": 0 },
       "Lekar": {
         "Jmbg": null,
@@ -49,8 +49,8 @@
       "KorisnickoIme": "stefo"
     },
     "Lekar": {
-      "Jmbg": "null",
-      "KorisnickoIme": "null"
+      "Jmbg": null,
+      "KorisnickoIme": null
     }
   }
 ]

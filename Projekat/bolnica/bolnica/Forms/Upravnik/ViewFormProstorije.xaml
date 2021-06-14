@@ -4,27 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="Bolnica"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:dislocal1="clr-namespace:Bolnica.Model.Prostorije"
         mc:Ignorable="d"
-        Title="Prikaz prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" Background="#BFF7F7">
+        Title="Prikaz prostorije" Height="380" Width="340" WindowStartupLocation="CenterScreen" Background="{DynamicResource BackgroundColor}">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Foreground" Value="MediumPurple"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                        <GradientStop Color="#C6BBF4" Offset="0.2"/>
-                        <GradientStop Color="#D0C8F9" Offset="0.85"/>
-                        <GradientStop Color="#9783E8" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property ="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="#D0C8F9"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -32,33 +25,8 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9783E8"/>
         </Grid.Resources>
         <StackPanel>
-            <TabControl Height="300" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
-                                        <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#D0C8F9"/>
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="INFORMACIJE">
+            <TabControl Height="300" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{DynamicResource TabControlStyle}" BorderBrush="MediumPurple">
+                <TabItem Header="{lex:Loc InformacijeTabItem}" Style="{DynamicResource TabItemStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
@@ -74,13 +42,13 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Broj prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="Sprat:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Kvadratura:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Tip prostorije:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Zauzeta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row ="5" Grid.Column="0" x:Name="lblUkBrojKreveta" Content="Ukupan broj kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                        <Label Grid.Row="6" Grid.Column="0" x:Name="lblBrojSlobodnihKreveta" Content="Broj slobodnih kreveta:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label  Name="BrojProstorijeLabel" Content="{lex:Loc}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="SpratLabel" Content="{lex:Loc}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="KvadraturaLabel" Content="{lex:Loc}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="TipProstorijeLabel" Content="{lex:Loc}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label Name="ZauzetaLabel" Content="{lex:Loc}" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label x:Name="lblUkBrojKreveta" Content="{lex:Loc}" Grid.Row ="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Label x:Name="lblBrojSlobodnihKreveta" Content="{lex:Loc}" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
                         <Label x:Name="lblBrojProstorije" Grid.Row="0" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
                         <Label x:Name="lblSprat" Grid.Row="1" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
@@ -91,20 +59,20 @@
                         <Label x:Name="lblBrSlobodnihKreveta" Grid.Row="6" Grid.Column="1" Margin ="10,0,0,0" VerticalAlignment="Center"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="OPREMA">
-                    <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaSobe}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="300" HeadersVisibility="Column">
+                <TabItem Header="{lex:Loc OpremaTabItem}" Style="{DynamicResource TabItemStyle}">
+                    <DataGrid x:Name="dataGridOpremaProstorije" ItemsSource="{Binding OpremaProstorije}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="300" HeadersVisibility="Column" FontSize="13" RowStyle="{DynamicResource DataGridRowStyle}" Style="{DynamicResource DataGridStyle}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="Sifra" Header="ŠIFRA" Binding="{Binding Oprema.Sifra}" Width="auto"/>
-                            <DataGridTextColumn Header="NAZIV" Binding="{Binding Oprema.Naziv}" Width="*"/>
-                            <DataGridComboBoxColumn Header="TIP OPREME" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal1:TipOpreme}}}" SelectedValueBinding="{Binding Oprema.TipOpreme}" Width="*"/>
-                            <DataGridTextColumn Header="KOLIČINA" Binding="{Binding Kolicina}" Width="*"/>
+                            <DataGridTextColumn x:Name="Sifra" Header="{lex:Loc SifraDataGrid}" Binding="{Binding Oprema.Sifra}" Width="auto"/>
+                            <DataGridTextColumn Header="{lex:Loc NazivDataGrid}" Binding="{Binding Oprema.Naziv}" Width="*"/>
+                            <DataGridComboBoxColumn Header="{lex:Loc TipOpremeDataGrid}" ItemsSource="{Binding Source={dislocal1:EnumBindingSourceExtension {x:Type dislocal1:TipOpreme}}}" SelectedValueBinding="{Binding Oprema.TipOpreme}" Width="*"/>
+                            <DataGridTextColumn Header="{lex:Loc KolicinaDataGrid}" Binding="{Binding Kolicina}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
             </TabControl>
 
-            <Button Content="Zatvori" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Width="50" Click="Button_Click"/>
+            <Button Name="btnZatvori" Content="{lex:Loc}" HorizontalAlignment="Center" Margin="0,10,0,0" Height="25" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
 
         </StackPanel>
     </Grid>

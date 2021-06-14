@@ -1,12 +1,17 @@
 ﻿using Bolnica.Commands;
 using Bolnica.DTO;
+using Bolnica.Forms;
 using Bolnica.Model.Korisnici;
 using Bolnica.Model.Pregledi;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using Model.Korisnici;
 using Model.Pregledi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +22,16 @@ namespace Bolnica.ViewModel
     public class AnamnezaLekarViewModel : ViewModel
     {
         #region POLJA
-        public string simptomi { get; set; }
-        public string dijagnoza { get; set; }
+
+        private string simptomi;
+
+        private string dijagnoza;
+        public string Simptomi { get { return simptomi; }
+            set { simptomi = value; OnPropertyChanged(); } }
+        public string Dijagnoza {
+            get { return dijagnoza; }
+            set { dijagnoza = value; OnPropertyChanged(); }
+        }
 
         public List<PrikazRecepta> recepti { get; set; }
         private bool DaLiPostojiAnamneza = false;
@@ -35,7 +48,6 @@ namespace Bolnica.ViewModel
         private List<Anamneza> sveAnamneze = new List<Anamneza>();
         private int idAnamneze;
         private bool DaLiJePregled = false;
-        public ScrollViewer ScrollBar;
 
         public static ObservableCollection<PrikazRecepta> Recepti
         {
@@ -64,16 +76,6 @@ namespace Bolnica.ViewModel
             }
         }
 
-        private bool fokusirajZatvoriDugme;
-        public bool FokusirajZatvoriDugme
-        {
-            get { return fokusirajZatvoriDugme; }
-            set
-            {
-                fokusirajZatvoriDugme = value;
-                OnPropertyChanged();
-            }
-        }
 
         private PrikazRecepta selektovaniItem;
         public PrikazRecepta SelektovaniItem
@@ -82,6 +84,17 @@ namespace Bolnica.ViewModel
             set
             {
                 selektovaniItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool fokusirajZatvoriDugme;
+        public bool FokusirajZatvoriDugme
+        {
+            get { return fokusirajZatvoriDugme; }
+            set
+            {
+                fokusirajZatvoriDugme = value;
                 OnPropertyChanged();
             }
         }
@@ -98,6 +111,50 @@ namespace Bolnica.ViewModel
         }
         #endregion
         #region KOMANDE
+        private RelayCommand demoOtkaziKomanda;
+        public RelayCommand DemoOtkaziKomanda
+        {
+            get { return demoOtkaziKomanda; }
+            set
+            {
+                demoOtkaziKomanda = value;
+
+            }
+        }
+
+        public void Executed_DemoOtkaziKomanda(object obj)
+        {
+            LekarViewModel.prekidaj = true;
+        }
+
+        public bool CanExecute_DemoOtkaziKomanda(object obj)
+        {
+            return true;
+        }
+
+        private RelayCommand fokusirajDole;
+        public RelayCommand FokusirajDole
+        {
+            get { return fokusirajDole; }
+            set
+            {
+                fokusirajDole = value;
+
+            }
+        }
+
+        public void Executed_FokusirajDole(object obj)
+        {
+            FokusirajZatvoriDugme = true;
+            
+        }
+
+        public bool CanExecute_FokusirajDole(object obj)
+        {
+            return true;
+        }
+
+
         private RelayCommand obrisiReceptKomanda;
         public RelayCommand ObrisiReceptKomanda
         {
@@ -118,6 +175,111 @@ namespace Bolnica.ViewModel
         {
             return true;
         }
+
+        private RelayCommand izvestajKomanda;
+        public RelayCommand IzvestajKomanda
+        {
+            get { return izvestajKomanda; }
+            set
+            {
+                izvestajKomanda = value;
+
+            }
+        }
+
+        public void Executed_IzvestajKomanda(object obj)
+        {
+            /* IzvestajLekarViewModel vm = new IzvestajLekarViewModel(Simptomi, Dijagnoza);
+             FormIzvestajLekar form = new FormIzvestajLekar(vm); */
+            PdfPTable pdfTable = new PdfPTable(4) {  WidthPercentage = 100 }; 
+            float[] widths = new float[] { 150f, 150f, 150f, 150f};
+            pdfTable.SetWidths(widths);
+            pdfTable.DefaultCell.Padding = 3;
+            pdfTable.WidthPercentage = 80;
+            pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfTable.DefaultCell.BorderWidth = 1;
+ 
+            PdfPCell cell = new PdfPCell(new Phrase("Naziv", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Datum prepisivanja", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Datum prekida", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Vreme", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24)));
+            cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+            pdfTable.AddCell(cell);
+            Paragraph anamnezaText = new Paragraph("Anamneza", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,  30));
+            Paragraph separator = new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------------------------------", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22));
+            Paragraph text = new Paragraph("Simptomi:   " + Simptomi, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph lekoviText = new Paragraph("Lekovi/terapije", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA,  30));
+            Paragraph text1 = new Paragraph("Dijagnoza:   " + Dijagnoza, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph p = new Paragraph("\n", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            Paragraph potpis = new Paragraph("Potpis doktora:_____________________________  ", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 24));
+            
+
+
+            anamnezaText.Alignment = Element.ALIGN_CENTER;
+            separator.Alignment = Element.ALIGN_CENTER;
+            //text.Alignment = Element.ALIGN_CENTER;
+            lekoviText.Alignment = Element.ALIGN_CENTER;
+            //text1.Alignment = Element.ALIGN_CENTER;
+            foreach (PrikazRecepta row in Recepti)
+            {
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.lek.Naziv, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.DatumIzdavanja.ToShortDateString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.Trajanje.ToShortDateString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+                pdfTable.AddCell(new PdfPCell(new Phrase(row.VremeUzimanja.ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 22))));
+            }
+
+            //Exporting to PDF
+            string folderPath = "C:\\Users\\Minja\\Documents\\GitHub\\SIMS_tim4\\Projekat\\bolnica\\bolnica\\Izvestaji\\";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+           
+            using (FileStream stream = new FileStream(folderPath + trenutniPacijent.KorisnickoIme+DateTime.Now.Hour+DateTime.Now.Minute+DateTime.Now.Second+".pdf", FileMode.Create))
+            {
+                Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 10f, 0f);
+                PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                pdfDoc.Add(anamnezaText);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(text);
+                pdfDoc.Add(text1);
+                pdfDoc.Add(p);
+                pdfDoc.Add(separator);
+                pdfDoc.Add(p);
+                pdfDoc.Add(lekoviText);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+
+                pdfDoc.Add(pdfTable);
+
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                pdfDoc.Add(p);
+                
+                pdfDoc.Add(potpis);
+
+                pdfDoc.Close();
+                stream.Close();
+                MessageBox.Show("Izvestaj je uspesno istampan u pdf");
+            }
+            
+
+        }
+
+        public bool CanExecute_IzvestajKomanda(object obj)
+        {
+            return true;
+        }
+
 
         private RelayCommand zakaziPregledKomanda;
         public RelayCommand ZakaziPregledKomanda
@@ -217,7 +379,7 @@ namespace Bolnica.ViewModel
 
         public void Executed_PotvrdiKomanda(object obj)
         {
-            inject.AnamnezaLekarController.Potvrdi(new AnamnezaLekarDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, simptomi, dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
+            inject.AnamnezaLekarController.Potvrdi(new AnamnezaLekarDTO(DaLiPostojiAnamneza, DaLiJePregled, idAnamneze, Simptomi, Dijagnoza, stariPregled, trenutniPregled, staraOperacija, trenutnaOperacija, sveAnamneze));
             ZatvoriAction();
         }
 
@@ -226,53 +388,11 @@ namespace Bolnica.ViewModel
             return true;
         }
 
-        private RelayCommand predjiNaScrollBarKomanda;
-        public RelayCommand PredjiNaScrollBarKomanda
-        {
-            get { return predjiNaScrollBarKomanda; }
-            set
-            {
-                predjiNaScrollBarKomanda = value;
-
-            }
-        }
-
-        public void Executed_PredjiNaScrollBarKomanda(object obj)
-        {
-            FokusirajZatvoriDugme = true;
-            TraversalRequest request = new TraversalRequest(FocusNavigationDirection.Last);
-            (Keyboard.FocusedElement as FrameworkElement).MoveFocus(request);
-            FokusirajZatvoriDugme = false;
-        }
-
-        public bool CanExecute_PredjiNaScrollBarKomanda(object obj)
-        {
-            return true;
-        }
-
-        private RelayCommand zaustaviStreliceKomanda;
-        public RelayCommand ZaustaviStreliceKomanda
-        {
-            get { return zaustaviStreliceKomanda; }
-            set
-            {
-                zaustaviStreliceKomanda = value;
-
-            }
-        }
-
-        public void Executed_ZaustaviStreliceKomanda(object obj)
-        {
-            inject.AnamnezaLekarController.ZaustaviStrelice(new AnamnezaLekarDTO(ScrollBar));
-        }
-
-        public bool CanExecute_ZaustaviStreliceKomanda(object obj)
-        {
-            return true;
-        }
+     
 #endregion
         public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled, Lekar ulogovaniLekar)
         {
+            FokusirajZatvoriDugme = false;
             Inject = new Injector();
             DaLiJePregled = true;
             FiltirajLekove();
@@ -284,12 +404,37 @@ namespace Bolnica.ViewModel
 
         public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija, Lekar ulogovaniLekar)
         {
+            FokusirajZatvoriDugme = false;
             Inject = new Injector();
             InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
             FiltirajLekove();
             PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
             NapraviKomande();
      
+        }
+        public AnamnezaLekarViewModel(PrikazPregleda izabraniPregled)
+        {
+            FokusirajZatvoriDugme = false;
+            Inject = new Injector();
+            DaLiJePregled = true;
+            FiltirajLekove();
+            InicirajPodatkeZaPregled(izabraniPregled, ulogovaniLekar);
+            PopuniIliKreirajAnamnezuPregleda(izabraniPregled);
+            NapraviKomande();
+            DatumProsao = false;
+
+        }
+
+        public AnamnezaLekarViewModel(PrikazOperacije izabranaOperacija)
+        {
+            FokusirajZatvoriDugme = false;
+            Inject = new Injector();
+            InicirajPodatkeZaOperaciju(izabranaOperacija, ulogovaniLekar);
+            FiltirajLekove();
+            PopuniIliKreirajAnamnezuOperacije(izabranaOperacija);
+            NapraviKomande();
+            DatumProsao = false ;
+
         }
         #region POMOCNE FUNKCIJE
         public void NapraviKomande()
@@ -300,23 +445,24 @@ namespace Bolnica.ViewModel
             DodajReceptKomanda = new RelayCommand(Executed_DodajReceptKomanda, CanExecute_DodajReceptKomanda);
             ZatvoriKomanda = new RelayCommand(Executed_ZatvoriKomanda, CanExecute_ZatvoriKomanda);
             PotvrdiKomanda = new RelayCommand(Executed_PotvrdiKomanda, CanExecute_PotvrdiKomanda);
-            PredjiNaScrollBarKomanda = new RelayCommand(Executed_PredjiNaScrollBarKomanda, CanExecute_PredjiNaScrollBarKomanda);
-            ZaustaviStreliceKomanda = new RelayCommand(Executed_ZaustaviStreliceKomanda, CanExecute_ZaustaviStreliceKomanda);
+            DemoOtkaziKomanda = new RelayCommand(Executed_DemoOtkaziKomanda, CanExecute_DemoOtkaziKomanda);
+            IzvestajKomanda = new RelayCommand(Executed_IzvestajKomanda, CanExecute_IzvestajKomanda);
+            FokusirajDole = new RelayCommand(Executed_FokusirajDole, CanExecute_FokusirajDole);
         }
        
         
         private void PopuniAnamnezu(PrikazPregleda izabraniPregled, int i)
         {
             idAnamneze = izabraniPregled.Anamneza.Id;
-            simptomi = sveAnamneze[i].Simptomi;
-            dijagnoza = sveAnamneze[i].Dijagnoza;
+            Simptomi = sveAnamneze[i].Simptomi;
+            Dijagnoza = sveAnamneze[i].Dijagnoza;
             popuniRecepte(i);
         }
         private void PopuniAnamnezu(PrikazOperacije izabranaOperacija, int i)
         {
             idAnamneze = izabranaOperacija.Anamneza.Id;
-            simptomi = sveAnamneze[i].Simptomi;
-            dijagnoza = sveAnamneze[i].Dijagnoza;
+            Simptomi = sveAnamneze[i].Simptomi;
+            Dijagnoza = sveAnamneze[i].Dijagnoza;
             popuniRecepte(i);
         }
 
@@ -361,8 +507,8 @@ namespace Bolnica.ViewModel
             trenutniPacijent = izabraniPregled.Pacijent;
             sveAnamneze = inject.AnamnezaLekarController.DobijAnamneze();
             Recepti = new ObservableCollection<PrikazRecepta>();
-            simptomi = "";
-            dijagnoza = "";
+            Simptomi = "";
+            Dijagnoza = "";
             trenutniPregled = izabraniPregled;
             sviLekari = inject.AnamnezaLekarController.DobijLekare();
             stariPregled = izabraniPregled;
@@ -375,8 +521,8 @@ namespace Bolnica.ViewModel
             trenutnaOperacija = izabranaOperacija;
             staraOperacija = izabranaOperacija;
             sveAnamneze = inject.AnamnezaLekarController.DobijAnamneze();
-            simptomi = "";
-            dijagnoza = "";
+            Simptomi = "";
+            Dijagnoza = "";
             sviLekovi = inject.AnamnezaLekarController.DobijLekove();
             sviLekari = inject.AnamnezaLekarController.DobijLekare();
             this.ulogovaniLekar = ulogovaniLekar;

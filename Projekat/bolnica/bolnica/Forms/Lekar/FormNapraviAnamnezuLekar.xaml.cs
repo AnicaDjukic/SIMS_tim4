@@ -20,12 +20,9 @@ namespace Bolnica.Forms
         public FormNapraviAnamnezuLekar(AnamnezaLekarViewModel viewModel)
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            Owner = Application.Current.MainWindow;
             this.DataContext = viewModel;
             if (viewModel.ZatvoriAction == null)
                 viewModel.ZatvoriAction = new Action(this.Close);
-            viewModel.ScrollBar = ScroolBar;
             this.Show();
         }
     }

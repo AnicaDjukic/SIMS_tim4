@@ -1,16 +1,5 @@
 ﻿using Model.Pregledi;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bolnica.Forms
 {
@@ -38,7 +27,7 @@ namespace Bolnica.Forms
 
         private void NapisiUputstvoZaKoriscenje(PrikazRecepta prikazRecepta)
         {
-            if (prikazRecepta.VremeUzimanja == 0)
+            if (prikazRecepta.VremeUzimanja == 24)
             {
                 UputstvoZaKoriscenje = "- Lek piti jednom dnevno.\r";
             }
@@ -46,8 +35,7 @@ namespace Bolnica.Forms
             {
                 UputstvoZaKoriscenje = "- Lek piti " + 24 / prikazRecepta.VremeUzimanja + " puta dnevno u razmacima od po " + prikazRecepta.VremeUzimanja + " sati.\r";
             }
-            UputstvoZaKoriscenje += "- Tokom upotrebe ovog leka strogo je zabranjeno konzumiranje alkohola.\r" +
-                 "- Za informacije o nezeljenim dejstvima posavetujte se sa Vasim lekarom ili farmaceutom.";
+            UputstvoZaKoriscenje += "- Za informacije o nezeljenim dejstvima posavetujte se sa Vasim lekarom ili farmaceutom.";
         }
     }
 }

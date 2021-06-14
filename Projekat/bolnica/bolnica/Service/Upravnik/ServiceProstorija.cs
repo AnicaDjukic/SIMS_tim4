@@ -1,5 +1,7 @@
 ﻿using Bolnica.Model.Prostorije;
 using Bolnica.Repository.Prostorije;
+using Bolnica.Service.Upravnik;
+using Model.Pregledi;
 using Model.Prostorije;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,14 @@ namespace Bolnica.Services.Prostorije
     {
         private RepositoryProstorija repository;
         private ServiceBolnickaSoba serviceBolnickaSoba;
-
+        private ServicePregled servicePregled;
+        private ServiceOperacija serviceOperacija;
         public ServiceProstorija()
         {
             repository = new FileRepositoryProstorija();
-            serviceBolnickaSoba = new ServiceBolnickaSoba();
+            serviceBolnickaSoba = new ServiceBolnickaSoba(new FileRepositoryBolnickaSoba());
+            servicePregled = new ServicePregled();
+            serviceOperacija = new ServiceOperacija();
         }
 
         public List<Prostorija> DobaviSveProstorije()
@@ -52,26 +57,9 @@ namespace Bolnica.Services.Prostorije
             return slobodneProstorije;
         }
 
-        public List<Prostorija> DobaviProstorijeNaIstomSpratu(string brojProstorije)
-        {
-            List<Prostorija> prostorijeNaSpratu = new List<Prostorija>();
-            Prostorija prostorija = repository.GetById(brojProstorije);
-            foreach(Prostorija p in repository.GetAll())
-            {
-                if (p.Sprat == prostorija.Sprat)
-                    prostorijeNaSpratu.Add(p);
-            }
-            return prostorijeNaSpratu;
-        }
-
-        internal double DobaviKvadraturu(string brojProstorije)
+        public double DobaviKvadraturu(string brojProstorije)
         {
             return repository.GetById(brojProstorije).Kvadratura;
-        }
-
-        public Prostorija NapraviProstoriju(string brojProstorije)
-        {
-            return new Prostorija { BrojProstorije = brojProstorije };
         }
 
         public bool ProstorijaPostoji(string brojProstorije)
@@ -89,6 +77,28 @@ namespace Bolnica.Services.Prostorije
                 postoji = serviceBolnickaSoba.BolnickaSobaPostoji(brojProstorije);
 
             return postoji;
+        }
+
+        public List<Operacija> DobaviOperacijeProstorije(string brojProstorije)
+        {
+            List<Operacija> operacijeProstorije = new List<Operacija>();
+            foreach (Operacija o in serviceOperacija.DobaviSveOperacije())
+            {
+                if (o.Prostorija.BrojProstorije == brojProstorije)
+                    operacijeProstorije.Add(o);
+            }
+            return operacijeProstorije;
+        }
+
+        public List<Pregled> DobaviPregledeProstorije(string brojProstorije)
+        {
+            List<Pregled> preglediProstorije = new List<Pregled>();
+            foreach(Pregled p in servicePregled.DobaviSvePreglede())
+            {
+                if(p.Prostorija.BrojProstorije == brojProstorije)
+                    preglediProstorije.Add(p);
+            }
+            return preglediProstorije;
         }
 
         public Prostorija DobaviProstoriju(string brojProstorije)

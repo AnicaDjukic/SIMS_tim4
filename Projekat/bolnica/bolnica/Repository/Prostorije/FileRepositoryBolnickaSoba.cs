@@ -59,7 +59,22 @@ namespace Bolnica.Repository.Prostorije
 
         public BolnickaSoba GetById(string id)
         {
-            throw new NotImplementedException();
+            FileRepositoryZaliha.serializeProstorija = true;
+            string json = File.ReadAllText(fileLocation);
+            BolnickaSoba bolnickaSoba = new BolnickaSoba();
+            List<BolnickaSoba> bolnickeSobe = JsonConvert.DeserializeObject<List<BolnickaSoba>>(json);
+            if (bolnickeSobe != null)
+            {
+                for (int i = 0; i < bolnickeSobe.Count; i++)
+                {
+                    if (bolnickeSobe[i].BrojProstorije == id)
+                    {
+                        bolnickaSoba = bolnickeSobe[i];
+                        break;
+                    }
+                }
+            }
+            return bolnickaSoba;
         }
         public void Update(BolnickaSoba entity)
         {

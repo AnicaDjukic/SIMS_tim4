@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bolnica.Forms"
         mc:Ignorable="d"
-        Title="FormPacijentWeb" Height="700" Width="1400" Icon="\Resources\hospital.png" Loaded="Window_Loaded">
+        Title="FormPacijentWeb" Height="750" Width="1400" Icon="\Resources\hospital.png" Loaded="Window_Loaded">
     <Grid Background="AliceBlue">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Width="1400" Background="LightBlue">
             <Image Source="/Resources/hospital.png" Height="60" Width="60" Margin="70,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
@@ -28,7 +28,7 @@
             <Button Content="Istorija pregleda" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Istorija_Pregleda"></Button>
             <Button Content="Lekovi i terapije" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Lekovi_Terapije"></Button>
             <Button Content="Obaveštenja" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Obavestenja"></Button>
-            <Button Content="Pomoć" BorderBrush="Aqua" MinWidth="200" FontSize="18"></Button>
+            <Button Content="Oceni aplikaciju" BorderBrush="Aqua" MinWidth="200" FontSize="18" Click="Button_Click_Oceni_Aplikaciju"></Button>
         </StackPanel>
         <Frame x:Name="Pocetna" Margin="0,120,0,0" Background="Azure"></Frame>
     </Grid>
