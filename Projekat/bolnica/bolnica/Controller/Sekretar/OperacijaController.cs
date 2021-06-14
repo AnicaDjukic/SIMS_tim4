@@ -19,5 +19,10 @@ namespace Bolnica.Controller.Sekretar
         {
             service.DeleteOperacija(operacijaDTO);
         }
+
+        public PrikazOperacije GetOperacijaById(int id)
+        {
+            return service.GetOperacijaById(id);
+        }
     }
 }

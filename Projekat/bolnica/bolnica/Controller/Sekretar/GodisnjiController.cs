@@ -15,9 +15,9 @@ namespace Bolnica.Controller.Sekretar
             return service.GetAllGodisnji();
         }
 
-        public void ZakaziGodisnji(GodisnjiDTO godisnjiDTO, LekarDTO lekarDTO, int daniNaGodisnjem)
+        public void ZakaziGodisnji(GodisnjiDTO godisnjiDTO, LekarDTO lekarDTO, int daniNaGodisnjem, bool pomeriTermine)
         {
-            service.ZakaziGodisnji(godisnjiDTO, lekarDTO, daniNaGodisnjem);
+            service.ZakaziGodisnji(godisnjiDTO, lekarDTO, daniNaGodisnjem, pomeriTermine);
         }
     }
 }

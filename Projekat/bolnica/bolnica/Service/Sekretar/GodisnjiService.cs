@@ -42,22 +42,15 @@ namespace Bolnica.Service.Sekretar
             skladisteGodisnji.Save(godisnji);
         }
 
-        public void ZakaziGodisnji(GodisnjiDTO godisnji, LekarDTO lekar, int daniNaGodisnjem)
+        public void ZakaziGodisnji(GodisnjiDTO godisnji, LekarDTO lekar, int daniNaGodisnjem, bool pomeriTermine)
         {
             lekarService.UpdateLekaraPoBrojuSlobodnihDana(lekar, daniNaGodisnjem);
             SaveGodisnji(godisnji);
-            DeleteTerminaNakonZakazivanjaGodisnjeg(godisnji);
-        }
-
-        private void DeleteTerminaNakonZakazivanjaGodisnjeg(GodisnjiDTO godisnji) 
-        {
-            foreach (PrikazPregleda pregledDTO in pregledService.GetAllPregledi())
-                if (godisnji.PocetakGodisnjeg <= pregledDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > pregledDTO.Datum)
-                    pregledService.DeletePregled(pregledDTO);
-
-            foreach (PrikazOperacije operacijaDTO in operacijaService.GetAllOperacije())
-                if (godisnji.PocetakGodisnjeg <= operacijaDTO.Datum && godisnji.KrajGodisnjeg.AddDays(1) > operacijaDTO.Datum)
-                    operacijaService.DeleteOperacija(operacijaDTO);
+            Context context = new Context();
+            if (!pomeriTermine)
+                context.PostaviStrategiju(new StrategyDeleteTermine());
+            else
+                context.PostaviStrategiju(new StrategyPomeriTermine());
         }
     }
 }

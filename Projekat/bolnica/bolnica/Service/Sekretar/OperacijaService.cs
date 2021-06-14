@@ -31,5 +31,18 @@ namespace Bolnica.Service.Sekretar
             Operacija operacija = new Operacija { Id = operacijaDTO.Id, Pacijent = operacijaDTO.Pacijent, Anamneza = operacijaDTO.Anamneza, Datum = operacijaDTO.Datum, Hitan = operacijaDTO.Hitan, Lekar = operacijaDTO.Lekar, Prostorija = operacijaDTO.Prostorija, Trajanje = operacijaDTO.Trajanje, Zavrsen = operacijaDTO.Zavrsen, TipOperacije = operacijaDTO.TipOperacije };
             skladisteOperacija.Delete(operacija);
         }
+
+        public void UpdateDatumOperacije(PrikazOperacije operacijaDTO, int brojDanaZaPomeranje)
+        {
+            Operacija operacija = new Operacija { Id = operacijaDTO.Id, Pacijent = operacijaDTO.Pacijent, Anamneza = operacijaDTO.Anamneza, Datum = operacijaDTO.Datum.AddDays(brojDanaZaPomeranje), Hitan = operacijaDTO.Hitan, Lekar = operacijaDTO.Lekar, Prostorija = operacijaDTO.Prostorija, Trajanje = operacijaDTO.Trajanje, Zavrsen = operacijaDTO.Zavrsen, TipOperacije = operacijaDTO.TipOperacije };
+            skladisteOperacija.Update(operacija);
+        }
+
+        public PrikazOperacije GetOperacijaById(int id)
+        {
+            Operacija operacija = skladisteOperacija.GetById(id);
+            PrikazOperacije operacijaDTO = new PrikazOperacije(operacija.Id, operacija.Datum, operacija.Trajanje, operacija.Zavrsen, operacija.Hitan, operacija.Anamneza, operacija.Lekar, operacija.Prostorija, operacija.Pacijent, operacija.TipOperacije);
+            return operacijaDTO;
+        }
     }
 }
