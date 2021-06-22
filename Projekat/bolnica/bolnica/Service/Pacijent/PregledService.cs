@@ -8,6 +8,7 @@ namespace Bolnica.Service
     public class PregledService
     {
         private FileRepositoryPregled repositoryPregled = new FileRepositoryPregled();
+        private FileRepositoryOperacija repositoryOperacija = new FileRepositoryOperacija();
 
         public List<Pregled> DobaviSvePreglede()
         {
@@ -48,7 +49,6 @@ namespace Bolnica.Service
         {
             List<Pregled> preglediOperacije = new List<Pregled>();
             List<Pregled> pregledi = DobaviSvePreglede();
-            FileRepositoryOperacija repositoryOperacija = new FileRepositoryOperacija();
             List<Operacija> operacije = repositoryOperacija.GetAll();
             foreach (Pregled pregled in pregledi)
             {
